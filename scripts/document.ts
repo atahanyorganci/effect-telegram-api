@@ -17,3 +17,5 @@ export const BOTS_API_DOCUMENT = {
 } as const satisfies DocumentConfig;
 
 export const objectSpecPath = (specDir: string, name: string): string => `${specDir}/objects/${name}.json`;
+
+export const methodSpecPath = (specDir: string, name: string): string => `${specDir}/methods/${name}.json`;

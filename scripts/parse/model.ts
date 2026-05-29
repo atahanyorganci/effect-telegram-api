@@ -42,3 +42,22 @@ export const ObjectType = Schema.Struct({
 	fields: Schema.Array(Field),
 });
 export type ObjectType = Schema.Schema.Type<typeof ObjectType>;
+
+export const Parameter = Schema.Struct({
+	name: Schema.String,
+	type: TypeExpr,
+	required: Schema.Boolean,
+	description: Schema.String,
+});
+export type Parameter = Schema.Schema.Type<typeof Parameter>;
+
+export const Method = Schema.Struct({
+	kind: Schema.Literal("method"),
+	name: Schema.String,
+	slug: Schema.String,
+	description: Schema.String,
+	parameters: Schema.Array(Parameter),
+	returns: TypeExpr,
+	notes: Schema.optional(Schema.Array(Schema.String)),
+});
+export type Method = Schema.Schema.Type<typeof Method>;

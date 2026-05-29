@@ -27,6 +27,22 @@ const parseTypeText = (text: string, cell: HTMLElement): TypeExpr => {
 	throw parseError(`Unsupported type expression "${text}"`);
 };
 
+const splitAlternatives = (text: string): readonly string[] => {
+	if (text.includes(" or ")) {
+		return text.split(" or ").map(part => part.trim());
+	}
+
+	if (text.includes(", ") || /\s+and\s+/.test(text)) {
+		return text
+			.replace(/\s+and\s+/g, ", ")
+			.split(", ")
+			.map(part => part.trim())
+			.filter(part => part.length > 0);
+	}
+
+	return [text];
+};
+
 export const parseTypeExpression = (text: string, cell: HTMLElement): TypeExpr => {
 	if (text.startsWith("Array of ")) {
 		return {
@@ -35,10 +51,11 @@ export const parseTypeExpression = (text: string, cell: HTMLElement): TypeExpr =
 		};
 	}
 
-	if (text.includes(" or ")) {
+	const alternatives = splitAlternatives(text);
+	if (alternatives.length > 1) {
 		return {
 			kind: "oneOf",
-			types: text.split(" or ").map(part => parseTypeText(part.trim(), cell)),
+			types: alternatives.map(part => parseTypeExpression(part, cell)),
 		};
 	}
 
