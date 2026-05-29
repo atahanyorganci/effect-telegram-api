@@ -1,0 +1,40 @@
+{
+	"name": "@yorgnaci/telegram-api",
+	"version": "0.0.0",
+	"private": true,
+	"description": "Telegram API spec and wrapper built with Effect",
+	"keywords": [
+		"Effect",
+		"Telegram",
+		"API"
+	],
+	"license": "proprietary",
+	"author": "Atahan Yorgancı <atahanyorganci@hotmail.com>",
+	"type": "module",
+	"scripts": {
+		"check": "tsgo",
+		"check:watch": "tsgo --watch",
+		"format": "oxfmt --check .",
+		"format:fix": "oxfmt --write .",
+		"lint": "oxlint .",
+		"lint:fix": "oxlint --fix"
+	},
+	"dependencies": {
+		"@effect/platform-node": "4.0.0-beta.68",
+		"effect": "4.0.0-beta.68"
+	},
+	"devDependencies": {
+		"@typescript/native-preview": "7.0.0-dev.20260518.1",
+		"oxfmt": "^0.48.0",
+		"oxlint": "^1.65.0",
+		"oxlint-tsgolint": "^0.23.0",
+		"tsx": "^4.22.3"
+	},
+	"devEngines": {
+		"packageManager": {
+			"name": "pnpm",
+			"version": "11.0.4",
+			"onFail": "download"
+		}
+	}
+}

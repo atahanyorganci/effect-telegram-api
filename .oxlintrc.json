@@ -1,0 +1,20 @@
+{
+	"$schema": "./node_modules/oxlint/configuration_schema.json",
+	"plugins": ["typescript", "import", "oxc", "eslint", "unicorn", "node"],
+	"options": {
+		"typeAware": true,
+		"typeCheck": true,
+		"denyWarnings": true,
+		"reportUnusedDisableDirectives": "error"
+	},
+	"rules": {
+		"typescript/consistent-type-imports": [
+			"error",
+			{
+				"disallowTypeAnnotations": true,
+				"fixStyle": "separate-type-imports"
+			}
+		]
+	},
+	"ignorePatterns": [".vendor/**"]
+}
