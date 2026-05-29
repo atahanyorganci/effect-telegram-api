@@ -90,7 +90,7 @@ const normalizeHeadings = (root: HTMLElement): void => {
 };
 
 const sanitizeElement = (element: HTMLElement): void => {
-	for (const child of [...element.childNodes]) {
+	for (const child of element.childNodes) {
 		if (child.nodeType === NodeType.COMMENT_NODE) {
 			child.remove();
 			continue;
@@ -176,7 +176,7 @@ export const sanitizeDocumentHtml = (html: string): string => {
 		icon.remove();
 	}
 
-	for (const child of [...content.childNodes]) {
+	for (const child of content.childNodes) {
 		if (child.nodeType === NodeType.COMMENT_NODE) {
 			child.remove();
 			continue;

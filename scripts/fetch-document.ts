@@ -1,8 +1,8 @@
 import { Data, Effect, FileSystem, Path } from "effect";
 import * as HttpClient from "effect/unstable/http/HttpClient";
-import type { DocumentConfig } from "./document.ts";
 import { verifyHash } from "./hash.ts";
 import { prepareRawDocument, sanitizeDocument } from "./normalize-document.ts";
+import type { DocumentConfig } from "./document.ts";
 
 export class DocumentFetchError extends Data.TaggedError("DocumentFetchError")<{
 	readonly url: string;
