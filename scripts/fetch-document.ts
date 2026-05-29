@@ -2,7 +2,7 @@ import { Data, Effect, FileSystem, Path } from "effect";
 import * as HttpClient from "effect/unstable/http/HttpClient";
 import type { DocumentConfig } from "./document.ts";
 import { verifyHash } from "./hash.ts";
-import { normalizeDocument } from "./normalize-document.ts";
+import { prepareRawDocument, sanitizeDocument } from "./normalize-document.ts";
 
 export class DocumentFetchError extends Data.TaggedError("DocumentFetchError")<{
 	readonly url: string;
@@ -11,13 +11,24 @@ export class DocumentFetchError extends Data.TaggedError("DocumentFetchError")<{
 
 export interface FetchedDocument {
 	readonly path: string;
+	readonly rawPath: string;
 	readonly hash: DocumentConfig["hash"];
 	readonly bytes: number;
+	readonly rawBytes: number;
 }
+
+const ensureParentDirectory = Effect.fn("ensureParentDirectory")(function* (filePath: string) {
+	const fs = yield* FileSystem.FileSystem;
+	const path = yield* Path.Path;
+	const directory = path.dirname(filePath);
+
+	if (directory !== ".") {
+		yield* fs.makeDirectory(directory, { recursive: true });
+	}
+});
 
 export const fetchDocument = Effect.fn("fetchDocument")(function* (config: DocumentConfig) {
 	const fs = yield* FileSystem.FileSystem;
-	const path = yield* Path.Path;
 	const httpClient = yield* HttpClient.HttpClient;
 
 	const responseBytes = yield* httpClient.get(config.url).pipe(
@@ -26,20 +37,21 @@ export const fetchDocument = Effect.fn("fetchDocument")(function* (config: Docum
 		Effect.mapError(cause => new DocumentFetchError({ url: config.url, cause })),
 	);
 
-	const bytes = normalizeDocument(responseBytes);
+	const rawBytes = prepareRawDocument(responseBytes);
+	const bytes = sanitizeDocument(rawBytes);
 
 	yield* verifyHash(bytes, config.hash, config.path);
 
-	const directory = path.dirname(config.path);
-	if (directory !== ".") {
-		yield* fs.makeDirectory(directory, { recursive: true });
-	}
-
+	yield* ensureParentDirectory(config.path);
+	yield* ensureParentDirectory(config.rawPath);
+	yield* fs.writeFile(config.rawPath, rawBytes);
 	yield* fs.writeFile(config.path, bytes);
 
 	return {
 		path: config.path,
+		rawPath: config.rawPath,
 		hash: config.hash,
 		bytes: bytes.length,
+		rawBytes: rawBytes.length,
 	} satisfies FetchedDocument;
 });

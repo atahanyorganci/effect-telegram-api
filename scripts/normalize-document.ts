@@ -1,8 +1,11 @@
+import { sanitizeDocumentHtml } from "./sanitize-document.ts";
+
 const generatedAtComment = /<!-- page generated in [\d.]+ms -->\n?$/u;
 
-export const normalizeDocument = (bytes: Uint8Array): Uint8Array => {
-	const text = new TextDecoder().decode(bytes);
-	const normalized = text.replace(generatedAtComment, "");
+const decode = (bytes: Uint8Array): string => new TextDecoder().decode(bytes);
 
-	return new TextEncoder().encode(normalized);
-};
+export const prepareRawDocument = (bytes: Uint8Array): Uint8Array =>
+	new TextEncoder().encode(decode(bytes).replace(generatedAtComment, ""));
+
+export const sanitizeDocument = (bytes: Uint8Array): Uint8Array =>
+	new TextEncoder().encode(sanitizeDocumentHtml(decode(bytes)));

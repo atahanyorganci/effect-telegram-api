@@ -14,15 +14,16 @@
 	"scripts": {
 		"check": "tsgo",
 		"check:watch": "tsgo --watch",
-		"ingest:fetch": "tsx scripts/fetch.ts",
 		"format": "oxfmt --check .",
 		"format:fix": "oxfmt --write .",
+		"ingest:fetch": "tsx scripts/fetch.ts",
 		"lint": "oxlint .",
 		"lint:fix": "oxlint --fix"
 	},
 	"dependencies": {
 		"@effect/platform-node": "4.0.0-beta.68",
-		"effect": "4.0.0-beta.68"
+		"effect": "4.0.0-beta.68",
+		"node-html-parser": "^7.1.0"
 	},
 	"devDependencies": {
 		"@effect/language-service": "^0.85.1",

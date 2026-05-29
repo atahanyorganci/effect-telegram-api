@@ -7,7 +7,9 @@ const layer = Layer.mergeAll(NodeServices.layer, NodeHttpClient.layerFetch);
 
 const program = Effect.gen(function* () {
 	const document = yield* fetchDocument(BOTS_API_DOCUMENT);
-	yield* Console.log(`Fetched ${document.path} (${document.bytes} bytes, ${document.hash})`);
+	yield* Console.log(
+		`Fetched ${document.rawPath} (${document.rawBytes} bytes) and ${document.path} (${document.bytes} bytes, ${document.hash})`,
+	);
 });
 
 program.pipe(Effect.provide(layer), NodeRuntime.runMain);

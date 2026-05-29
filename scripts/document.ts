@@ -3,11 +3,13 @@ import type { HashString } from "./hash.ts";
 export interface DocumentConfig {
 	readonly url: string;
 	readonly path: string;
+	readonly rawPath: string;
 	readonly hash: HashString;
 }
 
 export const BOTS_API_DOCUMENT = {
 	url: "https://core.telegram.org/bots/api",
 	path: "sources/telegram/bots-api.html",
-	hash: "sha256-bae6ddd09a5a6a1668a9beaf1564918994c5e33af1de407937fdcdafe2d42f25",
+	rawPath: "sources/telegram/bots-api.raw.html",
+	hash: "sha256-c26e4bca67c640bd544caa3be126c2c9f10cd304cc0eac6c29a6bfe9de4ed6ac",
 } as const satisfies DocumentConfig;
