@@ -1,20 +1,25 @@
 {
+	"$schema": "http://json.schemastore.org/tsconfig",
+	"extends": "./.vendor/effect/tsconfig.base.json",
+	"include": ["src"],
 	"compilerOptions": {
+		"noEmit": true,
 		"declaration": false,
 		"declarationMap": false,
-		"exactOptionalPropertyTypes": true,
-		"isolatedModules": true,
-		"jsx": "react-jsx",
-		"module": "nodenext",
-		"moduleDetection": "force",
-		"noEmit": true,
-		"noUncheckedIndexedAccess": true,
-		"noUncheckedSideEffectImports": true,
-		"skipLibCheck": true,
 		"sourceMap": false,
-		"strict": true,
-		"target": "esnext",
-		"types": [],
-		"verbatimModuleSyntax": true
+		"composite": false,
+		"incremental": false,
+		"isolatedModules": true,
+		"types": ["node"],
+		"plugins": [
+			{
+				"name": "@effect/language-service",
+				"transform": "@effect/language-service/transform",
+				"namespaceImportPackages": ["effect", "@effect/*"],
+				"includeSuggestionsInTsc": false,
+				"ignoreEffectWarningsInTscExitCode": true,
+				"ignoreEffectErrorsInTscExitCode": true
+			}
+		]
 	}
 }

@@ -15,6 +15,12 @@ importers:
         specifier: 4.0.0-beta.68
         version: 4.0.0-beta.68
     devDependencies:
+      '@effect/language-service':
+        specifier: ^0.85.1
+        version: 0.85.1
+      '@types/node':
+        specifier: ^25.9.0
+        version: 25.9.0
       '@typescript/native-preview':
         specifier: 7.0.0-dev.20260518.1
         version: 7.0.0-dev.20260518.1
@@ -32,6 +38,10 @@ importers:
         version: 4.22.3
 
 packages:
+
+  '@effect/language-service@0.85.1':
+    resolution: {integrity: sha512-EXnJjIy6zQ3nUO/MZ+ynWUb8B895KZPotd1++oTs9JjDkplwM7cb6zo8Zq2zU6piwq+KflO7amXbEfj1UMpHkw==}
+    hasBin: true
 
   '@effect/platform-node-shared@4.0.0-beta.68':
     resolution: {integrity: sha512-a6q/Rid2CQQBSoTIhBnT2oCozeaEvx5DXreSdT4jbvxPSC0j2l0EqcYdHgvEGDqvhocIAezgmSQbcHNcnyDg8w==}
@@ -720,6 +730,8 @@ packages:
     hasBin: true
 
 snapshots:
+
+  '@effect/language-service@0.85.1': {}
 
   '@effect/platform-node-shared@4.0.0-beta.68(effect@4.0.0-beta.68)':
     dependencies:
