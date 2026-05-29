@@ -4,9 +4,9 @@
 	"private": true,
 	"description": "Telegram API spec and wrapper built with Effect",
 	"keywords": [
+		"API",
 		"Effect",
-		"Telegram",
-		"API"
+		"Telegram"
 	],
 	"license": "proprietary",
 	"author": "Atahan Yorgancı <atahanyorganci@hotmail.com>",
@@ -14,6 +14,7 @@
 	"scripts": {
 		"check": "tsgo",
 		"check:watch": "tsgo --watch",
+		"ingest:fetch": "tsx scripts/fetch.ts",
 		"format": "oxfmt --check .",
 		"format:fix": "oxfmt --write .",
 		"lint": "oxlint .",

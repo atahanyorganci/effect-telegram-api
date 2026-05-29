@@ -1,8 +1,9 @@
 {
 	"$schema": "http://json.schemastore.org/tsconfig",
 	"extends": "./.vendor/effect/tsconfig.base.json",
-	"include": ["src"],
+	"include": ["src", "scripts"],
 	"compilerOptions": {
+		"rootDir": ".",
 		"noEmit": true,
 		"declaration": false,
 		"declarationMap": false,
