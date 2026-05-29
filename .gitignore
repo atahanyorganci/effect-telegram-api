@@ -144,4 +144,5 @@ vite.config.ts.timestamp-*
 
 # Rust
 /target/
-sources/
+# Generated API artifacts
+data/

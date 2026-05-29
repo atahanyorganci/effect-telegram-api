@@ -1,29 +1,29 @@
 import * as Schema from "effect/Schema";
 
-export const IntegerType = Schema.Struct({
-	kind: Schema.Literal("integer"),
-});
+export type TypeExpr =
+	| { readonly kind: "integer" }
+	| { readonly kind: "float" }
+	| { readonly kind: "string" }
+	| { readonly kind: "boolean" }
+	| { readonly kind: "file" }
+	| { readonly kind: "literal"; readonly value: boolean }
+	| { readonly kind: "ref"; readonly name: string }
+	| { readonly kind: "array"; readonly element: TypeExpr }
+	| { readonly kind: "oneOf"; readonly types: readonly TypeExpr[] };
 
-export const StringType = Schema.Struct({
-	kind: Schema.Literal("string"),
-});
-
-export const BooleanType = Schema.Struct({
-	kind: Schema.Literal("boolean"),
-});
-
-export const LiteralType = Schema.Struct({
-	kind: Schema.Literal("literal"),
-	value: Schema.Boolean,
-});
-
-export const RefType = Schema.Struct({
-	kind: Schema.Literal("ref"),
-	name: Schema.String,
-});
-
-export const TypeExpr = Schema.Union([IntegerType, StringType, BooleanType, LiteralType, RefType]);
-export type TypeExpr = Schema.Schema.Type<typeof TypeExpr>;
+export const TypeExpr: Schema.Codec<TypeExpr> = Schema.suspend(() =>
+	Schema.Union([
+		Schema.Struct({ kind: Schema.Literal("integer") }),
+		Schema.Struct({ kind: Schema.Literal("float") }),
+		Schema.Struct({ kind: Schema.Literal("string") }),
+		Schema.Struct({ kind: Schema.Literal("boolean") }),
+		Schema.Struct({ kind: Schema.Literal("file") }),
+		Schema.Struct({ kind: Schema.Literal("literal"), value: Schema.Boolean }),
+		Schema.Struct({ kind: Schema.Literal("ref"), name: Schema.String }),
+		Schema.Struct({ kind: Schema.Literal("array"), element: TypeExpr }),
+		Schema.Struct({ kind: Schema.Literal("oneOf"), types: Schema.Array(TypeExpr) }),
+	]),
+);
 
 export const Field = Schema.Struct({
 	name: Schema.String,
