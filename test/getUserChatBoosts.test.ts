@@ -1,4 +1,4 @@
-import { describe, it } from "@effect/vitest";
+import { assert, describe, it } from "@effect/vitest";
 import * as Effect from "effect/Effect";
 import * as Telegram from "../src/index.ts";
 import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
@@ -7,6 +7,20 @@ const callGetUserChatBoosts = (token: string, payload: unknown) =>
 	Telegram.Client.callMethod(token, Telegram.Methods.getUserChatBoosts, payload);
 
 describe("getUserChatBoosts", () => {
+	describe("success", () => {
+		it.effect("returns boosts for a user in the test supergroup", () =>
+			Effect.gen(function* () {
+				const { botToken, chatId, groupId } = yield* telegramConfig;
+				const boosts = yield* callGetUserChatBoosts(botToken, {
+					chat_id: groupId,
+					user_id: chatId,
+				});
+
+				assert.ok(Array.isArray(boosts.boosts));
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+	});
+
 	describe("Telegram API errors", () => {
 		it.effect("PeerIdInvalid when chat_id is not a boost-enabled channel or supergroup", () =>
 			Effect.gen(function* () {

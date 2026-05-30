@@ -17,6 +17,16 @@ describe("getChat", () => {
 				assert.strictEqual(typeof chat.type, "string");
 			}).pipe(Effect.provide(LiveLayer)),
 		);
+
+		it.effect("returns supergroup info for the test group chat_id", () =>
+			Effect.gen(function* () {
+				const { botToken, groupId } = yield* telegramConfig;
+				const chat = yield* callGetChat(botToken, { chat_id: groupId });
+
+				assert.strictEqual(chat.id, groupId);
+				assert.strictEqual(chat.type, "supergroup");
+			}).pipe(Effect.provide(LiveLayer)),
+		);
 	});
 
 	describe("Telegram API errors", () => {

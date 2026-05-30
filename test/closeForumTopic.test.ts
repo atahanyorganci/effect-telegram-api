@@ -8,6 +8,22 @@ const callCloseForumTopic = (token: string, payload: unknown) =>
 
 describe("closeForumTopic", () => {
 	describe("Telegram API errors", () => {
+		it.effect("NotEnoughRightsToCloseOrOpenTopic when the bot cannot manage the configured forum topic", () =>
+			Effect.gen(function* () {
+				const { botToken, groupId, forumTopicId } = yield* telegramConfig;
+				const error = yield* callCloseForumTopic(botToken, {
+					chat_id: groupId,
+					message_thread_id: forumTopicId,
+				}).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.NotEnoughRightsToCloseOrOpenTopic>(
+					error,
+					"NotEnoughRightsToCloseOrOpenTopic",
+					"Bad Request: not enough rights to close or open the topic",
+				);
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+
 		it.effect("ChatIdEmpty when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;

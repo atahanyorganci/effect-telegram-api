@@ -8,6 +8,18 @@ const callVerifyUser = (token: string, payload: unknown) =>
 
 describe("verifyUser", () => {
 	describe("Telegram API errors", () => {
+		it.effect("UserNotFound when user_id does not exist", () =>
+			Effect.gen(function* () {
+				const { botToken } = yield* telegramConfig;
+				const error = yield* callVerifyUser(botToken, {
+					user_id: 1,
+					custom_description: "probe",
+				}).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.UserNotFound>(error, "UserNotFound", "Bad Request: user not found");
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+
 		it.effect("InvalidUserId when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;

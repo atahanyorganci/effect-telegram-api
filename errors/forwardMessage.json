@@ -24,6 +24,12 @@
 			"errorCode": 400,
 			"description": "Bad Request: message to forward not found",
 			"when": "message_id is missing or does not refer to an existing message"
+		},
+		{
+			"tag": "MessageThreadNotFound",
+			"errorCode": 400,
+			"description": "Bad Request: message thread not found",
+			"when": "message_thread_id does not refer to an existing forum topic"
 		}
 	]
 }

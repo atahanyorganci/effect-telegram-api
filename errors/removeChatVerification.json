@@ -6,6 +6,12 @@
 			"errorCode": 400,
 			"description": "Bad Request: invalid chat identifier specified",
 			"when": "validation fails"
+		},
+		{
+			"tag": "BotVerifierForbidden",
+			"errorCode": 400,
+			"description": "Bad Request: BOT_VERIFIER_FORBIDDEN",
+			"when": "bot is not allowed to remove verification for the chat"
 		}
 	]
 }

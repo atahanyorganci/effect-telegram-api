@@ -8,6 +8,19 @@ const callLeaveChat = (token: string, payload: unknown) =>
 
 describe("leaveChat", () => {
 	describe("Telegram API errors", () => {
+		it.effect("ChatMemberStatusCantBeChangedInPrivateChats when chat_id is a private chat", () =>
+			Effect.gen(function* () {
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callLeaveChat(botToken, { chat_id: chatId }).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.ChatMemberStatusCantBeChangedInPrivateChats>(
+					error,
+					"ChatMemberStatusCantBeChangedInPrivateChats",
+					"Bad Request: chat member status can't be changed in private chats",
+				);
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+
 		it.effect("ChatIdEmpty when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;

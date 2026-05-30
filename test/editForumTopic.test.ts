@@ -8,6 +8,23 @@ const callEditForumTopic = (token: string, payload: unknown) =>
 
 describe("editForumTopic", () => {
 	describe("Telegram API errors", () => {
+		it.effect("NotEnoughRightsToEditTopic when the bot cannot manage the configured forum topic", () =>
+			Effect.gen(function* () {
+				const { botToken, groupId, forumTopicId } = yield* telegramConfig;
+				const error = yield* callEditForumTopic(botToken, {
+					chat_id: groupId,
+					message_thread_id: forumTopicId,
+					name: "probe-renamed-topic",
+				}).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.NotEnoughRightsToEditTopic>(
+					error,
+					"NotEnoughRightsToEditTopic",
+					"Bad Request: not enough rights to edit the topic",
+				);
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+
 		it.effect("ChatIdEmpty when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;

@@ -6,6 +6,18 @@
 			"errorCode": 400,
 			"description": "Bad Request: chat_id is empty",
 			"when": "required parameters missing"
+		},
+		{
+			"tag": "StickerSetNameEmpty",
+			"errorCode": 400,
+			"description": "Bad Request: sticker_set_name is empty",
+			"when": "sticker_set_name is missing or empty"
+		},
+		{
+			"tag": "StickerSetNotFound",
+			"errorCode": 400,
+			"description": "Bad Request: sticker set not found",
+			"when": "sticker_set_name does not refer to an existing set"
 		}
 	]
 }

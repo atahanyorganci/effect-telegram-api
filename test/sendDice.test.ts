@@ -17,6 +17,20 @@ describe("sendDice", () => {
 				assert.strictEqual(typeof message.dice?.value, "number");
 			}).pipe(Effect.provide(LiveLayer)),
 		);
+
+		it.effect("returns the sent dice message in a forum topic", () =>
+			Effect.gen(function* () {
+				const { botToken, groupId, forumTopicId } = yield* telegramConfig;
+				const message = yield* callSendDice(botToken, {
+					chat_id: groupId,
+					message_thread_id: forumTopicId,
+				});
+
+				assert.strictEqual(typeof message.message_id, "number");
+				assert.strictEqual(message.message_thread_id, forumTopicId);
+				assert.strictEqual(typeof message.dice?.value, "number");
+			}).pipe(Effect.provide(LiveLayer)),
+		);
 	});
 
 	describe("Telegram API errors", () => {

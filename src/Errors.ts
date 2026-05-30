@@ -53,6 +53,16 @@ export const BotTitleInvalidError = Schema.TaggedStruct("BotTitleInvalid", {
 	description: Schema.String,
 });
 
+/** bot is not allowed to remove verification for the chat */
+
+export class BotVerifierForbidden extends Data.TaggedError("BotVerifierForbidden")<{
+	readonly description: string;
+}> {}
+
+export const BotVerifierForbiddenError = Schema.TaggedStruct("BotVerifierForbidden", {
+	description: Schema.String,
+});
+
 /** required parameters missing */
 
 export class BusinessConnectionNotFound extends Data.TaggedError("BusinessConnectionNotFound")<{
@@ -110,6 +120,56 @@ export class CallbackQueryIdInvalid extends Data.TaggedError("CallbackQueryIdInv
 }> {}
 
 export const CallbackQueryIdInvalidError = Schema.TaggedStruct("CallbackQueryIdInvalid", {
+	description: Schema.String,
+});
+
+/** chat_id refers to a private chat with the bot */
+
+export class CantChangePrivateChatDescription extends Data.TaggedError("CantChangePrivateChatDescription")<{
+	readonly description: string;
+}> {}
+
+export const CantChangePrivateChatDescriptionError = Schema.TaggedStruct("CantChangePrivateChatDescription", {
+	description: Schema.String,
+});
+
+/** chat_id refers to a private chat with the bot */
+
+export class CantChangePrivateChatPermissions extends Data.TaggedError("CantChangePrivateChatPermissions")<{
+	readonly description: string;
+}> {}
+
+export const CantChangePrivateChatPermissionsError = Schema.TaggedStruct("CantChangePrivateChatPermissions", {
+	description: Schema.String,
+});
+
+/** chat_id refers to a private chat with the bot */
+
+export class CantChangePrivateChatPhoto extends Data.TaggedError("CantChangePrivateChatPhoto")<{
+	readonly description: string;
+}> {}
+
+export const CantChangePrivateChatPhotoError = Schema.TaggedStruct("CantChangePrivateChatPhoto", {
+	description: Schema.String,
+});
+
+/** chat_id refers to a private chat with the bot */
+
+export class CantChangePrivateChatTitle extends Data.TaggedError("CantChangePrivateChatTitle")<{
+	readonly description: string;
+}> {}
+
+export const CantChangePrivateChatTitleError = Schema.TaggedStruct("CantChangePrivateChatTitle", {
+	description: Schema.String,
+});
+
+/** result object is missing the required type field */
+
+export class CantFindFieldType extends Data.TaggedError("CantFindFieldType")<{
+	readonly description: string;
+}> {}
+
+export const CantFindFieldTypeError = Schema.TaggedStruct("CantFindFieldType", {
 	description: Schema.String,
 });
 
@@ -308,6 +368,46 @@ export const CantParseOptionsJsonObjectError = Schema.TaggedStruct("CantParseOpt
 	description: Schema.String,
 });
 
+/** promotion would demote the chat owner */
+
+export class CantRemoveChatOwner extends Data.TaggedError("CantRemoveChatOwner")<{
+	readonly description: string;
+}> {}
+
+export const CantRemoveChatOwnerError = Schema.TaggedStruct("CantRemoveChatOwner", {
+	description: Schema.String,
+});
+
+/** bot lacks permission to change the group sticker set */
+
+export class CantSetSupergroupStickerSet extends Data.TaggedError("CantSetSupergroupStickerSet")<{
+	readonly description: string;
+}> {}
+
+export const CantSetSupergroupStickerSetError = Schema.TaggedStruct("CantSetSupergroupStickerSet", {
+	description: Schema.String,
+});
+
+/** bot is not an administrator with can_manage_topics */
+
+export class ChatAdminRequired extends Data.TaggedError("ChatAdminRequired")<{
+	readonly description: string;
+}> {}
+
+export const ChatAdminRequiredError = Schema.TaggedStruct("ChatAdminRequired", {
+	description: Schema.String,
+});
+
+/** only the chat creator can set member tags */
+
+export class ChatCreatorRequired extends Data.TaggedError("ChatCreatorRequired")<{
+	readonly description: string;
+}> {}
+
+export const ChatCreatorRequiredError = Schema.TaggedStruct("ChatCreatorRequired", {
+	description: Schema.String,
+});
+
 /** required parameters missing */
 
 export class ChatIdEmpty extends Data.TaggedError("ChatIdEmpty")<{
@@ -338,6 +438,21 @@ export const ChatIsForumMustBeBooleanError = Schema.TaggedStruct("ChatIsForumMus
 	description: Schema.String,
 });
 
+/** chat_id refers to a private chat with the bot */
+
+export class ChatMemberStatusCantBeChangedInPrivateChats extends Data.TaggedError(
+	"ChatMemberStatusCantBeChangedInPrivateChats",
+)<{
+	readonly description: string;
+}> {}
+
+export const ChatMemberStatusCantBeChangedInPrivateChatsError = Schema.TaggedStruct(
+	"ChatMemberStatusCantBeChangedInPrivateChats",
+	{
+		description: Schema.String,
+	},
+);
+
 /** chat_id does not refer to a chat the bot can access */
 
 export class ChatNotFound extends Data.TaggedError("ChatNotFound")<{
@@ -345,6 +460,16 @@ export class ChatNotFound extends Data.TaggedError("ChatNotFound")<{
 }> {}
 
 export const ChatNotFoundError = Schema.TaggedStruct("ChatNotFound", {
+	description: Schema.String,
+});
+
+/** bot lacks permission to delete the forum topic */
+
+export class ChatWriteForbidden extends Data.TaggedError("ChatWriteForbidden")<{
+	readonly description: string;
+}> {}
+
+export const ChatWriteForbiddenError = Schema.TaggedStruct("ChatWriteForbidden", {
 	description: Schema.String,
 });
 
@@ -608,6 +733,16 @@ export const InvalidUserIdError = Schema.TaggedStruct("InvalidUserId", {
 	description: Schema.String,
 });
 
+/** invite_link is invalid or already revoked */
+
+export class InviteHashExpired extends Data.TaggedError("InviteHashExpired")<{
+	readonly description: string;
+}> {}
+
+export const InviteHashExpiredError = Schema.TaggedStruct("InviteHashExpired", {
+	description: Schema.String,
+});
+
 /** reply keyboard is_persistent is not a boolean */
 
 export class IsPersistentMustBeBoolean extends Data.TaggedError("IsPersistentMustBeBoolean")<{
@@ -655,6 +790,16 @@ export class LatitudeEmpty extends Data.TaggedError("LatitudeEmpty")<{
 }> {}
 
 export const LatitudeEmptyError = Schema.TaggedStruct("LatitudeEmpty", {
+	description: Schema.String,
+});
+
+/** limit is zero or negative */
+
+export class LimitMustBePositive extends Data.TaggedError("LimitMustBePositive")<{
+	readonly description: string;
+}> {}
+
+export const LimitMustBePositiveError = Schema.TaggedStruct("LimitMustBePositive", {
 	description: Schema.String,
 });
 
@@ -888,6 +1033,36 @@ export const NoPhotoInRequestError = Schema.TaggedStruct("NoPhotoInRequest", {
 	description: Schema.String,
 });
 
+/** bot lacks can_manage_topics for the configured forum topic */
+
+export class NotEnoughRightsToCloseOrOpenTopic extends Data.TaggedError("NotEnoughRightsToCloseOrOpenTopic")<{
+	readonly description: string;
+}> {}
+
+export const NotEnoughRightsToCloseOrOpenTopicError = Schema.TaggedStruct("NotEnoughRightsToCloseOrOpenTopic", {
+	description: Schema.String,
+});
+
+/** bot lacks can_manage_topics in the test supergroup */
+
+export class NotEnoughRightsToCreateTopic extends Data.TaggedError("NotEnoughRightsToCreateTopic")<{
+	readonly description: string;
+}> {}
+
+export const NotEnoughRightsToCreateTopicError = Schema.TaggedStruct("NotEnoughRightsToCreateTopic", {
+	description: Schema.String,
+});
+
+/** bot lacks can_manage_topics for the forum topic */
+
+export class NotEnoughRightsToEditTopic extends Data.TaggedError("NotEnoughRightsToEditTopic")<{
+	readonly description: string;
+}> {}
+
+export const NotEnoughRightsToEditTopicError = Schema.TaggedStruct("NotEnoughRightsToEditTopic", {
+	description: Schema.String,
+});
+
 /** Token segment is empty or not in bot id:hash form */
 
 export class NotFound extends Data.TaggedError("NotFound")<{
@@ -935,6 +1110,16 @@ export class OneTimeKeyboardMustBeBoolean extends Data.TaggedError("OneTimeKeybo
 }> {}
 
 export const OneTimeKeyboardMustBeBooleanError = Schema.TaggedStruct("OneTimeKeyboardMustBeBoolean", {
+	description: Schema.String,
+});
+
+/** user_id does not refer to a chat participant */
+
+export class ParticipantIdInvalid extends Data.TaggedError("ParticipantIdInvalid")<{
+	readonly description: string;
+}> {}
+
+export const ParticipantIdInvalidError = Schema.TaggedStruct("ParticipantIdInvalid", {
 	description: Schema.String,
 });
 
@@ -995,6 +1180,26 @@ export class PreferSmallMediaMustBeBoolean extends Data.TaggedError("PreferSmall
 }> {}
 
 export const PreferSmallMediaMustBeBooleanError = Schema.TaggedStruct("PreferSmallMediaMustBeBoolean", {
+	description: Schema.String,
+});
+
+/** chat does not support paid subscription invite links */
+
+export class PricingChatInvalid extends Data.TaggedError("PricingChatInvalid")<{
+	readonly description: string;
+}> {}
+
+export const PricingChatInvalidError = Schema.TaggedStruct("PricingChatInvalid", {
+	description: Schema.String,
+});
+
+/** draft_id is missing or invalid */
+
+export class RandomIdInvalid extends Data.TaggedError("RandomIdInvalid")<{
+	readonly description: string;
+}> {}
+
+export const RandomIdInvalidError = Schema.TaggedStruct("RandomIdInvalid", {
 	description: Schema.String,
 });
 
@@ -1075,6 +1280,36 @@ export class ShowAboveTextMustBeBoolean extends Data.TaggedError("ShowAboveTextM
 }> {}
 
 export const ShowAboveTextMustBeBooleanError = Schema.TaggedStruct("ShowAboveTextMustBeBoolean", {
+	description: Schema.String,
+});
+
+/** gift_id is missing or invalid */
+
+export class StargiftInvalid extends Data.TaggedError("StargiftInvalid")<{
+	readonly description: string;
+}> {}
+
+export const StargiftInvalidError = Schema.TaggedStruct("StargiftInvalid", {
+	description: Schema.String,
+});
+
+/** sticker_set_name is missing or empty */
+
+export class StickerSetNameEmpty extends Data.TaggedError("StickerSetNameEmpty")<{
+	readonly description: string;
+}> {}
+
+export const StickerSetNameEmptyError = Schema.TaggedStruct("StickerSetNameEmpty", {
+	description: Schema.String,
+});
+
+/** sticker_set_name does not refer to an existing set */
+
+export class StickerSetNotFound extends Data.TaggedError("StickerSetNotFound")<{
+	readonly description: string;
+}> {}
+
+export const StickerSetNotFoundError = Schema.TaggedStruct("StickerSetNotFound", {
 	description: Schema.String,
 });
 
@@ -1168,6 +1403,16 @@ export const UnsupportedParseModeError = Schema.TaggedStruct("UnsupportedParseMo
 	description: Schema.String,
 });
 
+/** user_id does not refer to a pending join request */
+
+export class UserIdInvalid extends Data.TaggedError("UserIdInvalid")<{
+	readonly description: string;
+}> {}
+
+export const UserIdInvalidError = Schema.TaggedStruct("UserIdInvalid", {
+	description: Schema.String,
+});
+
 /** user_id does not refer to an existing user */
 
 export class UserNotFound extends Data.TaggedError("UserNotFound")<{
@@ -1244,6 +1489,11 @@ export const methodErrors = {
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	answerWebAppQuery: [
+		{
+			errorCode: 400,
+			description: "Bad Request: query is too old and response timeout expired or query ID is invalid",
+			error: CallbackQueryIdInvalid,
+		},
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 400, description: "Bad Request: result isn't specified", error: ResultNotSpecified },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
@@ -1252,14 +1502,17 @@ export const methodErrors = {
 		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+		{ errorCode: 400, description: "Bad Request: USER_ID_INVALID", error: UserIdInvalid },
 	],
 	banChatMember: [
 		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 400, description: "Bad Request: PARTICIPANT_ID_INVALID", error: ParticipantIdInvalid },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	banChatSenderChat: [
 		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 400, description: "Bad Request: PARTICIPANT_ID_INVALID", error: ParticipantIdInvalid },
 		{ errorCode: 400, description: "Bad Request: sender_chat_id is empty", error: SenderChatIdEmpty },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
@@ -1269,10 +1522,16 @@ export const methodErrors = {
 	],
 	closeForumTopic: [
 		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{
+			errorCode: 400,
+			description: "Bad Request: not enough rights to close or open the topic",
+			error: NotEnoughRightsToCloseOrOpenTopic,
+		},
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	closeGeneralForumTopic: [
+		{ errorCode: 400, description: "Bad Request: CHAT_ADMIN_REQUIRED", error: ChatAdminRequired },
 		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
@@ -1306,12 +1565,23 @@ export const methodErrors = {
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	createChatSubscriptionInviteLink: [
+		{
+			errorCode: 400,
+			description: "Bad Request: can't invite members to a private chat",
+			error: CantInviteMembersToPrivateChat,
+		},
 		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 400, description: "Bad Request: PRICING_CHAT_INVALID", error: PricingChatInvalid },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	createForumTopic: [
 		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{
+			errorCode: 400,
+			description: "Bad Request: not enough rights to create a topic",
+			error: NotEnoughRightsToCreateTopic,
+		},
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
@@ -1319,6 +1589,7 @@ export const methodErrors = {
 		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+		{ errorCode: 400, description: "Bad Request: USER_ID_INVALID", error: UserIdInvalid },
 	],
 	deleteBusinessMessages: [
 		{
@@ -1330,17 +1601,24 @@ export const methodErrors = {
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	deleteChatPhoto: [
+		{ errorCode: 400, description: "Bad Request: can't change private chat photo", error: CantChangePrivateChatPhoto },
 		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	deleteChatStickerSet: [
+		{
+			errorCode: 400,
+			description: "Bad Request: can't set supergroup sticker set",
+			error: CantSetSupergroupStickerSet,
+		},
 		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	deleteForumTopic: [
 		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 400, description: "Bad Request: CHAT_WRITE_FORBIDDEN", error: ChatWriteForbidden },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
@@ -1355,20 +1633,28 @@ export const methodErrors = {
 	],
 	editChatInviteLink: [
 		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 400, description: "Bad Request: INVITE_HASH_EXPIRED", error: InviteHashExpired },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	editChatSubscriptionInviteLink: [
 		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 400, description: "Bad Request: INVITE_HASH_EXPIRED", error: InviteHashExpired },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	editForumTopic: [
 		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{
+			errorCode: 400,
+			description: "Bad Request: not enough rights to edit the topic",
+			error: NotEnoughRightsToEditTopic,
+		},
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	editGeneralForumTopic: [
+		{ errorCode: 400, description: "Bad Request: CHAT_ADMIN_REQUIRED", error: ChatAdminRequired },
 		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
@@ -1393,6 +1679,7 @@ export const methodErrors = {
 		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
 		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
 		{ errorCode: 400, description: 'Bad Request: parameter "from_chat_id" is required', error: FromChatIdRequired },
+		{ errorCode: 400, description: "Bad Request: message thread not found", error: MessageThreadNotFound },
 		{ errorCode: 400, description: "Bad Request: message to forward not found", error: MessageToForwardNotFound },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
@@ -1446,6 +1733,7 @@ export const methodErrors = {
 		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
 		{ errorCode: 400, description: "Bad Request: member not found", error: MemberNotFound },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 400, description: "Bad Request: PARTICIPANT_ID_INVALID", error: ParticipantIdInvalid },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	getChatMemberCount: [
@@ -1519,6 +1807,7 @@ export const methodErrors = {
 	],
 	getUserPersonalChatMessages: [
 		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
+		{ errorCode: 400, description: "Bad Request: limit must be positive", error: LimitMustBePositive },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
@@ -1538,14 +1827,25 @@ export const methodErrors = {
 		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+		{ errorCode: 400, description: "Bad Request: user not found", error: UserNotFound },
 	],
 	hideGeneralForumTopic: [
 		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{
+			errorCode: 400,
+			description: "Bad Request: not enough rights to close or open the topic",
+			error: NotEnoughRightsToCloseOrOpenTopic,
+		},
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	leaveChat: [
 		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{
+			errorCode: 400,
+			description: "Bad Request: chat member status can't be changed in private chats",
+			error: ChatMemberStatusCantBeChangedInPrivateChats,
+		},
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
@@ -1565,6 +1865,7 @@ export const methodErrors = {
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	promoteChatMember: [
+		{ errorCode: 400, description: "Bad Request: can't remove chat owner", error: CantRemoveChatOwner },
 		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
@@ -1580,6 +1881,7 @@ export const methodErrors = {
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	removeChatVerification: [
+		{ errorCode: 400, description: "Bad Request: BOT_VERIFIER_FORBIDDEN", error: BotVerifierForbidden },
 		{ errorCode: 400, description: "Bad Request: invalid chat identifier specified", error: InvalidChatIdentifier },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
@@ -1591,14 +1893,21 @@ export const methodErrors = {
 	removeUserVerification: [
 		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 400, description: "Bad Request: PEER_ID_INVALID", error: PeerIdInvalid },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	reopenForumTopic: [
 		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{
+			errorCode: 400,
+			description: "Bad Request: not enough rights to close or open the topic",
+			error: NotEnoughRightsToCloseOrOpenTopic,
+		},
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	reopenGeneralForumTopic: [
+		{ errorCode: 400, description: "Bad Request: CHAT_ADMIN_REQUIRED", error: ChatAdminRequired },
 		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
@@ -1609,6 +1918,7 @@ export const methodErrors = {
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	repostStory: [
+		{ errorCode: 400, description: "Bad Request: business connection not found", error: BusinessConnectionNotFound },
 		{ errorCode: 400, description: 'Bad Request: parameter "from_chat_id" is required', error: FromChatIdRequired },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
@@ -1616,14 +1926,17 @@ export const methodErrors = {
 	restrictChatMember: [
 		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 400, description: "Bad Request: PARTICIPANT_ID_INVALID", error: ParticipantIdInvalid },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	revokeChatInviteLink: [
 		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 400, description: "Bad Request: INVITE_HASH_EXPIRED", error: InviteHashExpired },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	savePreparedInlineMessage: [
+		{ errorCode: 400, description: 'Bad Request: can\'t find field "type"', error: CantFindFieldType },
 		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
@@ -1675,6 +1988,7 @@ export const methodErrors = {
 	sendGift: [
 		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 400, description: "Bad Request: STARGIFT_INVALID", error: StargiftInvalid },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	sendLivePhoto: [
@@ -1997,6 +2311,7 @@ export const methodErrors = {
 	sendMessageDraft: [
 		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 400, description: "Bad Request: RANDOM_ID_INVALID", error: RandomIdInvalid },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	sendPaidMedia: [
@@ -2093,16 +2408,24 @@ export const methodErrors = {
 	setChatAdministratorCustomTitle: [
 		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 400, description: "Bad Request: PARTICIPANT_ID_INVALID", error: ParticipantIdInvalid },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	setChatDescription: [
+		{
+			errorCode: 400,
+			description: "Bad Request: can't change private chat description",
+			error: CantChangePrivateChatDescription,
+		},
 		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	setChatMemberTag: [
+		{ errorCode: 400, description: "Bad Request: CHAT_CREATOR_REQUIRED", error: ChatCreatorRequired },
 		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 400, description: "Bad Request: PARTICIPANT_ID_INVALID", error: ParticipantIdInvalid },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	setChatMenuButton: [
@@ -2115,6 +2438,11 @@ export const methodErrors = {
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	setChatPermissions: [
+		{
+			errorCode: 400,
+			description: "Bad Request: can't change private chat permissions",
+			error: CantChangePrivateChatPermissions,
+		},
 		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
@@ -2127,9 +2455,12 @@ export const methodErrors = {
 	setChatStickerSet: [
 		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 400, description: "Bad Request: sticker_set_name is empty", error: StickerSetNameEmpty },
+		{ errorCode: 400, description: "Bad Request: sticker set not found", error: StickerSetNotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	setChatTitle: [
+		{ errorCode: 400, description: "Bad Request: can't change private chat title", error: CantChangePrivateChatTitle },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 400, description: "Bad Request: title must be non-empty", error: TitleEmpty },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
@@ -2181,6 +2512,7 @@ export const methodErrors = {
 		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+		{ errorCode: 400, description: "Bad Request: user not found", error: UserNotFound },
 	],
 	transferBusinessAccountStars: [
 		{ errorCode: 400, description: "Bad Request: business connection not found", error: BusinessConnectionNotFound },
@@ -2195,15 +2527,22 @@ export const methodErrors = {
 	unbanChatMember: [
 		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 400, description: "Bad Request: PARTICIPANT_ID_INVALID", error: ParticipantIdInvalid },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	unbanChatSenderChat: [
 		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 400, description: "Bad Request: PARTICIPANT_ID_INVALID", error: ParticipantIdInvalid },
 		{ errorCode: 400, description: "Bad Request: sender_chat_id is empty", error: SenderChatIdEmpty },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	unhideGeneralForumTopic: [
 		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{
+			errorCode: 400,
+			description: "Bad Request: not enough rights to close or open the topic",
+			error: NotEnoughRightsToCloseOrOpenTopic,
+		},
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
@@ -2233,6 +2572,7 @@ export const methodErrors = {
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	verifyChat: [
+		{ errorCode: 400, description: "Bad Request: BOT_VERIFIER_FORBIDDEN", error: BotVerifierForbidden },
 		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
@@ -2241,5 +2581,6 @@ export const methodErrors = {
 		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+		{ errorCode: 400, description: "Bad Request: user not found", error: UserNotFound },
 	],
 } as const;

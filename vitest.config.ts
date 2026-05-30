@@ -10,6 +10,8 @@ export default defineConfig({
 	test: {
 		environment: "node",
 		setupFiles: ["./vitest.setup.ts"],
+		globalSetup: ["./test/globalSetup.ts"],
+		globalTeardown: ["./test/globalTeardown.ts"],
 		include: ["test/**/*.test.ts"],
 	},
 });

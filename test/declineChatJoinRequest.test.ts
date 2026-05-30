@@ -8,6 +8,18 @@ const callDeclineChatJoinRequest = (token: string, payload: unknown) =>
 
 describe("declineChatJoinRequest", () => {
 	describe("Telegram API errors", () => {
+		it.effect("UserIdInvalid when user_id does not refer to a pending join request", () =>
+			Effect.gen(function* () {
+				const { botToken, groupId } = yield* telegramConfig;
+				const error = yield* callDeclineChatJoinRequest(botToken, {
+					chat_id: groupId,
+					user_id: 1,
+				}).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.UserIdInvalid>(error, "UserIdInvalid", "Bad Request: USER_ID_INVALID");
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+
 		it.effect("InvalidUserId when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;

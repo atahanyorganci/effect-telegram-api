@@ -6,6 +6,12 @@
 			"errorCode": 400,
 			"description": "Bad Request: chat_id is empty",
 			"when": "required parameters missing"
+		},
+		{
+			"tag": "InviteHashExpired",
+			"errorCode": 400,
+			"description": "Bad Request: INVITE_HASH_EXPIRED",
+			"when": "invite_link is invalid or already revoked"
 		}
 	]
 }

@@ -8,6 +8,38 @@ const callSetChatStickerSet = (token: string, payload: unknown) =>
 
 describe("setChatStickerSet", () => {
 	describe("Telegram API errors", () => {
+		it.effect("StickerSetNameEmpty when sticker_set_name is empty", () =>
+			Effect.gen(function* () {
+				const { botToken, groupId } = yield* telegramConfig;
+				const error = yield* callSetChatStickerSet(botToken, {
+					chat_id: groupId,
+					sticker_set_name: "",
+				}).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.StickerSetNameEmpty>(
+					error,
+					"StickerSetNameEmpty",
+					"Bad Request: sticker_set_name is empty",
+				);
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+
+		it.effect("StickerSetNotFound when sticker_set_name does not exist", () =>
+			Effect.gen(function* () {
+				const { botToken, groupId } = yield* telegramConfig;
+				const error = yield* callSetChatStickerSet(botToken, {
+					chat_id: groupId,
+					sticker_set_name: "InvalidSetName_xyz",
+				}).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.StickerSetNotFound>(
+					error,
+					"StickerSetNotFound",
+					"Bad Request: sticker set not found",
+				);
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+
 		it.effect("ChatIdEmpty when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;

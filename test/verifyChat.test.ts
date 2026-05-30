@@ -8,6 +8,22 @@ const callVerifyChat = (token: string, payload: unknown) =>
 
 describe("verifyChat", () => {
 	describe("Telegram API errors", () => {
+		it.effect("BotVerifierForbidden when the bot cannot verify the private chat", () =>
+			Effect.gen(function* () {
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callVerifyChat(botToken, {
+					chat_id: chatId,
+					custom_description: "probe",
+				}).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.BotVerifierForbidden>(
+					error,
+					"BotVerifierForbidden",
+					"Bad Request: BOT_VERIFIER_FORBIDDEN",
+				);
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+
 		it.effect("ChatIdEmpty when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;

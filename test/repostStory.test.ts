@@ -8,6 +8,22 @@ const callRepostStory = (token: string, payload: unknown) =>
 
 describe("repostStory", () => {
 	describe("Telegram API errors", () => {
+		it.effect("BusinessConnectionNotFound when reposting without a business connection", () =>
+			Effect.gen(function* () {
+				const { botToken, groupId } = yield* telegramConfig;
+				const error = yield* callRepostStory(botToken, {
+					from_chat_id: groupId,
+					story_id: 1,
+				}).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.BusinessConnectionNotFound>(
+					error,
+					"BusinessConnectionNotFound",
+					"Bad Request: business connection not found",
+				);
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+
 		it.effect("FromChatIdRequired when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;

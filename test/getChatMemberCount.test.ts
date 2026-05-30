@@ -17,6 +17,16 @@ describe("getChatMemberCount", () => {
 				assert.ok(count >= 0);
 			}).pipe(Effect.provide(LiveLayer)),
 		);
+
+		it.effect("returns the member count for the test supergroup", () =>
+			Effect.gen(function* () {
+				const { botToken, groupId } = yield* telegramConfig;
+				const count = yield* callGetChatMemberCount(botToken, { chat_id: groupId });
+
+				assert.strictEqual(typeof count, "number");
+				assert.ok(count >= 2);
+			}).pipe(Effect.provide(LiveLayer)),
+		);
 	});
 
 	describe("Telegram API errors", () => {

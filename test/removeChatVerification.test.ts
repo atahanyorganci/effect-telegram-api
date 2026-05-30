@@ -8,6 +8,19 @@ const callRemoveChatVerification = (token: string, payload: unknown) =>
 
 describe("removeChatVerification", () => {
 	describe("Telegram API errors", () => {
+		it.effect("BotVerifierForbidden when the bot cannot remove verification for the private chat", () =>
+			Effect.gen(function* () {
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callRemoveChatVerification(botToken, { chat_id: chatId }).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.BotVerifierForbidden>(
+					error,
+					"BotVerifierForbidden",
+					"Bad Request: BOT_VERIFIER_FORBIDDEN",
+				);
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+
 		it.effect("InvalidChatIdentifier when validation fails", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;

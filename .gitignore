@@ -146,3 +146,6 @@ vite.config.ts.timestamp-*
 /target/
 # Generated API artifacts
 data/
+
+# Live-test cross-worker artifact registry
+test/.artifacts/

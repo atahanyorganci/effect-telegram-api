@@ -6,6 +6,12 @@
 			"errorCode": 400,
 			"description": "Bad Request: chat_id is empty",
 			"when": "required parameters missing"
+		},
+		{
+			"tag": "ChatMemberStatusCantBeChangedInPrivateChats",
+			"errorCode": 400,
+			"description": "Bad Request: chat member status can't be changed in private chats",
+			"when": "chat_id refers to a private chat with the bot"
 		}
 	]
 }

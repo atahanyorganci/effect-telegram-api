@@ -8,10 +8,10 @@ const callUnpinChatMessage = (token: string, payload: unknown) =>
 
 describe("unpinChatMessage", () => {
 	describe("Telegram API errors", () => {
-		it.effect("MessageToUnpinNotFound when message_id is missing", () =>
+		it.effect("MessageToUnpinNotFound when message_id is missing in a supergroup", () =>
 			Effect.gen(function* () {
-				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callUnpinChatMessage(botToken, { chat_id: chatId }).pipe(Effect.flip);
+				const { botToken, groupId } = yield* telegramConfig;
+				const error = yield* callUnpinChatMessage(botToken, { chat_id: groupId }).pipe(Effect.flip);
 
 				expectErrorTag<Telegram.Errors.MessageToUnpinNotFound>(
 					error,

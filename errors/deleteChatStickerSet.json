@@ -6,6 +6,12 @@
 			"errorCode": 400,
 			"description": "Bad Request: chat_id is empty",
 			"when": "required parameters missing"
+		},
+		{
+			"tag": "CantSetSupergroupStickerSet",
+			"errorCode": 400,
+			"description": "Bad Request: can't set supergroup sticker set",
+			"when": "bot lacks permission to change the group sticker set"
 		}
 	]
 }

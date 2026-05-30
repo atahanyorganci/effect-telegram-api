@@ -8,6 +8,15 @@ const callRemoveUserVerification = (token: string, payload: unknown) =>
 
 describe("removeUserVerification", () => {
 	describe("Telegram API errors", () => {
+		it.effect("PeerIdInvalid when user_id is invalid", () =>
+			Effect.gen(function* () {
+				const { botToken } = yield* telegramConfig;
+				const error = yield* callRemoveUserVerification(botToken, { user_id: 1 }).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.PeerIdInvalid>(error, "PeerIdInvalid", "Bad Request: PEER_ID_INVALID");
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+
 		it.effect("InvalidUserId when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;

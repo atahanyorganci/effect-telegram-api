@@ -6,6 +6,12 @@
 			"errorCode": 400,
 			"description": "Bad Request: result isn't specified",
 			"when": "required parameters missing"
+		},
+		{
+			"tag": "CallbackQueryIdInvalid",
+			"errorCode": 400,
+			"description": "Bad Request: query is too old and response timeout expired or query ID is invalid",
+			"when": "web_app_query_id is missing or invalid"
 		}
 	]
 }

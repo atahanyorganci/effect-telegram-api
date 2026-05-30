@@ -8,6 +8,22 @@ const callEditGeneralForumTopic = (token: string, payload: unknown) =>
 
 describe("editGeneralForumTopic", () => {
 	describe("Telegram API errors", () => {
+		it.effect("ChatAdminRequired when the bot is not a forum administrator", () =>
+			Effect.gen(function* () {
+				const { botToken, groupId } = yield* telegramConfig;
+				const error = yield* callEditGeneralForumTopic(botToken, {
+					chat_id: groupId,
+					name: "General probe",
+				}).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.ChatAdminRequired>(
+					error,
+					"ChatAdminRequired",
+					"Bad Request: CHAT_ADMIN_REQUIRED",
+				);
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+
 		it.effect("ChatIdEmpty when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;

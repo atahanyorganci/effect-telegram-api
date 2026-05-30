@@ -8,6 +8,15 @@ const callSendMessageDraft = (token: string, payload: unknown) =>
 
 describe("sendMessageDraft", () => {
 	describe("Telegram API errors", () => {
+		it.effect("RandomIdInvalid when draft_id is missing", () =>
+			Effect.gen(function* () {
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessageDraft(botToken, { chat_id: chatId }).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.RandomIdInvalid>(error, "RandomIdInvalid", "Bad Request: RANDOM_ID_INVALID");
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+
 		it.effect("ChatIdEmpty when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;

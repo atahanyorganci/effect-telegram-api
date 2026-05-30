@@ -19,6 +19,18 @@ describe("getChatMember", () => {
 				assert.strictEqual(typeof chatMember.status, "string");
 			}).pipe(Effect.provide(LiveLayer)),
 		);
+
+		it.effect("returns the bot administrator record in the test supergroup", () =>
+			Effect.gen(function* () {
+				const { botToken: token, groupId } = yield* telegramConfig;
+				const me = yield* Telegram.Client.callMethod(token, Telegram.Methods.getMe);
+				const member = yield* callGetChatMember(token, { chat_id: groupId, user_id: me.id });
+				const chatMember = member as { readonly user: { readonly id: number }; readonly status: string };
+
+				assert.strictEqual(chatMember.user.id, me.id);
+				assert.strictEqual(chatMember.status, "administrator");
+			}).pipe(Effect.provide(LiveLayer)),
+		);
 	});
 
 	describe("Telegram API errors", () => {
@@ -46,6 +58,19 @@ describe("getChatMember", () => {
 				const error = yield* callGetChatMember(botToken, { chat_id: 1 }).pipe(Effect.flip);
 
 				expectErrorTag<Telegram.Errors.InvalidUserId>(error, "InvalidUserId", "Bad Request: invalid user_id specified");
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+
+		it.effect("ParticipantIdInvalid when user_id is not a chat participant", () =>
+			Effect.gen(function* () {
+				const { botToken, groupId } = yield* telegramConfig;
+				const error = yield* callGetChatMember(botToken, { chat_id: groupId, user_id: 1 }).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.ParticipantIdInvalid>(
+					error,
+					"ParticipantIdInvalid",
+					"Bad Request: PARTICIPANT_ID_INVALID",
+				);
 			}).pipe(Effect.provide(LiveLayer)),
 		);
 

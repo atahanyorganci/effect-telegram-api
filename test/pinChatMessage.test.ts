@@ -12,13 +12,33 @@ describe("pinChatMessage", () => {
 			Effect.gen(function* () {
 				const { botToken: token, chatId } = yield* telegramConfig;
 				const source = yield* Telegram.Client.callMethod(token, Telegram.Methods.sendDice, { chat_id: chatId });
-				const result = yield* callPinChatMessage(token, { chat_id: chatId, message_id: source.message_id });
 
-				assert.strictEqual(result, true);
-				yield* Telegram.Client.callMethod(token, Telegram.Methods.unpinChatMessage, {
-					chat_id: chatId,
-					message_id: source.message_id,
-				});
+				yield* callPinChatMessage(token, { chat_id: chatId, message_id: source.message_id }).pipe(
+					Effect.tap(result => Effect.sync(() => assert.strictEqual(result, true))),
+					Effect.ensuring(
+						Telegram.Client.callMethod(token, Telegram.Methods.unpinChatMessage, {
+							chat_id: chatId,
+							message_id: source.message_id,
+						}).pipe(Effect.ignore),
+					),
+				);
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+
+		it.effect("returns true when pinning a message in the test supergroup", () =>
+			Effect.gen(function* () {
+				const { botToken: token, groupId } = yield* telegramConfig;
+				const source = yield* Telegram.Client.callMethod(token, Telegram.Methods.sendDice, { chat_id: groupId });
+
+				yield* callPinChatMessage(token, { chat_id: groupId, message_id: source.message_id }).pipe(
+					Effect.tap(result => Effect.sync(() => assert.strictEqual(result, true))),
+					Effect.ensuring(
+						Telegram.Client.callMethod(token, Telegram.Methods.unpinChatMessage, {
+							chat_id: groupId,
+							message_id: source.message_id,
+						}).pipe(Effect.ignore),
+					),
+				);
 			}).pipe(Effect.provide(LiveLayer)),
 		);
 	});

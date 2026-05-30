@@ -8,6 +8,23 @@ const callEditChatInviteLink = (token: string, payload: unknown) =>
 
 describe("editChatInviteLink", () => {
 	describe("Telegram API errors", () => {
+		it.effect("InviteHashExpired when invite_link is invalid", () =>
+			Effect.gen(function* () {
+				const { botToken, groupId } = yield* telegramConfig;
+				const error = yield* callEditChatInviteLink(botToken, {
+					chat_id: groupId,
+					invite_link: "https://t.me/+bogus",
+					name: "probe",
+				}).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.InviteHashExpired>(
+					error,
+					"InviteHashExpired",
+					"Bad Request: INVITE_HASH_EXPIRED",
+				);
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+
 		it.effect("ChatIdEmpty when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;

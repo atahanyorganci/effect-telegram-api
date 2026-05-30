@@ -8,6 +8,19 @@ const callGiftPremiumSubscription = (token: string, payload: unknown) =>
 
 describe("giftPremiumSubscription", () => {
 	describe("Telegram API errors", () => {
+		it.effect("UserNotFound when user_id does not exist", () =>
+			Effect.gen(function* () {
+				const { botToken } = yield* telegramConfig;
+				const error = yield* callGiftPremiumSubscription(botToken, {
+					user_id: 999_999_999,
+					month_count: 1,
+					star_count: 100,
+				}).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.UserNotFound>(error, "UserNotFound", "Bad Request: user not found");
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+
 		it.effect("InvalidUserId when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;

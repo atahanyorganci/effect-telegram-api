@@ -8,6 +8,19 @@ const callUnhideGeneralForumTopic = (token: string, payload: unknown) =>
 
 describe("unhideGeneralForumTopic", () => {
 	describe("Telegram API errors", () => {
+		it.effect("NotEnoughRightsToCloseOrOpenTopic when the bot cannot manage the general forum topic", () =>
+			Effect.gen(function* () {
+				const { botToken, groupId } = yield* telegramConfig;
+				const error = yield* callUnhideGeneralForumTopic(botToken, { chat_id: groupId }).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.NotEnoughRightsToCloseOrOpenTopic>(
+					error,
+					"NotEnoughRightsToCloseOrOpenTopic",
+					"Bad Request: not enough rights to close or open the topic",
+				);
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+
 		it.effect("ChatIdEmpty when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;

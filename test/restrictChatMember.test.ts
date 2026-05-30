@@ -8,6 +8,23 @@ const callRestrictChatMember = (token: string, payload: unknown) =>
 
 describe("restrictChatMember", () => {
 	describe("Telegram API errors", () => {
+		it.effect("ParticipantIdInvalid when user_id is not a chat participant", () =>
+			Effect.gen(function* () {
+				const { botToken, groupId } = yield* telegramConfig;
+				const error = yield* callRestrictChatMember(botToken, {
+					chat_id: groupId,
+					user_id: 1,
+					permissions: { can_send_messages: false },
+				}).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.ParticipantIdInvalid>(
+					error,
+					"ParticipantIdInvalid",
+					"Bad Request: PARTICIPANT_ID_INVALID",
+				);
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+
 		it.effect("InvalidUserId when user_id is missing", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;

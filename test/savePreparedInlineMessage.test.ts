@@ -8,6 +8,22 @@ const callSavePreparedInlineMessage = (token: string, payload: unknown) =>
 
 describe("savePreparedInlineMessage", () => {
 	describe("Telegram API errors", () => {
+		it.effect("CantFindFieldType when result is missing the type field", () =>
+			Effect.gen(function* () {
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSavePreparedInlineMessage(botToken, {
+					user_id: chatId,
+					result: {},
+				}).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.CantFindFieldType>(
+					error,
+					"CantFindFieldType",
+					'Bad Request: can\'t find field "type"',
+				);
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+
 		it.effect("InvalidUserId when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;

@@ -8,6 +8,19 @@ const callDeleteChatPhoto = (token: string, payload: unknown) =>
 
 describe("deleteChatPhoto", () => {
 	describe("Telegram API errors", () => {
+		it.effect("CantChangePrivateChatPhoto when chat_id is a private chat", () =>
+			Effect.gen(function* () {
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callDeleteChatPhoto(botToken, { chat_id: chatId }).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.CantChangePrivateChatPhoto>(
+					error,
+					"CantChangePrivateChatPhoto",
+					"Bad Request: can't change private chat photo",
+				);
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+
 		it.effect("ChatIdEmpty when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;

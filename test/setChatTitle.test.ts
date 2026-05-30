@@ -8,6 +8,19 @@ const callSetChatTitle = (token: string, payload: unknown) =>
 
 describe("setChatTitle", () => {
 	describe("Telegram API errors", () => {
+		it.effect("CantChangePrivateChatTitle when chat_id is a private chat", () =>
+			Effect.gen(function* () {
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSetChatTitle(botToken, { chat_id: chatId, title: "probe" }).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.CantChangePrivateChatTitle>(
+					error,
+					"CantChangePrivateChatTitle",
+					"Bad Request: can't change private chat title",
+				);
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+
 		it.effect("TitleEmpty when title is missing", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;

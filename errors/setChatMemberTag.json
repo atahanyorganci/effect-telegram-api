@@ -6,6 +6,18 @@
 			"errorCode": 400,
 			"description": "Bad Request: invalid user_id specified",
 			"when": "required parameters missing"
+		},
+		{
+			"tag": "ParticipantIdInvalid",
+			"errorCode": 400,
+			"description": "Bad Request: PARTICIPANT_ID_INVALID",
+			"when": "user_id does not refer to a chat participant"
+		},
+		{
+			"tag": "ChatCreatorRequired",
+			"errorCode": 400,
+			"description": "Bad Request: CHAT_CREATOR_REQUIRED",
+			"when": "only the chat creator can set member tags"
 		}
 	]
 }

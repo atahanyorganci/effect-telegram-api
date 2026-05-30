@@ -74,6 +74,24 @@ describe("forwardMessage", () => {
 			}).pipe(Effect.provide(LiveLayer)),
 		);
 
+		it.effect("MessageThreadNotFound when message_thread_id does not exist", () =>
+			Effect.gen(function* () {
+				const { botToken, groupId, chatId } = yield* telegramConfig;
+				const error = yield* callForwardMessage(botToken, {
+					chat_id: groupId,
+					from_chat_id: chatId,
+					message_id: 1,
+					message_thread_id: 999_999_999,
+				}).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.MessageThreadNotFound>(
+					error,
+					"MessageThreadNotFound",
+					"Bad Request: message thread not found",
+				);
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+
 		it.effect("ChatNotFound when chat_id does not exist", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;

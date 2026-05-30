@@ -8,10 +8,26 @@ const callBanChatSenderChat = (token: string, payload: unknown) =>
 
 describe("banChatSenderChat", () => {
 	describe("Telegram API errors", () => {
+		it.effect("ParticipantIdInvalid when sender_chat_id is invalid", () =>
+			Effect.gen(function* () {
+				const { botToken, groupId } = yield* telegramConfig;
+				const error = yield* callBanChatSenderChat(botToken, {
+					chat_id: groupId,
+					sender_chat_id: 1,
+				}).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.ParticipantIdInvalid>(
+					error,
+					"ParticipantIdInvalid",
+					"Bad Request: PARTICIPANT_ID_INVALID",
+				);
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+
 		it.effect("SenderChatIdEmpty when sender_chat_id is missing", () =>
 			Effect.gen(function* () {
-				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callBanChatSenderChat(botToken, { chat_id: chatId }).pipe(Effect.flip);
+				const { botToken, groupId } = yield* telegramConfig;
+				const error = yield* callBanChatSenderChat(botToken, { chat_id: groupId }).pipe(Effect.flip);
 
 				expectErrorTag<Telegram.Errors.SenderChatIdEmpty>(
 					error,

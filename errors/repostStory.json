@@ -6,6 +6,12 @@
 			"errorCode": 400,
 			"description": "Bad Request: parameter \"from_chat_id\" is required",
 			"when": "required parameters missing"
+		},
+		{
+			"tag": "BusinessConnectionNotFound",
+			"errorCode": 400,
+			"description": "Bad Request: business connection not found",
+			"when": "story requires a business connection the bot does not have"
 		}
 	]
 }

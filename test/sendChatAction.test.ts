@@ -19,6 +19,18 @@ describe("sendChatAction", () => {
 				assert.strictEqual(result, true);
 			}).pipe(Effect.provide(LiveLayer)),
 		);
+
+		it.effect("returns true when broadcasting a typing action in the test supergroup", () =>
+			Effect.gen(function* () {
+				const { botToken, groupId } = yield* telegramConfig;
+				const result = yield* callSendChatAction(botToken, {
+					chat_id: groupId,
+					action: "typing",
+				});
+
+				assert.strictEqual(result, true);
+			}).pipe(Effect.provide(LiveLayer)),
+		);
 	});
 
 	describe("Telegram API errors", () => {

@@ -8,6 +8,22 @@ const callSetChatPermissions = (token: string, payload: unknown) =>
 
 describe("setChatPermissions", () => {
 	describe("Telegram API errors", () => {
+		it.effect("CantChangePrivateChatPermissions when chat_id is a private chat", () =>
+			Effect.gen(function* () {
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSetChatPermissions(botToken, {
+					chat_id: chatId,
+					permissions: { can_send_messages: true },
+				}).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.CantChangePrivateChatPermissions>(
+					error,
+					"CantChangePrivateChatPermissions",
+					"Bad Request: can't change private chat permissions",
+				);
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+
 		it.effect("ChatIdEmpty when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;

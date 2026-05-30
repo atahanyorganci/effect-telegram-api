@@ -8,6 +8,22 @@ const callDeleteForumTopic = (token: string, payload: unknown) =>
 
 describe("deleteForumTopic", () => {
 	describe("Telegram API errors", () => {
+		it.effect("ChatWriteForbidden when the bot cannot delete a forum topic", () =>
+			Effect.gen(function* () {
+				const { botToken, groupId } = yield* telegramConfig;
+				const error = yield* callDeleteForumTopic(botToken, {
+					chat_id: groupId,
+					message_thread_id: 999_999_999,
+				}).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.ChatWriteForbidden>(
+					error,
+					"ChatWriteForbidden",
+					"Bad Request: CHAT_WRITE_FORBIDDEN",
+				);
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+
 		it.effect("ChatIdEmpty when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;

@@ -16,6 +16,19 @@ describe("banChatMember", () => {
 				expectErrorTag<Telegram.Errors.InvalidUserId>(error, "InvalidUserId", "Bad Request: invalid user_id specified");
 			}).pipe(Effect.provide(LiveLayer)),
 		);
+
+		it.effect("ParticipantIdInvalid when user_id is not a chat participant", () =>
+			Effect.gen(function* () {
+				const { botToken, groupId } = yield* telegramConfig;
+				const error = yield* callBanChatMember(botToken, { chat_id: groupId, user_id: 1 }).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.ParticipantIdInvalid>(
+					error,
+					"ParticipantIdInvalid",
+					"Bad Request: PARTICIPANT_ID_INVALID",
+				);
+			}).pipe(Effect.provide(LiveLayer)),
+		);
 	});
 
 	authErrorTests(token => callBanChatMember(token, { chat_id: 1, user_id: 1 }));

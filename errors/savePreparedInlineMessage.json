@@ -6,6 +6,12 @@
 			"errorCode": 400,
 			"description": "Bad Request: invalid user_id specified",
 			"when": "required parameters missing"
+		},
+		{
+			"tag": "CantFindFieldType",
+			"errorCode": 400,
+			"description": "Bad Request: can't find field \"type\"",
+			"when": "result object is missing the required type field"
 		}
 	]
 }

@@ -76,13 +76,26 @@ Valid when the environment cannot support success:
 
 ### Shared helpers
 
-- `telegramConfig` — load typed env from `.env` via Effect `Config`
+- `telegramConfig` — loads typed env from `.env` via Effect `Config`
 - `authErrorTests(fn)` — standard 401/404 token cases
 - Chain methods when you need fixtures (`sendDice` → `forwardMessage`)
+
+### Environment variables
+
+| Variable                  | Used for                                       |
+| ------------------------- | ---------------------------------------------- |
+| `TELEGRAM_BOT_TOKEN`      | All live tests                                 |
+| `TELEGRAM_CHAT_ID`        | Private user chat (DM with the bot)            |
+| `TELEGRAM_GROUP_CHAT_ID`  | Supergroup admin, invite links, member queries |
+| `TELEGRAM_FORUM_TOPIC_ID` | Forum topic threads (`message_thread_id`)      |
+
+Success tests that need a supergroup or forum topic destructure `groupId` and `forumTopicId` from `telegramConfig` alongside `botToken` and `chatId`.
 
 ### Side effects
 
 Sending messages, pinning, deleting commands, and similar actions are acceptable in this suite, but document cleanup and avoid destructive admin operations unless you have a disposable test group.
+
+After the full suite, `test/globalTeardown.ts` runs `cleanupTestArtifacts` from `helpers.ts`: it clears pinned messages in the configured chats and forum topics, reopens the configured fixture topic if it was closed, and deletes any forum topics recorded via `trackCreatedForumTopic`. Messages are left in place. Pin success tests also unpin in `Effect.ensuring` so a failed assertion does not leave a pin behind.
 
 ## Common pitfalls
 

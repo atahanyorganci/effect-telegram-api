@@ -8,6 +8,19 @@ const callDeleteChatStickerSet = (token: string, payload: unknown) =>
 
 describe("deleteChatStickerSet", () => {
 	describe("Telegram API errors", () => {
+		it.effect("CantSetSupergroupStickerSet when the bot cannot change the group sticker set", () =>
+			Effect.gen(function* () {
+				const { botToken, groupId } = yield* telegramConfig;
+				const error = yield* callDeleteChatStickerSet(botToken, { chat_id: groupId }).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.CantSetSupergroupStickerSet>(
+					error,
+					"CantSetSupergroupStickerSet",
+					"Bad Request: can't set supergroup sticker set",
+				);
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+
 		it.effect("ChatIdEmpty when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;

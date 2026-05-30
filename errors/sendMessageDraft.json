@@ -6,6 +6,12 @@
 			"errorCode": 400,
 			"description": "Bad Request: chat_id is empty",
 			"when": "required parameters missing"
+		},
+		{
+			"tag": "RandomIdInvalid",
+			"errorCode": 400,
+			"description": "Bad Request: RANDOM_ID_INVALID",
+			"when": "draft_id is missing or invalid"
 		}
 	]
 }

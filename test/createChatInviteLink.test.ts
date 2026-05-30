@@ -1,4 +1,4 @@
-import { describe, it } from "@effect/vitest";
+import { assert, describe, it } from "@effect/vitest";
 import * as Effect from "effect/Effect";
 import * as Telegram from "../src/index.ts";
 import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
@@ -7,6 +7,26 @@ const callCreateChatInviteLink = (token: string, payload: unknown) =>
 	Telegram.Client.callMethod(token, Telegram.Methods.createChatInviteLink, payload);
 
 describe("createChatInviteLink", () => {
+	describe("success", () => {
+		it.effect("creates and revokes a named invite link for the test supergroup", () =>
+			Effect.gen(function* () {
+				const { botToken, groupId } = yield* telegramConfig;
+				const link = yield* callCreateChatInviteLink(botToken, {
+					chat_id: groupId,
+					name: "integration-test",
+				});
+
+				assert.match(link.invite_link, /^https:\/\/t\.me\//);
+				assert.strictEqual(link.name, "integration-test");
+
+				yield* Telegram.Client.callMethod(botToken, Telegram.Methods.revokeChatInviteLink, {
+					chat_id: groupId,
+					invite_link: link.invite_link,
+				});
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+	});
+
 	describe("Telegram API errors", () => {
 		it.effect("CantInviteMembersToPrivateChat when chat_id is a private chat", () =>
 			Effect.gen(function* () {

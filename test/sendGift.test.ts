@@ -8,6 +8,15 @@ const callSendGift = (token: string, payload: unknown) =>
 
 describe("sendGift", () => {
 	describe("Telegram API errors", () => {
+		it.effect("StargiftInvalid when gift_id is missing", () =>
+			Effect.gen(function* () {
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendGift(botToken, { user_id: chatId }).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.StargiftInvalid>(error, "StargiftInvalid", "Bad Request: STARGIFT_INVALID");
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+
 		it.effect("InvalidUserId when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
