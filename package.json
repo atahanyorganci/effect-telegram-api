@@ -21,7 +21,8 @@
 		"ingest:parse": "tsx scripts/parse.ts",
 		"lint": "oxlint scripts src",
 		"lint:fix": "oxlint --fix scripts src",
-		"smoke:getme": "tsx src/index.ts"
+		"test": "vitest run",
+		"test:watch": "vitest"
 	},
 	"dependencies": {
 		"@effect/platform-node": "4.0.0-beta.68",
@@ -30,12 +31,15 @@
 	},
 	"devDependencies": {
 		"@effect/language-service": "^0.85.1",
+		"@effect/vitest": "4.0.0-beta.68",
 		"@types/node": "^25.9.0",
 		"@typescript/native-preview": "7.0.0-dev.20260518.1",
+		"dotenv": "^17.4.2",
 		"oxfmt": "^0.48.0",
 		"oxlint": "^1.65.0",
 		"oxlint-tsgolint": "^0.23.0",
-		"tsx": "^4.22.3"
+		"tsx": "^4.22.3",
+		"vitest": "4.1.4"
 	},
 	"devEngines": {
 		"packageManager": {
