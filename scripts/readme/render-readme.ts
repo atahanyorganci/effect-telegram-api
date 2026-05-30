@@ -91,7 +91,7 @@ const program = Effect.gen(function* () {
 
 	const template = yield* fs.readFileString(TEMPLATE_PATH);
 	if (!template.includes(COVERAGE_MARKER)) {
-		return yield* Effect.dieMessage(`${TEMPLATE_PATH} must contain ${COVERAGE_MARKER}`);
+		return yield* Effect.die(`${TEMPLATE_PATH} must contain ${COVERAGE_MARKER}`);
 	}
 
 	const readme = template.replace(COVERAGE_MARKER, table);
