@@ -20,17 +20,14 @@
 		"./Methods": "./src/Methods.ts"
 	},
 	"scripts": {
-		"check": "tsgo",
-		"check:watch": "tsgo --watch",
-		"codegen": "tsx scripts/codegen.ts",
 		"format": "oxfmt --check .",
 		"format:fix": "oxfmt --write .",
-		"ingest:codegen": "tsx scripts/codegen.ts",
-		"ingest:fetch": "tsx scripts/fetch.ts",
-		"ingest:parse": "tsx scripts/parse.ts",
 		"lint": "oxlint scripts src test",
 		"lint:fix": "oxlint --fix scripts src test",
-		"readme:render": "tsx scripts/readme/render-readme.ts",
+		"scripts:codegen": "tsx scripts/codegen.ts",
+		"scripts:fetch": "tsx scripts/fetch.ts",
+		"scripts:parse": "tsx scripts/parse.ts",
+		"scripts:render": "tsx scripts/readme/render-readme.ts",
 		"test": "vitest run",
 		"test:watch": "vitest"
 	},
