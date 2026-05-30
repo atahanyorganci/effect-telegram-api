@@ -335,6 +335,7 @@ export const forwardMessages = Rpc.make("forwardMessages", {
 
 export const getAvailableGifts = Rpc.make("getAvailableGifts", {
 	success: Objects.Gifts,
+	error: Schema.Union([Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 export const getBusinessAccountGifts = Rpc.make("getBusinessAccountGifts", {
@@ -375,7 +376,12 @@ export const getChat = Rpc.make("getChat", {
 		chat_id: Schema.Union([Schema.Int, Schema.String]),
 	},
 	success: Objects.ChatFullInfo,
-	error: Errors.ChatNotFoundError,
+	error: Schema.Union([
+		Errors.ChatIdEmptyError,
+		Errors.ChatNotFoundError,
+		Errors.NotFoundError,
+		Errors.UnauthorizedError,
+	]),
 });
 
 /** Use this method to get a list of administrators in a chat */
@@ -435,12 +441,13 @@ export const getFile = Rpc.make("getFile", {
 		file_id: Schema.String,
 	},
 	success: Objects.File,
-	error: Errors.InvalidFileIdError,
+	error: Schema.Union([Errors.InvalidFileIdError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to get custom emoji stickers, which can be used as a forum topic icon by any user */
 export const getForumTopicIconStickers = Rpc.make("getForumTopicIconStickers", {
 	success: Schema.Array(Objects.Sticker),
+	error: Schema.Union([Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to get the access settings of a managed bot */
@@ -462,7 +469,7 @@ export const getManagedBotToken = Rpc.make("getManagedBotToken", {
 /** A simple method for testing your bot's authentication token */
 export const getMe = Rpc.make("getMe", {
 	success: Objects.User,
-	error: Schema.Union([Errors.UnauthorizedError, Errors.NotFoundError]),
+	error: Schema.Union([Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to get the current list of the bot's commands for the given scope and user language */
@@ -472,6 +479,7 @@ export const getMyCommands = Rpc.make("getMyCommands", {
 		language_code: Schema.optional(Schema.String),
 	},
 	success: Schema.Array(Objects.BotCommand),
+	error: Schema.Union([Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to get the current default administrator rights of the bot */
@@ -480,6 +488,7 @@ export const getMyDefaultAdministratorRights = Rpc.make("getMyDefaultAdministrat
 		for_channels: Schema.optional(Schema.Boolean),
 	},
 	success: Objects.ChatAdministratorRights,
+	error: Schema.Union([Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to get the current bot description for the given user language */
@@ -488,6 +497,7 @@ export const getMyDescription = Rpc.make("getMyDescription", {
 		language_code: Schema.optional(Schema.String),
 	},
 	success: Objects.BotDescription,
+	error: Schema.Union([Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to get the current bot name for the given user language */
@@ -496,6 +506,7 @@ export const getMyName = Rpc.make("getMyName", {
 		language_code: Schema.optional(Schema.String),
 	},
 	success: Objects.BotName,
+	error: Schema.Union([Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to get the current bot short description for the given user language */
@@ -504,6 +515,7 @@ export const getMyShortDescription = Rpc.make("getMyShortDescription", {
 		language_code: Schema.optional(Schema.String),
 	},
 	success: Objects.BotShortDescription,
+	error: Schema.Union([Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to get the list of boosts added to a chat by a user. Requires administrator rights in the chat */
@@ -1076,7 +1088,7 @@ export const sendMessage = Rpc.make("sendMessage", {
 		),
 	},
 	success: Objects.Message,
-	error: Errors.MessageTextEmptyError,
+	error: Schema.Union([Errors.MessageTextEmptyError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to stream a partial message to a user while the message is being generated. Note that the streamed draft is ephemeral and acts as a temporary 30-second preview - once the output is finalized, you must call sendMessage with the complete message to persist it in the user's chat */

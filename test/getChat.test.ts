@@ -1,7 +1,7 @@
 import { assert, describe, it } from "@effect/vitest";
 import * as Effect from "effect/Effect";
 import * as Telegram from "../src/index.ts";
-import { expectErrorTag, LiveLayer, requireBotToken, requireChatId } from "./helpers.ts";
+import { authErrorTests, expectErrorTag, LiveLayer, requireBotToken, requireChatId } from "./helpers.ts";
 
 const callGetChat = (token: string, payload: unknown) =>
 	Telegram.Client.callMethod(token, Telegram.Methods.getChat, payload);
@@ -26,5 +26,15 @@ describe("getChat", () => {
 				expectErrorTag<Telegram.Errors.ChatNotFound>(error, "ChatNotFound", "Bad Request: chat not found");
 			}).pipe(Effect.provide(LiveLayer)),
 		);
+
+		it.effect("ChatIdEmpty when chat_id is missing", () =>
+			Effect.gen(function* () {
+				const error = yield* callGetChat(requireBotToken(), {}).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.ChatIdEmpty>(error, "ChatIdEmpty", "Bad Request: chat_id is empty");
+			}).pipe(Effect.provide(LiveLayer)),
+		);
 	});
+
+	authErrorTests(token => callGetChat(token, { chat_id: 1 }));
 });

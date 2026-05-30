@@ -39,8 +39,13 @@ const renderMethodErrorsRegistry = (docs: readonly MethodErrorsDoc[]): string =>
 	const entries = [...docs]
 		.sort((a, b) => a.method.localeCompare(b.method))
 		.map(doc => {
-			const cases = doc.errors.map(error => `\t\t${error.errorCode}: ${error.tag}`).join(",\n");
-			return `\t${doc.method}: {\n${cases},\n\t}`;
+			const cases = doc.errors
+				.map(
+					error =>
+						`\t\t{ errorCode: ${error.errorCode}, description: ${JSON.stringify(error.description)}, error: ${error.tag} }`,
+				)
+				.join(",\n");
+			return `\t${doc.method}: [\n${cases},\n\t]`;
 		})
 		.join(",\n");
 

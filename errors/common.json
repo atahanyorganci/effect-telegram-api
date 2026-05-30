@@ -1,0 +1,16 @@
+{
+	"errors": [
+		{
+			"tag": "Unauthorized",
+			"errorCode": 401,
+			"description": "Unauthorized: invalid token specified",
+			"when": "Token has bot id:hash form but the secret is invalid"
+		},
+		{
+			"tag": "NotFound",
+			"errorCode": 404,
+			"description": "Not Found",
+			"when": "Token segment is empty or not in bot id:hash form"
+		}
+	]
+}

@@ -3,7 +3,17 @@
 import * as Data from "effect/Data";
 import * as Schema from "effect/Schema";
 
-/** chat_id does not refer to an existing chat */
+/** chat_id parameter is missing or empty */
+
+export class ChatIdEmpty extends Data.TaggedError("ChatIdEmpty")<{
+	readonly description: string;
+}> {}
+
+export const ChatIdEmptyError = Schema.TaggedStruct("ChatIdEmpty", {
+	description: Schema.String,
+});
+
+/** chat_id does not refer to a chat the bot can access (unknown numeric id or unresolvable @username) */
 
 export class ChatNotFound extends Data.TaggedError("ChatNotFound")<{
 	readonly description: string;
@@ -54,17 +64,52 @@ export const UnauthorizedError = Schema.TaggedStruct("Unauthorized", {
 });
 
 export const methodErrors = {
-	getChat: {
-		400: ChatNotFound,
-	},
-	getFile: {
-		400: InvalidFileId,
-	},
-	getMe: {
-		401: Unauthorized,
-		404: NotFound,
-	},
-	sendMessage: {
-		400: MessageTextEmpty,
-	},
+	getAvailableGifts: [
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	getChat: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	getFile: [
+		{ errorCode: 400, description: "Bad Request: invalid file_id", error: InvalidFileId },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	getForumTopicIconStickers: [
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	getMe: [
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	getMyCommands: [
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	getMyDefaultAdministratorRights: [
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	getMyDescription: [
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	getMyName: [
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	getMyShortDescription: [
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	sendMessage: [
+		{ errorCode: 400, description: "Bad Request: message text is empty", error: MessageTextEmpty },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
 } as const;

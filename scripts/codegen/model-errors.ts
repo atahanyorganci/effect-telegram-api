@@ -12,5 +12,10 @@ export const MethodErrorsDoc = Schema.Struct({
 	errors: Schema.Array(MethodError),
 });
 
+export const CommonErrorsDoc = Schema.Struct({
+	errors: Schema.Array(MethodError),
+});
+
 export type MethodError = typeof MethodError.Type;
 export type MethodErrorsDoc = typeof MethodErrorsDoc.Type;
+export type CommonErrorsDoc = typeof CommonErrorsDoc.Type;

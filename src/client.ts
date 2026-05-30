@@ -29,19 +29,19 @@ type Envelope<A> =
 	| { readonly ok: false; readonly error_code: number; readonly description: string };
 
 const failFromEnvelope = (tag: string, error_code: number, description: string) => {
-	const mapping = Errors.methodErrors[tag as keyof typeof Errors.methodErrors];
-	if (mapping === undefined) {
+	const rules = Errors.methodErrors[tag as keyof typeof Errors.methodErrors];
+	if (rules === undefined) {
 		return Effect.fail(new TelegramApiError({ errorCode: error_code, description }));
 	}
 
 	type ErrorConstructor = new (args: { readonly description: string }) => { readonly description: string };
 
-	const ErrorClass = mapping[error_code as keyof typeof mapping] as ErrorConstructor | undefined;
-	if (ErrorClass === undefined) {
+	const rule = rules.find(entry => entry.errorCode === error_code && entry.description === description);
+	if (rule === undefined) {
 		return Effect.fail(new TelegramApiError({ errorCode: error_code, description }));
 	}
 
-	return Effect.fail(new ErrorClass({ description }));
+	return Effect.fail(new (rule.error as ErrorConstructor)({ description }));
 };
 
 /**

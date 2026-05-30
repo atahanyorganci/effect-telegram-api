@@ -5,7 +5,13 @@
 			"tag": "ChatNotFound",
 			"errorCode": 400,
 			"description": "Bad Request: chat not found",
-			"when": "chat_id does not refer to an existing chat"
+			"when": "chat_id does not refer to a chat the bot can access (unknown numeric id or unresolvable @username)"
+		},
+		{
+			"tag": "ChatIdEmpty",
+			"errorCode": 400,
+			"description": "Bad Request: chat_id is empty",
+			"when": "chat_id parameter is missing or empty"
 		}
 	]
 }

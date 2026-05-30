@@ -1,7 +1,7 @@
 import { assert, describe, it } from "@effect/vitest";
 import * as Effect from "effect/Effect";
 import * as Telegram from "../src/index.ts";
-import { expectErrorTag, LiveLayer, requireBotToken } from "./helpers.ts";
+import { authErrorTests, expectErrorTag, LiveLayer, requireBotToken } from "./helpers.ts";
 
 const callGetFile = (token: string, payload: unknown) =>
 	Telegram.Client.callMethod(token, Telegram.Methods.getFile, payload);
@@ -35,4 +35,6 @@ describe("getFile", () => {
 			}).pipe(Effect.provide(LiveLayer)),
 		);
 	});
+
+	authErrorTests(token => callGetFile(token, { file_id: "invalid" }));
 });

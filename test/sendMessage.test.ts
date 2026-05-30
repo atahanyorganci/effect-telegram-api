@@ -1,7 +1,7 @@
 import { assert, describe, it } from "@effect/vitest";
 import * as Effect from "effect/Effect";
 import * as Telegram from "../src/index.ts";
-import { expectErrorTag, LiveLayer, requireBotToken, requireChatId } from "./helpers.ts";
+import { authErrorTests, expectErrorTag, LiveLayer, requireBotToken, requireChatId } from "./helpers.ts";
 
 const callSendMessage = (token: string, payload: unknown) =>
 	Telegram.Client.callMethod(token, Telegram.Methods.sendMessage, payload);
@@ -34,4 +34,6 @@ describe("sendMessage", () => {
 			}).pipe(Effect.provide(LiveLayer)),
 		);
 	});
+
+	authErrorTests(token => callSendMessage(token, { chat_id: 1, text: "test" }));
 });
