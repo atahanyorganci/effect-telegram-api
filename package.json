@@ -16,6 +16,9 @@
 		"type": "git",
 		"url": "https://github.com/yorgnaci/effect-telegram-api"
 	},
+	"files": [
+		"src/**/*.ts"
+	],
 	"type": "module",
 	"sideEffects": [],
 	"exports": {
