@@ -29,6 +29,7 @@
 		"ingest:parse": "tsx scripts/parse.ts",
 		"lint": "oxlint scripts src test",
 		"lint:fix": "oxlint --fix scripts src test",
+		"readme:render": "tsx scripts/readme/render-readme.ts",
 		"test": "vitest run",
 		"test:watch": "vitest"
 	},
