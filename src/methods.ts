@@ -3,6 +3,7 @@
 import * as Schema from "effect/Schema";
 import * as Rpc from "effect/unstable/rpc/Rpc";
 import * as RpcGroup from "effect/unstable/rpc/RpcGroup";
+import * as Errors from "./Errors.ts";
 import * as Objects from "./Objects.ts";
 
 /** Use this method to send answers to callback queries sent from inline keyboards. The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, True */
@@ -459,6 +460,7 @@ export const getManagedBotToken = Rpc.make("getManagedBotToken", {
 /** A simple method for testing your bot's authentication token */
 export const getMe = Rpc.make("getMe", {
 	success: Objects.User,
+	error: Schema.Union([Errors.UnauthorizedError, Errors.NotFoundError]),
 });
 
 /** Use this method to get the current list of the bot's commands for the given scope and user language */

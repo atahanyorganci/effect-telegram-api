@@ -4,11 +4,12 @@ import * as Schema from "effect/Schema";
 import * as HttpClient from "effect/unstable/http/HttpClient";
 import * as HttpClientRequest from "effect/unstable/http/HttpClientRequest";
 import * as HttpClientResponse from "effect/unstable/http/HttpClientResponse";
+import * as Errors from "./Errors.ts";
 import type * as Rpc from "effect/unstable/rpc/Rpc";
 
 const BASE_URL = "https://api.telegram.org";
 
-/** Raised when Telegram responds with `{ "ok": false }`. */
+/** Raised when Telegram responds with `{ "ok": false }` and the code is not documented for the method. */
 export class TelegramApiError extends Data.TaggedError("TelegramApiError")<{
 	readonly errorCode: number;
 	readonly description: string;
@@ -27,6 +28,20 @@ type Envelope<A> =
 	| { readonly ok: true; readonly result: A }
 	| { readonly ok: false; readonly error_code: number; readonly description: string };
 
+const failFromEnvelope = (tag: string, error_code: number, description: string) => {
+	const mapping = Errors.methodErrors[tag as keyof typeof Errors.methodErrors];
+	if (mapping === undefined) {
+		return Effect.fail(new TelegramApiError({ errorCode: error_code, description }));
+	}
+
+	const ErrorClass = mapping[error_code as keyof typeof mapping];
+	if (ErrorClass === undefined) {
+		return Effect.fail(new TelegramApiError({ errorCode: error_code, description }));
+	}
+
+	return Effect.fail(new ErrorClass({ description }));
+};
+
 /**
  * Invokes a Telegram Bot API method described by an `Rpc` definition. The
  * request body is the (optional) payload, and the `result` field of the
@@ -36,7 +51,8 @@ export const callMethod = Effect.fn("callMethod")(function* <
 	Tag extends string,
 	Payload extends Schema.Top,
 	Success extends Schema.Top,
->(token: string, rpc: Rpc.Rpc<Tag, Payload, Success>, payload?: unknown) {
+	Error extends Schema.Top = Schema.Never,
+>(token: string, rpc: Rpc.Rpc<Tag, Payload, Success, Error>, payload?: unknown) {
 	const base = HttpClientRequest.post(`${BASE_URL}/bot${token}/${rpc._tag}`);
 	const request = payload === undefined ? base : yield* HttpClientRequest.bodyJson(base, payload);
 
@@ -48,5 +64,5 @@ export const callMethod = Effect.fn("callMethod")(function* <
 	if (envelope.ok) {
 		return envelope.result;
 	}
-	return yield* new TelegramApiError({ errorCode: envelope.error_code, description: envelope.description });
+	return yield* failFromEnvelope(rpc._tag, envelope.error_code, envelope.description);
 });
