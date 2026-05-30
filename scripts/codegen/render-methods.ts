@@ -1,4 +1,4 @@
-import { methodRpcError } from "./render-errors.ts";
+import { methodHttpApiError } from "./render-errors.ts";
 import {
 	renderAnnotatedSchemaExpr,
 	renderJsDoc,
@@ -15,6 +15,9 @@ const methodStrategy: RenderRefStrategy = {
 	fileSchema: () => "Objects.InputFile",
 };
 
+/** Telegram URLs are `/bot<token>/<method>` (no slash between `bot` and the token). */
+const methodPath = (name: string) => `/bot:token/${name}`;
+
 const renderPayloadField = (parameter: Parameter): string => {
 	let expr = renderSchemaExpr(parameter.type, methodStrategy);
 	if (!parameter.required) {
@@ -26,7 +29,11 @@ const renderPayloadField = (parameter: Parameter): string => {
 
 const renderMethod = (method: Method, methodErrors: ReadonlyMap<string, MethodErrorsDoc>): string => {
 	const doc = renderJsDoc(method.description);
-	const errorField = methodErrors.has(method.name) ? `\n\terror: ${methodRpcError(method.name, methodErrors)},` : "";
+	const path = methodPath(method.name);
+	const params = `\tparams: { token: Schema.String },`;
+	const errorField = methodErrors.has(method.name)
+		? `\n\terror: ${methodHttpApiError(method.name, methodErrors)},`
+		: "";
 	const successExpr = renderSchemaExpr(method.returns, methodStrategy);
 	const success =
 		method.parameters.length === 0
@@ -34,12 +41,12 @@ const renderMethod = (method: Method, methodErrors: ReadonlyMap<string, MethodEr
 			: `\tsuccess: ${successExpr},`;
 
 	if (method.parameters.length === 0) {
-		return `${doc}export const ${method.name} = Rpc.make("${method.name}", {\n${success}${errorField}\n});`;
+		return `${doc}export const ${method.name} = HttpApiEndpoint.post("${method.name}", "${path}", {\n${params}\n${success}${errorField}\n});`;
 	}
 
 	const fields = method.parameters.map(renderPayloadField).join("\n");
 	const payload = `\tpayload: ${renderAnnotatedSchemaExpr(`Schema.Struct({\n${fields}\n\t})`, method.description)},`;
-	return `${doc}export const ${method.name} = Rpc.make("${method.name}", {\n${payload}\n${success}${errorField}\n});`;
+	return `${doc}export const ${method.name} = HttpApiEndpoint.post("${method.name}", "${path}", {\n${params}\n${payload}\n${success}${errorField}\n});`;
 };
 
 export const renderMethodsModule = (
@@ -47,14 +54,13 @@ export const renderMethodsModule = (
 	methodErrors: ReadonlyMap<string, MethodErrorsDoc>,
 ): string => {
 	const sorted = [...methods].sort((a, b) => a.name.localeCompare(b.name));
-	const group = `export const TelegramBotApi = RpcGroup.make(\n${sorted
-		.map(method => `\t${method.name},`)
-		.join("\n")}\n);`;
+	const api = `export const TelegramBotApi = HttpApi.make("TelegramBotApi").add(\n\tHttpApiGroup.make("methods", { topLevel: true }).add(\n${sorted
+		.map(method => `\t\t${method.name},`)
+		.join("\n")}\n\t),\n);`;
 
 	const imports = [
 		...(methodErrors.size > 0 ? [`import * as Errors from "./Errors.ts";`] : []),
-		`import * as Rpc from "effect/unstable/rpc/Rpc";`,
-		`import * as RpcGroup from "effect/unstable/rpc/RpcGroup";`,
+		`import { HttpApi, HttpApiEndpoint, HttpApiGroup } from "effect/unstable/httpapi";`,
 		`import * as Schema from "effect/Schema";`,
 		`import * as Objects from "./Objects.ts";`,
 	];
@@ -63,7 +69,7 @@ export const renderMethodsModule = (
 		GENERATED_HEADER,
 		imports.join("\n"),
 		...sorted.map(method => renderMethod(method, methodErrors)),
-		group,
+		api,
 	];
 
 	return `${sections.join("\n\n")}\n`;

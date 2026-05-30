@@ -27,6 +27,9 @@ importers:
       '@typescript/native-preview':
         specifier: 7.0.0-dev.20260518.1
         version: 7.0.0-dev.20260518.1
+      dotenv:
+        specifier: ^17.4.2
+        version: 17.4.2
       jsr:
         specifier: ^0.14.3
         version: 0.14.3
@@ -807,6 +810,10 @@ packages:
 
   domutils@3.2.2:
     resolution: {integrity: sha512-6kZKyUajlDuqlHKVX1w7gyslj9MPIXzIFiz/rGu35uC1wMi+kMhQwGhl4lt9unC9Vb9INnY9Z3/ZA3+FhASLaw==}
+
+  dotenv@17.4.2:
+    resolution: {integrity: sha512-nI4U3TottKAcAD9LLud4Cb7b2QztQMUEfHbvhTH09bqXTxnSie8WnjPALV/WMCrJZ6UV/qHJ6L03OqO3LcdYZw==}
+    engines: {node: '>=12'}
 
   effect@4.0.0-beta.68:
     resolution: {integrity: sha512-JVmKXJvpyKBzr4xEr9nRlA6wQoInsI2WCfu2F69On49hvyDAmAOMb5ACa51HJksvRdqbSg7Zf0d++NQebY9cFQ==}
@@ -1688,6 +1695,8 @@ snapshots:
       dom-serializer: 2.0.0
       domelementtype: 2.3.0
       domhandler: 5.0.3
+
+  dotenv@17.4.2: {}
 
   effect@4.0.0-beta.68:
     dependencies:

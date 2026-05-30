@@ -45,7 +45,7 @@ const program = Effect.gen(function* () {
 	yield* fs.writeFileString(INDEX_PATH, indexSource);
 
 	yield* Console.log(`Wrote ${objects.length} object schemas to ${OBJECTS_PATH}`);
-	yield* Console.log(`Wrote ${methods.length} RPC definitions to ${METHODS_PATH}`);
+	yield* Console.log(`Wrote ${methods.length} HTTP API endpoints to ${METHODS_PATH}`);
 	yield* Console.log(`Wrote ${methodErrors.size} method error doc(s) to ${ERRORS_PATH}`);
 	yield* Console.log(`Wrote package exports to ${INDEX_PATH}`);
 	if (placeholders.length > 0) {

@@ -1,11 +1,13 @@
 import * as Data from "effect/Data";
 import * as Effect from "effect/Effect";
 import * as Schema from "effect/Schema";
-import * as HttpClient from "effect/unstable/http/HttpClient";
+import * as HttpClient_ from "effect/unstable/http/HttpClient";
 import * as HttpClientRequest from "effect/unstable/http/HttpClientRequest";
 import * as HttpClientResponse from "effect/unstable/http/HttpClientResponse";
+import * as HttpApiSchema from "effect/unstable/httpapi/HttpApiSchema";
 import * as Errors from "./Errors.ts";
-import type * as Rpc from "effect/unstable/rpc/Rpc";
+import type * as HttpClient from "effect/unstable/http/HttpClient";
+import type * as HttpApiEndpoint from "effect/unstable/httpapi/HttpApiEndpoint";
 
 const BASE_URL = "https://api.telegram.org";
 
@@ -63,8 +65,8 @@ type Envelope<A> =
 	| { readonly ok: true; readonly result: A }
 	| { readonly ok: false; readonly error_code: number; readonly description: string };
 
-const failFromEnvelope = (tag: string, error_code: number, description: string) => {
-	const rules = Errors.methodErrors[tag as keyof typeof Errors.methodErrors];
+const failFromEnvelope = (method: string, error_code: number, description: string) => {
+	const rules = Errors.methodErrors[method as keyof typeof Errors.methodErrors];
 	if (rules === undefined) {
 		return Effect.fail(new TelegramApiError({ errorCode: error_code, description }));
 	}
@@ -79,32 +81,52 @@ const failFromEnvelope = (tag: string, error_code: number, description: string) 
 	return Effect.fail(new (rule.error as ErrorConstructor)({ description }));
 };
 
+const successSchema = (endpoint: HttpApiEndpoint.AnyWithProps): Schema.Top => {
+	const schemas = [...endpoint.success];
+	return schemas[0] ?? HttpApiSchema.NoContent;
+};
+
+const decodeTelegramResult = (
+	endpoint: HttpApiEndpoint.AnyWithProps,
+	response: HttpClientResponse.HttpClientResponse,
+) => {
+	const schema = successSchema(endpoint);
+	const envelope = HttpClientResponse.schemaBodyJson(responseSchema(schema));
+	return Effect.flatMap(envelope(response), (decoded: Envelope<typeof schema.Type>) => {
+		if (decoded.ok) {
+			return Effect.succeed(decoded.result);
+		}
+		return failFromEnvelope(endpoint.name, decoded.error_code, decoded.description);
+	});
+};
+
 /**
- * Invokes a Telegram Bot API method described by an `Rpc` definition. The
+ * Invokes a Telegram Bot API method described by an `HttpApiEndpoint`. The
  * request body is the (optional) payload, and the `result` field of the
- * response envelope is decoded with the RPC's success schema.
+ * response envelope is decoded with the endpoint's success schema.
  */
-export const callMethod = Effect.fn("callMethod")(function* <
-	Tag extends string,
-	Payload extends Schema.Top,
-	Success extends Schema.Top,
-	Error extends Schema.Top = Schema.Never,
->(token: string, rpc: Rpc.Rpc<Tag, Payload, Success, Error>, payload?: unknown) {
-	const base = HttpClientRequest.post(`${BASE_URL}/bot${token}/${rpc._tag}`);
-	const request =
-		payload === undefined
-			? base
-			: hasUpload(payload)
-				? HttpClientRequest.bodyFormData(base, formDataFromPayload(payload))
-				: yield* HttpClientRequest.bodyJson(base, payload);
+export const callMethod = <Endpoint extends HttpApiEndpoint.AnyWithProps>(
+	token: string,
+	endpoint: Endpoint,
+	payload?: unknown,
+): Effect.Effect<
+	HttpApiEndpoint.Success<Endpoint>["Type"],
+	HttpApiEndpoint.Errors<Endpoint> | TelegramApiError,
+	HttpClient.HttpClient
+> =>
+	Effect.gen(function* () {
+		const base = HttpClientRequest.post(`${BASE_URL}/bot${token}/${endpoint.name}`);
+		const request =
+			payload === undefined
+				? base
+				: hasUpload(payload)
+					? HttpClientRequest.bodyFormData(base, formDataFromPayload(payload))
+					: yield* HttpClientRequest.bodyJson(base, payload);
 
-	const response = yield* HttpClient.execute(request);
-	const envelope = (yield* HttpClientResponse.schemaBodyJson(responseSchema(rpc.successSchema))(response)) as Envelope<
-		Success["Type"]
+		const response = yield* HttpClient_.execute(request);
+		return yield* decodeTelegramResult(endpoint, response);
+	}).pipe(Effect.withSpan("callMethod")) as Effect.Effect<
+		HttpApiEndpoint.Success<Endpoint>["Type"],
+		HttpApiEndpoint.Errors<Endpoint> | TelegramApiError,
+		HttpClient.HttpClient
 	>;
-
-	if (envelope.ok) {
-		return envelope.result;
-	}
-	return yield* failFromEnvelope(rpc._tag, envelope.error_code, envelope.description);
-});

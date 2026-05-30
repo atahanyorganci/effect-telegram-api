@@ -21,7 +21,7 @@ bun add @yorganci/effect-telegram-api effect
 deno add jsr:@yorganci/effect-telegram-api
 ```
 
-This package targets Effect v4 and uses `effect/unstable/rpc/Rpc` and `effect/unstable/rpc/RpcGroup` for defining the API contract. Thus, it can be used with Node.js/Bun/Deno runtimes or even with `FetchHttpClient` from `effect/unstable/http` for browser or unconventional runtimes such as Cloudflare Workers.
+This package targets Effect v4 and uses `effect/unstable/httpapi` (`HttpApi`, `HttpApiGroup`, `HttpApiEndpoint`) for defining the API contract. Thus, it can be used with Node.js/Bun/Deno runtimes or even with `FetchHttpClient` from `effect/unstable/http` for browser or unconventional runtimes such as Cloudflare Workers.
 
 ## Exports
 
@@ -29,7 +29,7 @@ This package targets Effect v4 and uses `effect/unstable/rpc/Rpc` and `effect/un
 | --------------------------------------- | ------------------------------------------- |
 | `@yorganci/effect-telegram-api`         | Re-exports below                            |
 | `@yorganci/effect-telegram-api/Client`  | `callMethod`, `TelegramApiError`            |
-| `@yorganci/effect-telegram-api/Methods` | Generated Bot API method RPCs               |
+| `@yorganci/effect-telegram-api/Methods` | Generated Bot API `HttpApi` definition      |
 | `@yorganci/effect-telegram-api/Objects` | Generated Telegram object schemas and types |
 
 ## Development

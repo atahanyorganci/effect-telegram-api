@@ -5,7 +5,7 @@ import * as ConfigProvider from "effect/ConfigProvider";
 import * as Effect from "effect/Effect";
 import * as Layer from "effect/Layer";
 import * as Schema from "effect/Schema";
-import * as Rpc from "effect/unstable/rpc/Rpc";
+import { HttpApiEndpoint } from "effect/unstable/httpapi";
 import { appendFileSync, existsSync, mkdirSync, readFileSync, unlinkSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import * as Telegram from "../src/index.ts";
@@ -31,8 +31,9 @@ const telegramConfigProvider = ConfigProvider.fromUnknown(process.env);
 
 export const telegramConfig = TelegramConfig.parse(telegramConfigProvider);
 
-/** Test-only RPC until `deleteMessage` is in the generated spec. */
-const deleteMessageRpc = Rpc.make("deleteMessage", {
+/** Test-only endpoint until `deleteMessage` is in the generated spec. */
+const deleteMessage = HttpApiEndpoint.post("deleteMessage", "/bot/:token/deleteMessage", {
+	params: { token: Schema.String },
 	payload: Schema.Struct({
 		chat_id: Schema.Union([Schema.Int, Schema.String]),
 		message_id: Schema.Int,
@@ -42,7 +43,7 @@ const deleteMessageRpc = Rpc.make("deleteMessage", {
 
 /** Best-effort delete of a bot message created during a test. Ignores Telegram errors. */
 export const deleteSentMessage = (token: string, chatId: number, messageId: number) =>
-	Telegram.Client.callMethod(token, deleteMessageRpc, { chat_id: chatId, message_id: messageId }).pipe(Effect.ignore);
+	Telegram.Client.callMethod(token, deleteMessage, { chat_id: chatId, message_id: messageId }).pipe(Effect.ignore);
 
 export const deleteSentMessages = (token: string, chatId: number, messageIds: readonly number[]) =>
 	Effect.forEach(messageIds, messageId => deleteSentMessage(token, chatId, messageId), { discard: true });

@@ -11,13 +11,58 @@ export interface RenderRefStrategy {
 
 export const escapeJsDoc = (text: string): string => text.trim().replace(/\*\//g, "*\\/");
 
-/** Renders a single-line JSDoc comment when `description` is non-empty. */
+const JSDOC_MAX_LINE_LENGTH = 80;
+
+const wrapWords = (text: string, maxContentWidth: number): ReadonlyArray<string> => {
+	const words = text.split(/\s+/).filter(word => word.length > 0);
+	if (words.length === 0) {
+		return [];
+	}
+
+	const lines: Array<string> = [];
+	let current = words[0]!;
+
+	for (const word of words.slice(1)) {
+		const next = `${current} ${word}`;
+		if (next.length <= maxContentWidth) {
+			current = next;
+			continue;
+		}
+		lines.push(current);
+		current = word;
+	}
+
+	lines.push(current);
+	return lines;
+};
+
+const wrapParagraph = (paragraph: string, maxContentWidth: number): ReadonlyArray<string> => {
+	const normalized = paragraph.replace(/\s+/g, " ").trim();
+	if (normalized.length === 0) {
+		return [];
+	}
+	return wrapWords(normalized, maxContentWidth);
+};
+
+// Renders a multi-line JSDoc block when description is non-empty:
+// newline after opening, max 80 columns per line without breaking words,
+// newline before closing.
 export const renderJsDoc = (description: string, indent = ""): string => {
 	const text = escapeJsDoc(description);
 	if (text.length === 0) {
 		return "";
 	}
-	return `${indent}/** ${text} */\n`;
+
+	const linePrefix = `${indent} * `;
+	const maxContentWidth = Math.max(1, JSDOC_MAX_LINE_LENGTH - linePrefix.length);
+	const lines = text.split(/\n/).flatMap(paragraph => wrapParagraph(paragraph, maxContentWidth));
+
+	if (lines.length === 0) {
+		return "";
+	}
+
+	const body = lines.map(line => `${linePrefix}${line}`).join("\n");
+	return `${indent}/**\n${body}\n${indent} */\n`;
 };
 
 /** Wraps a schema expression with `Schema.annotate({ description })` when non-empty. */

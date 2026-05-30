@@ -3,8 +3,9 @@
 import * as Data from "effect/Data";
 import * as Schema from "effect/Schema";
 
-/** required parameters missing */
-
+/**
+ * required parameters missing
+ */
 export class AcceptedGiftTypesNotSpecified extends Data.TaggedError("AcceptedGiftTypesNotSpecified")<{
 	readonly description: string;
 }> {}
@@ -13,8 +14,9 @@ export const AcceptedGiftTypesNotSpecifiedError = Schema.TaggedStruct("AcceptedG
 	description: Schema.String,
 });
 
-/** switch_inline_query_chosen_chat.allow_user_chats is not a boolean */
-
+/**
+ * switch_inline_query_chosen_chat.allow_user_chats is not a boolean
+ */
 export class AllowUserChatsMustBeBoolean extends Data.TaggedError("AllowUserChatsMustBeBoolean")<{
 	readonly description: string;
 }> {}
@@ -23,8 +25,10 @@ export const AllowUserChatsMustBeBooleanError = Schema.TaggedStruct("AllowUserCh
 	description: Schema.String,
 });
 
-/** command contains characters other than lowercase English letters, digits, and underscores */
-
+/**
+ * command contains characters other than lowercase English letters, digits, and
+ * underscores
+ */
 export class BotCommandInvalid extends Data.TaggedError("BotCommandInvalid")<{
 	readonly description: string;
 }> {}
@@ -33,8 +37,9 @@ export const BotCommandInvalidError = Schema.TaggedStruct("BotCommandInvalid", {
 	description: Schema.String,
 });
 
-/** BotCommandScope that requires chat_id omits it */
-
+/**
+ * BotCommandScope that requires chat_id omits it
+ */
 export class BotCommandScopeChatIdMissing extends Data.TaggedError("BotCommandScopeChatIdMissing")<{
 	readonly description: string;
 }> {}
@@ -43,8 +48,9 @@ export const BotCommandScopeChatIdMissingError = Schema.TaggedStruct("BotCommand
 	description: Schema.String,
 });
 
-/** BotCommandScope type is unsupported */
-
+/**
+ * BotCommandScope type is unsupported
+ */
 export class BotCommandScopeUnsupportedType extends Data.TaggedError("BotCommandScopeUnsupportedType")<{
 	readonly description: string;
 }> {}
@@ -53,8 +59,9 @@ export const BotCommandScopeUnsupportedTypeError = Schema.TaggedStruct("BotComma
 	description: Schema.String,
 });
 
-/** BotCommandScope that requires user_id omits it */
-
+/**
+ * BotCommandScope that requires user_id omits it
+ */
 export class BotCommandScopeUserIdMissing extends Data.TaggedError("BotCommandScopeUserIdMissing")<{
 	readonly description: string;
 }> {}
@@ -63,8 +70,9 @@ export const BotCommandScopeUserIdMissingError = Schema.TaggedStruct("BotCommand
 	description: Schema.String,
 });
 
-/** description exceeds the 512 character limit */
-
+/**
+ * description exceeds the 512 character limit
+ */
 export class BotDescriptionInvalid extends Data.TaggedError("BotDescriptionInvalid")<{
 	readonly description: string;
 }> {}
@@ -73,8 +81,9 @@ export const BotDescriptionInvalidError = Schema.TaggedStruct("BotDescriptionInv
 	description: Schema.String,
 });
 
-/** login_url is missing bot_username */
-
+/**
+ * login_url is missing bot_username
+ */
 export class BotDomainInvalid extends Data.TaggedError("BotDomainInvalid")<{
 	readonly description: string;
 }> {}
@@ -83,8 +92,9 @@ export const BotDomainInvalidError = Schema.TaggedStruct("BotDomainInvalid", {
 	description: Schema.String,
 });
 
-/** short_description exceeds the 120 character limit */
-
+/**
+ * short_description exceeds the 120 character limit
+ */
 export class BotShortDescriptionInvalid extends Data.TaggedError("BotShortDescriptionInvalid")<{
 	readonly description: string;
 }> {}
@@ -93,8 +103,9 @@ export const BotShortDescriptionInvalidError = Schema.TaggedStruct("BotShortDesc
 	description: Schema.String,
 });
 
-/** name is missing or empty */
-
+/**
+ * name is missing or empty
+ */
 export class BotTitleInvalid extends Data.TaggedError("BotTitleInvalid")<{
 	readonly description: string;
 }> {}
@@ -103,8 +114,9 @@ export const BotTitleInvalidError = Schema.TaggedStruct("BotTitleInvalid", {
 	description: Schema.String,
 });
 
-/** bot is not allowed to remove verification for the chat */
-
+/**
+ * bot is not allowed to remove verification for the chat
+ */
 export class BotVerifierForbidden extends Data.TaggedError("BotVerifierForbidden")<{
 	readonly description: string;
 }> {}
@@ -113,8 +125,9 @@ export const BotVerifierForbiddenError = Schema.TaggedStruct("BotVerifierForbidd
 	description: Schema.String,
 });
 
-/** required parameters missing */
-
+/**
+ * required parameters missing
+ */
 export class BusinessConnectionNotFound extends Data.TaggedError("BusinessConnectionNotFound")<{
 	readonly description: string;
 }> {}
@@ -123,8 +136,9 @@ export const BusinessConnectionNotFoundError = Schema.TaggedStruct("BusinessConn
 	description: Schema.String,
 });
 
-/** copy_text button text is empty or too long */
-
+/**
+ * copy_text button text is empty or too long
+ */
 export class ButtonCopyTextInvalid extends Data.TaggedError("ButtonCopyTextInvalid")<{
 	readonly description: string;
 }> {}
@@ -133,8 +147,9 @@ export const ButtonCopyTextInvalidError = Schema.TaggedStruct("ButtonCopyTextInv
 	description: Schema.String,
 });
 
-/** inline keyboard callback_data exceeds 64 bytes */
-
+/**
+ * inline keyboard callback_data exceeds 64 bytes
+ */
 export class ButtonDataInvalid extends Data.TaggedError("ButtonDataInvalid")<{
 	readonly description: string;
 }> {}
@@ -143,8 +158,9 @@ export const ButtonDataInvalidError = Schema.TaggedStruct("ButtonDataInvalid", {
 	description: Schema.String,
 });
 
-/** request_users.max_quantity exceeds the allowed maximum */
-
+/**
+ * request_users.max_quantity exceeds the allowed maximum
+ */
 export class ButtonQuantityMaxInvalid extends Data.TaggedError("ButtonQuantityMaxInvalid")<{
 	readonly description: string;
 }> {}
@@ -153,8 +169,10 @@ export const ButtonQuantityMaxInvalidError = Schema.TaggedStruct("ButtonQuantity
 	description: Schema.String,
 });
 
-/** inline keyboard button type is invalid (e.g. pay without invoice or callback_game without game) */
-
+/**
+ * inline keyboard button type is invalid (e.g. pay without invoice or
+ * callback_game without game)
+ */
 export class ButtonTypeInvalid extends Data.TaggedError("ButtonTypeInvalid")<{
 	readonly description: string;
 }> {}
@@ -163,8 +181,9 @@ export const ButtonTypeInvalidError = Schema.TaggedStruct("ButtonTypeInvalid", {
 	description: Schema.String,
 });
 
-/** callback_query_id is missing or invalid */
-
+/**
+ * callback_query_id is missing or invalid
+ */
 export class CallbackQueryIdInvalid extends Data.TaggedError("CallbackQueryIdInvalid")<{
 	readonly description: string;
 }> {}
@@ -173,8 +192,9 @@ export const CallbackQueryIdInvalidError = Schema.TaggedStruct("CallbackQueryIdI
 	description: Schema.String,
 });
 
-/** chat_id refers to a private chat with the bot */
-
+/**
+ * chat_id refers to a private chat with the bot
+ */
 export class CantChangePrivateChatDescription extends Data.TaggedError("CantChangePrivateChatDescription")<{
 	readonly description: string;
 }> {}
@@ -183,8 +203,9 @@ export const CantChangePrivateChatDescriptionError = Schema.TaggedStruct("CantCh
 	description: Schema.String,
 });
 
-/** chat_id refers to a private chat with the bot */
-
+/**
+ * chat_id refers to a private chat with the bot
+ */
 export class CantChangePrivateChatPermissions extends Data.TaggedError("CantChangePrivateChatPermissions")<{
 	readonly description: string;
 }> {}
@@ -193,8 +214,9 @@ export const CantChangePrivateChatPermissionsError = Schema.TaggedStruct("CantCh
 	description: Schema.String,
 });
 
-/** chat_id refers to a private chat with the bot */
-
+/**
+ * chat_id refers to a private chat with the bot
+ */
 export class CantChangePrivateChatPhoto extends Data.TaggedError("CantChangePrivateChatPhoto")<{
 	readonly description: string;
 }> {}
@@ -203,8 +225,9 @@ export const CantChangePrivateChatPhotoError = Schema.TaggedStruct("CantChangePr
 	description: Schema.String,
 });
 
-/** chat_id refers to a private chat with the bot */
-
+/**
+ * chat_id refers to a private chat with the bot
+ */
 export class CantChangePrivateChatTitle extends Data.TaggedError("CantChangePrivateChatTitle")<{
 	readonly description: string;
 }> {}
@@ -213,8 +236,9 @@ export const CantChangePrivateChatTitleError = Schema.TaggedStruct("CantChangePr
 	description: Schema.String,
 });
 
-/** result object is missing the required type field */
-
+/**
+ * result object is missing the required type field
+ */
 export class CantFindFieldType extends Data.TaggedError("CantFindFieldType")<{
 	readonly description: string;
 }> {}
@@ -223,8 +247,9 @@ export const CantFindFieldTypeError = Schema.TaggedStruct("CantFindFieldType", {
 	description: Schema.String,
 });
 
-/** chat_id refers to a private chat that does not support invite links */
-
+/**
+ * chat_id refers to a private chat that does not support invite links
+ */
 export class CantInviteMembersToPrivateChat extends Data.TaggedError("CantInviteMembersToPrivateChat")<{
 	readonly description: string;
 }> {}
@@ -233,8 +258,9 @@ export const CantInviteMembersToPrivateChatError = Schema.TaggedStruct("CantInvi
 	description: Schema.String,
 });
 
-/** HTML tg-emoji tag references an invalid custom emoji id */
-
+/**
+ * HTML tg-emoji tag references an invalid custom emoji id
+ */
 export class CantParseEntitiesInvalidCustomEmoji extends Data.TaggedError("CantParseEntitiesInvalidCustomEmoji")<{
 	readonly description: string;
 }> {}
@@ -243,8 +269,9 @@ export const CantParseEntitiesInvalidCustomEmojiError = Schema.TaggedStruct("Can
 	description: Schema.String,
 });
 
-/** text with parse_mode MarkdownV2 contains an unclosed bold entity */
-
+/**
+ * text with parse_mode MarkdownV2 contains an unclosed bold entity
+ */
 export class CantParseEntitiesNoBoldEnd extends Data.TaggedError("CantParseEntitiesNoBoldEnd")<{
 	readonly description: string;
 }> {}
@@ -253,8 +280,9 @@ export const CantParseEntitiesNoBoldEndError = Schema.TaggedStruct("CantParseEnt
 	description: Schema.String,
 });
 
-/** text with parse_mode Markdown contains an unclosed entity */
-
+/**
+ * text with parse_mode Markdown contains an unclosed entity
+ */
 export class CantParseEntitiesNoEnd extends Data.TaggedError("CantParseEntitiesNoEnd")<{
 	readonly description: string;
 }> {}
@@ -263,8 +291,9 @@ export const CantParseEntitiesNoEndError = Schema.TaggedStruct("CantParseEntitie
 	description: Schema.String,
 });
 
-/** text with parse_mode HTML contains an unclosed tag */
-
+/**
+ * text with parse_mode HTML contains an unclosed tag
+ */
 export class CantParseEntitiesNoHtmlEndTag extends Data.TaggedError("CantParseEntitiesNoHtmlEndTag")<{
 	readonly description: string;
 }> {}
@@ -273,8 +302,9 @@ export const CantParseEntitiesNoHtmlEndTagError = Schema.TaggedStruct("CantParse
 	description: Schema.String,
 });
 
-/** text with parse_mode MarkdownV2 contains an unescaped opening brace */
-
+/**
+ * text with parse_mode MarkdownV2 contains an unescaped opening brace
+ */
 export class CantParseEntitiesReservedCharBrace extends Data.TaggedError("CantParseEntitiesReservedCharBrace")<{
 	readonly description: string;
 }> {}
@@ -283,8 +313,9 @@ export const CantParseEntitiesReservedCharBraceError = Schema.TaggedStruct("Cant
 	description: Schema.String,
 });
 
-/** text with parse_mode MarkdownV2 contains an unescaped hyphen */
-
+/**
+ * text with parse_mode MarkdownV2 contains an unescaped hyphen
+ */
 export class CantParseEntitiesReservedCharDash extends Data.TaggedError("CantParseEntitiesReservedCharDash")<{
 	readonly description: string;
 }> {}
@@ -293,8 +324,9 @@ export const CantParseEntitiesReservedCharDashError = Schema.TaggedStruct("CantP
 	description: Schema.String,
 });
 
-/** text with parse_mode MarkdownV2 contains an unescaped period */
-
+/**
+ * text with parse_mode MarkdownV2 contains an unescaped period
+ */
 export class CantParseEntitiesReservedCharDot extends Data.TaggedError("CantParseEntitiesReservedCharDot")<{
 	readonly description: string;
 }> {}
@@ -303,8 +335,9 @@ export const CantParseEntitiesReservedCharDotError = Schema.TaggedStruct("CantPa
 	description: Schema.String,
 });
 
-/** text with parse_mode MarkdownV2 contains an unescaped equals sign */
-
+/**
+ * text with parse_mode MarkdownV2 contains an unescaped equals sign
+ */
 export class CantParseEntitiesReservedCharEquals extends Data.TaggedError("CantParseEntitiesReservedCharEquals")<{
 	readonly description: string;
 }> {}
@@ -313,8 +346,9 @@ export const CantParseEntitiesReservedCharEqualsError = Schema.TaggedStruct("Can
 	description: Schema.String,
 });
 
-/** text with parse_mode MarkdownV2 contains an unescaped exclamation mark */
-
+/**
+ * text with parse_mode MarkdownV2 contains an unescaped exclamation mark
+ */
 export class CantParseEntitiesReservedCharExclamation extends Data.TaggedError(
 	"CantParseEntitiesReservedCharExclamation",
 )<{
@@ -328,8 +362,9 @@ export const CantParseEntitiesReservedCharExclamationError = Schema.TaggedStruct
 	},
 );
 
-/** text with parse_mode MarkdownV2 contains an unescaped greater-than sign */
-
+/**
+ * text with parse_mode MarkdownV2 contains an unescaped greater-than sign
+ */
 export class CantParseEntitiesReservedCharGreater extends Data.TaggedError("CantParseEntitiesReservedCharGreater")<{
 	readonly description: string;
 }> {}
@@ -338,8 +373,9 @@ export const CantParseEntitiesReservedCharGreaterError = Schema.TaggedStruct("Ca
 	description: Schema.String,
 });
 
-/** text with parse_mode MarkdownV2 contains an unescaped hash sign */
-
+/**
+ * text with parse_mode MarkdownV2 contains an unescaped hash sign
+ */
 export class CantParseEntitiesReservedCharHash extends Data.TaggedError("CantParseEntitiesReservedCharHash")<{
 	readonly description: string;
 }> {}
@@ -348,8 +384,9 @@ export const CantParseEntitiesReservedCharHashError = Schema.TaggedStruct("CantP
 	description: Schema.String,
 });
 
-/** text with parse_mode MarkdownV2 contains an unescaped opening parenthesis */
-
+/**
+ * text with parse_mode MarkdownV2 contains an unescaped opening parenthesis
+ */
 export class CantParseEntitiesReservedCharParen extends Data.TaggedError("CantParseEntitiesReservedCharParen")<{
 	readonly description: string;
 }> {}
@@ -358,8 +395,9 @@ export const CantParseEntitiesReservedCharParenError = Schema.TaggedStruct("Cant
 	description: Schema.String,
 });
 
-/** text with parse_mode MarkdownV2 contains an unescaped pipe character */
-
+/**
+ * text with parse_mode MarkdownV2 contains an unescaped pipe character
+ */
 export class CantParseEntitiesReservedCharPipe extends Data.TaggedError("CantParseEntitiesReservedCharPipe")<{
 	readonly description: string;
 }> {}
@@ -368,8 +406,9 @@ export const CantParseEntitiesReservedCharPipeError = Schema.TaggedStruct("CantP
 	description: Schema.String,
 });
 
-/** text with parse_mode MarkdownV2 contains an unescaped plus sign */
-
+/**
+ * text with parse_mode MarkdownV2 contains an unescaped plus sign
+ */
 export class CantParseEntitiesReservedCharPlus extends Data.TaggedError("CantParseEntitiesReservedCharPlus")<{
 	readonly description: string;
 }> {}
@@ -378,8 +417,9 @@ export const CantParseEntitiesReservedCharPlusError = Schema.TaggedStruct("CantP
 	description: Schema.String,
 });
 
-/** text with parse_mode HTML has mismatched closing tags */
-
+/**
+ * text with parse_mode HTML has mismatched closing tags
+ */
 export class CantParseEntitiesUnmatchedEndTag extends Data.TaggedError("CantParseEntitiesUnmatchedEndTag")<{
 	readonly description: string;
 }> {}
@@ -388,8 +428,9 @@ export const CantParseEntitiesUnmatchedEndTagError = Schema.TaggedStruct("CantPa
 	description: Schema.String,
 });
 
-/** text with parse_mode HTML contains a disallowed tag */
-
+/**
+ * text with parse_mode HTML contains a disallowed tag
+ */
 export class CantParseEntitiesUnsupportedScriptTag extends Data.TaggedError("CantParseEntitiesUnsupportedScriptTag")<{
 	readonly description: string;
 }> {}
@@ -398,8 +439,9 @@ export const CantParseEntitiesUnsupportedScriptTagError = Schema.TaggedStruct("C
 	description: Schema.String,
 });
 
-/** text with parse_mode HTML contains an unknown tag */
-
+/**
+ * text with parse_mode HTML contains an unknown tag
+ */
 export class CantParseEntitiesUnsupportedTag extends Data.TaggedError("CantParseEntitiesUnsupportedTag")<{
 	readonly description: string;
 }> {}
@@ -408,8 +450,9 @@ export const CantParseEntitiesUnsupportedTagError = Schema.TaggedStruct("CantPar
 	description: Schema.String,
 });
 
-/** options parameter is missing */
-
+/**
+ * options parameter is missing
+ */
 export class CantParseOptionsJsonObject extends Data.TaggedError("CantParseOptionsJsonObject")<{
 	readonly description: string;
 }> {}
@@ -418,8 +461,9 @@ export const CantParseOptionsJsonObjectError = Schema.TaggedStruct("CantParseOpt
 	description: Schema.String,
 });
 
-/** promotion would demote the chat owner */
-
+/**
+ * promotion would demote the chat owner
+ */
 export class CantRemoveChatOwner extends Data.TaggedError("CantRemoveChatOwner")<{
 	readonly description: string;
 }> {}
@@ -428,8 +472,9 @@ export const CantRemoveChatOwnerError = Schema.TaggedStruct("CantRemoveChatOwner
 	description: Schema.String,
 });
 
-/** bot lacks permission to change the group sticker set */
-
+/**
+ * bot lacks permission to change the group sticker set
+ */
 export class CantSetSupergroupStickerSet extends Data.TaggedError("CantSetSupergroupStickerSet")<{
 	readonly description: string;
 }> {}
@@ -438,8 +483,9 @@ export const CantSetSupergroupStickerSetError = Schema.TaggedStruct("CantSetSupe
 	description: Schema.String,
 });
 
-/** rights.can_delete_messages is not a boolean */
-
+/**
+ * rights.can_delete_messages is not a boolean
+ */
 export class ChatAdministratorRightsCanDeleteMessagesMustBeBoolean extends Data.TaggedError(
 	"ChatAdministratorRightsCanDeleteMessagesMustBeBoolean",
 )<{
@@ -453,8 +499,9 @@ export const ChatAdministratorRightsCanDeleteMessagesMustBeBooleanError = Schema
 	},
 );
 
-/** bot is not an administrator with can_manage_topics */
-
+/**
+ * bot is not an administrator with can_manage_topics
+ */
 export class ChatAdminRequired extends Data.TaggedError("ChatAdminRequired")<{
 	readonly description: string;
 }> {}
@@ -463,8 +510,9 @@ export const ChatAdminRequiredError = Schema.TaggedStruct("ChatAdminRequired", {
 	description: Schema.String,
 });
 
-/** only the chat creator can set member tags */
-
+/**
+ * only the chat creator can set member tags
+ */
 export class ChatCreatorRequired extends Data.TaggedError("ChatCreatorRequired")<{
 	readonly description: string;
 }> {}
@@ -473,8 +521,9 @@ export const ChatCreatorRequiredError = Schema.TaggedStruct("ChatCreatorRequired
 	description: Schema.String,
 });
 
-/** required parameters missing */
-
+/**
+ * required parameters missing
+ */
 export class ChatIdEmpty extends Data.TaggedError("ChatIdEmpty")<{
 	readonly description: string;
 }> {}
@@ -483,8 +532,9 @@ export const ChatIdEmptyError = Schema.TaggedStruct("ChatIdEmpty", {
 	description: Schema.String,
 });
 
-/** validation fails */
-
+/**
+ * validation fails
+ */
 export class ChatIdentifierEmpty extends Data.TaggedError("ChatIdentifierEmpty")<{
 	readonly description: string;
 }> {}
@@ -493,8 +543,9 @@ export const ChatIdentifierEmptyError = Schema.TaggedStruct("ChatIdentifierEmpty
 	description: Schema.String,
 });
 
-/** request_chat.chat_is_forum is not a boolean */
-
+/**
+ * request_chat.chat_is_forum is not a boolean
+ */
 export class ChatIsForumMustBeBoolean extends Data.TaggedError("ChatIsForumMustBeBoolean")<{
 	readonly description: string;
 }> {}
@@ -503,8 +554,9 @@ export const ChatIsForumMustBeBooleanError = Schema.TaggedStruct("ChatIsForumMus
 	description: Schema.String,
 });
 
-/** chat_id refers to a private chat with the bot */
-
+/**
+ * chat_id refers to a private chat with the bot
+ */
 export class ChatMemberStatusCantBeChangedInPrivateChats extends Data.TaggedError(
 	"ChatMemberStatusCantBeChangedInPrivateChats",
 )<{
@@ -518,8 +570,9 @@ export const ChatMemberStatusCantBeChangedInPrivateChatsError = Schema.TaggedStr
 	},
 );
 
-/** chat_id does not refer to a chat the bot can access */
-
+/**
+ * chat_id does not refer to a chat the bot can access
+ */
 export class ChatNotFound extends Data.TaggedError("ChatNotFound")<{
 	readonly description: string;
 }> {}
@@ -528,8 +581,9 @@ export const ChatNotFoundError = Schema.TaggedStruct("ChatNotFound", {
 	description: Schema.String,
 });
 
-/** bot lacks permission to delete the forum topic */
-
+/**
+ * bot lacks permission to delete the forum topic
+ */
 export class ChatWriteForbidden extends Data.TaggedError("ChatWriteForbidden")<{
 	readonly description: string;
 }> {}
@@ -538,8 +592,9 @@ export const ChatWriteForbiddenError = Schema.TaggedStruct("ChatWriteForbidden",
 	description: Schema.String,
 });
 
-/** checklist parameter is missing */
-
+/**
+ * checklist parameter is missing
+ */
 export class ChecklistRequired extends Data.TaggedError("ChecklistRequired")<{
 	readonly description: string;
 }> {}
@@ -548,8 +603,9 @@ export const ChecklistRequiredError = Schema.TaggedStruct("ChecklistRequired", {
 	description: Schema.String,
 });
 
-/** a command entry has an empty description */
-
+/**
+ * a command entry has an empty description
+ */
 export class CommandDescriptionMustBeNonEmpty extends Data.TaggedError("CommandDescriptionMustBeNonEmpty")<{
 	readonly description: string;
 }> {}
@@ -558,8 +614,9 @@ export const CommandDescriptionMustBeNonEmptyError = Schema.TaggedStruct("Comman
 	description: Schema.String,
 });
 
-/** a command entry has an empty command string */
-
+/**
+ * a command entry has an empty command string
+ */
 export class CommandMustBeNonEmpty extends Data.TaggedError("CommandMustBeNonEmpty")<{
 	readonly description: string;
 }> {}
@@ -568,8 +625,9 @@ export const CommandMustBeNonEmptyError = Schema.TaggedStruct("CommandMustBeNonE
 	description: Schema.String,
 });
 
-/** custom_emoji entity is missing custom_emoji_id */
-
+/**
+ * custom_emoji entity is missing custom_emoji_id
+ */
 export class CustomEmojiIdMissing extends Data.TaggedError("CustomEmojiIdMissing")<{
 	readonly description: string;
 }> {}
@@ -578,8 +636,9 @@ export const CustomEmojiIdMissingError = Schema.TaggedStruct("CustomEmojiIdMissi
 	description: Schema.String,
 });
 
-/** custom_emoji entity has a non-numeric custom_emoji_id */
-
+/**
+ * custom_emoji entity has a non-numeric custom_emoji_id
+ */
 export class CustomEmojiIdMustBeNumber extends Data.TaggedError("CustomEmojiIdMustBeNumber")<{
 	readonly description: string;
 }> {}
@@ -588,8 +647,9 @@ export const CustomEmojiIdMustBeNumberError = Schema.TaggedStruct("CustomEmojiId
 	description: Schema.String,
 });
 
-/** message_effect_id is not valid */
-
+/**
+ * message_effect_id is not valid
+ */
 export class EffectIdInvalid extends Data.TaggedError("EffectIdInvalid")<{
 	readonly description: string;
 }> {}
@@ -598,8 +658,9 @@ export const EffectIdInvalidError = Schema.TaggedStruct("EffectIdInvalid", {
 	description: Schema.String,
 });
 
-/** entities offset is beyond the text length */
-
+/**
+ * entities offset is beyond the text length
+ */
 export class EntityBeginsAfterTextEnd extends Data.TaggedError("EntityBeginsAfterTextEnd")<{
 	readonly description: string;
 }> {}
@@ -608,8 +669,9 @@ export const EntityBeginsAfterTextEndError = Schema.TaggedStruct("EntityBeginsAf
 	description: Schema.String,
 });
 
-/** entities offset plus length exceeds the text length */
-
+/**
+ * entities offset plus length exceeds the text length
+ */
 export class EntityEndsAfterTextEnd extends Data.TaggedError("EntityEndsAfterTextEnd")<{
 	readonly description: string;
 }> {}
@@ -618,8 +680,9 @@ export const EntityEndsAfterTextEndError = Schema.TaggedStruct("EntityEndsAfterT
 	description: Schema.String,
 });
 
-/** entities offset is negative */
-
+/**
+ * entities offset is negative
+ */
 export class EntityIncorrectOffset extends Data.TaggedError("EntityIncorrectOffset")<{
 	readonly description: string;
 }> {}
@@ -628,8 +691,9 @@ export const EntityIncorrectOffsetError = Schema.TaggedStruct("EntityIncorrectOf
 	description: Schema.String,
 });
 
-/** text_link entity url is empty */
-
+/**
+ * text_link entity url is empty
+ */
 export class EntityUrlEmpty extends Data.TaggedError("EntityUrlEmpty")<{
 	readonly description: string;
 }> {}
@@ -638,8 +702,9 @@ export const EntityUrlEmptyError = Schema.TaggedStruct("EntityUrlEmpty", {
 	description: Schema.String,
 });
 
-/** text_link entity url is not a valid HTTP URL */
-
+/**
+ * text_link entity url is not a valid HTTP URL
+ */
 export class EntityUrlInvalid extends Data.TaggedError("EntityUrlInvalid")<{
 	readonly description: string;
 }> {}
@@ -648,8 +713,9 @@ export const EntityUrlInvalidError = Schema.TaggedStruct("EntityUrlInvalid", {
 	description: Schema.String,
 });
 
-/** file_id parameter is missing or empty */
-
+/**
+ * file_id parameter is missing or empty
+ */
 export class FileIdNotSpecified extends Data.TaggedError("FileIdNotSpecified")<{
 	readonly description: string;
 }> {}
@@ -658,8 +724,9 @@ export const FileIdNotSpecifiedError = Schema.TaggedStruct("FileIdNotSpecified",
 	description: Schema.String,
 });
 
-/** first_name parameter is missing */
-
+/**
+ * first_name parameter is missing
+ */
 export class FirstNameRequired extends Data.TaggedError("FirstNameRequired")<{
 	readonly description: string;
 }> {}
@@ -668,8 +735,9 @@ export const FirstNameRequiredError = Schema.TaggedStruct("FirstNameRequired", {
 	description: Schema.String,
 });
 
-/** allow_paid_broadcast is true but the bot has insufficient Telegram Stars */
-
+/**
+ * allow_paid_broadcast is true but the bot has insufficient Telegram Stars
+ */
 export class FloodskipNotAllowed extends Data.TaggedError("FloodskipNotAllowed")<{
 	readonly description: string;
 }> {}
@@ -678,8 +746,9 @@ export const FloodskipNotAllowedError = Schema.TaggedStruct("FloodskipNotAllowed
 	description: Schema.String,
 });
 
-/** force_reply is not a boolean */
-
+/**
+ * force_reply is not a boolean
+ */
 export class ForceReplyMustBeBoolean extends Data.TaggedError("ForceReplyMustBeBoolean")<{
 	readonly description: string;
 }> {}
@@ -688,8 +757,9 @@ export const ForceReplyMustBeBooleanError = Schema.TaggedStruct("ForceReplyMustB
 	description: Schema.String,
 });
 
-/** from_chat_id parameter is missing */
-
+/**
+ * from_chat_id parameter is missing
+ */
 export class FromChatIdRequired extends Data.TaggedError("FromChatIdRequired")<{
 	readonly description: string;
 }> {}
@@ -698,8 +768,9 @@ export const FromChatIdRequiredError = Schema.TaggedStruct("FromChatIdRequired",
 	description: Schema.String,
 });
 
-/** inline keyboard button is missing text */
-
+/**
+ * inline keyboard button is missing text
+ */
 export class InlineButtonTextMissing extends Data.TaggedError("InlineButtonTextMissing")<{
 	readonly description: string;
 }> {}
@@ -708,8 +779,9 @@ export const InlineButtonTextMissingError = Schema.TaggedStruct("InlineButtonTex
 	description: Schema.String,
 });
 
-/** inline keyboard button has empty callback_data and no url */
-
+/**
+ * inline keyboard button has empty callback_data and no url
+ */
 export class InlineButtonTextUnallowed extends Data.TaggedError("InlineButtonTextUnallowed")<{
 	readonly description: string;
 }> {}
@@ -718,8 +790,9 @@ export const InlineButtonTextUnallowedError = Schema.TaggedStruct("InlineButtonT
 	description: Schema.String,
 });
 
-/** inline keyboard button url uses an unsupported protocol */
-
+/**
+ * inline keyboard button url uses an unsupported protocol
+ */
 export class InlineButtonUrlFtpUnsupported extends Data.TaggedError("InlineButtonUrlFtpUnsupported")<{
 	readonly description: string;
 }> {}
@@ -728,8 +801,9 @@ export const InlineButtonUrlFtpUnsupportedError = Schema.TaggedStruct("InlineBut
 	description: Schema.String,
 });
 
-/** inline keyboard button url is not a valid HTTP URL */
-
+/**
+ * inline keyboard button url is not a valid HTTP URL
+ */
 export class InlineButtonUrlInvalid extends Data.TaggedError("InlineButtonUrlInvalid")<{
 	readonly description: string;
 }> {}
@@ -738,8 +812,9 @@ export const InlineButtonUrlInvalidError = Schema.TaggedStruct("InlineButtonUrlI
 	description: Schema.String,
 });
 
-/** inline_keyboard is not an array */
-
+/**
+ * inline_keyboard is not an array
+ */
 export class InlineKeyboardMustBeArray extends Data.TaggedError("InlineKeyboardMustBeArray")<{
 	readonly description: string;
 }> {}
@@ -748,8 +823,9 @@ export const InlineKeyboardMustBeArrayError = Schema.TaggedStruct("InlineKeyboar
 	description: Schema.String,
 });
 
-/** chat_id is not a valid private chat id */
-
+/**
+ * chat_id is not a valid private chat id
+ */
 export class InvalidChatId extends Data.TaggedError("InvalidChatId")<{
 	readonly description: string;
 }> {}
@@ -758,8 +834,9 @@ export const InvalidChatIdError = Schema.TaggedStruct("InvalidChatId", {
 	description: Schema.String,
 });
 
-/** validation fails */
-
+/**
+ * validation fails
+ */
 export class InvalidChatIdentifier extends Data.TaggedError("InvalidChatIdentifier")<{
 	readonly description: string;
 }> {}
@@ -768,8 +845,9 @@ export const InvalidChatIdentifierError = Schema.TaggedStruct("InvalidChatIdenti
 	description: Schema.String,
 });
 
-/** file_id is not valid */
-
+/**
+ * file_id is not valid
+ */
 export class InvalidFileId extends Data.TaggedError("InvalidFileId")<{
 	readonly description: string;
 }> {}
@@ -778,8 +856,9 @@ export const InvalidFileIdError = Schema.TaggedStruct("InvalidFileId", {
 	description: Schema.String,
 });
 
-/** suggested_post_parameters price amount is invalid */
-
+/**
+ * suggested_post_parameters price amount is invalid
+ */
 export class InvalidStarsAmount extends Data.TaggedError("InvalidStarsAmount")<{
 	readonly description: string;
 }> {}
@@ -788,8 +867,9 @@ export const InvalidStarsAmountError = Schema.TaggedStruct("InvalidStarsAmount",
 	description: Schema.String,
 });
 
-/** required parameters missing */
-
+/**
+ * required parameters missing
+ */
 export class InvalidUserId extends Data.TaggedError("InvalidUserId")<{
 	readonly description: string;
 }> {}
@@ -798,8 +878,9 @@ export const InvalidUserIdError = Schema.TaggedStruct("InvalidUserId", {
 	description: Schema.String,
 });
 
-/** invite_link is invalid or already revoked */
-
+/**
+ * invite_link is invalid or already revoked
+ */
 export class InviteHashExpired extends Data.TaggedError("InviteHashExpired")<{
 	readonly description: string;
 }> {}
@@ -808,8 +889,9 @@ export const InviteHashExpiredError = Schema.TaggedStruct("InviteHashExpired", {
 	description: Schema.String,
 });
 
-/** reply keyboard is_persistent is not a boolean */
-
+/**
+ * reply keyboard is_persistent is not a boolean
+ */
 export class IsPersistentMustBeBoolean extends Data.TaggedError("IsPersistentMustBeBoolean")<{
 	readonly description: string;
 }> {}
@@ -818,8 +900,9 @@ export const IsPersistentMustBeBooleanError = Schema.TaggedStruct("IsPersistentM
 	description: Schema.String,
 });
 
-/** reply keyboard keyboard is not an array */
-
+/**
+ * reply keyboard keyboard is not an array
+ */
 export class KeyboardMustBeArray extends Data.TaggedError("KeyboardMustBeArray")<{
 	readonly description: string;
 }> {}
@@ -828,8 +911,9 @@ export const KeyboardMustBeArrayError = Schema.TaggedStruct("KeyboardMustBeArray
 	description: Schema.String,
 });
 
-/** request_chat or request_users keyboard button is missing request_id */
-
+/**
+ * request_chat or request_users keyboard button is missing request_id
+ */
 export class KeyboardRequestIdMissing extends Data.TaggedError("KeyboardRequestIdMissing")<{
 	readonly description: string;
 }> {}
@@ -838,8 +922,9 @@ export const KeyboardRequestIdMissingError = Schema.TaggedStruct("KeyboardReques
 	description: Schema.String,
 });
 
-/** reply keyboard web_app button url is HTTP instead of HTTPS */
-
+/**
+ * reply keyboard web_app button url is HTTP instead of HTTPS
+ */
 export class KeyboardWebAppUrlHttpNotAllowed extends Data.TaggedError("KeyboardWebAppUrlHttpNotAllowed")<{
 	readonly description: string;
 }> {}
@@ -848,8 +933,9 @@ export const KeyboardWebAppUrlHttpNotAllowedError = Schema.TaggedStruct("Keyboar
 	description: Schema.String,
 });
 
-/** latitude parameter is missing */
-
+/**
+ * latitude parameter is missing
+ */
 export class LatitudeEmpty extends Data.TaggedError("LatitudeEmpty")<{
 	readonly description: string;
 }> {}
@@ -858,8 +944,9 @@ export const LatitudeEmptyError = Schema.TaggedStruct("LatitudeEmpty", {
 	description: Schema.String,
 });
 
-/** limit is zero or negative */
-
+/**
+ * limit is zero or negative
+ */
 export class LimitMustBePositive extends Data.TaggedError("LimitMustBePositive")<{
 	readonly description: string;
 }> {}
@@ -868,8 +955,9 @@ export const LimitMustBePositiveError = Schema.TaggedStruct("LimitMustBePositive
 	description: Schema.String,
 });
 
-/** link_preview_options.is_disabled is not a boolean */
-
+/**
+ * link_preview_options.is_disabled is not a boolean
+ */
 export class LinkPreviewIsDisabledMustBeBoolean extends Data.TaggedError("LinkPreviewIsDisabledMustBeBoolean")<{
 	readonly description: string;
 }> {}
@@ -878,8 +966,9 @@ export const LinkPreviewIsDisabledMustBeBooleanError = Schema.TaggedStruct("Link
 	description: Schema.String,
 });
 
-/** login_url bot_username does not refer to an existing bot */
-
+/**
+ * login_url bot_username does not refer to an existing bot
+ */
 export class LoginUrlBotNotFound extends Data.TaggedError("LoginUrlBotNotFound")<{
 	readonly description: string;
 }> {}
@@ -888,8 +977,9 @@ export const LoginUrlBotNotFoundError = Schema.TaggedStruct("LoginUrlBotNotFound
 	description: Schema.String,
 });
 
-/** longitude parameter is missing */
-
+/**
+ * longitude parameter is missing
+ */
 export class LongitudeEmpty extends Data.TaggedError("LongitudeEmpty")<{
 	readonly description: string;
 }> {}
@@ -898,8 +988,9 @@ export const LongitudeEmptyError = Schema.TaggedStruct("LongitudeEmpty", {
 	description: Schema.String,
 });
 
-/** media parameter is missing */
-
+/**
+ * media parameter is missing
+ */
 export class MediaRequired extends Data.TaggedError("MediaRequired")<{
 	readonly description: string;
 }> {}
@@ -908,8 +999,9 @@ export const MediaRequiredError = Schema.TaggedStruct("MediaRequired", {
 	description: Schema.String,
 });
 
-/** user_id is not a member of the chat */
-
+/**
+ * user_id is not a member of the chat
+ */
 export class MemberNotFound extends Data.TaggedError("MemberNotFound")<{
 	readonly description: string;
 }> {}
@@ -918,8 +1010,9 @@ export const MemberNotFoundError = Schema.TaggedStruct("MemberNotFound", {
 	description: Schema.String,
 });
 
-/** menu_button.type is not a supported MenuButton variant */
-
+/**
+ * menu_button.type is not a supported MenuButton variant
+ */
 export class MenuButtonUnsupportedType extends Data.TaggedError("MenuButtonUnsupportedType")<{
 	readonly description: string;
 }> {}
@@ -928,8 +1021,9 @@ export const MenuButtonUnsupportedTypeError = Schema.TaggedStruct("MenuButtonUns
 	description: Schema.String,
 });
 
-/** caption exceeds 1024 characters */
-
+/**
+ * caption exceeds 1024 characters
+ */
 export class MessageCaptionTooLong extends Data.TaggedError("MessageCaptionTooLong")<{
 	readonly description: string;
 }> {}
@@ -938,8 +1032,9 @@ export const MessageCaptionTooLongError = Schema.TaggedStruct("MessageCaptionToo
 	description: Schema.String,
 });
 
-/** required parameters missing */
-
+/**
+ * required parameters missing
+ */
 export class MessageIdentifiersAreNotSpecified extends Data.TaggedError("MessageIdentifiersAreNotSpecified")<{
 	readonly description: string;
 }> {}
@@ -948,8 +1043,9 @@ export const MessageIdentifiersAreNotSpecifiedError = Schema.TaggedStruct("Messa
 	description: Schema.String,
 });
 
-/** text is missing or empty */
-
+/**
+ * text is missing or empty
+ */
 export class MessageTextEmpty extends Data.TaggedError("MessageTextEmpty")<{
 	readonly description: string;
 }> {}
@@ -958,8 +1054,9 @@ export const MessageTextEmptyError = Schema.TaggedStruct("MessageTextEmpty", {
 	description: Schema.String,
 });
 
-/** message_thread_id does not refer to an existing forum topic */
-
+/**
+ * message_thread_id does not refer to an existing forum topic
+ */
 export class MessageThreadNotFound extends Data.TaggedError("MessageThreadNotFound")<{
 	readonly description: string;
 }> {}
@@ -968,8 +1065,9 @@ export const MessageThreadNotFoundError = Schema.TaggedStruct("MessageThreadNotF
 	description: Schema.String,
 });
 
-/** message_id is missing or does not refer to an existing message */
-
+/**
+ * message_id is missing or does not refer to an existing message
+ */
 export class MessageToCopyNotFound extends Data.TaggedError("MessageToCopyNotFound")<{
 	readonly description: string;
 }> {}
@@ -978,8 +1076,9 @@ export const MessageToCopyNotFoundError = Schema.TaggedStruct("MessageToCopyNotF
 	description: Schema.String,
 });
 
-/** message_id is missing or does not refer to an existing message */
-
+/**
+ * message_id is missing or does not refer to an existing message
+ */
 export class MessageToForwardNotFound extends Data.TaggedError("MessageToForwardNotFound")<{
 	readonly description: string;
 }> {}
@@ -988,8 +1087,9 @@ export const MessageToForwardNotFoundError = Schema.TaggedStruct("MessageToForwa
 	description: Schema.String,
 });
 
-/** text exceeds 4096 characters */
-
+/**
+ * text exceeds 4096 characters
+ */
 export class MessageTooLong extends Data.TaggedError("MessageTooLong")<{
 	readonly description: string;
 }> {}
@@ -998,8 +1098,9 @@ export const MessageTooLongError = Schema.TaggedStruct("MessageTooLong", {
 	description: Schema.String,
 });
 
-/** message_id is missing or does not refer to an existing message */
-
+/**
+ * message_id is missing or does not refer to an existing message
+ */
 export class MessageToPinNotFound extends Data.TaggedError("MessageToPinNotFound")<{
 	readonly description: string;
 }> {}
@@ -1008,8 +1109,9 @@ export const MessageToPinNotFoundError = Schema.TaggedStruct("MessageToPinNotFou
 	description: Schema.String,
 });
 
-/** message_id is missing or does not refer to an existing message */
-
+/**
+ * message_id is missing or does not refer to an existing message
+ */
 export class MessageToReactNotFound extends Data.TaggedError("MessageToReactNotFound")<{
 	readonly description: string;
 }> {}
@@ -1018,8 +1120,9 @@ export const MessageToReactNotFoundError = Schema.TaggedStruct("MessageToReactNo
 	description: Schema.String,
 });
 
-/** reply_parameters.message_id does not exist in the target chat */
-
+/**
+ * reply_parameters.message_id does not exist in the target chat
+ */
 export class MessageToReplyNotFound extends Data.TaggedError("MessageToReplyNotFound")<{
 	readonly description: string;
 }> {}
@@ -1028,8 +1131,9 @@ export const MessageToReplyNotFoundError = Schema.TaggedStruct("MessageToReplyNo
 	description: Schema.String,
 });
 
-/** message_id is missing or does not refer to a pinned message */
-
+/**
+ * message_id is missing or does not refer to a pinned message
+ */
 export class MessageToUnpinNotFound extends Data.TaggedError("MessageToUnpinNotFound")<{
 	readonly description: string;
 }> {}
@@ -1038,8 +1142,9 @@ export const MessageToUnpinNotFoundError = Schema.TaggedStruct("MessageToUnpinNo
 	description: Schema.String,
 });
 
-/** animation parameter is missing */
-
+/**
+ * animation parameter is missing
+ */
 export class NoAnimationInRequest extends Data.TaggedError("NoAnimationInRequest")<{
 	readonly description: string;
 }> {}
@@ -1048,8 +1153,9 @@ export const NoAnimationInRequestError = Schema.TaggedStruct("NoAnimationInReque
 	description: Schema.String,
 });
 
-/** audio parameter is missing */
-
+/**
+ * audio parameter is missing
+ */
 export class NoAudioInRequest extends Data.TaggedError("NoAudioInRequest")<{
 	readonly description: string;
 }> {}
@@ -1058,8 +1164,9 @@ export const NoAudioInRequestError = Schema.TaggedStruct("NoAudioInRequest", {
 	description: Schema.String,
 });
 
-/** document parameter is missing */
-
+/**
+ * document parameter is missing
+ */
 export class NoDocumentInRequest extends Data.TaggedError("NoDocumentInRequest")<{
 	readonly description: string;
 }> {}
@@ -1068,8 +1175,9 @@ export const NoDocumentInRequestError = Schema.TaggedStruct("NoDocumentInRequest
 	description: Schema.String,
 });
 
-/** live photo parameter is missing */
-
+/**
+ * live photo parameter is missing
+ */
 export class NoLivePhotoInRequest extends Data.TaggedError("NoLivePhotoInRequest")<{
 	readonly description: string;
 }> {}
@@ -1078,8 +1186,9 @@ export const NoLivePhotoInRequestError = Schema.TaggedStruct("NoLivePhotoInReque
 	description: Schema.String,
 });
 
-/** message_ids is missing or does not refer to existing messages */
-
+/**
+ * message_ids is missing or does not refer to existing messages
+ */
 export class NoMessagesToForward extends Data.TaggedError("NoMessagesToForward")<{
 	readonly description: string;
 }> {}
@@ -1088,8 +1197,9 @@ export const NoMessagesToForwardError = Schema.TaggedStruct("NoMessagesToForward
 	description: Schema.String,
 });
 
-/** photo parameter is missing */
-
+/**
+ * photo parameter is missing
+ */
 export class NoPhotoInRequest extends Data.TaggedError("NoPhotoInRequest")<{
 	readonly description: string;
 }> {}
@@ -1098,8 +1208,9 @@ export const NoPhotoInRequestError = Schema.TaggedStruct("NoPhotoInRequest", {
 	description: Schema.String,
 });
 
-/** bot lacks can_manage_topics for the configured forum topic */
-
+/**
+ * bot lacks can_manage_topics for the configured forum topic
+ */
 export class NotEnoughRightsToCloseOrOpenTopic extends Data.TaggedError("NotEnoughRightsToCloseOrOpenTopic")<{
 	readonly description: string;
 }> {}
@@ -1108,8 +1219,9 @@ export const NotEnoughRightsToCloseOrOpenTopicError = Schema.TaggedStruct("NotEn
 	description: Schema.String,
 });
 
-/** bot lacks can_manage_topics in the test supergroup */
-
+/**
+ * bot lacks can_manage_topics in the test supergroup
+ */
 export class NotEnoughRightsToCreateTopic extends Data.TaggedError("NotEnoughRightsToCreateTopic")<{
 	readonly description: string;
 }> {}
@@ -1118,8 +1230,9 @@ export const NotEnoughRightsToCreateTopicError = Schema.TaggedStruct("NotEnoughR
 	description: Schema.String,
 });
 
-/** bot lacks can_manage_topics for the forum topic */
-
+/**
+ * bot lacks can_manage_topics for the forum topic
+ */
 export class NotEnoughRightsToEditTopic extends Data.TaggedError("NotEnoughRightsToEditTopic")<{
 	readonly description: string;
 }> {}
@@ -1128,8 +1241,9 @@ export const NotEnoughRightsToEditTopicError = Schema.TaggedStruct("NotEnoughRig
 	description: Schema.String,
 });
 
-/** Token segment is empty or not in bot id:hash form */
-
+/**
+ * Token segment is empty or not in bot id:hash form
+ */
 export class NotFound extends Data.TaggedError("NotFound")<{
 	readonly description: string;
 }> {}
@@ -1138,8 +1252,9 @@ export const NotFoundError = Schema.TaggedStruct("NotFound", {
 	description: Schema.String,
 });
 
-/** video parameter is missing */
-
+/**
+ * video parameter is missing
+ */
 export class NoVideoInRequest extends Data.TaggedError("NoVideoInRequest")<{
 	readonly description: string;
 }> {}
@@ -1148,8 +1263,9 @@ export const NoVideoInRequestError = Schema.TaggedStruct("NoVideoInRequest", {
 	description: Schema.String,
 });
 
-/** video_note parameter is missing */
-
+/**
+ * video_note parameter is missing
+ */
 export class NoVideoNoteInRequest extends Data.TaggedError("NoVideoNoteInRequest")<{
 	readonly description: string;
 }> {}
@@ -1158,8 +1274,9 @@ export const NoVideoNoteInRequestError = Schema.TaggedStruct("NoVideoNoteInReque
 	description: Schema.String,
 });
 
-/** voice parameter is missing */
-
+/**
+ * voice parameter is missing
+ */
 export class NoVoiceInRequest extends Data.TaggedError("NoVoiceInRequest")<{
 	readonly description: string;
 }> {}
@@ -1168,8 +1285,9 @@ export const NoVoiceInRequestError = Schema.TaggedStruct("NoVoiceInRequest", {
 	description: Schema.String,
 });
 
-/** reply keyboard one_time_keyboard is not a boolean */
-
+/**
+ * reply keyboard one_time_keyboard is not a boolean
+ */
 export class OneTimeKeyboardMustBeBoolean extends Data.TaggedError("OneTimeKeyboardMustBeBoolean")<{
 	readonly description: string;
 }> {}
@@ -1178,8 +1296,9 @@ export const OneTimeKeyboardMustBeBooleanError = Schema.TaggedStruct("OneTimeKey
 	description: Schema.String,
 });
 
-/** user_id does not refer to a chat participant */
-
+/**
+ * user_id does not refer to a chat participant
+ */
 export class ParticipantIdInvalid extends Data.TaggedError("ParticipantIdInvalid")<{
 	readonly description: string;
 }> {}
@@ -1188,8 +1307,9 @@ export const ParticipantIdInvalidError = Schema.TaggedStruct("ParticipantIdInval
 	description: Schema.String,
 });
 
-/** chat_id does not refer to a channel or supergroup that supports boosts */
-
+/**
+ * chat_id does not refer to a channel or supergroup that supports boosts
+ */
 export class PeerIdInvalid extends Data.TaggedError("PeerIdInvalid")<{
 	readonly description: string;
 }> {}
@@ -1198,8 +1318,9 @@ export const PeerIdInvalidError = Schema.TaggedStruct("PeerIdInvalid", {
 	description: Schema.String,
 });
 
-/** phone_number parameter is missing */
-
+/**
+ * phone_number parameter is missing
+ */
 export class PhoneNumberRequired extends Data.TaggedError("PhoneNumberRequired")<{
 	readonly description: string;
 }> {}
@@ -1208,8 +1329,9 @@ export const PhoneNumberRequiredError = Schema.TaggedStruct("PhoneNumberRequired
 	description: Schema.String,
 });
 
-/** required parameters missing */
-
+/**
+ * required parameters missing
+ */
 export class PhotoNotSpecified extends Data.TaggedError("PhotoNotSpecified")<{
 	readonly description: string;
 }> {}
@@ -1218,8 +1340,9 @@ export const PhotoNotSpecifiedError = Schema.TaggedStruct("PhotoNotSpecified", {
 	description: Schema.String,
 });
 
-/** options array is empty */
-
+/**
+ * options array is empty
+ */
 export class PollMustHaveAtLeastOneAnswerOption extends Data.TaggedError("PollMustHaveAtLeastOneAnswerOption")<{
 	readonly description: string;
 }> {}
@@ -1228,8 +1351,9 @@ export const PollMustHaveAtLeastOneAnswerOptionError = Schema.TaggedStruct("Poll
 	description: Schema.String,
 });
 
-/** link_preview_options.prefer_large_media is not a boolean */
-
+/**
+ * link_preview_options.prefer_large_media is not a boolean
+ */
 export class PreferLargeMediaMustBeBoolean extends Data.TaggedError("PreferLargeMediaMustBeBoolean")<{
 	readonly description: string;
 }> {}
@@ -1238,8 +1362,9 @@ export const PreferLargeMediaMustBeBooleanError = Schema.TaggedStruct("PreferLar
 	description: Schema.String,
 });
 
-/** link_preview_options.prefer_small_media is not a boolean */
-
+/**
+ * link_preview_options.prefer_small_media is not a boolean
+ */
 export class PreferSmallMediaMustBeBoolean extends Data.TaggedError("PreferSmallMediaMustBeBoolean")<{
 	readonly description: string;
 }> {}
@@ -1248,8 +1373,9 @@ export const PreferSmallMediaMustBeBooleanError = Schema.TaggedStruct("PreferSma
 	description: Schema.String,
 });
 
-/** chat does not support paid subscription invite links */
-
+/**
+ * chat does not support paid subscription invite links
+ */
 export class PricingChatInvalid extends Data.TaggedError("PricingChatInvalid")<{
 	readonly description: string;
 }> {}
@@ -1258,8 +1384,9 @@ export const PricingChatInvalidError = Schema.TaggedStruct("PricingChatInvalid",
 	description: Schema.String,
 });
 
-/** draft_id is missing or invalid */
-
+/**
+ * draft_id is missing or invalid
+ */
 export class RandomIdInvalid extends Data.TaggedError("RandomIdInvalid")<{
 	readonly description: string;
 }> {}
@@ -1268,8 +1395,9 @@ export const RandomIdInvalidError = Schema.TaggedStruct("RandomIdInvalid", {
 	description: Schema.String,
 });
 
-/** remove_keyboard is not a boolean */
-
+/**
+ * remove_keyboard is not a boolean
+ */
 export class RemoveKeyboardMustBeBoolean extends Data.TaggedError("RemoveKeyboardMustBeBoolean")<{
 	readonly description: string;
 }> {}
@@ -1278,8 +1406,9 @@ export const RemoveKeyboardMustBeBooleanError = Schema.TaggedStruct("RemoveKeybo
 	description: Schema.String,
 });
 
-/** reply_parameters is set without message_id */
-
+/**
+ * reply_parameters is set without message_id
+ */
 export class ReplyMessageIdMissing extends Data.TaggedError("ReplyMessageIdMissing")<{
 	readonly description: string;
 }> {}
@@ -1288,8 +1417,9 @@ export const ReplyMessageIdMissingError = Schema.TaggedStruct("ReplyMessageIdMis
 	description: Schema.String,
 });
 
-/** login_url.request_write_access is not a boolean */
-
+/**
+ * login_url.request_write_access is not a boolean
+ */
 export class RequestWriteAccessMustBeBoolean extends Data.TaggedError("RequestWriteAccessMustBeBoolean")<{
 	readonly description: string;
 }> {}
@@ -1298,8 +1428,9 @@ export const RequestWriteAccessMustBeBooleanError = Schema.TaggedStruct("Request
 	description: Schema.String,
 });
 
-/** reply keyboard resize_keyboard is not a boolean */
-
+/**
+ * reply keyboard resize_keyboard is not a boolean
+ */
 export class ResizeKeyboardMustBeBoolean extends Data.TaggedError("ResizeKeyboardMustBeBoolean")<{
 	readonly description: string;
 }> {}
@@ -1308,8 +1439,9 @@ export const ResizeKeyboardMustBeBooleanError = Schema.TaggedStruct("ResizeKeybo
 	description: Schema.String,
 });
 
-/** required parameters missing */
-
+/**
+ * required parameters missing
+ */
 export class ResultNotSpecified extends Data.TaggedError("ResultNotSpecified")<{
 	readonly description: string;
 }> {}
@@ -1318,8 +1450,9 @@ export const ResultNotSpecifiedError = Schema.TaggedStruct("ResultNotSpecified",
 	description: Schema.String,
 });
 
-/** reply markup selective is not a boolean */
-
+/**
+ * reply markup selective is not a boolean
+ */
 export class SelectiveMustBeBoolean extends Data.TaggedError("SelectiveMustBeBoolean")<{
 	readonly description: string;
 }> {}
@@ -1328,8 +1461,9 @@ export const SelectiveMustBeBooleanError = Schema.TaggedStruct("SelectiveMustBeB
 	description: Schema.String,
 });
 
-/** sender_chat_id is missing */
-
+/**
+ * sender_chat_id is missing
+ */
 export class SenderChatIdEmpty extends Data.TaggedError("SenderChatIdEmpty")<{
 	readonly description: string;
 }> {}
@@ -1338,8 +1472,9 @@ export const SenderChatIdEmptyError = Schema.TaggedStruct("SenderChatIdEmpty", {
 	description: Schema.String,
 });
 
-/** link_preview_options.show_above_text is not a boolean */
-
+/**
+ * link_preview_options.show_above_text is not a boolean
+ */
 export class ShowAboveTextMustBeBoolean extends Data.TaggedError("ShowAboveTextMustBeBoolean")<{
 	readonly description: string;
 }> {}
@@ -1348,8 +1483,9 @@ export const ShowAboveTextMustBeBooleanError = Schema.TaggedStruct("ShowAboveTex
 	description: Schema.String,
 });
 
-/** gift_id is missing or invalid */
-
+/**
+ * gift_id is missing or invalid
+ */
 export class StargiftInvalid extends Data.TaggedError("StargiftInvalid")<{
 	readonly description: string;
 }> {}
@@ -1358,8 +1494,9 @@ export const StargiftInvalidError = Schema.TaggedStruct("StargiftInvalid", {
 	description: Schema.String,
 });
 
-/** sticker_set_name is missing or empty */
-
+/**
+ * sticker_set_name is missing or empty
+ */
 export class StickerSetNameEmpty extends Data.TaggedError("StickerSetNameEmpty")<{
 	readonly description: string;
 }> {}
@@ -1368,8 +1505,9 @@ export const StickerSetNameEmptyError = Schema.TaggedStruct("StickerSetNameEmpty
 	description: Schema.String,
 });
 
-/** sticker_set_name does not refer to an existing set */
-
+/**
+ * sticker_set_name does not refer to an existing set
+ */
 export class StickerSetNotFound extends Data.TaggedError("StickerSetNotFound")<{
 	readonly description: string;
 }> {}
@@ -1378,8 +1516,9 @@ export const StickerSetNotFoundError = Schema.TaggedStruct("StickerSetNotFound",
 	description: Schema.String,
 });
 
-/** required parameters missing */
-
+/**
+ * required parameters missing
+ */
 export class StoryContentNotSpecified extends Data.TaggedError("StoryContentNotSpecified")<{
 	readonly description: string;
 }> {}
@@ -1388,8 +1527,9 @@ export const StoryContentNotSpecifiedError = Schema.TaggedStruct("StoryContentNo
 	description: Schema.String,
 });
 
-/** suggested_post_parameters is used outside a channel direct messages chat */
-
+/**
+ * suggested_post_parameters is used outside a channel direct messages chat
+ */
 export class SuggestedPostChannelOnly extends Data.TaggedError("SuggestedPostChannelOnly")<{
 	readonly description: string;
 }> {}
@@ -1398,8 +1538,9 @@ export const SuggestedPostChannelOnlyError = Schema.TaggedStruct("SuggestedPostC
 	description: Schema.String,
 });
 
-/** text_link entity is missing url */
-
+/**
+ * text_link entity is missing url
+ */
 export class TextLinkUrlMissing extends Data.TaggedError("TextLinkUrlMissing")<{
 	readonly description: string;
 }> {}
@@ -1408,8 +1549,9 @@ export const TextLinkUrlMissingError = Schema.TaggedStruct("TextLinkUrlMissing",
 	description: Schema.String,
 });
 
-/** text_mention entity is missing user */
-
+/**
+ * text_mention entity is missing user
+ */
 export class TextMentionUserMissing extends Data.TaggedError("TextMentionUserMissing")<{
 	readonly description: string;
 }> {}
@@ -1418,8 +1560,9 @@ export const TextMentionUserMissingError = Schema.TaggedStruct("TextMentionUserM
 	description: Schema.String,
 });
 
-/** text contains only whitespace or parses to empty content */
-
+/**
+ * text contains only whitespace or parses to empty content
+ */
 export class TextMustBeNonEmpty extends Data.TaggedError("TextMustBeNonEmpty")<{
 	readonly description: string;
 }> {}
@@ -1428,8 +1571,9 @@ export const TextMustBeNonEmptyError = Schema.TaggedStruct("TextMustBeNonEmpty",
 	description: Schema.String,
 });
 
-/** title is missing or empty */
-
+/**
+ * title is missing or empty
+ */
 export class TitleEmpty extends Data.TaggedError("TitleEmpty")<{
 	readonly description: string;
 }> {}
@@ -1438,8 +1582,9 @@ export const TitleEmptyError = Schema.TaggedStruct("TitleEmpty", {
 	description: Schema.String,
 });
 
-/** Token has bot id:hash form but the secret is invalid */
-
+/**
+ * Token has bot id:hash form but the secret is invalid
+ */
 export class Unauthorized extends Data.TaggedError("Unauthorized")<{
 	readonly description: string;
 }> {}
@@ -1448,8 +1593,9 @@ export const UnauthorizedError = Schema.TaggedStruct("Unauthorized", {
 	description: Schema.String,
 });
 
-/** entities contains an unsupported type value */
-
+/**
+ * entities contains an unsupported type value
+ */
 export class UnsupportedMessageEntityType extends Data.TaggedError("UnsupportedMessageEntityType")<{
 	readonly description: string;
 }> {}
@@ -1458,8 +1604,9 @@ export const UnsupportedMessageEntityTypeError = Schema.TaggedStruct("Unsupporte
 	description: Schema.String,
 });
 
-/** parse_mode is not HTML, Markdown, or MarkdownV2 */
-
+/**
+ * parse_mode is not HTML, Markdown, or MarkdownV2
+ */
 export class UnsupportedParseMode extends Data.TaggedError("UnsupportedParseMode")<{
 	readonly description: string;
 }> {}
@@ -1468,8 +1615,9 @@ export const UnsupportedParseModeError = Schema.TaggedStruct("UnsupportedParseMo
 	description: Schema.String,
 });
 
-/** user_id does not refer to a pending join request */
-
+/**
+ * user_id does not refer to a pending join request
+ */
 export class UserIdInvalid extends Data.TaggedError("UserIdInvalid")<{
 	readonly description: string;
 }> {}
@@ -1478,8 +1626,9 @@ export const UserIdInvalidError = Schema.TaggedStruct("UserIdInvalid", {
 	description: Schema.String,
 });
 
-/** user_id does not refer to an existing user */
-
+/**
+ * user_id does not refer to an existing user
+ */
 export class UserNotFound extends Data.TaggedError("UserNotFound")<{
 	readonly description: string;
 }> {}
@@ -1488,8 +1637,9 @@ export const UserNotFoundError = Schema.TaggedStruct("UserNotFound", {
 	description: Schema.String,
 });
 
-/** web_app button url is HTTP instead of HTTPS */
-
+/**
+ * web_app button url is HTTP instead of HTTPS
+ */
 export class WebAppUrlHttpNotAllowed extends Data.TaggedError("WebAppUrlHttpNotAllowed")<{
 	readonly description: string;
 }> {}
@@ -1498,8 +1648,9 @@ export const WebAppUrlHttpNotAllowedError = Schema.TaggedStruct("WebAppUrlHttpNo
 	description: Schema.String,
 });
 
-/** web_app button url is not a valid HTTPS URL */
-
+/**
+ * web_app button url is not a valid HTTPS URL
+ */
 export class WebAppUrlNotHttps extends Data.TaggedError("WebAppUrlNotHttps")<{
 	readonly description: string;
 }> {}
@@ -1508,8 +1659,9 @@ export const WebAppUrlNotHttpsError = Schema.TaggedStruct("WebAppUrlNotHttps", {
 	description: Schema.String,
 });
 
-/** link_preview_options.url is not a valid URL */
-
+/**
+ * link_preview_options.url is not a valid URL
+ */
 export class WebpageUrlInvalid extends Data.TaggedError("WebpageUrlInvalid")<{
 	readonly description: string;
 }> {}
@@ -1518,8 +1670,9 @@ export const WebpageUrlInvalidError = Schema.TaggedStruct("WebpageUrlInvalid", {
 	description: Schema.String,
 });
 
-/** action is missing or not a supported chat action type */
-
+/**
+ * action is missing or not a supported chat action type
+ */
 export class WrongParameterAction extends Data.TaggedError("WrongParameterAction")<{
 	readonly description: string;
 }> {}
@@ -1528,8 +1681,9 @@ export const WrongParameterActionError = Schema.TaggedStruct("WrongParameterActi
 	description: Schema.String,
 });
 
-/** video file_id is malformed */
-
+/**
+ * video file_id is malformed
+ */
 export class WrongRemoteFileIdentifierWrongPadding extends Data.TaggedError("WrongRemoteFileIdentifierWrongPadding")<{
 	readonly description: string;
 }> {}
