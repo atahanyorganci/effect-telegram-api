@@ -33,7 +33,7 @@
 		"format:fix": "oxfmt --write .",
 		"lint": "oxlint scripts src test",
 		"lint:fix": "oxlint --fix scripts src test",
-		"publish:jsr": "jsr publish",
+		"publish:jsr": "jsr publish --allow-slow-types",
 		"publish:npm": "pnpm publish --provenance --access public",
 		"scripts:codegen": "tsx scripts/codegen.ts",
 		"scripts:fetch": "tsx scripts/fetch.ts",
