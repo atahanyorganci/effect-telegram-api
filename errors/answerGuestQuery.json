@@ -1,11 +1,4 @@
 {
 	"method": "answerGuestQuery",
-	"errors": [
-		{
-			"tag": "ResultNotSpecified",
-			"errorCode": 400,
-			"description": "Bad Request: result isn't specified",
-			"when": "required parameters missing"
-		}
-	]
+	"errors": ["ResultNotSpecified"]
 }

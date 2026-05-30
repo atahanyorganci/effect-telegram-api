@@ -1,11 +1,4 @@
 {
 	"method": "sendVoice",
-	"errors": [
-		{
-			"tag": "NoVoiceInRequest",
-			"errorCode": 400,
-			"description": "Bad Request: there is no voice in the request",
-			"when": "voice parameter is missing"
-		}
-	]
+	"errors": ["NoVoiceInRequest"]
 }

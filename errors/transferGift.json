@@ -1,11 +1,4 @@
 {
 	"method": "transferGift",
-	"errors": [
-		{
-			"tag": "ChatIdentifierEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: chat identifier is empty",
-			"when": "required parameters missing"
-		}
-	]
+	"errors": ["ChatIdentifierEmpty"]
 }

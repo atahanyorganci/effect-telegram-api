@@ -2,51 +2,74 @@ import * as Effect from "effect/Effect";
 import * as FileSystem from "effect/FileSystem";
 import * as Schema from "effect/Schema";
 import { parseError } from "../parse/errors.ts";
-import { CommonErrorsDoc, MethodErrorsDoc } from "./model-errors.ts";
+import { ErrorsDoc, expandError, MethodError, MethodErrorsDoc, MethodErrorsRefDoc } from "./model-errors.ts";
 
-const decodeMethodErrors = Schema.decodeUnknownSync(MethodErrorsDoc);
-const decodeCommonErrors = Schema.decodeUnknownSync(CommonErrorsDoc);
+const decodeErrorsDoc = Schema.decodeUnknownSync(ErrorsDoc);
+const decodeMethodErrorsRef = Schema.decodeUnknownSync(MethodErrorsRefDoc);
 
 const ERRORS_DIR = "errors";
+const ERRORS_CATALOG = `${ERRORS_DIR}/errors.json`;
 
-const mergeErrors = (method: MethodErrorsDoc, common: MethodErrorsDoc["errors"]): MethodErrorsDoc => {
-	const methodTags = new Set(method.errors.map(error => error.tag));
-	const merged = [...method.errors];
-	for (const error of common) {
-		if (!methodTags.has(error.tag)) {
-			merged.push(error);
+const resolveTags = (
+	method: string,
+	tags: readonly string[],
+	byTag: ReadonlyMap<string, MethodError>,
+): MethodErrorsDoc["errors"] =>
+	tags.flatMap(tag => {
+		const error = byTag.get(tag);
+		if (error === undefined) {
+			throw parseError(`Unknown error tag ${JSON.stringify(tag)} referenced by method ${method}`);
+		}
+		return expandError(error);
+	});
+
+const mergeCommon = (
+	method: string,
+	errors: MethodErrorsDoc["errors"],
+	commonTags: readonly string[],
+	byTag: ReadonlyMap<string, MethodError>,
+): MethodErrorsDoc["errors"] => {
+	const methodTags = new Set(errors.map(error => error.tag));
+	const merged = [...errors];
+	for (const tag of commonTags) {
+		if (!methodTags.has(tag)) {
+			const error = byTag.get(tag);
+			if (error === undefined) {
+				throw parseError(`Unknown common error tag ${JSON.stringify(tag)}`);
+			}
+			merged.push(...expandError(error));
 		}
 	}
-	return {
-		method: method.method,
-		errors: merged.sort((a, b) => a.tag.localeCompare(b.tag) || a.description.localeCompare(b.description)),
-	};
+	return merged.sort((a, b) => a.tag.localeCompare(b.tag) || a.description.localeCompare(b.description));
 };
 
 export const loadMethodErrors = Effect.fn("loadMethodErrors")(function* () {
 	const fs = yield* FileSystem.FileSystem;
-	const entries = yield* fs.readDirectory(ERRORS_DIR);
-	const files = entries.filter(entry => entry.endsWith(".json")).sort();
 
-	const commonContents = yield* fs.readFileString(`${ERRORS_DIR}/common.json`);
-	const common = decodeCommonErrors(JSON.parse(commonContents)).errors;
+	const catalogContents = yield* fs.readFileString(ERRORS_CATALOG);
+	const catalog = decodeErrorsDoc(JSON.parse(catalogContents));
+	const byTag = new Map(catalog.errors.map(error => [error.tag, error] as const));
+
+	const entries = yield* fs.readDirectory(ERRORS_DIR);
+	const files = entries.filter(entry => entry.endsWith(".json") && entry !== "errors.json").sort();
 
 	const byMethod = new Map<string, MethodErrorsDoc>();
 	for (const file of files) {
-		if (file === "common.json") {
-			continue;
-		}
-
 		const contents = yield* fs.readFileString(`${ERRORS_DIR}/${file}`);
 		const doc = yield* Effect.try({
-			try: () => decodeMethodErrors(JSON.parse(contents)),
+			try: () => decodeMethodErrorsRef(JSON.parse(contents)),
 			catch: cause => parseError(`Failed to decode ${ERRORS_DIR}/${file}: ${String(cause)}`),
 		});
 
 		if (byMethod.has(doc.method)) {
 			return yield* Effect.fail(parseError(`Duplicate errors doc for method: ${doc.method}`));
 		}
-		byMethod.set(doc.method, mergeErrors(doc, common));
+
+		const errors = resolveTags(doc.method, doc.errors, byTag);
+		byMethod.set(doc.method, {
+			method: doc.method,
+			errors: mergeCommon(doc.method, errors, catalog.common, byTag),
+		});
 	}
 	return byMethod;
 });

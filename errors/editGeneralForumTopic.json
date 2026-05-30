@@ -1,17 +1,4 @@
 {
 	"method": "editGeneralForumTopic",
-	"errors": [
-		{
-			"tag": "ChatIdEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: chat_id is empty",
-			"when": "required parameters missing"
-		},
-		{
-			"tag": "ChatAdminRequired",
-			"errorCode": 400,
-			"description": "Bad Request: CHAT_ADMIN_REQUIRED",
-			"when": "bot is not an administrator with can_manage_topics"
-		}
-	]
+	"errors": ["ChatIdEmpty", "ChatAdminRequired"]
 }

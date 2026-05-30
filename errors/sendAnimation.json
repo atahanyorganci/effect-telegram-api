@@ -1,11 +1,4 @@
 {
 	"method": "sendAnimation",
-	"errors": [
-		{
-			"tag": "NoAnimationInRequest",
-			"errorCode": 400,
-			"description": "Bad Request: there is no animation in the request",
-			"when": "animation parameter is missing"
-		}
-	]
+	"errors": ["NoAnimationInRequest"]
 }

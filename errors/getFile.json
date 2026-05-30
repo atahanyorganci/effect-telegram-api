@@ -1,17 +1,4 @@
 {
 	"method": "getFile",
-	"errors": [
-		{
-			"tag": "FileIdNotSpecified",
-			"errorCode": 400,
-			"description": "Bad Request: file_id not specified",
-			"when": "file_id parameter is missing or empty"
-		},
-		{
-			"tag": "InvalidFileId",
-			"errorCode": 400,
-			"description": "Bad Request: invalid file_id",
-			"when": "file_id is not valid"
-		}
-	]
+	"errors": ["FileIdNotSpecified", "InvalidFileId"]
 }

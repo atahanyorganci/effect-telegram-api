@@ -1,35 +1,4 @@
 {
 	"method": "forwardMessage",
-	"errors": [
-		{
-			"tag": "ChatIdEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: chat_id is empty",
-			"when": "chat_id parameter is missing"
-		},
-		{
-			"tag": "ChatNotFound",
-			"errorCode": 400,
-			"description": "Bad Request: chat not found",
-			"when": "chat_id does not refer to a chat the bot can access"
-		},
-		{
-			"tag": "FromChatIdRequired",
-			"errorCode": 400,
-			"description": "Bad Request: parameter \"from_chat_id\" is required",
-			"when": "from_chat_id parameter is missing"
-		},
-		{
-			"tag": "MessageToForwardNotFound",
-			"errorCode": 400,
-			"description": "Bad Request: message to forward not found",
-			"when": "message_id is missing or does not refer to an existing message"
-		},
-		{
-			"tag": "MessageThreadNotFound",
-			"errorCode": 400,
-			"description": "Bad Request: message thread not found",
-			"when": "message_thread_id does not refer to an existing forum topic"
-		}
-	]
+	"errors": ["ChatIdEmpty", "ChatNotFound", "FromChatIdRequired", "MessageToForwardNotFound", "MessageThreadNotFound"]
 }

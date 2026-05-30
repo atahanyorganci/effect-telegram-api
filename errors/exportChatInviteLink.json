@@ -1,23 +1,4 @@
 {
 	"method": "exportChatInviteLink",
-	"errors": [
-		{
-			"tag": "CantInviteMembersToPrivateChat",
-			"errorCode": 400,
-			"description": "Bad Request: can't invite members to a private chat",
-			"when": "chat_id refers to a private chat that does not support invite links"
-		},
-		{
-			"tag": "ChatIdEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: chat_id is empty",
-			"when": "chat_id parameter is missing"
-		},
-		{
-			"tag": "ChatNotFound",
-			"errorCode": 400,
-			"description": "Bad Request: chat not found",
-			"when": "chat_id does not refer to a chat the bot can access"
-		}
-	]
+	"errors": ["CantInviteMembersToPrivateChat", "ChatIdEmpty", "ChatNotFound"]
 }

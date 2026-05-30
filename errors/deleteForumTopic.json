@@ -1,17 +1,4 @@
 {
 	"method": "deleteForumTopic",
-	"errors": [
-		{
-			"tag": "ChatIdEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: chat_id is empty",
-			"when": "required parameters missing"
-		},
-		{
-			"tag": "ChatWriteForbidden",
-			"errorCode": 400,
-			"description": "Bad Request: CHAT_WRITE_FORBIDDEN",
-			"when": "bot lacks permission to delete the forum topic"
-		}
-	]
+	"errors": ["ChatIdEmpty", "ChatWriteForbidden"]
 }

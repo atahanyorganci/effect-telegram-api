@@ -4392,6 +4392,7 @@ export const sendVideo = Rpc.make("sendVideo", {
 	success: Objects.Message,
 	error: Schema.Union([
 		Errors.CantParseEntitiesNoBoldEndError,
+		Errors.CantParseEntitiesNoBoldEndError,
 		Errors.ChatIdEmptyError,
 		Errors.ChatNotFoundError,
 		Errors.MessageCaptionTooLongError,

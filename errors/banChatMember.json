@@ -1,17 +1,4 @@
 {
 	"method": "banChatMember",
-	"errors": [
-		{
-			"tag": "InvalidUserId",
-			"errorCode": 400,
-			"description": "Bad Request: invalid user_id specified",
-			"when": "user_id is missing or zero"
-		},
-		{
-			"tag": "ParticipantIdInvalid",
-			"errorCode": 400,
-			"description": "Bad Request: PARTICIPANT_ID_INVALID",
-			"when": "user_id does not refer to a chat participant"
-		}
-	]
+	"errors": ["InvalidUserId", "ParticipantIdInvalid"]
 }

@@ -1,17 +1,4 @@
 {
 	"method": "setChatTitle",
-	"errors": [
-		{
-			"tag": "TitleEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: title must be non-empty",
-			"when": "title is missing or empty"
-		},
-		{
-			"tag": "CantChangePrivateChatTitle",
-			"errorCode": 400,
-			"description": "Bad Request: can't change private chat title",
-			"when": "chat_id refers to a private chat with the bot"
-		}
-	]
+	"errors": ["TitleEmpty", "CantChangePrivateChatTitle"]
 }

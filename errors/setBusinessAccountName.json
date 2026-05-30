@@ -1,11 +1,4 @@
 {
 	"method": "setBusinessAccountName",
-	"errors": [
-		{
-			"tag": "FirstNameRequired",
-			"errorCode": 400,
-			"description": "Bad Request: parameter \"first_name\" is required",
-			"when": "required parameters missing"
-		}
-	]
+	"errors": ["FirstNameRequired"]
 }

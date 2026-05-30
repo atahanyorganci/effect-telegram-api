@@ -1,11 +1,4 @@
 {
 	"method": "sendLivePhoto",
-	"errors": [
-		{
-			"tag": "NoLivePhotoInRequest",
-			"errorCode": 400,
-			"description": "Bad Request: there is no live photo in the request",
-			"when": "live photo parameter is missing"
-		}
-	]
+	"errors": ["NoLivePhotoInRequest"]
 }

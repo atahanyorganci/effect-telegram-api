@@ -1,17 +1,4 @@
 {
 	"method": "unbanChatSenderChat",
-	"errors": [
-		{
-			"tag": "SenderChatIdEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: sender_chat_id is empty",
-			"when": "sender_chat_id is missing"
-		},
-		{
-			"tag": "ParticipantIdInvalid",
-			"errorCode": 400,
-			"description": "Bad Request: PARTICIPANT_ID_INVALID",
-			"when": "sender_chat_id does not refer to a chat participant"
-		}
-	]
+	"errors": ["SenderChatIdEmpty", "ParticipantIdInvalid"]
 }

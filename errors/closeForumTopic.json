@@ -1,17 +1,4 @@
 {
 	"method": "closeForumTopic",
-	"errors": [
-		{
-			"tag": "ChatIdEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: chat_id is empty",
-			"when": "required parameters missing"
-		},
-		{
-			"tag": "NotEnoughRightsToCloseOrOpenTopic",
-			"errorCode": 400,
-			"description": "Bad Request: not enough rights to close or open the topic",
-			"when": "bot lacks can_manage_topics for the configured forum topic"
-		}
-	]
+	"errors": ["ChatIdEmpty", "NotEnoughRightsToCloseOrOpenTopic"]
 }

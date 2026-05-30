@@ -1,11 +1,4 @@
 {
 	"method": "setBusinessAccountGiftSettings",
-	"errors": [
-		{
-			"tag": "AcceptedGiftTypesNotSpecified",
-			"errorCode": 400,
-			"description": "Bad Request: accepted gift types aren't specified",
-			"when": "required parameters missing"
-		}
-	]
+	"errors": ["AcceptedGiftTypesNotSpecified"]
 }

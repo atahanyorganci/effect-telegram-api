@@ -1,11 +1,4 @@
 {
 	"method": "unpinChatMessage",
-	"errors": [
-		{
-			"tag": "MessageToUnpinNotFound",
-			"errorCode": 400,
-			"description": "Bad Request: message to unpin not found",
-			"when": "message_id is missing or does not refer to a pinned message"
-		}
-	]
+	"errors": ["MessageToUnpinNotFound"]
 }

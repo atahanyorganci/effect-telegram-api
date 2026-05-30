@@ -1,59 +1,14 @@
 {
 	"method": "sendVideo",
 	"errors": [
-		{
-			"tag": "NoVideoInRequest",
-			"errorCode": 400,
-			"description": "Bad Request: there is no video in the request",
-			"when": "video parameter is missing"
-		},
-		{
-			"tag": "ChatIdEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: chat_id is empty",
-			"when": "chat_id parameter is missing"
-		},
-		{
-			"tag": "ChatNotFound",
-			"errorCode": 400,
-			"description": "Bad Request: chat not found",
-			"when": "chat_id does not refer to a chat the bot can access"
-		},
-		{
-			"tag": "MessageCaptionTooLong",
-			"errorCode": 400,
-			"description": "Bad Request: message caption is too long",
-			"when": "caption exceeds 1024 characters"
-		},
-		{
-			"tag": "UnsupportedParseMode",
-			"errorCode": 400,
-			"description": "Bad Request: unsupported parse_mode",
-			"when": "parse_mode is not HTML, Markdown, or MarkdownV2"
-		},
-		{
-			"tag": "CantParseEntitiesNoBoldEnd",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 0",
-			"when": "caption with parse_mode MarkdownV2 contains an unclosed bold entity"
-		},
-		{
-			"tag": "MessageThreadNotFound",
-			"errorCode": 400,
-			"description": "Bad Request: message thread not found",
-			"when": "message_thread_id does not refer to an existing forum topic"
-		},
-		{
-			"tag": "MessageToReplyNotFound",
-			"errorCode": 400,
-			"description": "Bad Request: message to be replied not found",
-			"when": "reply_parameters.message_id does not exist in the target chat"
-		},
-		{
-			"tag": "WrongRemoteFileIdentifierWrongPadding",
-			"errorCode": 400,
-			"description": "Bad Request: wrong remote file identifier specified: Wrong padding in the string",
-			"when": "video file_id is malformed"
-		}
+		"NoVideoInRequest",
+		"ChatIdEmpty",
+		"ChatNotFound",
+		"MessageCaptionTooLong",
+		"UnsupportedParseMode",
+		"CantParseEntitiesNoBoldEnd",
+		"MessageThreadNotFound",
+		"MessageToReplyNotFound",
+		"WrongRemoteFileIdentifierWrongPadding"
 	]
 }

@@ -1,17 +1,4 @@
 {
 	"method": "editForumTopic",
-	"errors": [
-		{
-			"tag": "ChatIdEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: chat_id is empty",
-			"when": "required parameters missing"
-		},
-		{
-			"tag": "NotEnoughRightsToEditTopic",
-			"errorCode": 400,
-			"description": "Bad Request: not enough rights to edit the topic",
-			"when": "bot lacks can_manage_topics for the forum topic"
-		}
-	]
+	"errors": ["ChatIdEmpty", "NotEnoughRightsToEditTopic"]
 }

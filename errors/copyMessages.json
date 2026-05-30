@@ -1,17 +1,4 @@
 {
 	"method": "copyMessages",
-	"errors": [
-		{
-			"tag": "FromChatIdRequired",
-			"errorCode": 400,
-			"description": "Bad Request: parameter \"from_chat_id\" is required",
-			"when": "from_chat_id parameter is missing"
-		},
-		{
-			"tag": "NoMessagesToForward",
-			"errorCode": 400,
-			"description": "Bad Request: there are no messages to forward",
-			"when": "message_ids is missing or does not refer to existing messages"
-		}
-	]
+	"errors": ["FromChatIdRequired", "NoMessagesToForward"]
 }

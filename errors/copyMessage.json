@@ -1,17 +1,4 @@
 {
 	"method": "copyMessage",
-	"errors": [
-		{
-			"tag": "FromChatIdRequired",
-			"errorCode": 400,
-			"description": "Bad Request: parameter \"from_chat_id\" is required",
-			"when": "from_chat_id parameter is missing"
-		},
-		{
-			"tag": "MessageToCopyNotFound",
-			"errorCode": 400,
-			"description": "Bad Request: message to copy not found",
-			"when": "message_id is missing or does not refer to an existing message"
-		}
-	]
+	"errors": ["FromChatIdRequired", "MessageToCopyNotFound"]
 }

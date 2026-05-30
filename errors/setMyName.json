@@ -1,11 +1,4 @@
 {
 	"method": "setMyName",
-	"errors": [
-		{
-			"tag": "BotTitleInvalid",
-			"errorCode": 400,
-			"description": "Bad Request: BOT_TITLE_INVALID",
-			"when": "name is missing or empty"
-		}
-	]
+	"errors": ["BotTitleInvalid"]
 }

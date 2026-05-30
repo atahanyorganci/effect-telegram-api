@@ -1,17 +1,4 @@
 {
 	"method": "setChatDescription",
-	"errors": [
-		{
-			"tag": "ChatIdEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: chat_id is empty",
-			"when": "required parameters missing"
-		},
-		{
-			"tag": "CantChangePrivateChatDescription",
-			"errorCode": 400,
-			"description": "Bad Request: can't change private chat description",
-			"when": "chat_id refers to a private chat with the bot"
-		}
-	]
+	"errors": ["ChatIdEmpty", "CantChangePrivateChatDescription"]
 }

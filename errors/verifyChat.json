@@ -1,17 +1,4 @@
 {
 	"method": "verifyChat",
-	"errors": [
-		{
-			"tag": "ChatIdEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: chat_id is empty",
-			"when": "required parameters missing"
-		},
-		{
-			"tag": "BotVerifierForbidden",
-			"errorCode": 400,
-			"description": "Bad Request: BOT_VERIFIER_FORBIDDEN",
-			"when": "bot is not allowed to verify the chat"
-		}
-	]
+	"errors": ["ChatIdEmpty", "BotVerifierForbidden"]
 }

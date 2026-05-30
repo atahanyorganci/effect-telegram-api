@@ -1,23 +1,4 @@
 {
 	"method": "createChatSubscriptionInviteLink",
-	"errors": [
-		{
-			"tag": "ChatIdEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: chat_id is empty",
-			"when": "required parameters missing"
-		},
-		{
-			"tag": "CantInviteMembersToPrivateChat",
-			"errorCode": 400,
-			"description": "Bad Request: can't invite members to a private chat",
-			"when": "chat_id refers to a private chat that does not support subscription invite links"
-		},
-		{
-			"tag": "PricingChatInvalid",
-			"errorCode": 400,
-			"description": "Bad Request: PRICING_CHAT_INVALID",
-			"when": "chat does not support paid subscription invite links"
-		}
-	]
+	"errors": ["ChatIdEmpty", "CantInviteMembersToPrivateChat", "PricingChatInvalid"]
 }

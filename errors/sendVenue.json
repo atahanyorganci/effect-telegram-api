@@ -1,29 +1,4 @@
 {
 	"method": "sendVenue",
-	"errors": [
-		{
-			"tag": "ChatIdEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: chat_id is empty",
-			"when": "chat_id parameter is missing"
-		},
-		{
-			"tag": "ChatNotFound",
-			"errorCode": 400,
-			"description": "Bad Request: chat not found",
-			"when": "chat_id does not refer to a chat the bot can access"
-		},
-		{
-			"tag": "LatitudeEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: latitude is empty",
-			"when": "latitude parameter is missing"
-		},
-		{
-			"tag": "LongitudeEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: longitude is empty",
-			"when": "longitude parameter is missing"
-		}
-	]
+	"errors": ["ChatIdEmpty", "ChatNotFound", "LatitudeEmpty", "LongitudeEmpty"]
 }

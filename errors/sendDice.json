@@ -1,17 +1,4 @@
 {
 	"method": "sendDice",
-	"errors": [
-		{
-			"tag": "ChatIdEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: chat_id is empty",
-			"when": "chat_id parameter is missing"
-		},
-		{
-			"tag": "ChatNotFound",
-			"errorCode": 400,
-			"description": "Bad Request: chat not found",
-			"when": "chat_id does not refer to a chat the bot can access"
-		}
-	]
+	"errors": ["ChatIdEmpty", "ChatNotFound"]
 }

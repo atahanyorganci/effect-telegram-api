@@ -1,17 +1,4 @@
 {
 	"method": "sendLocation",
-	"errors": [
-		{
-			"tag": "ChatIdEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: chat_id is empty",
-			"when": "chat_id parameter is missing"
-		},
-		{
-			"tag": "LatitudeEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: latitude is empty",
-			"when": "latitude parameter is missing"
-		}
-	]
+	"errors": ["ChatIdEmpty", "LatitudeEmpty"]
 }

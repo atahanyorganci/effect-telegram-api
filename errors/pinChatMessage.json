@@ -1,17 +1,4 @@
 {
 	"method": "pinChatMessage",
-	"errors": [
-		{
-			"tag": "ChatNotFound",
-			"errorCode": 400,
-			"description": "Bad Request: chat not found",
-			"when": "chat_id does not refer to a chat the bot can access"
-		},
-		{
-			"tag": "MessageToPinNotFound",
-			"errorCode": 400,
-			"description": "Bad Request: message to pin not found",
-			"when": "message_id is missing or does not refer to an existing message"
-		}
-	]
+	"errors": ["ChatNotFound", "MessageToPinNotFound"]
 }

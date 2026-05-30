@@ -1,11 +1,4 @@
 {
 	"method": "deleteBusinessMessages",
-	"errors": [
-		{
-			"tag": "MessageIdentifiersAreNotSpecified",
-			"errorCode": 400,
-			"description": "Bad Request: message identifiers are not specified",
-			"when": "required parameters missing"
-		}
-	]
+	"errors": ["MessageIdentifiersAreNotSpecified"]
 }
