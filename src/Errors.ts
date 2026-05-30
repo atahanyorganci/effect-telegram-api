@@ -3,6 +3,251 @@
 import * as Data from "effect/Data";
 import * as Schema from "effect/Schema";
 
+/** switch_inline_query_chosen_chat.allow_user_chats is not a boolean */
+
+export class AllowUserChatsMustBeBoolean extends Data.TaggedError("AllowUserChatsMustBeBoolean")<{
+	readonly description: string;
+}> {}
+
+export const AllowUserChatsMustBeBooleanError = Schema.TaggedStruct("AllowUserChatsMustBeBoolean", {
+	description: Schema.String,
+});
+
+/** login_url is missing bot_username */
+
+export class BotDomainInvalid extends Data.TaggedError("BotDomainInvalid")<{
+	readonly description: string;
+}> {}
+
+export const BotDomainInvalidError = Schema.TaggedStruct("BotDomainInvalid", {
+	description: Schema.String,
+});
+
+/** business_connection_id does not refer to an active business connection */
+
+export class BusinessConnectionNotFound extends Data.TaggedError("BusinessConnectionNotFound")<{
+	readonly description: string;
+}> {}
+
+export const BusinessConnectionNotFoundError = Schema.TaggedStruct("BusinessConnectionNotFound", {
+	description: Schema.String,
+});
+
+/** copy_text button text is empty or too long */
+
+export class ButtonCopyTextInvalid extends Data.TaggedError("ButtonCopyTextInvalid")<{
+	readonly description: string;
+}> {}
+
+export const ButtonCopyTextInvalidError = Schema.TaggedStruct("ButtonCopyTextInvalid", {
+	description: Schema.String,
+});
+
+/** inline keyboard callback_data exceeds 64 bytes */
+
+export class ButtonDataInvalid extends Data.TaggedError("ButtonDataInvalid")<{
+	readonly description: string;
+}> {}
+
+export const ButtonDataInvalidError = Schema.TaggedStruct("ButtonDataInvalid", {
+	description: Schema.String,
+});
+
+/** request_users.max_quantity exceeds the allowed maximum */
+
+export class ButtonQuantityMaxInvalid extends Data.TaggedError("ButtonQuantityMaxInvalid")<{
+	readonly description: string;
+}> {}
+
+export const ButtonQuantityMaxInvalidError = Schema.TaggedStruct("ButtonQuantityMaxInvalid", {
+	description: Schema.String,
+});
+
+/** inline keyboard button type is invalid (e.g. pay without invoice or callback_game without game) */
+
+export class ButtonTypeInvalid extends Data.TaggedError("ButtonTypeInvalid")<{
+	readonly description: string;
+}> {}
+
+export const ButtonTypeInvalidError = Schema.TaggedStruct("ButtonTypeInvalid", {
+	description: Schema.String,
+});
+
+/** HTML tg-emoji tag references an invalid custom emoji id */
+
+export class CantParseEntitiesInvalidCustomEmoji extends Data.TaggedError("CantParseEntitiesInvalidCustomEmoji")<{
+	readonly description: string;
+}> {}
+
+export const CantParseEntitiesInvalidCustomEmojiError = Schema.TaggedStruct("CantParseEntitiesInvalidCustomEmoji", {
+	description: Schema.String,
+});
+
+/** text with parse_mode MarkdownV2 contains an unclosed bold entity */
+
+export class CantParseEntitiesNoBoldEnd extends Data.TaggedError("CantParseEntitiesNoBoldEnd")<{
+	readonly description: string;
+}> {}
+
+export const CantParseEntitiesNoBoldEndError = Schema.TaggedStruct("CantParseEntitiesNoBoldEnd", {
+	description: Schema.String,
+});
+
+/** text with parse_mode Markdown contains an unclosed entity */
+
+export class CantParseEntitiesNoEnd extends Data.TaggedError("CantParseEntitiesNoEnd")<{
+	readonly description: string;
+}> {}
+
+export const CantParseEntitiesNoEndError = Schema.TaggedStruct("CantParseEntitiesNoEnd", {
+	description: Schema.String,
+});
+
+/** text with parse_mode HTML contains an unclosed tag */
+
+export class CantParseEntitiesNoHtmlEndTag extends Data.TaggedError("CantParseEntitiesNoHtmlEndTag")<{
+	readonly description: string;
+}> {}
+
+export const CantParseEntitiesNoHtmlEndTagError = Schema.TaggedStruct("CantParseEntitiesNoHtmlEndTag", {
+	description: Schema.String,
+});
+
+/** text with parse_mode MarkdownV2 contains an unescaped opening brace */
+
+export class CantParseEntitiesReservedCharBrace extends Data.TaggedError("CantParseEntitiesReservedCharBrace")<{
+	readonly description: string;
+}> {}
+
+export const CantParseEntitiesReservedCharBraceError = Schema.TaggedStruct("CantParseEntitiesReservedCharBrace", {
+	description: Schema.String,
+});
+
+/** text with parse_mode MarkdownV2 contains an unescaped hyphen */
+
+export class CantParseEntitiesReservedCharDash extends Data.TaggedError("CantParseEntitiesReservedCharDash")<{
+	readonly description: string;
+}> {}
+
+export const CantParseEntitiesReservedCharDashError = Schema.TaggedStruct("CantParseEntitiesReservedCharDash", {
+	description: Schema.String,
+});
+
+/** text with parse_mode MarkdownV2 contains an unescaped period */
+
+export class CantParseEntitiesReservedCharDot extends Data.TaggedError("CantParseEntitiesReservedCharDot")<{
+	readonly description: string;
+}> {}
+
+export const CantParseEntitiesReservedCharDotError = Schema.TaggedStruct("CantParseEntitiesReservedCharDot", {
+	description: Schema.String,
+});
+
+/** text with parse_mode MarkdownV2 contains an unescaped equals sign */
+
+export class CantParseEntitiesReservedCharEquals extends Data.TaggedError("CantParseEntitiesReservedCharEquals")<{
+	readonly description: string;
+}> {}
+
+export const CantParseEntitiesReservedCharEqualsError = Schema.TaggedStruct("CantParseEntitiesReservedCharEquals", {
+	description: Schema.String,
+});
+
+/** text with parse_mode MarkdownV2 contains an unescaped exclamation mark */
+
+export class CantParseEntitiesReservedCharExclamation extends Data.TaggedError(
+	"CantParseEntitiesReservedCharExclamation",
+)<{
+	readonly description: string;
+}> {}
+
+export const CantParseEntitiesReservedCharExclamationError = Schema.TaggedStruct(
+	"CantParseEntitiesReservedCharExclamation",
+	{
+		description: Schema.String,
+	},
+);
+
+/** text with parse_mode MarkdownV2 contains an unescaped greater-than sign */
+
+export class CantParseEntitiesReservedCharGreater extends Data.TaggedError("CantParseEntitiesReservedCharGreater")<{
+	readonly description: string;
+}> {}
+
+export const CantParseEntitiesReservedCharGreaterError = Schema.TaggedStruct("CantParseEntitiesReservedCharGreater", {
+	description: Schema.String,
+});
+
+/** text with parse_mode MarkdownV2 contains an unescaped hash sign */
+
+export class CantParseEntitiesReservedCharHash extends Data.TaggedError("CantParseEntitiesReservedCharHash")<{
+	readonly description: string;
+}> {}
+
+export const CantParseEntitiesReservedCharHashError = Schema.TaggedStruct("CantParseEntitiesReservedCharHash", {
+	description: Schema.String,
+});
+
+/** text with parse_mode MarkdownV2 contains an unescaped opening parenthesis */
+
+export class CantParseEntitiesReservedCharParen extends Data.TaggedError("CantParseEntitiesReservedCharParen")<{
+	readonly description: string;
+}> {}
+
+export const CantParseEntitiesReservedCharParenError = Schema.TaggedStruct("CantParseEntitiesReservedCharParen", {
+	description: Schema.String,
+});
+
+/** text with parse_mode MarkdownV2 contains an unescaped pipe character */
+
+export class CantParseEntitiesReservedCharPipe extends Data.TaggedError("CantParseEntitiesReservedCharPipe")<{
+	readonly description: string;
+}> {}
+
+export const CantParseEntitiesReservedCharPipeError = Schema.TaggedStruct("CantParseEntitiesReservedCharPipe", {
+	description: Schema.String,
+});
+
+/** text with parse_mode MarkdownV2 contains an unescaped plus sign */
+
+export class CantParseEntitiesReservedCharPlus extends Data.TaggedError("CantParseEntitiesReservedCharPlus")<{
+	readonly description: string;
+}> {}
+
+export const CantParseEntitiesReservedCharPlusError = Schema.TaggedStruct("CantParseEntitiesReservedCharPlus", {
+	description: Schema.String,
+});
+
+/** text with parse_mode HTML has mismatched closing tags */
+
+export class CantParseEntitiesUnmatchedEndTag extends Data.TaggedError("CantParseEntitiesUnmatchedEndTag")<{
+	readonly description: string;
+}> {}
+
+export const CantParseEntitiesUnmatchedEndTagError = Schema.TaggedStruct("CantParseEntitiesUnmatchedEndTag", {
+	description: Schema.String,
+});
+
+/** text with parse_mode HTML contains a disallowed tag */
+
+export class CantParseEntitiesUnsupportedScriptTag extends Data.TaggedError("CantParseEntitiesUnsupportedScriptTag")<{
+	readonly description: string;
+}> {}
+
+export const CantParseEntitiesUnsupportedScriptTagError = Schema.TaggedStruct("CantParseEntitiesUnsupportedScriptTag", {
+	description: Schema.String,
+});
+
+/** text with parse_mode HTML contains an unknown tag */
+
+export class CantParseEntitiesUnsupportedTag extends Data.TaggedError("CantParseEntitiesUnsupportedTag")<{
+	readonly description: string;
+}> {}
+
+export const CantParseEntitiesUnsupportedTagError = Schema.TaggedStruct("CantParseEntitiesUnsupportedTag", {
+	description: Schema.String,
+});
+
 /** chat_id parameter is missing or empty */
 
 export class ChatIdEmpty extends Data.TaggedError("ChatIdEmpty")<{
@@ -10,6 +255,16 @@ export class ChatIdEmpty extends Data.TaggedError("ChatIdEmpty")<{
 }> {}
 
 export const ChatIdEmptyError = Schema.TaggedStruct("ChatIdEmpty", {
+	description: Schema.String,
+});
+
+/** request_chat.chat_is_forum is not a boolean */
+
+export class ChatIsForumMustBeBoolean extends Data.TaggedError("ChatIsForumMustBeBoolean")<{
+	readonly description: string;
+}> {}
+
+export const ChatIsForumMustBeBooleanError = Schema.TaggedStruct("ChatIsForumMustBeBoolean", {
 	description: Schema.String,
 });
 
@@ -23,6 +278,86 @@ export const ChatNotFoundError = Schema.TaggedStruct("ChatNotFound", {
 	description: Schema.String,
 });
 
+/** custom_emoji entity is missing custom_emoji_id */
+
+export class CustomEmojiIdMissing extends Data.TaggedError("CustomEmojiIdMissing")<{
+	readonly description: string;
+}> {}
+
+export const CustomEmojiIdMissingError = Schema.TaggedStruct("CustomEmojiIdMissing", {
+	description: Schema.String,
+});
+
+/** custom_emoji entity has a non-numeric custom_emoji_id */
+
+export class CustomEmojiIdMustBeNumber extends Data.TaggedError("CustomEmojiIdMustBeNumber")<{
+	readonly description: string;
+}> {}
+
+export const CustomEmojiIdMustBeNumberError = Schema.TaggedStruct("CustomEmojiIdMustBeNumber", {
+	description: Schema.String,
+});
+
+/** message_effect_id is not valid */
+
+export class EffectIdInvalid extends Data.TaggedError("EffectIdInvalid")<{
+	readonly description: string;
+}> {}
+
+export const EffectIdInvalidError = Schema.TaggedStruct("EffectIdInvalid", {
+	description: Schema.String,
+});
+
+/** entities offset is beyond the text length */
+
+export class EntityBeginsAfterTextEnd extends Data.TaggedError("EntityBeginsAfterTextEnd")<{
+	readonly description: string;
+}> {}
+
+export const EntityBeginsAfterTextEndError = Schema.TaggedStruct("EntityBeginsAfterTextEnd", {
+	description: Schema.String,
+});
+
+/** entities offset plus length exceeds the text length */
+
+export class EntityEndsAfterTextEnd extends Data.TaggedError("EntityEndsAfterTextEnd")<{
+	readonly description: string;
+}> {}
+
+export const EntityEndsAfterTextEndError = Schema.TaggedStruct("EntityEndsAfterTextEnd", {
+	description: Schema.String,
+});
+
+/** entities offset is negative */
+
+export class EntityIncorrectOffset extends Data.TaggedError("EntityIncorrectOffset")<{
+	readonly description: string;
+}> {}
+
+export const EntityIncorrectOffsetError = Schema.TaggedStruct("EntityIncorrectOffset", {
+	description: Schema.String,
+});
+
+/** text_link entity url is empty */
+
+export class EntityUrlEmpty extends Data.TaggedError("EntityUrlEmpty")<{
+	readonly description: string;
+}> {}
+
+export const EntityUrlEmptyError = Schema.TaggedStruct("EntityUrlEmpty", {
+	description: Schema.String,
+});
+
+/** text_link entity url is not a valid HTTP URL */
+
+export class EntityUrlInvalid extends Data.TaggedError("EntityUrlInvalid")<{
+	readonly description: string;
+}> {}
+
+export const EntityUrlInvalidError = Schema.TaggedStruct("EntityUrlInvalid", {
+	description: Schema.String,
+});
+
 /** file_id parameter is missing or empty */
 
 export class FileIdNotSpecified extends Data.TaggedError("FileIdNotSpecified")<{
@@ -30,6 +365,76 @@ export class FileIdNotSpecified extends Data.TaggedError("FileIdNotSpecified")<{
 }> {}
 
 export const FileIdNotSpecifiedError = Schema.TaggedStruct("FileIdNotSpecified", {
+	description: Schema.String,
+});
+
+/** allow_paid_broadcast is true but the bot has insufficient Telegram Stars */
+
+export class FloodskipNotAllowed extends Data.TaggedError("FloodskipNotAllowed")<{
+	readonly description: string;
+}> {}
+
+export const FloodskipNotAllowedError = Schema.TaggedStruct("FloodskipNotAllowed", {
+	description: Schema.String,
+});
+
+/** force_reply is not a boolean */
+
+export class ForceReplyMustBeBoolean extends Data.TaggedError("ForceReplyMustBeBoolean")<{
+	readonly description: string;
+}> {}
+
+export const ForceReplyMustBeBooleanError = Schema.TaggedStruct("ForceReplyMustBeBoolean", {
+	description: Schema.String,
+});
+
+/** inline keyboard button is missing text */
+
+export class InlineButtonTextMissing extends Data.TaggedError("InlineButtonTextMissing")<{
+	readonly description: string;
+}> {}
+
+export const InlineButtonTextMissingError = Schema.TaggedStruct("InlineButtonTextMissing", {
+	description: Schema.String,
+});
+
+/** inline keyboard button has empty callback_data and no url */
+
+export class InlineButtonTextUnallowed extends Data.TaggedError("InlineButtonTextUnallowed")<{
+	readonly description: string;
+}> {}
+
+export const InlineButtonTextUnallowedError = Schema.TaggedStruct("InlineButtonTextUnallowed", {
+	description: Schema.String,
+});
+
+/** inline keyboard button url uses an unsupported protocol */
+
+export class InlineButtonUrlFtpUnsupported extends Data.TaggedError("InlineButtonUrlFtpUnsupported")<{
+	readonly description: string;
+}> {}
+
+export const InlineButtonUrlFtpUnsupportedError = Schema.TaggedStruct("InlineButtonUrlFtpUnsupported", {
+	description: Schema.String,
+});
+
+/** inline keyboard button url is not a valid HTTP URL */
+
+export class InlineButtonUrlInvalid extends Data.TaggedError("InlineButtonUrlInvalid")<{
+	readonly description: string;
+}> {}
+
+export const InlineButtonUrlInvalidError = Schema.TaggedStruct("InlineButtonUrlInvalid", {
+	description: Schema.String,
+});
+
+/** inline_keyboard is not an array */
+
+export class InlineKeyboardMustBeArray extends Data.TaggedError("InlineKeyboardMustBeArray")<{
+	readonly description: string;
+}> {}
+
+export const InlineKeyboardMustBeArrayError = Schema.TaggedStruct("InlineKeyboardMustBeArray", {
 	description: Schema.String,
 });
 
@@ -53,6 +458,16 @@ export const InvalidFileIdError = Schema.TaggedStruct("InvalidFileId", {
 	description: Schema.String,
 });
 
+/** suggested_post_parameters price amount is invalid */
+
+export class InvalidStarsAmount extends Data.TaggedError("InvalidStarsAmount")<{
+	readonly description: string;
+}> {}
+
+export const InvalidStarsAmountError = Schema.TaggedStruct("InvalidStarsAmount", {
+	description: Schema.String,
+});
+
 /** user_id is missing or zero */
 
 export class InvalidUserId extends Data.TaggedError("InvalidUserId")<{
@@ -60,6 +475,66 @@ export class InvalidUserId extends Data.TaggedError("InvalidUserId")<{
 }> {}
 
 export const InvalidUserIdError = Schema.TaggedStruct("InvalidUserId", {
+	description: Schema.String,
+});
+
+/** reply keyboard is_persistent is not a boolean */
+
+export class IsPersistentMustBeBoolean extends Data.TaggedError("IsPersistentMustBeBoolean")<{
+	readonly description: string;
+}> {}
+
+export const IsPersistentMustBeBooleanError = Schema.TaggedStruct("IsPersistentMustBeBoolean", {
+	description: Schema.String,
+});
+
+/** reply keyboard keyboard is not an array */
+
+export class KeyboardMustBeArray extends Data.TaggedError("KeyboardMustBeArray")<{
+	readonly description: string;
+}> {}
+
+export const KeyboardMustBeArrayError = Schema.TaggedStruct("KeyboardMustBeArray", {
+	description: Schema.String,
+});
+
+/** request_chat or request_users keyboard button is missing request_id */
+
+export class KeyboardRequestIdMissing extends Data.TaggedError("KeyboardRequestIdMissing")<{
+	readonly description: string;
+}> {}
+
+export const KeyboardRequestIdMissingError = Schema.TaggedStruct("KeyboardRequestIdMissing", {
+	description: Schema.String,
+});
+
+/** reply keyboard web_app button url is HTTP instead of HTTPS */
+
+export class KeyboardWebAppUrlHttpNotAllowed extends Data.TaggedError("KeyboardWebAppUrlHttpNotAllowed")<{
+	readonly description: string;
+}> {}
+
+export const KeyboardWebAppUrlHttpNotAllowedError = Schema.TaggedStruct("KeyboardWebAppUrlHttpNotAllowed", {
+	description: Schema.String,
+});
+
+/** link_preview_options.is_disabled is not a boolean */
+
+export class LinkPreviewIsDisabledMustBeBoolean extends Data.TaggedError("LinkPreviewIsDisabledMustBeBoolean")<{
+	readonly description: string;
+}> {}
+
+export const LinkPreviewIsDisabledMustBeBooleanError = Schema.TaggedStruct("LinkPreviewIsDisabledMustBeBoolean", {
+	description: Schema.String,
+});
+
+/** login_url bot_username does not refer to an existing bot */
+
+export class LoginUrlBotNotFound extends Data.TaggedError("LoginUrlBotNotFound")<{
+	readonly description: string;
+}> {}
+
+export const LoginUrlBotNotFoundError = Schema.TaggedStruct("LoginUrlBotNotFound", {
 	description: Schema.String,
 });
 
@@ -83,6 +558,16 @@ export const MessageTextEmptyError = Schema.TaggedStruct("MessageTextEmpty", {
 	description: Schema.String,
 });
 
+/** message_thread_id does not refer to an existing forum topic */
+
+export class MessageThreadNotFound extends Data.TaggedError("MessageThreadNotFound")<{
+	readonly description: string;
+}> {}
+
+export const MessageThreadNotFoundError = Schema.TaggedStruct("MessageThreadNotFound", {
+	description: Schema.String,
+});
+
 /** text exceeds 4096 characters */
 
 export class MessageTooLong extends Data.TaggedError("MessageTooLong")<{
@@ -90,6 +575,16 @@ export class MessageTooLong extends Data.TaggedError("MessageTooLong")<{
 }> {}
 
 export const MessageTooLongError = Schema.TaggedStruct("MessageTooLong", {
+	description: Schema.String,
+});
+
+/** reply_parameters.message_id does not exist in the target chat */
+
+export class MessageToReplyNotFound extends Data.TaggedError("MessageToReplyNotFound")<{
+	readonly description: string;
+}> {}
+
+export const MessageToReplyNotFoundError = Schema.TaggedStruct("MessageToReplyNotFound", {
 	description: Schema.String,
 });
 
@@ -103,6 +598,136 @@ export const NotFoundError = Schema.TaggedStruct("NotFound", {
 	description: Schema.String,
 });
 
+/** reply keyboard one_time_keyboard is not a boolean */
+
+export class OneTimeKeyboardMustBeBoolean extends Data.TaggedError("OneTimeKeyboardMustBeBoolean")<{
+	readonly description: string;
+}> {}
+
+export const OneTimeKeyboardMustBeBooleanError = Schema.TaggedStruct("OneTimeKeyboardMustBeBoolean", {
+	description: Schema.String,
+});
+
+/** link_preview_options.prefer_large_media is not a boolean */
+
+export class PreferLargeMediaMustBeBoolean extends Data.TaggedError("PreferLargeMediaMustBeBoolean")<{
+	readonly description: string;
+}> {}
+
+export const PreferLargeMediaMustBeBooleanError = Schema.TaggedStruct("PreferLargeMediaMustBeBoolean", {
+	description: Schema.String,
+});
+
+/** link_preview_options.prefer_small_media is not a boolean */
+
+export class PreferSmallMediaMustBeBoolean extends Data.TaggedError("PreferSmallMediaMustBeBoolean")<{
+	readonly description: string;
+}> {}
+
+export const PreferSmallMediaMustBeBooleanError = Schema.TaggedStruct("PreferSmallMediaMustBeBoolean", {
+	description: Schema.String,
+});
+
+/** remove_keyboard is not a boolean */
+
+export class RemoveKeyboardMustBeBoolean extends Data.TaggedError("RemoveKeyboardMustBeBoolean")<{
+	readonly description: string;
+}> {}
+
+export const RemoveKeyboardMustBeBooleanError = Schema.TaggedStruct("RemoveKeyboardMustBeBoolean", {
+	description: Schema.String,
+});
+
+/** reply_parameters is set without message_id */
+
+export class ReplyMessageIdMissing extends Data.TaggedError("ReplyMessageIdMissing")<{
+	readonly description: string;
+}> {}
+
+export const ReplyMessageIdMissingError = Schema.TaggedStruct("ReplyMessageIdMissing", {
+	description: Schema.String,
+});
+
+/** login_url.request_write_access is not a boolean */
+
+export class RequestWriteAccessMustBeBoolean extends Data.TaggedError("RequestWriteAccessMustBeBoolean")<{
+	readonly description: string;
+}> {}
+
+export const RequestWriteAccessMustBeBooleanError = Schema.TaggedStruct("RequestWriteAccessMustBeBoolean", {
+	description: Schema.String,
+});
+
+/** reply keyboard resize_keyboard is not a boolean */
+
+export class ResizeKeyboardMustBeBoolean extends Data.TaggedError("ResizeKeyboardMustBeBoolean")<{
+	readonly description: string;
+}> {}
+
+export const ResizeKeyboardMustBeBooleanError = Schema.TaggedStruct("ResizeKeyboardMustBeBoolean", {
+	description: Schema.String,
+});
+
+/** reply markup selective is not a boolean */
+
+export class SelectiveMustBeBoolean extends Data.TaggedError("SelectiveMustBeBoolean")<{
+	readonly description: string;
+}> {}
+
+export const SelectiveMustBeBooleanError = Schema.TaggedStruct("SelectiveMustBeBoolean", {
+	description: Schema.String,
+});
+
+/** link_preview_options.show_above_text is not a boolean */
+
+export class ShowAboveTextMustBeBoolean extends Data.TaggedError("ShowAboveTextMustBeBoolean")<{
+	readonly description: string;
+}> {}
+
+export const ShowAboveTextMustBeBooleanError = Schema.TaggedStruct("ShowAboveTextMustBeBoolean", {
+	description: Schema.String,
+});
+
+/** suggested_post_parameters is used outside a channel direct messages chat */
+
+export class SuggestedPostChannelOnly extends Data.TaggedError("SuggestedPostChannelOnly")<{
+	readonly description: string;
+}> {}
+
+export const SuggestedPostChannelOnlyError = Schema.TaggedStruct("SuggestedPostChannelOnly", {
+	description: Schema.String,
+});
+
+/** text_link entity is missing url */
+
+export class TextLinkUrlMissing extends Data.TaggedError("TextLinkUrlMissing")<{
+	readonly description: string;
+}> {}
+
+export const TextLinkUrlMissingError = Schema.TaggedStruct("TextLinkUrlMissing", {
+	description: Schema.String,
+});
+
+/** text_mention entity is missing user */
+
+export class TextMentionUserMissing extends Data.TaggedError("TextMentionUserMissing")<{
+	readonly description: string;
+}> {}
+
+export const TextMentionUserMissingError = Schema.TaggedStruct("TextMentionUserMissing", {
+	description: Schema.String,
+});
+
+/** text contains only whitespace or parses to empty content */
+
+export class TextMustBeNonEmpty extends Data.TaggedError("TextMustBeNonEmpty")<{
+	readonly description: string;
+}> {}
+
+export const TextMustBeNonEmptyError = Schema.TaggedStruct("TextMustBeNonEmpty", {
+	description: Schema.String,
+});
+
 /** Token has bot id:hash form but the secret is invalid */
 
 export class Unauthorized extends Data.TaggedError("Unauthorized")<{
@@ -113,6 +738,26 @@ export const UnauthorizedError = Schema.TaggedStruct("Unauthorized", {
 	description: Schema.String,
 });
 
+/** entities contains an unsupported type value */
+
+export class UnsupportedMessageEntityType extends Data.TaggedError("UnsupportedMessageEntityType")<{
+	readonly description: string;
+}> {}
+
+export const UnsupportedMessageEntityTypeError = Schema.TaggedStruct("UnsupportedMessageEntityType", {
+	description: Schema.String,
+});
+
+/** parse_mode is not HTML, Markdown, or MarkdownV2 */
+
+export class UnsupportedParseMode extends Data.TaggedError("UnsupportedParseMode")<{
+	readonly description: string;
+}> {}
+
+export const UnsupportedParseModeError = Schema.TaggedStruct("UnsupportedParseMode", {
+	description: Schema.String,
+});
+
 /** user_id does not refer to an existing user */
 
 export class UserNotFound extends Data.TaggedError("UserNotFound")<{
@@ -120,6 +765,36 @@ export class UserNotFound extends Data.TaggedError("UserNotFound")<{
 }> {}
 
 export const UserNotFoundError = Schema.TaggedStruct("UserNotFound", {
+	description: Schema.String,
+});
+
+/** web_app button url is HTTP instead of HTTPS */
+
+export class WebAppUrlHttpNotAllowed extends Data.TaggedError("WebAppUrlHttpNotAllowed")<{
+	readonly description: string;
+}> {}
+
+export const WebAppUrlHttpNotAllowedError = Schema.TaggedStruct("WebAppUrlHttpNotAllowed", {
+	description: Schema.String,
+});
+
+/** web_app button url is not a valid HTTPS URL */
+
+export class WebAppUrlNotHttps extends Data.TaggedError("WebAppUrlNotHttps")<{
+	readonly description: string;
+}> {}
+
+export const WebAppUrlNotHttpsError = Schema.TaggedStruct("WebAppUrlNotHttps", {
+	description: Schema.String,
+});
+
+/** link_preview_options.url is not a valid URL */
+
+export class WebpageUrlInvalid extends Data.TaggedError("WebpageUrlInvalid")<{
+	readonly description: string;
+}> {}
+
+export const WebpageUrlInvalidError = Schema.TaggedStruct("WebpageUrlInvalid", {
 	description: Schema.String,
 });
 
@@ -200,11 +875,304 @@ export const methodErrors = {
 		{ errorCode: 400, description: "Bad Request: user not found", error: UserNotFound },
 	],
 	sendMessage: [
+		{
+			errorCode: 400,
+			description: 'Bad Request: can\'t parse inline keyboard button: Field "allow_user_chats" must be of type Boolean',
+			error: AllowUserChatsMustBeBoolean,
+		},
+		{ errorCode: 400, description: "Bad Request: BOT_DOMAIN_INVALID", error: BotDomainInvalid },
+		{ errorCode: 400, description: "Bad Request: business connection not found", error: BusinessConnectionNotFound },
+		{ errorCode: 400, description: "Bad Request: BUTTON_COPY_TEXT_INVALID", error: ButtonCopyTextInvalid },
+		{ errorCode: 400, description: "Bad Request: BUTTON_DATA_INVALID", error: ButtonDataInvalid },
+		{ errorCode: 400, description: "Bad Request: BUTTON_QUANTITY_MAX_INVALID", error: ButtonQuantityMaxInvalid },
+		{ errorCode: 400, description: "Bad Request: BUTTON_TYPE_INVALID", error: ButtonTypeInvalid },
+		{
+			errorCode: 400,
+			description: "Bad Request: can't parse entities: Invalid custom emoji identifier specified",
+			error: CantParseEntitiesInvalidCustomEmoji,
+		},
+		{
+			errorCode: 400,
+			description: "Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 0",
+			error: CantParseEntitiesNoBoldEnd,
+		},
+		{
+			errorCode: 400,
+			description: "Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 15",
+			error: CantParseEntitiesNoBoldEnd,
+		},
+		{
+			errorCode: 400,
+			description: "Bad Request: can't parse entities: Can't find end of the entity starting at byte offset 0",
+			error: CantParseEntitiesNoEnd,
+		},
+		{
+			errorCode: 400,
+			description: "Bad Request: can't parse entities: Can't find end tag corresponding to start tag \"b\"",
+			error: CantParseEntitiesNoHtmlEndTag,
+		},
+		{
+			errorCode: 400,
+			description:
+				"Bad Request: can't parse entities: Character '{' is reserved and must be escaped with the preceding '\\'",
+			error: CantParseEntitiesReservedCharBrace,
+		},
+		{
+			errorCode: 400,
+			description:
+				"Bad Request: can't parse entities: Character '-' is reserved and must be escaped with the preceding '\\'",
+			error: CantParseEntitiesReservedCharDash,
+		},
+		{
+			errorCode: 400,
+			description:
+				"Bad Request: can't parse entities: Character '.' is reserved and must be escaped with the preceding '\\'",
+			error: CantParseEntitiesReservedCharDot,
+		},
+		{
+			errorCode: 400,
+			description:
+				"Bad Request: can't parse entities: Character '=' is reserved and must be escaped with the preceding '\\'",
+			error: CantParseEntitiesReservedCharEquals,
+		},
+		{
+			errorCode: 400,
+			description:
+				"Bad Request: can't parse entities: Character '!' is reserved and must be escaped with the preceding '\\'",
+			error: CantParseEntitiesReservedCharExclamation,
+		},
+		{
+			errorCode: 400,
+			description:
+				"Bad Request: can't parse entities: Character '>' is reserved and must be escaped with the preceding '\\'",
+			error: CantParseEntitiesReservedCharGreater,
+		},
+		{
+			errorCode: 400,
+			description:
+				"Bad Request: can't parse entities: Character '#' is reserved and must be escaped with the preceding '\\'",
+			error: CantParseEntitiesReservedCharHash,
+		},
+		{
+			errorCode: 400,
+			description:
+				"Bad Request: can't parse entities: Character '(' is reserved and must be escaped with the preceding '\\'",
+			error: CantParseEntitiesReservedCharParen,
+		},
+		{
+			errorCode: 400,
+			description:
+				"Bad Request: can't parse entities: Character '|' is reserved and must be escaped with the preceding '\\'",
+			error: CantParseEntitiesReservedCharPipe,
+		},
+		{
+			errorCode: 400,
+			description:
+				"Bad Request: can't parse entities: Character '+' is reserved and must be escaped with the preceding '\\'",
+			error: CantParseEntitiesReservedCharPlus,
+		},
+		{
+			errorCode: 400,
+			description:
+				'Bad Request: can\'t parse entities: Unmatched end tag at byte offset 10, expected "</i>", found "</b>"',
+			error: CantParseEntitiesUnmatchedEndTag,
+		},
+		{
+			errorCode: 400,
+			description: 'Bad Request: can\'t parse entities: Unsupported start tag "script" at byte offset 0',
+			error: CantParseEntitiesUnsupportedScriptTag,
+		},
+		{
+			errorCode: 400,
+			description: 'Bad Request: can\'t parse entities: Unsupported start tag "invalid" at byte offset 0',
+			error: CantParseEntitiesUnsupportedTag,
+		},
 		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{
+			errorCode: 400,
+			description: 'Bad Request: can\'t parse keyboard button: Field "chat_is_forum" must be of type Boolean',
+			error: ChatIsForumMustBeBoolean,
+		},
 		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
+		{
+			errorCode: 400,
+			description: "Bad Request: can't parse MessageEntity: Can't find field \"custom_emoji_id\"",
+			error: CustomEmojiIdMissing,
+		},
+		{
+			errorCode: 400,
+			description: 'Bad Request: can\'t parse MessageEntity: Field "custom_emoji_id" must be a valid Number',
+			error: CustomEmojiIdMustBeNumber,
+		},
+		{ errorCode: 400, description: "Bad Request: EFFECT_ID_INVALID", error: EffectIdInvalid },
+		{
+			errorCode: 400,
+			description: "Bad Request: entity begins after the end of the text at UTF-16 offset 100",
+			error: EntityBeginsAfterTextEnd,
+		},
+		{
+			errorCode: 400,
+			description:
+				"Bad Request: entity beginning at UTF-16 offset 0 ends after the end of the text at UTF-16 offset 100",
+			error: EntityEndsAfterTextEnd,
+		},
+		{
+			errorCode: 400,
+			description: "Bad Request: receive an entity with incorrect offset -1",
+			error: EntityIncorrectOffset,
+		},
+		{ errorCode: 400, description: "Bad Request: entity URL '' is invalid: URL host is empty", error: EntityUrlEmpty },
+		{
+			errorCode: 400,
+			description: "Bad Request: entity URL 'not-a-url' is invalid: Wrong HTTP URL",
+			error: EntityUrlInvalid,
+		},
+		{ errorCode: 400, description: "Bad Request: FLOODSKIP_NOT_ALLOWED", error: FloodskipNotAllowed },
+		{
+			errorCode: 400,
+			description: 'Bad Request: field "force_reply" must be of type Boolean',
+			error: ForceReplyMustBeBoolean,
+		},
+		{
+			errorCode: 400,
+			description: "Bad Request: can't parse inline keyboard button: Can't find field \"text\"",
+			error: InlineButtonTextMissing,
+		},
+		{
+			errorCode: 400,
+			description: "Bad Request: can't parse inline keyboard button: Text buttons are unallowed in the inline keyboard",
+			error: InlineButtonTextUnallowed,
+		},
+		{
+			errorCode: 400,
+			description: "Bad Request: inline keyboard button URL 'ftp://example.com' is invalid: Unsupported URL protocol",
+			error: InlineButtonUrlFtpUnsupported,
+		},
+		{
+			errorCode: 400,
+			description: "Bad Request: inline keyboard button URL 'not-a-url' is invalid: Wrong HTTP URL",
+			error: InlineButtonUrlInvalid,
+		},
+		{
+			errorCode: 400,
+			description: 'Bad Request: field "inline_keyboard" must be of type Array',
+			error: InlineKeyboardMustBeArray,
+		},
+		{
+			errorCode: 400,
+			description: "Bad Request: invalid amount of Telegram Stars specified",
+			error: InvalidStarsAmount,
+		},
+		{
+			errorCode: 400,
+			description: 'Bad Request: field "is_persistent" must be of type Boolean',
+			error: IsPersistentMustBeBoolean,
+		},
+		{ errorCode: 400, description: 'Bad Request: field "keyboard" must be of type Array', error: KeyboardMustBeArray },
+		{
+			errorCode: 400,
+			description: "Bad Request: can't parse keyboard button: Can't find field \"request_id\"",
+			error: KeyboardRequestIdMissing,
+		},
+		{
+			errorCode: 400,
+			description:
+				"Bad Request: keyboard button Web App URL 'http://example.com' is invalid: Only HTTPS links are allowed",
+			error: KeyboardWebAppUrlHttpNotAllowed,
+		},
+		{
+			errorCode: 400,
+			description: 'Bad Request: field "is_disabled" must be of type Boolean',
+			error: LinkPreviewIsDisabledMustBeBoolean,
+		},
+		{
+			errorCode: 400,
+			description: 'Bad Request: bot "nonexistent_bot_xyz_12345" not found',
+			error: LoginUrlBotNotFound,
+		},
+		{ errorCode: 400, description: 'Bad Request: bot "telegram" not found', error: LoginUrlBotNotFound },
 		{ errorCode: 400, description: "Bad Request: message text is empty", error: MessageTextEmpty },
+		{ errorCode: 400, description: "Bad Request: message thread not found", error: MessageThreadNotFound },
 		{ errorCode: 400, description: "Bad Request: message is too long", error: MessageTooLong },
+		{ errorCode: 400, description: "Bad Request: message to be replied not found", error: MessageToReplyNotFound },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{
+			errorCode: 400,
+			description: 'Bad Request: field "one_time_keyboard" must be of type Boolean',
+			error: OneTimeKeyboardMustBeBoolean,
+		},
+		{
+			errorCode: 400,
+			description: 'Bad Request: field "prefer_large_media" must be of type Boolean',
+			error: PreferLargeMediaMustBeBoolean,
+		},
+		{
+			errorCode: 400,
+			description: 'Bad Request: field "prefer_small_media" must be of type Boolean',
+			error: PreferSmallMediaMustBeBoolean,
+		},
+		{
+			errorCode: 400,
+			description: 'Bad Request: field "remove_keyboard" must be of type Boolean',
+			error: RemoveKeyboardMustBeBoolean,
+		},
+		{ errorCode: 400, description: 'Bad Request: can\'t find field "message_id"', error: ReplyMessageIdMissing },
+		{
+			errorCode: 400,
+			description:
+				'Bad Request: can\'t parse inline keyboard button: Field "request_write_access" must be of type Boolean',
+			error: RequestWriteAccessMustBeBoolean,
+		},
+		{
+			errorCode: 400,
+			description: 'Bad Request: field "resize_keyboard" must be of type Boolean',
+			error: ResizeKeyboardMustBeBoolean,
+		},
+		{
+			errorCode: 400,
+			description: 'Bad Request: field "selective" must be of type Boolean',
+			error: SelectiveMustBeBoolean,
+		},
+		{
+			errorCode: 400,
+			description: 'Bad Request: field "show_above_text" must be of type Boolean',
+			error: ShowAboveTextMustBeBoolean,
+		},
+		{
+			errorCode: 400,
+			description: "Bad Request: suggested posts can be sent only to channel direct messages",
+			error: SuggestedPostChannelOnly,
+		},
+		{
+			errorCode: 400,
+			description: "Bad Request: can't parse MessageEntity: Can't find field \"url\"",
+			error: TextLinkUrlMissing,
+		},
+		{
+			errorCode: 400,
+			description: "Bad Request: can't parse MessageEntity: Can't find field \"user\"",
+			error: TextMentionUserMissing,
+		},
+		{ errorCode: 400, description: "Bad Request: text must be non-empty", error: TextMustBeNonEmpty },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+		{
+			errorCode: 400,
+			description: "Bad Request: can't parse MessageEntity: Unsupported type specified",
+			error: UnsupportedMessageEntityType,
+		},
+		{ errorCode: 400, description: "Bad Request: unsupported parse_mode", error: UnsupportedParseMode },
+		{ errorCode: 400, description: "Bad Request: user not found", error: UserNotFound },
+		{
+			errorCode: 400,
+			description:
+				"Bad Request: inline keyboard button Web App URL 'http://example.com' is invalid: Only HTTPS links are allowed",
+			error: WebAppUrlHttpNotAllowed,
+		},
+		{
+			errorCode: 400,
+			description: "Bad Request: inline keyboard button Web App URL 'bad' is invalid: Only HTTPS links are allowed",
+			error: WebAppUrlNotHttps,
+		},
+		{ errorCode: 400, description: "Bad Request: WEBPAGE_URL_INVALID", error: WebpageUrlInvalid },
 	],
 } as const;

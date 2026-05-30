@@ -2,6 +2,36 @@
 	"method": "sendMessage",
 	"errors": [
 		{
+			"tag": "BusinessConnectionNotFound",
+			"errorCode": 400,
+			"description": "Bad Request: business connection not found",
+			"when": "business_connection_id does not refer to an active business connection"
+		},
+		{
+			"tag": "ButtonDataInvalid",
+			"errorCode": 400,
+			"description": "Bad Request: BUTTON_DATA_INVALID",
+			"when": "inline keyboard callback_data exceeds 64 bytes"
+		},
+		{
+			"tag": "CantParseEntitiesNoBoldEnd",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 0",
+			"when": "text with parse_mode MarkdownV2 contains an unclosed bold entity"
+		},
+		{
+			"tag": "CantParseEntitiesNoEnd",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse entities: Can't find end of the entity starting at byte offset 0",
+			"when": "text with parse_mode Markdown contains an unclosed entity"
+		},
+		{
+			"tag": "CantParseEntitiesNoHtmlEndTag",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse entities: Can't find end tag corresponding to start tag \"b\"",
+			"when": "text with parse_mode HTML contains an unclosed tag"
+		},
+		{
 			"tag": "ChatIdEmpty",
 			"errorCode": 400,
 			"description": "Bad Request: chat_id is empty",
@@ -14,16 +44,406 @@
 			"when": "chat_id does not refer to a chat the bot can access"
 		},
 		{
+			"tag": "EffectIdInvalid",
+			"errorCode": 400,
+			"description": "Bad Request: EFFECT_ID_INVALID",
+			"when": "message_effect_id is not valid"
+		},
+		{
+			"tag": "EntityBeginsAfterTextEnd",
+			"errorCode": 400,
+			"description": "Bad Request: entity begins after the end of the text at UTF-16 offset 100",
+			"when": "entities offset is beyond the text length"
+		},
+		{
+			"tag": "EntityEndsAfterTextEnd",
+			"errorCode": 400,
+			"description": "Bad Request: entity beginning at UTF-16 offset 0 ends after the end of the text at UTF-16 offset 100",
+			"when": "entities offset plus length exceeds the text length"
+		},
+		{
+			"tag": "FloodskipNotAllowed",
+			"errorCode": 400,
+			"description": "Bad Request: FLOODSKIP_NOT_ALLOWED",
+			"when": "allow_paid_broadcast is true but the bot has insufficient Telegram Stars"
+		},
+		{
 			"tag": "MessageTextEmpty",
 			"errorCode": 400,
 			"description": "Bad Request: message text is empty",
 			"when": "text is missing or empty"
 		},
 		{
+			"tag": "MessageThreadNotFound",
+			"errorCode": 400,
+			"description": "Bad Request: message thread not found",
+			"when": "message_thread_id does not refer to an existing forum topic"
+		},
+		{
+			"tag": "MessageToReplyNotFound",
+			"errorCode": 400,
+			"description": "Bad Request: message to be replied not found",
+			"when": "reply_parameters.message_id does not exist in the target chat"
+		},
+		{
 			"tag": "MessageTooLong",
 			"errorCode": 400,
 			"description": "Bad Request: message is too long",
 			"when": "text exceeds 4096 characters"
+		},
+		{
+			"tag": "UnsupportedMessageEntityType",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse MessageEntity: Unsupported type specified",
+			"when": "entities contains an unsupported type value"
+		},
+		{
+			"tag": "UnsupportedParseMode",
+			"errorCode": 400,
+			"description": "Bad Request: unsupported parse_mode",
+			"when": "parse_mode is not HTML, Markdown, or MarkdownV2"
+		},
+		{
+			"tag": "ButtonCopyTextInvalid",
+			"errorCode": 400,
+			"description": "Bad Request: BUTTON_COPY_TEXT_INVALID",
+			"when": "copy_text button text is empty or too long"
+		},
+		{
+			"tag": "ButtonQuantityMaxInvalid",
+			"errorCode": 400,
+			"description": "Bad Request: BUTTON_QUANTITY_MAX_INVALID",
+			"when": "request_users.max_quantity exceeds the allowed maximum"
+		},
+		{
+			"tag": "ButtonTypeInvalid",
+			"errorCode": 400,
+			"description": "Bad Request: BUTTON_TYPE_INVALID",
+			"when": "inline keyboard button type is invalid (e.g. pay without invoice or callback_game without game)"
+		},
+		{
+			"tag": "CantParseEntitiesReservedCharDash",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse entities: Character '-' is reserved and must be escaped with the preceding '\\'",
+			"when": "text with parse_mode MarkdownV2 contains an unescaped hyphen"
+		},
+		{
+			"tag": "CantParseEntitiesReservedCharDot",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse entities: Character '.' is reserved and must be escaped with the preceding '\\'",
+			"when": "text with parse_mode MarkdownV2 contains an unescaped period"
+		},
+		{
+			"tag": "CantParseEntitiesReservedCharExclamation",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse entities: Character '!' is reserved and must be escaped with the preceding '\\'",
+			"when": "text with parse_mode MarkdownV2 contains an unescaped exclamation mark"
+		},
+		{
+			"tag": "CantParseEntitiesUnmatchedEndTag",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse entities: Unmatched end tag at byte offset 10, expected \"</i>\", found \"</b>\"",
+			"when": "text with parse_mode HTML has mismatched closing tags"
+		},
+		{
+			"tag": "CantParseEntitiesUnsupportedScriptTag",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse entities: Unsupported start tag \"script\" at byte offset 0",
+			"when": "text with parse_mode HTML contains a disallowed tag"
+		},
+		{
+			"tag": "CantParseEntitiesUnsupportedTag",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse entities: Unsupported start tag \"invalid\" at byte offset 0",
+			"when": "text with parse_mode HTML contains an unknown tag"
+		},
+		{
+			"tag": "CustomEmojiIdMustBeNumber",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse MessageEntity: Field \"custom_emoji_id\" must be a valid Number",
+			"when": "custom_emoji entity has a non-numeric custom_emoji_id"
+		},
+		{
+			"tag": "EntityIncorrectOffset",
+			"errorCode": 400,
+			"description": "Bad Request: receive an entity with incorrect offset -1",
+			"when": "entities offset is negative"
+		},
+		{
+			"tag": "EntityUrlEmpty",
+			"errorCode": 400,
+			"description": "Bad Request: entity URL '' is invalid: URL host is empty",
+			"when": "text_link entity url is empty"
+		},
+		{
+			"tag": "EntityUrlInvalid",
+			"errorCode": 400,
+			"description": "Bad Request: entity URL 'not-a-url' is invalid: Wrong HTTP URL",
+			"when": "text_link entity url is not a valid HTTP URL"
+		},
+		{
+			"tag": "ForceReplyMustBeBoolean",
+			"errorCode": 400,
+			"description": "Bad Request: field \"force_reply\" must be of type Boolean",
+			"when": "force_reply is not a boolean"
+		},
+		{
+			"tag": "InlineButtonTextUnallowed",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse inline keyboard button: Text buttons are unallowed in the inline keyboard",
+			"when": "inline keyboard button has empty callback_data and no url"
+		},
+		{
+			"tag": "InlineButtonUrlFtpUnsupported",
+			"errorCode": 400,
+			"description": "Bad Request: inline keyboard button URL 'ftp://example.com' is invalid: Unsupported URL protocol",
+			"when": "inline keyboard button url uses an unsupported protocol"
+		},
+		{
+			"tag": "InlineButtonUrlInvalid",
+			"errorCode": 400,
+			"description": "Bad Request: inline keyboard button URL 'not-a-url' is invalid: Wrong HTTP URL",
+			"when": "inline keyboard button url is not a valid HTTP URL"
+		},
+		{
+			"tag": "InlineKeyboardMustBeArray",
+			"errorCode": 400,
+			"description": "Bad Request: field \"inline_keyboard\" must be of type Array",
+			"when": "inline_keyboard is not an array"
+		},
+		{
+			"tag": "InvalidStarsAmount",
+			"errorCode": 400,
+			"description": "Bad Request: invalid amount of Telegram Stars specified",
+			"when": "suggested_post_parameters price amount is invalid"
+		},
+		{
+			"tag": "IsPersistentMustBeBoolean",
+			"errorCode": 400,
+			"description": "Bad Request: field \"is_persistent\" must be of type Boolean",
+			"when": "reply keyboard is_persistent is not a boolean"
+		},
+		{
+			"tag": "LinkPreviewIsDisabledMustBeBoolean",
+			"errorCode": 400,
+			"description": "Bad Request: field \"is_disabled\" must be of type Boolean",
+			"when": "link_preview_options.is_disabled is not a boolean"
+		},
+		{
+			"tag": "LoginUrlBotNotFound",
+			"errorCode": 400,
+			"description": "Bad Request: bot \"nonexistent_bot_xyz_12345\" not found",
+			"when": "login_url bot_username does not refer to an existing bot"
+		},
+		{
+			"tag": "OneTimeKeyboardMustBeBoolean",
+			"errorCode": 400,
+			"description": "Bad Request: field \"one_time_keyboard\" must be of type Boolean",
+			"when": "reply keyboard one_time_keyboard is not a boolean"
+		},
+		{
+			"tag": "PreferSmallMediaMustBeBoolean",
+			"errorCode": 400,
+			"description": "Bad Request: field \"prefer_small_media\" must be of type Boolean",
+			"when": "link_preview_options.prefer_small_media is not a boolean"
+		},
+		{
+			"tag": "RemoveKeyboardMustBeBoolean",
+			"errorCode": 400,
+			"description": "Bad Request: field \"remove_keyboard\" must be of type Boolean",
+			"when": "remove_keyboard is not a boolean"
+		},
+		{
+			"tag": "ReplyMessageIdMissing",
+			"errorCode": 400,
+			"description": "Bad Request: can't find field \"message_id\"",
+			"when": "reply_parameters is set without message_id"
+		},
+		{
+			"tag": "SelectiveMustBeBoolean",
+			"errorCode": 400,
+			"description": "Bad Request: field \"selective\" must be of type Boolean",
+			"when": "reply markup selective is not a boolean"
+		},
+		{
+			"tag": "SuggestedPostChannelOnly",
+			"errorCode": 400,
+			"description": "Bad Request: suggested posts can be sent only to channel direct messages",
+			"when": "suggested_post_parameters is used outside a channel direct messages chat"
+		},
+		{
+			"tag": "UserNotFound",
+			"errorCode": 400,
+			"description": "Bad Request: user not found",
+			"when": "text_mention entity user id does not refer to an existing user"
+		},
+		{
+			"tag": "WebAppUrlHttpNotAllowed",
+			"errorCode": 400,
+			"description": "Bad Request: inline keyboard button Web App URL 'http://example.com' is invalid: Only HTTPS links are allowed",
+			"when": "web_app button url is HTTP instead of HTTPS"
+		},
+		{
+			"tag": "WebAppUrlNotHttps",
+			"errorCode": 400,
+			"description": "Bad Request: inline keyboard button Web App URL 'bad' is invalid: Only HTTPS links are allowed",
+			"when": "web_app button url is not a valid HTTPS URL"
+		},
+		{
+			"tag": "WebpageUrlInvalid",
+			"errorCode": 400,
+			"description": "Bad Request: WEBPAGE_URL_INVALID",
+			"when": "link_preview_options.url is not a valid URL"
+		},
+		{
+			"tag": "AllowUserChatsMustBeBoolean",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse inline keyboard button: Field \"allow_user_chats\" must be of type Boolean",
+			"when": "switch_inline_query_chosen_chat.allow_user_chats is not a boolean"
+		},
+		{
+			"tag": "BotDomainInvalid",
+			"errorCode": 400,
+			"description": "Bad Request: BOT_DOMAIN_INVALID",
+			"when": "login_url is missing bot_username"
+		},
+		{
+			"tag": "CantParseEntitiesInvalidCustomEmoji",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse entities: Invalid custom emoji identifier specified",
+			"when": "HTML tg-emoji tag references an invalid custom emoji id"
+		},
+		{
+			"tag": "CantParseEntitiesNoBoldEnd",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 15",
+			"when": "text with parse_mode MarkdownV2 has nested formatting with an unclosed bold entity"
+		},
+		{
+			"tag": "CantParseEntitiesReservedCharBrace",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse entities: Character '{' is reserved and must be escaped with the preceding '\\'",
+			"when": "text with parse_mode MarkdownV2 contains an unescaped opening brace"
+		},
+		{
+			"tag": "CantParseEntitiesReservedCharEquals",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse entities: Character '=' is reserved and must be escaped with the preceding '\\'",
+			"when": "text with parse_mode MarkdownV2 contains an unescaped equals sign"
+		},
+		{
+			"tag": "CantParseEntitiesReservedCharGreater",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse entities: Character '>' is reserved and must be escaped with the preceding '\\'",
+			"when": "text with parse_mode MarkdownV2 contains an unescaped greater-than sign"
+		},
+		{
+			"tag": "CantParseEntitiesReservedCharHash",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse entities: Character '#' is reserved and must be escaped with the preceding '\\'",
+			"when": "text with parse_mode MarkdownV2 contains an unescaped hash sign"
+		},
+		{
+			"tag": "CantParseEntitiesReservedCharParen",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse entities: Character '(' is reserved and must be escaped with the preceding '\\'",
+			"when": "text with parse_mode MarkdownV2 contains an unescaped opening parenthesis"
+		},
+		{
+			"tag": "CantParseEntitiesReservedCharPipe",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse entities: Character '|' is reserved and must be escaped with the preceding '\\'",
+			"when": "text with parse_mode MarkdownV2 contains an unescaped pipe character"
+		},
+		{
+			"tag": "CantParseEntitiesReservedCharPlus",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse entities: Character '+' is reserved and must be escaped with the preceding '\\'",
+			"when": "text with parse_mode MarkdownV2 contains an unescaped plus sign"
+		},
+		{
+			"tag": "ChatIsForumMustBeBoolean",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse keyboard button: Field \"chat_is_forum\" must be of type Boolean",
+			"when": "request_chat.chat_is_forum is not a boolean"
+		},
+		{
+			"tag": "CustomEmojiIdMissing",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse MessageEntity: Can't find field \"custom_emoji_id\"",
+			"when": "custom_emoji entity is missing custom_emoji_id"
+		},
+		{
+			"tag": "InlineButtonTextMissing",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse inline keyboard button: Can't find field \"text\"",
+			"when": "inline keyboard button is missing text"
+		},
+		{
+			"tag": "KeyboardMustBeArray",
+			"errorCode": 400,
+			"description": "Bad Request: field \"keyboard\" must be of type Array",
+			"when": "reply keyboard keyboard is not an array"
+		},
+		{
+			"tag": "KeyboardRequestIdMissing",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse keyboard button: Can't find field \"request_id\"",
+			"when": "request_chat or request_users keyboard button is missing request_id"
+		},
+		{
+			"tag": "KeyboardWebAppUrlHttpNotAllowed",
+			"errorCode": 400,
+			"description": "Bad Request: keyboard button Web App URL 'http://example.com' is invalid: Only HTTPS links are allowed",
+			"when": "reply keyboard web_app button url is HTTP instead of HTTPS"
+		},
+		{
+			"tag": "LoginUrlBotNotFound",
+			"errorCode": 400,
+			"description": "Bad Request: bot \"telegram\" not found",
+			"when": "login_url bot_username refers to a username that is not a bot"
+		},
+		{
+			"tag": "PreferLargeMediaMustBeBoolean",
+			"errorCode": 400,
+			"description": "Bad Request: field \"prefer_large_media\" must be of type Boolean",
+			"when": "link_preview_options.prefer_large_media is not a boolean"
+		},
+		{
+			"tag": "RequestWriteAccessMustBeBoolean",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse inline keyboard button: Field \"request_write_access\" must be of type Boolean",
+			"when": "login_url.request_write_access is not a boolean"
+		},
+		{
+			"tag": "ResizeKeyboardMustBeBoolean",
+			"errorCode": 400,
+			"description": "Bad Request: field \"resize_keyboard\" must be of type Boolean",
+			"when": "reply keyboard resize_keyboard is not a boolean"
+		},
+		{
+			"tag": "ShowAboveTextMustBeBoolean",
+			"errorCode": 400,
+			"description": "Bad Request: field \"show_above_text\" must be of type Boolean",
+			"when": "link_preview_options.show_above_text is not a boolean"
+		},
+		{
+			"tag": "TextLinkUrlMissing",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse MessageEntity: Can't find field \"url\"",
+			"when": "text_link entity is missing url"
+		},
+		{
+			"tag": "TextMentionUserMissing",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse MessageEntity: Can't find field \"user\"",
+			"when": "text_mention entity is missing user"
+		},
+		{
+			"tag": "TextMustBeNonEmpty",
+			"errorCode": 400,
+			"description": "Bad Request: text must be non-empty",
+			"when": "text contains only whitespace or parses to empty content"
 		}
 	]
 }

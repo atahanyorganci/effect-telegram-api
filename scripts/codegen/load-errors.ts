@@ -10,15 +10,16 @@ const decodeCommonErrors = Schema.decodeUnknownSync(CommonErrorsDoc);
 const ERRORS_DIR = "errors";
 
 const mergeErrors = (method: MethodErrorsDoc, common: MethodErrorsDoc["errors"]): MethodErrorsDoc => {
-	const byTag = new Map(method.errors.map(error => [error.tag, error]));
+	const methodTags = new Set(method.errors.map(error => error.tag));
+	const merged = [...method.errors];
 	for (const error of common) {
-		if (!byTag.has(error.tag)) {
-			byTag.set(error.tag, error);
+		if (!methodTags.has(error.tag)) {
+			merged.push(error);
 		}
 	}
 	return {
 		method: method.method,
-		errors: [...byTag.values()].sort((a, b) => a.tag.localeCompare(b.tag)),
+		errors: merged.sort((a, b) => a.tag.localeCompare(b.tag) || a.description.localeCompare(b.description)),
 	};
 };
 
