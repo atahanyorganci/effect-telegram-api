@@ -14,6 +14,7 @@
 	"scripts": {
 		"check": "tsgo",
 		"check:watch": "tsgo --watch",
+		"codegen": "tsx scripts/codegen.ts",
 		"format": "oxfmt --check .",
 		"format:fix": "oxfmt --write .",
 		"ingest:fetch": "tsx scripts/fetch.ts",

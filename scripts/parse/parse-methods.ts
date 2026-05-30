@@ -2,9 +2,9 @@ import * as Effect from "effect/Effect";
 import { parse } from "node-html-parser";
 import { ParseError, parseError } from "./errors.ts";
 import { findAvailableMethodHeadings } from "./find-methods.ts";
-import type { Method } from "./model.ts";
 import { parseMethodBlock } from "./parse-method-block.ts";
 import { writeMethodSpec } from "./write-method-spec.ts";
+import type { Method } from "./model.ts";
 
 export interface ParsedMethods {
 	readonly methods: readonly Method[];

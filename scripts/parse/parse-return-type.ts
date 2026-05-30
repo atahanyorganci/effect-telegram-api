@@ -52,7 +52,10 @@ const parseConditionalReturn = (paragraph: HTMLElement): TypeExpr | undefined =>
 
 	return {
 		kind: "oneOf",
-		types: [{ kind: "ref", name: link.text.trim() }, { kind: "literal", value: true }],
+		types: [
+			{ kind: "ref", name: link.text.trim() },
+			{ kind: "literal", value: true },
+		],
 	};
 };
 
@@ -101,5 +104,7 @@ export const parseReturnType = (paragraphs: readonly HTMLElement[]): TypeExpr =>
 		}
 	}
 
-	throw parseError(`Could not parse return type from method prose: ${paragraphs.map(paragraph => paragraph.text).join(" ")}`);
+	throw parseError(
+		`Could not parse return type from method prose: ${paragraphs.map(paragraph => paragraph.text).join(" ")}`,
+	);
 };

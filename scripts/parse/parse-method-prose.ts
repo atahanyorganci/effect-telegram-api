@@ -16,7 +16,10 @@ export const parseMethodDescription = (text: string): string => {
 		return text.trim();
 	}
 
-	return text.slice(0, cutAt).trim().replace(/\.\s*$/, "");
+	return text
+		.slice(0, cutAt)
+		.trim()
+		.replace(/\.\s*$/, "");
 };
 
 export const methodProseBeforeTable = (paragraphs: readonly { readonly text: string }[]): string => {

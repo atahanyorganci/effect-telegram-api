@@ -17,7 +17,9 @@ export const assertParameterTable = (table: HTMLElement): void => {
 		headers.length !== PARAMETER_TABLE_HEADERS.length ||
 		headers.some((header, index) => header !== PARAMETER_TABLE_HEADERS[index])
 	) {
-		throw parseError(`Expected parameter table headers ${PARAMETER_TABLE_HEADERS.join(", ")}, got ${headers.join(", ")}`);
+		throw parseError(
+			`Expected parameter table headers ${PARAMETER_TABLE_HEADERS.join(", ")}, got ${headers.join(", ")}`,
+		);
 	}
 };
 
