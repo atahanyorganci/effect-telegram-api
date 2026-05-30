@@ -1,0 +1,11 @@
+{
+	"method": "setBusinessAccountProfilePhoto",
+	"errors": [
+		{
+			"tag": "PhotoNotSpecified",
+			"errorCode": 400,
+			"description": "Bad Request: photo isn't specified",
+			"when": "required parameters missing"
+		}
+	]
+}

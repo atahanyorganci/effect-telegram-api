@@ -1,0 +1,11 @@
+{
+	"method": "removeBusinessAccountProfilePhoto",
+	"errors": [
+		{
+			"tag": "BusinessConnectionNotFound",
+			"errorCode": 400,
+			"description": "Bad Request: business connection not found",
+			"when": "validation fails"
+		}
+	]
+}

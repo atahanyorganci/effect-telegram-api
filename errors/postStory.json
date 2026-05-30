@@ -1,0 +1,11 @@
+{
+	"method": "postStory",
+	"errors": [
+		{
+			"tag": "StoryContentNotSpecified",
+			"errorCode": 400,
+			"description": "Bad Request: story content isn't specified",
+			"when": "validation fails"
+		}
+	]
+}

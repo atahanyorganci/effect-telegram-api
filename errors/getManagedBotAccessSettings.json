@@ -1,0 +1,11 @@
+{
+	"method": "getManagedBotAccessSettings",
+	"errors": [
+		{
+			"tag": "InvalidUserId",
+			"errorCode": 400,
+			"description": "Bad Request: invalid user_id specified",
+			"when": "required parameters missing"
+		}
+	]
+}

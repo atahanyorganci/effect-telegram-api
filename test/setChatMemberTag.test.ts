@@ -1,0 +1,21 @@
+import { describe, it } from "@effect/vitest";
+import * as Effect from "effect/Effect";
+import * as Telegram from "../src/index.ts";
+import { authErrorTests, expectErrorTag, LiveLayer, requireBotToken } from "./helpers.ts";
+
+const callSetChatMemberTag = (token: string, payload: unknown) =>
+	Telegram.Client.callMethod(token, Telegram.Methods.setChatMemberTag, payload);
+
+describe("setChatMemberTag", () => {
+	describe("Telegram API errors", () => {
+		it.effect("InvalidUserId when required parameters missing", () =>
+			Effect.gen(function* () {
+				const error = yield* callSetChatMemberTag(requireBotToken(), {}).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.InvalidUserId>(error, "InvalidUserId", "Bad Request: invalid user_id specified");
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+	});
+
+	authErrorTests(token => callSetChatMemberTag(token, { chat_id: 0, user_id: 0 }));
+});

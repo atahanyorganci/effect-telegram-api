@@ -1,0 +1,11 @@
+{
+	"method": "repostStory",
+	"errors": [
+		{
+			"tag": "FromChatIdRequired",
+			"errorCode": 400,
+			"description": "Bad Request: parameter \"from_chat_id\" is required",
+			"when": "required parameters missing"
+		}
+	]
+}

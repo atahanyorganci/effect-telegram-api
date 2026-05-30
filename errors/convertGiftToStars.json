@@ -1,0 +1,11 @@
+{
+	"method": "convertGiftToStars",
+	"errors": [
+		{
+			"tag": "BusinessConnectionNotFound",
+			"errorCode": 400,
+			"description": "Bad Request: business connection not found",
+			"when": "required parameters missing"
+		}
+	]
+}

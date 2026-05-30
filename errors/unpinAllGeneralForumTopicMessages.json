@@ -1,0 +1,11 @@
+{
+	"method": "unpinAllGeneralForumTopicMessages",
+	"errors": [
+		{
+			"tag": "ChatIdEmpty",
+			"errorCode": 400,
+			"description": "Bad Request: chat_id is empty",
+			"when": "required parameters missing"
+		}
+	]
+}

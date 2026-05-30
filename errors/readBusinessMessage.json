@@ -1,0 +1,11 @@
+{
+	"method": "readBusinessMessage",
+	"errors": [
+		{
+			"tag": "ChatIdentifierEmpty",
+			"errorCode": 400,
+			"description": "Bad Request: chat identifier is empty",
+			"when": "validation fails"
+		}
+	]
+}

@@ -1,0 +1,11 @@
+{
+	"method": "removeChatVerification",
+	"errors": [
+		{
+			"tag": "InvalidChatIdentifier",
+			"errorCode": 400,
+			"description": "Bad Request: invalid chat identifier specified",
+			"when": "validation fails"
+		}
+	]
+}

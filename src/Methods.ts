@@ -69,6 +69,7 @@ export const answerGuestQuery = Rpc.make("answerGuestQuery", {
 		}),
 	),
 	success: Objects.SentGuestMessage,
+	error: Schema.Union([Errors.NotFoundError, Errors.ResultNotSpecifiedError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to set the result of an interaction with a Web App and send a corresponding message on behalf of the user to the chat from which the query originated. On success, a SentWebAppMessage object */
@@ -89,6 +90,7 @@ export const answerWebAppQuery = Rpc.make("answerWebAppQuery", {
 		}),
 	),
 	success: Objects.SentWebAppMessage,
+	error: Schema.Union([Errors.NotFoundError, Errors.ResultNotSpecifiedError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to approve a chat join request. The bot must be an administrator in the chat for this to work and must have the can_invite_users administrator right */
@@ -109,6 +111,7 @@ export const approveChatJoinRequest = Rpc.make("approveChatJoinRequest", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.InvalidUserIdError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to ban a user in a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the chat on their own using invite links, etc., unless unbanned first. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights */
@@ -176,6 +179,7 @@ export const close = Rpc.make("close", {
 				"Use this method to close the bot instance before moving it from one local server to another. You need to delete the webhook before calling this method to ensure that the bot isn't launched again after server restart. The method will return error 429 in the first 10 minutes after the bot is launched",
 		}),
 	),
+	error: Schema.Union([Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to close an open topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights, unless it is the creator of the topic */
@@ -199,6 +203,7 @@ export const closeForumTopic = Rpc.make("closeForumTopic", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.ChatIdEmptyError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to close an open 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights */
@@ -218,6 +223,7 @@ export const closeGeneralForumTopic = Rpc.make("closeGeneralForumTopic", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.ChatIdEmptyError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Converts a given regular gift to Telegram Stars. Requires the can_convert_gifts_to_stars business bot right */
@@ -240,6 +246,7 @@ export const convertGiftToStars = Rpc.make("convertGiftToStars", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.BusinessConnectionNotFoundError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to copy messages of any kind. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message */
@@ -513,6 +520,7 @@ export const createChatSubscriptionInviteLink = Rpc.make("createChatSubscription
 		}),
 	),
 	success: Objects.ChatInviteLink,
+	error: Schema.Union([Errors.ChatIdEmptyError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to create a topic in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator right */
@@ -548,6 +556,7 @@ export const createForumTopic = Rpc.make("createForumTopic", {
 		}),
 	),
 	success: Objects.ForumTopic,
+	error: Schema.Union([Errors.ChatIdEmptyError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to decline a chat join request. The bot must be an administrator in the chat for this to work and must have the can_invite_users administrator right */
@@ -568,6 +577,7 @@ export const declineChatJoinRequest = Rpc.make("declineChatJoinRequest", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.InvalidUserIdError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Delete messages on behalf of a business account. Requires the can_delete_sent_messages business bot right to delete messages sent by the bot itself, or the can_delete_all_messages business bot right to delete any message */
@@ -593,6 +603,7 @@ export const deleteBusinessMessages = Rpc.make("deleteBusinessMessages", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.MessageIdentifiersAreNotSpecifiedError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to delete a chat photo. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights */
@@ -611,6 +622,7 @@ export const deleteChatPhoto = Rpc.make("deleteChatPhoto", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.ChatIdEmptyError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to delete a group sticker set from a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Use the field can_set_sticker_set optionally returned in getChat requests to check if the bot can use this method */
@@ -630,6 +642,7 @@ export const deleteChatStickerSet = Rpc.make("deleteChatStickerSet", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.ChatIdEmptyError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to delete a forum topic along with all its messages in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the can_delete_messages administrator rights */
@@ -653,6 +666,7 @@ export const deleteForumTopic = Rpc.make("deleteForumTopic", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.ChatIdEmptyError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to delete the list of the bot's commands for the given scope and user language. After deletion, higher level commands will be shown to affected users */
@@ -698,6 +712,7 @@ export const deleteStory = Rpc.make("deleteStory", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.BusinessConnectionNotFoundError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to edit a non-primary invite link created by the bot. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights */
@@ -738,6 +753,7 @@ export const editChatInviteLink = Rpc.make("editChatInviteLink", {
 		}),
 	),
 	success: Objects.ChatInviteLink,
+	error: Schema.Union([Errors.ChatIdEmptyError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to edit a subscription invite link created by the bot. The bot must have the can_invite_users administrator rights */
@@ -760,6 +776,7 @@ export const editChatSubscriptionInviteLink = Rpc.make("editChatSubscriptionInvi
 		}),
 	),
 	success: Objects.ChatInviteLink,
+	error: Schema.Union([Errors.ChatIdEmptyError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to edit name and icon of a topic in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights, unless it is the creator of the topic */
@@ -797,6 +814,7 @@ export const editForumTopic = Rpc.make("editForumTopic", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.ChatIdEmptyError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to edit the name of the 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights */
@@ -818,6 +836,7 @@ export const editGeneralForumTopic = Rpc.make("editGeneralForumTopic", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.ChatIdEmptyError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Edits a story previously posted by the bot on behalf of a managed business account. Requires the can_manage_stories business bot right */
@@ -859,6 +878,7 @@ export const editStory = Rpc.make("editStory", {
 		}),
 	),
 	success: Objects.Story,
+	error: Schema.Union([Errors.NotFoundError, Errors.StoryContentNotSpecifiedError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to generate a new primary invite link for a chat; any previously generated primary link is revoked. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights */
@@ -1093,6 +1113,7 @@ export const getBusinessAccountGifts = Rpc.make("getBusinessAccountGifts", {
 		),
 	}),
 	success: Objects.OwnedGifts,
+	error: Schema.Union([Errors.BusinessConnectionNotFoundError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 export const getBusinessAccountStarBalance = Rpc.make("getBusinessAccountStarBalance", {
@@ -1103,6 +1124,7 @@ export const getBusinessAccountStarBalance = Rpc.make("getBusinessAccountStarBal
 		),
 	}),
 	success: Objects.StarAmount,
+	error: Schema.Union([Errors.BusinessConnectionNotFoundError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to get information about the connection of the bot with a business account */
@@ -1118,6 +1140,7 @@ export const getBusinessConnection = Rpc.make("getBusinessConnection", {
 		}),
 	),
 	success: Objects.BusinessConnection,
+	error: Schema.Union([Errors.BusinessConnectionNotFoundError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to get up-to-date information about the chat */
@@ -1354,6 +1377,7 @@ export const getManagedBotAccessSettings = Rpc.make("getManagedBotAccessSettings
 		),
 	}).pipe(Schema.annotate({ description: "Use this method to get the access settings of a managed bot" })),
 	success: Objects.BotAccessSettings,
+	error: Schema.Union([Errors.InvalidUserIdError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to get the token of a managed bot */
@@ -1365,6 +1389,7 @@ export const getManagedBotToken = Rpc.make("getManagedBotToken", {
 		),
 	}).pipe(Schema.annotate({ description: "Use this method to get the token of a managed bot" })),
 	success: Schema.String,
+	error: Schema.Union([Errors.InvalidUserIdError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** A simple method for testing your bot's authentication token */
@@ -1560,6 +1585,7 @@ export const getUserPersonalChatMessages = Rpc.make("getUserPersonalChatMessages
 		}),
 	),
 	success: Schema.Array(Objects.Message),
+	error: Schema.Union([Errors.InvalidUserIdError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to get a list of profile audios for a user */
@@ -1661,6 +1687,7 @@ export const giftPremiumSubscription = Rpc.make("giftPremiumSubscription", {
 		),
 	}).pipe(Schema.annotate({ description: "Gifts a Telegram Premium subscription to the given user" })),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.InvalidUserIdError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to hide the 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. The topic will be automatically closed if it was open */
@@ -1680,6 +1707,7 @@ export const hideGeneralForumTopic = Rpc.make("hideGeneralForumTopic", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.ChatIdEmptyError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method for your bot to leave a group, supergroup or channel */
@@ -1694,6 +1722,7 @@ export const leaveChat = Rpc.make("leaveChat", {
 		),
 	}).pipe(Schema.annotate({ description: "Use this method for your bot to leave a group, supergroup or channel" })),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.ChatIdEmptyError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to log out from the cloud Bot API server before launching the bot locally. You must log out the bot before running it locally, otherwise there is no guarantee that the bot will receive updates. After a successful call, you can immediately log in on a local server, but will not be able to log in back to the cloud Bot API server for 10 minutes */
@@ -1704,6 +1733,7 @@ export const logOut = Rpc.make("logOut", {
 				"Use this method to log out from the cloud Bot API server before launching the bot locally. You must log out the bot before running it locally, otherwise there is no guarantee that the bot will receive updates. After a successful call, you can immediately log in on a local server, but will not be able to log in back to the cloud Bot API server for 10 minutes",
 		}),
 	),
+	error: Schema.Union([Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to add a message to the list of pinned messages in a chat. In private chats and channel direct messages chats, all non-service messages can be pinned. Conversely, the bot must be an administrator with the 'can_pin_messages' right or the 'can_edit_messages' right to pin messages in groups and channels respectively */
@@ -1799,6 +1829,7 @@ export const postStory = Rpc.make("postStory", {
 		}),
 	),
 	success: Objects.Story,
+	error: Schema.Union([Errors.NotFoundError, Errors.StoryContentNotSpecifiedError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to promote or demote a user in a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Pass False for all boolean parameters to demote a user */
@@ -1944,6 +1975,7 @@ export const readBusinessMessage = Rpc.make("readBusinessMessage", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.ChatIdentifierEmptyError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Removes the current profile photo of a managed business account. Requires the can_edit_profile_photo business bot right */
@@ -1967,6 +1999,7 @@ export const removeBusinessAccountProfilePhoto = Rpc.make("removeBusinessAccount
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.BusinessConnectionNotFoundError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Removes verification from a chat that is currently verified on behalf of the organization represented by the bot */
@@ -1986,11 +2019,13 @@ export const removeChatVerification = Rpc.make("removeChatVerification", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.InvalidChatIdentifierError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Removes the profile photo of the bot */
 export const removeMyProfilePhoto = Rpc.make("removeMyProfilePhoto", {
 	success: Schema.Literal(true).pipe(Schema.annotate({ description: "Removes the profile photo of the bot" })),
+	error: Schema.Union([Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Removes verification from a user who is currently verified on behalf of the organization represented by the bot */
@@ -2005,6 +2040,7 @@ export const removeUserVerification = Rpc.make("removeUserVerification", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.InvalidUserIdError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to reopen a closed topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights, unless it is the creator of the topic */
@@ -2028,6 +2064,7 @@ export const reopenForumTopic = Rpc.make("reopenForumTopic", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.ChatIdEmptyError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to reopen a closed 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. The topic will be automatically unhidden if it was hidden */
@@ -2047,6 +2084,7 @@ export const reopenGeneralForumTopic = Rpc.make("reopenGeneralForumTopic", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.ChatIdEmptyError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to revoke the current token of a managed bot and generate a new one */
@@ -2062,6 +2100,7 @@ export const replaceManagedBotToken = Rpc.make("replaceManagedBotToken", {
 		}),
 	),
 	success: Schema.String,
+	error: Schema.Union([Errors.InvalidUserIdError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Reposts a story on behalf of a business account from another business account. Both business accounts must be managed by the same bot, and the story on the source account must have been posted (or reposted) by the bot. Requires the can_manage_stories business bot right for both business accounts */
@@ -2103,6 +2142,7 @@ export const repostStory = Rpc.make("repostStory", {
 		}),
 	),
 	success: Objects.Story,
+	error: Schema.Union([Errors.FromChatIdRequiredError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for this to work and must have the appropriate administrator rights. Pass True for all permissions to lift restrictions from a user */
@@ -2163,6 +2203,7 @@ export const revokeChatInviteLink = Rpc.make("revokeChatInviteLink", {
 		}),
 	),
 	success: Objects.ChatInviteLink,
+	error: Schema.Union([Errors.ChatIdEmptyError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Stores a message that can be sent by a user of a Mini App */
@@ -2194,6 +2235,7 @@ export const savePreparedInlineMessage = Rpc.make("savePreparedInlineMessage", {
 		),
 	}).pipe(Schema.annotate({ description: "Stores a message that can be sent by a user of a Mini App" })),
 	success: Objects.PreparedInlineMessage,
+	error: Schema.Union([Errors.InvalidUserIdError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Stores a keyboard button that can be used by a user within a Mini App */
@@ -2212,6 +2254,7 @@ export const savePreparedKeyboardButton = Rpc.make("savePreparedKeyboardButton",
 		),
 	}).pipe(Schema.annotate({ description: "Stores a keyboard button that can be used by a user within a Mini App" })),
 	success: Objects.PreparedKeyboardButton,
+	error: Schema.Union([Errors.InvalidUserIdError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to send animation files (GIF or H.264/MPEG-4 AVC video without sound). On success, the sent Message */
@@ -2937,6 +2980,7 @@ export const sendGift = Rpc.make("sendGift", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.InvalidUserIdError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to send live photos. On success, the sent Message */
@@ -3478,6 +3522,7 @@ export const sendMessageDraft = Rpc.make("sendMessageDraft", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.ChatIdEmptyError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to send paid media. On success, the sent Message */
@@ -4439,6 +4484,7 @@ export const setBusinessAccountBio = Rpc.make("setBusinessAccountBio", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.BusinessConnectionNotFoundError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Changes the privacy settings pertaining to incoming gifts in a managed business account. Requires the can_change_gift_settings business bot right */
@@ -4466,6 +4512,7 @@ export const setBusinessAccountGiftSettings = Rpc.make("setBusinessAccountGiftSe
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.AcceptedGiftTypesNotSpecifiedError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Changes the first and last name of a managed business account. Requires the can_change_name business bot right */
@@ -4490,6 +4537,7 @@ export const setBusinessAccountName = Rpc.make("setBusinessAccountName", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.FirstNameRequiredError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Changes the profile photo of a managed business account. Requires the can_edit_profile_photo business bot right */
@@ -4515,6 +4563,7 @@ export const setBusinessAccountProfilePhoto = Rpc.make("setBusinessAccountProfil
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.NotFoundError, Errors.PhotoNotSpecifiedError, Errors.UnauthorizedError]),
 });
 
 /** Changes the username of a managed business account. Requires the can_change_username business bot right */
@@ -4535,6 +4584,7 @@ export const setBusinessAccountUsername = Rpc.make("setBusinessAccountUsername",
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.BusinessConnectionNotFoundError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to set a custom title for an administrator in a supergroup promoted by the bot */
@@ -4584,6 +4634,7 @@ export const setChatDescription = Rpc.make("setChatDescription", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.ChatIdEmptyError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to set a tag for a regular member in a group or a supergroup. The bot must be an administrator in the chat for this to work and must have the can_manage_tags administrator right */
@@ -4609,6 +4660,7 @@ export const setChatMemberTag = Rpc.make("setChatMemberTag", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.InvalidUserIdError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to change the bot's menu button in a private chat, or the default menu button */
@@ -4664,6 +4716,7 @@ export const setChatPermissions = Rpc.make("setChatPermissions", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.ChatIdEmptyError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to set a new profile photo for the chat. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights */
@@ -4710,6 +4763,7 @@ export const setChatStickerSet = Rpc.make("setChatStickerSet", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.ChatIdEmptyError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to change the title of a chat. Titles can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights */
@@ -4755,6 +4809,7 @@ export const setManagedBotAccessSettings = Rpc.make("setManagedBotAccessSettings
 		),
 	}).pipe(Schema.annotate({ description: "Use this method to change the access settings of a managed bot" })),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.InvalidUserIdError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to change the chosen reactions on a message. Service messages of some types can't be reacted to. Automatically forwarded messages from a channel to its discussion group have the same available reactions as messages in the channel. Bots can't use paid reactions */
@@ -4918,6 +4973,7 @@ export const setMyProfilePhoto = Rpc.make("setMyProfilePhoto", {
 		photo: Objects.InputProfilePhoto.pipe(Schema.annotate({ description: "The new profile photo to set" })),
 	}).pipe(Schema.annotate({ description: "Changes the profile photo of the bot" })),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.NotFoundError, Errors.PhotoNotSpecifiedError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to change the bot's short description, which is shown on the bot's profile page and is sent together with the link when users share the bot */
@@ -4969,6 +5025,7 @@ export const setUserEmojiStatus = Rpc.make("setUserEmojiStatus", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.InvalidUserIdError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Transfers Telegram Stars from the business account balance to the bot's balance. Requires the can_transfer_stars business bot right */
@@ -4987,6 +5044,7 @@ export const transferBusinessAccountStars = Rpc.make("transferBusinessAccountSta
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.BusinessConnectionNotFoundError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Transfers an owned unique gift to another user. Requires the can_transfer_and_upgrade_gifts business bot right. Requires can_transfer_stars business bot right if the transfer is paid */
@@ -5021,6 +5079,7 @@ export const transferGift = Rpc.make("transferGift", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.ChatIdentifierEmptyError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to unban a previously banned user in a supergroup or channel. The user will not return to the group or channel automatically, but will be able to join via link, etc. The bot must be an administrator for this to work. By default, this method guarantees that after the call the user is not a member of the chat, but will be able to join it. So if the user is a member of the chat they will also be removed from the chat. If you don't want this, use the parameter only_if_banned */
@@ -5087,6 +5146,7 @@ export const unhideGeneralForumTopic = Rpc.make("unhideGeneralForumTopic", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.ChatIdEmptyError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to clear the list of pinned messages in a chat. In private chats and channel direct messages chats, no additional rights are required to unpin all pinned messages. Conversely, the bot must be an administrator with the 'can_pin_messages' right or the 'can_edit_messages' right to unpin all pinned messages in groups and channels respectively */
@@ -5105,6 +5165,7 @@ export const unpinAllChatMessages = Rpc.make("unpinAllChatMessages", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.ChatIdEmptyError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to clear the list of pinned messages in a forum topic in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the can_pin_messages administrator right in the supergroup */
@@ -5128,6 +5189,7 @@ export const unpinAllForumTopicMessages = Rpc.make("unpinAllForumTopicMessages",
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.ChatIdEmptyError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to clear the list of pinned messages in a General forum topic. The bot must be an administrator in the chat for this to work and must have the can_pin_messages administrator right in the supergroup */
@@ -5147,6 +5209,7 @@ export const unpinAllGeneralForumTopicMessages = Rpc.make("unpinAllGeneralForumT
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.ChatIdEmptyError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to remove a message from the list of pinned messages in a chat. In private chats and channel direct messages chats, all messages can be unpinned. Conversely, the bot must be an administrator with the 'can_pin_messages' right or the 'can_edit_messages' right to unpin messages in groups and channels respectively */
@@ -5212,6 +5275,7 @@ export const upgradeGift = Rpc.make("upgradeGift", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.BusinessConnectionNotFoundError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Verifies a chat on behalf of the organization which is represented by the bot */
@@ -5235,6 +5299,7 @@ export const verifyChat = Rpc.make("verifyChat", {
 		Schema.annotate({ description: "Verifies a chat on behalf of the organization which is represented by the bot" }),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.ChatIdEmptyError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Verifies a user on behalf of the organization which is represented by the bot */
@@ -5253,6 +5318,7 @@ export const verifyUser = Rpc.make("verifyUser", {
 		Schema.annotate({ description: "Verifies a user on behalf of the organization which is represented by the bot" }),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.InvalidUserIdError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 export const TelegramBotApi = RpcGroup.make(

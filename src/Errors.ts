@@ -3,6 +3,16 @@
 import * as Data from "effect/Data";
 import * as Schema from "effect/Schema";
 
+/** required parameters missing */
+
+export class AcceptedGiftTypesNotSpecified extends Data.TaggedError("AcceptedGiftTypesNotSpecified")<{
+	readonly description: string;
+}> {}
+
+export const AcceptedGiftTypesNotSpecifiedError = Schema.TaggedStruct("AcceptedGiftTypesNotSpecified", {
+	description: Schema.String,
+});
+
 /** switch_inline_query_chosen_chat.allow_user_chats is not a boolean */
 
 export class AllowUserChatsMustBeBoolean extends Data.TaggedError("AllowUserChatsMustBeBoolean")<{
@@ -43,7 +53,7 @@ export const BotTitleInvalidError = Schema.TaggedStruct("BotTitleInvalid", {
 	description: Schema.String,
 });
 
-/** business_connection_id does not refer to an active business connection */
+/** required parameters missing */
 
 export class BusinessConnectionNotFound extends Data.TaggedError("BusinessConnectionNotFound")<{
 	readonly description: string;
@@ -298,13 +308,23 @@ export const CantParseOptionsJsonObjectError = Schema.TaggedStruct("CantParseOpt
 	description: Schema.String,
 });
 
-/** chat_id parameter is missing */
+/** required parameters missing */
 
 export class ChatIdEmpty extends Data.TaggedError("ChatIdEmpty")<{
 	readonly description: string;
 }> {}
 
 export const ChatIdEmptyError = Schema.TaggedStruct("ChatIdEmpty", {
+	description: Schema.String,
+});
+
+/** validation fails */
+
+export class ChatIdentifierEmpty extends Data.TaggedError("ChatIdentifierEmpty")<{
+	readonly description: string;
+}> {}
+
+export const ChatIdentifierEmptyError = Schema.TaggedStruct("ChatIdentifierEmpty", {
 	description: Schema.String,
 });
 
@@ -548,6 +568,16 @@ export const InvalidChatIdError = Schema.TaggedStruct("InvalidChatId", {
 	description: Schema.String,
 });
 
+/** validation fails */
+
+export class InvalidChatIdentifier extends Data.TaggedError("InvalidChatIdentifier")<{
+	readonly description: string;
+}> {}
+
+export const InvalidChatIdentifierError = Schema.TaggedStruct("InvalidChatIdentifier", {
+	description: Schema.String,
+});
+
 /** file_id is not valid */
 
 export class InvalidFileId extends Data.TaggedError("InvalidFileId")<{
@@ -568,7 +598,7 @@ export const InvalidStarsAmountError = Schema.TaggedStruct("InvalidStarsAmount",
 	description: Schema.String,
 });
 
-/** user_id is missing or zero */
+/** required parameters missing */
 
 export class InvalidUserId extends Data.TaggedError("InvalidUserId")<{
 	readonly description: string;
@@ -695,6 +725,16 @@ export class MessageCaptionTooLong extends Data.TaggedError("MessageCaptionTooLo
 }> {}
 
 export const MessageCaptionTooLongError = Schema.TaggedStruct("MessageCaptionTooLong", {
+	description: Schema.String,
+});
+
+/** required parameters missing */
+
+export class MessageIdentifiersAreNotSpecified extends Data.TaggedError("MessageIdentifiersAreNotSpecified")<{
+	readonly description: string;
+}> {}
+
+export const MessageIdentifiersAreNotSpecifiedError = Schema.TaggedStruct("MessageIdentifiersAreNotSpecified", {
 	description: Schema.String,
 });
 
@@ -918,6 +958,16 @@ export const PhoneNumberRequiredError = Schema.TaggedStruct("PhoneNumberRequired
 	description: Schema.String,
 });
 
+/** required parameters missing */
+
+export class PhotoNotSpecified extends Data.TaggedError("PhotoNotSpecified")<{
+	readonly description: string;
+}> {}
+
+export const PhotoNotSpecifiedError = Schema.TaggedStruct("PhotoNotSpecified", {
+	description: Schema.String,
+});
+
 /** options array is empty */
 
 export class PollMustHaveAtLeastOneAnswerOption extends Data.TaggedError("PollMustHaveAtLeastOneAnswerOption")<{
@@ -988,6 +1038,16 @@ export const ResizeKeyboardMustBeBooleanError = Schema.TaggedStruct("ResizeKeybo
 	description: Schema.String,
 });
 
+/** required parameters missing */
+
+export class ResultNotSpecified extends Data.TaggedError("ResultNotSpecified")<{
+	readonly description: string;
+}> {}
+
+export const ResultNotSpecifiedError = Schema.TaggedStruct("ResultNotSpecified", {
+	description: Schema.String,
+});
+
 /** reply markup selective is not a boolean */
 
 export class SelectiveMustBeBoolean extends Data.TaggedError("SelectiveMustBeBoolean")<{
@@ -1015,6 +1075,16 @@ export class ShowAboveTextMustBeBoolean extends Data.TaggedError("ShowAboveTextM
 }> {}
 
 export const ShowAboveTextMustBeBooleanError = Schema.TaggedStruct("ShowAboveTextMustBeBoolean", {
+	description: Schema.String,
+});
+
+/** required parameters missing */
+
+export class StoryContentNotSpecified extends Data.TaggedError("StoryContentNotSpecified")<{
+	readonly description: string;
+}> {}
+
+export const StoryContentNotSpecifiedError = Schema.TaggedStruct("StoryContentNotSpecified", {
 	description: Schema.String,
 });
 
@@ -1168,6 +1238,21 @@ export const methodErrors = {
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
+	answerGuestQuery: [
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 400, description: "Bad Request: result isn't specified", error: ResultNotSpecified },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	answerWebAppQuery: [
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 400, description: "Bad Request: result isn't specified", error: ResultNotSpecified },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	approveChatJoinRequest: [
+		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
 	banChatMember: [
 		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
@@ -1176,6 +1261,25 @@ export const methodErrors = {
 	banChatSenderChat: [
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 400, description: "Bad Request: sender_chat_id is empty", error: SenderChatIdEmpty },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	close: [
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	closeForumTopic: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	closeGeneralForumTopic: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	convertGiftToStars: [
+		{ errorCode: 400, description: "Bad Request: business connection not found", error: BusinessConnectionNotFound },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	copyMessage: [
@@ -1201,8 +1305,77 @@ export const methodErrors = {
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
+	createChatSubscriptionInviteLink: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	createForumTopic: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	declineChatJoinRequest: [
+		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	deleteBusinessMessages: [
+		{
+			errorCode: 400,
+			description: "Bad Request: message identifiers are not specified",
+			error: MessageIdentifiersAreNotSpecified,
+		},
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	deleteChatPhoto: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	deleteChatStickerSet: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	deleteForumTopic: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
 	deleteMyCommands: [
 		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	deleteStory: [
+		{ errorCode: 400, description: "Bad Request: business connection not found", error: BusinessConnectionNotFound },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	editChatInviteLink: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	editChatSubscriptionInviteLink: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	editForumTopic: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	editGeneralForumTopic: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	editStory: [
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 400, description: "Bad Request: story content isn't specified", error: StoryContentNotSpecified },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	exportChatInviteLink: [
@@ -1231,6 +1404,21 @@ export const methodErrors = {
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	getAvailableGifts: [
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	getBusinessAccountGifts: [
+		{ errorCode: 400, description: "Bad Request: business connection not found", error: BusinessConnectionNotFound },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	getBusinessAccountStarBalance: [
+		{ errorCode: 400, description: "Bad Request: business connection not found", error: BusinessConnectionNotFound },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	getBusinessConnection: [
+		{ errorCode: 400, description: "Bad Request: business connection not found", error: BusinessConnectionNotFound },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
@@ -1281,6 +1469,16 @@ export const methodErrors = {
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
+	getManagedBotAccessSettings: [
+		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	getManagedBotToken: [
+		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
 	getMe: [
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
@@ -1319,6 +1517,11 @@ export const methodErrors = {
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 		{ errorCode: 400, description: "Bad Request: user not found", error: UserNotFound },
 	],
+	getUserPersonalChatMessages: [
+		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
 	getUserProfileAudios: [
 		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
@@ -1331,10 +1534,34 @@ export const methodErrors = {
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 		{ errorCode: 400, description: "Bad Request: user not found", error: UserNotFound },
 	],
+	giftPremiumSubscription: [
+		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	hideGeneralForumTopic: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	leaveChat: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	logOut: [
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
 	pinChatMessage: [
 		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
 		{ errorCode: 400, description: "Bad Request: message to pin not found", error: MessageToPinNotFound },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	postStory: [
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 400, description: "Bad Request: story content isn't specified", error: StoryContentNotSpecified },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	promoteChatMember: [
@@ -1342,7 +1569,66 @@ export const methodErrors = {
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
+	readBusinessMessage: [
+		{ errorCode: 400, description: "Bad Request: chat identifier is empty", error: ChatIdentifierEmpty },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	removeBusinessAccountProfilePhoto: [
+		{ errorCode: 400, description: "Bad Request: business connection not found", error: BusinessConnectionNotFound },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	removeChatVerification: [
+		{ errorCode: 400, description: "Bad Request: invalid chat identifier specified", error: InvalidChatIdentifier },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	removeMyProfilePhoto: [
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	removeUserVerification: [
+		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	reopenForumTopic: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	reopenGeneralForumTopic: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	replaceManagedBotToken: [
+		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	repostStory: [
+		{ errorCode: 400, description: 'Bad Request: parameter "from_chat_id" is required', error: FromChatIdRequired },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
 	restrictChatMember: [
+		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	revokeChatInviteLink: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	savePreparedInlineMessage: [
+		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	savePreparedKeyboardButton: [
 		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
@@ -1383,6 +1669,11 @@ export const methodErrors = {
 	],
 	sendDocument: [
 		{ errorCode: 400, description: "Bad Request: there is no document in the request", error: NoDocumentInRequest },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	sendGift: [
+		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
@@ -1703,6 +1994,11 @@ export const methodErrors = {
 		},
 		{ errorCode: 400, description: "Bad Request: WEBPAGE_URL_INVALID", error: WebpageUrlInvalid },
 	],
+	sendMessageDraft: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
 	sendPaidMedia: [
 		{ errorCode: 400, description: 'Bad Request: parameter "media" is required', error: MediaRequired },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
@@ -1765,7 +2061,46 @@ export const methodErrors = {
 		{ errorCode: 400, description: "Bad Request: there is no voice in the request", error: NoVoiceInRequest },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
+	setBusinessAccountBio: [
+		{ errorCode: 400, description: "Bad Request: business connection not found", error: BusinessConnectionNotFound },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	setBusinessAccountGiftSettings: [
+		{
+			errorCode: 400,
+			description: "Bad Request: accepted gift types aren't specified",
+			error: AcceptedGiftTypesNotSpecified,
+		},
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	setBusinessAccountName: [
+		{ errorCode: 400, description: 'Bad Request: parameter "first_name" is required', error: FirstNameRequired },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	setBusinessAccountProfilePhoto: [
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 400, description: "Bad Request: photo isn't specified", error: PhotoNotSpecified },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	setBusinessAccountUsername: [
+		{ errorCode: 400, description: "Bad Request: business connection not found", error: BusinessConnectionNotFound },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
 	setChatAdministratorCustomTitle: [
+		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	setChatDescription: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	setChatMemberTag: [
 		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
@@ -1779,14 +2114,29 @@ export const methodErrors = {
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
+	setChatPermissions: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
 	setChatPhoto: [
 		{ errorCode: 400, description: "Bad Request: there is no photo in the request", error: NoPhotoInRequest },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	setChatStickerSet: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	setChatTitle: [
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 400, description: "Bad Request: title must be non-empty", error: TitleEmpty },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	setManagedBotAccessSettings: [
+		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	setMessageReaction: [
@@ -1818,7 +2168,27 @@ export const methodErrors = {
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
+	setMyProfilePhoto: [
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 400, description: "Bad Request: photo isn't specified", error: PhotoNotSpecified },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
 	setMyShortDescription: [
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	setUserEmojiStatus: [
+		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	transferBusinessAccountStars: [
+		{ errorCode: 400, description: "Bad Request: business connection not found", error: BusinessConnectionNotFound },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	transferGift: [
+		{ errorCode: 400, description: "Bad Request: chat identifier is empty", error: ChatIdentifierEmpty },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
@@ -1832,8 +2202,43 @@ export const methodErrors = {
 		{ errorCode: 400, description: "Bad Request: sender_chat_id is empty", error: SenderChatIdEmpty },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
+	unhideGeneralForumTopic: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	unpinAllChatMessages: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	unpinAllForumTopicMessages: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	unpinAllGeneralForumTopicMessages: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
 	unpinChatMessage: [
 		{ errorCode: 400, description: "Bad Request: message to unpin not found", error: MessageToUnpinNotFound },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	upgradeGift: [
+		{ errorCode: 400, description: "Bad Request: business connection not found", error: BusinessConnectionNotFound },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	verifyChat: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	verifyUser: [
+		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
