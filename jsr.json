@@ -1,0 +1,14 @@
+{
+	"$schema": "https://jsr.io/schema/config-file.v1.json",
+	"name": "@yorganci/effect-telegram-api",
+	"version": "0.0.0",
+	"exports": {
+		".": "./src/index.ts",
+		"./Client": "./src/Client.ts",
+		"./Objects": "./src/Objects.ts",
+		"./Methods": "./src/Methods.ts"
+	},
+	"publish": {
+		"include": ["LICENSE", "README.md", "src/**/*.ts"]
+	}
+}
