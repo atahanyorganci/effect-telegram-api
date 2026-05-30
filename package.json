@@ -38,7 +38,6 @@
 		"scripts:codegen": "tsx scripts/codegen.ts",
 		"scripts:fetch": "tsx scripts/fetch.ts",
 		"scripts:parse": "tsx scripts/parse.ts",
-		"scripts:render": "tsx scripts/readme/render-readme.ts",
 		"test": "vitest run",
 		"test:watch": "vitest"
 	},

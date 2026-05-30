@@ -1,137 +1,46 @@
-# `@yorgnaci/telegarm-api`
+# `@yorganci/effect-telegram-api`
 
-Telegram API spec and wrapper built with Effect.
+Type-safe Telegram Bot API client built with [Effect](https://effect.website). Method definitions, request payloads, and response schemas are generated from [Telegram's official API documentation](https://core.telegram.org/bots/api).
 
-## API Coverage
+## Install
 
-| Method                                                        | Test                                                      | Documented errors                                        |
-| ------------------------------------------------------------- | --------------------------------------------------------- | -------------------------------------------------------- |
-| [`answerCallbackQuery`](./src/Methods.ts#L10)                 | [✅](./test/answerCallbackQuery.test.ts#L9)               | [✅](./errors/answerCallbackQuery.json#L2)               |
-| [`answerGuestQuery`](./src/Methods.ts#L30)                    | [✅](./test/answerGuestQuery.test.ts#L9)                  | [✅](./errors/answerGuestQuery.json#L2)                  |
-| [`answerWebAppQuery`](./src/Methods.ts#L42)                   | [✅](./test/answerWebAppQuery.test.ts#L9)                 | [✅](./errors/answerWebAppQuery.json#L2)                 |
-| [`approveChatJoinRequest`](./src/Methods.ts#L54)              | [✅](./test/approveChatJoinRequest.test.ts#L9)            | [✅](./errors/approveChatJoinRequest.json#L2)            |
-| [`banChatMember`](./src/Methods.ts#L66)                       | [✅](./test/banChatMember.test.ts#L9)                     | [✅](./errors/banChatMember.json#L2)                     |
-| [`banChatSenderChat`](./src/Methods.ts#L82)                   | [✅](./test/banChatSenderChat.test.ts#L9)                 | [✅](./errors/banChatSenderChat.json#L2)                 |
-| [`close`](./src/Methods.ts#L94)                               | [✅](./test/close.test.ts#L8)                             | [✅](./errors/close.json#L2)                             |
-| [`closeForumTopic`](./src/Methods.ts#L100)                    | [✅](./test/closeForumTopic.test.ts#L9)                   | [✅](./errors/closeForumTopic.json#L2)                   |
-| [`closeGeneralForumTopic`](./src/Methods.ts#L112)             | [✅](./test/closeGeneralForumTopic.test.ts#L9)            | [✅](./errors/closeGeneralForumTopic.json#L2)            |
-| [`convertGiftToStars`](./src/Methods.ts#L122)                 | [✅](./test/convertGiftToStars.test.ts#L9)                | [✅](./errors/convertGiftToStars.json#L2)                |
-| [`copyMessage`](./src/Methods.ts#L134)                        | [✅](./test/copyMessage.test.ts#L9)                       | [✅](./errors/copyMessage.json#L2)                       |
-| [`copyMessages`](./src/Methods.ts#L176)                       | [✅](./test/copyMessages.test.ts#L9)                      | [✅](./errors/copyMessages.json#L2)                      |
-| [`createChatInviteLink`](./src/Methods.ts#L200)               | [✅](./test/createChatInviteLink.test.ts#L9)              | [✅](./errors/createChatInviteLink.json#L2)              |
-| [`createChatSubscriptionInviteLink`](./src/Methods.ts#L218)   | [✅](./test/createChatSubscriptionInviteLink.test.ts#L9)  | [✅](./errors/createChatSubscriptionInviteLink.json#L2)  |
-| [`createForumTopic`](./src/Methods.ts#L234)                   | [✅](./test/createForumTopic.test.ts#L9)                  | [✅](./errors/createForumTopic.json#L2)                  |
-| [`declineChatJoinRequest`](./src/Methods.ts#L250)             | [✅](./test/declineChatJoinRequest.test.ts#L9)            | [✅](./errors/declineChatJoinRequest.json#L2)            |
-| [`deleteBusinessMessages`](./src/Methods.ts#L262)             | [✅](./test/deleteBusinessMessages.test.ts#L9)            | [✅](./errors/deleteBusinessMessages.json#L2)            |
-| [`deleteChatPhoto`](./src/Methods.ts#L274)                    | [✅](./test/deleteChatPhoto.test.ts#L9)                   | [✅](./errors/deleteChatPhoto.json#L2)                   |
-| [`deleteChatStickerSet`](./src/Methods.ts#L284)               | [✅](./test/deleteChatStickerSet.test.ts#L9)              | [✅](./errors/deleteChatStickerSet.json#L2)              |
-| [`deleteForumTopic`](./src/Methods.ts#L294)                   | [✅](./test/deleteForumTopic.test.ts#L9)                  | [✅](./errors/deleteForumTopic.json#L2)                  |
-| [`deleteMyCommands`](./src/Methods.ts#L306)                   | [✅](./test/deleteMyCommands.test.ts#L8)                  | [✅](./errors/deleteMyCommands.json#L2)                  |
-| [`deleteStory`](./src/Methods.ts#L318)                        | [✅](./test/deleteStory.test.ts#L9)                       | [✅](./errors/deleteStory.json#L2)                       |
-| [`editChatInviteLink`](./src/Methods.ts#L330)                 | [✅](./test/editChatInviteLink.test.ts#L9)                | [✅](./errors/editChatInviteLink.json#L2)                |
-| [`editChatSubscriptionInviteLink`](./src/Methods.ts#L350)     | [✅](./test/editChatSubscriptionInviteLink.test.ts#L9)    | [✅](./errors/editChatSubscriptionInviteLink.json#L2)    |
-| [`editForumTopic`](./src/Methods.ts#L364)                     | [✅](./test/editForumTopic.test.ts#L9)                    | [✅](./errors/editForumTopic.json#L2)                    |
-| [`editGeneralForumTopic`](./src/Methods.ts#L380)              | [✅](./test/editGeneralForumTopic.test.ts#L9)             | [✅](./errors/editGeneralForumTopic.json#L2)             |
-| [`editStory`](./src/Methods.ts#L392)                          | [✅](./test/editStory.test.ts#L9)                         | [✅](./errors/editStory.json#L2)                         |
-| [`exportChatInviteLink`](./src/Methods.ts#L414)               | [✅](./test/exportChatInviteLink.test.ts#L9)              | [✅](./errors/exportChatInviteLink.json#L2)              |
-| [`forwardMessage`](./src/Methods.ts#L424)                     | [✅](./test/forwardMessage.test.ts#L9)                    | [✅](./errors/forwardMessage.json#L2)                    |
-| [`forwardMessages`](./src/Methods.ts#L452)                    | [✅](./test/forwardMessages.test.ts#L9)                   | [✅](./errors/forwardMessages.json#L2)                   |
-| [`getAvailableGifts`](./src/Methods.ts#L473)                  | [✅](./test/getAvailableGifts.test.ts#L8)                 | [✅](./errors/getAvailableGifts.json#L2)                 |
-| [`getBusinessAccountGifts`](./src/Methods.ts#L478)            | [✅](./test/getBusinessAccountGifts.test.ts#L9)           | [✅](./errors/getBusinessAccountGifts.json#L2)           |
-| [`getBusinessAccountStarBalance`](./src/Methods.ts#L507)      | [✅](./test/getBusinessAccountStarBalance.test.ts#L9)     | [✅](./errors/getBusinessAccountStarBalance.json#L2)     |
-| [`getBusinessConnection`](./src/Methods.ts#L517)              | [✅](./test/getBusinessConnection.test.ts#L9)             | [✅](./errors/getBusinessConnection.json#L2)             |
-| [`getChat`](./src/Methods.ts#L527)                            | [✅](./test/getChat.test.ts#L9)                           | [✅](./errors/getChat.json#L2)                           |
-| [`getChatAdministrators`](./src/Methods.ts#L537)              | [✅](./test/getChatAdministrators.test.ts#L9)             | [✅](./errors/getChatAdministrators.json#L2)             |
-| [`getChatGifts`](./src/Methods.ts#L548)                       | [✅](./test/getChatGifts.test.ts#L9)                      | [✅](./errors/getChatGifts.json#L2)                      |
-| [`getChatMember`](./src/Methods.ts#L578)                      | [✅](./test/getChatMember.test.ts#L9)                     | [✅](./errors/getChatMember.json#L2)                     |
-| [`getChatMemberCount`](./src/Methods.ts#L590)                 | [✅](./test/getChatMemberCount.test.ts#L9)                | [✅](./errors/getChatMemberCount.json#L2)                |
-| [`getChatMenuButton`](./src/Methods.ts#L600)                  | [✅](./test/getChatMenuButton.test.ts#L9)                 | [✅](./errors/getChatMenuButton.json#L2)                 |
-| [`getFile`](./src/Methods.ts#L610)                            | [✅](./test/getFile.test.ts#L9)                           | [✅](./errors/getFile.json#L2)                           |
-| [`getForumTopicIconStickers`](./src/Methods.ts#L620)          | [✅](./test/getForumTopicIconStickers.test.ts#L9)         | [✅](./errors/getForumTopicIconStickers.json#L2)         |
-| [`getManagedBotAccessSettings`](./src/Methods.ts#L626)        | [✅](./test/getManagedBotAccessSettings.test.ts#L9)       | [✅](./errors/getManagedBotAccessSettings.json#L2)       |
-| [`getManagedBotToken`](./src/Methods.ts#L636)                 | [✅](./test/getManagedBotToken.test.ts#L9)                | [✅](./errors/getManagedBotToken.json#L2)                |
-| [`getMe`](./src/Methods.ts#L646)                              | [✅](./test/getMe.test.ts#L8)                             | [✅](./errors/getMe.json#L2)                             |
-| [`getMyCommands`](./src/Methods.ts#L652)                      | [✅](./test/getMyCommands.test.ts#L8)                     | [✅](./errors/getMyCommands.json#L2)                     |
-| [`getMyDefaultAdministratorRights`](./src/Methods.ts#L664)    | [✅](./test/getMyDefaultAdministratorRights.test.ts#L9)   | [✅](./errors/getMyDefaultAdministratorRights.json#L2)   |
-| [`getMyDescription`](./src/Methods.ts#L674)                   | [✅](./test/getMyDescription.test.ts#L8)                  | [✅](./errors/getMyDescription.json#L2)                  |
-| [`getMyName`](./src/Methods.ts#L684)                          | [✅](./test/getMyName.test.ts#L8)                         | [✅](./errors/getMyName.json#L2)                         |
-| [`getMyShortDescription`](./src/Methods.ts#L694)              | [✅](./test/getMyShortDescription.test.ts#L9)             | [✅](./errors/getMyShortDescription.json#L2)             |
-| [`getUserChatBoosts`](./src/Methods.ts#L704)                  | [✅](./test/getUserChatBoosts.test.ts#L9)                 | [✅](./errors/getUserChatBoosts.json#L2)                 |
-| [`getUserGifts`](./src/Methods.ts#L715)                       | [✅](./test/getUserGifts.test.ts#L9)                      | [✅](./errors/getUserGifts.json#L2)                      |
-| [`getUserPersonalChatMessages`](./src/Methods.ts#L741)        | [✅](./test/getUserPersonalChatMessages.test.ts#L9)       | [✅](./errors/getUserPersonalChatMessages.json#L2)       |
-| [`getUserProfileAudios`](./src/Methods.ts#L753)               | [✅](./test/getUserProfileAudios.test.ts#L9)              | [✅](./errors/getUserProfileAudios.json#L2)              |
-| [`getUserProfilePhotos`](./src/Methods.ts#L767)               | [✅](./test/getUserProfilePhotos.test.ts#L9)              | [✅](./errors/getUserProfilePhotos.json#L2)              |
-| [`giftPremiumSubscription`](./src/Methods.ts#L781)            | [✅](./test/giftPremiumSubscription.test.ts#L9)           | [✅](./errors/giftPremiumSubscription.json#L2)           |
-| [`hideGeneralForumTopic`](./src/Methods.ts#L801)              | [✅](./test/hideGeneralForumTopic.test.ts#L9)             | [✅](./errors/hideGeneralForumTopic.json#L2)             |
-| [`leaveChat`](./src/Methods.ts#L811)                          | [✅](./test/leaveChat.test.ts#L9)                         | [✅](./errors/leaveChat.json#L2)                         |
-| [`logOut`](./src/Methods.ts#L821)                             | [✅](./test/logOut.test.ts#L8)                            | [✅](./errors/logOut.json#L2)                            |
-| [`pinChatMessage`](./src/Methods.ts#L827)                     | [✅](./test/pinChatMessage.test.ts#L9)                    | [✅](./errors/pinChatMessage.json#L2)                    |
-| [`postStory`](./src/Methods.ts#L843)                          | [✅](./test/postStory.test.ts#L9)                         | [✅](./errors/postStory.json#L2)                         |
-| [`promoteChatMember`](./src/Methods.ts#L869)                  | [✅](./test/promoteChatMember.test.ts#L9)                 | [✅](./errors/promoteChatMember.json#L2)                 |
-| [`readBusinessMessage`](./src/Methods.ts#L915)                | [✅](./test/readBusinessMessage.test.ts#L9)               | [✅](./errors/readBusinessMessage.json#L2)               |
-| [`removeBusinessAccountProfilePhoto`](./src/Methods.ts#L929)  | [✅](./test/removeBusinessAccountProfilePhoto.test.ts#L9) | [✅](./errors/removeBusinessAccountProfilePhoto.json#L2) |
-| [`removeChatVerification`](./src/Methods.ts#L941)             | [✅](./test/removeChatVerification.test.ts#L9)            | [✅](./errors/removeChatVerification.json#L2)            |
-| [`removeMyProfilePhoto`](./src/Methods.ts#L951)               | [✅](./test/removeMyProfilePhoto.test.ts#L8)              | [✅](./errors/removeMyProfilePhoto.json#L2)              |
-| [`removeUserVerification`](./src/Methods.ts#L957)             | [✅](./test/removeUserVerification.test.ts#L9)            | [✅](./errors/removeUserVerification.json#L2)            |
-| [`reopenForumTopic`](./src/Methods.ts#L967)                   | [✅](./test/reopenForumTopic.test.ts#L9)                  | [✅](./errors/reopenForumTopic.json#L2)                  |
-| [`reopenGeneralForumTopic`](./src/Methods.ts#L979)            | [✅](./test/reopenGeneralForumTopic.test.ts#L9)           | [✅](./errors/reopenGeneralForumTopic.json#L2)           |
-| [`replaceManagedBotToken`](./src/Methods.ts#L989)             | [✅](./test/replaceManagedBotToken.test.ts#L9)            | [✅](./errors/replaceManagedBotToken.json#L2)            |
-| [`repostStory`](./src/Methods.ts#L999)                        | [✅](./test/repostStory.test.ts#L9)                       | [✅](./errors/repostStory.json#L2)                       |
-| [`restrictChatMember`](./src/Methods.ts#L1019)                | [✅](./test/restrictChatMember.test.ts#L9)                | [✅](./errors/restrictChatMember.json#L2)                |
-| [`revokeChatInviteLink`](./src/Methods.ts#L1037)              | [✅](./test/revokeChatInviteLink.test.ts#L9)              | [✅](./errors/revokeChatInviteLink.json#L2)              |
-| [`savePreparedInlineMessage`](./src/Methods.ts#L1049)         | [✅](./test/savePreparedInlineMessage.test.ts#L9)         | [✅](./errors/savePreparedInlineMessage.json#L2)         |
-| [`savePreparedKeyboardButton`](./src/Methods.ts#L1069)        | [✅](./test/savePreparedKeyboardButton.test.ts#L9)        | [✅](./errors/savePreparedKeyboardButton.json#L2)        |
-| [`sendAnimation`](./src/Methods.ts#L1081)                     | [✅](./test/sendAnimation.test.ts#L9)                     | [✅](./errors/sendAnimation.json#L2)                     |
-| [`sendAudio`](./src/Methods.ts#L1131)                         | [✅](./test/sendAudio.test.ts#L9)                         | [✅](./errors/sendAudio.json#L2)                         |
-| [`sendChatAction`](./src/Methods.ts#L1177)                    | [✅](./test/sendChatAction.test.ts#L9)                    | [✅](./errors/sendChatAction.json#L2)                    |
-| [`sendChecklist`](./src/Methods.ts#L1193)                     | [✅](./test/sendChecklist.test.ts#L9)                     | [✅](./errors/sendChecklist.json#L2)                     |
-| [`sendContact`](./src/Methods.ts#L1217)                       | [✅](./test/sendContact.test.ts#L9)                       | [✅](./errors/sendContact.json#L2)                       |
-| [`sendDice`](./src/Methods.ts#L1255)                          | [✅](./test/sendDice.test.ts#L9)                          | [✅](./errors/sendDice.json#L2)                          |
-| [`sendDocument`](./src/Methods.ts#L1287)                      | [✅](./test/sendDocument.test.ts#L9)                      | [✅](./errors/sendDocument.json#L2)                      |
-| [`sendGift`](./src/Methods.ts#L1329)                          | [✅](./test/sendGift.test.ts#L9)                          | [✅](./errors/sendGift.json#L2)                          |
-| [`sendLivePhoto`](./src/Methods.ts#L1351)                     | [✅](./test/sendLivePhoto.test.ts#L9)                     | [✅](./errors/sendLivePhoto.json#L2)                     |
-| [`sendLocation`](./src/Methods.ts#L1395)                      | [✅](./test/sendLocation.test.ts#L9)                      | [✅](./errors/sendLocation.json#L2)                      |
-| [`sendMediaGroup`](./src/Methods.ts#L1437)                    | [✅](./test/sendMediaGroup.test.ts#L9)                    | [✅](./errors/sendMediaGroup.json#L2)                    |
-| [`sendMessage`](./src/Methods.ts#L1465)                       | [✅](./test/sendMessage.test.ts#L9)                       | [✅](./errors/sendMessage.json#L2)                       |
-| [`sendMessageDraft`](./src/Methods.ts#L1503)                  | [✅](./test/sendMessageDraft.test.ts#L9)                  | [✅](./errors/sendMessageDraft.json#L2)                  |
-| [`sendPaidMedia`](./src/Methods.ts#L1523)                     | [✅](./test/sendPaidMedia.test.ts#L9)                     | [✅](./errors/sendPaidMedia.json#L2)                     |
-| [`sendPhoto`](./src/Methods.ts#L1565)                         | [✅](./test/sendPhoto.test.ts#L9)                         | [✅](./errors/sendPhoto.json#L2)                         |
-| [`sendPoll`](./src/Methods.ts#L1607)                          | [✅](./test/sendPoll.test.ts#L9)                          | [✅](./errors/sendPoll.json#L2)                          |
-| [`sendVenue`](./src/Methods.ts#L1683)                         | [✅](./test/sendVenue.test.ts#L9)                         | [✅](./errors/sendVenue.json#L2)                         |
-| [`sendVideo`](./src/Methods.ts#L1729)                         | [✅](./test/sendVideo.test.ts#L12)                        | [✅](./errors/sendVideo.json#L2)                         |
-| [`sendVideoNote`](./src/Methods.ts#L1785)                     | [✅](./test/sendVideoNote.test.ts#L9)                     | [✅](./errors/sendVideoNote.json#L2)                     |
-| [`sendVoice`](./src/Methods.ts#L1823)                         | [✅](./test/sendVoice.test.ts#L9)                         | [✅](./errors/sendVoice.json#L2)                         |
-| [`setBusinessAccountBio`](./src/Methods.ts#L1863)             | [✅](./test/setBusinessAccountBio.test.ts#L9)             | [✅](./errors/setBusinessAccountBio.json#L2)             |
-| [`setBusinessAccountGiftSettings`](./src/Methods.ts#L1875)    | [✅](./test/setBusinessAccountGiftSettings.test.ts#L9)    | [✅](./errors/setBusinessAccountGiftSettings.json#L2)    |
-| [`setBusinessAccountName`](./src/Methods.ts#L1889)            | [✅](./test/setBusinessAccountName.test.ts#L9)            | [✅](./errors/setBusinessAccountName.json#L2)            |
-| [`setBusinessAccountProfilePhoto`](./src/Methods.ts#L1903)    | [✅](./test/setBusinessAccountProfilePhoto.test.ts#L9)    | [✅](./errors/setBusinessAccountProfilePhoto.json#L2)    |
-| [`setBusinessAccountUsername`](./src/Methods.ts#L1917)        | [✅](./test/setBusinessAccountUsername.test.ts#L9)        | [✅](./errors/setBusinessAccountUsername.json#L2)        |
-| [`setChatAdministratorCustomTitle`](./src/Methods.ts#L1929)   | [✅](./test/setChatAdministratorCustomTitle.test.ts#L9)   | [✅](./errors/setChatAdministratorCustomTitle.json#L2)   |
-| [`setChatDescription`](./src/Methods.ts#L1943)                | [✅](./test/setChatDescription.test.ts#L9)                | [✅](./errors/setChatDescription.json#L2)                |
-| [`setChatMemberTag`](./src/Methods.ts#L1955)                  | [✅](./test/setChatMemberTag.test.ts#L9)                  | [✅](./errors/setChatMemberTag.json#L2)                  |
-| [`setChatMenuButton`](./src/Methods.ts#L1969)                 | [✅](./test/setChatMenuButton.test.ts#L9)                 | [✅](./errors/setChatMenuButton.json#L2)                 |
-| [`setChatPermissions`](./src/Methods.ts#L1981)                | [✅](./test/setChatPermissions.test.ts#L9)                | [✅](./errors/setChatPermissions.json#L2)                |
-| [`setChatPhoto`](./src/Methods.ts#L1995)                      | [✅](./test/setChatPhoto.test.ts#L9)                      | [✅](./errors/setChatPhoto.json#L2)                      |
-| [`setChatStickerSet`](./src/Methods.ts#L2007)                 | [✅](./test/setChatStickerSet.test.ts#L9)                 | [✅](./errors/setChatStickerSet.json#L2)                 |
-| [`setChatTitle`](./src/Methods.ts#L2019)                      | [✅](./test/setChatTitle.test.ts#L9)                      | [✅](./errors/setChatTitle.json#L2)                      |
-| [`setManagedBotAccessSettings`](./src/Methods.ts#L2031)       | [✅](./test/setManagedBotAccessSettings.test.ts#L9)       | [✅](./errors/setManagedBotAccessSettings.json#L2)       |
-| [`setMessageReaction`](./src/Methods.ts#L2045)                | [✅](./test/setMessageReaction.test.ts#L9)                | [✅](./errors/setMessageReaction.json#L2)                |
-| [`setMyCommands`](./src/Methods.ts#L2061)                     | [✅](./test/setMyCommands.test.ts#L9)                     | [✅](./errors/setMyCommands.json#L2)                     |
-| [`setMyDefaultAdministratorRights`](./src/Methods.ts#L2075)   | [✅](./test/setMyDefaultAdministratorRights.test.ts#L9)   | [✅](./errors/setMyDefaultAdministratorRights.json#L2)   |
-| [`setMyDescription`](./src/Methods.ts#L2087)                  | [✅](./test/setMyDescription.test.ts#L9)                  | [✅](./errors/setMyDescription.json#L2)                  |
-| [`setMyName`](./src/Methods.ts#L2099)                         | [✅](./test/setMyName.test.ts#L9)                         | [✅](./errors/setMyName.json#L2)                         |
-| [`setMyProfilePhoto`](./src/Methods.ts#L2111)                 | [✅](./test/setMyProfilePhoto.test.ts#L9)                 | [✅](./errors/setMyProfilePhoto.json#L2)                 |
-| [`setMyShortDescription`](./src/Methods.ts#L2121)             | [✅](./test/setMyShortDescription.test.ts#L9)             | [✅](./errors/setMyShortDescription.json#L2)             |
-| [`setUserEmojiStatus`](./src/Methods.ts#L2133)                | [✅](./test/setUserEmojiStatus.test.ts#L9)                | [✅](./errors/setUserEmojiStatus.json#L2)                |
-| [`transferBusinessAccountStars`](./src/Methods.ts#L2147)      | [✅](./test/transferBusinessAccountStars.test.ts#L9)      | [✅](./errors/transferBusinessAccountStars.json#L2)      |
-| [`transferGift`](./src/Methods.ts#L2159)                      | [✅](./test/transferGift.test.ts#L9)                      | [✅](./errors/transferGift.json#L2)                      |
-| [`unbanChatMember`](./src/Methods.ts#L2175)                   | [✅](./test/unbanChatMember.test.ts#L9)                   | [✅](./errors/unbanChatMember.json#L2)                   |
-| [`unbanChatSenderChat`](./src/Methods.ts#L2189)               | [✅](./test/unbanChatSenderChat.test.ts#L9)               | [✅](./errors/unbanChatSenderChat.json#L2)               |
-| [`unhideGeneralForumTopic`](./src/Methods.ts#L2201)           | [✅](./test/unhideGeneralForumTopic.test.ts#L9)           | [✅](./errors/unhideGeneralForumTopic.json#L2)           |
-| [`unpinAllChatMessages`](./src/Methods.ts#L2211)              | [✅](./test/unpinAllChatMessages.test.ts#L9)              | [✅](./errors/unpinAllChatMessages.json#L2)              |
-| [`unpinAllForumTopicMessages`](./src/Methods.ts#L2221)        | [✅](./test/unpinAllForumTopicMessages.test.ts#L9)        | [✅](./errors/unpinAllForumTopicMessages.json#L2)        |
-| [`unpinAllGeneralForumTopicMessages`](./src/Methods.ts#L2233) | [✅](./test/unpinAllGeneralForumTopicMessages.test.ts#L9) | [✅](./errors/unpinAllGeneralForumTopicMessages.json#L2) |
-| [`unpinChatMessage`](./src/Methods.ts#L2243)                  | [✅](./test/unpinChatMessage.test.ts#L9)                  | [✅](./errors/unpinChatMessage.json#L2)                  |
-| [`upgradeGift`](./src/Methods.ts#L2257)                       | [✅](./test/upgradeGift.test.ts#L9)                       | [✅](./errors/upgradeGift.json#L2)                       |
-| [`verifyChat`](./src/Methods.ts#L2273)                        | [✅](./test/verifyChat.test.ts#L9)                        | [✅](./errors/verifyChat.json#L2)                        |
-| [`verifyUser`](./src/Methods.ts#L2285)                        | [✅](./test/verifyUser.test.ts#L9)                        | [✅](./errors/verifyUser.json#L2)                        |
+```sh
+# npm
+npm install @yorganci/effect-telegram-api effect
+
+# pnpm
+pnpm add @yorganci/effect-telegram-api effect
+
+# yarn
+yarn add @yorganci/effect-telegram-api effect
+
+# bun
+bun add @yorganci/effect-telegram-api effect
+
+# Deno & JSR
+deno add jsr:@yorganci/effect-telegram-api
+```
+
+This package targets Effect v4 and uses `effect/unstable/rpc/Rpc` and `effect/unstable/rpc/RpcGroup` for defining the API contract. Thus, it can be used with Node.js/Bun/Deno runtimes or even with `FetchHttpClient` from `effect/unstable/http` for browser or unconventional runtimes such as Cloudflare Workers.
+
+## Exports
+
+| Import                                  | Contents                                    |
+| --------------------------------------- | ------------------------------------------- |
+| `@yorganci/effect-telegram-api`         | Re-exports below                            |
+| `@yorganci/effect-telegram-api/Client`  | `callMethod`, `TelegramApiError`            |
+| `@yorganci/effect-telegram-api/Methods` | Generated Bot API method RPCs               |
+| `@yorganci/effect-telegram-api/Objects` | Generated Telegram object schemas and types |
+
+## Development
+
+This repo parses a pinned snapshot of Telegram's HTML docs into a JSON spec, then codegen's TypeScript modules under `src/`.
+
+```sh
+pnpm scripts:fetch   # fetch and sanitize docs → data/api.html
+pnpm scripts:parse   # parse HTML → data/spec/
+pnpm scripts:codegen
+pnpm test
+```
+
+See [`test/README.md`](./test/README.md) for live integration test setup and contribution workflow.
