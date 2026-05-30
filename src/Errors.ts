@@ -7,344 +7,282 @@ import * as Schema from "effect/Schema";
  * required parameters missing
  */
 export class AcceptedGiftTypesNotSpecified extends Data.TaggedError("AcceptedGiftTypesNotSpecified")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const AcceptedGiftTypesNotSpecifiedError = Schema.TaggedStruct("AcceptedGiftTypesNotSpecified", {
-	description: Schema.String,
-});
 
 /**
  * switch_inline_query_chosen_chat.allow_user_chats is not a boolean
  */
 export class AllowUserChatsMustBeBoolean extends Data.TaggedError("AllowUserChatsMustBeBoolean")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const AllowUserChatsMustBeBooleanError = Schema.TaggedStruct("AllowUserChatsMustBeBoolean", {
-	description: Schema.String,
-});
 
 /**
  * command contains characters other than lowercase English letters, digits, and
  * underscores
  */
 export class BotCommandInvalid extends Data.TaggedError("BotCommandInvalid")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const BotCommandInvalidError = Schema.TaggedStruct("BotCommandInvalid", {
-	description: Schema.String,
-});
 
 /**
  * BotCommandScope that requires chat_id omits it
  */
 export class BotCommandScopeChatIdMissing extends Data.TaggedError("BotCommandScopeChatIdMissing")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const BotCommandScopeChatIdMissingError = Schema.TaggedStruct("BotCommandScopeChatIdMissing", {
-	description: Schema.String,
-});
 
 /**
  * BotCommandScope type is unsupported
  */
 export class BotCommandScopeUnsupportedType extends Data.TaggedError("BotCommandScopeUnsupportedType")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const BotCommandScopeUnsupportedTypeError = Schema.TaggedStruct("BotCommandScopeUnsupportedType", {
-	description: Schema.String,
-});
 
 /**
  * BotCommandScope that requires user_id omits it
  */
 export class BotCommandScopeUserIdMissing extends Data.TaggedError("BotCommandScopeUserIdMissing")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const BotCommandScopeUserIdMissingError = Schema.TaggedStruct("BotCommandScopeUserIdMissing", {
-	description: Schema.String,
-});
 
 /**
  * description exceeds the 512 character limit
  */
 export class BotDescriptionInvalid extends Data.TaggedError("BotDescriptionInvalid")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const BotDescriptionInvalidError = Schema.TaggedStruct("BotDescriptionInvalid", {
-	description: Schema.String,
-});
 
 /**
  * login_url is missing bot_username
  */
 export class BotDomainInvalid extends Data.TaggedError("BotDomainInvalid")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const BotDomainInvalidError = Schema.TaggedStruct("BotDomainInvalid", {
-	description: Schema.String,
-});
 
 /**
  * short_description exceeds the 120 character limit
  */
 export class BotShortDescriptionInvalid extends Data.TaggedError("BotShortDescriptionInvalid")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const BotShortDescriptionInvalidError = Schema.TaggedStruct("BotShortDescriptionInvalid", {
-	description: Schema.String,
-});
 
 /**
  * name is missing or empty
  */
 export class BotTitleInvalid extends Data.TaggedError("BotTitleInvalid")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const BotTitleInvalidError = Schema.TaggedStruct("BotTitleInvalid", {
-	description: Schema.String,
-});
 
 /**
  * bot is not allowed to remove verification for the chat
  */
 export class BotVerifierForbidden extends Data.TaggedError("BotVerifierForbidden")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const BotVerifierForbiddenError = Schema.TaggedStruct("BotVerifierForbidden", {
-	description: Schema.String,
-});
 
 /**
  * required parameters missing
  */
 export class BusinessConnectionNotFound extends Data.TaggedError("BusinessConnectionNotFound")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const BusinessConnectionNotFoundError = Schema.TaggedStruct("BusinessConnectionNotFound", {
-	description: Schema.String,
-});
 
 /**
  * copy_text button text is empty or too long
  */
 export class ButtonCopyTextInvalid extends Data.TaggedError("ButtonCopyTextInvalid")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const ButtonCopyTextInvalidError = Schema.TaggedStruct("ButtonCopyTextInvalid", {
-	description: Schema.String,
-});
 
 /**
  * inline keyboard callback_data exceeds 64 bytes
  */
 export class ButtonDataInvalid extends Data.TaggedError("ButtonDataInvalid")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const ButtonDataInvalidError = Schema.TaggedStruct("ButtonDataInvalid", {
-	description: Schema.String,
-});
 
 /**
  * request_users.max_quantity exceeds the allowed maximum
  */
 export class ButtonQuantityMaxInvalid extends Data.TaggedError("ButtonQuantityMaxInvalid")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const ButtonQuantityMaxInvalidError = Schema.TaggedStruct("ButtonQuantityMaxInvalid", {
-	description: Schema.String,
-});
 
 /**
  * inline keyboard button type is invalid (e.g. pay without invoice or
  * callback_game without game)
  */
 export class ButtonTypeInvalid extends Data.TaggedError("ButtonTypeInvalid")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const ButtonTypeInvalidError = Schema.TaggedStruct("ButtonTypeInvalid", {
-	description: Schema.String,
-});
 
 /**
  * callback_query_id is missing or invalid
  */
 export class CallbackQueryIdInvalid extends Data.TaggedError("CallbackQueryIdInvalid")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const CallbackQueryIdInvalidError = Schema.TaggedStruct("CallbackQueryIdInvalid", {
-	description: Schema.String,
-});
 
 /**
  * chat_id refers to a private chat with the bot
  */
 export class CantChangePrivateChatDescription extends Data.TaggedError("CantChangePrivateChatDescription")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const CantChangePrivateChatDescriptionError = Schema.TaggedStruct("CantChangePrivateChatDescription", {
-	description: Schema.String,
-});
 
 /**
  * chat_id refers to a private chat with the bot
  */
 export class CantChangePrivateChatPermissions extends Data.TaggedError("CantChangePrivateChatPermissions")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const CantChangePrivateChatPermissionsError = Schema.TaggedStruct("CantChangePrivateChatPermissions", {
-	description: Schema.String,
-});
 
 /**
  * chat_id refers to a private chat with the bot
  */
 export class CantChangePrivateChatPhoto extends Data.TaggedError("CantChangePrivateChatPhoto")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const CantChangePrivateChatPhotoError = Schema.TaggedStruct("CantChangePrivateChatPhoto", {
-	description: Schema.String,
-});
 
 /**
  * chat_id refers to a private chat with the bot
  */
 export class CantChangePrivateChatTitle extends Data.TaggedError("CantChangePrivateChatTitle")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const CantChangePrivateChatTitleError = Schema.TaggedStruct("CantChangePrivateChatTitle", {
-	description: Schema.String,
-});
 
 /**
  * result object is missing the required type field
  */
 export class CantFindFieldType extends Data.TaggedError("CantFindFieldType")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const CantFindFieldTypeError = Schema.TaggedStruct("CantFindFieldType", {
-	description: Schema.String,
-});
 
 /**
  * chat_id refers to a private chat that does not support invite links
  */
 export class CantInviteMembersToPrivateChat extends Data.TaggedError("CantInviteMembersToPrivateChat")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const CantInviteMembersToPrivateChatError = Schema.TaggedStruct("CantInviteMembersToPrivateChat", {
-	description: Schema.String,
-});
 
 /**
  * HTML tg-emoji tag references an invalid custom emoji id
  */
 export class CantParseEntitiesInvalidCustomEmoji extends Data.TaggedError("CantParseEntitiesInvalidCustomEmoji")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const CantParseEntitiesInvalidCustomEmojiError = Schema.TaggedStruct("CantParseEntitiesInvalidCustomEmoji", {
-	description: Schema.String,
-});
 
 /**
  * text with parse_mode MarkdownV2 contains an unclosed bold entity
  */
 export class CantParseEntitiesNoBoldEnd extends Data.TaggedError("CantParseEntitiesNoBoldEnd")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const CantParseEntitiesNoBoldEndError = Schema.TaggedStruct("CantParseEntitiesNoBoldEnd", {
-	description: Schema.String,
-});
 
 /**
  * text with parse_mode Markdown contains an unclosed entity
  */
 export class CantParseEntitiesNoEnd extends Data.TaggedError("CantParseEntitiesNoEnd")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const CantParseEntitiesNoEndError = Schema.TaggedStruct("CantParseEntitiesNoEnd", {
-	description: Schema.String,
-});
 
 /**
  * text with parse_mode HTML contains an unclosed tag
  */
 export class CantParseEntitiesNoHtmlEndTag extends Data.TaggedError("CantParseEntitiesNoHtmlEndTag")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const CantParseEntitiesNoHtmlEndTagError = Schema.TaggedStruct("CantParseEntitiesNoHtmlEndTag", {
-	description: Schema.String,
-});
 
 /**
  * text with parse_mode MarkdownV2 contains an unescaped opening brace
  */
 export class CantParseEntitiesReservedCharBrace extends Data.TaggedError("CantParseEntitiesReservedCharBrace")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const CantParseEntitiesReservedCharBraceError = Schema.TaggedStruct("CantParseEntitiesReservedCharBrace", {
-	description: Schema.String,
-});
 
 /**
  * text with parse_mode MarkdownV2 contains an unescaped hyphen
  */
 export class CantParseEntitiesReservedCharDash extends Data.TaggedError("CantParseEntitiesReservedCharDash")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const CantParseEntitiesReservedCharDashError = Schema.TaggedStruct("CantParseEntitiesReservedCharDash", {
-	description: Schema.String,
-});
 
 /**
  * text with parse_mode MarkdownV2 contains an unescaped period
  */
 export class CantParseEntitiesReservedCharDot extends Data.TaggedError("CantParseEntitiesReservedCharDot")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const CantParseEntitiesReservedCharDotError = Schema.TaggedStruct("CantParseEntitiesReservedCharDot", {
-	description: Schema.String,
-});
 
 /**
  * text with parse_mode MarkdownV2 contains an unescaped equals sign
  */
 export class CantParseEntitiesReservedCharEquals extends Data.TaggedError("CantParseEntitiesReservedCharEquals")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const CantParseEntitiesReservedCharEqualsError = Schema.TaggedStruct("CantParseEntitiesReservedCharEquals", {
-	description: Schema.String,
-});
 
 /**
  * text with parse_mode MarkdownV2 contains an unescaped exclamation mark
@@ -352,136 +290,109 @@ export const CantParseEntitiesReservedCharEqualsError = Schema.TaggedStruct("Can
 export class CantParseEntitiesReservedCharExclamation extends Data.TaggedError(
 	"CantParseEntitiesReservedCharExclamation",
 )<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const CantParseEntitiesReservedCharExclamationError = Schema.TaggedStruct(
-	"CantParseEntitiesReservedCharExclamation",
-	{
-		description: Schema.String,
-	},
-);
 
 /**
  * text with parse_mode MarkdownV2 contains an unescaped greater-than sign
  */
 export class CantParseEntitiesReservedCharGreater extends Data.TaggedError("CantParseEntitiesReservedCharGreater")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const CantParseEntitiesReservedCharGreaterError = Schema.TaggedStruct("CantParseEntitiesReservedCharGreater", {
-	description: Schema.String,
-});
 
 /**
  * text with parse_mode MarkdownV2 contains an unescaped hash sign
  */
 export class CantParseEntitiesReservedCharHash extends Data.TaggedError("CantParseEntitiesReservedCharHash")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const CantParseEntitiesReservedCharHashError = Schema.TaggedStruct("CantParseEntitiesReservedCharHash", {
-	description: Schema.String,
-});
 
 /**
  * text with parse_mode MarkdownV2 contains an unescaped opening parenthesis
  */
 export class CantParseEntitiesReservedCharParen extends Data.TaggedError("CantParseEntitiesReservedCharParen")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const CantParseEntitiesReservedCharParenError = Schema.TaggedStruct("CantParseEntitiesReservedCharParen", {
-	description: Schema.String,
-});
 
 /**
  * text with parse_mode MarkdownV2 contains an unescaped pipe character
  */
 export class CantParseEntitiesReservedCharPipe extends Data.TaggedError("CantParseEntitiesReservedCharPipe")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const CantParseEntitiesReservedCharPipeError = Schema.TaggedStruct("CantParseEntitiesReservedCharPipe", {
-	description: Schema.String,
-});
 
 /**
  * text with parse_mode MarkdownV2 contains an unescaped plus sign
  */
 export class CantParseEntitiesReservedCharPlus extends Data.TaggedError("CantParseEntitiesReservedCharPlus")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const CantParseEntitiesReservedCharPlusError = Schema.TaggedStruct("CantParseEntitiesReservedCharPlus", {
-	description: Schema.String,
-});
 
 /**
  * text with parse_mode HTML has mismatched closing tags
  */
 export class CantParseEntitiesUnmatchedEndTag extends Data.TaggedError("CantParseEntitiesUnmatchedEndTag")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const CantParseEntitiesUnmatchedEndTagError = Schema.TaggedStruct("CantParseEntitiesUnmatchedEndTag", {
-	description: Schema.String,
-});
 
 /**
  * text with parse_mode HTML contains a disallowed tag
  */
 export class CantParseEntitiesUnsupportedScriptTag extends Data.TaggedError("CantParseEntitiesUnsupportedScriptTag")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const CantParseEntitiesUnsupportedScriptTagError = Schema.TaggedStruct("CantParseEntitiesUnsupportedScriptTag", {
-	description: Schema.String,
-});
 
 /**
  * text with parse_mode HTML contains an unknown tag
  */
 export class CantParseEntitiesUnsupportedTag extends Data.TaggedError("CantParseEntitiesUnsupportedTag")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const CantParseEntitiesUnsupportedTagError = Schema.TaggedStruct("CantParseEntitiesUnsupportedTag", {
-	description: Schema.String,
-});
 
 /**
  * options parameter is missing
  */
 export class CantParseOptionsJsonObject extends Data.TaggedError("CantParseOptionsJsonObject")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const CantParseOptionsJsonObjectError = Schema.TaggedStruct("CantParseOptionsJsonObject", {
-	description: Schema.String,
-});
 
 /**
  * promotion would demote the chat owner
  */
 export class CantRemoveChatOwner extends Data.TaggedError("CantRemoveChatOwner")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const CantRemoveChatOwnerError = Schema.TaggedStruct("CantRemoveChatOwner", {
-	description: Schema.String,
-});
 
 /**
  * bot lacks permission to change the group sticker set
  */
 export class CantSetSupergroupStickerSet extends Data.TaggedError("CantSetSupergroupStickerSet")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const CantSetSupergroupStickerSetError = Schema.TaggedStruct("CantSetSupergroupStickerSet", {
-	description: Schema.String,
-});
 
 /**
  * rights.can_delete_messages is not a boolean
@@ -489,70 +400,55 @@ export const CantSetSupergroupStickerSetError = Schema.TaggedStruct("CantSetSupe
 export class ChatAdministratorRightsCanDeleteMessagesMustBeBoolean extends Data.TaggedError(
 	"ChatAdministratorRightsCanDeleteMessagesMustBeBoolean",
 )<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const ChatAdministratorRightsCanDeleteMessagesMustBeBooleanError = Schema.TaggedStruct(
-	"ChatAdministratorRightsCanDeleteMessagesMustBeBoolean",
-	{
-		description: Schema.String,
-	},
-);
 
 /**
  * bot is not an administrator with can_manage_topics
  */
 export class ChatAdminRequired extends Data.TaggedError("ChatAdminRequired")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const ChatAdminRequiredError = Schema.TaggedStruct("ChatAdminRequired", {
-	description: Schema.String,
-});
 
 /**
  * only the chat creator can set member tags
  */
 export class ChatCreatorRequired extends Data.TaggedError("ChatCreatorRequired")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const ChatCreatorRequiredError = Schema.TaggedStruct("ChatCreatorRequired", {
-	description: Schema.String,
-});
 
 /**
  * required parameters missing
  */
 export class ChatIdEmpty extends Data.TaggedError("ChatIdEmpty")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const ChatIdEmptyError = Schema.TaggedStruct("ChatIdEmpty", {
-	description: Schema.String,
-});
 
 /**
  * validation fails
  */
 export class ChatIdentifierEmpty extends Data.TaggedError("ChatIdentifierEmpty")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const ChatIdentifierEmptyError = Schema.TaggedStruct("ChatIdentifierEmpty", {
-	description: Schema.String,
-});
 
 /**
  * request_chat.chat_is_forum is not a boolean
  */
 export class ChatIsForumMustBeBoolean extends Data.TaggedError("ChatIsForumMustBeBoolean")<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
-
-export const ChatIsForumMustBeBooleanError = Schema.TaggedStruct("ChatIsForumMustBeBoolean", {
-	description: Schema.String,
-});
 
 /**
  * chat_id refers to a private chat with the bot
@@ -560,2304 +456,2369 @@ export const ChatIsForumMustBeBooleanError = Schema.TaggedStruct("ChatIsForumMus
 export class ChatMemberStatusCantBeChangedInPrivateChats extends Data.TaggedError(
 	"ChatMemberStatusCantBeChangedInPrivateChats",
 )<{
+	readonly ok: false;
+	readonly error_code: 400;
 	readonly description: string;
 }> {}
 
+/**
+ * chat_id does not refer to a chat the bot can access
+ */
+export class ChatNotFound extends Data.TaggedError("ChatNotFound")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * bot lacks permission to delete the forum topic
+ */
+export class ChatWriteForbidden extends Data.TaggedError("ChatWriteForbidden")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * checklist parameter is missing
+ */
+export class ChecklistRequired extends Data.TaggedError("ChecklistRequired")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * a command entry has an empty description
+ */
+export class CommandDescriptionMustBeNonEmpty extends Data.TaggedError("CommandDescriptionMustBeNonEmpty")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * a command entry has an empty command string
+ */
+export class CommandMustBeNonEmpty extends Data.TaggedError("CommandMustBeNonEmpty")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * custom_emoji entity is missing custom_emoji_id
+ */
+export class CustomEmojiIdMissing extends Data.TaggedError("CustomEmojiIdMissing")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * custom_emoji entity has a non-numeric custom_emoji_id
+ */
+export class CustomEmojiIdMustBeNumber extends Data.TaggedError("CustomEmojiIdMustBeNumber")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * message_effect_id is not valid
+ */
+export class EffectIdInvalid extends Data.TaggedError("EffectIdInvalid")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * entities offset is beyond the text length
+ */
+export class EntityBeginsAfterTextEnd extends Data.TaggedError("EntityBeginsAfterTextEnd")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * entities offset plus length exceeds the text length
+ */
+export class EntityEndsAfterTextEnd extends Data.TaggedError("EntityEndsAfterTextEnd")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * entities offset is negative
+ */
+export class EntityIncorrectOffset extends Data.TaggedError("EntityIncorrectOffset")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * text_link entity url is empty
+ */
+export class EntityUrlEmpty extends Data.TaggedError("EntityUrlEmpty")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * text_link entity url is not a valid HTTP URL
+ */
+export class EntityUrlInvalid extends Data.TaggedError("EntityUrlInvalid")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * file_id parameter is missing or empty
+ */
+export class FileIdNotSpecified extends Data.TaggedError("FileIdNotSpecified")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * first_name parameter is missing
+ */
+export class FirstNameRequired extends Data.TaggedError("FirstNameRequired")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * allow_paid_broadcast is true but the bot has insufficient Telegram Stars
+ */
+export class FloodskipNotAllowed extends Data.TaggedError("FloodskipNotAllowed")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * force_reply is not a boolean
+ */
+export class ForceReplyMustBeBoolean extends Data.TaggedError("ForceReplyMustBeBoolean")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * from_chat_id parameter is missing
+ */
+export class FromChatIdRequired extends Data.TaggedError("FromChatIdRequired")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * inline keyboard button is missing text
+ */
+export class InlineButtonTextMissing extends Data.TaggedError("InlineButtonTextMissing")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * inline keyboard button has empty callback_data and no url
+ */
+export class InlineButtonTextUnallowed extends Data.TaggedError("InlineButtonTextUnallowed")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * inline keyboard button url uses an unsupported protocol
+ */
+export class InlineButtonUrlFtpUnsupported extends Data.TaggedError("InlineButtonUrlFtpUnsupported")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * inline keyboard button url is not a valid HTTP URL
+ */
+export class InlineButtonUrlInvalid extends Data.TaggedError("InlineButtonUrlInvalid")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * inline_keyboard is not an array
+ */
+export class InlineKeyboardMustBeArray extends Data.TaggedError("InlineKeyboardMustBeArray")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * chat_id is not a valid private chat id
+ */
+export class InvalidChatId extends Data.TaggedError("InvalidChatId")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * validation fails
+ */
+export class InvalidChatIdentifier extends Data.TaggedError("InvalidChatIdentifier")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * file_id is not valid
+ */
+export class InvalidFileId extends Data.TaggedError("InvalidFileId")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * suggested_post_parameters price amount is invalid
+ */
+export class InvalidStarsAmount extends Data.TaggedError("InvalidStarsAmount")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * required parameters missing
+ */
+export class InvalidUserId extends Data.TaggedError("InvalidUserId")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * invite_link is invalid or already revoked
+ */
+export class InviteHashExpired extends Data.TaggedError("InviteHashExpired")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * reply keyboard is_persistent is not a boolean
+ */
+export class IsPersistentMustBeBoolean extends Data.TaggedError("IsPersistentMustBeBoolean")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * reply keyboard keyboard is not an array
+ */
+export class KeyboardMustBeArray extends Data.TaggedError("KeyboardMustBeArray")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * request_chat or request_users keyboard button is missing request_id
+ */
+export class KeyboardRequestIdMissing extends Data.TaggedError("KeyboardRequestIdMissing")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * reply keyboard web_app button url is HTTP instead of HTTPS
+ */
+export class KeyboardWebAppUrlHttpNotAllowed extends Data.TaggedError("KeyboardWebAppUrlHttpNotAllowed")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * latitude parameter is missing
+ */
+export class LatitudeEmpty extends Data.TaggedError("LatitudeEmpty")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * limit is zero or negative
+ */
+export class LimitMustBePositive extends Data.TaggedError("LimitMustBePositive")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * link_preview_options.is_disabled is not a boolean
+ */
+export class LinkPreviewIsDisabledMustBeBoolean extends Data.TaggedError("LinkPreviewIsDisabledMustBeBoolean")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * login_url bot_username does not refer to an existing bot
+ */
+export class LoginUrlBotNotFound extends Data.TaggedError("LoginUrlBotNotFound")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * longitude parameter is missing
+ */
+export class LongitudeEmpty extends Data.TaggedError("LongitudeEmpty")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * media parameter is missing
+ */
+export class MediaRequired extends Data.TaggedError("MediaRequired")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * user_id is not a member of the chat
+ */
+export class MemberNotFound extends Data.TaggedError("MemberNotFound")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * menu_button.type is not a supported MenuButton variant
+ */
+export class MenuButtonUnsupportedType extends Data.TaggedError("MenuButtonUnsupportedType")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * caption exceeds 1024 characters
+ */
+export class MessageCaptionTooLong extends Data.TaggedError("MessageCaptionTooLong")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * required parameters missing
+ */
+export class MessageIdentifiersAreNotSpecified extends Data.TaggedError("MessageIdentifiersAreNotSpecified")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * text is missing or empty
+ */
+export class MessageTextEmpty extends Data.TaggedError("MessageTextEmpty")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * message_thread_id does not refer to an existing forum topic
+ */
+export class MessageThreadNotFound extends Data.TaggedError("MessageThreadNotFound")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * message_id is missing or does not refer to an existing message
+ */
+export class MessageToCopyNotFound extends Data.TaggedError("MessageToCopyNotFound")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * message_id is missing or does not refer to an existing message
+ */
+export class MessageToForwardNotFound extends Data.TaggedError("MessageToForwardNotFound")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * text exceeds 4096 characters
+ */
+export class MessageTooLong extends Data.TaggedError("MessageTooLong")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * message_id is missing or does not refer to an existing message
+ */
+export class MessageToPinNotFound extends Data.TaggedError("MessageToPinNotFound")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * message_id is missing or does not refer to an existing message
+ */
+export class MessageToReactNotFound extends Data.TaggedError("MessageToReactNotFound")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * reply_parameters.message_id does not exist in the target chat
+ */
+export class MessageToReplyNotFound extends Data.TaggedError("MessageToReplyNotFound")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * message_id is missing or does not refer to a pinned message
+ */
+export class MessageToUnpinNotFound extends Data.TaggedError("MessageToUnpinNotFound")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * animation parameter is missing
+ */
+export class NoAnimationInRequest extends Data.TaggedError("NoAnimationInRequest")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * audio parameter is missing
+ */
+export class NoAudioInRequest extends Data.TaggedError("NoAudioInRequest")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * document parameter is missing
+ */
+export class NoDocumentInRequest extends Data.TaggedError("NoDocumentInRequest")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * live photo parameter is missing
+ */
+export class NoLivePhotoInRequest extends Data.TaggedError("NoLivePhotoInRequest")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * message_ids is missing or does not refer to existing messages
+ */
+export class NoMessagesToForward extends Data.TaggedError("NoMessagesToForward")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * photo parameter is missing
+ */
+export class NoPhotoInRequest extends Data.TaggedError("NoPhotoInRequest")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * bot lacks can_manage_topics for the configured forum topic
+ */
+export class NotEnoughRightsToCloseOrOpenTopic extends Data.TaggedError("NotEnoughRightsToCloseOrOpenTopic")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * bot lacks can_manage_topics in the test supergroup
+ */
+export class NotEnoughRightsToCreateTopic extends Data.TaggedError("NotEnoughRightsToCreateTopic")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * bot lacks can_manage_topics for the forum topic
+ */
+export class NotEnoughRightsToEditTopic extends Data.TaggedError("NotEnoughRightsToEditTopic")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * Token segment is empty or not in bot id:hash form
+ */
+export class NotFound extends Data.TaggedError("NotFound")<{
+	readonly ok: false;
+	readonly error_code: 404;
+	readonly description: string;
+}> {}
+
+/**
+ * video parameter is missing
+ */
+export class NoVideoInRequest extends Data.TaggedError("NoVideoInRequest")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * video_note parameter is missing
+ */
+export class NoVideoNoteInRequest extends Data.TaggedError("NoVideoNoteInRequest")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * voice parameter is missing
+ */
+export class NoVoiceInRequest extends Data.TaggedError("NoVoiceInRequest")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * reply keyboard one_time_keyboard is not a boolean
+ */
+export class OneTimeKeyboardMustBeBoolean extends Data.TaggedError("OneTimeKeyboardMustBeBoolean")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * user_id does not refer to a chat participant
+ */
+export class ParticipantIdInvalid extends Data.TaggedError("ParticipantIdInvalid")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * chat_id does not refer to a channel or supergroup that supports boosts
+ */
+export class PeerIdInvalid extends Data.TaggedError("PeerIdInvalid")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * phone_number parameter is missing
+ */
+export class PhoneNumberRequired extends Data.TaggedError("PhoneNumberRequired")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * required parameters missing
+ */
+export class PhotoNotSpecified extends Data.TaggedError("PhotoNotSpecified")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * options array is empty
+ */
+export class PollMustHaveAtLeastOneAnswerOption extends Data.TaggedError("PollMustHaveAtLeastOneAnswerOption")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * link_preview_options.prefer_large_media is not a boolean
+ */
+export class PreferLargeMediaMustBeBoolean extends Data.TaggedError("PreferLargeMediaMustBeBoolean")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * link_preview_options.prefer_small_media is not a boolean
+ */
+export class PreferSmallMediaMustBeBoolean extends Data.TaggedError("PreferSmallMediaMustBeBoolean")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * chat does not support paid subscription invite links
+ */
+export class PricingChatInvalid extends Data.TaggedError("PricingChatInvalid")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * draft_id is missing or invalid
+ */
+export class RandomIdInvalid extends Data.TaggedError("RandomIdInvalid")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * remove_keyboard is not a boolean
+ */
+export class RemoveKeyboardMustBeBoolean extends Data.TaggedError("RemoveKeyboardMustBeBoolean")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * reply_parameters is set without message_id
+ */
+export class ReplyMessageIdMissing extends Data.TaggedError("ReplyMessageIdMissing")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * login_url.request_write_access is not a boolean
+ */
+export class RequestWriteAccessMustBeBoolean extends Data.TaggedError("RequestWriteAccessMustBeBoolean")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * reply keyboard resize_keyboard is not a boolean
+ */
+export class ResizeKeyboardMustBeBoolean extends Data.TaggedError("ResizeKeyboardMustBeBoolean")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * required parameters missing
+ */
+export class ResultNotSpecified extends Data.TaggedError("ResultNotSpecified")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * reply markup selective is not a boolean
+ */
+export class SelectiveMustBeBoolean extends Data.TaggedError("SelectiveMustBeBoolean")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * sender_chat_id is missing
+ */
+export class SenderChatIdEmpty extends Data.TaggedError("SenderChatIdEmpty")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * link_preview_options.show_above_text is not a boolean
+ */
+export class ShowAboveTextMustBeBoolean extends Data.TaggedError("ShowAboveTextMustBeBoolean")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * gift_id is missing or invalid
+ */
+export class StargiftInvalid extends Data.TaggedError("StargiftInvalid")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * sticker_set_name is missing or empty
+ */
+export class StickerSetNameEmpty extends Data.TaggedError("StickerSetNameEmpty")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * sticker_set_name does not refer to an existing set
+ */
+export class StickerSetNotFound extends Data.TaggedError("StickerSetNotFound")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * required parameters missing
+ */
+export class StoryContentNotSpecified extends Data.TaggedError("StoryContentNotSpecified")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * suggested_post_parameters is used outside a channel direct messages chat
+ */
+export class SuggestedPostChannelOnly extends Data.TaggedError("SuggestedPostChannelOnly")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * text_link entity is missing url
+ */
+export class TextLinkUrlMissing extends Data.TaggedError("TextLinkUrlMissing")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * text_mention entity is missing user
+ */
+export class TextMentionUserMissing extends Data.TaggedError("TextMentionUserMissing")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * text contains only whitespace or parses to empty content
+ */
+export class TextMustBeNonEmpty extends Data.TaggedError("TextMustBeNonEmpty")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * title is missing or empty
+ */
+export class TitleEmpty extends Data.TaggedError("TitleEmpty")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * Token has bot id:hash form but the secret is invalid
+ */
+export class Unauthorized extends Data.TaggedError("Unauthorized")<{
+	readonly ok: false;
+	readonly error_code: 401;
+	readonly description: string;
+}> {}
+
+/**
+ * entities contains an unsupported type value
+ */
+export class UnsupportedMessageEntityType extends Data.TaggedError("UnsupportedMessageEntityType")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * parse_mode is not HTML, Markdown, or MarkdownV2
+ */
+export class UnsupportedParseMode extends Data.TaggedError("UnsupportedParseMode")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * user_id does not refer to a pending join request
+ */
+export class UserIdInvalid extends Data.TaggedError("UserIdInvalid")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * user_id does not refer to an existing user
+ */
+export class UserNotFound extends Data.TaggedError("UserNotFound")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * web_app button url is HTTP instead of HTTPS
+ */
+export class WebAppUrlHttpNotAllowed extends Data.TaggedError("WebAppUrlHttpNotAllowed")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * web_app button url is not a valid HTTPS URL
+ */
+export class WebAppUrlNotHttps extends Data.TaggedError("WebAppUrlNotHttps")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * link_preview_options.url is not a valid URL
+ */
+export class WebpageUrlInvalid extends Data.TaggedError("WebpageUrlInvalid")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * action is missing or not a supported chat action type
+ */
+export class WrongParameterAction extends Data.TaggedError("WrongParameterAction")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * video file_id is malformed
+ */
+export class WrongRemoteFileIdentifierWrongPadding extends Data.TaggedError("WrongRemoteFileIdentifierWrongPadding")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * required parameters missing
+ */
+export const AcceptedGiftTypesNotSpecifiedError = Schema.TaggedStruct("AcceptedGiftTypesNotSpecified", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: accepted gift types aren't specified"),
+});
+
+/**
+ * switch_inline_query_chosen_chat.allow_user_chats is not a boolean
+ */
+export const AllowUserChatsMustBeBooleanError = Schema.TaggedStruct("AllowUserChatsMustBeBoolean", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal(
+		'Bad Request: can\'t parse inline keyboard button: Field "allow_user_chats" must be of type Boolean',
+	),
+});
+
+/**
+ * command contains characters other than lowercase English letters, digits, and
+ * underscores
+ */
+export const BotCommandInvalidError = Schema.TaggedStruct("BotCommandInvalid", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: BOT_COMMAND_INVALID"),
+});
+
+/**
+ * BotCommandScope that requires chat_id omits it
+ */
+export const BotCommandScopeChatIdMissingError = Schema.TaggedStruct("BotCommandScopeChatIdMissing", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: can't parse BotCommandScope: Can't find field \"chat_id\""),
+});
+
+/**
+ * BotCommandScope type is unsupported
+ */
+export const BotCommandScopeUnsupportedTypeError = Schema.TaggedStruct("BotCommandScopeUnsupportedType", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: can't parse BotCommandScope: Unsupported type specified"),
+});
+
+/**
+ * BotCommandScope that requires user_id omits it
+ */
+export const BotCommandScopeUserIdMissingError = Schema.TaggedStruct("BotCommandScopeUserIdMissing", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: can't parse BotCommandScope: Can't find field \"user_id\""),
+});
+
+/**
+ * description exceeds the 512 character limit
+ */
+export const BotDescriptionInvalidError = Schema.TaggedStruct("BotDescriptionInvalid", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: BOT_DESC_INVALID"),
+});
+
+/**
+ * login_url is missing bot_username
+ */
+export const BotDomainInvalidError = Schema.TaggedStruct("BotDomainInvalid", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: BOT_DOMAIN_INVALID"),
+});
+
+/**
+ * short_description exceeds the 120 character limit
+ */
+export const BotShortDescriptionInvalidError = Schema.TaggedStruct("BotShortDescriptionInvalid", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: BOT_SHARETEXT_INVALID"),
+});
+
+/**
+ * name is missing or empty
+ */
+export const BotTitleInvalidError = Schema.TaggedStruct("BotTitleInvalid", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: BOT_TITLE_INVALID"),
+});
+
+/**
+ * bot is not allowed to remove verification for the chat
+ */
+export const BotVerifierForbiddenError = Schema.TaggedStruct("BotVerifierForbidden", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: BOT_VERIFIER_FORBIDDEN"),
+});
+
+/**
+ * required parameters missing
+ */
+export const BusinessConnectionNotFoundError = Schema.TaggedStruct("BusinessConnectionNotFound", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: business connection not found"),
+});
+
+/**
+ * copy_text button text is empty or too long
+ */
+export const ButtonCopyTextInvalidError = Schema.TaggedStruct("ButtonCopyTextInvalid", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: BUTTON_COPY_TEXT_INVALID"),
+});
+
+/**
+ * inline keyboard callback_data exceeds 64 bytes
+ */
+export const ButtonDataInvalidError = Schema.TaggedStruct("ButtonDataInvalid", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: BUTTON_DATA_INVALID"),
+});
+
+/**
+ * request_users.max_quantity exceeds the allowed maximum
+ */
+export const ButtonQuantityMaxInvalidError = Schema.TaggedStruct("ButtonQuantityMaxInvalid", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: BUTTON_QUANTITY_MAX_INVALID"),
+});
+
+/**
+ * inline keyboard button type is invalid (e.g. pay without invoice or
+ * callback_game without game)
+ */
+export const ButtonTypeInvalidError = Schema.TaggedStruct("ButtonTypeInvalid", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: BUTTON_TYPE_INVALID"),
+});
+
+/**
+ * callback_query_id is missing or invalid
+ */
+export const CallbackQueryIdInvalidError = Schema.TaggedStruct("CallbackQueryIdInvalid", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: query is too old and response timeout expired or query ID is invalid"),
+});
+
+/**
+ * chat_id refers to a private chat with the bot
+ */
+export const CantChangePrivateChatDescriptionError = Schema.TaggedStruct("CantChangePrivateChatDescription", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: can't change private chat description"),
+});
+
+/**
+ * chat_id refers to a private chat with the bot
+ */
+export const CantChangePrivateChatPermissionsError = Schema.TaggedStruct("CantChangePrivateChatPermissions", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: can't change private chat permissions"),
+});
+
+/**
+ * chat_id refers to a private chat with the bot
+ */
+export const CantChangePrivateChatPhotoError = Schema.TaggedStruct("CantChangePrivateChatPhoto", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: can't change private chat photo"),
+});
+
+/**
+ * chat_id refers to a private chat with the bot
+ */
+export const CantChangePrivateChatTitleError = Schema.TaggedStruct("CantChangePrivateChatTitle", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: can't change private chat title"),
+});
+
+/**
+ * result object is missing the required type field
+ */
+export const CantFindFieldTypeError = Schema.TaggedStruct("CantFindFieldType", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal('Bad Request: can\'t find field "type"'),
+});
+
+/**
+ * chat_id refers to a private chat that does not support invite links
+ */
+export const CantInviteMembersToPrivateChatError = Schema.TaggedStruct("CantInviteMembersToPrivateChat", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: can't invite members to a private chat"),
+});
+
+/**
+ * HTML tg-emoji tag references an invalid custom emoji id
+ */
+export const CantParseEntitiesInvalidCustomEmojiError = Schema.TaggedStruct("CantParseEntitiesInvalidCustomEmoji", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: can't parse entities: Invalid custom emoji identifier specified"),
+});
+
+/**
+ * text with parse_mode MarkdownV2 contains an unclosed bold entity
+ */
+export const CantParseEntitiesNoBoldEndError = Schema.TaggedStruct("CantParseEntitiesNoBoldEnd", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 0"),
+});
+
+/**
+ * text with parse_mode MarkdownV2 has nested formatting with an unclosed bold
+ * entity
+ */
+export const CantParseEntitiesNoBoldEndError2 = Schema.TaggedStruct("CantParseEntitiesNoBoldEnd", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 15"),
+});
+
+/**
+ * text with parse_mode Markdown contains an unclosed entity
+ */
+export const CantParseEntitiesNoEndError = Schema.TaggedStruct("CantParseEntitiesNoEnd", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal(
+		"Bad Request: can't parse entities: Can't find end of the entity starting at byte offset 0",
+	),
+});
+
+/**
+ * text with parse_mode HTML contains an unclosed tag
+ */
+export const CantParseEntitiesNoHtmlEndTagError = Schema.TaggedStruct("CantParseEntitiesNoHtmlEndTag", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: can't parse entities: Can't find end tag corresponding to start tag \"b\""),
+});
+
+/**
+ * text with parse_mode MarkdownV2 contains an unescaped opening brace
+ */
+export const CantParseEntitiesReservedCharBraceError = Schema.TaggedStruct("CantParseEntitiesReservedCharBrace", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal(
+		"Bad Request: can't parse entities: Character '{' is reserved and must be escaped with the preceding '\\'",
+	),
+});
+
+/**
+ * text with parse_mode MarkdownV2 contains an unescaped hyphen
+ */
+export const CantParseEntitiesReservedCharDashError = Schema.TaggedStruct("CantParseEntitiesReservedCharDash", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal(
+		"Bad Request: can't parse entities: Character '-' is reserved and must be escaped with the preceding '\\'",
+	),
+});
+
+/**
+ * text with parse_mode MarkdownV2 contains an unescaped period
+ */
+export const CantParseEntitiesReservedCharDotError = Schema.TaggedStruct("CantParseEntitiesReservedCharDot", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal(
+		"Bad Request: can't parse entities: Character '.' is reserved and must be escaped with the preceding '\\'",
+	),
+});
+
+/**
+ * text with parse_mode MarkdownV2 contains an unescaped equals sign
+ */
+export const CantParseEntitiesReservedCharEqualsError = Schema.TaggedStruct("CantParseEntitiesReservedCharEquals", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal(
+		"Bad Request: can't parse entities: Character '=' is reserved and must be escaped with the preceding '\\'",
+	),
+});
+
+/**
+ * text with parse_mode MarkdownV2 contains an unescaped exclamation mark
+ */
+export const CantParseEntitiesReservedCharExclamationError = Schema.TaggedStruct(
+	"CantParseEntitiesReservedCharExclamation",
+	{
+		ok: Schema.Literal(false),
+		error_code: Schema.Literal(400),
+		description: Schema.Literal(
+			"Bad Request: can't parse entities: Character '!' is reserved and must be escaped with the preceding '\\'",
+		),
+	},
+);
+
+/**
+ * text with parse_mode MarkdownV2 contains an unescaped greater-than sign
+ */
+export const CantParseEntitiesReservedCharGreaterError = Schema.TaggedStruct("CantParseEntitiesReservedCharGreater", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal(
+		"Bad Request: can't parse entities: Character '>' is reserved and must be escaped with the preceding '\\'",
+	),
+});
+
+/**
+ * text with parse_mode MarkdownV2 contains an unescaped hash sign
+ */
+export const CantParseEntitiesReservedCharHashError = Schema.TaggedStruct("CantParseEntitiesReservedCharHash", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal(
+		"Bad Request: can't parse entities: Character '#' is reserved and must be escaped with the preceding '\\'",
+	),
+});
+
+/**
+ * text with parse_mode MarkdownV2 contains an unescaped opening parenthesis
+ */
+export const CantParseEntitiesReservedCharParenError = Schema.TaggedStruct("CantParseEntitiesReservedCharParen", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal(
+		"Bad Request: can't parse entities: Character '(' is reserved and must be escaped with the preceding '\\'",
+	),
+});
+
+/**
+ * text with parse_mode MarkdownV2 contains an unescaped pipe character
+ */
+export const CantParseEntitiesReservedCharPipeError = Schema.TaggedStruct("CantParseEntitiesReservedCharPipe", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal(
+		"Bad Request: can't parse entities: Character '|' is reserved and must be escaped with the preceding '\\'",
+	),
+});
+
+/**
+ * text with parse_mode MarkdownV2 contains an unescaped plus sign
+ */
+export const CantParseEntitiesReservedCharPlusError = Schema.TaggedStruct("CantParseEntitiesReservedCharPlus", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal(
+		"Bad Request: can't parse entities: Character '+' is reserved and must be escaped with the preceding '\\'",
+	),
+});
+
+/**
+ * text with parse_mode HTML has mismatched closing tags
+ */
+export const CantParseEntitiesUnmatchedEndTagError = Schema.TaggedStruct("CantParseEntitiesUnmatchedEndTag", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal(
+		'Bad Request: can\'t parse entities: Unmatched end tag at byte offset 10, expected "</i>", found "</b>"',
+	),
+});
+
+/**
+ * text with parse_mode HTML contains a disallowed tag
+ */
+export const CantParseEntitiesUnsupportedScriptTagError = Schema.TaggedStruct("CantParseEntitiesUnsupportedScriptTag", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal('Bad Request: can\'t parse entities: Unsupported start tag "script" at byte offset 0'),
+});
+
+/**
+ * text with parse_mode HTML contains an unknown tag
+ */
+export const CantParseEntitiesUnsupportedTagError = Schema.TaggedStruct("CantParseEntitiesUnsupportedTag", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal('Bad Request: can\'t parse entities: Unsupported start tag "invalid" at byte offset 0'),
+});
+
+/**
+ * options parameter is missing
+ */
+export const CantParseOptionsJsonObjectError = Schema.TaggedStruct("CantParseOptionsJsonObject", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: can't parse options JSON object"),
+});
+
+/**
+ * promotion would demote the chat owner
+ */
+export const CantRemoveChatOwnerError = Schema.TaggedStruct("CantRemoveChatOwner", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: can't remove chat owner"),
+});
+
+/**
+ * bot lacks permission to change the group sticker set
+ */
+export const CantSetSupergroupStickerSetError = Schema.TaggedStruct("CantSetSupergroupStickerSet", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: can't set supergroup sticker set"),
+});
+
+/**
+ * rights.can_delete_messages is not a boolean
+ */
+export const ChatAdministratorRightsCanDeleteMessagesMustBeBooleanError = Schema.TaggedStruct(
+	"ChatAdministratorRightsCanDeleteMessagesMustBeBoolean",
+	{
+		ok: Schema.Literal(false),
+		error_code: Schema.Literal(400),
+		description: Schema.Literal(
+			'Bad Request: can\'t parse ChatAdministratorRights: Field "can_delete_messages" must be of type Boolean',
+		),
+	},
+);
+
+/**
+ * bot is not an administrator with can_manage_topics
+ */
+export const ChatAdminRequiredError = Schema.TaggedStruct("ChatAdminRequired", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: CHAT_ADMIN_REQUIRED"),
+});
+
+/**
+ * only the chat creator can set member tags
+ */
+export const ChatCreatorRequiredError = Schema.TaggedStruct("ChatCreatorRequired", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: CHAT_CREATOR_REQUIRED"),
+});
+
+/**
+ * required parameters missing
+ */
+export const ChatIdEmptyError = Schema.TaggedStruct("ChatIdEmpty", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: chat_id is empty"),
+});
+
+/**
+ * validation fails
+ */
+export const ChatIdentifierEmptyError = Schema.TaggedStruct("ChatIdentifierEmpty", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: chat identifier is empty"),
+});
+
+/**
+ * request_chat.chat_is_forum is not a boolean
+ */
+export const ChatIsForumMustBeBooleanError = Schema.TaggedStruct("ChatIsForumMustBeBoolean", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal(
+		'Bad Request: can\'t parse keyboard button: Field "chat_is_forum" must be of type Boolean',
+	),
+});
+
+/**
+ * chat_id refers to a private chat with the bot
+ */
 export const ChatMemberStatusCantBeChangedInPrivateChatsError = Schema.TaggedStruct(
 	"ChatMemberStatusCantBeChangedInPrivateChats",
 	{
-		description: Schema.String,
+		ok: Schema.Literal(false),
+		error_code: Schema.Literal(400),
+		description: Schema.Literal("Bad Request: chat member status can't be changed in private chats"),
 	},
 );
 
 /**
  * chat_id does not refer to a chat the bot can access
  */
-export class ChatNotFound extends Data.TaggedError("ChatNotFound")<{
-	readonly description: string;
-}> {}
-
 export const ChatNotFoundError = Schema.TaggedStruct("ChatNotFound", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: chat not found"),
 });
 
 /**
  * bot lacks permission to delete the forum topic
  */
-export class ChatWriteForbidden extends Data.TaggedError("ChatWriteForbidden")<{
-	readonly description: string;
-}> {}
-
 export const ChatWriteForbiddenError = Schema.TaggedStruct("ChatWriteForbidden", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: CHAT_WRITE_FORBIDDEN"),
 });
 
 /**
  * checklist parameter is missing
  */
-export class ChecklistRequired extends Data.TaggedError("ChecklistRequired")<{
-	readonly description: string;
-}> {}
-
 export const ChecklistRequiredError = Schema.TaggedStruct("ChecklistRequired", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal('Bad Request: parameter "checklist" is required'),
 });
 
 /**
  * a command entry has an empty description
  */
-export class CommandDescriptionMustBeNonEmpty extends Data.TaggedError("CommandDescriptionMustBeNonEmpty")<{
-	readonly description: string;
-}> {}
-
 export const CommandDescriptionMustBeNonEmptyError = Schema.TaggedStruct("CommandDescriptionMustBeNonEmpty", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: command description must be non-empty"),
 });
 
 /**
  * a command entry has an empty command string
  */
-export class CommandMustBeNonEmpty extends Data.TaggedError("CommandMustBeNonEmpty")<{
-	readonly description: string;
-}> {}
-
 export const CommandMustBeNonEmptyError = Schema.TaggedStruct("CommandMustBeNonEmpty", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: command must be non-empty"),
 });
 
 /**
  * custom_emoji entity is missing custom_emoji_id
  */
-export class CustomEmojiIdMissing extends Data.TaggedError("CustomEmojiIdMissing")<{
-	readonly description: string;
-}> {}
-
 export const CustomEmojiIdMissingError = Schema.TaggedStruct("CustomEmojiIdMissing", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: can't parse MessageEntity: Can't find field \"custom_emoji_id\""),
 });
 
 /**
  * custom_emoji entity has a non-numeric custom_emoji_id
  */
-export class CustomEmojiIdMustBeNumber extends Data.TaggedError("CustomEmojiIdMustBeNumber")<{
-	readonly description: string;
-}> {}
-
 export const CustomEmojiIdMustBeNumberError = Schema.TaggedStruct("CustomEmojiIdMustBeNumber", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal(
+		'Bad Request: can\'t parse MessageEntity: Field "custom_emoji_id" must be a valid Number',
+	),
 });
 
 /**
  * message_effect_id is not valid
  */
-export class EffectIdInvalid extends Data.TaggedError("EffectIdInvalid")<{
-	readonly description: string;
-}> {}
-
 export const EffectIdInvalidError = Schema.TaggedStruct("EffectIdInvalid", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: EFFECT_ID_INVALID"),
 });
 
 /**
  * entities offset is beyond the text length
  */
-export class EntityBeginsAfterTextEnd extends Data.TaggedError("EntityBeginsAfterTextEnd")<{
-	readonly description: string;
-}> {}
-
 export const EntityBeginsAfterTextEndError = Schema.TaggedStruct("EntityBeginsAfterTextEnd", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: entity begins after the end of the text at UTF-16 offset 100"),
 });
 
 /**
  * entities offset plus length exceeds the text length
  */
-export class EntityEndsAfterTextEnd extends Data.TaggedError("EntityEndsAfterTextEnd")<{
-	readonly description: string;
-}> {}
-
 export const EntityEndsAfterTextEndError = Schema.TaggedStruct("EntityEndsAfterTextEnd", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal(
+		"Bad Request: entity beginning at UTF-16 offset 0 ends after the end of the text at UTF-16 offset 100",
+	),
 });
 
 /**
  * entities offset is negative
  */
-export class EntityIncorrectOffset extends Data.TaggedError("EntityIncorrectOffset")<{
-	readonly description: string;
-}> {}
-
 export const EntityIncorrectOffsetError = Schema.TaggedStruct("EntityIncorrectOffset", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: receive an entity with incorrect offset -1"),
 });
 
 /**
  * text_link entity url is empty
  */
-export class EntityUrlEmpty extends Data.TaggedError("EntityUrlEmpty")<{
-	readonly description: string;
-}> {}
-
 export const EntityUrlEmptyError = Schema.TaggedStruct("EntityUrlEmpty", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: entity URL '' is invalid: URL host is empty"),
 });
 
 /**
  * text_link entity url is not a valid HTTP URL
  */
-export class EntityUrlInvalid extends Data.TaggedError("EntityUrlInvalid")<{
-	readonly description: string;
-}> {}
-
 export const EntityUrlInvalidError = Schema.TaggedStruct("EntityUrlInvalid", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: entity URL 'not-a-url' is invalid: Wrong HTTP URL"),
 });
 
 /**
  * file_id parameter is missing or empty
  */
-export class FileIdNotSpecified extends Data.TaggedError("FileIdNotSpecified")<{
-	readonly description: string;
-}> {}
-
 export const FileIdNotSpecifiedError = Schema.TaggedStruct("FileIdNotSpecified", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: file_id not specified"),
 });
 
 /**
  * first_name parameter is missing
  */
-export class FirstNameRequired extends Data.TaggedError("FirstNameRequired")<{
-	readonly description: string;
-}> {}
-
 export const FirstNameRequiredError = Schema.TaggedStruct("FirstNameRequired", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal('Bad Request: parameter "first_name" is required'),
 });
 
 /**
  * allow_paid_broadcast is true but the bot has insufficient Telegram Stars
  */
-export class FloodskipNotAllowed extends Data.TaggedError("FloodskipNotAllowed")<{
-	readonly description: string;
-}> {}
-
 export const FloodskipNotAllowedError = Schema.TaggedStruct("FloodskipNotAllowed", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: FLOODSKIP_NOT_ALLOWED"),
 });
 
 /**
  * force_reply is not a boolean
  */
-export class ForceReplyMustBeBoolean extends Data.TaggedError("ForceReplyMustBeBoolean")<{
-	readonly description: string;
-}> {}
-
 export const ForceReplyMustBeBooleanError = Schema.TaggedStruct("ForceReplyMustBeBoolean", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal('Bad Request: field "force_reply" must be of type Boolean'),
 });
 
 /**
  * from_chat_id parameter is missing
  */
-export class FromChatIdRequired extends Data.TaggedError("FromChatIdRequired")<{
-	readonly description: string;
-}> {}
-
 export const FromChatIdRequiredError = Schema.TaggedStruct("FromChatIdRequired", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal('Bad Request: parameter "from_chat_id" is required'),
 });
 
 /**
  * inline keyboard button is missing text
  */
-export class InlineButtonTextMissing extends Data.TaggedError("InlineButtonTextMissing")<{
-	readonly description: string;
-}> {}
-
 export const InlineButtonTextMissingError = Schema.TaggedStruct("InlineButtonTextMissing", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: can't parse inline keyboard button: Can't find field \"text\""),
 });
 
 /**
  * inline keyboard button has empty callback_data and no url
  */
-export class InlineButtonTextUnallowed extends Data.TaggedError("InlineButtonTextUnallowed")<{
-	readonly description: string;
-}> {}
-
 export const InlineButtonTextUnallowedError = Schema.TaggedStruct("InlineButtonTextUnallowed", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal(
+		"Bad Request: can't parse inline keyboard button: Text buttons are unallowed in the inline keyboard",
+	),
 });
 
 /**
  * inline keyboard button url uses an unsupported protocol
  */
-export class InlineButtonUrlFtpUnsupported extends Data.TaggedError("InlineButtonUrlFtpUnsupported")<{
-	readonly description: string;
-}> {}
-
 export const InlineButtonUrlFtpUnsupportedError = Schema.TaggedStruct("InlineButtonUrlFtpUnsupported", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal(
+		"Bad Request: inline keyboard button URL 'ftp://example.com' is invalid: Unsupported URL protocol",
+	),
 });
 
 /**
  * inline keyboard button url is not a valid HTTP URL
  */
-export class InlineButtonUrlInvalid extends Data.TaggedError("InlineButtonUrlInvalid")<{
-	readonly description: string;
-}> {}
-
 export const InlineButtonUrlInvalidError = Schema.TaggedStruct("InlineButtonUrlInvalid", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: inline keyboard button URL 'not-a-url' is invalid: Wrong HTTP URL"),
 });
 
 /**
  * inline_keyboard is not an array
  */
-export class InlineKeyboardMustBeArray extends Data.TaggedError("InlineKeyboardMustBeArray")<{
-	readonly description: string;
-}> {}
-
 export const InlineKeyboardMustBeArrayError = Schema.TaggedStruct("InlineKeyboardMustBeArray", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal('Bad Request: field "inline_keyboard" must be of type Array'),
 });
 
 /**
  * chat_id is not a valid private chat id
  */
-export class InvalidChatId extends Data.TaggedError("InvalidChatId")<{
-	readonly description: string;
-}> {}
-
 export const InvalidChatIdError = Schema.TaggedStruct("InvalidChatId", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: invalid chat_id specified"),
 });
 
 /**
  * validation fails
  */
-export class InvalidChatIdentifier extends Data.TaggedError("InvalidChatIdentifier")<{
-	readonly description: string;
-}> {}
-
 export const InvalidChatIdentifierError = Schema.TaggedStruct("InvalidChatIdentifier", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: invalid chat identifier specified"),
 });
 
 /**
  * file_id is not valid
  */
-export class InvalidFileId extends Data.TaggedError("InvalidFileId")<{
-	readonly description: string;
-}> {}
-
 export const InvalidFileIdError = Schema.TaggedStruct("InvalidFileId", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: invalid file_id"),
 });
 
 /**
  * suggested_post_parameters price amount is invalid
  */
-export class InvalidStarsAmount extends Data.TaggedError("InvalidStarsAmount")<{
-	readonly description: string;
-}> {}
-
 export const InvalidStarsAmountError = Schema.TaggedStruct("InvalidStarsAmount", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: invalid amount of Telegram Stars specified"),
 });
 
 /**
  * required parameters missing
  */
-export class InvalidUserId extends Data.TaggedError("InvalidUserId")<{
-	readonly description: string;
-}> {}
-
 export const InvalidUserIdError = Schema.TaggedStruct("InvalidUserId", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: invalid user_id specified"),
 });
 
 /**
  * invite_link is invalid or already revoked
  */
-export class InviteHashExpired extends Data.TaggedError("InviteHashExpired")<{
-	readonly description: string;
-}> {}
-
 export const InviteHashExpiredError = Schema.TaggedStruct("InviteHashExpired", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: INVITE_HASH_EXPIRED"),
 });
 
 /**
  * reply keyboard is_persistent is not a boolean
  */
-export class IsPersistentMustBeBoolean extends Data.TaggedError("IsPersistentMustBeBoolean")<{
-	readonly description: string;
-}> {}
-
 export const IsPersistentMustBeBooleanError = Schema.TaggedStruct("IsPersistentMustBeBoolean", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal('Bad Request: field "is_persistent" must be of type Boolean'),
 });
 
 /**
  * reply keyboard keyboard is not an array
  */
-export class KeyboardMustBeArray extends Data.TaggedError("KeyboardMustBeArray")<{
-	readonly description: string;
-}> {}
-
 export const KeyboardMustBeArrayError = Schema.TaggedStruct("KeyboardMustBeArray", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal('Bad Request: field "keyboard" must be of type Array'),
 });
 
 /**
  * request_chat or request_users keyboard button is missing request_id
  */
-export class KeyboardRequestIdMissing extends Data.TaggedError("KeyboardRequestIdMissing")<{
-	readonly description: string;
-}> {}
-
 export const KeyboardRequestIdMissingError = Schema.TaggedStruct("KeyboardRequestIdMissing", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: can't parse keyboard button: Can't find field \"request_id\""),
 });
 
 /**
  * reply keyboard web_app button url is HTTP instead of HTTPS
  */
-export class KeyboardWebAppUrlHttpNotAllowed extends Data.TaggedError("KeyboardWebAppUrlHttpNotAllowed")<{
-	readonly description: string;
-}> {}
-
 export const KeyboardWebAppUrlHttpNotAllowedError = Schema.TaggedStruct("KeyboardWebAppUrlHttpNotAllowed", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal(
+		"Bad Request: keyboard button Web App URL 'http://example.com' is invalid: Only HTTPS links are allowed",
+	),
 });
 
 /**
  * latitude parameter is missing
  */
-export class LatitudeEmpty extends Data.TaggedError("LatitudeEmpty")<{
-	readonly description: string;
-}> {}
-
 export const LatitudeEmptyError = Schema.TaggedStruct("LatitudeEmpty", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: latitude is empty"),
 });
 
 /**
  * limit is zero or negative
  */
-export class LimitMustBePositive extends Data.TaggedError("LimitMustBePositive")<{
-	readonly description: string;
-}> {}
-
 export const LimitMustBePositiveError = Schema.TaggedStruct("LimitMustBePositive", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: limit must be positive"),
 });
 
 /**
  * link_preview_options.is_disabled is not a boolean
  */
-export class LinkPreviewIsDisabledMustBeBoolean extends Data.TaggedError("LinkPreviewIsDisabledMustBeBoolean")<{
-	readonly description: string;
-}> {}
-
 export const LinkPreviewIsDisabledMustBeBooleanError = Schema.TaggedStruct("LinkPreviewIsDisabledMustBeBoolean", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal('Bad Request: field "is_disabled" must be of type Boolean'),
 });
 
 /**
  * login_url bot_username does not refer to an existing bot
  */
-export class LoginUrlBotNotFound extends Data.TaggedError("LoginUrlBotNotFound")<{
-	readonly description: string;
-}> {}
-
 export const LoginUrlBotNotFoundError = Schema.TaggedStruct("LoginUrlBotNotFound", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal('Bad Request: bot "nonexistent_bot_xyz_12345" not found'),
+});
+
+/**
+ * login_url bot_username refers to a username that is not a bot
+ */
+export const LoginUrlBotNotFoundError2 = Schema.TaggedStruct("LoginUrlBotNotFound", {
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal('Bad Request: bot "telegram" not found'),
 });
 
 /**
  * longitude parameter is missing
  */
-export class LongitudeEmpty extends Data.TaggedError("LongitudeEmpty")<{
-	readonly description: string;
-}> {}
-
 export const LongitudeEmptyError = Schema.TaggedStruct("LongitudeEmpty", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: longitude is empty"),
 });
 
 /**
  * media parameter is missing
  */
-export class MediaRequired extends Data.TaggedError("MediaRequired")<{
-	readonly description: string;
-}> {}
-
 export const MediaRequiredError = Schema.TaggedStruct("MediaRequired", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal('Bad Request: parameter "media" is required'),
 });
 
 /**
  * user_id is not a member of the chat
  */
-export class MemberNotFound extends Data.TaggedError("MemberNotFound")<{
-	readonly description: string;
-}> {}
-
 export const MemberNotFoundError = Schema.TaggedStruct("MemberNotFound", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: member not found"),
 });
 
 /**
  * menu_button.type is not a supported MenuButton variant
  */
-export class MenuButtonUnsupportedType extends Data.TaggedError("MenuButtonUnsupportedType")<{
-	readonly description: string;
-}> {}
-
 export const MenuButtonUnsupportedTypeError = Schema.TaggedStruct("MenuButtonUnsupportedType", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: can't parse menu button: MenuButton has unsupported type"),
 });
 
 /**
  * caption exceeds 1024 characters
  */
-export class MessageCaptionTooLong extends Data.TaggedError("MessageCaptionTooLong")<{
-	readonly description: string;
-}> {}
-
 export const MessageCaptionTooLongError = Schema.TaggedStruct("MessageCaptionTooLong", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: message caption is too long"),
 });
 
 /**
  * required parameters missing
  */
-export class MessageIdentifiersAreNotSpecified extends Data.TaggedError("MessageIdentifiersAreNotSpecified")<{
-	readonly description: string;
-}> {}
-
 export const MessageIdentifiersAreNotSpecifiedError = Schema.TaggedStruct("MessageIdentifiersAreNotSpecified", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: message identifiers are not specified"),
 });
 
 /**
  * text is missing or empty
  */
-export class MessageTextEmpty extends Data.TaggedError("MessageTextEmpty")<{
-	readonly description: string;
-}> {}
-
 export const MessageTextEmptyError = Schema.TaggedStruct("MessageTextEmpty", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: message text is empty"),
 });
 
 /**
  * message_thread_id does not refer to an existing forum topic
  */
-export class MessageThreadNotFound extends Data.TaggedError("MessageThreadNotFound")<{
-	readonly description: string;
-}> {}
-
 export const MessageThreadNotFoundError = Schema.TaggedStruct("MessageThreadNotFound", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: message thread not found"),
 });
 
 /**
  * message_id is missing or does not refer to an existing message
  */
-export class MessageToCopyNotFound extends Data.TaggedError("MessageToCopyNotFound")<{
-	readonly description: string;
-}> {}
-
 export const MessageToCopyNotFoundError = Schema.TaggedStruct("MessageToCopyNotFound", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: message to copy not found"),
 });
 
 /**
  * message_id is missing or does not refer to an existing message
  */
-export class MessageToForwardNotFound extends Data.TaggedError("MessageToForwardNotFound")<{
-	readonly description: string;
-}> {}
-
 export const MessageToForwardNotFoundError = Schema.TaggedStruct("MessageToForwardNotFound", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: message to forward not found"),
 });
 
 /**
  * text exceeds 4096 characters
  */
-export class MessageTooLong extends Data.TaggedError("MessageTooLong")<{
-	readonly description: string;
-}> {}
-
 export const MessageTooLongError = Schema.TaggedStruct("MessageTooLong", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: message is too long"),
 });
 
 /**
  * message_id is missing or does not refer to an existing message
  */
-export class MessageToPinNotFound extends Data.TaggedError("MessageToPinNotFound")<{
-	readonly description: string;
-}> {}
-
 export const MessageToPinNotFoundError = Schema.TaggedStruct("MessageToPinNotFound", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: message to pin not found"),
 });
 
 /**
  * message_id is missing or does not refer to an existing message
  */
-export class MessageToReactNotFound extends Data.TaggedError("MessageToReactNotFound")<{
-	readonly description: string;
-}> {}
-
 export const MessageToReactNotFoundError = Schema.TaggedStruct("MessageToReactNotFound", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: message to react not found"),
 });
 
 /**
  * reply_parameters.message_id does not exist in the target chat
  */
-export class MessageToReplyNotFound extends Data.TaggedError("MessageToReplyNotFound")<{
-	readonly description: string;
-}> {}
-
 export const MessageToReplyNotFoundError = Schema.TaggedStruct("MessageToReplyNotFound", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: message to be replied not found"),
 });
 
 /**
  * message_id is missing or does not refer to a pinned message
  */
-export class MessageToUnpinNotFound extends Data.TaggedError("MessageToUnpinNotFound")<{
-	readonly description: string;
-}> {}
-
 export const MessageToUnpinNotFoundError = Schema.TaggedStruct("MessageToUnpinNotFound", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: message to unpin not found"),
 });
 
 /**
  * animation parameter is missing
  */
-export class NoAnimationInRequest extends Data.TaggedError("NoAnimationInRequest")<{
-	readonly description: string;
-}> {}
-
 export const NoAnimationInRequestError = Schema.TaggedStruct("NoAnimationInRequest", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: there is no animation in the request"),
 });
 
 /**
  * audio parameter is missing
  */
-export class NoAudioInRequest extends Data.TaggedError("NoAudioInRequest")<{
-	readonly description: string;
-}> {}
-
 export const NoAudioInRequestError = Schema.TaggedStruct("NoAudioInRequest", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: there is no audio in the request"),
 });
 
 /**
  * document parameter is missing
  */
-export class NoDocumentInRequest extends Data.TaggedError("NoDocumentInRequest")<{
-	readonly description: string;
-}> {}
-
 export const NoDocumentInRequestError = Schema.TaggedStruct("NoDocumentInRequest", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: there is no document in the request"),
 });
 
 /**
  * live photo parameter is missing
  */
-export class NoLivePhotoInRequest extends Data.TaggedError("NoLivePhotoInRequest")<{
-	readonly description: string;
-}> {}
-
 export const NoLivePhotoInRequestError = Schema.TaggedStruct("NoLivePhotoInRequest", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: there is no live photo in the request"),
 });
 
 /**
  * message_ids is missing or does not refer to existing messages
  */
-export class NoMessagesToForward extends Data.TaggedError("NoMessagesToForward")<{
-	readonly description: string;
-}> {}
-
 export const NoMessagesToForwardError = Schema.TaggedStruct("NoMessagesToForward", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: there are no messages to forward"),
 });
 
 /**
  * photo parameter is missing
  */
-export class NoPhotoInRequest extends Data.TaggedError("NoPhotoInRequest")<{
-	readonly description: string;
-}> {}
-
 export const NoPhotoInRequestError = Schema.TaggedStruct("NoPhotoInRequest", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: there is no photo in the request"),
 });
 
 /**
  * bot lacks can_manage_topics for the configured forum topic
  */
-export class NotEnoughRightsToCloseOrOpenTopic extends Data.TaggedError("NotEnoughRightsToCloseOrOpenTopic")<{
-	readonly description: string;
-}> {}
-
 export const NotEnoughRightsToCloseOrOpenTopicError = Schema.TaggedStruct("NotEnoughRightsToCloseOrOpenTopic", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: not enough rights to close or open the topic"),
 });
 
 /**
  * bot lacks can_manage_topics in the test supergroup
  */
-export class NotEnoughRightsToCreateTopic extends Data.TaggedError("NotEnoughRightsToCreateTopic")<{
-	readonly description: string;
-}> {}
-
 export const NotEnoughRightsToCreateTopicError = Schema.TaggedStruct("NotEnoughRightsToCreateTopic", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: not enough rights to create a topic"),
 });
 
 /**
  * bot lacks can_manage_topics for the forum topic
  */
-export class NotEnoughRightsToEditTopic extends Data.TaggedError("NotEnoughRightsToEditTopic")<{
-	readonly description: string;
-}> {}
-
 export const NotEnoughRightsToEditTopicError = Schema.TaggedStruct("NotEnoughRightsToEditTopic", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: not enough rights to edit the topic"),
 });
 
 /**
  * Token segment is empty or not in bot id:hash form
  */
-export class NotFound extends Data.TaggedError("NotFound")<{
-	readonly description: string;
-}> {}
-
 export const NotFoundError = Schema.TaggedStruct("NotFound", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(404),
+	description: Schema.Literal("Not Found"),
 });
 
 /**
  * video parameter is missing
  */
-export class NoVideoInRequest extends Data.TaggedError("NoVideoInRequest")<{
-	readonly description: string;
-}> {}
-
 export const NoVideoInRequestError = Schema.TaggedStruct("NoVideoInRequest", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: there is no video in the request"),
 });
 
 /**
  * video_note parameter is missing
  */
-export class NoVideoNoteInRequest extends Data.TaggedError("NoVideoNoteInRequest")<{
-	readonly description: string;
-}> {}
-
 export const NoVideoNoteInRequestError = Schema.TaggedStruct("NoVideoNoteInRequest", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: there is no video note in the request"),
 });
 
 /**
  * voice parameter is missing
  */
-export class NoVoiceInRequest extends Data.TaggedError("NoVoiceInRequest")<{
-	readonly description: string;
-}> {}
-
 export const NoVoiceInRequestError = Schema.TaggedStruct("NoVoiceInRequest", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: there is no voice in the request"),
 });
 
 /**
  * reply keyboard one_time_keyboard is not a boolean
  */
-export class OneTimeKeyboardMustBeBoolean extends Data.TaggedError("OneTimeKeyboardMustBeBoolean")<{
-	readonly description: string;
-}> {}
-
 export const OneTimeKeyboardMustBeBooleanError = Schema.TaggedStruct("OneTimeKeyboardMustBeBoolean", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal('Bad Request: field "one_time_keyboard" must be of type Boolean'),
 });
 
 /**
  * user_id does not refer to a chat participant
  */
-export class ParticipantIdInvalid extends Data.TaggedError("ParticipantIdInvalid")<{
-	readonly description: string;
-}> {}
-
 export const ParticipantIdInvalidError = Schema.TaggedStruct("ParticipantIdInvalid", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: PARTICIPANT_ID_INVALID"),
 });
 
 /**
  * chat_id does not refer to a channel or supergroup that supports boosts
  */
-export class PeerIdInvalid extends Data.TaggedError("PeerIdInvalid")<{
-	readonly description: string;
-}> {}
-
 export const PeerIdInvalidError = Schema.TaggedStruct("PeerIdInvalid", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: PEER_ID_INVALID"),
 });
 
 /**
  * phone_number parameter is missing
  */
-export class PhoneNumberRequired extends Data.TaggedError("PhoneNumberRequired")<{
-	readonly description: string;
-}> {}
-
 export const PhoneNumberRequiredError = Schema.TaggedStruct("PhoneNumberRequired", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal('Bad Request: parameter "phone_number" is required'),
 });
 
 /**
  * required parameters missing
  */
-export class PhotoNotSpecified extends Data.TaggedError("PhotoNotSpecified")<{
-	readonly description: string;
-}> {}
-
 export const PhotoNotSpecifiedError = Schema.TaggedStruct("PhotoNotSpecified", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: photo isn't specified"),
 });
 
 /**
  * options array is empty
  */
-export class PollMustHaveAtLeastOneAnswerOption extends Data.TaggedError("PollMustHaveAtLeastOneAnswerOption")<{
-	readonly description: string;
-}> {}
-
 export const PollMustHaveAtLeastOneAnswerOptionError = Schema.TaggedStruct("PollMustHaveAtLeastOneAnswerOption", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: poll must have at least one answer option"),
 });
 
 /**
  * link_preview_options.prefer_large_media is not a boolean
  */
-export class PreferLargeMediaMustBeBoolean extends Data.TaggedError("PreferLargeMediaMustBeBoolean")<{
-	readonly description: string;
-}> {}
-
 export const PreferLargeMediaMustBeBooleanError = Schema.TaggedStruct("PreferLargeMediaMustBeBoolean", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal('Bad Request: field "prefer_large_media" must be of type Boolean'),
 });
 
 /**
  * link_preview_options.prefer_small_media is not a boolean
  */
-export class PreferSmallMediaMustBeBoolean extends Data.TaggedError("PreferSmallMediaMustBeBoolean")<{
-	readonly description: string;
-}> {}
-
 export const PreferSmallMediaMustBeBooleanError = Schema.TaggedStruct("PreferSmallMediaMustBeBoolean", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal('Bad Request: field "prefer_small_media" must be of type Boolean'),
 });
 
 /**
  * chat does not support paid subscription invite links
  */
-export class PricingChatInvalid extends Data.TaggedError("PricingChatInvalid")<{
-	readonly description: string;
-}> {}
-
 export const PricingChatInvalidError = Schema.TaggedStruct("PricingChatInvalid", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: PRICING_CHAT_INVALID"),
 });
 
 /**
  * draft_id is missing or invalid
  */
-export class RandomIdInvalid extends Data.TaggedError("RandomIdInvalid")<{
-	readonly description: string;
-}> {}
-
 export const RandomIdInvalidError = Schema.TaggedStruct("RandomIdInvalid", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: RANDOM_ID_INVALID"),
 });
 
 /**
  * remove_keyboard is not a boolean
  */
-export class RemoveKeyboardMustBeBoolean extends Data.TaggedError("RemoveKeyboardMustBeBoolean")<{
-	readonly description: string;
-}> {}
-
 export const RemoveKeyboardMustBeBooleanError = Schema.TaggedStruct("RemoveKeyboardMustBeBoolean", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal('Bad Request: field "remove_keyboard" must be of type Boolean'),
 });
 
 /**
  * reply_parameters is set without message_id
  */
-export class ReplyMessageIdMissing extends Data.TaggedError("ReplyMessageIdMissing")<{
-	readonly description: string;
-}> {}
-
 export const ReplyMessageIdMissingError = Schema.TaggedStruct("ReplyMessageIdMissing", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal('Bad Request: can\'t find field "message_id"'),
 });
 
 /**
  * login_url.request_write_access is not a boolean
  */
-export class RequestWriteAccessMustBeBoolean extends Data.TaggedError("RequestWriteAccessMustBeBoolean")<{
-	readonly description: string;
-}> {}
-
 export const RequestWriteAccessMustBeBooleanError = Schema.TaggedStruct("RequestWriteAccessMustBeBoolean", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal(
+		'Bad Request: can\'t parse inline keyboard button: Field "request_write_access" must be of type Boolean',
+	),
 });
 
 /**
  * reply keyboard resize_keyboard is not a boolean
  */
-export class ResizeKeyboardMustBeBoolean extends Data.TaggedError("ResizeKeyboardMustBeBoolean")<{
-	readonly description: string;
-}> {}
-
 export const ResizeKeyboardMustBeBooleanError = Schema.TaggedStruct("ResizeKeyboardMustBeBoolean", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal('Bad Request: field "resize_keyboard" must be of type Boolean'),
 });
 
 /**
  * required parameters missing
  */
-export class ResultNotSpecified extends Data.TaggedError("ResultNotSpecified")<{
-	readonly description: string;
-}> {}
-
 export const ResultNotSpecifiedError = Schema.TaggedStruct("ResultNotSpecified", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: result isn't specified"),
 });
 
 /**
  * reply markup selective is not a boolean
  */
-export class SelectiveMustBeBoolean extends Data.TaggedError("SelectiveMustBeBoolean")<{
-	readonly description: string;
-}> {}
-
 export const SelectiveMustBeBooleanError = Schema.TaggedStruct("SelectiveMustBeBoolean", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal('Bad Request: field "selective" must be of type Boolean'),
 });
 
 /**
  * sender_chat_id is missing
  */
-export class SenderChatIdEmpty extends Data.TaggedError("SenderChatIdEmpty")<{
-	readonly description: string;
-}> {}
-
 export const SenderChatIdEmptyError = Schema.TaggedStruct("SenderChatIdEmpty", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: sender_chat_id is empty"),
 });
 
 /**
  * link_preview_options.show_above_text is not a boolean
  */
-export class ShowAboveTextMustBeBoolean extends Data.TaggedError("ShowAboveTextMustBeBoolean")<{
-	readonly description: string;
-}> {}
-
 export const ShowAboveTextMustBeBooleanError = Schema.TaggedStruct("ShowAboveTextMustBeBoolean", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal('Bad Request: field "show_above_text" must be of type Boolean'),
 });
 
 /**
  * gift_id is missing or invalid
  */
-export class StargiftInvalid extends Data.TaggedError("StargiftInvalid")<{
-	readonly description: string;
-}> {}
-
 export const StargiftInvalidError = Schema.TaggedStruct("StargiftInvalid", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: STARGIFT_INVALID"),
 });
 
 /**
  * sticker_set_name is missing or empty
  */
-export class StickerSetNameEmpty extends Data.TaggedError("StickerSetNameEmpty")<{
-	readonly description: string;
-}> {}
-
 export const StickerSetNameEmptyError = Schema.TaggedStruct("StickerSetNameEmpty", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: sticker_set_name is empty"),
 });
 
 /**
  * sticker_set_name does not refer to an existing set
  */
-export class StickerSetNotFound extends Data.TaggedError("StickerSetNotFound")<{
-	readonly description: string;
-}> {}
-
 export const StickerSetNotFoundError = Schema.TaggedStruct("StickerSetNotFound", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: sticker set not found"),
 });
 
 /**
  * required parameters missing
  */
-export class StoryContentNotSpecified extends Data.TaggedError("StoryContentNotSpecified")<{
-	readonly description: string;
-}> {}
-
 export const StoryContentNotSpecifiedError = Schema.TaggedStruct("StoryContentNotSpecified", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: story content isn't specified"),
 });
 
 /**
  * suggested_post_parameters is used outside a channel direct messages chat
  */
-export class SuggestedPostChannelOnly extends Data.TaggedError("SuggestedPostChannelOnly")<{
-	readonly description: string;
-}> {}
-
 export const SuggestedPostChannelOnlyError = Schema.TaggedStruct("SuggestedPostChannelOnly", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: suggested posts can be sent only to channel direct messages"),
 });
 
 /**
  * text_link entity is missing url
  */
-export class TextLinkUrlMissing extends Data.TaggedError("TextLinkUrlMissing")<{
-	readonly description: string;
-}> {}
-
 export const TextLinkUrlMissingError = Schema.TaggedStruct("TextLinkUrlMissing", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: can't parse MessageEntity: Can't find field \"url\""),
 });
 
 /**
  * text_mention entity is missing user
  */
-export class TextMentionUserMissing extends Data.TaggedError("TextMentionUserMissing")<{
-	readonly description: string;
-}> {}
-
 export const TextMentionUserMissingError = Schema.TaggedStruct("TextMentionUserMissing", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: can't parse MessageEntity: Can't find field \"user\""),
 });
 
 /**
  * text contains only whitespace or parses to empty content
  */
-export class TextMustBeNonEmpty extends Data.TaggedError("TextMustBeNonEmpty")<{
-	readonly description: string;
-}> {}
-
 export const TextMustBeNonEmptyError = Schema.TaggedStruct("TextMustBeNonEmpty", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: text must be non-empty"),
 });
 
 /**
  * title is missing or empty
  */
-export class TitleEmpty extends Data.TaggedError("TitleEmpty")<{
-	readonly description: string;
-}> {}
-
 export const TitleEmptyError = Schema.TaggedStruct("TitleEmpty", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: title must be non-empty"),
 });
 
 /**
  * Token has bot id:hash form but the secret is invalid
  */
-export class Unauthorized extends Data.TaggedError("Unauthorized")<{
-	readonly description: string;
-}> {}
-
 export const UnauthorizedError = Schema.TaggedStruct("Unauthorized", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(401),
+	description: Schema.Literal("Unauthorized: invalid token specified"),
 });
 
 /**
  * entities contains an unsupported type value
  */
-export class UnsupportedMessageEntityType extends Data.TaggedError("UnsupportedMessageEntityType")<{
-	readonly description: string;
-}> {}
-
 export const UnsupportedMessageEntityTypeError = Schema.TaggedStruct("UnsupportedMessageEntityType", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: can't parse MessageEntity: Unsupported type specified"),
 });
 
 /**
  * parse_mode is not HTML, Markdown, or MarkdownV2
  */
-export class UnsupportedParseMode extends Data.TaggedError("UnsupportedParseMode")<{
-	readonly description: string;
-}> {}
-
 export const UnsupportedParseModeError = Schema.TaggedStruct("UnsupportedParseMode", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: unsupported parse_mode"),
 });
 
 /**
  * user_id does not refer to a pending join request
  */
-export class UserIdInvalid extends Data.TaggedError("UserIdInvalid")<{
-	readonly description: string;
-}> {}
-
 export const UserIdInvalidError = Schema.TaggedStruct("UserIdInvalid", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: USER_ID_INVALID"),
 });
 
 /**
  * user_id does not refer to an existing user
  */
-export class UserNotFound extends Data.TaggedError("UserNotFound")<{
-	readonly description: string;
-}> {}
-
 export const UserNotFoundError = Schema.TaggedStruct("UserNotFound", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: user not found"),
 });
 
 /**
  * web_app button url is HTTP instead of HTTPS
  */
-export class WebAppUrlHttpNotAllowed extends Data.TaggedError("WebAppUrlHttpNotAllowed")<{
-	readonly description: string;
-}> {}
-
 export const WebAppUrlHttpNotAllowedError = Schema.TaggedStruct("WebAppUrlHttpNotAllowed", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal(
+		"Bad Request: inline keyboard button Web App URL 'http://example.com' is invalid: Only HTTPS links are allowed",
+	),
 });
 
 /**
  * web_app button url is not a valid HTTPS URL
  */
-export class WebAppUrlNotHttps extends Data.TaggedError("WebAppUrlNotHttps")<{
-	readonly description: string;
-}> {}
-
 export const WebAppUrlNotHttpsError = Schema.TaggedStruct("WebAppUrlNotHttps", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal(
+		"Bad Request: inline keyboard button Web App URL 'bad' is invalid: Only HTTPS links are allowed",
+	),
 });
 
 /**
  * link_preview_options.url is not a valid URL
  */
-export class WebpageUrlInvalid extends Data.TaggedError("WebpageUrlInvalid")<{
-	readonly description: string;
-}> {}
-
 export const WebpageUrlInvalidError = Schema.TaggedStruct("WebpageUrlInvalid", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: WEBPAGE_URL_INVALID"),
 });
 
 /**
  * action is missing or not a supported chat action type
  */
-export class WrongParameterAction extends Data.TaggedError("WrongParameterAction")<{
-	readonly description: string;
-}> {}
-
 export const WrongParameterActionError = Schema.TaggedStruct("WrongParameterAction", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: wrong parameter action in request"),
 });
 
 /**
  * video file_id is malformed
  */
-export class WrongRemoteFileIdentifierWrongPadding extends Data.TaggedError("WrongRemoteFileIdentifierWrongPadding")<{
-	readonly description: string;
-}> {}
-
 export const WrongRemoteFileIdentifierWrongPaddingError = Schema.TaggedStruct("WrongRemoteFileIdentifierWrongPadding", {
-	description: Schema.String,
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: wrong remote file identifier specified: Wrong padding in the string"),
 });
-
-export const methodErrors = {
-	answerCallbackQuery: [
-		{
-			errorCode: 400,
-			description: "Bad Request: query is too old and response timeout expired or query ID is invalid",
-			error: CallbackQueryIdInvalid,
-		},
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	answerGuestQuery: [
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 400, description: "Bad Request: result isn't specified", error: ResultNotSpecified },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	answerWebAppQuery: [
-		{
-			errorCode: 400,
-			description: "Bad Request: query is too old and response timeout expired or query ID is invalid",
-			error: CallbackQueryIdInvalid,
-		},
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 400, description: "Bad Request: result isn't specified", error: ResultNotSpecified },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	approveChatJoinRequest: [
-		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-		{ errorCode: 400, description: "Bad Request: USER_ID_INVALID", error: UserIdInvalid },
-	],
-	banChatMember: [
-		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 400, description: "Bad Request: PARTICIPANT_ID_INVALID", error: ParticipantIdInvalid },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	banChatSenderChat: [
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 400, description: "Bad Request: PARTICIPANT_ID_INVALID", error: ParticipantIdInvalid },
-		{ errorCode: 400, description: "Bad Request: sender_chat_id is empty", error: SenderChatIdEmpty },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	close: [
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	closeForumTopic: [
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{
-			errorCode: 400,
-			description: "Bad Request: not enough rights to close or open the topic",
-			error: NotEnoughRightsToCloseOrOpenTopic,
-		},
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	closeGeneralForumTopic: [
-		{ errorCode: 400, description: "Bad Request: CHAT_ADMIN_REQUIRED", error: ChatAdminRequired },
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	convertGiftToStars: [
-		{ errorCode: 400, description: "Bad Request: business connection not found", error: BusinessConnectionNotFound },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	copyMessage: [
-		{ errorCode: 400, description: 'Bad Request: parameter "from_chat_id" is required', error: FromChatIdRequired },
-		{ errorCode: 400, description: "Bad Request: message to copy not found", error: MessageToCopyNotFound },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	copyMessages: [
-		{ errorCode: 400, description: 'Bad Request: parameter "from_chat_id" is required', error: FromChatIdRequired },
-		{ errorCode: 400, description: "Bad Request: there are no messages to forward", error: NoMessagesToForward },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	createChatInviteLink: [
-		{
-			errorCode: 400,
-			description: "Bad Request: can't invite members to a private chat",
-			error: CantInviteMembersToPrivateChat,
-		},
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	createChatSubscriptionInviteLink: [
-		{
-			errorCode: 400,
-			description: "Bad Request: can't invite members to a private chat",
-			error: CantInviteMembersToPrivateChat,
-		},
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 400, description: "Bad Request: PRICING_CHAT_INVALID", error: PricingChatInvalid },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	createForumTopic: [
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{
-			errorCode: 400,
-			description: "Bad Request: not enough rights to create a topic",
-			error: NotEnoughRightsToCreateTopic,
-		},
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	declineChatJoinRequest: [
-		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-		{ errorCode: 400, description: "Bad Request: USER_ID_INVALID", error: UserIdInvalid },
-	],
-	deleteBusinessMessages: [
-		{
-			errorCode: 400,
-			description: "Bad Request: message identifiers are not specified",
-			error: MessageIdentifiersAreNotSpecified,
-		},
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	deleteChatPhoto: [
-		{ errorCode: 400, description: "Bad Request: can't change private chat photo", error: CantChangePrivateChatPhoto },
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	deleteChatStickerSet: [
-		{
-			errorCode: 400,
-			description: "Bad Request: can't set supergroup sticker set",
-			error: CantSetSupergroupStickerSet,
-		},
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	deleteForumTopic: [
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 400, description: "Bad Request: CHAT_WRITE_FORBIDDEN", error: ChatWriteForbidden },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	deleteMyCommands: [
-		{
-			errorCode: 400,
-			description: "Bad Request: can't parse BotCommandScope: Can't find field \"chat_id\"",
-			error: BotCommandScopeChatIdMissing,
-		},
-		{
-			errorCode: 400,
-			description: "Bad Request: can't parse BotCommandScope: Unsupported type specified",
-			error: BotCommandScopeUnsupportedType,
-		},
-		{
-			errorCode: 400,
-			description: "Bad Request: can't parse BotCommandScope: Can't find field \"user_id\"",
-			error: BotCommandScopeUserIdMissing,
-		},
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	deleteStory: [
-		{ errorCode: 400, description: "Bad Request: business connection not found", error: BusinessConnectionNotFound },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	editChatInviteLink: [
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 400, description: "Bad Request: INVITE_HASH_EXPIRED", error: InviteHashExpired },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	editChatSubscriptionInviteLink: [
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 400, description: "Bad Request: INVITE_HASH_EXPIRED", error: InviteHashExpired },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	editForumTopic: [
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{
-			errorCode: 400,
-			description: "Bad Request: not enough rights to edit the topic",
-			error: NotEnoughRightsToEditTopic,
-		},
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	editGeneralForumTopic: [
-		{ errorCode: 400, description: "Bad Request: CHAT_ADMIN_REQUIRED", error: ChatAdminRequired },
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	editStory: [
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 400, description: "Bad Request: story content isn't specified", error: StoryContentNotSpecified },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	exportChatInviteLink: [
-		{
-			errorCode: 400,
-			description: "Bad Request: can't invite members to a private chat",
-			error: CantInviteMembersToPrivateChat,
-		},
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	forwardMessage: [
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
-		{ errorCode: 400, description: 'Bad Request: parameter "from_chat_id" is required', error: FromChatIdRequired },
-		{ errorCode: 400, description: "Bad Request: message thread not found", error: MessageThreadNotFound },
-		{ errorCode: 400, description: "Bad Request: message to forward not found", error: MessageToForwardNotFound },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	forwardMessages: [
-		{ errorCode: 400, description: 'Bad Request: parameter "from_chat_id" is required', error: FromChatIdRequired },
-		{ errorCode: 400, description: "Bad Request: there are no messages to forward", error: NoMessagesToForward },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	getAvailableGifts: [
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	getBusinessAccountGifts: [
-		{ errorCode: 400, description: "Bad Request: business connection not found", error: BusinessConnectionNotFound },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	getBusinessAccountStarBalance: [
-		{ errorCode: 400, description: "Bad Request: business connection not found", error: BusinessConnectionNotFound },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	getBusinessConnection: [
-		{ errorCode: 400, description: "Bad Request: business connection not found", error: BusinessConnectionNotFound },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	getChat: [
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	getChatAdministrators: [
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	getChatGifts: [
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	getChatMember: [
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
-		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
-		{ errorCode: 400, description: "Bad Request: member not found", error: MemberNotFound },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 400, description: "Bad Request: PARTICIPANT_ID_INVALID", error: ParticipantIdInvalid },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	getChatMemberCount: [
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	getChatMenuButton: [
-		{ errorCode: 400, description: "Bad Request: invalid chat_id specified", error: InvalidChatId },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	getFile: [
-		{ errorCode: 400, description: "Bad Request: file_id not specified", error: FileIdNotSpecified },
-		{ errorCode: 400, description: "Bad Request: invalid file_id", error: InvalidFileId },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	getForumTopicIconStickers: [
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	getManagedBotAccessSettings: [
-		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	getManagedBotToken: [
-		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	getMe: [
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	getMyCommands: [
-		{
-			errorCode: 400,
-			description: "Bad Request: can't parse BotCommandScope: Can't find field \"chat_id\"",
-			error: BotCommandScopeChatIdMissing,
-		},
-		{
-			errorCode: 400,
-			description: "Bad Request: can't parse BotCommandScope: Unsupported type specified",
-			error: BotCommandScopeUnsupportedType,
-		},
-		{
-			errorCode: 400,
-			description: "Bad Request: can't parse BotCommandScope: Can't find field \"user_id\"",
-			error: BotCommandScopeUserIdMissing,
-		},
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	getMyDefaultAdministratorRights: [
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	getMyDescription: [
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	getMyName: [
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	getMyShortDescription: [
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	getUserChatBoosts: [
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
-		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 400, description: "Bad Request: PEER_ID_INVALID", error: PeerIdInvalid },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	getUserGifts: [
-		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-		{ errorCode: 400, description: "Bad Request: user not found", error: UserNotFound },
-	],
-	getUserPersonalChatMessages: [
-		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
-		{ errorCode: 400, description: "Bad Request: limit must be positive", error: LimitMustBePositive },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	getUserProfileAudios: [
-		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-		{ errorCode: 400, description: "Bad Request: user not found", error: UserNotFound },
-	],
-	getUserProfilePhotos: [
-		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-		{ errorCode: 400, description: "Bad Request: user not found", error: UserNotFound },
-	],
-	giftPremiumSubscription: [
-		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-		{ errorCode: 400, description: "Bad Request: user not found", error: UserNotFound },
-	],
-	hideGeneralForumTopic: [
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{
-			errorCode: 400,
-			description: "Bad Request: not enough rights to close or open the topic",
-			error: NotEnoughRightsToCloseOrOpenTopic,
-		},
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	leaveChat: [
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{
-			errorCode: 400,
-			description: "Bad Request: chat member status can't be changed in private chats",
-			error: ChatMemberStatusCantBeChangedInPrivateChats,
-		},
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	logOut: [
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	pinChatMessage: [
-		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
-		{ errorCode: 400, description: "Bad Request: message to pin not found", error: MessageToPinNotFound },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	postStory: [
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 400, description: "Bad Request: story content isn't specified", error: StoryContentNotSpecified },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	promoteChatMember: [
-		{ errorCode: 400, description: "Bad Request: can't remove chat owner", error: CantRemoveChatOwner },
-		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	readBusinessMessage: [
-		{ errorCode: 400, description: "Bad Request: chat identifier is empty", error: ChatIdentifierEmpty },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	removeBusinessAccountProfilePhoto: [
-		{ errorCode: 400, description: "Bad Request: business connection not found", error: BusinessConnectionNotFound },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	removeChatVerification: [
-		{ errorCode: 400, description: "Bad Request: BOT_VERIFIER_FORBIDDEN", error: BotVerifierForbidden },
-		{ errorCode: 400, description: "Bad Request: invalid chat identifier specified", error: InvalidChatIdentifier },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	removeMyProfilePhoto: [
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	removeUserVerification: [
-		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 400, description: "Bad Request: PEER_ID_INVALID", error: PeerIdInvalid },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	reopenForumTopic: [
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{
-			errorCode: 400,
-			description: "Bad Request: not enough rights to close or open the topic",
-			error: NotEnoughRightsToCloseOrOpenTopic,
-		},
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	reopenGeneralForumTopic: [
-		{ errorCode: 400, description: "Bad Request: CHAT_ADMIN_REQUIRED", error: ChatAdminRequired },
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	replaceManagedBotToken: [
-		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	repostStory: [
-		{ errorCode: 400, description: "Bad Request: business connection not found", error: BusinessConnectionNotFound },
-		{ errorCode: 400, description: 'Bad Request: parameter "from_chat_id" is required', error: FromChatIdRequired },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	restrictChatMember: [
-		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 400, description: "Bad Request: PARTICIPANT_ID_INVALID", error: ParticipantIdInvalid },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	revokeChatInviteLink: [
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 400, description: "Bad Request: INVITE_HASH_EXPIRED", error: InviteHashExpired },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	savePreparedInlineMessage: [
-		{ errorCode: 400, description: 'Bad Request: can\'t find field "type"', error: CantFindFieldType },
-		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	savePreparedKeyboardButton: [
-		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	sendAnimation: [
-		{ errorCode: 400, description: "Bad Request: there is no animation in the request", error: NoAnimationInRequest },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	sendAudio: [
-		{ errorCode: 400, description: "Bad Request: there is no audio in the request", error: NoAudioInRequest },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	sendChatAction: [
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-		{ errorCode: 400, description: "Bad Request: wrong parameter action in request", error: WrongParameterAction },
-	],
-	sendChecklist: [
-		{ errorCode: 400, description: 'Bad Request: parameter "checklist" is required', error: ChecklistRequired },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	sendContact: [
-		{ errorCode: 400, description: 'Bad Request: parameter "first_name" is required', error: FirstNameRequired },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 400, description: 'Bad Request: parameter "phone_number" is required', error: PhoneNumberRequired },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	sendDice: [
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	sendDocument: [
-		{ errorCode: 400, description: "Bad Request: there is no document in the request", error: NoDocumentInRequest },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	sendGift: [
-		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 400, description: "Bad Request: STARGIFT_INVALID", error: StargiftInvalid },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	sendLivePhoto: [
-		{ errorCode: 400, description: "Bad Request: there is no live photo in the request", error: NoLivePhotoInRequest },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	sendLocation: [
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 400, description: "Bad Request: latitude is empty", error: LatitudeEmpty },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	sendMediaGroup: [
-		{ errorCode: 400, description: 'Bad Request: parameter "media" is required', error: MediaRequired },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	sendMessage: [
-		{
-			errorCode: 400,
-			description: 'Bad Request: can\'t parse inline keyboard button: Field "allow_user_chats" must be of type Boolean',
-			error: AllowUserChatsMustBeBoolean,
-		},
-		{ errorCode: 400, description: "Bad Request: BOT_DOMAIN_INVALID", error: BotDomainInvalid },
-		{ errorCode: 400, description: "Bad Request: business connection not found", error: BusinessConnectionNotFound },
-		{ errorCode: 400, description: "Bad Request: BUTTON_COPY_TEXT_INVALID", error: ButtonCopyTextInvalid },
-		{ errorCode: 400, description: "Bad Request: BUTTON_DATA_INVALID", error: ButtonDataInvalid },
-		{ errorCode: 400, description: "Bad Request: BUTTON_QUANTITY_MAX_INVALID", error: ButtonQuantityMaxInvalid },
-		{ errorCode: 400, description: "Bad Request: BUTTON_TYPE_INVALID", error: ButtonTypeInvalid },
-		{
-			errorCode: 400,
-			description: "Bad Request: can't parse entities: Invalid custom emoji identifier specified",
-			error: CantParseEntitiesInvalidCustomEmoji,
-		},
-		{
-			errorCode: 400,
-			description: "Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 0",
-			error: CantParseEntitiesNoBoldEnd,
-		},
-		{
-			errorCode: 400,
-			description: "Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 15",
-			error: CantParseEntitiesNoBoldEnd,
-		},
-		{
-			errorCode: 400,
-			description: "Bad Request: can't parse entities: Can't find end of the entity starting at byte offset 0",
-			error: CantParseEntitiesNoEnd,
-		},
-		{
-			errorCode: 400,
-			description: "Bad Request: can't parse entities: Can't find end tag corresponding to start tag \"b\"",
-			error: CantParseEntitiesNoHtmlEndTag,
-		},
-		{
-			errorCode: 400,
-			description:
-				"Bad Request: can't parse entities: Character '{' is reserved and must be escaped with the preceding '\\'",
-			error: CantParseEntitiesReservedCharBrace,
-		},
-		{
-			errorCode: 400,
-			description:
-				"Bad Request: can't parse entities: Character '-' is reserved and must be escaped with the preceding '\\'",
-			error: CantParseEntitiesReservedCharDash,
-		},
-		{
-			errorCode: 400,
-			description:
-				"Bad Request: can't parse entities: Character '.' is reserved and must be escaped with the preceding '\\'",
-			error: CantParseEntitiesReservedCharDot,
-		},
-		{
-			errorCode: 400,
-			description:
-				"Bad Request: can't parse entities: Character '=' is reserved and must be escaped with the preceding '\\'",
-			error: CantParseEntitiesReservedCharEquals,
-		},
-		{
-			errorCode: 400,
-			description:
-				"Bad Request: can't parse entities: Character '!' is reserved and must be escaped with the preceding '\\'",
-			error: CantParseEntitiesReservedCharExclamation,
-		},
-		{
-			errorCode: 400,
-			description:
-				"Bad Request: can't parse entities: Character '>' is reserved and must be escaped with the preceding '\\'",
-			error: CantParseEntitiesReservedCharGreater,
-		},
-		{
-			errorCode: 400,
-			description:
-				"Bad Request: can't parse entities: Character '#' is reserved and must be escaped with the preceding '\\'",
-			error: CantParseEntitiesReservedCharHash,
-		},
-		{
-			errorCode: 400,
-			description:
-				"Bad Request: can't parse entities: Character '(' is reserved and must be escaped with the preceding '\\'",
-			error: CantParseEntitiesReservedCharParen,
-		},
-		{
-			errorCode: 400,
-			description:
-				"Bad Request: can't parse entities: Character '|' is reserved and must be escaped with the preceding '\\'",
-			error: CantParseEntitiesReservedCharPipe,
-		},
-		{
-			errorCode: 400,
-			description:
-				"Bad Request: can't parse entities: Character '+' is reserved and must be escaped with the preceding '\\'",
-			error: CantParseEntitiesReservedCharPlus,
-		},
-		{
-			errorCode: 400,
-			description:
-				'Bad Request: can\'t parse entities: Unmatched end tag at byte offset 10, expected "</i>", found "</b>"',
-			error: CantParseEntitiesUnmatchedEndTag,
-		},
-		{
-			errorCode: 400,
-			description: 'Bad Request: can\'t parse entities: Unsupported start tag "script" at byte offset 0',
-			error: CantParseEntitiesUnsupportedScriptTag,
-		},
-		{
-			errorCode: 400,
-			description: 'Bad Request: can\'t parse entities: Unsupported start tag "invalid" at byte offset 0',
-			error: CantParseEntitiesUnsupportedTag,
-		},
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{
-			errorCode: 400,
-			description: 'Bad Request: can\'t parse keyboard button: Field "chat_is_forum" must be of type Boolean',
-			error: ChatIsForumMustBeBoolean,
-		},
-		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
-		{
-			errorCode: 400,
-			description: "Bad Request: can't parse MessageEntity: Can't find field \"custom_emoji_id\"",
-			error: CustomEmojiIdMissing,
-		},
-		{
-			errorCode: 400,
-			description: 'Bad Request: can\'t parse MessageEntity: Field "custom_emoji_id" must be a valid Number',
-			error: CustomEmojiIdMustBeNumber,
-		},
-		{ errorCode: 400, description: "Bad Request: EFFECT_ID_INVALID", error: EffectIdInvalid },
-		{
-			errorCode: 400,
-			description: "Bad Request: entity begins after the end of the text at UTF-16 offset 100",
-			error: EntityBeginsAfterTextEnd,
-		},
-		{
-			errorCode: 400,
-			description:
-				"Bad Request: entity beginning at UTF-16 offset 0 ends after the end of the text at UTF-16 offset 100",
-			error: EntityEndsAfterTextEnd,
-		},
-		{
-			errorCode: 400,
-			description: "Bad Request: receive an entity with incorrect offset -1",
-			error: EntityIncorrectOffset,
-		},
-		{ errorCode: 400, description: "Bad Request: entity URL '' is invalid: URL host is empty", error: EntityUrlEmpty },
-		{
-			errorCode: 400,
-			description: "Bad Request: entity URL 'not-a-url' is invalid: Wrong HTTP URL",
-			error: EntityUrlInvalid,
-		},
-		{ errorCode: 400, description: "Bad Request: FLOODSKIP_NOT_ALLOWED", error: FloodskipNotAllowed },
-		{
-			errorCode: 400,
-			description: 'Bad Request: field "force_reply" must be of type Boolean',
-			error: ForceReplyMustBeBoolean,
-		},
-		{
-			errorCode: 400,
-			description: "Bad Request: can't parse inline keyboard button: Can't find field \"text\"",
-			error: InlineButtonTextMissing,
-		},
-		{
-			errorCode: 400,
-			description: "Bad Request: can't parse inline keyboard button: Text buttons are unallowed in the inline keyboard",
-			error: InlineButtonTextUnallowed,
-		},
-		{
-			errorCode: 400,
-			description: "Bad Request: inline keyboard button URL 'ftp://example.com' is invalid: Unsupported URL protocol",
-			error: InlineButtonUrlFtpUnsupported,
-		},
-		{
-			errorCode: 400,
-			description: "Bad Request: inline keyboard button URL 'not-a-url' is invalid: Wrong HTTP URL",
-			error: InlineButtonUrlInvalid,
-		},
-		{
-			errorCode: 400,
-			description: 'Bad Request: field "inline_keyboard" must be of type Array',
-			error: InlineKeyboardMustBeArray,
-		},
-		{
-			errorCode: 400,
-			description: "Bad Request: invalid amount of Telegram Stars specified",
-			error: InvalidStarsAmount,
-		},
-		{
-			errorCode: 400,
-			description: 'Bad Request: field "is_persistent" must be of type Boolean',
-			error: IsPersistentMustBeBoolean,
-		},
-		{ errorCode: 400, description: 'Bad Request: field "keyboard" must be of type Array', error: KeyboardMustBeArray },
-		{
-			errorCode: 400,
-			description: "Bad Request: can't parse keyboard button: Can't find field \"request_id\"",
-			error: KeyboardRequestIdMissing,
-		},
-		{
-			errorCode: 400,
-			description:
-				"Bad Request: keyboard button Web App URL 'http://example.com' is invalid: Only HTTPS links are allowed",
-			error: KeyboardWebAppUrlHttpNotAllowed,
-		},
-		{
-			errorCode: 400,
-			description: 'Bad Request: field "is_disabled" must be of type Boolean',
-			error: LinkPreviewIsDisabledMustBeBoolean,
-		},
-		{
-			errorCode: 400,
-			description: 'Bad Request: bot "nonexistent_bot_xyz_12345" not found',
-			error: LoginUrlBotNotFound,
-		},
-		{ errorCode: 400, description: 'Bad Request: bot "telegram" not found', error: LoginUrlBotNotFound },
-		{ errorCode: 400, description: "Bad Request: message text is empty", error: MessageTextEmpty },
-		{ errorCode: 400, description: "Bad Request: message thread not found", error: MessageThreadNotFound },
-		{ errorCode: 400, description: "Bad Request: message is too long", error: MessageTooLong },
-		{ errorCode: 400, description: "Bad Request: message to be replied not found", error: MessageToReplyNotFound },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{
-			errorCode: 400,
-			description: 'Bad Request: field "one_time_keyboard" must be of type Boolean',
-			error: OneTimeKeyboardMustBeBoolean,
-		},
-		{
-			errorCode: 400,
-			description: 'Bad Request: field "prefer_large_media" must be of type Boolean',
-			error: PreferLargeMediaMustBeBoolean,
-		},
-		{
-			errorCode: 400,
-			description: 'Bad Request: field "prefer_small_media" must be of type Boolean',
-			error: PreferSmallMediaMustBeBoolean,
-		},
-		{
-			errorCode: 400,
-			description: 'Bad Request: field "remove_keyboard" must be of type Boolean',
-			error: RemoveKeyboardMustBeBoolean,
-		},
-		{ errorCode: 400, description: 'Bad Request: can\'t find field "message_id"', error: ReplyMessageIdMissing },
-		{
-			errorCode: 400,
-			description:
-				'Bad Request: can\'t parse inline keyboard button: Field "request_write_access" must be of type Boolean',
-			error: RequestWriteAccessMustBeBoolean,
-		},
-		{
-			errorCode: 400,
-			description: 'Bad Request: field "resize_keyboard" must be of type Boolean',
-			error: ResizeKeyboardMustBeBoolean,
-		},
-		{
-			errorCode: 400,
-			description: 'Bad Request: field "selective" must be of type Boolean',
-			error: SelectiveMustBeBoolean,
-		},
-		{
-			errorCode: 400,
-			description: 'Bad Request: field "show_above_text" must be of type Boolean',
-			error: ShowAboveTextMustBeBoolean,
-		},
-		{
-			errorCode: 400,
-			description: "Bad Request: suggested posts can be sent only to channel direct messages",
-			error: SuggestedPostChannelOnly,
-		},
-		{
-			errorCode: 400,
-			description: "Bad Request: can't parse MessageEntity: Can't find field \"url\"",
-			error: TextLinkUrlMissing,
-		},
-		{
-			errorCode: 400,
-			description: "Bad Request: can't parse MessageEntity: Can't find field \"user\"",
-			error: TextMentionUserMissing,
-		},
-		{ errorCode: 400, description: "Bad Request: text must be non-empty", error: TextMustBeNonEmpty },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-		{
-			errorCode: 400,
-			description: "Bad Request: can't parse MessageEntity: Unsupported type specified",
-			error: UnsupportedMessageEntityType,
-		},
-		{ errorCode: 400, description: "Bad Request: unsupported parse_mode", error: UnsupportedParseMode },
-		{ errorCode: 400, description: "Bad Request: user not found", error: UserNotFound },
-		{
-			errorCode: 400,
-			description:
-				"Bad Request: inline keyboard button Web App URL 'http://example.com' is invalid: Only HTTPS links are allowed",
-			error: WebAppUrlHttpNotAllowed,
-		},
-		{
-			errorCode: 400,
-			description: "Bad Request: inline keyboard button Web App URL 'bad' is invalid: Only HTTPS links are allowed",
-			error: WebAppUrlNotHttps,
-		},
-		{ errorCode: 400, description: "Bad Request: WEBPAGE_URL_INVALID", error: WebpageUrlInvalid },
-	],
-	sendMessageDraft: [
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 400, description: "Bad Request: RANDOM_ID_INVALID", error: RandomIdInvalid },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	sendPaidMedia: [
-		{ errorCode: 400, description: 'Bad Request: parameter "media" is required', error: MediaRequired },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	sendPhoto: [
-		{ errorCode: 400, description: "Bad Request: there is no photo in the request", error: NoPhotoInRequest },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	sendPoll: [
-		{ errorCode: 400, description: "Bad Request: can't parse options JSON object", error: CantParseOptionsJsonObject },
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{
-			errorCode: 400,
-			description: "Bad Request: poll must have at least one answer option",
-			error: PollMustHaveAtLeastOneAnswerOption,
-		},
-		{ errorCode: 400, description: "Bad Request: text must be non-empty", error: TextMustBeNonEmpty },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	sendVenue: [
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
-		{ errorCode: 400, description: "Bad Request: latitude is empty", error: LatitudeEmpty },
-		{ errorCode: 400, description: "Bad Request: longitude is empty", error: LongitudeEmpty },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	sendVideo: [
-		{
-			errorCode: 400,
-			description: "Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 0",
-			error: CantParseEntitiesNoBoldEnd,
-		},
-		{
-			errorCode: 400,
-			description: "Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 15",
-			error: CantParseEntitiesNoBoldEnd,
-		},
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
-		{ errorCode: 400, description: "Bad Request: message caption is too long", error: MessageCaptionTooLong },
-		{ errorCode: 400, description: "Bad Request: message thread not found", error: MessageThreadNotFound },
-		{ errorCode: 400, description: "Bad Request: message to be replied not found", error: MessageToReplyNotFound },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 400, description: "Bad Request: there is no video in the request", error: NoVideoInRequest },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-		{ errorCode: 400, description: "Bad Request: unsupported parse_mode", error: UnsupportedParseMode },
-		{
-			errorCode: 400,
-			description: "Bad Request: wrong remote file identifier specified: Wrong padding in the string",
-			error: WrongRemoteFileIdentifierWrongPadding,
-		},
-	],
-	sendVideoNote: [
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 400, description: "Bad Request: there is no video note in the request", error: NoVideoNoteInRequest },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	sendVoice: [
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 400, description: "Bad Request: there is no voice in the request", error: NoVoiceInRequest },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	setBusinessAccountBio: [
-		{ errorCode: 400, description: "Bad Request: business connection not found", error: BusinessConnectionNotFound },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	setBusinessAccountGiftSettings: [
-		{
-			errorCode: 400,
-			description: "Bad Request: accepted gift types aren't specified",
-			error: AcceptedGiftTypesNotSpecified,
-		},
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	setBusinessAccountName: [
-		{ errorCode: 400, description: 'Bad Request: parameter "first_name" is required', error: FirstNameRequired },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	setBusinessAccountProfilePhoto: [
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 400, description: "Bad Request: photo isn't specified", error: PhotoNotSpecified },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	setBusinessAccountUsername: [
-		{ errorCode: 400, description: "Bad Request: business connection not found", error: BusinessConnectionNotFound },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	setChatAdministratorCustomTitle: [
-		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 400, description: "Bad Request: PARTICIPANT_ID_INVALID", error: ParticipantIdInvalid },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	setChatDescription: [
-		{
-			errorCode: 400,
-			description: "Bad Request: can't change private chat description",
-			error: CantChangePrivateChatDescription,
-		},
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	setChatMemberTag: [
-		{ errorCode: 400, description: "Bad Request: CHAT_CREATOR_REQUIRED", error: ChatCreatorRequired },
-		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 400, description: "Bad Request: PARTICIPANT_ID_INVALID", error: ParticipantIdInvalid },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	setChatMenuButton: [
-		{
-			errorCode: 400,
-			description: "Bad Request: can't parse menu button: MenuButton has unsupported type",
-			error: MenuButtonUnsupportedType,
-		},
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	setChatPermissions: [
-		{
-			errorCode: 400,
-			description: "Bad Request: can't change private chat permissions",
-			error: CantChangePrivateChatPermissions,
-		},
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	setChatPhoto: [
-		{ errorCode: 400, description: "Bad Request: there is no photo in the request", error: NoPhotoInRequest },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	setChatStickerSet: [
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 400, description: "Bad Request: sticker_set_name is empty", error: StickerSetNameEmpty },
-		{ errorCode: 400, description: "Bad Request: sticker set not found", error: StickerSetNotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	setChatTitle: [
-		{ errorCode: 400, description: "Bad Request: can't change private chat title", error: CantChangePrivateChatTitle },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 400, description: "Bad Request: title must be non-empty", error: TitleEmpty },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	setManagedBotAccessSettings: [
-		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	setMessageReaction: [
-		{ errorCode: 400, description: "Bad Request: message to react not found", error: MessageToReactNotFound },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	setMyCommands: [
-		{ errorCode: 400, description: "Bad Request: BOT_COMMAND_INVALID", error: BotCommandInvalid },
-		{
-			errorCode: 400,
-			description: "Bad Request: can't parse BotCommandScope: Can't find field \"chat_id\"",
-			error: BotCommandScopeChatIdMissing,
-		},
-		{
-			errorCode: 400,
-			description: "Bad Request: can't parse BotCommandScope: Unsupported type specified",
-			error: BotCommandScopeUnsupportedType,
-		},
-		{
-			errorCode: 400,
-			description: "Bad Request: can't parse BotCommandScope: Can't find field \"user_id\"",
-			error: BotCommandScopeUserIdMissing,
-		},
-		{
-			errorCode: 400,
-			description: "Bad Request: command description must be non-empty",
-			error: CommandDescriptionMustBeNonEmpty,
-		},
-		{ errorCode: 400, description: "Bad Request: command must be non-empty", error: CommandMustBeNonEmpty },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	setMyDefaultAdministratorRights: [
-		{
-			errorCode: 400,
-			description:
-				'Bad Request: can\'t parse ChatAdministratorRights: Field "can_delete_messages" must be of type Boolean',
-			error: ChatAdministratorRightsCanDeleteMessagesMustBeBoolean,
-		},
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	setMyDescription: [
-		{ errorCode: 400, description: "Bad Request: BOT_DESC_INVALID", error: BotDescriptionInvalid },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	setMyName: [
-		{ errorCode: 400, description: "Bad Request: BOT_TITLE_INVALID", error: BotTitleInvalid },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	setMyProfilePhoto: [
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 400, description: "Bad Request: photo isn't specified", error: PhotoNotSpecified },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	setMyShortDescription: [
-		{ errorCode: 400, description: "Bad Request: BOT_SHARETEXT_INVALID", error: BotShortDescriptionInvalid },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	setUserEmojiStatus: [
-		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-		{ errorCode: 400, description: "Bad Request: user not found", error: UserNotFound },
-	],
-	transferBusinessAccountStars: [
-		{ errorCode: 400, description: "Bad Request: business connection not found", error: BusinessConnectionNotFound },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	transferGift: [
-		{ errorCode: 400, description: "Bad Request: chat identifier is empty", error: ChatIdentifierEmpty },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	unbanChatMember: [
-		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 400, description: "Bad Request: PARTICIPANT_ID_INVALID", error: ParticipantIdInvalid },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	unbanChatSenderChat: [
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 400, description: "Bad Request: PARTICIPANT_ID_INVALID", error: ParticipantIdInvalid },
-		{ errorCode: 400, description: "Bad Request: sender_chat_id is empty", error: SenderChatIdEmpty },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	unhideGeneralForumTopic: [
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{
-			errorCode: 400,
-			description: "Bad Request: not enough rights to close or open the topic",
-			error: NotEnoughRightsToCloseOrOpenTopic,
-		},
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	unpinAllChatMessages: [
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	unpinAllForumTopicMessages: [
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	unpinAllGeneralForumTopicMessages: [
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	unpinChatMessage: [
-		{ errorCode: 400, description: "Bad Request: message to unpin not found", error: MessageToUnpinNotFound },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	upgradeGift: [
-		{ errorCode: 400, description: "Bad Request: business connection not found", error: BusinessConnectionNotFound },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	verifyChat: [
-		{ errorCode: 400, description: "Bad Request: BOT_VERIFIER_FORBIDDEN", error: BotVerifierForbidden },
-		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-	],
-	verifyUser: [
-		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
-		{ errorCode: 404, description: "Not Found", error: NotFound },
-		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
-		{ errorCode: 400, description: "Bad Request: user not found", error: UserNotFound },
-	],
-} as const;
