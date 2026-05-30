@@ -39,9 +39,8 @@ jobs:
 
       - name: Publish npm package
         shell: nix develop -c bash -e {0}
-        run: pnpm publish:npm --dry-run
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: pnpm publish:npm
+
   jsr:
     runs-on: ubuntu-latest
     permissions:
@@ -79,4 +78,4 @@ jobs:
 
       - name: Publish JSR package
         shell: nix develop -c bash -e {0}
-        run: pnpm publish:jsr --dry-run
+        run: pnpm publish:jsr
