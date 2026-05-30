@@ -1,0 +1,11 @@
+{
+	"method": "getChatMenuButton",
+	"errors": [
+		{
+			"tag": "InvalidChatId",
+			"errorCode": 400,
+			"description": "Bad Request: invalid chat_id specified",
+			"when": "chat_id is not a valid private chat id"
+		}
+	]
+}

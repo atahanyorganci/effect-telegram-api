@@ -23,6 +23,26 @@ export const ChatNotFoundError = Schema.TaggedStruct("ChatNotFound", {
 	description: Schema.String,
 });
 
+/** file_id parameter is missing or empty */
+
+export class FileIdNotSpecified extends Data.TaggedError("FileIdNotSpecified")<{
+	readonly description: string;
+}> {}
+
+export const FileIdNotSpecifiedError = Schema.TaggedStruct("FileIdNotSpecified", {
+	description: Schema.String,
+});
+
+/** chat_id is not a valid private chat id */
+
+export class InvalidChatId extends Data.TaggedError("InvalidChatId")<{
+	readonly description: string;
+}> {}
+
+export const InvalidChatIdError = Schema.TaggedStruct("InvalidChatId", {
+	description: Schema.String,
+});
+
 /** file_id is not valid */
 
 export class InvalidFileId extends Data.TaggedError("InvalidFileId")<{
@@ -30,6 +50,26 @@ export class InvalidFileId extends Data.TaggedError("InvalidFileId")<{
 }> {}
 
 export const InvalidFileIdError = Schema.TaggedStruct("InvalidFileId", {
+	description: Schema.String,
+});
+
+/** user_id is missing or zero */
+
+export class InvalidUserId extends Data.TaggedError("InvalidUserId")<{
+	readonly description: string;
+}> {}
+
+export const InvalidUserIdError = Schema.TaggedStruct("InvalidUserId", {
+	description: Schema.String,
+});
+
+/** user_id is not a member of the chat */
+
+export class MemberNotFound extends Data.TaggedError("MemberNotFound")<{
+	readonly description: string;
+}> {}
+
+export const MemberNotFoundError = Schema.TaggedStruct("MemberNotFound", {
 	description: Schema.String,
 });
 
@@ -63,6 +103,16 @@ export const UnauthorizedError = Schema.TaggedStruct("Unauthorized", {
 	description: Schema.String,
 });
 
+/** user_id does not refer to an existing user */
+
+export class UserNotFound extends Data.TaggedError("UserNotFound")<{
+	readonly description: string;
+}> {}
+
+export const UserNotFoundError = Schema.TaggedStruct("UserNotFound", {
+	description: Schema.String,
+});
+
 export const methodErrors = {
 	getAvailableGifts: [
 		{ errorCode: 404, description: "Not Found", error: NotFound },
@@ -74,7 +124,33 @@ export const methodErrors = {
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
+	getChatAdministrators: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	getChatMember: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
+		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
+		{ errorCode: 400, description: "Bad Request: member not found", error: MemberNotFound },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	getChatMemberCount: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	getChatMenuButton: [
+		{ errorCode: 400, description: "Bad Request: invalid chat_id specified", error: InvalidChatId },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
 	getFile: [
+		{ errorCode: 400, description: "Bad Request: file_id not specified", error: FileIdNotSpecified },
 		{ errorCode: 400, description: "Bad Request: invalid file_id", error: InvalidFileId },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
@@ -107,7 +183,15 @@ export const methodErrors = {
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
+	getUserProfilePhotos: [
+		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+		{ errorCode: 400, description: "Bad Request: user not found", error: UserNotFound },
+	],
 	sendMessage: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
 		{ errorCode: 400, description: "Bad Request: message text is empty", error: MessageTextEmpty },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },

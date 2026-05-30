@@ -1,5 +1,5 @@
 {
-	"method": "sendMessage",
+	"method": "getChatAdministrators",
 	"errors": [
 		{
 			"tag": "ChatIdEmpty",
@@ -12,12 +12,6 @@
 			"errorCode": 400,
 			"description": "Bad Request: chat not found",
 			"when": "chat_id does not refer to a chat the bot can access"
-		},
-		{
-			"tag": "MessageTextEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: message text is empty",
-			"when": "text is missing or empty"
 		}
 	]
 }

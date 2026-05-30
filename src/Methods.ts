@@ -391,6 +391,12 @@ export const getChatAdministrators = Rpc.make("getChatAdministrators", {
 		return_bots: Schema.optional(Schema.Boolean),
 	},
 	success: Schema.Array(Objects.ChatMember),
+	error: Schema.Union([
+		Errors.ChatIdEmptyError,
+		Errors.ChatNotFoundError,
+		Errors.NotFoundError,
+		Errors.UnauthorizedError,
+	]),
 });
 
 export const getChatGifts = Rpc.make("getChatGifts", {
@@ -417,6 +423,14 @@ export const getChatMember = Rpc.make("getChatMember", {
 		user_id: Schema.Int,
 	},
 	success: Objects.ChatMember,
+	error: Schema.Union([
+		Errors.ChatIdEmptyError,
+		Errors.ChatNotFoundError,
+		Errors.InvalidUserIdError,
+		Errors.MemberNotFoundError,
+		Errors.NotFoundError,
+		Errors.UnauthorizedError,
+	]),
 });
 
 /** Use this method to get the number of members in a chat */
@@ -425,6 +439,12 @@ export const getChatMemberCount = Rpc.make("getChatMemberCount", {
 		chat_id: Schema.Union([Schema.Int, Schema.String]),
 	},
 	success: Schema.Int,
+	error: Schema.Union([
+		Errors.ChatIdEmptyError,
+		Errors.ChatNotFoundError,
+		Errors.NotFoundError,
+		Errors.UnauthorizedError,
+	]),
 });
 
 /** Use this method to get the current value of the bot's menu button in a private chat, or the default menu button */
@@ -433,6 +453,7 @@ export const getChatMenuButton = Rpc.make("getChatMenuButton", {
 		chat_id: Schema.optional(Schema.Int),
 	},
 	success: Objects.MenuButton,
+	error: Schema.Union([Errors.InvalidChatIdError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to get basic information about a file and prepare it for downloading. For the moment, bots can download files of up to 20MB in size. On success, a File object */
@@ -441,7 +462,12 @@ export const getFile = Rpc.make("getFile", {
 		file_id: Schema.String,
 	},
 	success: Objects.File,
-	error: Schema.Union([Errors.InvalidFileIdError, Errors.NotFoundError, Errors.UnauthorizedError]),
+	error: Schema.Union([
+		Errors.FileIdNotSpecifiedError,
+		Errors.InvalidFileIdError,
+		Errors.NotFoundError,
+		Errors.UnauthorizedError,
+	]),
 });
 
 /** Use this method to get custom emoji stickers, which can be used as a forum topic icon by any user */
@@ -569,6 +595,12 @@ export const getUserProfilePhotos = Rpc.make("getUserProfilePhotos", {
 		limit: Schema.optional(Schema.Int),
 	},
 	success: Objects.UserProfilePhotos,
+	error: Schema.Union([
+		Errors.InvalidUserIdError,
+		Errors.NotFoundError,
+		Errors.UnauthorizedError,
+		Errors.UserNotFoundError,
+	]),
 });
 
 /** Gifts a Telegram Premium subscription to the given user */
@@ -1088,7 +1120,13 @@ export const sendMessage = Rpc.make("sendMessage", {
 		),
 	},
 	success: Objects.Message,
-	error: Schema.Union([Errors.MessageTextEmptyError, Errors.NotFoundError, Errors.UnauthorizedError]),
+	error: Schema.Union([
+		Errors.ChatIdEmptyError,
+		Errors.ChatNotFoundError,
+		Errors.MessageTextEmptyError,
+		Errors.NotFoundError,
+		Errors.UnauthorizedError,
+	]),
 });
 
 /** Use this method to stream a partial message to a user while the message is being generated. Note that the streamed draft is ephemeral and acts as a temporary 30-second preview - once the output is finalized, you must call sendMessage with the complete message to persist it in the user's chat */

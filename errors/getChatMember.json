@@ -1,5 +1,5 @@
 {
-	"method": "sendMessage",
+	"method": "getChatMember",
 	"errors": [
 		{
 			"tag": "ChatIdEmpty",
@@ -14,10 +14,16 @@
 			"when": "chat_id does not refer to a chat the bot can access"
 		},
 		{
-			"tag": "MessageTextEmpty",
+			"tag": "InvalidUserId",
 			"errorCode": 400,
-			"description": "Bad Request: message text is empty",
-			"when": "text is missing or empty"
+			"description": "Bad Request: invalid user_id specified",
+			"when": "user_id is missing or zero"
+		},
+		{
+			"tag": "MemberNotFound",
+			"errorCode": 400,
+			"description": "Bad Request: member not found",
+			"when": "user_id is not a member of the chat"
 		}
 	]
 }
