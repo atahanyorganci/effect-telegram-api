@@ -1,0 +1,11 @@
+{
+	"method": "setChatAdministratorCustomTitle",
+	"errors": [
+		{
+			"tag": "InvalidUserId",
+			"errorCode": 400,
+			"description": "Bad Request: invalid user_id specified",
+			"when": "user_id is missing or zero"
+		}
+	]
+}

@@ -328,6 +328,16 @@ export const ChatNotFoundError = Schema.TaggedStruct("ChatNotFound", {
 	description: Schema.String,
 });
 
+/** checklist parameter is missing */
+
+export class ChecklistRequired extends Data.TaggedError("ChecklistRequired")<{
+	readonly description: string;
+}> {}
+
+export const ChecklistRequiredError = Schema.TaggedStruct("ChecklistRequired", {
+	description: Schema.String,
+});
+
 /** a command entry has an empty description */
 
 export class CommandDescriptionMustBeNonEmpty extends Data.TaggedError("CommandDescriptionMustBeNonEmpty")<{
@@ -648,6 +658,16 @@ export const LongitudeEmptyError = Schema.TaggedStruct("LongitudeEmpty", {
 	description: Schema.String,
 });
 
+/** media parameter is missing */
+
+export class MediaRequired extends Data.TaggedError("MediaRequired")<{
+	readonly description: string;
+}> {}
+
+export const MediaRequiredError = Schema.TaggedStruct("MediaRequired", {
+	description: Schema.String,
+});
+
 /** user_id is not a member of the chat */
 
 export class MemberNotFound extends Data.TaggedError("MemberNotFound")<{
@@ -665,6 +685,16 @@ export class MenuButtonUnsupportedType extends Data.TaggedError("MenuButtonUnsup
 }> {}
 
 export const MenuButtonUnsupportedTypeError = Schema.TaggedStruct("MenuButtonUnsupportedType", {
+	description: Schema.String,
+});
+
+/** caption exceeds 1024 characters */
+
+export class MessageCaptionTooLong extends Data.TaggedError("MessageCaptionTooLong")<{
+	readonly description: string;
+}> {}
+
+export const MessageCaptionTooLongError = Schema.TaggedStruct("MessageCaptionTooLong", {
 	description: Schema.String,
 });
 
@@ -758,6 +788,26 @@ export const MessageToUnpinNotFoundError = Schema.TaggedStruct("MessageToUnpinNo
 	description: Schema.String,
 });
 
+/** animation parameter is missing */
+
+export class NoAnimationInRequest extends Data.TaggedError("NoAnimationInRequest")<{
+	readonly description: string;
+}> {}
+
+export const NoAnimationInRequestError = Schema.TaggedStruct("NoAnimationInRequest", {
+	description: Schema.String,
+});
+
+/** audio parameter is missing */
+
+export class NoAudioInRequest extends Data.TaggedError("NoAudioInRequest")<{
+	readonly description: string;
+}> {}
+
+export const NoAudioInRequestError = Schema.TaggedStruct("NoAudioInRequest", {
+	description: Schema.String,
+});
+
 /** document parameter is missing */
 
 export class NoDocumentInRequest extends Data.TaggedError("NoDocumentInRequest")<{
@@ -765,6 +815,16 @@ export class NoDocumentInRequest extends Data.TaggedError("NoDocumentInRequest")
 }> {}
 
 export const NoDocumentInRequestError = Schema.TaggedStruct("NoDocumentInRequest", {
+	description: Schema.String,
+});
+
+/** live photo parameter is missing */
+
+export class NoLivePhotoInRequest extends Data.TaggedError("NoLivePhotoInRequest")<{
+	readonly description: string;
+}> {}
+
+export const NoLivePhotoInRequestError = Schema.TaggedStruct("NoLivePhotoInRequest", {
 	description: Schema.String,
 });
 
@@ -795,6 +855,36 @@ export class NotFound extends Data.TaggedError("NotFound")<{
 }> {}
 
 export const NotFoundError = Schema.TaggedStruct("NotFound", {
+	description: Schema.String,
+});
+
+/** video parameter is missing */
+
+export class NoVideoInRequest extends Data.TaggedError("NoVideoInRequest")<{
+	readonly description: string;
+}> {}
+
+export const NoVideoInRequestError = Schema.TaggedStruct("NoVideoInRequest", {
+	description: Schema.String,
+});
+
+/** video_note parameter is missing */
+
+export class NoVideoNoteInRequest extends Data.TaggedError("NoVideoNoteInRequest")<{
+	readonly description: string;
+}> {}
+
+export const NoVideoNoteInRequestError = Schema.TaggedStruct("NoVideoNoteInRequest", {
+	description: Schema.String,
+});
+
+/** voice parameter is missing */
+
+export class NoVoiceInRequest extends Data.TaggedError("NoVoiceInRequest")<{
+	readonly description: string;
+}> {}
+
+export const NoVoiceInRequestError = Schema.TaggedStruct("NoVoiceInRequest", {
 	description: Schema.String,
 });
 
@@ -908,6 +998,16 @@ export const SelectiveMustBeBooleanError = Schema.TaggedStruct("SelectiveMustBeB
 	description: Schema.String,
 });
 
+/** sender_chat_id is missing */
+
+export class SenderChatIdEmpty extends Data.TaggedError("SenderChatIdEmpty")<{
+	readonly description: string;
+}> {}
+
+export const SenderChatIdEmptyError = Schema.TaggedStruct("SenderChatIdEmpty", {
+	description: Schema.String,
+});
+
 /** link_preview_options.show_above_text is not a boolean */
 
 export class ShowAboveTextMustBeBoolean extends Data.TaggedError("ShowAboveTextMustBeBoolean")<{
@@ -955,6 +1055,16 @@ export class TextMustBeNonEmpty extends Data.TaggedError("TextMustBeNonEmpty")<{
 }> {}
 
 export const TextMustBeNonEmptyError = Schema.TaggedStruct("TextMustBeNonEmpty", {
+	description: Schema.String,
+});
+
+/** title is missing or empty */
+
+export class TitleEmpty extends Data.TaggedError("TitleEmpty")<{
+	readonly description: string;
+}> {}
+
+export const TitleEmptyError = Schema.TaggedStruct("TitleEmpty", {
 	description: Schema.String,
 });
 
@@ -1038,6 +1148,16 @@ export const WrongParameterActionError = Schema.TaggedStruct("WrongParameterActi
 	description: Schema.String,
 });
 
+/** video file_id is malformed */
+
+export class WrongRemoteFileIdentifierWrongPadding extends Data.TaggedError("WrongRemoteFileIdentifierWrongPadding")<{
+	readonly description: string;
+}> {}
+
+export const WrongRemoteFileIdentifierWrongPaddingError = Schema.TaggedStruct("WrongRemoteFileIdentifierWrongPadding", {
+	description: Schema.String,
+});
+
 export const methodErrors = {
 	answerCallbackQuery: [
 		{
@@ -1051,6 +1171,11 @@ export const methodErrors = {
 	banChatMember: [
 		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	banChatSenderChat: [
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 400, description: "Bad Request: sender_chat_id is empty", error: SenderChatIdEmpty },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	copyMessage: [
@@ -1212,12 +1337,37 @@ export const methodErrors = {
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
+	promoteChatMember: [
+		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	restrictChatMember: [
+		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	sendAnimation: [
+		{ errorCode: 400, description: "Bad Request: there is no animation in the request", error: NoAnimationInRequest },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	sendAudio: [
+		{ errorCode: 400, description: "Bad Request: there is no audio in the request", error: NoAudioInRequest },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
 	sendChatAction: [
 		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
 		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 		{ errorCode: 400, description: "Bad Request: wrong parameter action in request", error: WrongParameterAction },
+	],
+	sendChecklist: [
+		{ errorCode: 400, description: 'Bad Request: parameter "checklist" is required', error: ChecklistRequired },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	sendContact: [
 		{ errorCode: 400, description: 'Bad Request: parameter "first_name" is required', error: FirstNameRequired },
@@ -1236,9 +1386,19 @@ export const methodErrors = {
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
+	sendLivePhoto: [
+		{ errorCode: 400, description: "Bad Request: there is no live photo in the request", error: NoLivePhotoInRequest },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
 	sendLocation: [
 		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
 		{ errorCode: 400, description: "Bad Request: latitude is empty", error: LatitudeEmpty },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	sendMediaGroup: [
+		{ errorCode: 400, description: 'Bad Request: parameter "media" is required', error: MediaRequired },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
@@ -1543,6 +1703,11 @@ export const methodErrors = {
 		},
 		{ errorCode: 400, description: "Bad Request: WEBPAGE_URL_INVALID", error: WebpageUrlInvalid },
 	],
+	sendPaidMedia: [
+		{ errorCode: 400, description: 'Bad Request: parameter "media" is required', error: MediaRequired },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
 	sendPhoto: [
 		{ errorCode: 400, description: "Bad Request: there is no photo in the request", error: NoPhotoInRequest },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
@@ -1569,6 +1734,42 @@ export const methodErrors = {
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
+	sendVideo: [
+		{
+			errorCode: 400,
+			description: "Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 0",
+			error: CantParseEntitiesNoBoldEnd,
+		},
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
+		{ errorCode: 400, description: "Bad Request: message caption is too long", error: MessageCaptionTooLong },
+		{ errorCode: 400, description: "Bad Request: message thread not found", error: MessageThreadNotFound },
+		{ errorCode: 400, description: "Bad Request: message to be replied not found", error: MessageToReplyNotFound },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 400, description: "Bad Request: there is no video in the request", error: NoVideoInRequest },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+		{ errorCode: 400, description: "Bad Request: unsupported parse_mode", error: UnsupportedParseMode },
+		{
+			errorCode: 400,
+			description: "Bad Request: wrong remote file identifier specified: Wrong padding in the string",
+			error: WrongRemoteFileIdentifierWrongPadding,
+		},
+	],
+	sendVideoNote: [
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 400, description: "Bad Request: there is no video note in the request", error: NoVideoNoteInRequest },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	sendVoice: [
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 400, description: "Bad Request: there is no voice in the request", error: NoVoiceInRequest },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	setChatAdministratorCustomTitle: [
+		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
 	setChatMenuButton: [
 		{
 			errorCode: 400,
@@ -1576,6 +1777,16 @@ export const methodErrors = {
 			error: MenuButtonUnsupportedType,
 		},
 		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	setChatPhoto: [
+		{ errorCode: 400, description: "Bad Request: there is no photo in the request", error: NoPhotoInRequest },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	setChatTitle: [
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 400, description: "Bad Request: title must be non-empty", error: TitleEmpty },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	setMessageReaction: [
@@ -1609,6 +1820,16 @@ export const methodErrors = {
 	],
 	setMyShortDescription: [
 		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	unbanChatMember: [
+		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	unbanChatSenderChat: [
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 400, description: "Bad Request: sender_chat_id is empty", error: SenderChatIdEmpty },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	unpinChatMessage: [

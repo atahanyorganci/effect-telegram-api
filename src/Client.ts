@@ -21,6 +21,41 @@ const ErrorResponse = Schema.Struct({
 	description: Schema.String,
 });
 
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+	typeof value === "object" && value !== null && !Array.isArray(value);
+
+const isUpload = (value: unknown): value is Uint8Array => value instanceof Uint8Array;
+
+const hasUpload = (payload: unknown): payload is Record<string, unknown> =>
+	isRecord(payload) && Object.values(payload).some(isUpload);
+
+const appendFormValue = (formData: FormData, key: string, value: unknown) => {
+	if (value === undefined || value === null) {
+		return;
+	}
+	if (isUpload(value)) {
+		formData.append(key, new Blob([Uint8Array.from(value)]), key);
+		return;
+	}
+	if (typeof value === "string") {
+		formData.append(key, value);
+		return;
+	}
+	if (typeof value === "number" || typeof value === "boolean") {
+		formData.append(key, String(value));
+		return;
+	}
+	formData.append(key, JSON.stringify(value));
+};
+
+const formDataFromPayload = (payload: Record<string, unknown>) => {
+	const formData = new FormData();
+	for (const [key, value] of Object.entries(payload)) {
+		appendFormValue(formData, key, value);
+	}
+	return formData;
+};
+
 const responseSchema = <S extends Schema.Top>(result: S) =>
 	Schema.Union([Schema.Struct({ ok: Schema.Literal(true), result }), ErrorResponse]);
 
@@ -56,7 +91,12 @@ export const callMethod = Effect.fn("callMethod")(function* <
 	Error extends Schema.Top = Schema.Never,
 >(token: string, rpc: Rpc.Rpc<Tag, Payload, Success, Error>, payload?: unknown) {
 	const base = HttpClientRequest.post(`${BASE_URL}/bot${token}/${rpc._tag}`);
-	const request = payload === undefined ? base : yield* HttpClientRequest.bodyJson(base, payload);
+	const request =
+		payload === undefined
+			? base
+			: hasUpload(payload)
+				? HttpClientRequest.bodyFormData(base, formDataFromPayload(payload))
+				: yield* HttpClientRequest.bodyJson(base, payload);
 
 	const response = yield* HttpClient.execute(request);
 	const envelope = (yield* HttpClientResponse.schemaBodyJson(responseSchema(rpc.successSchema))(response)) as Envelope<

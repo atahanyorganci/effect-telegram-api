@@ -1,0 +1,11 @@
+{
+	"method": "setChatTitle",
+	"errors": [
+		{
+			"tag": "TitleEmpty",
+			"errorCode": 400,
+			"description": "Bad Request: title must be non-empty",
+			"when": "title is missing or empty"
+		}
+	]
+}

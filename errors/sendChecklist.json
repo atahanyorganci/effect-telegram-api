@@ -1,0 +1,11 @@
+{
+	"method": "sendChecklist",
+	"errors": [
+		{
+			"tag": "ChecklistRequired",
+			"errorCode": 400,
+			"description": "Bad Request: parameter \"checklist\" is required",
+			"when": "checklist parameter is missing"
+		}
+	]
+}

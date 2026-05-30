@@ -1,0 +1,11 @@
+{
+	"method": "sendAudio",
+	"errors": [
+		{
+			"tag": "NoAudioInRequest",
+			"errorCode": 400,
+			"description": "Bad Request: there is no audio in the request",
+			"when": "audio parameter is missing"
+		}
+	]
+}

@@ -165,6 +165,7 @@ export const banChatSenderChat = Rpc.make("banChatSenderChat", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.NotFoundError, Errors.SenderChatIdEmptyError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to close the bot instance before moving it from one local server to another. You need to delete the webhook before calling this method to ensure that the bot isn't launched again after server restart. The method will return error 429 in the first 10 minutes after the bot is launched */
@@ -1915,6 +1916,7 @@ export const promoteChatMember = Rpc.make("promoteChatMember", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.InvalidUserIdError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Marks incoming message as read on behalf of a business account. Requires the can_read_messages business bot right */
@@ -2140,6 +2142,7 @@ export const restrictChatMember = Rpc.make("restrictChatMember", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.InvalidUserIdError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to revoke an invite link created by the bot. If the primary link is revoked, a new link is automatically generated. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights */
@@ -2344,6 +2347,7 @@ export const sendAnimation = Rpc.make("sendAnimation", {
 		}),
 	),
 	success: Objects.Message,
+	error: Schema.Union([Errors.NoAnimationInRequestError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to send audio files, if you want Telegram clients to display them in the music player. Your audio must be in the .MP3 or .M4A format. On success, the sent Message */
@@ -2466,6 +2470,7 @@ export const sendAudio = Rpc.make("sendAudio", {
 		}),
 	),
 	success: Objects.Message,
+	error: Schema.Union([Errors.NoAudioInRequestError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method when you need to tell the user that something is happening on the bot's side. The status is set for 5 seconds or less (when a message arrives from your bot, Telegram clients clear its typing status) */
@@ -2560,6 +2565,7 @@ export const sendChecklist = Rpc.make("sendChecklist", {
 		}),
 	),
 	success: Objects.Message,
+	error: Schema.Union([Errors.ChecklistRequiredError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to send phone contacts. On success, the sent Message */
@@ -3053,6 +3059,7 @@ export const sendLivePhoto = Rpc.make("sendLivePhoto", {
 		),
 	}).pipe(Schema.annotate({ description: "Use this method to send live photos. On success, the sent Message" })),
 	success: Objects.Message,
+	error: Schema.Union([Errors.NoLivePhotoInRequestError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to send point on the map. On success, the sent Message */
@@ -3246,6 +3253,7 @@ export const sendMediaGroup = Rpc.make("sendMediaGroup", {
 		}),
 	),
 	success: Schema.Array(Objects.Message),
+	error: Schema.Union([Errors.MediaRequiredError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to send text messages. On success, the sent Message */
@@ -3582,6 +3590,7 @@ export const sendPaidMedia = Rpc.make("sendPaidMedia", {
 		),
 	}).pipe(Schema.annotate({ description: "Use this method to send paid media. On success, the sent Message" })),
 	success: Objects.Message,
+	error: Schema.Union([Errors.MediaRequiredError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to send photos. On success, the sent Message */
@@ -4178,6 +4187,19 @@ export const sendVideo = Rpc.make("sendVideo", {
 		}),
 	),
 	success: Objects.Message,
+	error: Schema.Union([
+		Errors.CantParseEntitiesNoBoldEndError,
+		Errors.ChatIdEmptyError,
+		Errors.ChatNotFoundError,
+		Errors.MessageCaptionTooLongError,
+		Errors.MessageThreadNotFoundError,
+		Errors.MessageToReplyNotFoundError,
+		Errors.NotFoundError,
+		Errors.NoVideoInRequestError,
+		Errors.UnauthorizedError,
+		Errors.UnsupportedParseModeError,
+		Errors.WrongRemoteFileIdentifierWrongPaddingError,
+	]),
 });
 
 /** As of v.4.0, Telegram clients support rounded square MPEG4 videos of up to 1 minute long. Use this method to send video messages. On success, the sent Message */
@@ -4283,6 +4305,7 @@ export const sendVideoNote = Rpc.make("sendVideoNote", {
 		}),
 	),
 	success: Objects.Message,
+	error: Schema.Union([Errors.NotFoundError, Errors.NoVideoNoteInRequestError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. For this to work, your audio must be in an .OGG file encoded with OPUS, or in .MP3 format, or in .M4A format (other formats may be sent as Audio or Document). On success, the sent Message */
@@ -4396,6 +4419,7 @@ export const sendVoice = Rpc.make("sendVoice", {
 		}),
 	),
 	success: Objects.Message,
+	error: Schema.Union([Errors.NotFoundError, Errors.NoVoiceInRequestError, Errors.UnauthorizedError]),
 });
 
 /** Changes the bio of a managed business account. Requires the can_change_bio business bot right */
@@ -4537,6 +4561,7 @@ export const setChatAdministratorCustomTitle = Rpc.make("setChatAdministratorCus
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.InvalidUserIdError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to change the description of a group, a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights */
@@ -4661,6 +4686,7 @@ export const setChatPhoto = Rpc.make("setChatPhoto", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.NoPhotoInRequestError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to set a new group sticker set for a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Use the field can_set_sticker_set optionally returned in getChat requests to check if the bot can use this method */
@@ -4704,6 +4730,7 @@ export const setChatTitle = Rpc.make("setChatTitle", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.NotFoundError, Errors.TitleEmptyError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to change the access settings of a managed bot */
@@ -5019,6 +5046,7 @@ export const unbanChatMember = Rpc.make("unbanChatMember", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.InvalidUserIdError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to unban a previously banned channel chat in a supergroup or channel. The bot must be an administrator for this to work and must have the appropriate administrator rights */
@@ -5039,6 +5067,7 @@ export const unbanChatSenderChat = Rpc.make("unbanChatSenderChat", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.NotFoundError, Errors.SenderChatIdEmptyError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to unhide the 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights */

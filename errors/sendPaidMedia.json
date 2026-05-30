@@ -1,0 +1,11 @@
+{
+	"method": "sendPaidMedia",
+	"errors": [
+		{
+			"tag": "MediaRequired",
+			"errorCode": 400,
+			"description": "Bad Request: parameter \"media\" is required",
+			"when": "media parameter is missing"
+		}
+	]
+}

@@ -1,0 +1,11 @@
+{
+	"method": "unbanChatSenderChat",
+	"errors": [
+		{
+			"tag": "SenderChatIdEmpty",
+			"errorCode": 400,
+			"description": "Bad Request: sender_chat_id is empty",
+			"when": "sender_chat_id is missing"
+		}
+	]
+}

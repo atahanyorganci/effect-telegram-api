@@ -20,7 +20,7 @@ describe("forwardMessage", () => {
 				});
 
 				assert.strictEqual(typeof message.message_id, "number");
-				assert.strictEqual(message.forward_origin !== undefined || message.forward_date !== undefined, true);
+				assert.isDefined(message.forward_origin);
 			}).pipe(Effect.provide(LiveLayer)),
 		);
 	});

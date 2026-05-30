@@ -1,0 +1,11 @@
+{
+	"method": "sendVideoNote",
+	"errors": [
+		{
+			"tag": "NoVideoNoteInRequest",
+			"errorCode": 400,
+			"description": "Bad Request: there is no video note in the request",
+			"when": "video_note parameter is missing"
+		}
+	]
+}
