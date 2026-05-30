@@ -1,5 +1,10 @@
-import "dotenv/config";
+import { config } from "dotenv";
+import { resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { defineConfig } from "vitest/config";
+
+// Load before test collection so `skipIf` and workers see env vars.
+config({ path: resolve(fileURLToPath(new URL(".", import.meta.url)), ".env"), quiet: true });
 
 export default defineConfig({
 	test: {

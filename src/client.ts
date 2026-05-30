@@ -34,7 +34,9 @@ const failFromEnvelope = (tag: string, error_code: number, description: string) 
 		return Effect.fail(new TelegramApiError({ errorCode: error_code, description }));
 	}
 
-	const ErrorClass = mapping[error_code as keyof typeof mapping];
+	type ErrorConstructor = new (args: { readonly description: string }) => { readonly description: string };
+
+	const ErrorClass = mapping[error_code as keyof typeof mapping] as ErrorConstructor | undefined;
 	if (ErrorClass === undefined) {
 		return Effect.fail(new TelegramApiError({ errorCode: error_code, description }));
 	}

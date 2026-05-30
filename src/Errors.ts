@@ -3,6 +3,36 @@
 import * as Data from "effect/Data";
 import * as Schema from "effect/Schema";
 
+/** chat_id does not refer to an existing chat */
+
+export class ChatNotFound extends Data.TaggedError("ChatNotFound")<{
+	readonly description: string;
+}> {}
+
+export const ChatNotFoundError = Schema.TaggedStruct("ChatNotFound", {
+	description: Schema.String,
+});
+
+/** file_id is not valid */
+
+export class InvalidFileId extends Data.TaggedError("InvalidFileId")<{
+	readonly description: string;
+}> {}
+
+export const InvalidFileIdError = Schema.TaggedStruct("InvalidFileId", {
+	description: Schema.String,
+});
+
+/** text is missing or empty */
+
+export class MessageTextEmpty extends Data.TaggedError("MessageTextEmpty")<{
+	readonly description: string;
+}> {}
+
+export const MessageTextEmptyError = Schema.TaggedStruct("MessageTextEmpty", {
+	description: Schema.String,
+});
+
 /** Token segment is empty or not in bot id:hash form */
 
 export class NotFound extends Data.TaggedError("NotFound")<{
@@ -24,8 +54,17 @@ export const UnauthorizedError = Schema.TaggedStruct("Unauthorized", {
 });
 
 export const methodErrors = {
+	getChat: {
+		400: ChatNotFound,
+	},
+	getFile: {
+		400: InvalidFileId,
+	},
 	getMe: {
 		401: Unauthorized,
 		404: NotFound,
+	},
+	sendMessage: {
+		400: MessageTextEmpty,
 	},
 } as const;

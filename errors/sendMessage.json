@@ -1,0 +1,11 @@
+{
+	"method": "sendMessage",
+	"errors": [
+		{
+			"tag": "MessageTextEmpty",
+			"errorCode": 400,
+			"description": "Bad Request: message text is empty",
+			"when": "text is missing or empty"
+		}
+	]
+}

@@ -375,6 +375,7 @@ export const getChat = Rpc.make("getChat", {
 		chat_id: Schema.Union([Schema.Int, Schema.String]),
 	},
 	success: Objects.ChatFullInfo,
+	error: Errors.ChatNotFoundError,
 });
 
 /** Use this method to get a list of administrators in a chat */
@@ -434,6 +435,7 @@ export const getFile = Rpc.make("getFile", {
 		file_id: Schema.String,
 	},
 	success: Objects.File,
+	error: Errors.InvalidFileIdError,
 });
 
 /** Use this method to get custom emoji stickers, which can be used as a forum topic icon by any user */
@@ -1074,6 +1076,7 @@ export const sendMessage = Rpc.make("sendMessage", {
 		),
 	},
 	success: Objects.Message,
+	error: Errors.MessageTextEmptyError,
 });
 
 /** Use this method to stream a partial message to a user while the message is being generated. Note that the streamed draft is ephemeral and acts as a temporary 30-second preview - once the output is finalized, you must call sendMessage with the complete message to persist it in the user's chat */
