@@ -76,7 +76,7 @@ Valid when the environment cannot support success:
 
 ### Shared helpers
 
-- `requireBotToken()` / `requireChatId()` — fail fast if `.env` is missing
+- `telegramConfig` — load typed env from `.env` via Effect `Config`
 - `authErrorTests(fn)` — standard 401/404 token cases
 - Chain methods when you need fixtures (`sendDice` → `forwardMessage`)
 

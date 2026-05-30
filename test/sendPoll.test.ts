@@ -1,7 +1,7 @@
 import { assert, describe, it } from "@effect/vitest";
 import * as Effect from "effect/Effect";
 import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, requireBotToken, requireChatId } from "./helpers.ts";
+import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
 
 const callSendPoll = (token: string, payload: unknown) =>
 	Telegram.Client.callMethod(token, Telegram.Methods.sendPoll, payload);
@@ -10,8 +10,9 @@ describe("sendPoll", () => {
 	describe("success", () => {
 		it.effect("returns the sent poll message", () =>
 			Effect.gen(function* () {
-				const message = yield* callSendPoll(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const message = yield* callSendPoll(botToken, {
+					chat_id: chatId,
 					question: "Favorite color?",
 					options: ["Red", "Blue"],
 				});
@@ -25,8 +26,9 @@ describe("sendPoll", () => {
 	describe("Telegram API errors", () => {
 		it.effect("TextMustBeNonEmpty when question is missing", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendPoll(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendPoll(botToken, {
+					chat_id: chatId,
 					options: ["A", "B"],
 				}).pipe(Effect.flip);
 
@@ -40,8 +42,9 @@ describe("sendPoll", () => {
 
 		it.effect("CantParseOptionsJsonObject when options is missing", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendPoll(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendPoll(botToken, {
+					chat_id: chatId,
 					question: "Question?",
 				}).pipe(Effect.flip);
 
@@ -55,8 +58,9 @@ describe("sendPoll", () => {
 
 		it.effect("PollMustHaveAtLeastOneAnswerOption when options is empty", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendPoll(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendPoll(botToken, {
+					chat_id: chatId,
 					question: "Question?",
 					options: [],
 				}).pipe(Effect.flip);
@@ -71,7 +75,8 @@ describe("sendPoll", () => {
 
 		it.effect("ChatNotFound when chat_id does not exist", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendPoll(requireBotToken(), {
+				const { botToken } = yield* telegramConfig;
+				const error = yield* callSendPoll(botToken, {
 					chat_id: 0,
 					question: "Question?",
 					options: ["A", "B"],

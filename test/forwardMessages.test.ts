@@ -1,7 +1,7 @@
 import { assert, describe, it } from "@effect/vitest";
 import * as Effect from "effect/Effect";
 import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, requireBotToken, requireChatId } from "./helpers.ts";
+import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
 
 const callForwardMessages = (token: string, payload: unknown) =>
 	Telegram.Client.callMethod(token, Telegram.Methods.forwardMessages, payload);
@@ -10,8 +10,7 @@ describe("forwardMessages", () => {
 	describe("success", () => {
 		it.effect("returns forwarded message ids", () =>
 			Effect.gen(function* () {
-				const token = requireBotToken();
-				const chatId = requireChatId();
+				const { botToken: token, chatId } = yield* telegramConfig;
 				const source = yield* Telegram.Client.callMethod(token, Telegram.Methods.sendDice, { chat_id: chatId });
 				const results = yield* callForwardMessages(token, {
 					chat_id: chatId,
@@ -28,8 +27,9 @@ describe("forwardMessages", () => {
 	describe("Telegram API errors", () => {
 		it.effect("FromChatIdRequired when from_chat_id is missing", () =>
 			Effect.gen(function* () {
-				const error = yield* callForwardMessages(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callForwardMessages(botToken, {
+					chat_id: chatId,
 					message_ids: [1],
 				}).pipe(Effect.flip);
 
@@ -43,8 +43,8 @@ describe("forwardMessages", () => {
 
 		it.effect("NoMessagesToForward when message_ids does not exist", () =>
 			Effect.gen(function* () {
-				const chatId = requireChatId();
-				const error = yield* callForwardMessages(requireBotToken(), {
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callForwardMessages(botToken, {
 					chat_id: chatId,
 					from_chat_id: chatId,
 					message_ids: [999_999_999],

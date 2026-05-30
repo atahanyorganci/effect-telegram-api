@@ -1,7 +1,7 @@
 import { assert, describe, it } from "@effect/vitest";
 import * as Effect from "effect/Effect";
 import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, requireBotToken, requireChatId } from "./helpers.ts";
+import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
 
 const callSendMessage = (token: string, payload: unknown) =>
 	Telegram.Client.callMethod(token, Telegram.Methods.sendMessage, payload);
@@ -10,8 +10,9 @@ describe("sendMessage", () => {
 	describe("success", () => {
 		it.effect("sends a message when chat_id and text are valid", () =>
 			Effect.gen(function* () {
-				const message = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const message = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "telegram-api test",
 				});
 
@@ -22,9 +23,10 @@ describe("sendMessage", () => {
 
 		it.effect("sends a message that is 4096 characters long", () =>
 			Effect.gen(function* () {
+				const { botToken, chatId } = yield* telegramConfig;
 				const text = "x".repeat(4096);
-				const message = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const message = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text,
 				});
 
@@ -35,8 +37,9 @@ describe("sendMessage", () => {
 
 		it.effect("sends a message with HTML parse_mode", () =>
 			Effect.gen(function* () {
-				const message = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const message = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "<b>telegram-api</b> test",
 					parse_mode: "HTML",
 				});
@@ -48,8 +51,9 @@ describe("sendMessage", () => {
 
 		it.effect("sends a message with disable_notification", () =>
 			Effect.gen(function* () {
-				const message = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const message = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "telegram-api silent test",
 					disable_notification: true,
 				});
@@ -61,8 +65,9 @@ describe("sendMessage", () => {
 
 		it.effect("sends a message with link preview disabled", () =>
 			Effect.gen(function* () {
-				const message = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const message = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "https://example.com",
 					link_preview_options: { is_disabled: true },
 				});
@@ -73,8 +78,9 @@ describe("sendMessage", () => {
 
 		it.effect("sends a message with Markdown parse_mode", () =>
 			Effect.gen(function* () {
-				const message = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const message = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "*bold*",
 					parse_mode: "Markdown",
 				});
@@ -86,8 +92,9 @@ describe("sendMessage", () => {
 
 		it.effect("sends a message with MarkdownV2 parse_mode", () =>
 			Effect.gen(function* () {
-				const message = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const message = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "*bold*",
 					parse_mode: "MarkdownV2",
 				});
@@ -99,8 +106,9 @@ describe("sendMessage", () => {
 
 		it.effect("sends a message with protect_content", () =>
 			Effect.gen(function* () {
-				const message = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const message = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "telegram-api protected test",
 					protect_content: true,
 				});
@@ -112,8 +120,9 @@ describe("sendMessage", () => {
 
 		it.effect("sends a message with a valid inline keyboard", () =>
 			Effect.gen(function* () {
-				const message = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const message = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "telegram-api inline keyboard test",
 					reply_markup: {
 						inline_keyboard: [[{ text: "ok", callback_data: "ok" }]],
@@ -126,8 +135,9 @@ describe("sendMessage", () => {
 
 		it.effect("sends a message with manual entities", () =>
 			Effect.gen(function* () {
-				const message = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const message = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "hello",
 					entities: [{ type: "bold", offset: 0, length: 5 }],
 				});
@@ -139,8 +149,9 @@ describe("sendMessage", () => {
 
 		it.effect("sends a message with force reply markup", () =>
 			Effect.gen(function* () {
-				const message = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const message = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "telegram-api force reply test",
 					reply_markup: { force_reply: true },
 				});
@@ -151,8 +162,9 @@ describe("sendMessage", () => {
 
 		it.effect("sends a message with reply keyboard markup", () =>
 			Effect.gen(function* () {
-				const message = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const message = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "telegram-api reply keyboard test",
 					reply_markup: {
 						keyboard: [[{ text: "A" }]],
@@ -166,8 +178,9 @@ describe("sendMessage", () => {
 
 		it.effect("sends a message with remove keyboard markup", () =>
 			Effect.gen(function* () {
-				const message = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const message = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "telegram-api remove keyboard test",
 					reply_markup: { remove_keyboard: true },
 				});
@@ -178,8 +191,9 @@ describe("sendMessage", () => {
 
 		it.effect("sends a message with link preview above text", () =>
 			Effect.gen(function* () {
-				const message = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const message = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "https://example.com",
 					link_preview_options: { show_above_text: true },
 				});
@@ -190,8 +204,9 @@ describe("sendMessage", () => {
 
 		it.effect("sends a message with nested HTML tags", () =>
 			Effect.gen(function* () {
-				const message = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const message = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "<b><i>nested</i></b>",
 					parse_mode: "HTML",
 				});
@@ -203,8 +218,7 @@ describe("sendMessage", () => {
 
 		it.effect("sends a reply to a previously sent message", () =>
 			Effect.gen(function* () {
-				const token = requireBotToken();
-				const chatId = requireChatId();
+				const { botToken: token, chatId } = yield* telegramConfig;
 				const original = yield* callSendMessage(token, {
 					chat_id: chatId,
 					text: "telegram-api reply target",
@@ -223,8 +237,9 @@ describe("sendMessage", () => {
 
 		it.effect("sends a message with switch_inline_query button", () =>
 			Effect.gen(function* () {
-				const message = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const message = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "telegram-api switch inline test",
 					reply_markup: {
 						inline_keyboard: [[{ text: "Search", switch_inline_query: "query" }]],
@@ -237,8 +252,9 @@ describe("sendMessage", () => {
 
 		it.effect("sends a message with copy_text button", () =>
 			Effect.gen(function* () {
-				const message = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const message = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "telegram-api copy button test",
 					reply_markup: {
 						inline_keyboard: [[{ text: "Copy", copy_text: { text: "copied text" } }]],
@@ -251,8 +267,9 @@ describe("sendMessage", () => {
 
 		it.effect("sends a message with maximum length callback_data", () =>
 			Effect.gen(function* () {
-				const message = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const message = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "telegram-api max callback_data test",
 					reply_markup: {
 						inline_keyboard: [[{ text: "btn", callback_data: "x".repeat(64) }]],
@@ -265,8 +282,9 @@ describe("sendMessage", () => {
 
 		it.effect("sends a message with spoiler entity", () =>
 			Effect.gen(function* () {
-				const message = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const message = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "secret",
 					entities: [{ type: "spoiler", offset: 0, length: 6 }],
 				});
@@ -278,8 +296,9 @@ describe("sendMessage", () => {
 
 		it.effect("sends a message with underline and strikethrough entities", () =>
 			Effect.gen(function* () {
-				const message = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const message = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "formatted",
 					entities: [
 						{ type: "underline", offset: 0, length: 9 },
@@ -293,8 +312,9 @@ describe("sendMessage", () => {
 
 		it.effect("sends a message with blockquote entities", () =>
 			Effect.gen(function* () {
-				const message = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const message = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "quoted",
 					entities: [
 						{ type: "blockquote", offset: 0, length: 6 },
@@ -308,8 +328,9 @@ describe("sendMessage", () => {
 
 		it.effect("sends a message with HTML spoiler and blockquote tags", () =>
 			Effect.gen(function* () {
-				const message = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const message = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "<tg-spoiler>secret</tg-spoiler>\n<blockquote expandable>quote</blockquote>",
 					parse_mode: "HTML",
 				});
@@ -320,8 +341,9 @@ describe("sendMessage", () => {
 
 		it.effect("sends a message with link preview url override", () =>
 			Effect.gen(function* () {
-				const message = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const message = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "preview override",
 					link_preview_options: { url: "https://example.com", prefer_large_media: true },
 				});
@@ -332,8 +354,9 @@ describe("sendMessage", () => {
 
 		it.effect("sends a message with force reply placeholder", () =>
 			Effect.gen(function* () {
-				const message = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const message = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "telegram-api placeholder test",
 					reply_markup: { force_reply: true, input_field_placeholder: "type here" },
 				});
@@ -344,8 +367,9 @@ describe("sendMessage", () => {
 
 		it.effect("sends a message with request contact and location keyboard", () =>
 			Effect.gen(function* () {
-				const message = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const message = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "telegram-api request keyboard test",
 					reply_markup: {
 						keyboard: [
@@ -364,8 +388,9 @@ describe("sendMessage", () => {
 
 		it.effect("sends a message with escaped MarkdownV2 punctuation", () =>
 			Effect.gen(function* () {
-				const message = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const message = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "hello\\.",
 					parse_mode: "MarkdownV2",
 				});
@@ -377,8 +402,9 @@ describe("sendMessage", () => {
 
 		it.effect("sends a message when replying to a missing message with allow_sending_without_reply", () =>
 			Effect.gen(function* () {
-				const message = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const message = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "telegram-api optional reply test",
 					reply_parameters: { message_id: 999999999, allow_sending_without_reply: true },
 				});
@@ -389,8 +415,9 @@ describe("sendMessage", () => {
 
 		it.effect("sends a message with case-insensitive parse_mode", () =>
 			Effect.gen(function* () {
-				const message = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const message = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "<b>lower</b>",
 					parse_mode: "html",
 				});
@@ -402,8 +429,9 @@ describe("sendMessage", () => {
 
 		it.effect("sends a message with automatic entity types", () =>
 			Effect.gen(function* () {
-				const message = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const message = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "/start #tag $USD a@b.com https://example.com +1234567890",
 					entities: [
 						{ type: "bot_command", offset: 0, length: 6 },
@@ -423,7 +451,8 @@ describe("sendMessage", () => {
 	describe("Telegram API errors", () => {
 		it.effect("MessageTextEmpty when text is missing", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), { chat_id: 0 }).pipe(Effect.flip);
+				const { botToken } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, { chat_id: 0 }).pipe(Effect.flip);
 
 				expectErrorTag<Telegram.Errors.MessageTextEmpty>(
 					error,
@@ -435,8 +464,9 @@ describe("sendMessage", () => {
 
 		it.effect("MessageTextEmpty when text is an empty string", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "",
 				}).pipe(Effect.flip);
 
@@ -450,7 +480,8 @@ describe("sendMessage", () => {
 
 		it.effect("ChatIdEmpty when chat_id is missing", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), { text: "test" }).pipe(Effect.flip);
+				const { botToken } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, { text: "test" }).pipe(Effect.flip);
 
 				expectErrorTag<Telegram.Errors.ChatIdEmpty>(error, "ChatIdEmpty", "Bad Request: chat_id is empty");
 			}).pipe(Effect.provide(LiveLayer)),
@@ -458,7 +489,8 @@ describe("sendMessage", () => {
 
 		it.effect("ChatIdEmpty when chat_id is an empty string", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), { chat_id: "", text: "test" }).pipe(Effect.flip);
+				const { botToken } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, { chat_id: "", text: "test" }).pipe(Effect.flip);
 
 				expectErrorTag<Telegram.Errors.ChatIdEmpty>(error, "ChatIdEmpty", "Bad Request: chat_id is empty");
 			}).pipe(Effect.provide(LiveLayer)),
@@ -466,7 +498,8 @@ describe("sendMessage", () => {
 
 		it.effect("ChatNotFound when chat_id does not exist", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), { chat_id: 0, text: "test" }).pipe(Effect.flip);
+				const { botToken } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, { chat_id: 0, text: "test" }).pipe(Effect.flip);
 
 				expectErrorTag<Telegram.Errors.ChatNotFound>(error, "ChatNotFound", "Bad Request: chat not found");
 			}).pipe(Effect.provide(LiveLayer)),
@@ -474,7 +507,8 @@ describe("sendMessage", () => {
 
 		it.effect("ChatNotFound when chat_id is an unresolvable @username", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
+				const { botToken } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
 					chat_id: "@this_channel_does_not_exist_12345xyz",
 					text: "test",
 				}).pipe(Effect.flip);
@@ -485,9 +519,8 @@ describe("sendMessage", () => {
 
 		it.effect("ChatNotFound when chat_id is a non-numeric string", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), { chat_id: "not_a_chat", text: "test" }).pipe(
-					Effect.flip,
-				);
+				const { botToken } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, { chat_id: "not_a_chat", text: "test" }).pipe(Effect.flip);
 
 				expectErrorTag<Telegram.Errors.ChatNotFound>(error, "ChatNotFound", "Bad Request: chat not found");
 			}).pipe(Effect.provide(LiveLayer)),
@@ -495,8 +528,9 @@ describe("sendMessage", () => {
 
 		it.effect("MessageTooLong when text is longer than 4096 characters", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "x".repeat(4097),
 				}).pipe(Effect.flip);
 
@@ -506,8 +540,9 @@ describe("sendMessage", () => {
 
 		it.effect("UnsupportedParseMode when parse_mode is invalid", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					parse_mode: "INVALID",
 				}).pipe(Effect.flip);
@@ -522,8 +557,9 @@ describe("sendMessage", () => {
 
 		it.effect("CantParseEntitiesNoEnd when Markdown entity is unclosed", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "*unclosed",
 					parse_mode: "Markdown",
 				}).pipe(Effect.flip);
@@ -538,8 +574,9 @@ describe("sendMessage", () => {
 
 		it.effect("CantParseEntitiesNoBoldEnd when MarkdownV2 bold entity is unclosed", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "*unclosed",
 					parse_mode: "MarkdownV2",
 				}).pipe(Effect.flip);
@@ -554,8 +591,9 @@ describe("sendMessage", () => {
 
 		it.effect("CantParseEntitiesNoHtmlEndTag when HTML tag is unclosed", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "<b>unclosed",
 					parse_mode: "HTML",
 				}).pipe(Effect.flip);
@@ -570,8 +608,9 @@ describe("sendMessage", () => {
 
 		it.effect("MessageThreadNotFound when message_thread_id does not exist", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					message_thread_id: 999999999,
 				}).pipe(Effect.flip);
@@ -586,8 +625,9 @@ describe("sendMessage", () => {
 
 		it.effect("MessageToReplyNotFound when reply_parameters.message_id does not exist", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					reply_parameters: { message_id: 999999999 },
 				}).pipe(Effect.flip);
@@ -602,8 +642,9 @@ describe("sendMessage", () => {
 
 		it.effect("EntityBeginsAfterTextEnd when entity offset is beyond the text", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "hello",
 					entities: [{ type: "bold", offset: 100, length: 1 }],
 				}).pipe(Effect.flip);
@@ -618,8 +659,9 @@ describe("sendMessage", () => {
 
 		it.effect("EntityEndsAfterTextEnd when entity length exceeds the text", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "hello",
 					entities: [{ type: "bold", offset: 0, length: 100 }],
 				}).pipe(Effect.flip);
@@ -634,8 +676,9 @@ describe("sendMessage", () => {
 
 		it.effect("UnsupportedMessageEntityType when entity type is invalid", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "hello",
 					entities: [{ type: "invalid_type", offset: 0, length: 1 }],
 				}).pipe(Effect.flip);
@@ -650,8 +693,9 @@ describe("sendMessage", () => {
 
 		it.effect("ButtonDataInvalid when inline keyboard callback_data is too long", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					reply_markup: {
 						inline_keyboard: [[{ text: "btn", callback_data: "x".repeat(100) }]],
@@ -668,8 +712,9 @@ describe("sendMessage", () => {
 
 		it.effect("BusinessConnectionNotFound when business_connection_id is invalid", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					business_connection_id: "invalid",
 				}).pipe(Effect.flip);
@@ -684,8 +729,9 @@ describe("sendMessage", () => {
 
 		it.effect("EffectIdInvalid when message_effect_id is invalid", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					message_effect_id: "9999999999999999999",
 				}).pipe(Effect.flip);
@@ -696,8 +742,9 @@ describe("sendMessage", () => {
 
 		it.effect("FloodskipNotAllowed when allow_paid_broadcast is true without sufficient Stars", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					allow_paid_broadcast: true,
 				}).pipe(Effect.flip);
@@ -712,8 +759,9 @@ describe("sendMessage", () => {
 
 		it.effect("InlineButtonUrlInvalid when inline keyboard url is not a valid HTTP URL", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					reply_markup: { inline_keyboard: [[{ text: "link", url: "not-a-url" }]] },
 				}).pipe(Effect.flip);
@@ -728,8 +776,9 @@ describe("sendMessage", () => {
 
 		it.effect("InlineButtonUrlFtpUnsupported when inline keyboard url uses FTP", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					reply_markup: { inline_keyboard: [[{ text: "link", url: "ftp://example.com" }]] },
 				}).pipe(Effect.flip);
@@ -744,8 +793,9 @@ describe("sendMessage", () => {
 
 		it.effect("InlineButtonTextUnallowed when inline keyboard button has empty callback_data", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					reply_markup: { inline_keyboard: [[{ text: "btn", callback_data: "" }]] },
 				}).pipe(Effect.flip);
@@ -760,8 +810,9 @@ describe("sendMessage", () => {
 
 		it.effect("EntityUrlInvalid when text_link entity url is not valid", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "click",
 					entities: [{ type: "text_link", offset: 0, length: 5, url: "not-a-url" }],
 				}).pipe(Effect.flip);
@@ -776,8 +827,9 @@ describe("sendMessage", () => {
 
 		it.effect("EntityUrlEmpty when text_link entity url is empty", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "click",
 					entities: [{ type: "text_link", offset: 0, length: 5, url: "" }],
 				}).pipe(Effect.flip);
@@ -792,8 +844,9 @@ describe("sendMessage", () => {
 
 		it.effect("EntityIncorrectOffset when entity offset is negative", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "hello",
 					entities: [{ type: "bold", offset: -1, length: 1 }],
 				}).pipe(Effect.flip);
@@ -808,8 +861,9 @@ describe("sendMessage", () => {
 
 		it.effect("CustomEmojiIdMustBeNumber when custom_emoji_id is not numeric", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "x",
 					entities: [{ type: "custom_emoji", offset: 0, length: 1, custom_emoji_id: "9999999999999999999" }],
 				}).pipe(Effect.flip);
@@ -824,8 +878,9 @@ describe("sendMessage", () => {
 
 		it.effect("UserNotFound when text_mention entity user does not exist", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "user",
 					entities: [{ type: "text_mention", offset: 0, length: 4, user: { id: 0, is_bot: false, first_name: "X" } }],
 				}).pipe(Effect.flip);
@@ -836,8 +891,9 @@ describe("sendMessage", () => {
 
 		it.effect("CantParseEntitiesReservedCharDot when MarkdownV2 period is unescaped", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "hello.",
 					parse_mode: "MarkdownV2",
 				}).pipe(Effect.flip);
@@ -852,8 +908,9 @@ describe("sendMessage", () => {
 
 		it.effect("CantParseEntitiesReservedCharDash when MarkdownV2 hyphen is unescaped", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "a-b",
 					parse_mode: "MarkdownV2",
 				}).pipe(Effect.flip);
@@ -868,8 +925,9 @@ describe("sendMessage", () => {
 
 		it.effect("CantParseEntitiesReservedCharExclamation when MarkdownV2 exclamation is unescaped", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "hello!",
 					parse_mode: "MarkdownV2",
 				}).pipe(Effect.flip);
@@ -884,8 +942,9 @@ describe("sendMessage", () => {
 
 		it.effect("CantParseEntitiesUnsupportedScriptTag when HTML contains script tag", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "<script>alert(1)</script>",
 					parse_mode: "HTML",
 				}).pipe(Effect.flip);
@@ -900,8 +959,9 @@ describe("sendMessage", () => {
 
 		it.effect("CantParseEntitiesUnsupportedTag when HTML contains unknown tag", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "<invalid>test</invalid>",
 					parse_mode: "HTML",
 				}).pipe(Effect.flip);
@@ -916,8 +976,9 @@ describe("sendMessage", () => {
 
 		it.effect("CantParseEntitiesUnmatchedEndTag when HTML closing tags are mismatched", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "<b><i>test</b></i>",
 					parse_mode: "HTML",
 				}).pipe(Effect.flip);
@@ -932,8 +993,9 @@ describe("sendMessage", () => {
 
 		it.effect("ReplyMessageIdMissing when reply_parameters has no message_id", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					reply_parameters: { quote: "hello" },
 				}).pipe(Effect.flip);
@@ -948,8 +1010,9 @@ describe("sendMessage", () => {
 
 		it.effect("SuggestedPostChannelOnly when suggested_post_parameters is used in a private chat", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					suggested_post_parameters: {},
 				}).pipe(Effect.flip);
@@ -964,8 +1027,9 @@ describe("sendMessage", () => {
 
 		it.effect("InvalidStarsAmount when suggested_post_parameters price is invalid", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					suggested_post_parameters: { price: { currency: "XTR", amount: 1 } },
 				}).pipe(Effect.flip);
@@ -980,8 +1044,9 @@ describe("sendMessage", () => {
 
 		it.effect("WebpageUrlInvalid when link_preview_options.url is invalid", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					link_preview_options: { url: "not-a-url" },
 				}).pipe(Effect.flip);
@@ -996,8 +1061,9 @@ describe("sendMessage", () => {
 
 		it.effect("PreferSmallMediaMustBeBoolean when link_preview_options.prefer_small_media is not boolean", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "https://example.com",
 					link_preview_options: { prefer_small_media: "yes" },
 				}).pipe(Effect.flip);
@@ -1012,8 +1078,9 @@ describe("sendMessage", () => {
 
 		it.effect("LinkPreviewIsDisabledMustBeBoolean when link_preview_options.is_disabled is not boolean", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					link_preview_options: { is_disabled: "yes" },
 				}).pipe(Effect.flip);
@@ -1028,8 +1095,9 @@ describe("sendMessage", () => {
 
 		it.effect("ForceReplyMustBeBoolean when force_reply is not boolean", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					reply_markup: { force_reply: "yes" },
 				}).pipe(Effect.flip);
@@ -1044,8 +1112,9 @@ describe("sendMessage", () => {
 
 		it.effect("RemoveKeyboardMustBeBoolean when remove_keyboard is not boolean", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					reply_markup: { remove_keyboard: "yes" },
 				}).pipe(Effect.flip);
@@ -1060,8 +1129,9 @@ describe("sendMessage", () => {
 
 		it.effect("InlineKeyboardMustBeArray when inline_keyboard is not an array", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					reply_markup: { inline_keyboard: "bad" },
 				}).pipe(Effect.flip);
@@ -1076,8 +1146,9 @@ describe("sendMessage", () => {
 
 		it.effect("SelectiveMustBeBoolean when reply keyboard selective is not boolean", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					reply_markup: { keyboard: [[{ text: "A" }]], selective: "yes" },
 				}).pipe(Effect.flip);
@@ -1092,8 +1163,9 @@ describe("sendMessage", () => {
 
 		it.effect("OneTimeKeyboardMustBeBoolean when one_time_keyboard is not boolean", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					reply_markup: { keyboard: [[{ text: "A" }]], one_time_keyboard: "yes" },
 				}).pipe(Effect.flip);
@@ -1108,8 +1180,9 @@ describe("sendMessage", () => {
 
 		it.effect("IsPersistentMustBeBoolean when is_persistent is not boolean", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					reply_markup: { keyboard: [[{ text: "A" }]], is_persistent: "yes" },
 				}).pipe(Effect.flip);
@@ -1124,8 +1197,9 @@ describe("sendMessage", () => {
 
 		it.effect("WebAppUrlNotHttps when web_app url is not HTTPS", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					reply_markup: { inline_keyboard: [[{ text: "app", web_app: { url: "bad" } }]] },
 				}).pipe(Effect.flip);
@@ -1140,8 +1214,9 @@ describe("sendMessage", () => {
 
 		it.effect("WebAppUrlHttpNotAllowed when web_app url is HTTP", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					reply_markup: { inline_keyboard: [[{ text: "app", web_app: { url: "http://example.com" } }]] },
 				}).pipe(Effect.flip);
@@ -1156,8 +1231,9 @@ describe("sendMessage", () => {
 
 		it.effect("ButtonTypeInvalid when pay button is used without invoice", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					reply_markup: { inline_keyboard: [[{ text: "pay", pay: true }]] },
 				}).pipe(Effect.flip);
@@ -1172,8 +1248,9 @@ describe("sendMessage", () => {
 
 		it.effect("ButtonCopyTextInvalid when copy_text is empty", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					reply_markup: { inline_keyboard: [[{ text: "copy", copy_text: { text: "" } }]] },
 				}).pipe(Effect.flip);
@@ -1188,8 +1265,9 @@ describe("sendMessage", () => {
 
 		it.effect("ButtonQuantityMaxInvalid when request_users max_quantity is too large", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					reply_markup: {
 						keyboard: [[{ text: "users", request_users: { request_id: 1, user_is_bot: true, max_quantity: 999 } }]],
@@ -1207,8 +1285,9 @@ describe("sendMessage", () => {
 
 		it.effect("LoginUrlBotNotFound when login_url bot_username does not exist", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					reply_markup: {
 						inline_keyboard: [
@@ -1237,7 +1316,8 @@ describe("sendMessage", () => {
 
 		it.effect("ChatNotFound when chat_id is negative", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), { chat_id: -1, text: "test" }).pipe(Effect.flip);
+				const { botToken } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, { chat_id: -1, text: "test" }).pipe(Effect.flip);
 
 				expectErrorTag<Telegram.Errors.ChatNotFound>(error, "ChatNotFound", "Bad Request: chat not found");
 			}).pipe(Effect.provide(LiveLayer)),
@@ -1245,8 +1325,9 @@ describe("sendMessage", () => {
 
 		it.effect("TextMustBeNonEmpty when text is whitespace only", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "   ",
 				}).pipe(Effect.flip);
 
@@ -1260,8 +1341,9 @@ describe("sendMessage", () => {
 
 		it.effect("BotDomainInvalid when login_url is missing bot_username", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					reply_markup: {
 						inline_keyboard: [
@@ -1281,8 +1363,9 @@ describe("sendMessage", () => {
 
 		it.effect("CantParseEntitiesInvalidCustomEmoji when HTML tg-emoji id is invalid", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: '<tg-emoji emoji-id="9999999999999999999">x</tg-emoji>',
 					parse_mode: "HTML",
 				}).pipe(Effect.flip);
@@ -1297,8 +1380,9 @@ describe("sendMessage", () => {
 
 		it.effect("CustomEmojiIdMissing when custom_emoji entity has no custom_emoji_id", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "x",
 					entities: [{ type: "custom_emoji", offset: 0, length: 1 }],
 				}).pipe(Effect.flip);
@@ -1313,8 +1397,9 @@ describe("sendMessage", () => {
 
 		it.effect("InlineButtonTextMissing when inline keyboard button has no text", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					reply_markup: { inline_keyboard: [[{ callback_data: "x" }]] },
 				}).pipe(Effect.flip);
@@ -1329,8 +1414,9 @@ describe("sendMessage", () => {
 
 		it.effect("TextLinkUrlMissing when text_link entity has no url", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "link",
 					entities: [{ type: "text_link", offset: 0, length: 4 }],
 				}).pipe(Effect.flip);
@@ -1345,8 +1431,9 @@ describe("sendMessage", () => {
 
 		it.effect("TextMentionUserMissing when text_mention entity has no user", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "user",
 					entities: [{ type: "text_mention", offset: 0, length: 4 }],
 				}).pipe(Effect.flip);
@@ -1361,8 +1448,9 @@ describe("sendMessage", () => {
 
 		it.effect("KeyboardRequestIdMissing when request_chat button has no request_id", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					reply_markup: {
 						keyboard: [[{ text: "chat", request_chat: { chat_is_channel: true } }]],
@@ -1380,8 +1468,9 @@ describe("sendMessage", () => {
 
 		it.effect("ChatIsForumMustBeBoolean when request_chat.chat_is_forum is not boolean", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					reply_markup: {
 						keyboard: [
@@ -1401,8 +1490,9 @@ describe("sendMessage", () => {
 
 		it.effect("KeyboardWebAppUrlHttpNotAllowed when reply keyboard web_app url is HTTP", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					reply_markup: {
 						keyboard: [[{ text: "app", web_app: { url: "http://example.com" } }]],
@@ -1420,8 +1510,9 @@ describe("sendMessage", () => {
 
 		it.effect("PreferLargeMediaMustBeBoolean when prefer_large_media is not boolean", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "https://example.com",
 					link_preview_options: { prefer_large_media: "yes" },
 				}).pipe(Effect.flip);
@@ -1436,8 +1527,9 @@ describe("sendMessage", () => {
 
 		it.effect("ShowAboveTextMustBeBoolean when show_above_text is not boolean", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "https://example.com",
 					link_preview_options: { show_above_text: "yes" },
 				}).pipe(Effect.flip);
@@ -1452,8 +1544,9 @@ describe("sendMessage", () => {
 
 		it.effect("ResizeKeyboardMustBeBoolean when resize_keyboard is not boolean", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					reply_markup: { keyboard: [[{ text: "A" }]], resize_keyboard: "yes" },
 				}).pipe(Effect.flip);
@@ -1468,8 +1561,9 @@ describe("sendMessage", () => {
 
 		it.effect("KeyboardMustBeArray when keyboard is not an array", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					reply_markup: { keyboard: "bad" },
 				}).pipe(Effect.flip);
@@ -1484,8 +1578,9 @@ describe("sendMessage", () => {
 
 		it.effect("AllowUserChatsMustBeBoolean when allow_user_chats is not boolean", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					reply_markup: {
 						inline_keyboard: [[{ text: "q", switch_inline_query_chosen_chat: { allow_user_chats: "yes" } }]],
@@ -1502,8 +1597,9 @@ describe("sendMessage", () => {
 
 		it.effect("RequestWriteAccessMustBeBoolean when request_write_access is not boolean", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					reply_markup: {
 						inline_keyboard: [
@@ -1532,8 +1628,9 @@ describe("sendMessage", () => {
 
 		it.effect("LoginUrlBotNotFound when login_url bot_username is not a bot", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					reply_markup: {
 						inline_keyboard: [
@@ -1562,8 +1659,9 @@ describe("sendMessage", () => {
 
 		it.effect("CantParseEntitiesNoBoldEnd when MarkdownV2 nested formatting is unclosed", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "*bold _italic\\_*",
 					parse_mode: "MarkdownV2",
 				}).pipe(Effect.flip);
@@ -1578,8 +1676,9 @@ describe("sendMessage", () => {
 
 		it.effect("CantParseEntitiesReservedCharParen when MarkdownV2 parenthesis is unescaped", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test()",
 					parse_mode: "MarkdownV2",
 				}).pipe(Effect.flip);
@@ -1594,8 +1693,9 @@ describe("sendMessage", () => {
 
 		it.effect("CantParseEntitiesReservedCharHash when MarkdownV2 hash is unescaped", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "#tag",
 					parse_mode: "MarkdownV2",
 				}).pipe(Effect.flip);
@@ -1610,8 +1710,9 @@ describe("sendMessage", () => {
 
 		it.effect("CantParseEntitiesReservedCharPlus when MarkdownV2 plus is unescaped", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "a+b",
 					parse_mode: "MarkdownV2",
 				}).pipe(Effect.flip);
@@ -1626,8 +1727,9 @@ describe("sendMessage", () => {
 
 		it.effect("CantParseEntitiesReservedCharEquals when MarkdownV2 equals is unescaped", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "a=b",
 					parse_mode: "MarkdownV2",
 				}).pipe(Effect.flip);
@@ -1642,8 +1744,9 @@ describe("sendMessage", () => {
 
 		it.effect("CantParseEntitiesReservedCharBrace when MarkdownV2 brace is unescaped", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "a{b",
 					parse_mode: "MarkdownV2",
 				}).pipe(Effect.flip);
@@ -1658,8 +1761,9 @@ describe("sendMessage", () => {
 
 		it.effect("CantParseEntitiesReservedCharGreater when MarkdownV2 greater-than is unescaped", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "a>b",
 					parse_mode: "MarkdownV2",
 				}).pipe(Effect.flip);
@@ -1674,8 +1778,9 @@ describe("sendMessage", () => {
 
 		it.effect("CantParseEntitiesReservedCharPipe when MarkdownV2 pipe is unescaped", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "a|b",
 					parse_mode: "MarkdownV2",
 				}).pipe(Effect.flip);
@@ -1690,8 +1795,9 @@ describe("sendMessage", () => {
 
 		it.effect("ButtonTypeInvalid when callback_game has no game attached", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					reply_markup: { inline_keyboard: [[{ text: "game", callback_game: {} }]] },
 				}).pipe(Effect.flip);
@@ -1706,8 +1812,9 @@ describe("sendMessage", () => {
 
 		it.effect("ButtonCopyTextInvalid when copy_text exceeds 256 characters", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendMessage(botToken, {
+					chat_id: chatId,
 					text: "test",
 					reply_markup: { inline_keyboard: [[{ text: "copy", copy_text: { text: "x".repeat(257) } }]] },
 				}).pipe(Effect.flip);

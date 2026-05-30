@@ -2,7 +2,7 @@ import { assert, describe, it } from "@effect/vitest";
 import * as Effect from "effect/Effect";
 import { readFileSync } from "node:fs";
 import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, requireBotToken, requireChatId } from "./helpers.ts";
+import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
 
 const readVideoFixture = () => readFileSync(new URL("./video.mp4", import.meta.url));
 
@@ -13,8 +13,9 @@ describe("sendVideo", () => {
 	describe("success", () => {
 		it.effect("sends a local video fixture", () =>
 			Effect.gen(function* () {
-				const message = yield* callSendVideo(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const message = yield* callSendVideo(botToken, {
+					chat_id: chatId,
 					video: readVideoFixture(),
 					caption: "sendVideo integration test",
 				});
@@ -27,15 +28,16 @@ describe("sendVideo", () => {
 
 		it.effect("resends an uploaded video by file_id", () =>
 			Effect.gen(function* () {
-				const first = yield* callSendVideo(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const first = yield* callSendVideo(botToken, {
+					chat_id: chatId,
 					video: readVideoFixture(),
 				});
 				const fileId = first.video?.file_id;
 				assert.isDefined(fileId);
 
-				const second = yield* callSendVideo(requireBotToken(), {
-					chat_id: requireChatId(),
+				const second = yield* callSendVideo(botToken, {
+					chat_id: chatId,
 					video: fileId,
 					caption: "sendVideo file_id resend",
 				});
@@ -49,7 +51,8 @@ describe("sendVideo", () => {
 	describe("Telegram API errors", () => {
 		it.effect("NoVideoInRequest when video is missing", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendVideo(requireBotToken(), { chat_id: requireChatId() }).pipe(Effect.flip);
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendVideo(botToken, { chat_id: chatId }).pipe(Effect.flip);
 
 				expectErrorTag<Telegram.Errors.NoVideoInRequest>(
 					error,
@@ -61,7 +64,8 @@ describe("sendVideo", () => {
 
 		it.effect("ChatIdEmpty when chat_id is missing", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendVideo(requireBotToken(), { video: readVideoFixture() }).pipe(Effect.flip);
+				const { botToken } = yield* telegramConfig;
+				const error = yield* callSendVideo(botToken, { video: readVideoFixture() }).pipe(Effect.flip);
 
 				expectErrorTag<Telegram.Errors.ChatIdEmpty>(error, "ChatIdEmpty", "Bad Request: chat_id is empty");
 			}).pipe(Effect.provide(LiveLayer)),
@@ -69,7 +73,8 @@ describe("sendVideo", () => {
 
 		it.effect("ChatIdEmpty when chat_id is an empty string", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendVideo(requireBotToken(), {
+				const { botToken } = yield* telegramConfig;
+				const error = yield* callSendVideo(botToken, {
 					chat_id: "",
 					video: readVideoFixture(),
 				}).pipe(Effect.flip);
@@ -80,7 +85,8 @@ describe("sendVideo", () => {
 
 		it.effect("ChatNotFound when chat_id does not exist", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendVideo(requireBotToken(), {
+				const { botToken } = yield* telegramConfig;
+				const error = yield* callSendVideo(botToken, {
 					chat_id: 0,
 					video: readVideoFixture(),
 				}).pipe(Effect.flip);
@@ -91,8 +97,9 @@ describe("sendVideo", () => {
 
 		it.effect("MessageCaptionTooLong when caption exceeds 1024 characters", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendVideo(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendVideo(botToken, {
+					chat_id: chatId,
 					video: readVideoFixture(),
 					caption: "x".repeat(1025),
 				}).pipe(Effect.flip);
@@ -107,8 +114,9 @@ describe("sendVideo", () => {
 
 		it.effect("UnsupportedParseMode when parse_mode is invalid", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendVideo(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendVideo(botToken, {
+					chat_id: chatId,
 					video: readVideoFixture(),
 					caption: "test",
 					parse_mode: "INVALID",
@@ -124,8 +132,9 @@ describe("sendVideo", () => {
 
 		it.effect("CantParseEntitiesNoBoldEnd when caption MarkdownV2 bold entity is unclosed", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendVideo(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendVideo(botToken, {
+					chat_id: chatId,
 					video: readVideoFixture(),
 					caption: "*unclosed",
 					parse_mode: "MarkdownV2",
@@ -141,8 +150,9 @@ describe("sendVideo", () => {
 
 		it.effect("MessageThreadNotFound when message_thread_id does not exist", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendVideo(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendVideo(botToken, {
+					chat_id: chatId,
 					video: readVideoFixture(),
 					message_thread_id: 999999999,
 				}).pipe(Effect.flip);
@@ -157,8 +167,9 @@ describe("sendVideo", () => {
 
 		it.effect("MessageToReplyNotFound when reply_parameters.message_id does not exist", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendVideo(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendVideo(botToken, {
+					chat_id: chatId,
 					video: readVideoFixture(),
 					reply_parameters: { message_id: 999999999 },
 				}).pipe(Effect.flip);
@@ -173,8 +184,9 @@ describe("sendVideo", () => {
 
 		it.effect("WrongRemoteFileIdentifierWrongPadding when video file_id is malformed", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendVideo(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendVideo(botToken, {
+					chat_id: chatId,
 					video: "invalid-file-id",
 				}).pipe(Effect.flip);
 

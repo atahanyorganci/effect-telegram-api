@@ -1,7 +1,7 @@
 import { describe, it } from "@effect/vitest";
 import * as Effect from "effect/Effect";
 import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, requireBotToken, requireChatId } from "./helpers.ts";
+import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
 
 const callUnpinChatMessage = (token: string, payload: unknown) =>
 	Telegram.Client.callMethod(token, Telegram.Methods.unpinChatMessage, payload);
@@ -10,7 +10,8 @@ describe("unpinChatMessage", () => {
 	describe("Telegram API errors", () => {
 		it.effect("MessageToUnpinNotFound when message_id is missing", () =>
 			Effect.gen(function* () {
-				const error = yield* callUnpinChatMessage(requireBotToken(), { chat_id: requireChatId() }).pipe(Effect.flip);
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callUnpinChatMessage(botToken, { chat_id: chatId }).pipe(Effect.flip);
 
 				expectErrorTag<Telegram.Errors.MessageToUnpinNotFound>(
 					error,
@@ -22,8 +23,9 @@ describe("unpinChatMessage", () => {
 
 		it.effect("MessageToUnpinNotFound when message_id does not exist", () =>
 			Effect.gen(function* () {
-				const error = yield* callUnpinChatMessage(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callUnpinChatMessage(botToken, {
+					chat_id: chatId,
 					message_id: 999_999_999,
 				}).pipe(Effect.flip);
 

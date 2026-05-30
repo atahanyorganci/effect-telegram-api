@@ -1,7 +1,7 @@
 import { assert, describe, it } from "@effect/vitest";
 import * as Effect from "effect/Effect";
 import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, requireBotToken } from "./helpers.ts";
+import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
 
 const callGetFile = (token: string, payload: unknown) =>
 	Telegram.Client.callMethod(token, Telegram.Methods.getFile, payload);
@@ -10,7 +10,7 @@ describe("getFile", () => {
 	describe("success", () => {
 		it.effect("returns file metadata for a sticker thumbnail file_id", () =>
 			Effect.gen(function* () {
-				const token = requireBotToken();
+				const { botToken: token } = yield* telegramConfig;
 				const stickers = yield* Telegram.Client.callMethod(token, Telegram.Methods.getForumTopicIconStickers);
 				const first = stickers[0] as { readonly thumbnail?: { readonly file_id?: string } } | undefined;
 				const fileId = first?.thumbnail?.file_id;
@@ -29,7 +29,8 @@ describe("getFile", () => {
 	describe("Telegram API errors", () => {
 		it.effect("InvalidFileId when file_id is not valid", () =>
 			Effect.gen(function* () {
-				const error = yield* callGetFile(requireBotToken(), { file_id: "invalid" }).pipe(Effect.flip);
+				const { botToken } = yield* telegramConfig;
+				const error = yield* callGetFile(botToken, { file_id: "invalid" }).pipe(Effect.flip);
 
 				expectErrorTag<Telegram.Errors.InvalidFileId>(error, "InvalidFileId", "Bad Request: invalid file_id");
 			}).pipe(Effect.provide(LiveLayer)),
@@ -37,7 +38,8 @@ describe("getFile", () => {
 
 		it.effect("FileIdNotSpecified when file_id is missing", () =>
 			Effect.gen(function* () {
-				const error = yield* callGetFile(requireBotToken(), {}).pipe(Effect.flip);
+				const { botToken } = yield* telegramConfig;
+				const error = yield* callGetFile(botToken, {}).pipe(Effect.flip);
 
 				expectErrorTag<Telegram.Errors.FileIdNotSpecified>(
 					error,

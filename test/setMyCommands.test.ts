@@ -1,7 +1,7 @@
 import { assert, describe, it } from "@effect/vitest";
 import * as Effect from "effect/Effect";
 import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, requireBotToken } from "./helpers.ts";
+import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
 
 const callSetMyCommands = (token: string, payload: unknown) =>
 	Telegram.Client.callMethod(token, Telegram.Methods.setMyCommands, payload);
@@ -10,7 +10,7 @@ describe("setMyCommands", () => {
 	describe("success", () => {
 		it.effect("returns true when updating the bot command list", () =>
 			Effect.gen(function* () {
-				const token = requireBotToken();
+				const { botToken: token } = yield* telegramConfig;
 				const result = yield* callSetMyCommands(token, {
 					commands: [{ command: "start", description: "Start the bot" }],
 				});
@@ -24,7 +24,8 @@ describe("setMyCommands", () => {
 	describe("Telegram API errors", () => {
 		it.effect("BotCommandInvalid when command contains invalid characters", () =>
 			Effect.gen(function* () {
-				const error = yield* callSetMyCommands(requireBotToken(), {
+				const { botToken } = yield* telegramConfig;
+				const error = yield* callSetMyCommands(botToken, {
 					commands: [{ command: "bad command", description: "Invalid" }],
 				}).pipe(Effect.flip);
 
@@ -38,7 +39,8 @@ describe("setMyCommands", () => {
 
 		it.effect("CommandMustBeNonEmpty when command string is empty", () =>
 			Effect.gen(function* () {
-				const error = yield* callSetMyCommands(requireBotToken(), {
+				const { botToken } = yield* telegramConfig;
+				const error = yield* callSetMyCommands(botToken, {
 					commands: [{ command: "", description: "Missing command" }],
 				}).pipe(Effect.flip);
 
@@ -52,7 +54,8 @@ describe("setMyCommands", () => {
 
 		it.effect("CommandDescriptionMustBeNonEmpty when description is empty", () =>
 			Effect.gen(function* () {
-				const error = yield* callSetMyCommands(requireBotToken(), {
+				const { botToken } = yield* telegramConfig;
+				const error = yield* callSetMyCommands(botToken, {
 					commands: [{ command: "start", description: "" }],
 				}).pipe(Effect.flip);
 

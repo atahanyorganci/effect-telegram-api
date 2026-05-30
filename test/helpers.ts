@@ -1,5 +1,7 @@
 import { NodeHttpClient, NodeServices } from "@effect/platform-node";
 import { assert, describe, it } from "@effect/vitest";
+import * as Config from "effect/Config";
+import * as ConfigProvider from "effect/ConfigProvider";
 import * as Effect from "effect/Effect";
 import * as Layer from "effect/Layer";
 import type { TelegramApiError } from "../src/Client.ts";
@@ -7,23 +9,17 @@ import type * as Telegram from "../src/index.ts";
 
 export const LiveLayer = Layer.mergeAll(NodeServices.layer, NodeHttpClient.layerFetch);
 
-export const requireBotToken = (): string => {
-	const token = process.env.TELEGRAM_BOT_TOKEN;
-	if (token === undefined || token === "") {
-		assert.fail("TELEGRAM_BOT_TOKEN is not set (add it to .env)");
-	}
-	return token;
-};
+/** Typed Telegram test env vars. Group/forum ids are optional when unset in `.env`. */
+export const TelegramConfig = Config.all({
+	botToken: Config.string("TELEGRAM_BOT_TOKEN"),
+	chatId: Config.number("TELEGRAM_CHAT_ID"),
+	groupId: Config.string("TELEGRAM_GROUP_CHAT_ID"),
+	forumTopicId: Config.string("TELEGRAM_FORUM_TOPIC_ID"),
+});
 
-/** Numeric id or @username string for sendMessage / getChat success tests. */
-export const requireChatId = (): number | string => {
-	const raw = process.env.TELEGRAM_CHAT_ID;
-	if (raw === undefined || raw === "") {
-		assert.fail("TELEGRAM_CHAT_ID is not set (add it to .env — your user id or @channelusername)");
-	}
-	const parsed = Number(raw);
-	return Number.isFinite(parsed) ? parsed : raw;
-};
+const telegramConfigProvider = ConfigProvider.fromUnknown(process.env);
+
+export const telegramConfig = TelegramConfig.parse(telegramConfigProvider);
 
 export const expectTelegramApiError = (
 	error: unknown,
@@ -39,8 +35,8 @@ export const expectErrorTag = <T extends { readonly _tag: string; readonly descr
 	tag: T["_tag"],
 	description: string,
 ) => {
-	assert.strictEqual((error as T)._tag, tag);
 	assert.strictEqual((error as T).description, description);
+	assert.strictEqual((error as T)._tag, tag);
 };
 
 export const INVALID_BOT_TOKEN = "0000000000:INVALID_TOKEN";

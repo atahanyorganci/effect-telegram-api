@@ -1,7 +1,7 @@
 import { assert, describe, it } from "@effect/vitest";
 import * as Effect from "effect/Effect";
 import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, requireBotToken, requireChatId } from "./helpers.ts";
+import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
 
 const callSendVenue = (token: string, payload: unknown) =>
 	Telegram.Client.callMethod(token, Telegram.Methods.sendVenue, payload);
@@ -10,8 +10,9 @@ describe("sendVenue", () => {
 	describe("success", () => {
 		it.effect("returns the sent venue message", () =>
 			Effect.gen(function* () {
-				const message = yield* callSendVenue(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const message = yield* callSendVenue(botToken, {
+					chat_id: chatId,
 					latitude: 41.0082,
 					longitude: 28.9784,
 					title: "Istanbul",
@@ -28,7 +29,8 @@ describe("sendVenue", () => {
 	describe("Telegram API errors", () => {
 		it.effect("ChatIdEmpty when chat_id is missing", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendVenue(requireBotToken(), {
+				const { botToken } = yield* telegramConfig;
+				const error = yield* callSendVenue(botToken, {
 					latitude: 41.0,
 					longitude: 29.0,
 					title: "Place",
@@ -41,7 +43,8 @@ describe("sendVenue", () => {
 
 		it.effect("ChatNotFound when chat_id does not exist", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendVenue(requireBotToken(), {
+				const { botToken } = yield* telegramConfig;
+				const error = yield* callSendVenue(botToken, {
 					chat_id: 0,
 					latitude: 41.0,
 					longitude: 29.0,
@@ -55,8 +58,9 @@ describe("sendVenue", () => {
 
 		it.effect("LatitudeEmpty when latitude is missing", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendVenue(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendVenue(botToken, {
+					chat_id: chatId,
 					longitude: 29.0,
 					title: "Place",
 					address: "Addr",
@@ -68,8 +72,9 @@ describe("sendVenue", () => {
 
 		it.effect("LongitudeEmpty when longitude is missing", () =>
 			Effect.gen(function* () {
-				const error = yield* callSendVenue(requireBotToken(), {
-					chat_id: requireChatId(),
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callSendVenue(botToken, {
+					chat_id: chatId,
 					latitude: 41.0,
 					title: "Place",
 					address: "Addr",

@@ -1,7 +1,7 @@
 import { describe, it } from "@effect/vitest";
 import * as Effect from "effect/Effect";
 import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, requireBotToken, requireChatId } from "./helpers.ts";
+import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
 
 const callExportChatInviteLink = (token: string, payload: unknown) =>
 	Telegram.Client.callMethod(token, Telegram.Methods.exportChatInviteLink, payload);
@@ -10,9 +10,8 @@ describe("exportChatInviteLink", () => {
 	describe("Telegram API errors", () => {
 		it.effect("CantInviteMembersToPrivateChat when chat_id is a private chat", () =>
 			Effect.gen(function* () {
-				const error = yield* callExportChatInviteLink(requireBotToken(), { chat_id: requireChatId() }).pipe(
-					Effect.flip,
-				);
+				const { botToken, chatId } = yield* telegramConfig;
+				const error = yield* callExportChatInviteLink(botToken, { chat_id: chatId }).pipe(Effect.flip);
 
 				expectErrorTag<Telegram.Errors.CantInviteMembersToPrivateChat>(
 					error,
@@ -24,7 +23,8 @@ describe("exportChatInviteLink", () => {
 
 		it.effect("ChatNotFound when chat_id does not exist", () =>
 			Effect.gen(function* () {
-				const error = yield* callExportChatInviteLink(requireBotToken(), { chat_id: 0 }).pipe(Effect.flip);
+				const { botToken } = yield* telegramConfig;
+				const error = yield* callExportChatInviteLink(botToken, { chat_id: 0 }).pipe(Effect.flip);
 
 				expectErrorTag<Telegram.Errors.ChatNotFound>(error, "ChatNotFound", "Bad Request: chat not found");
 			}).pipe(Effect.provide(LiveLayer)),
@@ -32,7 +32,8 @@ describe("exportChatInviteLink", () => {
 
 		it.effect("ChatIdEmpty when chat_id is missing", () =>
 			Effect.gen(function* () {
-				const error = yield* callExportChatInviteLink(requireBotToken(), {}).pipe(Effect.flip);
+				const { botToken } = yield* telegramConfig;
+				const error = yield* callExportChatInviteLink(botToken, {}).pipe(Effect.flip);
 
 				expectErrorTag<Telegram.Errors.ChatIdEmpty>(error, "ChatIdEmpty", "Bad Request: chat_id is empty");
 			}).pipe(Effect.provide(LiveLayer)),
