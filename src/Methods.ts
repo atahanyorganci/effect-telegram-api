@@ -49,6 +49,7 @@ Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot wi
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.CallbackQueryIdInvalidError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to reply to a received guest message. On success, a SentGuestMessage object */
@@ -143,6 +144,7 @@ export const banChatMember = Rpc.make("banChatMember", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.InvalidUserIdError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to ban a channel chat in a supergroup or a channel. Until the chat is unbanned, the owner of the banned chat won't be able to send messages on behalf of any of their channels. The bot must be an administrator in the supergroup or channel for this to work and must have the appropriate administrator rights */
@@ -359,6 +361,12 @@ export const copyMessage = Rpc.make("copyMessage", {
 		}),
 	),
 	success: Objects.MessageId,
+	error: Schema.Union([
+		Errors.FromChatIdRequiredError,
+		Errors.MessageToCopyNotFoundError,
+		Errors.NotFoundError,
+		Errors.UnauthorizedError,
+	]),
 });
 
 /** Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessages, but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an array of MessageId of the sent messages */
@@ -417,7 +425,13 @@ export const copyMessages = Rpc.make("copyMessages", {
 				"Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessages, but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an array of MessageId of the sent messages",
 		}),
 	),
-	success: Objects.MessageId,
+	success: Schema.Array(Objects.MessageId),
+	error: Schema.Union([
+		Errors.FromChatIdRequiredError,
+		Errors.NoMessagesToForwardError,
+		Errors.NotFoundError,
+		Errors.UnauthorizedError,
+	]),
 });
 
 /** Use this method to create an additional invite link for a chat. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. The link can be revoked using the method revokeChatInviteLink */
@@ -456,6 +470,13 @@ export const createChatInviteLink = Rpc.make("createChatInviteLink", {
 		}),
 	),
 	success: Objects.ChatInviteLink,
+	error: Schema.Union([
+		Errors.CantInviteMembersToPrivateChatError,
+		Errors.ChatIdEmptyError,
+		Errors.ChatNotFoundError,
+		Errors.NotFoundError,
+		Errors.UnauthorizedError,
+	]),
 });
 
 /** Use this method to create a subscription invite link for a channel chat. The bot must have the can_invite_users administrator rights. The link can be edited using the method editChatSubscriptionInviteLink or revoked using the method revokeChatInviteLink */
@@ -657,6 +678,7 @@ export const deleteMyCommands = Rpc.make("deleteMyCommands", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Deletes a story previously posted by the bot on behalf of a managed business account. Requires the can_manage_stories business bot right */
@@ -854,6 +876,13 @@ export const exportChatInviteLink = Rpc.make("exportChatInviteLink", {
 		}),
 	),
 	success: Schema.String,
+	error: Schema.Union([
+		Errors.CantInviteMembersToPrivateChatError,
+		Errors.ChatIdEmptyError,
+		Errors.ChatNotFoundError,
+		Errors.NotFoundError,
+		Errors.UnauthorizedError,
+	]),
 });
 
 /** Use this method to forward messages of any kind. Service messages and messages with protected content can't be forwarded. On success, the sent Message */
@@ -924,6 +953,14 @@ export const forwardMessage = Rpc.make("forwardMessage", {
 		}),
 	),
 	success: Objects.Message,
+	error: Schema.Union([
+		Errors.ChatIdEmptyError,
+		Errors.ChatNotFoundError,
+		Errors.FromChatIdRequiredError,
+		Errors.MessageToForwardNotFoundError,
+		Errors.NotFoundError,
+		Errors.UnauthorizedError,
+	]),
 });
 
 /** Use this method to forward multiple messages of any kind. If some of the specified messages can't be found or forwarded, they are skipped. Service messages and messages with protected content can't be forwarded. Album grouping is kept for forwarded messages. On success, an array of MessageId of the sent messages */
@@ -978,7 +1015,13 @@ export const forwardMessages = Rpc.make("forwardMessages", {
 				"Use this method to forward multiple messages of any kind. If some of the specified messages can't be found or forwarded, they are skipped. Service messages and messages with protected content can't be forwarded. Album grouping is kept for forwarded messages. On success, an array of MessageId of the sent messages",
 		}),
 	),
-	success: Objects.MessageId,
+	success: Schema.Array(Objects.MessageId),
+	error: Schema.Union([
+		Errors.FromChatIdRequiredError,
+		Errors.NoMessagesToForwardError,
+		Errors.NotFoundError,
+		Errors.UnauthorizedError,
+	]),
 });
 
 export const getAvailableGifts = Rpc.make("getAvailableGifts", {
@@ -1194,6 +1237,12 @@ export const getChatGifts = Rpc.make("getChatGifts", {
 		),
 	}),
 	success: Objects.OwnedGifts,
+	error: Schema.Union([
+		Errors.ChatIdEmptyError,
+		Errors.ChatNotFoundError,
+		Errors.NotFoundError,
+		Errors.UnauthorizedError,
+	]),
 });
 
 /** Use this method to get information about a member of a chat. The method is only guaranteed to work for other users if the bot is an administrator in the chat */
@@ -1425,6 +1474,14 @@ export const getUserChatBoosts = Rpc.make("getUserChatBoosts", {
 		}),
 	),
 	success: Objects.UserChatBoosts,
+	error: Schema.Union([
+		Errors.ChatIdEmptyError,
+		Errors.ChatNotFoundError,
+		Errors.InvalidUserIdError,
+		Errors.NotFoundError,
+		Errors.PeerIdInvalidError,
+		Errors.UnauthorizedError,
+	]),
 });
 
 export const getUserGifts = Rpc.make("getUserGifts", {
@@ -1480,6 +1537,12 @@ export const getUserGifts = Rpc.make("getUserGifts", {
 		),
 	}),
 	success: Objects.OwnedGifts,
+	error: Schema.Union([
+		Errors.InvalidUserIdError,
+		Errors.NotFoundError,
+		Errors.UnauthorizedError,
+		Errors.UserNotFoundError,
+	]),
 });
 
 /** Use this method to get the last messages from the personal chat (i.e., the chat currently added to their profile) of a given user. On success, an array of Message objects */
@@ -1495,7 +1558,7 @@ export const getUserPersonalChatMessages = Rpc.make("getUserPersonalChatMessages
 				"Use this method to get the last messages from the personal chat (i.e., the chat currently added to their profile) of a given user. On success, an array of Message objects",
 		}),
 	),
-	success: Objects.Message,
+	success: Schema.Array(Objects.Message),
 });
 
 /** Use this method to get a list of profile audios for a user */
@@ -1517,6 +1580,12 @@ export const getUserProfileAudios = Rpc.make("getUserProfileAudios", {
 		),
 	}).pipe(Schema.annotate({ description: "Use this method to get a list of profile audios for a user" })),
 	success: Objects.UserProfileAudios,
+	error: Schema.Union([
+		Errors.InvalidUserIdError,
+		Errors.NotFoundError,
+		Errors.UnauthorizedError,
+		Errors.UserNotFoundError,
+	]),
 });
 
 /** Use this method to get a list of profile pictures for a user */
@@ -1667,6 +1736,12 @@ export const pinChatMessage = Rpc.make("pinChatMessage", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([
+		Errors.ChatNotFoundError,
+		Errors.MessageToPinNotFoundError,
+		Errors.NotFoundError,
+		Errors.UnauthorizedError,
+	]),
 });
 
 /** Posts a story on behalf of a managed business account. Requires the can_manage_stories business bot right */
@@ -2430,6 +2505,13 @@ export const sendChatAction = Rpc.make("sendChatAction", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([
+		Errors.ChatIdEmptyError,
+		Errors.ChatNotFoundError,
+		Errors.NotFoundError,
+		Errors.UnauthorizedError,
+		Errors.WrongParameterActionError,
+	]),
 });
 
 /** Use this method to send a checklist on behalf of a connected business account. On success, the sent Message */
@@ -2568,6 +2650,12 @@ export const sendContact = Rpc.make("sendContact", {
 		),
 	}).pipe(Schema.annotate({ description: "Use this method to send phone contacts. On success, the sent Message" })),
 	success: Objects.Message,
+	error: Schema.Union([
+		Errors.FirstNameRequiredError,
+		Errors.NotFoundError,
+		Errors.PhoneNumberRequiredError,
+		Errors.UnauthorizedError,
+	]),
 });
 
 /** Use this method to send an animated emoji that will display a random value. On success, the sent Message */
@@ -2660,6 +2748,12 @@ export const sendDice = Rpc.make("sendDice", {
 		}),
 	),
 	success: Objects.Message,
+	error: Schema.Union([
+		Errors.ChatIdEmptyError,
+		Errors.ChatNotFoundError,
+		Errors.NotFoundError,
+		Errors.UnauthorizedError,
+	]),
 });
 
 /** Use this method to send general files. On success, the sent Message */
@@ -2781,6 +2875,7 @@ export const sendDocument = Rpc.make("sendDocument", {
 		),
 	}).pipe(Schema.annotate({ description: "Use this method to send general files. On success, the sent Message" })),
 	success: Objects.Message,
+	error: Schema.Union([Errors.NoDocumentInRequestError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Sends a gift to the given user or channel chat. The gift can't be converted to Telegram Stars by the receiver */
@@ -3067,6 +3162,12 @@ export const sendLocation = Rpc.make("sendLocation", {
 		),
 	}).pipe(Schema.annotate({ description: "Use this method to send point on the map. On success, the sent Message" })),
 	success: Objects.Message,
+	error: Schema.Union([
+		Errors.ChatIdEmptyError,
+		Errors.LatitudeEmptyError,
+		Errors.NotFoundError,
+		Errors.UnauthorizedError,
+	]),
 });
 
 /** Use this method to send a group of photos, live photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of Message objects that were sent */
@@ -3144,7 +3245,7 @@ export const sendMediaGroup = Rpc.make("sendMediaGroup", {
 				"Use this method to send a group of photos, live photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of Message objects that were sent",
 		}),
 	),
-	success: Objects.Message,
+	success: Schema.Array(Objects.Message),
 });
 
 /** Use this method to send text messages. On success, the sent Message */
@@ -3596,6 +3697,7 @@ export const sendPhoto = Rpc.make("sendPhoto", {
 		),
 	}).pipe(Schema.annotate({ description: "Use this method to send photos. On success, the sent Message" })),
 	success: Objects.Message,
+	error: Schema.Union([Errors.NoPhotoInRequestError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to send a native poll. On success, the sent Message */
@@ -3802,6 +3904,15 @@ export const sendPoll = Rpc.make("sendPoll", {
 		),
 	}).pipe(Schema.annotate({ description: "Use this method to send a native poll. On success, the sent Message" })),
 	success: Objects.Message,
+	error: Schema.Union([
+		Errors.CantParseOptionsJsonObjectError,
+		Errors.ChatIdEmptyError,
+		Errors.ChatNotFoundError,
+		Errors.NotFoundError,
+		Errors.PollMustHaveAtLeastOneAnswerOptionError,
+		Errors.TextMustBeNonEmptyError,
+		Errors.UnauthorizedError,
+	]),
 });
 
 /** Use this method to send information about a venue. On success, the sent Message */
@@ -3911,6 +4022,14 @@ export const sendVenue = Rpc.make("sendVenue", {
 		Schema.annotate({ description: "Use this method to send information about a venue. On success, the sent Message" }),
 	),
 	success: Objects.Message,
+	error: Schema.Union([
+		Errors.ChatIdEmptyError,
+		Errors.ChatNotFoundError,
+		Errors.LatitudeEmptyError,
+		Errors.LongitudeEmptyError,
+		Errors.NotFoundError,
+		Errors.UnauthorizedError,
+	]),
 });
 
 /** Use this method to send video files, Telegram clients support MPEG4 videos (other formats may be sent as Document). On success, the sent Message */
@@ -4489,6 +4608,7 @@ export const setChatMenuButton = Rpc.make("setChatMenuButton", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.MenuButtonUnsupportedTypeError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to set default chat permissions for all members. The bot must be an administrator in the group or a supergroup for this to work and must have the can_restrict_members administrator rights */
@@ -4645,6 +4765,7 @@ export const setMessageReaction = Rpc.make("setMessageReaction", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.MessageToReactNotFoundError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to change the list of the bot's commands. See this manual for more details about bot commands */
@@ -4678,6 +4799,13 @@ export const setMyCommands = Rpc.make("setMyCommands", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([
+		Errors.BotCommandInvalidError,
+		Errors.CommandDescriptionMustBeNonEmptyError,
+		Errors.CommandMustBeNonEmptyError,
+		Errors.NotFoundError,
+		Errors.UnauthorizedError,
+	]),
 });
 
 /** Use this method to change the default administrator rights requested by the bot when it's added as an administrator to groups or channels. These rights will be suggested to users, but they are free to modify the list before adding the bot */
@@ -4704,6 +4832,7 @@ export const setMyDefaultAdministratorRights = Rpc.make("setMyDefaultAdministrat
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to change the bot's description, which is shown in the chat with the bot if the chat is empty */
@@ -4730,6 +4859,7 @@ export const setMyDescription = Rpc.make("setMyDescription", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to change the bot's name */
@@ -4751,6 +4881,7 @@ export const setMyName = Rpc.make("setMyName", {
 		),
 	}).pipe(Schema.annotate({ description: "Use this method to change the bot's name" })),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.BotTitleInvalidError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Changes the profile photo of the bot */
@@ -4786,6 +4917,7 @@ export const setMyShortDescription = Rpc.make("setMyShortDescription", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Changes the emoji status for a given user that previously allowed the bot to manage their emoji status via the Mini App method requestEmojiStatusAccess */
@@ -5017,6 +5149,7 @@ export const unpinChatMessage = Rpc.make("unpinChatMessage", {
 		}),
 	),
 	success: Schema.Literal(true),
+	error: Schema.Union([Errors.MessageToUnpinNotFoundError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Upgrades a given regular gift to a unique gift. Requires the can_transfer_and_upgrade_gifts business bot right. Additionally requires the can_transfer_stars business bot right if the upgrade is paid */

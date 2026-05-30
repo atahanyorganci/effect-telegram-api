@@ -1,0 +1,17 @@
+{
+	"method": "sendContact",
+	"errors": [
+		{
+			"tag": "PhoneNumberRequired",
+			"errorCode": 400,
+			"description": "Bad Request: parameter \"phone_number\" is required",
+			"when": "phone_number parameter is missing"
+		},
+		{
+			"tag": "FirstNameRequired",
+			"errorCode": 400,
+			"description": "Bad Request: parameter \"first_name\" is required",
+			"when": "first_name parameter is missing"
+		}
+	]
+}

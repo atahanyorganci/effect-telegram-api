@@ -71,13 +71,42 @@ const parseRefReturn = (paragraph: HTMLElement): TypeExpr | undefined => {
 		return conditional;
 	}
 
-	if (/Returns an Array of/i.test(text)) {
+	const arrayElementFromParagraph = (paragraph: HTMLElement): TypeExpr | undefined => {
+		const text = paragraph.text;
+		const nameMatch = text.match(/\ban array of\s+([A-Z][A-Za-z0-9]*)/i);
+		if (nameMatch !== null) {
+			return { kind: "ref", name: nameMatch[1]! };
+		}
+
+		const arrayOfIndex = paragraph.innerHTML.toLowerCase().indexOf("array of");
+		if (arrayOfIndex >= 0) {
+			for (const link of paragraph.querySelectorAll('a[href^="#"]')) {
+				const linkIndex = paragraph.innerHTML.indexOf(link.outerHTML);
+				if (linkIndex >= arrayOfIndex) {
+					return { kind: "ref", name: link.text.trim() };
+				}
+			}
+		}
+
 		const link = paragraph.querySelector('a[href^="#"]');
 		if (link !== null) {
-			return {
-				kind: "array",
-				element: { kind: "ref", name: link.text.trim() },
-			};
+			return { kind: "ref", name: link.text.trim() };
+		}
+
+		return undefined;
+	};
+
+	if (/Returns an Array of/i.test(text)) {
+		const element = arrayElementFromParagraph(paragraph);
+		if (element !== undefined) {
+			return { kind: "array", element };
+		}
+	}
+
+	if (/\ban array of\b/i.test(text)) {
+		const element = arrayElementFromParagraph(paragraph);
+		if (element !== undefined) {
+			return { kind: "array", element };
 		}
 	}
 

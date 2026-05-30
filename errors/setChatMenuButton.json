@@ -1,0 +1,11 @@
+{
+	"method": "setChatMenuButton",
+	"errors": [
+		{
+			"tag": "MenuButtonUnsupportedType",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse menu button: MenuButton has unsupported type",
+			"when": "menu_button.type is not a supported MenuButton variant"
+		}
+	]
+}

@@ -1,0 +1,11 @@
+{
+	"method": "sendPhoto",
+	"errors": [
+		{
+			"tag": "NoPhotoInRequest",
+			"errorCode": 400,
+			"description": "Bad Request: there is no photo in the request",
+			"when": "photo parameter is missing"
+		}
+	]
+}

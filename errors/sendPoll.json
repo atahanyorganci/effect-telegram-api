@@ -1,0 +1,35 @@
+{
+	"method": "sendPoll",
+	"errors": [
+		{
+			"tag": "ChatIdEmpty",
+			"errorCode": 400,
+			"description": "Bad Request: chat_id is empty",
+			"when": "chat_id parameter is missing"
+		},
+		{
+			"tag": "ChatNotFound",
+			"errorCode": 400,
+			"description": "Bad Request: chat not found",
+			"when": "chat_id does not refer to a chat the bot can access"
+		},
+		{
+			"tag": "TextMustBeNonEmpty",
+			"errorCode": 400,
+			"description": "Bad Request: text must be non-empty",
+			"when": "question is missing or empty"
+		},
+		{
+			"tag": "CantParseOptionsJsonObject",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse options JSON object",
+			"when": "options parameter is missing"
+		},
+		{
+			"tag": "PollMustHaveAtLeastOneAnswerOption",
+			"errorCode": 400,
+			"description": "Bad Request: poll must have at least one answer option",
+			"when": "options array is empty"
+		}
+	]
+}

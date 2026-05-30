@@ -1,0 +1,11 @@
+{
+	"method": "sendDocument",
+	"errors": [
+		{
+			"tag": "NoDocumentInRequest",
+			"errorCode": 400,
+			"description": "Bad Request: there is no document in the request",
+			"when": "document parameter is missing"
+		}
+	]
+}

@@ -1,0 +1,11 @@
+{
+	"method": "setMessageReaction",
+	"errors": [
+		{
+			"tag": "MessageToReactNotFound",
+			"errorCode": 400,
+			"description": "Bad Request: message to react not found",
+			"when": "message_id is missing or does not refer to an existing message"
+		}
+	]
+}

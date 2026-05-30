@@ -1,0 +1,23 @@
+{
+	"method": "setMyCommands",
+	"errors": [
+		{
+			"tag": "BotCommandInvalid",
+			"errorCode": 400,
+			"description": "Bad Request: BOT_COMMAND_INVALID",
+			"when": "command contains characters other than lowercase English letters, digits, and underscores"
+		},
+		{
+			"tag": "CommandMustBeNonEmpty",
+			"errorCode": 400,
+			"description": "Bad Request: command must be non-empty",
+			"when": "a command entry has an empty command string"
+		},
+		{
+			"tag": "CommandDescriptionMustBeNonEmpty",
+			"errorCode": 400,
+			"description": "Bad Request: command description must be non-empty",
+			"when": "a command entry has an empty description"
+		}
+	]
+}

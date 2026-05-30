@@ -1,0 +1,11 @@
+{
+	"method": "answerCallbackQuery",
+	"errors": [
+		{
+			"tag": "CallbackQueryIdInvalid",
+			"errorCode": 400,
+			"description": "Bad Request: query is too old and response timeout expired or query ID is invalid",
+			"when": "callback_query_id is missing or invalid"
+		}
+	]
+}

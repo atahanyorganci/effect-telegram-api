@@ -1,0 +1,29 @@
+{
+	"method": "getUserChatBoosts",
+	"errors": [
+		{
+			"tag": "ChatIdEmpty",
+			"errorCode": 400,
+			"description": "Bad Request: chat_id is empty",
+			"when": "chat_id parameter is missing"
+		},
+		{
+			"tag": "ChatNotFound",
+			"errorCode": 400,
+			"description": "Bad Request: chat not found",
+			"when": "chat_id does not refer to a chat the bot can access"
+		},
+		{
+			"tag": "InvalidUserId",
+			"errorCode": 400,
+			"description": "Bad Request: invalid user_id specified",
+			"when": "user_id is missing or zero"
+		},
+		{
+			"tag": "PeerIdInvalid",
+			"errorCode": 400,
+			"description": "Bad Request: PEER_ID_INVALID",
+			"when": "chat_id does not refer to a channel or supergroup that supports boosts"
+		}
+	]
+}

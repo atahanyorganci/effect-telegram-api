@@ -13,6 +13,16 @@ export const AllowUserChatsMustBeBooleanError = Schema.TaggedStruct("AllowUserCh
 	description: Schema.String,
 });
 
+/** command contains characters other than lowercase English letters, digits, and underscores */
+
+export class BotCommandInvalid extends Data.TaggedError("BotCommandInvalid")<{
+	readonly description: string;
+}> {}
+
+export const BotCommandInvalidError = Schema.TaggedStruct("BotCommandInvalid", {
+	description: Schema.String,
+});
+
 /** login_url is missing bot_username */
 
 export class BotDomainInvalid extends Data.TaggedError("BotDomainInvalid")<{
@@ -20,6 +30,16 @@ export class BotDomainInvalid extends Data.TaggedError("BotDomainInvalid")<{
 }> {}
 
 export const BotDomainInvalidError = Schema.TaggedStruct("BotDomainInvalid", {
+	description: Schema.String,
+});
+
+/** name is missing or empty */
+
+export class BotTitleInvalid extends Data.TaggedError("BotTitleInvalid")<{
+	readonly description: string;
+}> {}
+
+export const BotTitleInvalidError = Schema.TaggedStruct("BotTitleInvalid", {
 	description: Schema.String,
 });
 
@@ -70,6 +90,26 @@ export class ButtonTypeInvalid extends Data.TaggedError("ButtonTypeInvalid")<{
 }> {}
 
 export const ButtonTypeInvalidError = Schema.TaggedStruct("ButtonTypeInvalid", {
+	description: Schema.String,
+});
+
+/** callback_query_id is missing or invalid */
+
+export class CallbackQueryIdInvalid extends Data.TaggedError("CallbackQueryIdInvalid")<{
+	readonly description: string;
+}> {}
+
+export const CallbackQueryIdInvalidError = Schema.TaggedStruct("CallbackQueryIdInvalid", {
+	description: Schema.String,
+});
+
+/** chat_id refers to a private chat that does not support invite links */
+
+export class CantInviteMembersToPrivateChat extends Data.TaggedError("CantInviteMembersToPrivateChat")<{
+	readonly description: string;
+}> {}
+
+export const CantInviteMembersToPrivateChatError = Schema.TaggedStruct("CantInviteMembersToPrivateChat", {
 	description: Schema.String,
 });
 
@@ -248,7 +288,17 @@ export const CantParseEntitiesUnsupportedTagError = Schema.TaggedStruct("CantPar
 	description: Schema.String,
 });
 
-/** chat_id parameter is missing or empty */
+/** options parameter is missing */
+
+export class CantParseOptionsJsonObject extends Data.TaggedError("CantParseOptionsJsonObject")<{
+	readonly description: string;
+}> {}
+
+export const CantParseOptionsJsonObjectError = Schema.TaggedStruct("CantParseOptionsJsonObject", {
+	description: Schema.String,
+});
+
+/** chat_id parameter is missing */
 
 export class ChatIdEmpty extends Data.TaggedError("ChatIdEmpty")<{
 	readonly description: string;
@@ -268,13 +318,33 @@ export const ChatIsForumMustBeBooleanError = Schema.TaggedStruct("ChatIsForumMus
 	description: Schema.String,
 });
 
-/** chat_id does not refer to a chat the bot can access (unknown numeric id or unresolvable @username) */
+/** chat_id does not refer to a chat the bot can access */
 
 export class ChatNotFound extends Data.TaggedError("ChatNotFound")<{
 	readonly description: string;
 }> {}
 
 export const ChatNotFoundError = Schema.TaggedStruct("ChatNotFound", {
+	description: Schema.String,
+});
+
+/** a command entry has an empty description */
+
+export class CommandDescriptionMustBeNonEmpty extends Data.TaggedError("CommandDescriptionMustBeNonEmpty")<{
+	readonly description: string;
+}> {}
+
+export const CommandDescriptionMustBeNonEmptyError = Schema.TaggedStruct("CommandDescriptionMustBeNonEmpty", {
+	description: Schema.String,
+});
+
+/** a command entry has an empty command string */
+
+export class CommandMustBeNonEmpty extends Data.TaggedError("CommandMustBeNonEmpty")<{
+	readonly description: string;
+}> {}
+
+export const CommandMustBeNonEmptyError = Schema.TaggedStruct("CommandMustBeNonEmpty", {
 	description: Schema.String,
 });
 
@@ -368,6 +438,16 @@ export const FileIdNotSpecifiedError = Schema.TaggedStruct("FileIdNotSpecified",
 	description: Schema.String,
 });
 
+/** first_name parameter is missing */
+
+export class FirstNameRequired extends Data.TaggedError("FirstNameRequired")<{
+	readonly description: string;
+}> {}
+
+export const FirstNameRequiredError = Schema.TaggedStruct("FirstNameRequired", {
+	description: Schema.String,
+});
+
 /** allow_paid_broadcast is true but the bot has insufficient Telegram Stars */
 
 export class FloodskipNotAllowed extends Data.TaggedError("FloodskipNotAllowed")<{
@@ -385,6 +465,16 @@ export class ForceReplyMustBeBoolean extends Data.TaggedError("ForceReplyMustBeB
 }> {}
 
 export const ForceReplyMustBeBooleanError = Schema.TaggedStruct("ForceReplyMustBeBoolean", {
+	description: Schema.String,
+});
+
+/** from_chat_id parameter is missing */
+
+export class FromChatIdRequired extends Data.TaggedError("FromChatIdRequired")<{
+	readonly description: string;
+}> {}
+
+export const FromChatIdRequiredError = Schema.TaggedStruct("FromChatIdRequired", {
 	description: Schema.String,
 });
 
@@ -518,6 +608,16 @@ export const KeyboardWebAppUrlHttpNotAllowedError = Schema.TaggedStruct("Keyboar
 	description: Schema.String,
 });
 
+/** latitude parameter is missing */
+
+export class LatitudeEmpty extends Data.TaggedError("LatitudeEmpty")<{
+	readonly description: string;
+}> {}
+
+export const LatitudeEmptyError = Schema.TaggedStruct("LatitudeEmpty", {
+	description: Schema.String,
+});
+
 /** link_preview_options.is_disabled is not a boolean */
 
 export class LinkPreviewIsDisabledMustBeBoolean extends Data.TaggedError("LinkPreviewIsDisabledMustBeBoolean")<{
@@ -538,6 +638,16 @@ export const LoginUrlBotNotFoundError = Schema.TaggedStruct("LoginUrlBotNotFound
 	description: Schema.String,
 });
 
+/** longitude parameter is missing */
+
+export class LongitudeEmpty extends Data.TaggedError("LongitudeEmpty")<{
+	readonly description: string;
+}> {}
+
+export const LongitudeEmptyError = Schema.TaggedStruct("LongitudeEmpty", {
+	description: Schema.String,
+});
+
 /** user_id is not a member of the chat */
 
 export class MemberNotFound extends Data.TaggedError("MemberNotFound")<{
@@ -545,6 +655,16 @@ export class MemberNotFound extends Data.TaggedError("MemberNotFound")<{
 }> {}
 
 export const MemberNotFoundError = Schema.TaggedStruct("MemberNotFound", {
+	description: Schema.String,
+});
+
+/** menu_button.type is not a supported MenuButton variant */
+
+export class MenuButtonUnsupportedType extends Data.TaggedError("MenuButtonUnsupportedType")<{
+	readonly description: string;
+}> {}
+
+export const MenuButtonUnsupportedTypeError = Schema.TaggedStruct("MenuButtonUnsupportedType", {
 	description: Schema.String,
 });
 
@@ -568,6 +688,26 @@ export const MessageThreadNotFoundError = Schema.TaggedStruct("MessageThreadNotF
 	description: Schema.String,
 });
 
+/** message_id is missing or does not refer to an existing message */
+
+export class MessageToCopyNotFound extends Data.TaggedError("MessageToCopyNotFound")<{
+	readonly description: string;
+}> {}
+
+export const MessageToCopyNotFoundError = Schema.TaggedStruct("MessageToCopyNotFound", {
+	description: Schema.String,
+});
+
+/** message_id is missing or does not refer to an existing message */
+
+export class MessageToForwardNotFound extends Data.TaggedError("MessageToForwardNotFound")<{
+	readonly description: string;
+}> {}
+
+export const MessageToForwardNotFoundError = Schema.TaggedStruct("MessageToForwardNotFound", {
+	description: Schema.String,
+});
+
 /** text exceeds 4096 characters */
 
 export class MessageTooLong extends Data.TaggedError("MessageTooLong")<{
@@ -578,6 +718,26 @@ export const MessageTooLongError = Schema.TaggedStruct("MessageTooLong", {
 	description: Schema.String,
 });
 
+/** message_id is missing or does not refer to an existing message */
+
+export class MessageToPinNotFound extends Data.TaggedError("MessageToPinNotFound")<{
+	readonly description: string;
+}> {}
+
+export const MessageToPinNotFoundError = Schema.TaggedStruct("MessageToPinNotFound", {
+	description: Schema.String,
+});
+
+/** message_id is missing or does not refer to an existing message */
+
+export class MessageToReactNotFound extends Data.TaggedError("MessageToReactNotFound")<{
+	readonly description: string;
+}> {}
+
+export const MessageToReactNotFoundError = Schema.TaggedStruct("MessageToReactNotFound", {
+	description: Schema.String,
+});
+
 /** reply_parameters.message_id does not exist in the target chat */
 
 export class MessageToReplyNotFound extends Data.TaggedError("MessageToReplyNotFound")<{
@@ -585,6 +745,46 @@ export class MessageToReplyNotFound extends Data.TaggedError("MessageToReplyNotF
 }> {}
 
 export const MessageToReplyNotFoundError = Schema.TaggedStruct("MessageToReplyNotFound", {
+	description: Schema.String,
+});
+
+/** message_id is missing or does not refer to a pinned message */
+
+export class MessageToUnpinNotFound extends Data.TaggedError("MessageToUnpinNotFound")<{
+	readonly description: string;
+}> {}
+
+export const MessageToUnpinNotFoundError = Schema.TaggedStruct("MessageToUnpinNotFound", {
+	description: Schema.String,
+});
+
+/** document parameter is missing */
+
+export class NoDocumentInRequest extends Data.TaggedError("NoDocumentInRequest")<{
+	readonly description: string;
+}> {}
+
+export const NoDocumentInRequestError = Schema.TaggedStruct("NoDocumentInRequest", {
+	description: Schema.String,
+});
+
+/** message_ids is missing or does not refer to existing messages */
+
+export class NoMessagesToForward extends Data.TaggedError("NoMessagesToForward")<{
+	readonly description: string;
+}> {}
+
+export const NoMessagesToForwardError = Schema.TaggedStruct("NoMessagesToForward", {
+	description: Schema.String,
+});
+
+/** photo parameter is missing */
+
+export class NoPhotoInRequest extends Data.TaggedError("NoPhotoInRequest")<{
+	readonly description: string;
+}> {}
+
+export const NoPhotoInRequestError = Schema.TaggedStruct("NoPhotoInRequest", {
 	description: Schema.String,
 });
 
@@ -605,6 +805,36 @@ export class OneTimeKeyboardMustBeBoolean extends Data.TaggedError("OneTimeKeybo
 }> {}
 
 export const OneTimeKeyboardMustBeBooleanError = Schema.TaggedStruct("OneTimeKeyboardMustBeBoolean", {
+	description: Schema.String,
+});
+
+/** chat_id does not refer to a channel or supergroup that supports boosts */
+
+export class PeerIdInvalid extends Data.TaggedError("PeerIdInvalid")<{
+	readonly description: string;
+}> {}
+
+export const PeerIdInvalidError = Schema.TaggedStruct("PeerIdInvalid", {
+	description: Schema.String,
+});
+
+/** phone_number parameter is missing */
+
+export class PhoneNumberRequired extends Data.TaggedError("PhoneNumberRequired")<{
+	readonly description: string;
+}> {}
+
+export const PhoneNumberRequiredError = Schema.TaggedStruct("PhoneNumberRequired", {
+	description: Schema.String,
+});
+
+/** options array is empty */
+
+export class PollMustHaveAtLeastOneAnswerOption extends Data.TaggedError("PollMustHaveAtLeastOneAnswerOption")<{
+	readonly description: string;
+}> {}
+
+export const PollMustHaveAtLeastOneAnswerOptionError = Schema.TaggedStruct("PollMustHaveAtLeastOneAnswerOption", {
 	description: Schema.String,
 });
 
@@ -798,7 +1028,83 @@ export const WebpageUrlInvalidError = Schema.TaggedStruct("WebpageUrlInvalid", {
 	description: Schema.String,
 });
 
+/** action is missing or not a supported chat action type */
+
+export class WrongParameterAction extends Data.TaggedError("WrongParameterAction")<{
+	readonly description: string;
+}> {}
+
+export const WrongParameterActionError = Schema.TaggedStruct("WrongParameterAction", {
+	description: Schema.String,
+});
+
 export const methodErrors = {
+	answerCallbackQuery: [
+		{
+			errorCode: 400,
+			description: "Bad Request: query is too old and response timeout expired or query ID is invalid",
+			error: CallbackQueryIdInvalid,
+		},
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	banChatMember: [
+		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	copyMessage: [
+		{ errorCode: 400, description: 'Bad Request: parameter "from_chat_id" is required', error: FromChatIdRequired },
+		{ errorCode: 400, description: "Bad Request: message to copy not found", error: MessageToCopyNotFound },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	copyMessages: [
+		{ errorCode: 400, description: 'Bad Request: parameter "from_chat_id" is required', error: FromChatIdRequired },
+		{ errorCode: 400, description: "Bad Request: there are no messages to forward", error: NoMessagesToForward },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	createChatInviteLink: [
+		{
+			errorCode: 400,
+			description: "Bad Request: can't invite members to a private chat",
+			error: CantInviteMembersToPrivateChat,
+		},
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	deleteMyCommands: [
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	exportChatInviteLink: [
+		{
+			errorCode: 400,
+			description: "Bad Request: can't invite members to a private chat",
+			error: CantInviteMembersToPrivateChat,
+		},
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	forwardMessage: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
+		{ errorCode: 400, description: 'Bad Request: parameter "from_chat_id" is required', error: FromChatIdRequired },
+		{ errorCode: 400, description: "Bad Request: message to forward not found", error: MessageToForwardNotFound },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	forwardMessages: [
+		{ errorCode: 400, description: 'Bad Request: parameter "from_chat_id" is required', error: FromChatIdRequired },
+		{ errorCode: 400, description: "Bad Request: there are no messages to forward", error: NoMessagesToForward },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
 	getAvailableGifts: [
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
@@ -810,6 +1116,12 @@ export const methodErrors = {
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	getChatAdministrators: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	getChatGifts: [
 		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
 		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
@@ -868,11 +1180,67 @@ export const methodErrors = {
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
+	getUserChatBoosts: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
+		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 400, description: "Bad Request: PEER_ID_INVALID", error: PeerIdInvalid },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	getUserGifts: [
+		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+		{ errorCode: 400, description: "Bad Request: user not found", error: UserNotFound },
+	],
+	getUserProfileAudios: [
+		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+		{ errorCode: 400, description: "Bad Request: user not found", error: UserNotFound },
+	],
 	getUserProfilePhotos: [
 		{ errorCode: 400, description: "Bad Request: invalid user_id specified", error: InvalidUserId },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 		{ errorCode: 400, description: "Bad Request: user not found", error: UserNotFound },
+	],
+	pinChatMessage: [
+		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
+		{ errorCode: 400, description: "Bad Request: message to pin not found", error: MessageToPinNotFound },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	sendChatAction: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+		{ errorCode: 400, description: "Bad Request: wrong parameter action in request", error: WrongParameterAction },
+	],
+	sendContact: [
+		{ errorCode: 400, description: 'Bad Request: parameter "first_name" is required', error: FirstNameRequired },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 400, description: 'Bad Request: parameter "phone_number" is required', error: PhoneNumberRequired },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	sendDice: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	sendDocument: [
+		{ errorCode: 400, description: "Bad Request: there is no document in the request", error: NoDocumentInRequest },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	sendLocation: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 400, description: "Bad Request: latitude is empty", error: LatitudeEmpty },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	sendMessage: [
 		{
@@ -1174,5 +1542,78 @@ export const methodErrors = {
 			error: WebAppUrlNotHttps,
 		},
 		{ errorCode: 400, description: "Bad Request: WEBPAGE_URL_INVALID", error: WebpageUrlInvalid },
+	],
+	sendPhoto: [
+		{ errorCode: 400, description: "Bad Request: there is no photo in the request", error: NoPhotoInRequest },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	sendPoll: [
+		{ errorCode: 400, description: "Bad Request: can't parse options JSON object", error: CantParseOptionsJsonObject },
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{
+			errorCode: 400,
+			description: "Bad Request: poll must have at least one answer option",
+			error: PollMustHaveAtLeastOneAnswerOption,
+		},
+		{ errorCode: 400, description: "Bad Request: text must be non-empty", error: TextMustBeNonEmpty },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	sendVenue: [
+		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
+		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
+		{ errorCode: 400, description: "Bad Request: latitude is empty", error: LatitudeEmpty },
+		{ errorCode: 400, description: "Bad Request: longitude is empty", error: LongitudeEmpty },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	setChatMenuButton: [
+		{
+			errorCode: 400,
+			description: "Bad Request: can't parse menu button: MenuButton has unsupported type",
+			error: MenuButtonUnsupportedType,
+		},
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	setMessageReaction: [
+		{ errorCode: 400, description: "Bad Request: message to react not found", error: MessageToReactNotFound },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	setMyCommands: [
+		{ errorCode: 400, description: "Bad Request: BOT_COMMAND_INVALID", error: BotCommandInvalid },
+		{
+			errorCode: 400,
+			description: "Bad Request: command description must be non-empty",
+			error: CommandDescriptionMustBeNonEmpty,
+		},
+		{ errorCode: 400, description: "Bad Request: command must be non-empty", error: CommandMustBeNonEmpty },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	setMyDefaultAdministratorRights: [
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	setMyDescription: [
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	setMyName: [
+		{ errorCode: 400, description: "Bad Request: BOT_TITLE_INVALID", error: BotTitleInvalid },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	setMyShortDescription: [
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
+	],
+	unpinChatMessage: [
+		{ errorCode: 400, description: "Bad Request: message to unpin not found", error: MessageToUnpinNotFound },
+		{ errorCode: 404, description: "Not Found", error: NotFound },
+		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 } as const;
