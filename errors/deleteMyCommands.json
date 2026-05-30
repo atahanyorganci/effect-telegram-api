@@ -1,4 +1,4 @@
 {
 	"method": "deleteMyCommands",
-	"errors": []
+	"errors": ["BotCommandScopeChatIdMissing", "BotCommandScopeUserIdMissing", "BotCommandScopeUnsupportedType"]
 }

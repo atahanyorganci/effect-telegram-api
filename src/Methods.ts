@@ -754,7 +754,13 @@ export const deleteMyCommands = Rpc.make("deleteMyCommands", {
 		}),
 	),
 	success: Schema.Literal(true),
-	error: Schema.Union([Errors.NotFoundError, Errors.UnauthorizedError]),
+	error: Schema.Union([
+		Errors.BotCommandScopeChatIdMissingError,
+		Errors.BotCommandScopeUnsupportedTypeError,
+		Errors.BotCommandScopeUserIdMissingError,
+		Errors.NotFoundError,
+		Errors.UnauthorizedError,
+	]),
 });
 
 /** Deletes a story previously posted by the bot on behalf of a managed business account. Requires the can_manage_stories business bot right */
@@ -1503,7 +1509,13 @@ export const getMyCommands = Rpc.make("getMyCommands", {
 		}),
 	),
 	success: Schema.Array(Objects.BotCommand),
-	error: Schema.Union([Errors.NotFoundError, Errors.UnauthorizedError]),
+	error: Schema.Union([
+		Errors.BotCommandScopeChatIdMissingError,
+		Errors.BotCommandScopeUnsupportedTypeError,
+		Errors.BotCommandScopeUserIdMissingError,
+		Errors.NotFoundError,
+		Errors.UnauthorizedError,
+	]),
 });
 
 /** Use this method to get the current default administrator rights of the bot */
@@ -5074,6 +5086,9 @@ export const setMyCommands = Rpc.make("setMyCommands", {
 	success: Schema.Literal(true),
 	error: Schema.Union([
 		Errors.BotCommandInvalidError,
+		Errors.BotCommandScopeChatIdMissingError,
+		Errors.BotCommandScopeUnsupportedTypeError,
+		Errors.BotCommandScopeUserIdMissingError,
 		Errors.CommandDescriptionMustBeNonEmptyError,
 		Errors.CommandMustBeNonEmptyError,
 		Errors.NotFoundError,
@@ -5105,7 +5120,11 @@ export const setMyDefaultAdministratorRights = Rpc.make("setMyDefaultAdministrat
 		}),
 	),
 	success: Schema.Literal(true),
-	error: Schema.Union([Errors.NotFoundError, Errors.UnauthorizedError]),
+	error: Schema.Union([
+		Errors.ChatAdministratorRightsCanDeleteMessagesMustBeBooleanError,
+		Errors.NotFoundError,
+		Errors.UnauthorizedError,
+	]),
 });
 
 /** Use this method to change the bot's description, which is shown in the chat with the bot if the chat is empty */
@@ -5132,7 +5151,7 @@ export const setMyDescription = Rpc.make("setMyDescription", {
 		}),
 	),
 	success: Schema.Literal(true),
-	error: Schema.Union([Errors.NotFoundError, Errors.UnauthorizedError]),
+	error: Schema.Union([Errors.BotDescriptionInvalidError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Use this method to change the bot's name */
@@ -5191,7 +5210,7 @@ export const setMyShortDescription = Rpc.make("setMyShortDescription", {
 		}),
 	),
 	success: Schema.Literal(true),
-	error: Schema.Union([Errors.NotFoundError, Errors.UnauthorizedError]),
+	error: Schema.Union([Errors.BotShortDescriptionInvalidError, Errors.NotFoundError, Errors.UnauthorizedError]),
 });
 
 /** Changes the emoji status for a given user that previously allowed the bot to manage their emoji status via the Mini App method requestEmojiStatusAccess */

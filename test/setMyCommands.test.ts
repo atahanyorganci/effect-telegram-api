@@ -66,6 +66,54 @@ describe("setMyCommands", () => {
 				);
 			}).pipe(Effect.provide(LiveLayer)),
 		);
+
+		it.effect("BotCommandScopeChatIdMissing when chat scope omits chat_id", () =>
+			Effect.gen(function* () {
+				const { botToken } = yield* telegramConfig;
+				const error = yield* callSetMyCommands(botToken, {
+					commands: [{ command: "start", description: "Start" }],
+					scope: { type: "chat" },
+				}).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.BotCommandScopeChatIdMissing>(
+					error,
+					"BotCommandScopeChatIdMissing",
+					"Bad Request: can't parse BotCommandScope: Can't find field \"chat_id\"",
+				);
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+
+		it.effect("BotCommandScopeUserIdMissing when chat_member scope omits user_id", () =>
+			Effect.gen(function* () {
+				const { botToken } = yield* telegramConfig;
+				const error = yield* callSetMyCommands(botToken, {
+					commands: [{ command: "start", description: "Start" }],
+					scope: { type: "chat_member", chat_id: 0 },
+				}).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.BotCommandScopeUserIdMissing>(
+					error,
+					"BotCommandScopeUserIdMissing",
+					"Bad Request: can't parse BotCommandScope: Can't find field \"user_id\"",
+				);
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+
+		it.effect("BotCommandScopeUnsupportedType when scope type is unknown", () =>
+			Effect.gen(function* () {
+				const { botToken } = yield* telegramConfig;
+				const error = yield* callSetMyCommands(botToken, {
+					commands: [{ command: "start", description: "Start" }],
+					scope: { type: "invalid" },
+				}).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.BotCommandScopeUnsupportedType>(
+					error,
+					"BotCommandScopeUnsupportedType",
+					"Bad Request: can't parse BotCommandScope: Unsupported type specified",
+				);
+			}).pipe(Effect.provide(LiveLayer)),
+		);
 	});
 
 	authErrorTests(token => callSetMyCommands(token, { commands: [] }));

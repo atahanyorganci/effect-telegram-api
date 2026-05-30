@@ -33,6 +33,46 @@ export const BotCommandInvalidError = Schema.TaggedStruct("BotCommandInvalid", {
 	description: Schema.String,
 });
 
+/** BotCommandScope that requires chat_id omits it */
+
+export class BotCommandScopeChatIdMissing extends Data.TaggedError("BotCommandScopeChatIdMissing")<{
+	readonly description: string;
+}> {}
+
+export const BotCommandScopeChatIdMissingError = Schema.TaggedStruct("BotCommandScopeChatIdMissing", {
+	description: Schema.String,
+});
+
+/** BotCommandScope type is unsupported */
+
+export class BotCommandScopeUnsupportedType extends Data.TaggedError("BotCommandScopeUnsupportedType")<{
+	readonly description: string;
+}> {}
+
+export const BotCommandScopeUnsupportedTypeError = Schema.TaggedStruct("BotCommandScopeUnsupportedType", {
+	description: Schema.String,
+});
+
+/** BotCommandScope that requires user_id omits it */
+
+export class BotCommandScopeUserIdMissing extends Data.TaggedError("BotCommandScopeUserIdMissing")<{
+	readonly description: string;
+}> {}
+
+export const BotCommandScopeUserIdMissingError = Schema.TaggedStruct("BotCommandScopeUserIdMissing", {
+	description: Schema.String,
+});
+
+/** description exceeds the 512 character limit */
+
+export class BotDescriptionInvalid extends Data.TaggedError("BotDescriptionInvalid")<{
+	readonly description: string;
+}> {}
+
+export const BotDescriptionInvalidError = Schema.TaggedStruct("BotDescriptionInvalid", {
+	description: Schema.String,
+});
+
 /** login_url is missing bot_username */
 
 export class BotDomainInvalid extends Data.TaggedError("BotDomainInvalid")<{
@@ -40,6 +80,16 @@ export class BotDomainInvalid extends Data.TaggedError("BotDomainInvalid")<{
 }> {}
 
 export const BotDomainInvalidError = Schema.TaggedStruct("BotDomainInvalid", {
+	description: Schema.String,
+});
+
+/** short_description exceeds the 120 character limit */
+
+export class BotShortDescriptionInvalid extends Data.TaggedError("BotShortDescriptionInvalid")<{
+	readonly description: string;
+}> {}
+
+export const BotShortDescriptionInvalidError = Schema.TaggedStruct("BotShortDescriptionInvalid", {
 	description: Schema.String,
 });
 
@@ -387,6 +437,21 @@ export class CantSetSupergroupStickerSet extends Data.TaggedError("CantSetSuperg
 export const CantSetSupergroupStickerSetError = Schema.TaggedStruct("CantSetSupergroupStickerSet", {
 	description: Schema.String,
 });
+
+/** rights.can_delete_messages is not a boolean */
+
+export class ChatAdministratorRightsCanDeleteMessagesMustBeBoolean extends Data.TaggedError(
+	"ChatAdministratorRightsCanDeleteMessagesMustBeBoolean",
+)<{
+	readonly description: string;
+}> {}
+
+export const ChatAdministratorRightsCanDeleteMessagesMustBeBooleanError = Schema.TaggedStruct(
+	"ChatAdministratorRightsCanDeleteMessagesMustBeBoolean",
+	{
+		description: Schema.String,
+	},
+);
 
 /** bot is not an administrator with can_manage_topics */
 
@@ -1623,6 +1688,21 @@ export const methodErrors = {
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	deleteMyCommands: [
+		{
+			errorCode: 400,
+			description: "Bad Request: can't parse BotCommandScope: Can't find field \"chat_id\"",
+			error: BotCommandScopeChatIdMissing,
+		},
+		{
+			errorCode: 400,
+			description: "Bad Request: can't parse BotCommandScope: Unsupported type specified",
+			error: BotCommandScopeUnsupportedType,
+		},
+		{
+			errorCode: 400,
+			description: "Bad Request: can't parse BotCommandScope: Can't find field \"user_id\"",
+			error: BotCommandScopeUserIdMissing,
+		},
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
@@ -1772,6 +1852,21 @@ export const methodErrors = {
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	getMyCommands: [
+		{
+			errorCode: 400,
+			description: "Bad Request: can't parse BotCommandScope: Can't find field \"chat_id\"",
+			error: BotCommandScopeChatIdMissing,
+		},
+		{
+			errorCode: 400,
+			description: "Bad Request: can't parse BotCommandScope: Unsupported type specified",
+			error: BotCommandScopeUnsupportedType,
+		},
+		{
+			errorCode: 400,
+			description: "Bad Request: can't parse BotCommandScope: Can't find field \"user_id\"",
+			error: BotCommandScopeUserIdMissing,
+		},
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
@@ -2484,6 +2579,21 @@ export const methodErrors = {
 		{ errorCode: 400, description: "Bad Request: BOT_COMMAND_INVALID", error: BotCommandInvalid },
 		{
 			errorCode: 400,
+			description: "Bad Request: can't parse BotCommandScope: Can't find field \"chat_id\"",
+			error: BotCommandScopeChatIdMissing,
+		},
+		{
+			errorCode: 400,
+			description: "Bad Request: can't parse BotCommandScope: Unsupported type specified",
+			error: BotCommandScopeUnsupportedType,
+		},
+		{
+			errorCode: 400,
+			description: "Bad Request: can't parse BotCommandScope: Can't find field \"user_id\"",
+			error: BotCommandScopeUserIdMissing,
+		},
+		{
+			errorCode: 400,
 			description: "Bad Request: command description must be non-empty",
 			error: CommandDescriptionMustBeNonEmpty,
 		},
@@ -2492,10 +2602,17 @@ export const methodErrors = {
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	setMyDefaultAdministratorRights: [
+		{
+			errorCode: 400,
+			description:
+				'Bad Request: can\'t parse ChatAdministratorRights: Field "can_delete_messages" must be of type Boolean',
+			error: ChatAdministratorRightsCanDeleteMessagesMustBeBoolean,
+		},
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	setMyDescription: [
+		{ errorCode: 400, description: "Bad Request: BOT_DESC_INVALID", error: BotDescriptionInvalid },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
@@ -2510,6 +2627,7 @@ export const methodErrors = {
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],
 	setMyShortDescription: [
+		{ errorCode: 400, description: "Bad Request: BOT_SHARETEXT_INVALID", error: BotShortDescriptionInvalid },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],

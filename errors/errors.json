@@ -888,6 +888,42 @@
 			"errorCode": 400,
 			"description": "Bad Request: wrong remote file identifier specified: Wrong padding in the string",
 			"when": "video file_id is malformed"
+		},
+		{
+			"tag": "BotDescriptionInvalid",
+			"errorCode": 400,
+			"description": "Bad Request: BOT_DESC_INVALID",
+			"when": "description exceeds the 512 character limit"
+		},
+		{
+			"tag": "BotShortDescriptionInvalid",
+			"errorCode": 400,
+			"description": "Bad Request: BOT_SHARETEXT_INVALID",
+			"when": "short_description exceeds the 120 character limit"
+		},
+		{
+			"tag": "BotCommandScopeChatIdMissing",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse BotCommandScope: Can't find field \"chat_id\"",
+			"when": "BotCommandScope that requires chat_id omits it"
+		},
+		{
+			"tag": "BotCommandScopeUserIdMissing",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse BotCommandScope: Can't find field \"user_id\"",
+			"when": "BotCommandScope that requires user_id omits it"
+		},
+		{
+			"tag": "BotCommandScopeUnsupportedType",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse BotCommandScope: Unsupported type specified",
+			"when": "BotCommandScope type is unsupported"
+		},
+		{
+			"tag": "ChatAdministratorRightsCanDeleteMessagesMustBeBoolean",
+			"errorCode": 400,
+			"description": "Bad Request: can't parse ChatAdministratorRights: Field \"can_delete_messages\" must be of type Boolean",
+			"when": "rights.can_delete_messages is not a boolean"
 		}
 	]
 }

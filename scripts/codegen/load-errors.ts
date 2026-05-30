@@ -2,7 +2,8 @@ import * as Effect from "effect/Effect";
 import * as FileSystem from "effect/FileSystem";
 import * as Schema from "effect/Schema";
 import { parseError } from "../parse/errors.ts";
-import { ErrorsDoc, expandError, MethodError, MethodErrorsDoc, MethodErrorsRefDoc } from "./model-errors.ts";
+import { ErrorsDoc, expandError, MethodErrorsRefDoc } from "./model-errors.ts";
+import type { MethodError, MethodErrorsDoc } from "./model-errors.ts";
 
 const decodeErrorsDoc = Schema.decodeUnknownSync(ErrorsDoc);
 const decodeMethodErrorsRef = Schema.decodeUnknownSync(MethodErrorsRefDoc);
@@ -24,7 +25,6 @@ const resolveTags = (
 	});
 
 const mergeCommon = (
-	method: string,
 	errors: MethodErrorsDoc["errors"],
 	commonTags: readonly string[],
 	byTag: ReadonlyMap<string, MethodError>,
@@ -68,7 +68,7 @@ export const loadMethodErrors = Effect.fn("loadMethodErrors")(function* () {
 		const errors = resolveTags(doc.method, doc.errors, byTag);
 		byMethod.set(doc.method, {
 			method: doc.method,
-			errors: mergeCommon(doc.method, errors, catalog.common, byTag),
+			errors: mergeCommon(errors, catalog.common, byTag),
 		});
 	}
 	return byMethod;

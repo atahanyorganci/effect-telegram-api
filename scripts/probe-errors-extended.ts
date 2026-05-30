@@ -21,7 +21,9 @@ const flip = <A, E, R>(effect: Effect.Effect<A, E, R>) => effect.pipe(Effect.fli
 const formatFailure = (error: unknown): { tag: string; code?: number; description: string } => {
 	if (error && typeof error === "object" && "_tag" in error && "description" in error) {
 		const e = error as { _tag: string; description: string; errorCode?: number };
-		return { tag: e._tag, code: e.errorCode, description: e.description };
+		return e.errorCode === undefined
+			? { tag: e._tag, description: e.description }
+			: { tag: e._tag, code: e.errorCode, description: e.description };
 	}
 	return { tag: "unknown", description: String(error) };
 };
@@ -29,7 +31,7 @@ const formatFailure = (error: unknown): { tag: string; code?: number; descriptio
 type Case = {
 	readonly method: string;
 	readonly label: string;
-	readonly run: Effect.Effect<unknown, unknown, Layer.Layer.Success<typeof LiveLayer>>;
+	readonly run: Effect.Effect<unknown, unknown, Layer.Success<typeof LiveLayer>>;
 };
 
 const cases: readonly Case[] = [

@@ -1,4 +1,11 @@
 {
 	"method": "setMyCommands",
-	"errors": ["BotCommandInvalid", "CommandMustBeNonEmpty", "CommandDescriptionMustBeNonEmpty"]
+	"errors": [
+		"BotCommandInvalid",
+		"CommandMustBeNonEmpty",
+		"CommandDescriptionMustBeNonEmpty",
+		"BotCommandScopeChatIdMissing",
+		"BotCommandScopeUserIdMissing",
+		"BotCommandScopeUnsupportedType"
+	]
 }

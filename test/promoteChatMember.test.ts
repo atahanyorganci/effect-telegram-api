@@ -6,6 +6,19 @@ import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./hel
 const callPromoteChatMember = (token: string, payload: unknown) =>
 	Telegram.Client.callMethod(token, Telegram.Methods.promoteChatMember, payload);
 
+const isChatOwner = (
+	admin: unknown,
+): admin is { readonly status: "creator"; readonly user: { readonly id: number } } => {
+	if (admin === null || typeof admin !== "object") {
+		return false;
+	}
+	const candidate = admin as { readonly status?: unknown; readonly user?: unknown };
+	if (candidate.status !== "creator" || candidate.user === null || typeof candidate.user !== "object") {
+		return false;
+	}
+	return typeof (candidate.user as { readonly id?: unknown }).id === "number";
+};
+
 describe("promoteChatMember", () => {
 	describe("Telegram API errors", () => {
 		it.effect("CantRemoveChatOwner when promotion would demote the chat owner", () =>
@@ -14,8 +27,8 @@ describe("promoteChatMember", () => {
 				const administrators = yield* Telegram.Client.callMethod(botToken, Telegram.Methods.getChatAdministrators, {
 					chat_id: groupId,
 				});
-				const owner = administrators.find(admin => admin.status === "creator");
-				if (owner === undefined || owner === null || !("user" in owner)) {
+				const owner = administrators.find(isChatOwner);
+				if (owner === undefined) {
 					return yield* Effect.die("expected a creator in getChatAdministrators");
 				}
 

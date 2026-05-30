@@ -1,4 +1,4 @@
 {
 	"method": "setMyDescription",
-	"errors": []
+	"errors": ["BotDescriptionInvalid"]
 }
