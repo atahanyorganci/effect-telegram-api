@@ -33,13 +33,20 @@ Expand live integration coverage for Telegram Bot API RPC methods. Each method g
    pnpm scripts:codegen
    ```
 
-6. **Run tests**
+6. **Run formatter and linter**
+
+   ```sh
+   pnpm format
+   pnpm lint
+   ```
+
+7. **Run tests**
 
    ```sh
    pnpm test
    ```
 
-7. **If the method return type is wrong in generated code**, fix `scripts/parse/` (not `src/`), then:
+8. **If the method return type is wrong in generated code**, fix `scripts/parse/` (not `src/`), then:
 
    ```sh
    pnpm scripts:parse
