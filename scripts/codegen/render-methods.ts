@@ -42,7 +42,7 @@ export const renderMethodsModule = (methods: readonly Method[]): string => {
 			`import * as Rpc from "effect/unstable/rpc/Rpc";`,
 			`import * as RpcGroup from "effect/unstable/rpc/RpcGroup";`,
 			`import * as Schema from "effect/Schema";`,
-			`import * as Objects from "./objects.ts";`,
+			`import * as Objects from "./Objects.ts";`,
 		].join("\n"),
 		...sorted.map(renderMethod),
 		group,

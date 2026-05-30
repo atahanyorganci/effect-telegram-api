@@ -126,10 +126,6 @@ export type SuccessfulPayment = typeof SuccessfulPayment.Type;
 export const VideoChatStarted = Schema.Unknown;
 export type VideoChatStarted = typeof VideoChatStarted.Type;
 
-// TODO: union/polymorphic type not yet generated from the spec.
-export const getFile = Schema.Unknown;
-export type getFile = typeof getFile.Type;
-
 /** This object describes the types of gifts that can be gifted to a user or a chat. */
 export const AcceptedGiftTypes = Schema.Struct({
 	unlimited_gifts: Schema.Boolean,

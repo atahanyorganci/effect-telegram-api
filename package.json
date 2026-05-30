@@ -11,6 +11,14 @@
 	"license": "proprietary",
 	"author": "Atahan Yorgancı <atahanyorganci@hotmail.com>",
 	"type": "module",
+	"sideEffects": [],
+	"exports": {
+		"./package.json": "./package.json",
+		".": "./src/index.ts",
+		"./Client": "./src/Client.ts",
+		"./Objects": "./src/Objects.ts",
+		"./Methods": "./src/Methods.ts"
+	},
 	"scripts": {
 		"check": "tsgo",
 		"check:watch": "tsgo --watch",
@@ -19,22 +27,22 @@
 		"format:fix": "oxfmt --write .",
 		"ingest:fetch": "tsx scripts/fetch.ts",
 		"ingest:parse": "tsx scripts/parse.ts",
-		"lint": "oxlint scripts src",
-		"lint:fix": "oxlint --fix scripts src",
+		"lint": "oxlint scripts src test",
+		"lint:fix": "oxlint --fix scripts src test",
 		"test": "vitest run",
 		"test:watch": "vitest"
 	},
 	"dependencies": {
-		"@effect/platform-node": "4.0.0-beta.68",
-		"effect": "4.0.0-beta.68",
-		"node-html-parser": "^7.1.0"
+		"effect": "4.0.0-beta.68"
 	},
 	"devDependencies": {
 		"@effect/language-service": "^0.85.1",
+		"@effect/platform-node": "4.0.0-beta.68",
 		"@effect/vitest": "4.0.0-beta.68",
 		"@types/node": "^25.9.0",
 		"@typescript/native-preview": "7.0.0-dev.20260518.1",
 		"dotenv": "^17.4.2",
+		"node-html-parser": "^7.1.0",
 		"oxfmt": "^0.48.0",
 		"oxlint": "^1.65.0",
 		"oxlint-tsgolint": "^0.23.0",

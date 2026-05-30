@@ -86,6 +86,11 @@ const parseRefReturn = (paragraph: HTMLElement): TypeExpr | undefined => {
 	}
 
 	if (/\bReturns\b/i.test(text) || /\bis returned\b/i.test(text)) {
+		const objectMatch = text.match(/\ba\s+([A-Z][A-Za-z0-9]*)\s+object\b/);
+		if (objectMatch !== null) {
+			return { kind: "ref", name: objectMatch[1]! };
+		}
+
 		const links = paragraph.querySelectorAll('a[href^="#"]');
 		const link = links[links.length - 1];
 		if (link !== undefined) {

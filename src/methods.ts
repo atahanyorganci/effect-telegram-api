@@ -3,7 +3,7 @@
 import * as Schema from "effect/Schema";
 import * as Rpc from "effect/unstable/rpc/Rpc";
 import * as RpcGroup from "effect/unstable/rpc/RpcGroup";
-import * as Objects from "./objects.ts";
+import * as Objects from "./Objects.ts";
 
 /** Use this method to send answers to callback queries sent from inline keyboards. The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, True */
 export const answerCallbackQuery = Rpc.make("answerCallbackQuery", {
@@ -432,7 +432,7 @@ export const getFile = Rpc.make("getFile", {
 	payload: {
 		file_id: Schema.String,
 	},
-	success: Objects.getFile,
+	success: Objects.File,
 });
 
 /** Use this method to get custom emoji stickers, which can be used as a forum topic icon by any user */

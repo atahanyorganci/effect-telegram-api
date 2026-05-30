@@ -75,6 +75,7 @@ export interface RenderObjectsResult {
 export const renderObjectsModule = (
 	objects: readonly ObjectType[],
 	extraRefs: Iterable<string>,
+	methodNames: ReadonlySet<string> = new Set(),
 ): RenderObjectsResult => {
 	const generated = new Set(objects.map(object => object.name));
 
@@ -85,7 +86,9 @@ export const renderObjectsModule = (
 		}
 	}
 
-	const placeholders = [...referenced].filter(name => !generated.has(name) && name !== INPUT_FILE_TYPE).sort();
+	const placeholders = [...referenced]
+		.filter(name => !generated.has(name) && name !== INPUT_FILE_TYPE && !methodNames.has(name))
+		.sort();
 	const knownNames = new Set([...generated, INPUT_FILE_TYPE]);
 
 	const { order, sccOf, recursive } = analyzeDependencies(objects);
