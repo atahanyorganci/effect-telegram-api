@@ -25,6 +25,7 @@
 		"codegen": "tsx scripts/codegen.ts",
 		"format": "oxfmt --check .",
 		"format:fix": "oxfmt --write .",
+		"ingest:codegen": "tsx scripts/codegen.ts",
 		"ingest:fetch": "tsx scripts/fetch.ts",
 		"ingest:parse": "tsx scripts/parse.ts",
 		"lint": "oxlint scripts src test",
