@@ -83,6 +83,16 @@ export const MessageTextEmptyError = Schema.TaggedStruct("MessageTextEmpty", {
 	description: Schema.String,
 });
 
+/** text exceeds 4096 characters */
+
+export class MessageTooLong extends Data.TaggedError("MessageTooLong")<{
+	readonly description: string;
+}> {}
+
+export const MessageTooLongError = Schema.TaggedStruct("MessageTooLong", {
+	description: Schema.String,
+});
+
 /** Token segment is empty or not in bot id:hash form */
 
 export class NotFound extends Data.TaggedError("NotFound")<{
@@ -193,6 +203,7 @@ export const methodErrors = {
 		{ errorCode: 400, description: "Bad Request: chat_id is empty", error: ChatIdEmpty },
 		{ errorCode: 400, description: "Bad Request: chat not found", error: ChatNotFound },
 		{ errorCode: 400, description: "Bad Request: message text is empty", error: MessageTextEmpty },
+		{ errorCode: 400, description: "Bad Request: message is too long", error: MessageTooLong },
 		{ errorCode: 404, description: "Not Found", error: NotFound },
 		{ errorCode: 401, description: "Unauthorized: invalid token specified", error: Unauthorized },
 	],

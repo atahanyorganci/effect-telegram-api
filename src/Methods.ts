@@ -1124,6 +1124,7 @@ export const sendMessage = Rpc.make("sendMessage", {
 		Errors.ChatIdEmptyError,
 		Errors.ChatNotFoundError,
 		Errors.MessageTextEmptyError,
+		Errors.MessageTooLongError,
 		Errors.NotFoundError,
 		Errors.UnauthorizedError,
 	]),

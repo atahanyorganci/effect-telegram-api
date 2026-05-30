@@ -19,6 +19,19 @@ describe("sendMessage", () => {
 				assert.strictEqual(message.text, "telegram-api test");
 			}).pipe(Effect.provide(LiveLayer)),
 		);
+
+		it.effect("sends a message that is 4096 characters long", () =>
+			Effect.gen(function* () {
+				const text = "x".repeat(4096);
+				const message = yield* callSendMessage(requireBotToken(), {
+					chat_id: requireChatId(),
+					text,
+				});
+
+				assert.strictEqual(typeof message.message_id, "number");
+				assert.strictEqual(message.text, text);
+			}).pipe(Effect.provide(LiveLayer)),
+		);
 	});
 
 	describe("Telegram API errors", () => {
@@ -47,6 +60,17 @@ describe("sendMessage", () => {
 				const error = yield* callSendMessage(requireBotToken(), { chat_id: 0, text: "test" }).pipe(Effect.flip);
 
 				expectErrorTag<Telegram.Errors.ChatNotFound>(error, "ChatNotFound", "Bad Request: chat not found");
+			}).pipe(Effect.provide(LiveLayer)),
+		);
+
+		it.effect("MessageTooLong when text is longer than 4096 characters", () =>
+			Effect.gen(function* () {
+				const error = yield* callSendMessage(requireBotToken(), {
+					chat_id: requireChatId(),
+					text: "x".repeat(4097),
+				}).pipe(Effect.flip);
+
+				expectErrorTag<Telegram.Errors.MessageTooLong>(error, "MessageTooLong", "Bad Request: message is too long");
 			}).pipe(Effect.provide(LiveLayer)),
 		);
 	});
