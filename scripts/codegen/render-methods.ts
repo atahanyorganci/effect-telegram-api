@@ -1,5 +1,10 @@
 import { methodRpcError } from "./render-errors.ts";
-import { renderSchemaExpr, type RenderRefStrategy } from "./render-type-expr.ts";
+import {
+	renderAnnotatedSchemaExpr,
+	renderJsDoc,
+	renderSchemaExpr,
+	type RenderRefStrategy,
+} from "./render-type-expr.ts";
 import type { Method, Parameter } from "../parse/model.ts";
 import type { MethodErrorsDoc } from "./model-errors.ts";
 
@@ -10,26 +15,30 @@ const methodStrategy: RenderRefStrategy = {
 	fileSchema: () => "Objects.InputFile",
 };
 
-const jsDoc = (description: string): string => {
-	const text = description.trim().replace(/\*\//g, "*\\/");
-	return text.length === 0 ? "" : `/** ${text} */\n`;
-};
-
 const renderPayloadField = (parameter: Parameter): string => {
-	const expr = renderSchemaExpr(parameter.type, methodStrategy);
-	return parameter.required ? `\t\t${parameter.name}: ${expr},` : `\t\t${parameter.name}: Schema.optional(${expr}),`;
+	let expr = renderSchemaExpr(parameter.type, methodStrategy);
+	if (!parameter.required) {
+		expr = `Schema.optional(${expr})`;
+	}
+	expr = renderAnnotatedSchemaExpr(expr, parameter.description);
+	return `${renderJsDoc(parameter.description, "\t\t")}\t\t${parameter.name}: ${expr},`;
 };
 
 const renderMethod = (method: Method, methodErrors: ReadonlyMap<string, MethodErrorsDoc>): string => {
-	const doc = jsDoc(method.description);
-	const success = `\tsuccess: ${renderSchemaExpr(method.returns, methodStrategy)},`;
+	const doc = renderJsDoc(method.description);
 	const errorField = methodErrors.has(method.name) ? `\n\terror: ${methodRpcError(method.name, methodErrors)},` : "";
+	const successExpr = renderSchemaExpr(method.returns, methodStrategy);
+	const success =
+		method.parameters.length === 0
+			? `\tsuccess: ${renderAnnotatedSchemaExpr(successExpr, method.description)},`
+			: `\tsuccess: ${successExpr},`;
 
 	if (method.parameters.length === 0) {
 		return `${doc}export const ${method.name} = Rpc.make("${method.name}", {\n${success}${errorField}\n});`;
 	}
 
-	const payload = `\tpayload: {\n${method.parameters.map(renderPayloadField).join("\n")}\n\t},`;
+	const fields = method.parameters.map(renderPayloadField).join("\n");
+	const payload = `\tpayload: ${renderAnnotatedSchemaExpr(`Schema.Struct({\n${fields}\n\t})`, method.description)},`;
 	return `${doc}export const ${method.name} = Rpc.make("${method.name}", {\n${payload}\n${success}${errorField}\n});`;
 };
 

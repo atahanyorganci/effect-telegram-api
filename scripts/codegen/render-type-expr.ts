@@ -9,6 +9,26 @@ export interface RenderRefStrategy {
 	readonly fileSchema: () => string;
 }
 
+export const escapeJsDoc = (text: string): string => text.trim().replace(/\*\//g, "*\\/");
+
+/** Renders a single-line JSDoc comment when `description` is non-empty. */
+export const renderJsDoc = (description: string, indent = ""): string => {
+	const text = escapeJsDoc(description);
+	if (text.length === 0) {
+		return "";
+	}
+	return `${indent}/** ${text} */\n`;
+};
+
+/** Wraps a schema expression with `Schema.annotate({ description })` when non-empty. */
+export const renderAnnotatedSchemaExpr = (expr: string, description: string): string => {
+	const text = description.trim();
+	if (text.length === 0) {
+		return expr;
+	}
+	return `${expr}.pipe(Schema.annotate({ description: ${JSON.stringify(text)} }))`;
+};
+
 export const renderSchemaExpr = (type: TypeExpr, strategy: RenderRefStrategy): string => {
 	switch (type.kind) {
 		case "integer":
