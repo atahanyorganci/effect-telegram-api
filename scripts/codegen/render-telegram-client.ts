@@ -24,7 +24,12 @@ const renderPayloadType = (parameters: readonly Parameter[], knownNames: Readonl
 
 const renderErrorUnion = (method: string, methodErrors: ReadonlyMap<string, MethodErrorsDoc>): string => {
 	const tags = methodErrorTags(method, methodErrors);
-	const members = [...tags.map(tag => `Errors.${tag}`), "Errors.TelegramApiError", "HttpClientError.HttpClientError"];
+	const members = [
+		...tags.map(tag => `Errors.${tag}`),
+		"Errors.TelegramApiError",
+		"Schema.SchemaError",
+		"HttpClientError.HttpClientError",
+	];
 	return members.join(" | ");
 };
 
@@ -78,6 +83,7 @@ export const renderTelegramClientModule = (
 		`import type * as Effect from "effect/Effect";`,
 		`import type * as Errors from "../errors.ts";`,
 		objectImportLine.trimEnd(),
+		`import type * as Schema from "effect/Schema";`,
 		`import type * as HttpClientError from "effect/unstable/http/HttpClientError";`,
 		``,
 		`export class TelegramClient extends Context.Service<TelegramClient, {`,

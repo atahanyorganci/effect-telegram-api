@@ -1,9 +1,10 @@
+import * as Effect from "effect/Effect";
+import * as Schema from "effect/Schema";
+
 /**
  * Builds a multipart {@link FormData} payload for Telegram file-upload methods.
- * @param payload - The payload to convert to a {@link FormData} object.
- * @returns A {@link FormData} object.
  */
-export const toFormData = (payload: Record<string, unknown> | FormData): FormData => {
+const toFormData = (payload: Record<string, unknown> | FormData): FormData => {
 	if (payload instanceof FormData) {
 		return payload;
 	}
@@ -36,3 +37,15 @@ export const toFormData = (payload: Record<string, unknown> | FormData): FormDat
 	}
 	return form;
 };
+
+/**
+ * Validates a payload with {@link Schema.encodeUnknownEffect}, then builds multipart
+ * {@link FormData} for the Telegram Bot API.
+ */
+export const encodeToFormData = <S extends Schema.Top>(
+	schema: S,
+	payload: unknown,
+): Effect.Effect<FormData, Schema.SchemaError, S["EncodingServices"]> =>
+	Schema.encodeUnknownEffect(schema)(payload).pipe(
+		Effect.map(encoded => toFormData(encoded as Record<string, unknown>)),
+	);

@@ -1,12 +1,9 @@
 import { NodeHttpClient, NodeServices } from "@effect/platform-node";
 import { assert, it } from "@effect/vitest";
-import * as Cause from "effect/Cause";
 import * as Config from "effect/Config";
 import * as ConfigProvider from "effect/ConfigProvider";
 import * as Effect from "effect/Effect";
-import * as Exit from "effect/Exit";
 import * as Layer from "effect/Layer";
-import * as Result from "effect/Result";
 import * as Schedule from "effect/Schedule";
 import * as Schema from "effect/Schema";
 import * as HttpClientError from "effect/unstable/http/HttpClientError";
@@ -200,30 +197,12 @@ export const expectErrorTag = (error: unknown, tag: string, description: string)
 	assert.strictEqual((error as { readonly _tag: string })._tag, tag);
 };
 
-const isSchemaErrorDefect = (value: unknown): boolean =>
-	Schema.isSchemaError(value) ||
-	(typeof value === "object" &&
-		value !== null &&
-		"_tag" in value &&
-		(value as { readonly _tag: string })._tag === "SchemaError");
-
-export const expectSchemaDie = (exit: Exit.Exit<unknown, unknown>) => {
-	assert.strictEqual(Exit.isFailure(exit), true);
-	if (!Exit.isFailure(exit)) {
-		return;
-	}
-	const defect = Result.getOrNull(Cause.findDefect(exit.cause));
-	assert.notStrictEqual(defect, null);
-	assert.strictEqual(isSchemaErrorDefect(defect), true);
-};
-
-/** Runs a client call and asserts that payload encoding fails with {@link Schema.SchemaError}. */
+/** Asserts the client call failed in the error channel with {@link Schema.SchemaError}. */
 export const expectClientSchemaError = (call: Effect.Effect<unknown, unknown, TestServices>) =>
-	call.pipe(
-		Effect.exit,
-		Effect.tap(exit => Effect.sync(() => expectSchemaDie(exit))),
-		Effect.asVoid,
-	);
+	Effect.gen(function* () {
+		const error = yield* call.pipe(Effect.flip);
+		assert.strictEqual(Schema.isSchemaError(error), true);
+	});
 
 /** Live tests for invalid or malformed bot tokens (401 / 404). */
 export const authErrorTests = (

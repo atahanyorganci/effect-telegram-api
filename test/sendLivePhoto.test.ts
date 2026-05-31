@@ -1,18 +1,16 @@
 import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import { authErrorTests, callClient, expectErrorTag, liveTests, telegramConfig } from "./helpers.ts";
+import { authErrorTests, callClient, expectClientSchemaError, liveTests, telegramConfig } from "./helpers.ts";
 
 const callSendLivePhoto = (token: string, payload: unknown = {}) =>
 	callClient("sendLivePhoto", token, payload as never);
 
 liveTests("sendLivePhoto", test => {
-	describe("Telegram API errors", () => {
-		test.effect("NoLivePhotoInRequest when live photo is missing", () =>
+	describe("payload validation", () => {
+		test.effect("fails Schema encode when live photo is missing", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendLivePhoto(botToken, { chat_id: chatId }).pipe(Effect.flip);
-
-				expectErrorTag(error, "NoLivePhotoInRequest", "Bad Request: there is no live photo in the request");
+				yield* expectClientSchemaError(callSendLivePhoto(botToken, { chat_id: chatId }));
 			}),
 		);
 	});

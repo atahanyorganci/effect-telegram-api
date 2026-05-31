@@ -1,7 +1,14 @@
 import { assert, describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
 import { readFileSync } from "node:fs";
-import { authErrorTests, callClient, expectErrorTag, liveTests, telegramConfig } from "./helpers.ts";
+import {
+	authErrorTests,
+	callClient,
+	expectClientSchemaError,
+	expectErrorTag,
+	liveTests,
+	telegramConfig,
+} from "./helpers.ts";
 
 const readVideoFixture = () => readFileSync(new URL("./video.mp4", import.meta.url));
 
@@ -47,21 +54,17 @@ liveTests("sendVideo", test => {
 	});
 
 	describe("Telegram API errors", () => {
-		test.effect("NoVideoInRequest when video is missing", () =>
+		test.effect("fails Schema encode when video is missing", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendVideo(botToken, { chat_id: chatId }).pipe(Effect.flip);
-
-				expectErrorTag(error, "NoVideoInRequest", "Bad Request: there is no video in the request");
+				yield* expectClientSchemaError(callSendVideo(botToken, { chat_id: chatId }));
 			}),
 		);
 
-		test.effect("ChatIdEmpty when chat_id is missing", () =>
+		test.effect("fails Schema encode when chat_id is missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callSendVideo(botToken, { video: readVideoFixture() }).pipe(Effect.flip);
-
-				expectErrorTag(error, "ChatIdEmpty", "Bad Request: chat_id is empty");
+				yield* expectClientSchemaError(callSendVideo(botToken, { video: readVideoFixture() }));
 			}),
 		);
 

@@ -5,12 +5,1761 @@ import * as Schema from "effect/Schema";
 import * as HttpApiClient from "effect/unstable/httpapi/HttpApiClient";
 import * as Errors from "../errors.ts";
 import { TelegramBotApi } from "../http-api.ts";
+import * as Objects from "../schema.ts";
 import { TelegramClient } from "./service.ts";
-import { toFormData } from "./to-form.ts";
+import { encodeToFormData } from "./to-form.ts";
 
 const BASE_URL = "https://api.telegram.org";
 
 type TelegramClientService = (typeof TelegramClient)["Service"];
+
+/** Payload encode schemas for multipart Bot API methods. */
+const sendAnimationPayload = Schema.Struct({
+	/**
+	 * Unique identifier of the business connection on behalf of which the message
+	 * will be sent
+	 */
+	business_connection_id: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Unique identifier of the business connection on behalf of which the message will be sent",
+		}),
+	),
+	/**
+	 * Unique identifier for the target chat or username of the target bot,
+	 * supergroup or channel in the format @username
+	 */
+	chat_id: Schema.Union([Schema.Int, Schema.String]).pipe(
+		Schema.annotate({
+			description:
+				"Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username",
+		}),
+	),
+	/**
+	 * Unique identifier for the target message thread (topic) of a forum; for
+	 * forum supergroups and private chats of bots with forum topic mode enabled
+	 * only
+	 */
+	message_thread_id: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only",
+		}),
+	),
+	/**
+	 * Identifier of the direct messages topic to which the message will be sent;
+	 * required if the message is sent to a direct messages chat
+	 */
+	direct_messages_topic_id: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat",
+		}),
+	),
+	/**
+	 * Animation to send. Pass a file_id as String to send an animation that exists
+	 * on the Telegram servers (recommended), pass an HTTP URL as a String for
+	 * Telegram to get an animation from the Internet, or upload a new animation
+	 * using multipart/form-data. More information on Sending Files »
+	 */
+	animation: Schema.Union([Objects.InputFile, Schema.String]).pipe(
+		Schema.annotate({
+			description:
+				"Animation to send. Pass a file_id as String to send an animation that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using multipart/form-data. More information on Sending Files »",
+		}),
+	),
+	/**
+	 * Duration of sent animation in seconds
+	 */
+	duration: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Duration of sent animation in seconds" })),
+	/**
+	 * Animation width
+	 */
+	width: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Animation width" })),
+	/**
+	 * Animation height
+	 */
+	height: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Animation height" })),
+	/**
+	 * Thumbnail of the file sent; can be ignored if thumbnail generation for the
+	 * file is supported server-side. The thumbnail should be in JPEG format and
+	 * less than 200 kB in size. A thumbnail's width and height should not exceed
+	 * 320. Ignored if the file is not uploaded using multipart/form-data.
+	 * Thumbnails can't be reused and can be only uploaded as a new file, so you
+	 * can pass “attach://<file_attach_name>” if the thumbnail was uploaded using
+	 * multipart/form-data under <file_attach_name>. More information on Sending
+	 * Files »
+	 */
+	thumbnail: Schema.optional(Schema.Union([Objects.InputFile, Schema.String])).pipe(
+		Schema.annotate({
+			description:
+				"Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »",
+		}),
+	),
+	/**
+	 * Animation caption (may also be used when resending animation by file_id),
+	 * 0-1024 characters after entities parsing
+	 */
+	caption: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description:
+				"Animation caption (may also be used when resending animation by file_id), 0-1024 characters after entities parsing",
+		}),
+	),
+	/**
+	 * Mode for parsing entities in the animation caption. See formatting options
+	 * for more details.
+	 */
+	parse_mode: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Mode for parsing entities in the animation caption. See formatting options for more details.",
+		}),
+	),
+	/**
+	 * A JSON-serialized list of special entities that appear in the caption, which
+	 * can be specified instead of parse_mode
+	 */
+	caption_entities: Schema.optional(Schema.Array(Objects.MessageEntity)).pipe(
+		Schema.annotate({
+			description:
+				"A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode",
+		}),
+	),
+	/**
+	 * Pass True, if the caption must be shown above the message media
+	 */
+	show_caption_above_media: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Pass True, if the caption must be shown above the message media" }),
+	),
+	/**
+	 * Pass True if the animation needs to be covered with a spoiler animation
+	 */
+	has_spoiler: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Pass True if the animation needs to be covered with a spoiler animation" }),
+	),
+	/**
+	 * Sends the message silently. Users will receive a notification with no sound.
+	 */
+	disable_notification: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
+	),
+	/**
+	 * Protects the contents of the sent message from forwarding and saving
+	 */
+	protect_content: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Protects the contents of the sent message from forwarding and saving" }),
+	),
+	/**
+	 * Pass True to allow up to 1000 messages per second, ignoring broadcasting
+	 * limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will
+	 * be withdrawn from the bot's balance.
+	 */
+	allow_paid_broadcast: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({
+			description:
+				"Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.",
+		}),
+	),
+	/**
+	 * Unique identifier of the message effect to be added to the message; for
+	 * private chats only
+	 */
+	message_effect_id: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Unique identifier of the message effect to be added to the message; for private chats only",
+		}),
+	),
+	/**
+	 * A JSON-serialized object containing the parameters of the suggested post to
+	 * send; for direct messages chats only. If the message is sent as a reply to
+	 * another suggested post, then that suggested post is automatically declined.
+	 */
+	suggested_post_parameters: Schema.optional(Objects.SuggestedPostParameters).pipe(
+		Schema.annotate({
+			description:
+				"A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.",
+		}),
+	),
+	/**
+	 * Description of the message to reply to
+	 */
+	reply_parameters: Schema.optional(Objects.ReplyParameters).pipe(
+		Schema.annotate({ description: "Description of the message to reply to" }),
+	),
+	/**
+	 * Additional interface options. A JSON-serialized object for an inline
+	 * keyboard, custom reply keyboard, instructions to remove a reply keyboard or
+	 * to force a reply from the user.
+	 */
+	reply_markup: Schema.optional(
+		Schema.Union([
+			Objects.InlineKeyboardMarkup,
+			Objects.ReplyKeyboardMarkup,
+			Objects.ReplyKeyboardRemove,
+			Objects.ForceReply,
+		]),
+	).pipe(
+		Schema.annotate({
+			description:
+				"Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.",
+		}),
+	),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Use this method to send animation files (GIF or H.264/MPEG-4 AVC video without sound). On success, the sent Message",
+	}),
+	Schema.toCodecJson,
+);
+const sendAudioPayload = Schema.Struct({
+	/**
+	 * Unique identifier of the business connection on behalf of which the message
+	 * will be sent
+	 */
+	business_connection_id: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Unique identifier of the business connection on behalf of which the message will be sent",
+		}),
+	),
+	/**
+	 * Unique identifier for the target chat or username of the target bot,
+	 * supergroup or channel in the format @username
+	 */
+	chat_id: Schema.Union([Schema.Int, Schema.String]).pipe(
+		Schema.annotate({
+			description:
+				"Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username",
+		}),
+	),
+	/**
+	 * Unique identifier for the target message thread (topic) of a forum; for
+	 * forum supergroups and private chats of bots with forum topic mode enabled
+	 * only
+	 */
+	message_thread_id: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only",
+		}),
+	),
+	/**
+	 * Identifier of the direct messages topic to which the message will be sent;
+	 * required if the message is sent to a direct messages chat
+	 */
+	direct_messages_topic_id: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat",
+		}),
+	),
+	/**
+	 * Audio file to send. Pass a file_id as String to send an audio file that
+	 * exists on the Telegram servers (recommended), pass an HTTP URL as a String
+	 * for Telegram to get an audio file from the Internet, or upload a new one
+	 * using multipart/form-data. More information on Sending Files »
+	 */
+	audio: Schema.Union([Objects.InputFile, Schema.String]).pipe(
+		Schema.annotate({
+			description:
+				"Audio file to send. Pass a file_id as String to send an audio file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »",
+		}),
+	),
+	/**
+	 * Audio caption, 0-1024 characters after entities parsing
+	 */
+	caption: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Audio caption, 0-1024 characters after entities parsing" }),
+	),
+	/**
+	 * Mode for parsing entities in the audio caption. See formatting options for
+	 * more details.
+	 */
+	parse_mode: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Mode for parsing entities in the audio caption. See formatting options for more details.",
+		}),
+	),
+	/**
+	 * A JSON-serialized list of special entities that appear in the caption, which
+	 * can be specified instead of parse_mode
+	 */
+	caption_entities: Schema.optional(Schema.Array(Objects.MessageEntity)).pipe(
+		Schema.annotate({
+			description:
+				"A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode",
+		}),
+	),
+	/**
+	 * Duration of the audio in seconds
+	 */
+	duration: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Duration of the audio in seconds" })),
+	/**
+	 * Performer
+	 */
+	performer: Schema.optional(Schema.String).pipe(Schema.annotate({ description: "Performer" })),
+	/**
+	 * Track name
+	 */
+	title: Schema.optional(Schema.String).pipe(Schema.annotate({ description: "Track name" })),
+	/**
+	 * Thumbnail of the file sent; can be ignored if thumbnail generation for the
+	 * file is supported server-side. The thumbnail should be in JPEG format and
+	 * less than 200 kB in size. A thumbnail's width and height should not exceed
+	 * 320. Ignored if the file is not uploaded using multipart/form-data.
+	 * Thumbnails can't be reused and can be only uploaded as a new file, so you
+	 * can pass “attach://<file_attach_name>” if the thumbnail was uploaded using
+	 * multipart/form-data under <file_attach_name>. More information on Sending
+	 * Files »
+	 */
+	thumbnail: Schema.optional(Schema.Union([Objects.InputFile, Schema.String])).pipe(
+		Schema.annotate({
+			description:
+				"Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »",
+		}),
+	),
+	/**
+	 * Sends the message silently. Users will receive a notification with no sound.
+	 */
+	disable_notification: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
+	),
+	/**
+	 * Protects the contents of the sent message from forwarding and saving
+	 */
+	protect_content: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Protects the contents of the sent message from forwarding and saving" }),
+	),
+	/**
+	 * Pass True to allow up to 1000 messages per second, ignoring broadcasting
+	 * limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will
+	 * be withdrawn from the bot's balance.
+	 */
+	allow_paid_broadcast: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({
+			description:
+				"Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.",
+		}),
+	),
+	/**
+	 * Unique identifier of the message effect to be added to the message; for
+	 * private chats only
+	 */
+	message_effect_id: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Unique identifier of the message effect to be added to the message; for private chats only",
+		}),
+	),
+	/**
+	 * A JSON-serialized object containing the parameters of the suggested post to
+	 * send; for direct messages chats only. If the message is sent as a reply to
+	 * another suggested post, then that suggested post is automatically declined.
+	 */
+	suggested_post_parameters: Schema.optional(Objects.SuggestedPostParameters).pipe(
+		Schema.annotate({
+			description:
+				"A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.",
+		}),
+	),
+	/**
+	 * Description of the message to reply to
+	 */
+	reply_parameters: Schema.optional(Objects.ReplyParameters).pipe(
+		Schema.annotate({ description: "Description of the message to reply to" }),
+	),
+	/**
+	 * Additional interface options. A JSON-serialized object for an inline
+	 * keyboard, custom reply keyboard, instructions to remove a reply keyboard or
+	 * to force a reply from the user.
+	 */
+	reply_markup: Schema.optional(
+		Schema.Union([
+			Objects.InlineKeyboardMarkup,
+			Objects.ReplyKeyboardMarkup,
+			Objects.ReplyKeyboardRemove,
+			Objects.ForceReply,
+		]),
+	).pipe(
+		Schema.annotate({
+			description:
+				"Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.",
+		}),
+	),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Use this method to send audio files, if you want Telegram clients to display them in the music player. Your audio must be in the .MP3 or .M4A format. On success, the sent Message",
+	}),
+	Schema.toCodecJson,
+);
+const sendDocumentPayload = Schema.Struct({
+	/**
+	 * Unique identifier of the business connection on behalf of which the message
+	 * will be sent
+	 */
+	business_connection_id: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Unique identifier of the business connection on behalf of which the message will be sent",
+		}),
+	),
+	/**
+	 * Unique identifier for the target chat or username of the target bot,
+	 * supergroup or channel in the format @username
+	 */
+	chat_id: Schema.Union([Schema.Int, Schema.String]).pipe(
+		Schema.annotate({
+			description:
+				"Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username",
+		}),
+	),
+	/**
+	 * Unique identifier for the target message thread (topic) of a forum; for
+	 * forum supergroups and private chats of bots with forum topic mode enabled
+	 * only
+	 */
+	message_thread_id: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only",
+		}),
+	),
+	/**
+	 * Identifier of the direct messages topic to which the message will be sent;
+	 * required if the message is sent to a direct messages chat
+	 */
+	direct_messages_topic_id: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat",
+		}),
+	),
+	/**
+	 * File to send. Pass a file_id as String to send a file that exists on the
+	 * Telegram servers (recommended), pass an HTTP URL as a String for Telegram to
+	 * get a file from the Internet, or upload a new one using multipart/form-data.
+	 * More information on Sending Files »
+	 */
+	document: Schema.Union([Objects.InputFile, Schema.String]).pipe(
+		Schema.annotate({
+			description:
+				"File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »",
+		}),
+	),
+	/**
+	 * Thumbnail of the file sent; can be ignored if thumbnail generation for the
+	 * file is supported server-side. The thumbnail should be in JPEG format and
+	 * less than 200 kB in size. A thumbnail's width and height should not exceed
+	 * 320. Ignored if the file is not uploaded using multipart/form-data.
+	 * Thumbnails can't be reused and can be only uploaded as a new file, so you
+	 * can pass “attach://<file_attach_name>” if the thumbnail was uploaded using
+	 * multipart/form-data under <file_attach_name>. More information on Sending
+	 * Files »
+	 */
+	thumbnail: Schema.optional(Schema.Union([Objects.InputFile, Schema.String])).pipe(
+		Schema.annotate({
+			description:
+				"Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »",
+		}),
+	),
+	/**
+	 * Document caption (may also be used when resending documents by file_id),
+	 * 0-1024 characters after entities parsing
+	 */
+	caption: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description:
+				"Document caption (may also be used when resending documents by file_id), 0-1024 characters after entities parsing",
+		}),
+	),
+	/**
+	 * Mode for parsing entities in the document caption. See formatting options
+	 * for more details.
+	 */
+	parse_mode: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Mode for parsing entities in the document caption. See formatting options for more details.",
+		}),
+	),
+	/**
+	 * A JSON-serialized list of special entities that appear in the caption, which
+	 * can be specified instead of parse_mode
+	 */
+	caption_entities: Schema.optional(Schema.Array(Objects.MessageEntity)).pipe(
+		Schema.annotate({
+			description:
+				"A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode",
+		}),
+	),
+	/**
+	 * Disables automatic server-side content type detection for files uploaded
+	 * using multipart/form-data
+	 */
+	disable_content_type_detection: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({
+			description: "Disables automatic server-side content type detection for files uploaded using multipart/form-data",
+		}),
+	),
+	/**
+	 * Sends the message silently. Users will receive a notification with no sound.
+	 */
+	disable_notification: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
+	),
+	/**
+	 * Protects the contents of the sent message from forwarding and saving
+	 */
+	protect_content: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Protects the contents of the sent message from forwarding and saving" }),
+	),
+	/**
+	 * Pass True to allow up to 1000 messages per second, ignoring broadcasting
+	 * limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will
+	 * be withdrawn from the bot's balance.
+	 */
+	allow_paid_broadcast: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({
+			description:
+				"Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.",
+		}),
+	),
+	/**
+	 * Unique identifier of the message effect to be added to the message; for
+	 * private chats only
+	 */
+	message_effect_id: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Unique identifier of the message effect to be added to the message; for private chats only",
+		}),
+	),
+	/**
+	 * A JSON-serialized object containing the parameters of the suggested post to
+	 * send; for direct messages chats only. If the message is sent as a reply to
+	 * another suggested post, then that suggested post is automatically declined.
+	 */
+	suggested_post_parameters: Schema.optional(Objects.SuggestedPostParameters).pipe(
+		Schema.annotate({
+			description:
+				"A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.",
+		}),
+	),
+	/**
+	 * Description of the message to reply to
+	 */
+	reply_parameters: Schema.optional(Objects.ReplyParameters).pipe(
+		Schema.annotate({ description: "Description of the message to reply to" }),
+	),
+	/**
+	 * Additional interface options. A JSON-serialized object for an inline
+	 * keyboard, custom reply keyboard, instructions to remove a reply keyboard or
+	 * to force a reply from the user.
+	 */
+	reply_markup: Schema.optional(
+		Schema.Union([
+			Objects.InlineKeyboardMarkup,
+			Objects.ReplyKeyboardMarkup,
+			Objects.ReplyKeyboardRemove,
+			Objects.ForceReply,
+		]),
+	).pipe(
+		Schema.annotate({
+			description:
+				"Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.",
+		}),
+	),
+}).pipe(
+	Schema.annotate({ description: "Use this method to send general files. On success, the sent Message" }),
+	Schema.toCodecJson,
+);
+const sendLivePhotoPayload = Schema.Struct({
+	/**
+	 * Unique identifier of the business connection on behalf of which the message
+	 * will be sent
+	 */
+	business_connection_id: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Unique identifier of the business connection on behalf of which the message will be sent",
+		}),
+	),
+	/**
+	 * Unique identifier for the target chat or username of the target channel (in
+	 * the format @channelusername)
+	 */
+	chat_id: Schema.Union([Schema.Int, Schema.String]).pipe(
+		Schema.annotate({
+			description:
+				"Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
+		}),
+	),
+	/**
+	 * Unique identifier for the target message thread (topic) of a forum; for
+	 * forum supergroups and private chats of bots with forum topic mode enabled
+	 * only
+	 */
+	message_thread_id: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only",
+		}),
+	),
+	/**
+	 * Identifier of the direct messages topic to which the message will be sent;
+	 * required if the message is sent to a direct messages chat
+	 */
+	direct_messages_topic_id: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat",
+		}),
+	),
+	/**
+	 * Live photo video to send. The video must be no longer than 10 seconds and
+	 * must not exceed 10 MB in size. Pass a file_id as String to send a video that
+	 * exists on the Telegram servers (recommended) or upload a new video using
+	 * multipart/form-data. More information on Sending Files ». Sending live
+	 * photos by a URL is currently unsupported.
+	 */
+	live_photo: Schema.Union([Objects.InputFile, Schema.String]).pipe(
+		Schema.annotate({
+			description:
+				"Live photo video to send. The video must be no longer than 10 seconds and must not exceed 10 MB in size. Pass a file_id as String to send a video that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending live photos by a URL is currently unsupported.",
+		}),
+	),
+	/**
+	 * The static photo to send. Pass a file_id as String to send a photo that
+	 * exists on the Telegram servers (recommended) or upload a new video using
+	 * multipart/form-data. More information on Sending Files ». Sending live
+	 * photos by a URL is currently unsupported.
+	 */
+	photo: Schema.Union([Objects.InputFile, Schema.String]).pipe(
+		Schema.annotate({
+			description:
+				"The static photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending live photos by a URL is currently unsupported.",
+		}),
+	),
+	/**
+	 * Video caption (may also be used when resending videos by file_id), 0-1024
+	 * characters after entities parsing
+	 */
+	caption: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description:
+				"Video caption (may also be used when resending videos by file_id), 0-1024 characters after entities parsing",
+		}),
+	),
+	/**
+	 * Mode for parsing entities in the video caption. See formatting options for
+	 * more details.
+	 */
+	parse_mode: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Mode for parsing entities in the video caption. See formatting options for more details.",
+		}),
+	),
+	/**
+	 * A JSON-serialized list of special entities that appear in the caption, which
+	 * can be specified instead of parse_mode
+	 */
+	caption_entities: Schema.optional(Schema.Array(Objects.MessageEntity)).pipe(
+		Schema.annotate({
+			description:
+				"A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode",
+		}),
+	),
+	/**
+	 * Pass True, if the caption must be shown above the message media
+	 */
+	show_caption_above_media: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Pass True, if the caption must be shown above the message media" }),
+	),
+	/**
+	 * Pass True if the video needs to be covered with a spoiler animation
+	 */
+	has_spoiler: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Pass True if the video needs to be covered with a spoiler animation" }),
+	),
+	/**
+	 * Sends the message silently. Users will receive a notification with no sound.
+	 */
+	disable_notification: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
+	),
+	/**
+	 * Protects the contents of the sent message from forwarding and saving
+	 */
+	protect_content: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Protects the contents of the sent message from forwarding and saving" }),
+	),
+	/**
+	 * Pass True to allow up to 1000 messages per second, ignoring broadcasting
+	 * limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will
+	 * be withdrawn from the bot's balance.
+	 */
+	allow_paid_broadcast: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({
+			description:
+				"Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.",
+		}),
+	),
+	/**
+	 * Unique identifier of the message effect to be added to the message; for
+	 * private chats only
+	 */
+	message_effect_id: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Unique identifier of the message effect to be added to the message; for private chats only",
+		}),
+	),
+	/**
+	 * A JSON-serialized object containing the parameters of the suggested post to
+	 * send; for direct messages chats only. If the message is sent as a reply to
+	 * another suggested post, then that suggested post is automatically declined.
+	 */
+	suggested_post_parameters: Schema.optional(Objects.SuggestedPostParameters).pipe(
+		Schema.annotate({
+			description:
+				"A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.",
+		}),
+	),
+	/**
+	 * Description of the message to reply to
+	 */
+	reply_parameters: Schema.optional(Objects.ReplyParameters).pipe(
+		Schema.annotate({ description: "Description of the message to reply to" }),
+	),
+	/**
+	 * Additional interface options. A JSON-serialized object for an inline
+	 * keyboard, custom reply keyboard, instructions to remove a reply keyboard or
+	 * to force a reply from the user.
+	 */
+	reply_markup: Schema.optional(
+		Schema.Union([
+			Objects.InlineKeyboardMarkup,
+			Objects.ReplyKeyboardMarkup,
+			Objects.ReplyKeyboardRemove,
+			Objects.ForceReply,
+		]),
+	).pipe(
+		Schema.annotate({
+			description:
+				"Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.",
+		}),
+	),
+}).pipe(
+	Schema.annotate({ description: "Use this method to send live photos. On success, the sent Message" }),
+	Schema.toCodecJson,
+);
+const sendPhotoPayload = Schema.Struct({
+	/**
+	 * Unique identifier of the business connection on behalf of which the message
+	 * will be sent
+	 */
+	business_connection_id: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Unique identifier of the business connection on behalf of which the message will be sent",
+		}),
+	),
+	/**
+	 * Unique identifier for the target chat or username of the target bot,
+	 * supergroup or channel in the format @username
+	 */
+	chat_id: Schema.Union([Schema.Int, Schema.String]).pipe(
+		Schema.annotate({
+			description:
+				"Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username",
+		}),
+	),
+	/**
+	 * Unique identifier for the target message thread (topic) of a forum; for
+	 * forum supergroups and private chats of bots with forum topic mode enabled
+	 * only
+	 */
+	message_thread_id: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only",
+		}),
+	),
+	/**
+	 * Identifier of the direct messages topic to which the message will be sent;
+	 * required if the message is sent to a direct messages chat
+	 */
+	direct_messages_topic_id: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat",
+		}),
+	),
+	/**
+	 * Photo to send. Pass a file_id as String to send a photo that exists on the
+	 * Telegram servers (recommended), pass an HTTP URL as a String for Telegram to
+	 * get a photo from the Internet, or upload a new photo using
+	 * multipart/form-data. The photo must be at most 10 MB in size. The photo's
+	 * width and height must not exceed 10000 in total. Width and height ratio must
+	 * be at most 20. More information on Sending Files »
+	 */
+	photo: Schema.Union([Objects.InputFile, Schema.String]).pipe(
+		Schema.annotate({
+			description:
+				"Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height ratio must be at most 20. More information on Sending Files »",
+		}),
+	),
+	/**
+	 * Photo caption (may also be used when resending photos by file_id), 0-1024
+	 * characters after entities parsing
+	 */
+	caption: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description:
+				"Photo caption (may also be used when resending photos by file_id), 0-1024 characters after entities parsing",
+		}),
+	),
+	/**
+	 * Mode for parsing entities in the photo caption. See formatting options for
+	 * more details.
+	 */
+	parse_mode: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Mode for parsing entities in the photo caption. See formatting options for more details.",
+		}),
+	),
+	/**
+	 * A JSON-serialized list of special entities that appear in the caption, which
+	 * can be specified instead of parse_mode
+	 */
+	caption_entities: Schema.optional(Schema.Array(Objects.MessageEntity)).pipe(
+		Schema.annotate({
+			description:
+				"A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode",
+		}),
+	),
+	/**
+	 * Pass True, if the caption must be shown above the message media
+	 */
+	show_caption_above_media: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Pass True, if the caption must be shown above the message media" }),
+	),
+	/**
+	 * Pass True if the photo needs to be covered with a spoiler animation
+	 */
+	has_spoiler: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Pass True if the photo needs to be covered with a spoiler animation" }),
+	),
+	/**
+	 * Sends the message silently. Users will receive a notification with no sound.
+	 */
+	disable_notification: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
+	),
+	/**
+	 * Protects the contents of the sent message from forwarding and saving
+	 */
+	protect_content: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Protects the contents of the sent message from forwarding and saving" }),
+	),
+	/**
+	 * Pass True to allow up to 1000 messages per second, ignoring broadcasting
+	 * limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will
+	 * be withdrawn from the bot's balance.
+	 */
+	allow_paid_broadcast: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({
+			description:
+				"Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.",
+		}),
+	),
+	/**
+	 * Unique identifier of the message effect to be added to the message; for
+	 * private chats only
+	 */
+	message_effect_id: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Unique identifier of the message effect to be added to the message; for private chats only",
+		}),
+	),
+	/**
+	 * A JSON-serialized object containing the parameters of the suggested post to
+	 * send; for direct messages chats only. If the message is sent as a reply to
+	 * another suggested post, then that suggested post is automatically declined.
+	 */
+	suggested_post_parameters: Schema.optional(Objects.SuggestedPostParameters).pipe(
+		Schema.annotate({
+			description:
+				"A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.",
+		}),
+	),
+	/**
+	 * Description of the message to reply to
+	 */
+	reply_parameters: Schema.optional(Objects.ReplyParameters).pipe(
+		Schema.annotate({ description: "Description of the message to reply to" }),
+	),
+	/**
+	 * Additional interface options. A JSON-serialized object for an inline
+	 * keyboard, custom reply keyboard, instructions to remove a reply keyboard or
+	 * to force a reply from the user.
+	 */
+	reply_markup: Schema.optional(
+		Schema.Union([
+			Objects.InlineKeyboardMarkup,
+			Objects.ReplyKeyboardMarkup,
+			Objects.ReplyKeyboardRemove,
+			Objects.ForceReply,
+		]),
+	).pipe(
+		Schema.annotate({
+			description:
+				"Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.",
+		}),
+	),
+}).pipe(
+	Schema.annotate({ description: "Use this method to send photos. On success, the sent Message" }),
+	Schema.toCodecJson,
+);
+const sendStickerPayload = Schema.Struct({
+	/**
+	 * Unique identifier of the business connection on behalf of which the message
+	 * will be sent
+	 */
+	business_connection_id: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Unique identifier of the business connection on behalf of which the message will be sent",
+		}),
+	),
+	/**
+	 * Unique identifier for the target chat or username of the target bot,
+	 * supergroup or channel in the format @username
+	 */
+	chat_id: Schema.Union([Schema.Int, Schema.String]).pipe(
+		Schema.annotate({
+			description:
+				"Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username",
+		}),
+	),
+	/**
+	 * Unique identifier for the target message thread (topic) of a forum; for
+	 * forum supergroups and private chats of bots with forum topic mode enabled
+	 * only
+	 */
+	message_thread_id: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only",
+		}),
+	),
+	/**
+	 * Identifier of the direct messages topic to which the message will be sent;
+	 * required if the message is sent to a direct messages chat
+	 */
+	direct_messages_topic_id: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat",
+		}),
+	),
+	/**
+	 * Sticker to send. Pass a file_id as String to send a file that exists on the
+	 * Telegram servers (recommended), pass an HTTP URL as a String for Telegram to
+	 * get a .WEBP sticker from the Internet, or upload a new .WEBP, .TGS, or .WEBM
+	 * sticker using multipart/form-data. More information on Sending Files ».
+	 * Video and animated stickers can't be sent via an HTTP URL.
+	 */
+	sticker: Schema.Union([Objects.InputFile, Schema.String]).pipe(
+		Schema.annotate({
+			description:
+				"Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP sticker from the Internet, or upload a new .WEBP, .TGS, or .WEBM sticker using multipart/form-data. More information on Sending Files ». Video and animated stickers can't be sent via an HTTP URL.",
+		}),
+	),
+	/**
+	 * Emoji associated with the sticker; only for just uploaded stickers
+	 */
+	emoji: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Emoji associated with the sticker; only for just uploaded stickers" }),
+	),
+	/**
+	 * Sends the message silently. Users will receive a notification with no sound.
+	 */
+	disable_notification: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
+	),
+	/**
+	 * Protects the contents of the sent message from forwarding and saving
+	 */
+	protect_content: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Protects the contents of the sent message from forwarding and saving" }),
+	),
+	/**
+	 * Pass True to allow up to 1000 messages per second, ignoring broadcasting
+	 * limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will
+	 * be withdrawn from the bot's balance.
+	 */
+	allow_paid_broadcast: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({
+			description:
+				"Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.",
+		}),
+	),
+	/**
+	 * Unique identifier of the message effect to be added to the message; for
+	 * private chats only
+	 */
+	message_effect_id: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Unique identifier of the message effect to be added to the message; for private chats only",
+		}),
+	),
+	/**
+	 * A JSON-serialized object containing the parameters of the suggested post to
+	 * send; for direct messages chats only. If the message is sent as a reply to
+	 * another suggested post, then that suggested post is automatically declined.
+	 */
+	suggested_post_parameters: Schema.optional(Objects.SuggestedPostParameters).pipe(
+		Schema.annotate({
+			description:
+				"A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.",
+		}),
+	),
+	/**
+	 * Description of the message to reply to
+	 */
+	reply_parameters: Schema.optional(Objects.ReplyParameters).pipe(
+		Schema.annotate({ description: "Description of the message to reply to" }),
+	),
+	/**
+	 * Additional interface options. A JSON-serialized object for an inline
+	 * keyboard, custom reply keyboard, instructions to remove a reply keyboard or
+	 * to force a reply from the user.
+	 */
+	reply_markup: Schema.optional(
+		Schema.Union([
+			Objects.InlineKeyboardMarkup,
+			Objects.ReplyKeyboardMarkup,
+			Objects.ReplyKeyboardRemove,
+			Objects.ForceReply,
+		]),
+	).pipe(
+		Schema.annotate({
+			description:
+				"Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.",
+		}),
+	),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Use this method to send static .WEBP, animated .TGS, or video .WEBM stickers. On success, the sent Message",
+	}),
+	Schema.toCodecJson,
+);
+const sendVideoPayload = Schema.Struct({
+	/**
+	 * Unique identifier of the business connection on behalf of which the message
+	 * will be sent
+	 */
+	business_connection_id: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Unique identifier of the business connection on behalf of which the message will be sent",
+		}),
+	),
+	/**
+	 * Unique identifier for the target chat or username of the target bot,
+	 * supergroup or channel in the format @username
+	 */
+	chat_id: Schema.Union([Schema.Int, Schema.String]).pipe(
+		Schema.annotate({
+			description:
+				"Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username",
+		}),
+	),
+	/**
+	 * Unique identifier for the target message thread (topic) of a forum; for
+	 * forum supergroups and private chats of bots with forum topic mode enabled
+	 * only
+	 */
+	message_thread_id: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only",
+		}),
+	),
+	/**
+	 * Identifier of the direct messages topic to which the message will be sent;
+	 * required if the message is sent to a direct messages chat
+	 */
+	direct_messages_topic_id: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat",
+		}),
+	),
+	/**
+	 * Video to send. Pass a file_id as String to send a video that exists on the
+	 * Telegram servers (recommended), pass an HTTP URL as a String for Telegram to
+	 * get a video from the Internet, or upload a new video using
+	 * multipart/form-data. More information on Sending Files »
+	 */
+	video: Schema.Union([Objects.InputFile, Schema.String]).pipe(
+		Schema.annotate({
+			description:
+				"Video to send. Pass a file_id as String to send a video that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart/form-data. More information on Sending Files »",
+		}),
+	),
+	/**
+	 * Duration of sent video in seconds
+	 */
+	duration: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Duration of sent video in seconds" })),
+	/**
+	 * Video width
+	 */
+	width: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Video width" })),
+	/**
+	 * Video height
+	 */
+	height: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Video height" })),
+	/**
+	 * Thumbnail of the file sent; can be ignored if thumbnail generation for the
+	 * file is supported server-side. The thumbnail should be in JPEG format and
+	 * less than 200 kB in size. A thumbnail's width and height should not exceed
+	 * 320. Ignored if the file is not uploaded using multipart/form-data.
+	 * Thumbnails can't be reused and can be only uploaded as a new file, so you
+	 * can pass “attach://<file_attach_name>” if the thumbnail was uploaded using
+	 * multipart/form-data under <file_attach_name>. More information on Sending
+	 * Files »
+	 */
+	thumbnail: Schema.optional(Schema.Union([Objects.InputFile, Schema.String])).pipe(
+		Schema.annotate({
+			description:
+				"Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »",
+		}),
+	),
+	/**
+	 * Cover for the video in the message. Pass a file_id to send a file that
+	 * exists on the Telegram servers (recommended), pass an HTTP URL for Telegram
+	 * to get a file from the Internet, or pass “attach://<file_attach_name>” to
+	 * upload a new one using multipart/form-data under <file_attach_name> name.
+	 * More information on Sending Files »
+	 */
+	cover: Schema.optional(Schema.Union([Objects.InputFile, Schema.String])).pipe(
+		Schema.annotate({
+			description:
+				"Cover for the video in the message. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. More information on Sending Files »",
+		}),
+	),
+	/**
+	 * Start timestamp for the video in the message
+	 */
+	start_timestamp: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({ description: "Start timestamp for the video in the message" }),
+	),
+	/**
+	 * Video caption (may also be used when resending videos by file_id), 0-1024
+	 * characters after entities parsing
+	 */
+	caption: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description:
+				"Video caption (may also be used when resending videos by file_id), 0-1024 characters after entities parsing",
+		}),
+	),
+	/**
+	 * Mode for parsing entities in the video caption. See formatting options for
+	 * more details.
+	 */
+	parse_mode: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Mode for parsing entities in the video caption. See formatting options for more details.",
+		}),
+	),
+	/**
+	 * A JSON-serialized list of special entities that appear in the caption, which
+	 * can be specified instead of parse_mode
+	 */
+	caption_entities: Schema.optional(Schema.Array(Objects.MessageEntity)).pipe(
+		Schema.annotate({
+			description:
+				"A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode",
+		}),
+	),
+	/**
+	 * Pass True, if the caption must be shown above the message media
+	 */
+	show_caption_above_media: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Pass True, if the caption must be shown above the message media" }),
+	),
+	/**
+	 * Pass True if the video needs to be covered with a spoiler animation
+	 */
+	has_spoiler: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Pass True if the video needs to be covered with a spoiler animation" }),
+	),
+	/**
+	 * Pass True if the uploaded video is suitable for streaming
+	 */
+	supports_streaming: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Pass True if the uploaded video is suitable for streaming" }),
+	),
+	/**
+	 * Sends the message silently. Users will receive a notification with no sound.
+	 */
+	disable_notification: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
+	),
+	/**
+	 * Protects the contents of the sent message from forwarding and saving
+	 */
+	protect_content: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Protects the contents of the sent message from forwarding and saving" }),
+	),
+	/**
+	 * Pass True to allow up to 1000 messages per second, ignoring broadcasting
+	 * limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will
+	 * be withdrawn from the bot's balance.
+	 */
+	allow_paid_broadcast: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({
+			description:
+				"Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.",
+		}),
+	),
+	/**
+	 * Unique identifier of the message effect to be added to the message; for
+	 * private chats only
+	 */
+	message_effect_id: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Unique identifier of the message effect to be added to the message; for private chats only",
+		}),
+	),
+	/**
+	 * A JSON-serialized object containing the parameters of the suggested post to
+	 * send; for direct messages chats only. If the message is sent as a reply to
+	 * another suggested post, then that suggested post is automatically declined.
+	 */
+	suggested_post_parameters: Schema.optional(Objects.SuggestedPostParameters).pipe(
+		Schema.annotate({
+			description:
+				"A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.",
+		}),
+	),
+	/**
+	 * Description of the message to reply to
+	 */
+	reply_parameters: Schema.optional(Objects.ReplyParameters).pipe(
+		Schema.annotate({ description: "Description of the message to reply to" }),
+	),
+	/**
+	 * Additional interface options. A JSON-serialized object for an inline
+	 * keyboard, custom reply keyboard, instructions to remove a reply keyboard or
+	 * to force a reply from the user.
+	 */
+	reply_markup: Schema.optional(
+		Schema.Union([
+			Objects.InlineKeyboardMarkup,
+			Objects.ReplyKeyboardMarkup,
+			Objects.ReplyKeyboardRemove,
+			Objects.ForceReply,
+		]),
+	).pipe(
+		Schema.annotate({
+			description:
+				"Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.",
+		}),
+	),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Use this method to send video files, Telegram clients support MPEG4 videos (other formats may be sent as Document). On success, the sent Message",
+	}),
+	Schema.toCodecJson,
+);
+const sendVideoNotePayload = Schema.Struct({
+	/**
+	 * Unique identifier of the business connection on behalf of which the message
+	 * will be sent
+	 */
+	business_connection_id: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Unique identifier of the business connection on behalf of which the message will be sent",
+		}),
+	),
+	/**
+	 * Unique identifier for the target chat or username of the target bot,
+	 * supergroup or channel in the format @username
+	 */
+	chat_id: Schema.Union([Schema.Int, Schema.String]).pipe(
+		Schema.annotate({
+			description:
+				"Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username",
+		}),
+	),
+	/**
+	 * Unique identifier for the target message thread (topic) of a forum; for
+	 * forum supergroups and private chats of bots with forum topic mode enabled
+	 * only
+	 */
+	message_thread_id: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only",
+		}),
+	),
+	/**
+	 * Identifier of the direct messages topic to which the message will be sent;
+	 * required if the message is sent to a direct messages chat
+	 */
+	direct_messages_topic_id: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat",
+		}),
+	),
+	/**
+	 * Video note to send. Pass a file_id as String to send a video note that
+	 * exists on the Telegram servers (recommended) or upload a new video using
+	 * multipart/form-data. More information on Sending Files ». Sending video
+	 * notes by a URL is currently unsupported.
+	 */
+	video_note: Schema.Union([Objects.InputFile, Schema.String]).pipe(
+		Schema.annotate({
+			description:
+				"Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending video notes by a URL is currently unsupported.",
+		}),
+	),
+	/**
+	 * Duration of sent video in seconds
+	 */
+	duration: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Duration of sent video in seconds" })),
+	/**
+	 * Video width and height, i.e. diameter of the video message
+	 */
+	length: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({ description: "Video width and height, i.e. diameter of the video message" }),
+	),
+	/**
+	 * Thumbnail of the file sent; can be ignored if thumbnail generation for the
+	 * file is supported server-side. The thumbnail should be in JPEG format and
+	 * less than 200 kB in size. A thumbnail's width and height should not exceed
+	 * 320. Ignored if the file is not uploaded using multipart/form-data.
+	 * Thumbnails can't be reused and can be only uploaded as a new file, so you
+	 * can pass “attach://<file_attach_name>” if the thumbnail was uploaded using
+	 * multipart/form-data under <file_attach_name>. More information on Sending
+	 * Files »
+	 */
+	thumbnail: Schema.optional(Schema.Union([Objects.InputFile, Schema.String])).pipe(
+		Schema.annotate({
+			description:
+				"Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »",
+		}),
+	),
+	/**
+	 * Sends the message silently. Users will receive a notification with no sound.
+	 */
+	disable_notification: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
+	),
+	/**
+	 * Protects the contents of the sent message from forwarding and saving
+	 */
+	protect_content: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Protects the contents of the sent message from forwarding and saving" }),
+	),
+	/**
+	 * Pass True to allow up to 1000 messages per second, ignoring broadcasting
+	 * limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will
+	 * be withdrawn from the bot's balance.
+	 */
+	allow_paid_broadcast: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({
+			description:
+				"Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.",
+		}),
+	),
+	/**
+	 * Unique identifier of the message effect to be added to the message; for
+	 * private chats only
+	 */
+	message_effect_id: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Unique identifier of the message effect to be added to the message; for private chats only",
+		}),
+	),
+	/**
+	 * A JSON-serialized object containing the parameters of the suggested post to
+	 * send; for direct messages chats only. If the message is sent as a reply to
+	 * another suggested post, then that suggested post is automatically declined.
+	 */
+	suggested_post_parameters: Schema.optional(Objects.SuggestedPostParameters).pipe(
+		Schema.annotate({
+			description:
+				"A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.",
+		}),
+	),
+	/**
+	 * Description of the message to reply to
+	 */
+	reply_parameters: Schema.optional(Objects.ReplyParameters).pipe(
+		Schema.annotate({ description: "Description of the message to reply to" }),
+	),
+	/**
+	 * Additional interface options. A JSON-serialized object for an inline
+	 * keyboard, custom reply keyboard, instructions to remove a reply keyboard or
+	 * to force a reply from the user.
+	 */
+	reply_markup: Schema.optional(
+		Schema.Union([
+			Objects.InlineKeyboardMarkup,
+			Objects.ReplyKeyboardMarkup,
+			Objects.ReplyKeyboardRemove,
+			Objects.ForceReply,
+		]),
+	).pipe(
+		Schema.annotate({
+			description:
+				"Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.",
+		}),
+	),
+}).pipe(
+	Schema.annotate({
+		description:
+			"As of v.4.0, Telegram clients support rounded square MPEG4 videos of up to 1 minute long. Use this method to send video messages. On success, the sent Message",
+	}),
+	Schema.toCodecJson,
+);
+const sendVoicePayload = Schema.Struct({
+	/**
+	 * Unique identifier of the business connection on behalf of which the message
+	 * will be sent
+	 */
+	business_connection_id: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Unique identifier of the business connection on behalf of which the message will be sent",
+		}),
+	),
+	/**
+	 * Unique identifier for the target chat or username of the target bot,
+	 * supergroup or channel in the format @username
+	 */
+	chat_id: Schema.Union([Schema.Int, Schema.String]).pipe(
+		Schema.annotate({
+			description:
+				"Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username",
+		}),
+	),
+	/**
+	 * Unique identifier for the target message thread (topic) of a forum; for
+	 * forum supergroups and private chats of bots with forum topic mode enabled
+	 * only
+	 */
+	message_thread_id: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only",
+		}),
+	),
+	/**
+	 * Identifier of the direct messages topic to which the message will be sent;
+	 * required if the message is sent to a direct messages chat
+	 */
+	direct_messages_topic_id: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat",
+		}),
+	),
+	/**
+	 * Audio file to send. Pass a file_id as String to send a file that exists on
+	 * the Telegram servers (recommended), pass an HTTP URL as a String for
+	 * Telegram to get a file from the Internet, or upload a new one using
+	 * multipart/form-data. More information on Sending Files »
+	 */
+	voice: Schema.Union([Objects.InputFile, Schema.String]).pipe(
+		Schema.annotate({
+			description:
+				"Audio file to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »",
+		}),
+	),
+	/**
+	 * Voice message caption, 0-1024 characters after entities parsing
+	 */
+	caption: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Voice message caption, 0-1024 characters after entities parsing" }),
+	),
+	/**
+	 * Mode for parsing entities in the voice message caption. See formatting
+	 * options for more details.
+	 */
+	parse_mode: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Mode for parsing entities in the voice message caption. See formatting options for more details.",
+		}),
+	),
+	/**
+	 * A JSON-serialized list of special entities that appear in the caption, which
+	 * can be specified instead of parse_mode
+	 */
+	caption_entities: Schema.optional(Schema.Array(Objects.MessageEntity)).pipe(
+		Schema.annotate({
+			description:
+				"A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode",
+		}),
+	),
+	/**
+	 * Duration of the voice message in seconds
+	 */
+	duration: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({ description: "Duration of the voice message in seconds" }),
+	),
+	/**
+	 * Sends the message silently. Users will receive a notification with no sound.
+	 */
+	disable_notification: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
+	),
+	/**
+	 * Protects the contents of the sent message from forwarding and saving
+	 */
+	protect_content: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Protects the contents of the sent message from forwarding and saving" }),
+	),
+	/**
+	 * Pass True to allow up to 1000 messages per second, ignoring broadcasting
+	 * limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will
+	 * be withdrawn from the bot's balance.
+	 */
+	allow_paid_broadcast: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({
+			description:
+				"Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.",
+		}),
+	),
+	/**
+	 * Unique identifier of the message effect to be added to the message; for
+	 * private chats only
+	 */
+	message_effect_id: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Unique identifier of the message effect to be added to the message; for private chats only",
+		}),
+	),
+	/**
+	 * A JSON-serialized object containing the parameters of the suggested post to
+	 * send; for direct messages chats only. If the message is sent as a reply to
+	 * another suggested post, then that suggested post is automatically declined.
+	 */
+	suggested_post_parameters: Schema.optional(Objects.SuggestedPostParameters).pipe(
+		Schema.annotate({
+			description:
+				"A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.",
+		}),
+	),
+	/**
+	 * Description of the message to reply to
+	 */
+	reply_parameters: Schema.optional(Objects.ReplyParameters).pipe(
+		Schema.annotate({ description: "Description of the message to reply to" }),
+	),
+	/**
+	 * Additional interface options. A JSON-serialized object for an inline
+	 * keyboard, custom reply keyboard, instructions to remove a reply keyboard or
+	 * to force a reply from the user.
+	 */
+	reply_markup: Schema.optional(
+		Schema.Union([
+			Objects.InlineKeyboardMarkup,
+			Objects.ReplyKeyboardMarkup,
+			Objects.ReplyKeyboardRemove,
+			Objects.ForceReply,
+		]),
+	).pipe(
+		Schema.annotate({
+			description:
+				"Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.",
+		}),
+	),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. For this to work, your audio must be in an .OGG file encoded with OPUS, or in .MP3 format, or in .M4A format (other formats may be sent as Audio or Document). On success, the sent Message",
+	}),
+	Schema.toCodecJson,
+);
+const setChatPhotoPayload = Schema.Struct({
+	/**
+	 * Unique identifier for the target chat or username of the target channel in
+	 * the format @username
+	 */
+	chat_id: Schema.Union([Schema.Int, Schema.String]).pipe(
+		Schema.annotate({
+			description: "Unique identifier for the target chat or username of the target channel in the format @username",
+		}),
+	),
+	/**
+	 * New chat photo, uploaded using multipart/form-data
+	 */
+	photo: Objects.InputFile.pipe(Schema.annotate({ description: "New chat photo, uploaded using multipart/form-data" })),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Use this method to set a new profile photo for the chat. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights",
+	}),
+	Schema.toCodecJson,
+);
+const setStickerSetThumbnailPayload = Schema.Struct({
+	/**
+	 * Sticker set name
+	 */
+	name: Schema.String.pipe(Schema.annotate({ description: "Sticker set name" })),
+	/**
+	 * User identifier of the sticker set owner
+	 */
+	user_id: Schema.Int.pipe(Schema.annotate({ description: "User identifier of the sticker set owner" })),
+	/**
+	 * A .WEBP or .PNG image with the thumbnail, must be up to 128 kilobytes in
+	 * size and have a width and height of exactly 100px, or a .TGS animation with
+	 * a thumbnail up to 32 kilobytes in size (see
+	 * https://core.telegram.org/stickers#animation-requirements for animated
+	 * sticker technical requirements), or a .WEBM video with the thumbnail up to
+	 * 32 kilobytes in size; see
+	 * https://core.telegram.org/stickers#video-requirements for video sticker
+	 * technical requirements. Pass a file_id as a String to send a file that
+	 * already exists on the Telegram servers, pass an HTTP URL as a String for
+	 * Telegram to get a file from the Internet, or upload a new one using
+	 * multipart/form-data. More information on Sending Files ». Animated and video
+	 * sticker set thumbnails can't be uploaded via HTTP URL. If omitted, then the
+	 * thumbnail is dropped and the first sticker is used as the thumbnail.
+	 */
+	thumbnail: Schema.optional(Schema.Union([Objects.InputFile, Schema.String])).pipe(
+		Schema.annotate({
+			description:
+				"A .WEBP or .PNG image with the thumbnail, must be up to 128 kilobytes in size and have a width and height of exactly 100px, or a .TGS animation with a thumbnail up to 32 kilobytes in size (see https://core.telegram.org/stickers#animation-requirements for animated sticker technical requirements), or a .WEBM video with the thumbnail up to 32 kilobytes in size; see https://core.telegram.org/stickers#video-requirements for video sticker technical requirements. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files ». Animated and video sticker set thumbnails can't be uploaded via HTTP URL. If omitted, then the thumbnail is dropped and the first sticker is used as the thumbnail.",
+		}),
+	),
+	/**
+	 * Format of the thumbnail, must be one of “static” for a .WEBP or .PNG image,
+	 * “animated” for a .TGS animation, or “video” for a .WEBM video
+	 */
+	format: Schema.String.pipe(
+		Schema.annotate({
+			description:
+				"Format of the thumbnail, must be one of “static” for a .WEBP or .PNG image, “animated” for a .TGS animation, or “video” for a .WEBM video",
+		}),
+	),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Use this method to set the thumbnail of a regular or mask sticker set. The format of the thumbnail file must match the format of the stickers in the set",
+	}),
+	Schema.toCodecJson,
+);
+const setWebhookPayload = Schema.Struct({
+	/**
+	 * HTTPS URL to send updates to. Use an empty string to remove webhook
+	 * integration.
+	 */
+	url: Schema.String.pipe(
+		Schema.annotate({
+			description: "HTTPS URL to send updates to. Use an empty string to remove webhook integration.",
+		}),
+	),
+	/**
+	 * Upload your public key certificate so that the root certificate in use can
+	 * be checked. See our self-signed guide for details.
+	 */
+	certificate: Schema.optional(Objects.InputFile).pipe(
+		Schema.annotate({
+			description:
+				"Upload your public key certificate so that the root certificate in use can be checked. See our self-signed guide for details.",
+		}),
+	),
+	/**
+	 * The fixed IP address which will be used to send webhook requests instead of
+	 * the IP address resolved through DNS
+	 */
+	ip_address: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description:
+				"The fixed IP address which will be used to send webhook requests instead of the IP address resolved through DNS",
+		}),
+	),
+	/**
+	 * The maximum allowed number of simultaneous HTTPS connections to the webhook
+	 * for update delivery, 1-100. Defaults to 40. Use lower values to limit the
+	 * load on your bot's server, and higher values to increase your bot's
+	 * throughput.
+	 */
+	max_connections: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"The maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery, 1-100. Defaults to 40. Use lower values to limit the load on your bot's server, and higher values to increase your bot's throughput.",
+		}),
+	),
+	/**
+	 * A JSON-serialized list of the update types you want your bot to receive. For
+	 * example, specify ["message", "edited_channel_post", "callback_query"] to
+	 * only receive updates of these types. See Update for a complete list of
+	 * available update types. Specify an empty list to receive all update types
+	 * except chat_member, message_reaction, and message_reaction_count (default).
+	 * If not specified, the previous setting will be used.
+	 * Please note that this parameter doesn't affect updates created before the
+	 * call to the setWebhook, so unwanted updates may be received for a short
+	 * period of time.
+	 */
+	allowed_updates: Schema.optional(Schema.Array(Schema.String)).pipe(
+		Schema.annotate({
+			description:
+				'A JSON-serialized list of the update types you want your bot to receive. For example, specify ["message", "edited_channel_post", "callback_query"] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member, message_reaction, and message_reaction_count (default). If not specified, the previous setting will be used.\nPlease note that this parameter doesn\'t affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time.',
+		}),
+	),
+	/**
+	 * Pass True to drop all pending updates
+	 */
+	drop_pending_updates: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Pass True to drop all pending updates" }),
+	),
+	/**
+	 * A secret token to be sent in a header “X-Telegram-Bot-Api-Secret-Token” in
+	 * every webhook request, 1-256 characters. Only characters A-Z, a-z, 0-9, _
+	 * and - are allowed. The header is useful to ensure that the request comes
+	 * from a webhook set by you.
+	 */
+	secret_token: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description:
+				"A secret token to be sent in a header “X-Telegram-Bot-Api-Secret-Token” in every webhook request, 1-256 characters. Only characters A-Z, a-z, 0-9, _ and - are allowed. The header is useful to ensure that the request comes from a webhook set by you.",
+		}),
+	),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Use this method to specify a URL and receive incoming updates via an outgoing webhook. Whenever there is an update for the bot, we will send an HTTPS POST request to the specified URL, containing a JSON-serialized Update. In case of an unsuccessful request (a request with response HTTP status code different from 2XY), we will repeat the request and give up after a reasonable amount of attempts",
+	}),
+	Schema.toCodecJson,
+);
+const uploadStickerFilePayload = Schema.Struct({
+	/**
+	 * User identifier of sticker file owner
+	 */
+	user_id: Schema.Int.pipe(Schema.annotate({ description: "User identifier of sticker file owner" })),
+	/**
+	 * A file with the sticker in .WEBP, .PNG, .TGS, or .WEBM format. See
+	 * https://core.telegram.org/stickers for technical requirements. More
+	 * information on Sending Files »
+	 */
+	sticker: Objects.InputFile.pipe(
+		Schema.annotate({
+			description:
+				"A file with the sticker in .WEBP, .PNG, .TGS, or .WEBM format. See https://core.telegram.org/stickers for technical requirements. More information on Sending Files »",
+		}),
+	),
+	/**
+	 * Format of the sticker, must be one of “static”, “animated”, “video”
+	 */
+	sticker_format: Schema.String.pipe(
+		Schema.annotate({ description: "Format of the sticker, must be one of “static”, “animated”, “video”" }),
+	),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Use this method to upload a file with a sticker for later use in the createNewStickerSet, addStickerToSet, or replaceStickerInSet methods (the file can be used multiple times)",
+	}),
+	Schema.toCodecJson,
+);
 
 /**
  * Builds a {@link TelegramClient} layer for the given bot token by unwrapping
@@ -23,11 +1772,9 @@ export const withToken = (token: string) =>
 			const apiClient = yield* HttpApiClient.make(TelegramBotApi, { baseUrl: `${BASE_URL}/bot${token}` });
 
 			const addStickerToSet = (payload =>
-				apiClient.addStickerToSet({ payload }).pipe(
-					Effect.map(response => response.result),
-
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["addStickerToSet"];
+				apiClient
+					.addStickerToSet({ payload })
+					.pipe(Effect.map(response => response.result))) as TelegramClientService["addStickerToSet"];
 			const answerCallbackQuery = (payload =>
 				apiClient.answerCallbackQuery({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -48,7 +1795,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["answerCallbackQuery"];
 			const answerGuestQuery = (payload =>
 				apiClient.answerGuestQuery({ payload }).pipe(
@@ -70,26 +1816,19 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["answerGuestQuery"];
 			const answerInlineQuery = (payload =>
-				apiClient.answerInlineQuery({ payload }).pipe(
-					Effect.map(response => response.result),
-
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["answerInlineQuery"];
+				apiClient
+					.answerInlineQuery({ payload })
+					.pipe(Effect.map(response => response.result))) as TelegramClientService["answerInlineQuery"];
 			const answerPreCheckoutQuery = (payload =>
-				apiClient.answerPreCheckoutQuery({ payload }).pipe(
-					Effect.map(response => response.result),
-
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["answerPreCheckoutQuery"];
+				apiClient
+					.answerPreCheckoutQuery({ payload })
+					.pipe(Effect.map(response => response.result))) as TelegramClientService["answerPreCheckoutQuery"];
 			const answerShippingQuery = (payload =>
-				apiClient.answerShippingQuery({ payload }).pipe(
-					Effect.map(response => response.result),
-
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["answerShippingQuery"];
+				apiClient
+					.answerShippingQuery({ payload })
+					.pipe(Effect.map(response => response.result))) as TelegramClientService["answerShippingQuery"];
 			const answerWebAppQuery = (payload =>
 				apiClient.answerWebAppQuery({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -116,7 +1855,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["answerWebAppQuery"];
 			const approveChatJoinRequest = (payload =>
 				apiClient.approveChatJoinRequest({ payload }).pipe(
@@ -144,7 +1882,6 @@ export const withToken = (token: string) =>
 							return new Errors.UserIdInvalid(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["approveChatJoinRequest"];
 			const approveSuggestedPost = (payload =>
 				apiClient.approveSuggestedPost({ payload }).pipe(
@@ -166,7 +1903,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["approveSuggestedPost"];
 			const banChatMember = (payload =>
 				apiClient.banChatMember({ payload }).pipe(
@@ -194,7 +1930,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["banChatMember"];
 			const banChatSenderChat = (payload =>
 				apiClient.banChatSenderChat({ payload }).pipe(
@@ -222,7 +1957,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["banChatSenderChat"];
 			const close = (() =>
 				apiClient.close().pipe(
@@ -238,7 +1972,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["close"];
 			const closeForumTopic = (payload =>
 				apiClient.closeForumTopic({ payload }).pipe(
@@ -272,7 +2005,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["closeForumTopic"];
 			const closeGeneralForumTopic = (payload =>
 				apiClient.closeGeneralForumTopic({ payload }).pipe(
@@ -300,7 +2032,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["closeGeneralForumTopic"];
 			const convertGiftToStars = (payload =>
 				apiClient.convertGiftToStars({ payload }).pipe(
@@ -322,7 +2053,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["convertGiftToStars"];
 			const copyMessage = (payload =>
 				apiClient.copyMessage({ payload }).pipe(
@@ -350,7 +2080,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["copyMessage"];
 			const copyMessages = (payload =>
 				apiClient.copyMessages({ payload }).pipe(
@@ -378,7 +2107,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["copyMessages"];
 			const createChatInviteLink = (payload =>
 				apiClient.createChatInviteLink({ payload }).pipe(
@@ -412,7 +2140,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["createChatInviteLink"];
 			const createChatSubscriptionInviteLink = (payload =>
 				apiClient.createChatSubscriptionInviteLink({ payload }).pipe(
@@ -446,7 +2173,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["createChatSubscriptionInviteLink"];
 			const createForumTopic = (payload =>
 				apiClient.createForumTopic({ payload }).pipe(
@@ -474,20 +2200,15 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["createForumTopic"];
 			const createInvoiceLink = (payload =>
-				apiClient.createInvoiceLink({ payload }).pipe(
-					Effect.map(response => response.result),
-
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["createInvoiceLink"];
+				apiClient
+					.createInvoiceLink({ payload })
+					.pipe(Effect.map(response => response.result))) as TelegramClientService["createInvoiceLink"];
 			const createNewStickerSet = (payload =>
-				apiClient.createNewStickerSet({ payload }).pipe(
-					Effect.map(response => response.result),
-
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["createNewStickerSet"];
+				apiClient
+					.createNewStickerSet({ payload })
+					.pipe(Effect.map(response => response.result))) as TelegramClientService["createNewStickerSet"];
 			const declineChatJoinRequest = (payload =>
 				apiClient.declineChatJoinRequest({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -514,7 +2235,6 @@ export const withToken = (token: string) =>
 							return new Errors.UserIdInvalid(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["declineChatJoinRequest"];
 			const declineSuggestedPost = (payload =>
 				apiClient.declineSuggestedPost({ payload }).pipe(
@@ -536,7 +2256,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["declineSuggestedPost"];
 			const deleteAllMessageReactions = (payload =>
 				apiClient.deleteAllMessageReactions({ payload }).pipe(
@@ -558,7 +2277,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["deleteAllMessageReactions"];
 			const deleteBusinessMessages = (payload =>
 				apiClient.deleteBusinessMessages({ payload }).pipe(
@@ -580,7 +2298,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["deleteBusinessMessages"];
 			const deleteChatPhoto = (payload =>
 				apiClient.deleteChatPhoto({ payload }).pipe(
@@ -608,7 +2325,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["deleteChatPhoto"];
 			const deleteChatStickerSet = (payload =>
 				apiClient.deleteChatStickerSet({ payload }).pipe(
@@ -642,7 +2358,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["deleteChatStickerSet"];
 			const deleteForumTopic = (payload =>
 				apiClient.deleteForumTopic({ payload }).pipe(
@@ -670,7 +2385,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["deleteForumTopic"];
 			const deleteMessage = (payload =>
 				apiClient.deleteMessage({ payload }).pipe(
@@ -698,7 +2412,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["deleteMessage"];
 			const deleteMessageReaction = (payload =>
 				apiClient.deleteMessageReaction({ payload }).pipe(
@@ -720,7 +2433,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["deleteMessageReaction"];
 			const deleteMessages = (payload =>
 				apiClient.deleteMessages({ payload }).pipe(
@@ -736,7 +2448,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["deleteMessages"];
 			const deleteMyCommands = (payload =>
 				apiClient.deleteMyCommands({ payload }).pipe(
@@ -770,20 +2481,15 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["deleteMyCommands"];
 			const deleteStickerFromSet = (payload =>
-				apiClient.deleteStickerFromSet({ payload }).pipe(
-					Effect.map(response => response.result),
-
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["deleteStickerFromSet"];
+				apiClient
+					.deleteStickerFromSet({ payload })
+					.pipe(Effect.map(response => response.result))) as TelegramClientService["deleteStickerFromSet"];
 			const deleteStickerSet = (payload =>
-				apiClient.deleteStickerSet({ payload }).pipe(
-					Effect.map(response => response.result),
-
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["deleteStickerSet"];
+				apiClient
+					.deleteStickerSet({ payload })
+					.pipe(Effect.map(response => response.result))) as TelegramClientService["deleteStickerSet"];
 			const deleteStory = (payload =>
 				apiClient.deleteStory({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -804,7 +2510,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["deleteStory"];
 			const deleteWebhook = (payload =>
 				apiClient.deleteWebhook({ payload }).pipe(
@@ -820,7 +2525,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["deleteWebhook"];
 			const editChatInviteLink = (payload =>
 				apiClient.editChatInviteLink({ payload }).pipe(
@@ -848,7 +2552,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["editChatInviteLink"];
 			const editChatSubscriptionInviteLink = (payload =>
 				apiClient.editChatSubscriptionInviteLink({ payload }).pipe(
@@ -876,7 +2579,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["editChatSubscriptionInviteLink"];
 			const editForumTopic = (payload =>
 				apiClient.editForumTopic({ payload }).pipe(
@@ -910,7 +2612,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["editForumTopic"];
 			const editGeneralForumTopic = (payload =>
 				apiClient.editGeneralForumTopic({ payload }).pipe(
@@ -938,7 +2639,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["editGeneralForumTopic"];
 			const editMessageCaption = (payload =>
 				apiClient.editMessageCaption({ payload }).pipe(
@@ -960,7 +2660,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["editMessageCaption"];
 			const editMessageChecklist = (payload =>
 				apiClient.editMessageChecklist({ payload }).pipe(
@@ -976,7 +2675,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["editMessageChecklist"];
 			const editMessageLiveLocation = (payload =>
 				apiClient.editMessageLiveLocation({ payload }).pipe(
@@ -998,7 +2696,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["editMessageLiveLocation"];
 			const editMessageMedia = (payload =>
 				apiClient.editMessageMedia({ payload }).pipe(
@@ -1020,7 +2717,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["editMessageMedia"];
 			const editMessageReplyMarkup = (payload =>
 				apiClient.editMessageReplyMarkup({ payload }).pipe(
@@ -1042,7 +2738,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["editMessageReplyMarkup"];
 			const editMessageText = (payload =>
 				apiClient.editMessageText({ payload }).pipe(
@@ -1070,7 +2765,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["editMessageText"];
 			const editStory = (payload =>
 				apiClient.editStory({ payload }).pipe(
@@ -1092,14 +2786,11 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["editStory"];
 			const editUserStarSubscription = (payload =>
-				apiClient.editUserStarSubscription({ payload }).pipe(
-					Effect.map(response => response.result),
-
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["editUserStarSubscription"];
+				apiClient
+					.editUserStarSubscription({ payload })
+					.pipe(Effect.map(response => response.result))) as TelegramClientService["editUserStarSubscription"];
 			const exportChatInviteLink = (payload =>
 				apiClient.exportChatInviteLink({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -1132,7 +2823,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["exportChatInviteLink"];
 			const forwardMessage = (payload =>
 				apiClient.forwardMessage({ payload }).pipe(
@@ -1178,7 +2868,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["forwardMessage"];
 			const forwardMessages = (payload =>
 				apiClient.forwardMessages({ payload }).pipe(
@@ -1206,7 +2895,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["forwardMessages"];
 			const getAvailableGifts = (() =>
 				apiClient.getAvailableGifts().pipe(
@@ -1222,7 +2910,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getAvailableGifts"];
 			const getBusinessAccountGifts = (payload =>
 				apiClient.getBusinessAccountGifts({ payload }).pipe(
@@ -1244,7 +2931,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getBusinessAccountGifts"];
 			const getBusinessAccountStarBalance = (payload =>
 				apiClient.getBusinessAccountStarBalance({ payload }).pipe(
@@ -1266,7 +2952,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getBusinessAccountStarBalance"];
 			const getBusinessConnection = (payload =>
 				apiClient.getBusinessConnection({ payload }).pipe(
@@ -1288,7 +2973,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getBusinessConnection"];
 			const getChat = (payload =>
 				apiClient.getChat({ payload }).pipe(
@@ -1316,7 +3000,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getChat"];
 			const getChatAdministrators = (payload =>
 				apiClient.getChatAdministrators({ payload }).pipe(
@@ -1344,7 +3027,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getChatAdministrators"];
 			const getChatGifts = (payload =>
 				apiClient.getChatGifts({ payload }).pipe(
@@ -1372,7 +3054,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getChatGifts"];
 			const getChatMember = (payload =>
 				apiClient.getChatMember({ payload }).pipe(
@@ -1418,7 +3099,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getChatMember"];
 			const getChatMemberCount = (payload =>
 				apiClient.getChatMemberCount({ payload }).pipe(
@@ -1446,7 +3126,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getChatMemberCount"];
 			const getChatMenuButton = (payload =>
 				apiClient.getChatMenuButton({ payload }).pipe(
@@ -1468,14 +3147,11 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getChatMenuButton"];
 			const getCustomEmojiStickers = (payload =>
-				apiClient.getCustomEmojiStickers({ payload }).pipe(
-					Effect.map(response => response.result),
-
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["getCustomEmojiStickers"];
+				apiClient
+					.getCustomEmojiStickers({ payload })
+					.pipe(Effect.map(response => response.result))) as TelegramClientService["getCustomEmojiStickers"];
 			const getFile = (payload =>
 				apiClient.getFile({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -1502,7 +3178,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getFile"];
 			const getForumTopicIconStickers = (() =>
 				apiClient.getForumTopicIconStickers().pipe(
@@ -1518,14 +3193,11 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getForumTopicIconStickers"];
 			const getGameHighScores = (payload =>
-				apiClient.getGameHighScores({ payload }).pipe(
-					Effect.map(response => response.result),
-
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["getGameHighScores"];
+				apiClient
+					.getGameHighScores({ payload })
+					.pipe(Effect.map(response => response.result))) as TelegramClientService["getGameHighScores"];
 			const getManagedBotAccessSettings = (payload =>
 				apiClient.getManagedBotAccessSettings({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -1546,7 +3218,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getManagedBotAccessSettings"];
 			const getManagedBotToken = (payload =>
 				apiClient.getManagedBotToken({ payload }).pipe(
@@ -1568,7 +3239,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getManagedBotToken"];
 			const getMe = (() =>
 				apiClient.getMe().pipe(
@@ -1584,7 +3254,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getMe"];
 			const getMyCommands = (payload =>
 				apiClient.getMyCommands({ payload }).pipe(
@@ -1618,7 +3287,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getMyCommands"];
 			const getMyDefaultAdministratorRights = (payload =>
 				apiClient.getMyDefaultAdministratorRights({ payload }).pipe(
@@ -1634,7 +3302,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getMyDefaultAdministratorRights"];
 			const getMyDescription = (payload =>
 				apiClient.getMyDescription({ payload }).pipe(
@@ -1650,7 +3317,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getMyDescription"];
 			const getMyName = (payload =>
 				apiClient.getMyName({ payload }).pipe(
@@ -1666,7 +3332,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getMyName"];
 			const getMyShortDescription = (payload =>
 				apiClient.getMyShortDescription({ payload }).pipe(
@@ -1682,26 +3347,19 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getMyShortDescription"];
 			const getMyStarBalance = (() =>
-				apiClient.getMyStarBalance().pipe(
-					Effect.map(response => response.result),
-
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["getMyStarBalance"];
+				apiClient
+					.getMyStarBalance()
+					.pipe(Effect.map(response => response.result))) as TelegramClientService["getMyStarBalance"];
 			const getStarTransactions = (payload =>
-				apiClient.getStarTransactions({ payload }).pipe(
-					Effect.map(response => response.result),
-
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["getStarTransactions"];
+				apiClient
+					.getStarTransactions({ payload })
+					.pipe(Effect.map(response => response.result))) as TelegramClientService["getStarTransactions"];
 			const getStickerSet = (payload =>
-				apiClient.getStickerSet({ payload }).pipe(
-					Effect.map(response => response.result),
-
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["getStickerSet"];
+				apiClient
+					.getStickerSet({ payload })
+					.pipe(Effect.map(response => response.result))) as TelegramClientService["getStickerSet"];
 			const getUpdates = (payload =>
 				apiClient.getUpdates({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -1716,7 +3374,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getUpdates"];
 			const getUserChatBoosts = (payload =>
 				apiClient.getUserChatBoosts({ payload }).pipe(
@@ -1756,7 +3413,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getUserChatBoosts"];
 			const getUserGifts = (payload =>
 				apiClient.getUserGifts({ payload }).pipe(
@@ -1784,7 +3440,6 @@ export const withToken = (token: string) =>
 							return new Errors.UserNotFound(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getUserGifts"];
 			const getUserPersonalChatMessages = (payload =>
 				apiClient.getUserPersonalChatMessages({ payload }).pipe(
@@ -1812,7 +3467,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getUserPersonalChatMessages"];
 			const getUserProfileAudios = (payload =>
 				apiClient.getUserProfileAudios({ payload }).pipe(
@@ -1840,7 +3494,6 @@ export const withToken = (token: string) =>
 							return new Errors.UserNotFound(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getUserProfileAudios"];
 			const getUserProfilePhotos = (payload =>
 				apiClient.getUserProfilePhotos({ payload }).pipe(
@@ -1868,7 +3521,6 @@ export const withToken = (token: string) =>
 							return new Errors.UserNotFound(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getUserProfilePhotos"];
 			const getWebhookInfo = (() =>
 				apiClient.getWebhookInfo().pipe(
@@ -1884,7 +3536,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getWebhookInfo"];
 			const giftPremiumSubscription = (payload =>
 				apiClient.giftPremiumSubscription({ payload }).pipe(
@@ -1912,7 +3563,6 @@ export const withToken = (token: string) =>
 							return new Errors.UserNotFound(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["giftPremiumSubscription"];
 			const hideGeneralForumTopic = (payload =>
 				apiClient.hideGeneralForumTopic({ payload }).pipe(
@@ -1940,7 +3590,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["hideGeneralForumTopic"];
 			const leaveChat = (payload =>
 				apiClient.leaveChat({ payload }).pipe(
@@ -1968,7 +3617,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["leaveChat"];
 			const logOut = (() =>
 				apiClient.logOut().pipe(
@@ -1984,7 +3632,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["logOut"];
 			const pinChatMessage = (payload =>
 				apiClient.pinChatMessage({ payload }).pipe(
@@ -2012,7 +3659,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["pinChatMessage"];
 			const postStory = (payload =>
 				apiClient.postStory({ payload }).pipe(
@@ -2034,7 +3680,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["postStory"];
 			const promoteChatMember = (payload =>
 				apiClient.promoteChatMember({ payload }).pipe(
@@ -2062,7 +3707,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["promoteChatMember"];
 			const readBusinessMessage = (payload =>
 				apiClient.readBusinessMessage({ payload }).pipe(
@@ -2084,14 +3728,11 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["readBusinessMessage"];
 			const refundStarPayment = (payload =>
-				apiClient.refundStarPayment({ payload }).pipe(
-					Effect.map(response => response.result),
-
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["refundStarPayment"];
+				apiClient
+					.refundStarPayment({ payload })
+					.pipe(Effect.map(response => response.result))) as TelegramClientService["refundStarPayment"];
 			const removeBusinessAccountProfilePhoto = (payload =>
 				apiClient.removeBusinessAccountProfilePhoto({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -2112,7 +3753,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["removeBusinessAccountProfilePhoto"];
 			const removeChatVerification = (payload =>
 				apiClient.removeChatVerification({ payload }).pipe(
@@ -2140,7 +3780,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["removeChatVerification"];
 			const removeMyProfilePhoto = (() =>
 				apiClient.removeMyProfilePhoto().pipe(
@@ -2156,7 +3795,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["removeMyProfilePhoto"];
 			const removeUserVerification = (payload =>
 				apiClient.removeUserVerification({ payload }).pipe(
@@ -2184,7 +3822,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["removeUserVerification"];
 			const reopenForumTopic = (payload =>
 				apiClient.reopenForumTopic({ payload }).pipe(
@@ -2218,7 +3855,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["reopenForumTopic"];
 			const reopenGeneralForumTopic = (payload =>
 				apiClient.reopenGeneralForumTopic({ payload }).pipe(
@@ -2246,7 +3882,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["reopenGeneralForumTopic"];
 			const replaceManagedBotToken = (payload =>
 				apiClient.replaceManagedBotToken({ payload }).pipe(
@@ -2268,14 +3903,11 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["replaceManagedBotToken"];
 			const replaceStickerInSet = (payload =>
-				apiClient.replaceStickerInSet({ payload }).pipe(
-					Effect.map(response => response.result),
-
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["replaceStickerInSet"];
+				apiClient
+					.replaceStickerInSet({ payload })
+					.pipe(Effect.map(response => response.result))) as TelegramClientService["replaceStickerInSet"];
 			const repostStory = (payload =>
 				apiClient.repostStory({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -2302,7 +3934,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["repostStory"];
 			const restrictChatMember = (payload =>
 				apiClient.restrictChatMember({ payload }).pipe(
@@ -2330,7 +3961,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["restrictChatMember"];
 			const revokeChatInviteLink = (payload =>
 				apiClient.revokeChatInviteLink({ payload }).pipe(
@@ -2358,7 +3988,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["revokeChatInviteLink"];
 			const savePreparedInlineMessage = (payload =>
 				apiClient.savePreparedInlineMessage({ payload }).pipe(
@@ -2386,7 +4015,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["savePreparedInlineMessage"];
 			const savePreparedKeyboardButton = (payload =>
 				apiClient.savePreparedKeyboardButton({ payload }).pipe(
@@ -2408,52 +4036,53 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["savePreparedKeyboardButton"];
 			const sendAnimation = (payload =>
-				apiClient.sendAnimation({ payload: toFormData(payload) }).pipe(
-					Effect.map(response => response.result),
-					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: there is no animation in the request"
-						)
-							return new Errors.NoAnimationInRequest(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
-						return error;
-					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["sendAnimation"];
+				encodeToFormData(sendAnimationPayload, payload)
+					.pipe(Effect.flatMap(form => apiClient.sendAnimation({ payload: form })))
+					.pipe(
+						Effect.map(response => response.result),
+						Effect.mapError(error => {
+							if (
+								"error_code" in error &&
+								error.error_code === 400 &&
+								error.description === "Bad Request: there is no animation in the request"
+							)
+								return new Errors.NoAnimationInRequest(error);
+							if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
+								return new Errors.NotFound(error);
+							if (
+								"error_code" in error &&
+								error.error_code === 401 &&
+								error.description === "Unauthorized: invalid token specified"
+							)
+								return new Errors.Unauthorized(error);
+							return error;
+						}),
+					)) as TelegramClientService["sendAnimation"];
 			const sendAudio = (payload =>
-				apiClient.sendAudio({ payload: toFormData(payload) }).pipe(
-					Effect.map(response => response.result),
-					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: there is no audio in the request"
-						)
-							return new Errors.NoAudioInRequest(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
-						return error;
-					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["sendAudio"];
+				encodeToFormData(sendAudioPayload, payload)
+					.pipe(Effect.flatMap(form => apiClient.sendAudio({ payload: form })))
+					.pipe(
+						Effect.map(response => response.result),
+						Effect.mapError(error => {
+							if (
+								"error_code" in error &&
+								error.error_code === 400 &&
+								error.description === "Bad Request: there is no audio in the request"
+							)
+								return new Errors.NoAudioInRequest(error);
+							if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
+								return new Errors.NotFound(error);
+							if (
+								"error_code" in error &&
+								error.error_code === 401 &&
+								error.description === "Unauthorized: invalid token specified"
+							)
+								return new Errors.Unauthorized(error);
+							return error;
+						}),
+					)) as TelegramClientService["sendAudio"];
 			const sendChatAction = (payload =>
 				apiClient.sendChatAction({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -2486,7 +4115,6 @@ export const withToken = (token: string) =>
 							return new Errors.WrongParameterAction(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["sendChatAction"];
 			const sendChecklist = (payload =>
 				apiClient.sendChecklist({ payload }).pipe(
@@ -2508,7 +4136,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["sendChecklist"];
 			const sendContact = (payload =>
 				apiClient.sendContact({ payload }).pipe(
@@ -2536,7 +4163,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["sendContact"];
 			const sendDice = (payload =>
 				apiClient.sendDice({ payload }).pipe(
@@ -2564,36 +4190,34 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["sendDice"];
 			const sendDocument = (payload =>
-				apiClient.sendDocument({ payload: toFormData(payload) }).pipe(
-					Effect.map(response => response.result),
-					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: there is no document in the request"
-						)
-							return new Errors.NoDocumentInRequest(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
-						return error;
-					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["sendDocument"];
+				encodeToFormData(sendDocumentPayload, payload)
+					.pipe(Effect.flatMap(form => apiClient.sendDocument({ payload: form })))
+					.pipe(
+						Effect.map(response => response.result),
+						Effect.mapError(error => {
+							if (
+								"error_code" in error &&
+								error.error_code === 400 &&
+								error.description === "Bad Request: there is no document in the request"
+							)
+								return new Errors.NoDocumentInRequest(error);
+							if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
+								return new Errors.NotFound(error);
+							if (
+								"error_code" in error &&
+								error.error_code === 401 &&
+								error.description === "Unauthorized: invalid token specified"
+							)
+								return new Errors.Unauthorized(error);
+							return error;
+						}),
+					)) as TelegramClientService["sendDocument"];
 			const sendGame = (payload =>
-				apiClient.sendGame({ payload }).pipe(
-					Effect.map(response => response.result),
-
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["sendGame"];
+				apiClient
+					.sendGame({ payload })
+					.pipe(Effect.map(response => response.result))) as TelegramClientService["sendGame"];
 			const sendGift = (payload =>
 				apiClient.sendGift({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -2620,36 +4244,34 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["sendGift"];
 			const sendInvoice = (payload =>
-				apiClient.sendInvoice({ payload }).pipe(
-					Effect.map(response => response.result),
-
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["sendInvoice"];
+				apiClient
+					.sendInvoice({ payload })
+					.pipe(Effect.map(response => response.result))) as TelegramClientService["sendInvoice"];
 			const sendLivePhoto = (payload =>
-				apiClient.sendLivePhoto({ payload: toFormData(payload) }).pipe(
-					Effect.map(response => response.result),
-					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: there is no live photo in the request"
-						)
-							return new Errors.NoLivePhotoInRequest(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
-						return error;
-					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["sendLivePhoto"];
+				encodeToFormData(sendLivePhotoPayload, payload)
+					.pipe(Effect.flatMap(form => apiClient.sendLivePhoto({ payload: form })))
+					.pipe(
+						Effect.map(response => response.result),
+						Effect.mapError(error => {
+							if (
+								"error_code" in error &&
+								error.error_code === 400 &&
+								error.description === "Bad Request: there is no live photo in the request"
+							)
+								return new Errors.NoLivePhotoInRequest(error);
+							if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
+								return new Errors.NotFound(error);
+							if (
+								"error_code" in error &&
+								error.error_code === 401 &&
+								error.description === "Unauthorized: invalid token specified"
+							)
+								return new Errors.Unauthorized(error);
+							return error;
+						}),
+					)) as TelegramClientService["sendLivePhoto"];
 			const sendLocation = (payload =>
 				apiClient.sendLocation({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -2676,7 +4298,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["sendLocation"];
 			const sendMediaGroup = (payload =>
 				apiClient.sendMediaGroup({ payload }).pipe(
@@ -2698,7 +4319,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["sendMediaGroup"];
 			const sendMessage = (payload =>
 				apiClient.sendMessage({ payload }).pipe(
@@ -3183,7 +4803,6 @@ export const withToken = (token: string) =>
 							return new Errors.WebpageUrlInvalid(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["sendMessage"];
 			const sendMessageDraft = (payload =>
 				apiClient.sendMessageDraft({ payload }).pipe(
@@ -3211,7 +4830,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["sendMessageDraft"];
 			const sendPaidMedia = (payload =>
 				apiClient.sendPaidMedia({ payload }).pipe(
@@ -3233,30 +4851,30 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["sendPaidMedia"];
 			const sendPhoto = (payload =>
-				apiClient.sendPhoto({ payload: toFormData(payload) }).pipe(
-					Effect.map(response => response.result),
-					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: there is no photo in the request"
-						)
-							return new Errors.NoPhotoInRequest(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
-						return error;
-					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["sendPhoto"];
+				encodeToFormData(sendPhotoPayload, payload)
+					.pipe(Effect.flatMap(form => apiClient.sendPhoto({ payload: form })))
+					.pipe(
+						Effect.map(response => response.result),
+						Effect.mapError(error => {
+							if (
+								"error_code" in error &&
+								error.error_code === 400 &&
+								error.description === "Bad Request: there is no photo in the request"
+							)
+								return new Errors.NoPhotoInRequest(error);
+							if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
+								return new Errors.NotFound(error);
+							if (
+								"error_code" in error &&
+								error.error_code === 401 &&
+								error.description === "Unauthorized: invalid token specified"
+							)
+								return new Errors.Unauthorized(error);
+							return error;
+						}),
+					)) as TelegramClientService["sendPhoto"];
 			const sendPoll = (payload =>
 				apiClient.sendPoll({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -3301,14 +4919,11 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["sendPoll"];
 			const sendSticker = (payload =>
-				apiClient.sendSticker({ payload: toFormData(payload) }).pipe(
-					Effect.map(response => response.result),
-
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["sendSticker"];
+				encodeToFormData(sendStickerPayload, payload)
+					.pipe(Effect.flatMap(form => apiClient.sendSticker({ payload: form })))
+					.pipe(Effect.map(response => response.result))) as TelegramClientService["sendSticker"];
 			const sendVenue = (payload =>
 				apiClient.sendVenue({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -3347,128 +4962,132 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["sendVenue"];
 			const sendVideo = (payload =>
-				apiClient.sendVideo({ payload: toFormData(payload) }).pipe(
-					Effect.map(response => response.result),
-					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 0"
-						)
-							return new Errors.CantParseEntitiesNoBoldEnd(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 15"
-						)
-							return new Errors.CantParseEntitiesNoBoldEnd(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat not found"
-						)
-							return new Errors.ChatNotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: message caption is too long"
-						)
-							return new Errors.MessageCaptionTooLong(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: message thread not found"
-						)
-							return new Errors.MessageThreadNotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: message to be replied not found"
-						)
-							return new Errors.MessageToReplyNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: there is no video in the request"
-						)
-							return new Errors.NoVideoInRequest(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: unsupported parse_mode"
-						)
-							return new Errors.UnsupportedParseMode(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: wrong remote file identifier specified: Wrong padding in the string"
-						)
-							return new Errors.WrongRemoteFileIdentifierWrongPadding(error);
-						return error;
-					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["sendVideo"];
+				encodeToFormData(sendVideoPayload, payload)
+					.pipe(Effect.flatMap(form => apiClient.sendVideo({ payload: form })))
+					.pipe(
+						Effect.map(response => response.result),
+						Effect.mapError(error => {
+							if (
+								"error_code" in error &&
+								error.error_code === 400 &&
+								error.description ===
+									"Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 0"
+							)
+								return new Errors.CantParseEntitiesNoBoldEnd(error);
+							if (
+								"error_code" in error &&
+								error.error_code === 400 &&
+								error.description ===
+									"Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 15"
+							)
+								return new Errors.CantParseEntitiesNoBoldEnd(error);
+							if (
+								"error_code" in error &&
+								error.error_code === 400 &&
+								error.description === "Bad Request: chat_id is empty"
+							)
+								return new Errors.ChatIdEmpty(error);
+							if (
+								"error_code" in error &&
+								error.error_code === 400 &&
+								error.description === "Bad Request: chat not found"
+							)
+								return new Errors.ChatNotFound(error);
+							if (
+								"error_code" in error &&
+								error.error_code === 400 &&
+								error.description === "Bad Request: message caption is too long"
+							)
+								return new Errors.MessageCaptionTooLong(error);
+							if (
+								"error_code" in error &&
+								error.error_code === 400 &&
+								error.description === "Bad Request: message thread not found"
+							)
+								return new Errors.MessageThreadNotFound(error);
+							if (
+								"error_code" in error &&
+								error.error_code === 400 &&
+								error.description === "Bad Request: message to be replied not found"
+							)
+								return new Errors.MessageToReplyNotFound(error);
+							if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
+								return new Errors.NotFound(error);
+							if (
+								"error_code" in error &&
+								error.error_code === 400 &&
+								error.description === "Bad Request: there is no video in the request"
+							)
+								return new Errors.NoVideoInRequest(error);
+							if (
+								"error_code" in error &&
+								error.error_code === 401 &&
+								error.description === "Unauthorized: invalid token specified"
+							)
+								return new Errors.Unauthorized(error);
+							if (
+								"error_code" in error &&
+								error.error_code === 400 &&
+								error.description === "Bad Request: unsupported parse_mode"
+							)
+								return new Errors.UnsupportedParseMode(error);
+							if (
+								"error_code" in error &&
+								error.error_code === 400 &&
+								error.description === "Bad Request: wrong remote file identifier specified: Wrong padding in the string"
+							)
+								return new Errors.WrongRemoteFileIdentifierWrongPadding(error);
+							return error;
+						}),
+					)) as TelegramClientService["sendVideo"];
 			const sendVideoNote = (payload =>
-				apiClient.sendVideoNote({ payload: toFormData(payload) }).pipe(
-					Effect.map(response => response.result),
-					Effect.mapError(error => {
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: there is no video note in the request"
-						)
-							return new Errors.NoVideoNoteInRequest(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
-						return error;
-					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["sendVideoNote"];
+				encodeToFormData(sendVideoNotePayload, payload)
+					.pipe(Effect.flatMap(form => apiClient.sendVideoNote({ payload: form })))
+					.pipe(
+						Effect.map(response => response.result),
+						Effect.mapError(error => {
+							if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
+								return new Errors.NotFound(error);
+							if (
+								"error_code" in error &&
+								error.error_code === 400 &&
+								error.description === "Bad Request: there is no video note in the request"
+							)
+								return new Errors.NoVideoNoteInRequest(error);
+							if (
+								"error_code" in error &&
+								error.error_code === 401 &&
+								error.description === "Unauthorized: invalid token specified"
+							)
+								return new Errors.Unauthorized(error);
+							return error;
+						}),
+					)) as TelegramClientService["sendVideoNote"];
 			const sendVoice = (payload =>
-				apiClient.sendVoice({ payload: toFormData(payload) }).pipe(
-					Effect.map(response => response.result),
-					Effect.mapError(error => {
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: there is no voice in the request"
-						)
-							return new Errors.NoVoiceInRequest(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
-						return error;
-					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["sendVoice"];
+				encodeToFormData(sendVoicePayload, payload)
+					.pipe(Effect.flatMap(form => apiClient.sendVoice({ payload: form })))
+					.pipe(
+						Effect.map(response => response.result),
+						Effect.mapError(error => {
+							if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
+								return new Errors.NotFound(error);
+							if (
+								"error_code" in error &&
+								error.error_code === 400 &&
+								error.description === "Bad Request: there is no voice in the request"
+							)
+								return new Errors.NoVoiceInRequest(error);
+							if (
+								"error_code" in error &&
+								error.error_code === 401 &&
+								error.description === "Unauthorized: invalid token specified"
+							)
+								return new Errors.Unauthorized(error);
+							return error;
+						}),
+					)) as TelegramClientService["sendVoice"];
 			const setBusinessAccountBio = (payload =>
 				apiClient.setBusinessAccountBio({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -3489,7 +5108,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["setBusinessAccountBio"];
 			const setBusinessAccountGiftSettings = (payload =>
 				apiClient.setBusinessAccountGiftSettings({ payload }).pipe(
@@ -3511,7 +5129,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["setBusinessAccountGiftSettings"];
 			const setBusinessAccountName = (payload =>
 				apiClient.setBusinessAccountName({ payload }).pipe(
@@ -3533,7 +5150,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["setBusinessAccountName"];
 			const setBusinessAccountProfilePhoto = (payload =>
 				apiClient.setBusinessAccountProfilePhoto({ payload }).pipe(
@@ -3555,7 +5171,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["setBusinessAccountProfilePhoto"];
 			const setBusinessAccountUsername = (payload =>
 				apiClient.setBusinessAccountUsername({ payload }).pipe(
@@ -3577,7 +5192,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["setBusinessAccountUsername"];
 			const setChatAdministratorCustomTitle = (payload =>
 				apiClient.setChatAdministratorCustomTitle({ payload }).pipe(
@@ -3605,7 +5219,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["setChatAdministratorCustomTitle"];
 			const setChatDescription = (payload =>
 				apiClient.setChatDescription({ payload }).pipe(
@@ -3633,7 +5246,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["setChatDescription"];
 			const setChatMemberTag = (payload =>
 				apiClient.setChatMemberTag({ payload }).pipe(
@@ -3667,7 +5279,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["setChatMemberTag"];
 			const setChatMenuButton = (payload =>
 				apiClient.setChatMenuButton({ payload }).pipe(
@@ -3689,7 +5300,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["setChatMenuButton"];
 			const setChatPermissions = (payload =>
 				apiClient.setChatPermissions({ payload }).pipe(
@@ -3717,30 +5327,30 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["setChatPermissions"];
 			const setChatPhoto = (payload =>
-				apiClient.setChatPhoto({ payload: toFormData(payload) }).pipe(
-					Effect.map(response => response.result),
-					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: there is no photo in the request"
-						)
-							return new Errors.NoPhotoInRequest(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
-						return error;
-					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["setChatPhoto"];
+				encodeToFormData(setChatPhotoPayload, payload)
+					.pipe(Effect.flatMap(form => apiClient.setChatPhoto({ payload: form })))
+					.pipe(
+						Effect.map(response => response.result),
+						Effect.mapError(error => {
+							if (
+								"error_code" in error &&
+								error.error_code === 400 &&
+								error.description === "Bad Request: there is no photo in the request"
+							)
+								return new Errors.NoPhotoInRequest(error);
+							if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
+								return new Errors.NotFound(error);
+							if (
+								"error_code" in error &&
+								error.error_code === 401 &&
+								error.description === "Unauthorized: invalid token specified"
+							)
+								return new Errors.Unauthorized(error);
+							return error;
+						}),
+					)) as TelegramClientService["setChatPhoto"];
 			const setChatStickerSet = (payload =>
 				apiClient.setChatStickerSet({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -3773,7 +5383,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["setChatStickerSet"];
 			const setChatTitle = (payload =>
 				apiClient.setChatTitle({ payload }).pipe(
@@ -3801,20 +5410,15 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["setChatTitle"];
 			const setCustomEmojiStickerSetThumbnail = (payload =>
-				apiClient.setCustomEmojiStickerSetThumbnail({ payload }).pipe(
-					Effect.map(response => response.result),
-
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["setCustomEmojiStickerSetThumbnail"];
+				apiClient
+					.setCustomEmojiStickerSetThumbnail({ payload })
+					.pipe(Effect.map(response => response.result))) as TelegramClientService["setCustomEmojiStickerSetThumbnail"];
 			const setGameScore = (payload =>
-				apiClient.setGameScore({ payload }).pipe(
-					Effect.map(response => response.result),
-
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["setGameScore"];
+				apiClient
+					.setGameScore({ payload })
+					.pipe(Effect.map(response => response.result))) as TelegramClientService["setGameScore"];
 			const setManagedBotAccessSettings = (payload =>
 				apiClient.setManagedBotAccessSettings({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -3835,7 +5439,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["setManagedBotAccessSettings"];
 			const setMessageReaction = (payload =>
 				apiClient.setMessageReaction({ payload }).pipe(
@@ -3857,7 +5460,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["setMessageReaction"];
 			const setMyCommands = (payload =>
 				apiClient.setMyCommands({ payload }).pipe(
@@ -3909,7 +5511,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["setMyCommands"];
 			const setMyDefaultAdministratorRights = (payload =>
 				apiClient.setMyDefaultAdministratorRights({ payload }).pipe(
@@ -3932,7 +5533,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["setMyDefaultAdministratorRights"];
 			const setMyDescription = (payload =>
 				apiClient.setMyDescription({ payload }).pipe(
@@ -3954,7 +5554,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["setMyDescription"];
 			const setMyName = (payload =>
 				apiClient.setMyName({ payload }).pipe(
@@ -3976,7 +5575,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["setMyName"];
 			const setMyProfilePhoto = (payload =>
 				apiClient.setMyProfilePhoto({ payload }).pipe(
@@ -3998,7 +5596,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["setMyProfilePhoto"];
 			const setMyShortDescription = (payload =>
 				apiClient.setMyShortDescription({ payload }).pipe(
@@ -4020,50 +5617,35 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["setMyShortDescription"];
 			const setPassportDataErrors = (payload =>
-				apiClient.setPassportDataErrors({ payload }).pipe(
-					Effect.map(response => response.result),
-
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["setPassportDataErrors"];
+				apiClient
+					.setPassportDataErrors({ payload })
+					.pipe(Effect.map(response => response.result))) as TelegramClientService["setPassportDataErrors"];
 			const setStickerEmojiList = (payload =>
-				apiClient.setStickerEmojiList({ payload }).pipe(
-					Effect.map(response => response.result),
-
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["setStickerEmojiList"];
+				apiClient
+					.setStickerEmojiList({ payload })
+					.pipe(Effect.map(response => response.result))) as TelegramClientService["setStickerEmojiList"];
 			const setStickerKeywords = (payload =>
-				apiClient.setStickerKeywords({ payload }).pipe(
-					Effect.map(response => response.result),
-
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["setStickerKeywords"];
+				apiClient
+					.setStickerKeywords({ payload })
+					.pipe(Effect.map(response => response.result))) as TelegramClientService["setStickerKeywords"];
 			const setStickerMaskPosition = (payload =>
-				apiClient.setStickerMaskPosition({ payload }).pipe(
-					Effect.map(response => response.result),
-
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["setStickerMaskPosition"];
+				apiClient
+					.setStickerMaskPosition({ payload })
+					.pipe(Effect.map(response => response.result))) as TelegramClientService["setStickerMaskPosition"];
 			const setStickerPositionInSet = (payload =>
-				apiClient.setStickerPositionInSet({ payload }).pipe(
-					Effect.map(response => response.result),
-
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["setStickerPositionInSet"];
+				apiClient
+					.setStickerPositionInSet({ payload })
+					.pipe(Effect.map(response => response.result))) as TelegramClientService["setStickerPositionInSet"];
 			const setStickerSetThumbnail = (payload =>
-				apiClient.setStickerSetThumbnail({ payload: toFormData(payload) }).pipe(
-					Effect.map(response => response.result),
-
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["setStickerSetThumbnail"];
+				encodeToFormData(setStickerSetThumbnailPayload, payload)
+					.pipe(Effect.flatMap(form => apiClient.setStickerSetThumbnail({ payload: form })))
+					.pipe(Effect.map(response => response.result))) as TelegramClientService["setStickerSetThumbnail"];
 			const setStickerSetTitle = (payload =>
-				apiClient.setStickerSetTitle({ payload }).pipe(
-					Effect.map(response => response.result),
-
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["setStickerSetTitle"];
+				apiClient
+					.setStickerSetTitle({ payload })
+					.pipe(Effect.map(response => response.result))) as TelegramClientService["setStickerSetTitle"];
 			const setUserEmojiStatus = (payload =>
 				apiClient.setUserEmojiStatus({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -4090,24 +5672,24 @@ export const withToken = (token: string) =>
 							return new Errors.UserNotFound(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["setUserEmojiStatus"];
 			const setWebhook = (payload =>
-				apiClient.setWebhook({ payload: toFormData(payload) }).pipe(
-					Effect.map(response => response.result),
-					Effect.mapError(error => {
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
-						return error;
-					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["setWebhook"];
+				encodeToFormData(setWebhookPayload, payload)
+					.pipe(Effect.flatMap(form => apiClient.setWebhook({ payload: form })))
+					.pipe(
+						Effect.map(response => response.result),
+						Effect.mapError(error => {
+							if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
+								return new Errors.NotFound(error);
+							if (
+								"error_code" in error &&
+								error.error_code === 401 &&
+								error.description === "Unauthorized: invalid token specified"
+							)
+								return new Errors.Unauthorized(error);
+							return error;
+						}),
+					)) as TelegramClientService["setWebhook"];
 			const stopMessageLiveLocation = (payload =>
 				apiClient.stopMessageLiveLocation({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -4128,7 +5710,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["stopMessageLiveLocation"];
 			const stopPoll = (payload =>
 				apiClient.stopPoll({ payload }).pipe(
@@ -4150,7 +5731,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["stopPoll"];
 			const transferBusinessAccountStars = (payload =>
 				apiClient.transferBusinessAccountStars({ payload }).pipe(
@@ -4172,7 +5752,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["transferBusinessAccountStars"];
 			const transferGift = (payload =>
 				apiClient.transferGift({ payload }).pipe(
@@ -4194,7 +5773,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["transferGift"];
 			const unbanChatMember = (payload =>
 				apiClient.unbanChatMember({ payload }).pipe(
@@ -4222,7 +5800,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["unbanChatMember"];
 			const unbanChatSenderChat = (payload =>
 				apiClient.unbanChatSenderChat({ payload }).pipe(
@@ -4250,7 +5827,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["unbanChatSenderChat"];
 			const unhideGeneralForumTopic = (payload =>
 				apiClient.unhideGeneralForumTopic({ payload }).pipe(
@@ -4278,7 +5854,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["unhideGeneralForumTopic"];
 			const unpinAllChatMessages = (payload =>
 				apiClient.unpinAllChatMessages({ payload }).pipe(
@@ -4300,7 +5875,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["unpinAllChatMessages"];
 			const unpinAllForumTopicMessages = (payload =>
 				apiClient.unpinAllForumTopicMessages({ payload }).pipe(
@@ -4322,7 +5896,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["unpinAllForumTopicMessages"];
 			const unpinAllGeneralForumTopicMessages = (payload =>
 				apiClient.unpinAllGeneralForumTopicMessages({ payload }).pipe(
@@ -4344,7 +5917,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["unpinAllGeneralForumTopicMessages"];
 			const unpinChatMessage = (payload =>
 				apiClient.unpinChatMessage({ payload }).pipe(
@@ -4366,7 +5938,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["unpinChatMessage"];
 			const upgradeGift = (payload =>
 				apiClient.upgradeGift({ payload }).pipe(
@@ -4388,14 +5959,11 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["upgradeGift"];
 			const uploadStickerFile = (payload =>
-				apiClient.uploadStickerFile({ payload: toFormData(payload) }).pipe(
-					Effect.map(response => response.result),
-
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
-				)) as TelegramClientService["uploadStickerFile"];
+				encodeToFormData(uploadStickerFilePayload, payload)
+					.pipe(Effect.flatMap(form => apiClient.uploadStickerFile({ payload: form })))
+					.pipe(Effect.map(response => response.result))) as TelegramClientService["uploadStickerFile"];
 			const verifyChat = (payload =>
 				apiClient.verifyChat({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -4422,7 +5990,6 @@ export const withToken = (token: string) =>
 							return new Errors.Unauthorized(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["verifyChat"];
 			const verifyUser = (payload =>
 				apiClient.verifyUser({ payload }).pipe(
@@ -4450,7 +6017,6 @@ export const withToken = (token: string) =>
 							return new Errors.UserNotFound(error);
 						return error;
 					}),
-					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["verifyUser"];
 
 			return {

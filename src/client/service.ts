@@ -72,6 +72,7 @@ import type {
 	WebhookInfo,
 } from "../schema.ts";
 import type * as Effect from "effect/Effect";
+import type * as Schema from "effect/Schema";
 import type * as HttpClientError from "effect/unstable/http/HttpClientError";
 export class TelegramClient extends Context.Service<
 	TelegramClient,
@@ -97,7 +98,7 @@ export class TelegramClient extends Context.Service<
 			 * isn't changed.
 			 */
 			readonly sticker: InputSticker;
-		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		}) => Effect.Effect<true, Errors.TelegramApiError | Schema.SchemaError | HttpClientError.HttpClientError>;
 		/**
 		 * Use this method to send answers to callback queries sent from inline
 		 * keyboards. The answer will be displayed to the user as a notification at the
@@ -140,6 +141,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -162,6 +164,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.ResultNotSpecified
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -200,7 +203,7 @@ export class TelegramClient extends Context.Service<
 			 * results
 			 */
 			readonly button?: InlineQueryResultsButton | undefined;
-		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		}) => Effect.Effect<true, Errors.TelegramApiError | Schema.SchemaError | HttpClientError.HttpClientError>;
 		/**
 		 * Once the user has confirmed their payment and shipping details, the Bot API
 		 * sends the final confirmation in the form of an Update with the field
@@ -227,7 +230,7 @@ export class TelegramClient extends Context.Service<
 			 * garment!"). Telegram will display this message to the user.
 			 */
 			readonly error_message?: string | undefined;
-		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		}) => Effect.Effect<true, Errors.TelegramApiError | Schema.SchemaError | HttpClientError.HttpClientError>;
 		/**
 		 * If you sent an invoice requesting a shipping address and the parameter
 		 * is_flexible was specified, the Bot API will send an Update with a
@@ -258,7 +261,7 @@ export class TelegramClient extends Context.Service<
 			 * user.
 			 */
 			readonly error_message?: string | undefined;
-		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		}) => Effect.Effect<true, Errors.TelegramApiError | Schema.SchemaError | HttpClientError.HttpClientError>;
 		/**
 		 * Use this method to set the result of an interaction with a Web App and send
 		 * a corresponding message on behalf of the user to the chat from which the
@@ -281,6 +284,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.ResultNotSpecified
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -306,6 +310,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.Unauthorized
 			| Errors.UserIdInvalid
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -336,6 +341,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.SuggestedPostNotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -376,6 +382,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.ParticipantIdInvalid
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -403,6 +410,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.SenderChatIdEmpty
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -414,7 +422,11 @@ export class TelegramClient extends Context.Service<
 		 */
 		readonly close: () => Effect.Effect<
 			true,
-			Errors.NotFound | Errors.Unauthorized | Errors.TelegramApiError | HttpClientError.HttpClientError
+			| Errors.NotFound
+			| Errors.Unauthorized
+			| Errors.TelegramApiError
+			| Schema.SchemaError
+			| HttpClientError.HttpClientError
 		>;
 		/**
 		 * Use this method to close an open topic in a forum supergroup chat. The bot
@@ -441,6 +453,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -462,6 +475,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -485,6 +499,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -591,6 +606,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -652,6 +668,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -693,6 +710,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -730,6 +748,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.PricingChatInvalid
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -767,6 +786,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -891,7 +911,7 @@ export class TelegramClient extends Context.Service<
 			 * payments in Telegram Stars.
 			 */
 			readonly is_flexible?: boolean | undefined;
-		}) => Effect.Effect<string, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		}) => Effect.Effect<string, Errors.TelegramApiError | Schema.SchemaError | HttpClientError.HttpClientError>;
 		/**
 		 * Use this method to create a new sticker set owned by a user. The bot will be
 		 * able to edit the sticker set thus created
@@ -930,7 +950,7 @@ export class TelegramClient extends Context.Service<
 			 * emoji sticker sets only
 			 */
 			readonly needs_repainting?: boolean | undefined;
-		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		}) => Effect.Effect<true, Errors.TelegramApiError | Schema.SchemaError | HttpClientError.HttpClientError>;
 		/**
 		 * Use this method to decline a chat join request. The bot must be an
 		 * administrator in the chat for this to work and must have the
@@ -954,6 +974,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.Unauthorized
 			| Errors.UserIdInvalid
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -981,6 +1002,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.SuggestedPostNotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -1011,6 +1033,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.ParticipantIdInvalid
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -1038,6 +1061,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -1059,6 +1083,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -1082,6 +1107,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -1108,6 +1134,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -1148,6 +1175,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -1182,6 +1210,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -1202,7 +1231,11 @@ export class TelegramClient extends Context.Service<
 			readonly message_ids: ReadonlyArray<number>;
 		}) => Effect.Effect<
 			true,
-			Errors.NotFound | Errors.Unauthorized | Errors.TelegramApiError | HttpClientError.HttpClientError
+			| Errors.NotFound
+			| Errors.Unauthorized
+			| Errors.TelegramApiError
+			| Schema.SchemaError
+			| HttpClientError.HttpClientError
 		>;
 		/**
 		 * Use this method to delete the list of the bot's commands for the given scope
@@ -1230,6 +1263,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -1241,7 +1275,7 @@ export class TelegramClient extends Context.Service<
 			 * File identifier of the sticker
 			 */
 			readonly sticker: string;
-		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		}) => Effect.Effect<true, Errors.TelegramApiError | Schema.SchemaError | HttpClientError.HttpClientError>;
 		/**
 		 * Use this method to delete a sticker set that was created by the bot
 		 * @see https://core.telegram.org/bots/api#deletestickerset
@@ -1251,7 +1285,7 @@ export class TelegramClient extends Context.Service<
 			 * Sticker set name
 			 */
 			readonly name: string;
-		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		}) => Effect.Effect<true, Errors.TelegramApiError | Schema.SchemaError | HttpClientError.HttpClientError>;
 		/**
 		 * Deletes a story previously posted by the bot on behalf of a managed business
 		 * account. Requires the can_manage_stories business bot right
@@ -1272,6 +1306,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -1286,7 +1321,11 @@ export class TelegramClient extends Context.Service<
 			readonly drop_pending_updates?: boolean | undefined;
 		}) => Effect.Effect<
 			true,
-			Errors.NotFound | Errors.Unauthorized | Errors.TelegramApiError | HttpClientError.HttpClientError
+			| Errors.NotFound
+			| Errors.Unauthorized
+			| Errors.TelegramApiError
+			| Schema.SchemaError
+			| HttpClientError.HttpClientError
 		>;
 		/**
 		 * Use this method to edit a non-primary invite link created by the bot. The
@@ -1329,6 +1368,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -1357,6 +1397,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -1397,6 +1438,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -1422,6 +1464,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -1480,6 +1523,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -1512,7 +1556,11 @@ export class TelegramClient extends Context.Service<
 			readonly reply_markup?: InlineKeyboardMarkup | undefined;
 		}) => Effect.Effect<
 			Message,
-			Errors.NotFound | Errors.Unauthorized | Errors.TelegramApiError | HttpClientError.HttpClientError
+			| Errors.NotFound
+			| Errors.Unauthorized
+			| Errors.TelegramApiError
+			| Schema.SchemaError
+			| HttpClientError.HttpClientError
 		>;
 		/**
 		 * Use this method to edit live location messages. A location can be edited
@@ -1584,6 +1632,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -1632,6 +1681,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -1671,6 +1721,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -1729,6 +1780,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -1773,6 +1825,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.StoryContentNotSpecified
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -1796,7 +1849,7 @@ export class TelegramClient extends Context.Service<
 			 * by the bot.
 			 */
 			readonly is_canceled: boolean;
-		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		}) => Effect.Effect<true, Errors.TelegramApiError | Schema.SchemaError | HttpClientError.HttpClientError>;
 		/**
 		 * Use this method to generate a new primary invite link for a chat; any
 		 * previously generated primary link is revoked. The bot must be an
@@ -1818,6 +1871,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -1885,6 +1939,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -1939,6 +1994,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -1946,7 +2002,11 @@ export class TelegramClient extends Context.Service<
 		 */
 		readonly getAvailableGifts: () => Effect.Effect<
 			Gifts,
-			Errors.NotFound | Errors.Unauthorized | Errors.TelegramApiError | HttpClientError.HttpClientError
+			| Errors.NotFound
+			| Errors.Unauthorized
+			| Errors.TelegramApiError
+			| Schema.SchemaError
+			| HttpClientError.HttpClientError
 		>;
 		/**
 		 * @see https://core.telegram.org/bots/api#getbusinessaccountgifts
@@ -2008,6 +2068,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -2024,6 +2085,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -2042,6 +2104,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -2061,6 +2124,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -2085,6 +2149,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -2153,6 +2218,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -2181,6 +2247,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.ParticipantIdInvalid
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -2200,6 +2267,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -2219,6 +2287,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -2232,7 +2301,10 @@ export class TelegramClient extends Context.Service<
 			 * emoji identifiers can be specified.
 			 */
 			readonly custom_emoji_ids: ReadonlyArray<string>;
-		}) => Effect.Effect<ReadonlyArray<Sticker>, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		}) => Effect.Effect<
+			ReadonlyArray<Sticker>,
+			Errors.TelegramApiError | Schema.SchemaError | HttpClientError.HttpClientError
+		>;
 		/**
 		 * Use this method to get basic information about a file and prepare it for
 		 * downloading. For the moment, bots can download files of up to 20MB in size.
@@ -2251,6 +2323,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -2260,7 +2333,11 @@ export class TelegramClient extends Context.Service<
 		 */
 		readonly getForumTopicIconStickers: () => Effect.Effect<
 			ReadonlyArray<Sticker>,
-			Errors.NotFound | Errors.Unauthorized | Errors.TelegramApiError | HttpClientError.HttpClientError
+			| Errors.NotFound
+			| Errors.Unauthorized
+			| Errors.TelegramApiError
+			| Schema.SchemaError
+			| HttpClientError.HttpClientError
 		>;
 		/**
 		 * Use this method to get data for high score tables. Will return the score of
@@ -2287,7 +2364,10 @@ export class TelegramClient extends Context.Service<
 			 * inline message.
 			 */
 			readonly inline_message_id?: string | undefined;
-		}) => Effect.Effect<ReadonlyArray<GameHighScore>, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		}) => Effect.Effect<
+			ReadonlyArray<GameHighScore>,
+			Errors.TelegramApiError | Schema.SchemaError | HttpClientError.HttpClientError
+		>;
 		/**
 		 * Use this method to get the access settings of a managed bot
 		 * @see https://core.telegram.org/bots/api#getmanagedbotaccesssettings
@@ -2303,6 +2383,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -2320,6 +2401,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -2328,7 +2410,11 @@ export class TelegramClient extends Context.Service<
 		 */
 		readonly getMe: () => Effect.Effect<
 			User,
-			Errors.NotFound | Errors.Unauthorized | Errors.TelegramApiError | HttpClientError.HttpClientError
+			| Errors.NotFound
+			| Errors.Unauthorized
+			| Errors.TelegramApiError
+			| Schema.SchemaError
+			| HttpClientError.HttpClientError
 		>;
 		/**
 		 * Use this method to get the current list of the bot's commands for the given
@@ -2353,6 +2439,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -2368,7 +2455,11 @@ export class TelegramClient extends Context.Service<
 			readonly for_channels?: boolean | undefined;
 		}) => Effect.Effect<
 			ChatAdministratorRights,
-			Errors.NotFound | Errors.Unauthorized | Errors.TelegramApiError | HttpClientError.HttpClientError
+			| Errors.NotFound
+			| Errors.Unauthorized
+			| Errors.TelegramApiError
+			| Schema.SchemaError
+			| HttpClientError.HttpClientError
 		>;
 		/**
 		 * Use this method to get the current bot description for the given user
@@ -2382,7 +2473,11 @@ export class TelegramClient extends Context.Service<
 			readonly language_code?: string | undefined;
 		}) => Effect.Effect<
 			BotDescription,
-			Errors.NotFound | Errors.Unauthorized | Errors.TelegramApiError | HttpClientError.HttpClientError
+			| Errors.NotFound
+			| Errors.Unauthorized
+			| Errors.TelegramApiError
+			| Schema.SchemaError
+			| HttpClientError.HttpClientError
 		>;
 		/**
 		 * Use this method to get the current bot name for the given user language
@@ -2395,7 +2490,11 @@ export class TelegramClient extends Context.Service<
 			readonly language_code?: string | undefined;
 		}) => Effect.Effect<
 			BotName,
-			Errors.NotFound | Errors.Unauthorized | Errors.TelegramApiError | HttpClientError.HttpClientError
+			| Errors.NotFound
+			| Errors.Unauthorized
+			| Errors.TelegramApiError
+			| Schema.SchemaError
+			| HttpClientError.HttpClientError
 		>;
 		/**
 		 * Use this method to get the current bot short description for the given user
@@ -2409,7 +2508,11 @@ export class TelegramClient extends Context.Service<
 			readonly language_code?: string | undefined;
 		}) => Effect.Effect<
 			BotShortDescription,
-			Errors.NotFound | Errors.Unauthorized | Errors.TelegramApiError | HttpClientError.HttpClientError
+			| Errors.NotFound
+			| Errors.Unauthorized
+			| Errors.TelegramApiError
+			| Schema.SchemaError
+			| HttpClientError.HttpClientError
 		>;
 		/**
 		 * A method to get the current Telegram Stars balance of the bot
@@ -2417,7 +2520,7 @@ export class TelegramClient extends Context.Service<
 		 */
 		readonly getMyStarBalance: () => Effect.Effect<
 			StarAmount,
-			Errors.TelegramApiError | HttpClientError.HttpClientError
+			Errors.TelegramApiError | Schema.SchemaError | HttpClientError.HttpClientError
 		>;
 		/**
 		 * @see https://core.telegram.org/bots/api#getstartransactions
@@ -2432,7 +2535,10 @@ export class TelegramClient extends Context.Service<
 			 * are accepted. Defaults to 100.
 			 */
 			readonly limit?: number | undefined;
-		}) => Effect.Effect<StarTransactions, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		}) => Effect.Effect<
+			StarTransactions,
+			Errors.TelegramApiError | Schema.SchemaError | HttpClientError.HttpClientError
+		>;
 		/**
 		 * Use this method to get a sticker set. On success, a StickerSet object
 		 * @see https://core.telegram.org/bots/api#getstickerset
@@ -2442,7 +2548,7 @@ export class TelegramClient extends Context.Service<
 			 * Name of the sticker set
 			 */
 			readonly name: string;
-		}) => Effect.Effect<StickerSet, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		}) => Effect.Effect<StickerSet, Errors.TelegramApiError | Schema.SchemaError | HttpClientError.HttpClientError>;
 		/**
 		 * Use this method to receive incoming updates using long polling (wiki)
 		 * @see https://core.telegram.org/bots/api#getupdates
@@ -2483,7 +2589,11 @@ export class TelegramClient extends Context.Service<
 			readonly allowed_updates?: ReadonlyArray<string> | undefined;
 		}) => Effect.Effect<
 			ReadonlyArray<Update>,
-			Errors.NotFound | Errors.Unauthorized | Errors.TelegramApiError | HttpClientError.HttpClientError
+			| Errors.NotFound
+			| Errors.Unauthorized
+			| Errors.TelegramApiError
+			| Schema.SchemaError
+			| HttpClientError.HttpClientError
 		>;
 		/**
 		 * Use this method to get the list of boosts added to a chat by a user.
@@ -2509,6 +2619,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.PeerIdInvalid
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -2564,6 +2675,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.Unauthorized
 			| Errors.UserNotFound
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -2588,6 +2700,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -2616,6 +2729,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.Unauthorized
 			| Errors.UserNotFound
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -2644,6 +2758,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.Unauthorized
 			| Errors.UserNotFound
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -2652,7 +2767,11 @@ export class TelegramClient extends Context.Service<
 		 */
 		readonly getWebhookInfo: () => Effect.Effect<
 			WebhookInfo,
-			Errors.NotFound | Errors.Unauthorized | Errors.TelegramApiError | HttpClientError.HttpClientError
+			| Errors.NotFound
+			| Errors.Unauthorized
+			| Errors.TelegramApiError
+			| Schema.SchemaError
+			| HttpClientError.HttpClientError
 		>;
 		/**
 		 * Gifts a Telegram Premium subscription to the given user
@@ -2699,6 +2818,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.Unauthorized
 			| Errors.UserNotFound
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -2721,6 +2841,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -2741,6 +2862,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -2753,7 +2875,11 @@ export class TelegramClient extends Context.Service<
 		 */
 		readonly logOut: () => Effect.Effect<
 			true,
-			Errors.NotFound | Errors.Unauthorized | Errors.TelegramApiError | HttpClientError.HttpClientError
+			| Errors.NotFound
+			| Errors.Unauthorized
+			| Errors.TelegramApiError
+			| Schema.SchemaError
+			| HttpClientError.HttpClientError
 		>;
 		/**
 		 * Use this method to add a message to the list of pinned messages in a chat.
@@ -2791,6 +2917,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -2845,6 +2972,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.StoryContentNotSpecified
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -2955,6 +3083,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -2983,6 +3112,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -2998,7 +3128,7 @@ export class TelegramClient extends Context.Service<
 			 * Telegram payment identifier
 			 */
 			readonly telegram_payment_charge_id: string;
-		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		}) => Effect.Effect<true, Errors.TelegramApiError | Schema.SchemaError | HttpClientError.HttpClientError>;
 		/**
 		 * Removes the current profile photo of a managed business account. Requires
 		 * the can_edit_profile_photo business bot right
@@ -3022,6 +3152,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -3042,6 +3173,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -3050,7 +3182,11 @@ export class TelegramClient extends Context.Service<
 		 */
 		readonly removeMyProfilePhoto: () => Effect.Effect<
 			true,
-			Errors.NotFound | Errors.Unauthorized | Errors.TelegramApiError | HttpClientError.HttpClientError
+			| Errors.NotFound
+			| Errors.Unauthorized
+			| Errors.TelegramApiError
+			| Schema.SchemaError
+			| HttpClientError.HttpClientError
 		>;
 		/**
 		 * Removes verification from a user who is currently verified on behalf of the
@@ -3069,6 +3205,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.PeerIdInvalid
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -3096,6 +3233,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -3118,6 +3256,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -3136,6 +3275,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -3163,7 +3303,7 @@ export class TelegramClient extends Context.Service<
 			 * remains unchanged.
 			 */
 			readonly sticker: InputSticker;
-		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		}) => Effect.Effect<true, Errors.TelegramApiError | Schema.SchemaError | HttpClientError.HttpClientError>;
 		/**
 		 * Reposts a story on behalf of a business account from another business
 		 * account. Both business accounts must be managed by the same bot, and the
@@ -3207,6 +3347,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -3252,6 +3393,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.ParticipantIdInvalid
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -3278,6 +3420,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -3316,6 +3459,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -3338,6 +3482,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -3464,6 +3609,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -3582,6 +3728,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -3624,6 +3771,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.Unauthorized
 			| Errors.WrongParameterAction
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -3673,6 +3821,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -3762,6 +3911,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.PhoneNumberRequired
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -3843,6 +3993,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -3953,6 +4104,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -4012,7 +4164,7 @@ export class TelegramClient extends Context.Service<
 			 * launch the game.
 			 */
 			readonly reply_markup?: InlineKeyboardMarkup | undefined;
-		}) => Effect.Effect<Message, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		}) => Effect.Effect<Message, Errors.TelegramApiError | Schema.SchemaError | HttpClientError.HttpClientError>;
 		/**
 		 * Sends a gift to the given user or channel chat. The gift can't be converted
 		 * to Telegram Stars by the receiver
@@ -4063,6 +4215,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.StargiftInvalid
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -4234,7 +4387,7 @@ export class TelegramClient extends Context.Service<
 			 * button.
 			 */
 			readonly reply_markup?: InlineKeyboardMarkup | undefined;
-		}) => Effect.Effect<Message, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		}) => Effect.Effect<Message, Errors.TelegramApiError | Schema.SchemaError | HttpClientError.HttpClientError>;
 		/**
 		 * Use this method to send live photos. On success, the sent Message
 		 * @see https://core.telegram.org/bots/api#sendlivephoto
@@ -4343,6 +4496,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -4445,6 +4599,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -4512,6 +4667,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -4673,6 +4829,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.WebAppUrlNotHttps
 			| Errors.WebpageUrlInvalid
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -4718,6 +4875,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.RandomIdInvalid
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -4819,6 +4977,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -4923,6 +5082,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -5110,6 +5270,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.TextMustBeNonEmpty
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -5189,7 +5350,7 @@ export class TelegramClient extends Context.Service<
 			readonly reply_markup?:
 				| (InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply)
 				| undefined;
-		}) => Effect.Effect<Message, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		}) => Effect.Effect<Message, Errors.TelegramApiError | Schema.SchemaError | HttpClientError.HttpClientError>;
 		/**
 		 * Use this method to send information about a venue. On success, the sent
 		 * Message
@@ -5298,6 +5459,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -5448,6 +5610,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.UnsupportedParseMode
 			| Errors.WrongRemoteFileIdentifierWrongPadding
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -5548,6 +5711,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NoVideoNoteInRequest
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -5649,6 +5813,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NoVoiceInRequest
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -5671,6 +5836,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -5698,6 +5864,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -5724,6 +5891,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -5752,6 +5920,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.PhotoNotSpecified
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -5774,6 +5943,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -5803,6 +5973,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.ParticipantIdInvalid
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -5828,6 +5999,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -5858,6 +6030,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.ParticipantIdInvalid
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -5882,6 +6055,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -5916,6 +6090,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -5940,6 +6115,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -5968,6 +6144,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.StickerSetNotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -5993,6 +6170,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.TitleEmpty
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -6009,7 +6187,7 @@ export class TelegramClient extends Context.Service<
 			 * string to drop the thumbnail and use the first sticker as the thumbnail
 			 */
 			readonly custom_emoji_id?: string | undefined;
-		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		}) => Effect.Effect<true, Errors.TelegramApiError | Schema.SchemaError | HttpClientError.HttpClientError>;
 		/**
 		 * Use this method to set the score of the specified user in a game message. On
 		 * success, if the message is not an inline message, the Message
@@ -6049,7 +6227,7 @@ export class TelegramClient extends Context.Service<
 			 * inline message.
 			 */
 			readonly inline_message_id?: string | undefined;
-		}) => Effect.Effect<Message | true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		}) => Effect.Effect<Message | true, Errors.TelegramApiError | Schema.SchemaError | HttpClientError.HttpClientError>;
 		/**
 		 * Use this method to change the access settings of a managed bot
 		 * @see https://core.telegram.org/bots/api#setmanagedbotaccesssettings
@@ -6076,6 +6254,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -6114,6 +6293,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -6149,6 +6329,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -6176,6 +6357,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -6200,6 +6382,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -6223,6 +6406,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -6240,6 +6424,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.PhotoNotSpecified
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -6266,6 +6451,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -6284,7 +6470,7 @@ export class TelegramClient extends Context.Service<
 			 * A JSON-serialized array describing the errors
 			 */
 			readonly errors: ReadonlyArray<PassportElementError>;
-		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		}) => Effect.Effect<true, Errors.TelegramApiError | Schema.SchemaError | HttpClientError.HttpClientError>;
 		/**
 		 * Use this method to change the list of emoji assigned to a regular or custom
 		 * emoji sticker. The sticker must belong to a sticker set created by the bot
@@ -6299,7 +6485,7 @@ export class TelegramClient extends Context.Service<
 			 * A JSON-serialized list of 1-20 emoji associated with the sticker
 			 */
 			readonly emoji_list: ReadonlyArray<string>;
-		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		}) => Effect.Effect<true, Errors.TelegramApiError | Schema.SchemaError | HttpClientError.HttpClientError>;
 		/**
 		 * Use this method to change search keywords assigned to a regular or custom
 		 * emoji sticker. The sticker must belong to a sticker set created by the bot
@@ -6315,7 +6501,7 @@ export class TelegramClient extends Context.Service<
 			 * length of up to 64 characters
 			 */
 			readonly keywords?: ReadonlyArray<string> | undefined;
-		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		}) => Effect.Effect<true, Errors.TelegramApiError | Schema.SchemaError | HttpClientError.HttpClientError>;
 		/**
 		 * Use this method to change the mask position of a mask sticker. The sticker
 		 * must belong to a sticker set that was created by the bot
@@ -6331,7 +6517,7 @@ export class TelegramClient extends Context.Service<
 			 * on faces. Omit the parameter to remove the mask position.
 			 */
 			readonly mask_position?: MaskPosition | undefined;
-		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		}) => Effect.Effect<true, Errors.TelegramApiError | Schema.SchemaError | HttpClientError.HttpClientError>;
 		/**
 		 * Use this method to move a sticker in a set created by the bot to a specific
 		 * position
@@ -6346,7 +6532,7 @@ export class TelegramClient extends Context.Service<
 			 * New sticker position in the set, zero-based
 			 */
 			readonly position: number;
-		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		}) => Effect.Effect<true, Errors.TelegramApiError | Schema.SchemaError | HttpClientError.HttpClientError>;
 		/**
 		 * Use this method to set the thumbnail of a regular or mask sticker set. The
 		 * format of the thumbnail file must match the format of the stickers in the
@@ -6384,7 +6570,7 @@ export class TelegramClient extends Context.Service<
 			 * “animated” for a .TGS animation, or “video” for a .WEBM video
 			 */
 			readonly format: string;
-		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		}) => Effect.Effect<true, Errors.TelegramApiError | Schema.SchemaError | HttpClientError.HttpClientError>;
 		/**
 		 * Use this method to set the title of a created sticker set
 		 * @see https://core.telegram.org/bots/api#setstickersettitle
@@ -6398,7 +6584,7 @@ export class TelegramClient extends Context.Service<
 			 * Sticker set title, 1-64 characters
 			 */
 			readonly title: string;
-		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		}) => Effect.Effect<true, Errors.TelegramApiError | Schema.SchemaError | HttpClientError.HttpClientError>;
 		/**
 		 * Changes the emoji status for a given user that previously allowed the bot to
 		 * manage their emoji status via the Mini App method requestEmojiStatusAccess
@@ -6425,6 +6611,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.Unauthorized
 			| Errors.UserNotFound
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -6484,7 +6671,11 @@ export class TelegramClient extends Context.Service<
 			readonly secret_token?: string | undefined;
 		}) => Effect.Effect<
 			true,
-			Errors.NotFound | Errors.Unauthorized | Errors.TelegramApiError | HttpClientError.HttpClientError
+			| Errors.NotFound
+			| Errors.Unauthorized
+			| Errors.TelegramApiError
+			| Schema.SchemaError
+			| HttpClientError.HttpClientError
 		>;
 		/**
 		 * Use this method to stop updating a live location message before live_period
@@ -6524,6 +6715,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -6556,6 +6748,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -6578,6 +6771,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -6612,6 +6806,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -6645,6 +6840,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.ParticipantIdInvalid
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -6670,6 +6866,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.SenderChatIdEmpty
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -6691,6 +6888,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -6713,6 +6911,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -6739,6 +6938,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -6759,6 +6959,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -6792,6 +6993,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -6828,6 +7030,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -6851,7 +7054,7 @@ export class TelegramClient extends Context.Service<
 			 * Format of the sticker, must be one of “static”, “animated”, “video”
 			 */
 			readonly sticker_format: string;
-		}) => Effect.Effect<File, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		}) => Effect.Effect<File, Errors.TelegramApiError | Schema.SchemaError | HttpClientError.HttpClientError>;
 		/**
 		 * Verifies a chat on behalf of the organization which is represented by the
 		 * bot
@@ -6877,6 +7080,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 		/**
@@ -6902,6 +7106,7 @@ export class TelegramClient extends Context.Service<
 			| Errors.Unauthorized
 			| Errors.UserNotFound
 			| Errors.TelegramApiError
+			| Schema.SchemaError
 			| HttpClientError.HttpClientError
 		>;
 	}

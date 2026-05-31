@@ -1,17 +1,15 @@
 import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import { authErrorTests, callClient, expectErrorTag, liveTests, telegramConfig } from "./helpers.ts";
+import { authErrorTests, callClient, expectClientSchemaError, liveTests, telegramConfig } from "./helpers.ts";
 
 const callSendVoice = (token: string, payload: unknown = {}) => callClient("sendVoice", token, payload as never);
 
 liveTests("sendVoice", test => {
-	describe("Telegram API errors", () => {
-		test.effect("NoVoiceInRequest when voice is missing", () =>
+	describe("payload validation", () => {
+		test.effect("fails Schema encode when voice is missing", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendVoice(botToken, { chat_id: chatId }).pipe(Effect.flip);
-
-				expectErrorTag(error, "NoVoiceInRequest", "Bad Request: there is no voice in the request");
+				yield* expectClientSchemaError(callSendVoice(botToken, { chat_id: chatId }));
 			}),
 		);
 	});

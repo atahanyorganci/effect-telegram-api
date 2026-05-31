@@ -1,18 +1,16 @@
 import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import { authErrorTests, callClient, expectErrorTag, liveTests, telegramConfig } from "./helpers.ts";
+import { authErrorTests, callClient, expectClientSchemaError, liveTests, telegramConfig } from "./helpers.ts";
 
 const callSendVideoNote = (token: string, payload: unknown = {}) =>
 	callClient("sendVideoNote", token, payload as never);
 
 liveTests("sendVideoNote", test => {
-	describe("Telegram API errors", () => {
-		test.effect("NoVideoNoteInRequest when video_note is missing", () =>
+	describe("payload validation", () => {
+		test.effect("fails Schema encode when video_note is missing", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendVideoNote(botToken, { chat_id: chatId }).pipe(Effect.flip);
-
-				expectErrorTag(error, "NoVideoNoteInRequest", "Bad Request: there is no video note in the request");
+				yield* expectClientSchemaError(callSendVideoNote(botToken, { chat_id: chatId }));
 			}),
 		);
 	});

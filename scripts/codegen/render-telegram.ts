@@ -1,4 +1,5 @@
 import { expandMethodErrors } from "./render-errors.ts";
+import { renderInlinedPayloadSchemas } from "./render-payload-schema.ts";
 import { methodUsesMultipart } from "./render-type-expr.ts";
 import type { Method } from "../parse/model.ts";
 import type { MethodErrorsDoc } from "./model-errors.ts";
@@ -13,7 +14,7 @@ const renderApiCall = (method: Method): string => {
 		return `apiClient.${method.name}()`;
 	}
 	if (methodUsesMultipart(method.parameters)) {
-		return `apiClient.${method.name}({ payload: toFormData(payload) })`;
+		return `encodeToFormData(${method.name}Payload, payload).pipe(Effect.flatMap(form => apiClient.${method.name}({ payload: form })))`;
 	}
 	return `apiClient.${method.name}({ payload })`;
 };
@@ -43,7 +44,6 @@ const renderMethodImpl = (method: Method, methodErrors: ReadonlyMap<string, Meth
 		`\t\t\t\t${renderApiCall(method)}.pipe(`,
 		`\t\t\t\tEffect.map(response => response.result),`,
 		renderMapError(method, methodErrors),
-		`\t\t\t\tEffect.catchIf(Schema.isSchemaError, error => Effect.die(error)),`,
 		`\t\t\t)`,
 		`\t\t\t) as TelegramClientService["${method.name}"];`,
 	].join("\n");
@@ -54,22 +54,25 @@ export const renderTelegramModule = (
 	methodErrors: ReadonlyMap<string, MethodErrorsDoc>,
 ): string => {
 	const sorted = sortMethods(methods);
+	const hasMultipart = methods.some(method => method.parameters.length > 0 && methodUsesMultipart(method.parameters));
+	const inlinedPayloadSchemas = renderInlinedPayloadSchemas(methods);
 
 	return [
 		GENERATED_HEADER,
 		`import * as Effect from "effect/Effect";`,
 		`import * as Layer from "effect/Layer";`,
-		`import * as Schema from "effect/Schema";`,
 		`import * as HttpApiClient from "effect/unstable/httpapi/HttpApiClient";`,
 		`import * as Errors from "../errors.ts";`,
 		`import { TelegramBotApi } from "../http-api.ts";`,
+		...(hasMultipart ? [`import * as Schema from "effect/Schema";`, `import * as Objects from "../schema.ts";`] : []),
 		`import { TelegramClient } from "./service.ts";`,
-		`import { toFormData } from "./to-form.ts";`,
+		...(hasMultipart ? [`import { encodeToFormData } from "./to-form.ts";`] : []),
 		``,
 		`const BASE_URL = "https://api.telegram.org";`,
 		``,
 		`type TelegramClientService = (typeof TelegramClient)["Service"];`,
 		``,
+		inlinedPayloadSchemas,
 		`/**`,
 		` * Builds a {@link TelegramClient} layer for the given bot token by unwrapping`,
 		` * wire responses from the underlying HTTP client.`,

@@ -1,18 +1,16 @@
 import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import { authErrorTests, callClient, expectErrorTag, liveTests, telegramConfig } from "./helpers.ts";
+import { authErrorTests, callClient, expectClientSchemaError, liveTests, telegramConfig } from "./helpers.ts";
 
 const callSendAnimation = (token: string, payload: unknown = {}) =>
 	callClient("sendAnimation", token, payload as never);
 
 liveTests("sendAnimation", test => {
-	describe("Telegram API errors", () => {
-		test.effect("NoAnimationInRequest when animation is missing", () =>
+	describe("payload validation", () => {
+		test.effect("fails Schema encode when animation is missing", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendAnimation(botToken, { chat_id: chatId }).pipe(Effect.flip);
-
-				expectErrorTag(error, "NoAnimationInRequest", "Bad Request: there is no animation in the request");
+				yield* expectClientSchemaError(callSendAnimation(botToken, { chat_id: chatId }));
 			}),
 		);
 	});

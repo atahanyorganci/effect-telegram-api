@@ -80,10 +80,10 @@ export const answerCallbackQuery = HttpApiEndpoint.post("answerCallbackQuery", "
 			}),
 		),
 		/**
-		 * URL that will be opened by the user's client. If you have created a Game
-		 * and accepted the conditions via @BotFather, specify the URL that opens your
-		 * game - note that this will only work if the query comes from a
-		 * callback_game button.
+		 * URL that will be opened by the user's client. If you have created a Game and
+		 * accepted the conditions via @BotFather, specify the URL that opens your game
+		 * - note that this will only work if the query comes from a callback_game
+		 * button.
 		 * Otherwise, you may use links like t.me/your_bot?start=XXXX that open your
 		 * bot with a parameter.
 		 */
@@ -187,9 +187,9 @@ export const answerInlineQuery = HttpApiEndpoint.post("answerInlineQuery", "/ans
 			}),
 		),
 		/**
-		 * Pass True if results may be cached on the server side only for the user
-		 * that sent the query. By default, results may be returned to any user who
-		 * sends the same query.
+		 * Pass True if results may be cached on the server side only for the user that
+		 * sent the query. By default, results may be returned to any user who sends
+		 * the same query.
 		 */
 		is_personal: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({
@@ -246,8 +246,7 @@ export const answerPreCheckoutQuery = HttpApiEndpoint.post("answerPreCheckoutQue
 		),
 		/**
 		 * Specify True if everything is alright (goods are available, etc.) and the
-		 * bot is ready to proceed with the order. Use False if there are any
-		 * problems.
+		 * bot is ready to proceed with the order. Use False if there are any problems.
 		 */
 		ok: Schema.Boolean.pipe(
 			Schema.annotate({
@@ -299,8 +298,8 @@ export const answerShippingQuery = HttpApiEndpoint.post("answerShippingQuery", "
 		),
 		/**
 		 * Pass True if delivery to the specified address is possible and False if
-		 * there are any problems (for example, if delivery to the specified address
-		 * is not possible)
+		 * there are any problems (for example, if delivery to the specified address is
+		 * not possible)
 		 */
 		ok: Schema.Boolean.pipe(
 			Schema.annotate({
@@ -838,8 +837,7 @@ export const copyMessage = HttpApiEndpoint.post("copyMessage", "/copyMessage", {
 			}),
 		),
 		/**
-		 * Sends the message silently. Users will receive a notification with no
-		 * sound.
+		 * Sends the message silently. Users will receive a notification with no sound.
 		 */
 		disable_notification: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
@@ -1310,11 +1308,11 @@ export const createInvoiceLink = HttpApiEndpoint.post("createInvoiceLink", "/cre
 		),
 		/**
 		 * The number of seconds the subscription will be active for before the next
-		 * payment. The currency must be set to “XTR” (Telegram Stars) if the
-		 * parameter is used. Currently, it must always be 2592000 (30 days) if
-		 * specified. Any number of subscriptions can be active for a given bot at the
-		 * same time, including multiple concurrent subscriptions from the same user.
-		 * Subscription price must no exceed 10000 Telegram Stars.
+		 * payment. The currency must be set to “XTR” (Telegram Stars) if the parameter
+		 * is used. Currently, it must always be 2592000 (30 days) if specified. Any
+		 * number of subscriptions can be active for a given bot at the same time,
+		 * including multiple concurrent subscriptions from the same user. Subscription
+		 * price must no exceed 10000 Telegram Stars.
 		 */
 		subscription_period: Schema.optional(Schema.Int).pipe(
 			Schema.annotate({
@@ -1324,10 +1322,10 @@ export const createInvoiceLink = HttpApiEndpoint.post("createInvoiceLink", "/cre
 		),
 		/**
 		 * The maximum accepted amount for tips in the smallest units of the currency
-		 * (integer, not float/double). For example, for a maximum tip of US$ 1.45
-		 * pass max_tip_amount = 145. See the exp parameter in currencies.json, it
-		 * shows the number of digits past the decimal point for each currency (2 for
-		 * the majority of currencies). Defaults to 0. Not supported for payments in
+		 * (integer, not float/double). For example, for a maximum tip of US$ 1.45 pass
+		 * max_tip_amount = 145. See the exp parameter in currencies.json, it shows the
+		 * number of digits past the decimal point for each currency (2 for the
+		 * majority of currencies). Defaults to 0. Not supported for payments in
 		 * Telegram Stars.
 		 */
 		max_tip_amount: Schema.optional(Schema.Int).pipe(
@@ -1338,9 +1336,9 @@ export const createInvoiceLink = HttpApiEndpoint.post("createInvoiceLink", "/cre
 		),
 		/**
 		 * A JSON-serialized array of suggested amounts of tips in the smallest units
-		 * of the currency (integer, not float/double). At most 4 suggested tip
-		 * amounts can be specified. The suggested tip amounts must be positive,
-		 * passed in a strictly increased order and must not exceed max_tip_amount.
+		 * of the currency (integer, not float/double). At most 4 suggested tip amounts
+		 * can be specified. The suggested tip amounts must be positive, passed in a
+		 * strictly increased order and must not exceed max_tip_amount.
 		 */
 		suggested_tip_amounts: Schema.optional(Schema.Array(Schema.Int)).pipe(
 			Schema.annotate({
@@ -1382,8 +1380,8 @@ export const createInvoiceLink = HttpApiEndpoint.post("createInvoiceLink", "/cre
 		 */
 		photo_height: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Photo height" })),
 		/**
-		 * Pass True if you require the user's full name to complete the order.
-		 * Ignored for payments in Telegram Stars.
+		 * Pass True if you require the user's full name to complete the order. Ignored
+		 * for payments in Telegram Stars.
 		 */
 		need_name: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({
@@ -1422,8 +1420,8 @@ export const createInvoiceLink = HttpApiEndpoint.post("createInvoiceLink", "/cre
 			}),
 		),
 		/**
-		 * Pass True if the user's phone number should be sent to the provider.
-		 * Ignored for payments in Telegram Stars.
+		 * Pass True if the user's phone number should be sent to the provider. Ignored
+		 * for payments in Telegram Stars.
 		 */
 		send_phone_number_to_provider: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({
@@ -2447,8 +2445,8 @@ export const editMessageCaption = HttpApiEndpoint.post("editMessageCaption", "/e
 			}),
 		),
 		/**
-		 * Required if inline_message_id is not specified. Identifier of the message
-		 * to edit.
+		 * Required if inline_message_id is not specified. Identifier of the message to
+		 * edit.
 		 */
 		message_id: Schema.optional(Schema.Int).pipe(
 			Schema.annotate({
@@ -2471,8 +2469,8 @@ export const editMessageCaption = HttpApiEndpoint.post("editMessageCaption", "/e
 			Schema.annotate({ description: "New caption of the message, 0-1024 characters after entities parsing" }),
 		),
 		/**
-		 * Mode for parsing entities in the message caption. See formatting options
-		 * for more details.
+		 * Mode for parsing entities in the message caption. See formatting options for
+		 * more details.
 		 */
 		parse_mode: Schema.optional(Schema.String).pipe(
 			Schema.annotate({
@@ -2480,8 +2478,8 @@ export const editMessageCaption = HttpApiEndpoint.post("editMessageCaption", "/e
 			}),
 		),
 		/**
-		 * A JSON-serialized list of special entities that appear in the caption,
-		 * which can be specified instead of parse_mode
+		 * A JSON-serialized list of special entities that appear in the caption, which
+		 * can be specified instead of parse_mode
 		 */
 		caption_entities: Schema.optional(Schema.Array(Objects.MessageEntity)).pipe(
 			Schema.annotate({
@@ -2614,8 +2612,8 @@ export const editMessageLiveLocation = HttpApiEndpoint.post("editMessageLiveLoca
 			}),
 		),
 		/**
-		 * Required if inline_message_id is not specified. Identifier of the message
-		 * to edit.
+		 * Required if inline_message_id is not specified. Identifier of the message to
+		 * edit.
 		 */
 		message_id: Schema.optional(Schema.Int).pipe(
 			Schema.annotate({
@@ -2642,10 +2640,10 @@ export const editMessageLiveLocation = HttpApiEndpoint.post("editMessageLiveLoca
 		/**
 		 * New period in seconds during which the location can be updated, starting
 		 * from the message send date. If 0x7FFFFFFF is specified, then the location
-		 * can be updated forever. Otherwise, the new value must not exceed the
-		 * current live_period by more than a day, and the live location expiration
-		 * date must remain within the next 90 days. If not specified, then
-		 * live_period remains unchanged.
+		 * can be updated forever. Otherwise, the new value must not exceed the current
+		 * live_period by more than a day, and the live location expiration date must
+		 * remain within the next 90 days. If not specified, then live_period remains
+		 * unchanged.
 		 */
 		live_period: Schema.optional(Schema.Int).pipe(
 			Schema.annotate({
@@ -2660,8 +2658,8 @@ export const editMessageLiveLocation = HttpApiEndpoint.post("editMessageLiveLoca
 			Schema.annotate({ description: "The radius of uncertainty for the location, measured in meters; 0-1500" }),
 		),
 		/**
-		 * Direction in which the user is moving, in degrees. Must be between 1 and
-		 * 360 if specified.
+		 * Direction in which the user is moving, in degrees. Must be between 1 and 360
+		 * if specified.
 		 */
 		heading: Schema.optional(Schema.Int).pipe(
 			Schema.annotate({
@@ -2737,8 +2735,8 @@ export const editMessageMedia = HttpApiEndpoint.post("editMessageMedia", "/editM
 			}),
 		),
 		/**
-		 * Required if inline_message_id is not specified. Identifier of the message
-		 * to edit.
+		 * Required if inline_message_id is not specified. Identifier of the message to
+		 * edit.
 		 */
 		message_id: Schema.optional(Schema.Int).pipe(
 			Schema.annotate({
@@ -2814,8 +2812,8 @@ export const editMessageReplyMarkup = HttpApiEndpoint.post("editMessageReplyMark
 			}),
 		),
 		/**
-		 * Required if inline_message_id is not specified. Identifier of the message
-		 * to edit.
+		 * Required if inline_message_id is not specified. Identifier of the message to
+		 * edit.
 		 */
 		message_id: Schema.optional(Schema.Int).pipe(
 			Schema.annotate({
@@ -2885,8 +2883,8 @@ export const editMessageText = HttpApiEndpoint.post("editMessageText", "/editMes
 			}),
 		),
 		/**
-		 * Required if inline_message_id is not specified. Identifier of the message
-		 * to edit.
+		 * Required if inline_message_id is not specified. Identifier of the message to
+		 * edit.
 		 */
 		message_id: Schema.optional(Schema.Int).pipe(
 			Schema.annotate({
@@ -2996,8 +2994,8 @@ export const editStory = HttpApiEndpoint.post("editStory", "/editStory", {
 			}),
 		),
 		/**
-		 * A JSON-serialized list of special entities that appear in the caption,
-		 * which can be specified instead of parse_mode
+		 * A JSON-serialized list of special entities that appear in the caption, which
+		 * can be specified instead of parse_mode
 		 */
 		caption_entities: Schema.optional(Schema.Array(Objects.MessageEntity)).pipe(
 			Schema.annotate({
@@ -3173,8 +3171,7 @@ export const forwardMessage = HttpApiEndpoint.post("forwardMessage", "/forwardMe
 			Schema.annotate({ description: "New start timestamp for the forwarded video in the message" }),
 		),
 		/**
-		 * Sends the message silently. Users will receive a notification with no
-		 * sound.
+		 * Sends the message silently. Users will receive a notification with no sound.
 		 */
 		disable_notification: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
@@ -3601,8 +3598,8 @@ export const getChatGifts = HttpApiEndpoint.post("getChatGifts", "/getChatGifts"
 		),
 		/**
 		 * Pass True to exclude gifts that aren't saved to the chat's profile page.
-		 * Always True, unless the bot has the can_post_messages administrator right
-		 * in the channel.
+		 * Always True, unless the bot has the can_post_messages administrator right in
+		 * the channel.
 		 */
 		exclude_unsaved: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({
@@ -3611,9 +3608,9 @@ export const getChatGifts = HttpApiEndpoint.post("getChatGifts", "/getChatGifts"
 			}),
 		),
 		/**
-		 * Pass True to exclude gifts that are saved to the chat's profile page.
-		 * Always False, unless the bot has the can_post_messages administrator right
-		 * in the channel.
+		 * Pass True to exclude gifts that are saved to the chat's profile page. Always
+		 * False, unless the bot has the can_post_messages administrator right in the
+		 * channel.
 		 */
 		exclude_saved: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({
@@ -3825,8 +3822,8 @@ export const getChatMenuButton = HttpApiEndpoint.post("getChatMenuButton", "/get
 export const getCustomEmojiStickers = HttpApiEndpoint.post("getCustomEmojiStickers", "/getCustomEmojiStickers", {
 	payload: Schema.Struct({
 		/**
-		 * A JSON-serialized list of custom emoji identifiers. At most 200 custom
-		 * emoji identifiers can be specified.
+		 * A JSON-serialized list of custom emoji identifiers. At most 200 custom emoji
+		 * identifiers can be specified.
 		 */
 		custom_emoji_ids: Schema.Array(Schema.String).pipe(
 			Schema.annotate({
@@ -4240,8 +4237,8 @@ export const getStarTransactions = HttpApiEndpoint.post("getStarTransactions", "
 			Schema.annotate({ description: "Number of transactions to skip in the response" }),
 		),
 		/**
-		 * The maximum number of transactions to be retrieved. Values between 1-100
-		 * are accepted. Defaults to 100.
+		 * The maximum number of transactions to be retrieved. Values between 1-100 are
+		 * accepted. Defaults to 100.
 		 */
 		limit: Schema.optional(Schema.Int).pipe(
 			Schema.annotate({
@@ -4286,11 +4283,11 @@ export const getUpdates = HttpApiEndpoint.post("getUpdates", "/getUpdates", {
 		/**
 		 * Identifier of the first update to be returned. Must be greater by one than
 		 * the highest among the identifiers of previously received updates. By
-		 * default, updates starting with the earliest unconfirmed update are
-		 * returned. An update is considered confirmed as soon as getUpdates is called
-		 * with an offset higher than its update_id. The negative offset can be
-		 * specified to retrieve updates starting from -offset update from the end of
-		 * the updates queue. All previous updates will be forgotten.
+		 * default, updates starting with the earliest unconfirmed update are returned.
+		 * An update is considered confirmed as soon as getUpdates is called with an
+		 * offset higher than its update_id. The negative offset can be specified to
+		 * retrieve updates starting from -offset update from the end of the updates
+		 * queue. All previous updates will be forgotten.
 		 */
 		offset: Schema.optional(Schema.Int).pipe(
 			Schema.annotate({
@@ -4320,9 +4317,9 @@ export const getUpdates = HttpApiEndpoint.post("getUpdates", "/getUpdates", {
 			}),
 		),
 		/**
-		 * A JSON-serialized list of the update types you want your bot to receive.
-		 * For example, specify ["message", "edited_channel_post", "callback_query"]
-		 * to only receive updates of these types. See Update for a complete list of
+		 * A JSON-serialized list of the update types you want your bot to receive. For
+		 * example, specify ["message", "edited_channel_post", "callback_query"] to
+		 * only receive updates of these types. See Update for a complete list of
 		 * available update types. Specify an empty list to receive all update types
 		 * except chat_member, message_reaction, and message_reaction_count (default).
 		 * If not specified, the previous setting will be used.
@@ -4679,8 +4676,8 @@ export const giftPremiumSubscription = HttpApiEndpoint.post("giftPremiumSubscrip
 		),
 		/**
 		 * Mode for parsing entities in the text. See formatting options for more
-		 * details. Entities other than “bold”, “italic”, “underline”,
-		 * “strikethrough”, “spoiler”, “custom_emoji”, and “date_time” are ignored.
+		 * details. Entities other than “bold”, “italic”, “underline”, “strikethrough”,
+		 * “spoiler”, “custom_emoji”, and “date_time” are ignored.
 		 */
 		text_parse_mode: Schema.optional(Schema.String).pipe(
 			Schema.annotate({
@@ -4930,8 +4927,8 @@ export const postStory = HttpApiEndpoint.post("postStory", "/postStory", {
 			}),
 		),
 		/**
-		 * A JSON-serialized list of special entities that appear in the caption,
-		 * which can be specified instead of parse_mode
+		 * A JSON-serialized list of special entities that appear in the caption, which
+		 * can be specified instead of parse_mode
 		 */
 		caption_entities: Schema.optional(Schema.Array(Objects.MessageEntity)).pipe(
 			Schema.annotate({
@@ -5129,8 +5126,8 @@ export const promoteChatMember = HttpApiEndpoint.post("promoteChatMember", "/pro
 			}),
 		),
 		/**
-		 * Pass True if the administrator can manage direct messages within the
-		 * channel and decline suggested posts; for channels only
+		 * Pass True if the administrator can manage direct messages within the channel
+		 * and decline suggested posts; for channels only
 		 */
 		can_manage_direct_messages: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({
@@ -5561,8 +5558,7 @@ export const repostStory = HttpApiEndpoint.post("repostStory", "/repostStory", {
 			Schema.annotate({ description: "Unique identifier of the business connection" }),
 		),
 		/**
-		 * Unique identifier of the chat which posted the story that should be
-		 * reposted
+		 * Unique identifier of the chat which posted the story that should be reposted
 		 */
 		from_chat_id: Schema.Int.pipe(
 			Schema.annotate({ description: "Unique identifier of the chat which posted the story that should be reposted" }),
@@ -5649,11 +5645,10 @@ export const restrictChatMember = HttpApiEndpoint.post("restrictChatMember", "/r
 		),
 		/**
 		 * Pass True if chat permissions are set independently. Otherwise, the
-		 * can_send_other_messages and can_add_web_page_previews permissions will
-		 * imply the can_send_messages, can_send_audios, can_send_documents,
-		 * can_send_photos, can_send_videos, can_send_video_notes, and
-		 * can_send_voice_notes permissions; the can_send_polls permission will imply
-		 * the can_send_messages permission.
+		 * can_send_other_messages and can_add_web_page_previews permissions will imply
+		 * the can_send_messages, can_send_audios, can_send_documents, can_send_photos,
+		 * can_send_videos, can_send_video_notes, and can_send_voice_notes permissions;
+		 * the can_send_polls permission will imply the can_send_messages permission.
 		 */
 		use_independent_chat_permissions: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({
@@ -5887,10 +5882,10 @@ export const sendAnimation = HttpApiEndpoint.post("sendAnimation", "/sendAnimati
 			}),
 		),
 		/**
-		 * Animation to send. Pass a file_id as String to send an animation that
-		 * exists on the Telegram servers (recommended), pass an HTTP URL as a String
-		 * for Telegram to get an animation from the Internet, or upload a new
-		 * animation using multipart/form-data. More information on Sending Files »
+		 * Animation to send. Pass a file_id as String to send an animation that exists
+		 * on the Telegram servers (recommended), pass an HTTP URL as a String for
+		 * Telegram to get an animation from the Internet, or upload a new animation
+		 * using multipart/form-data. More information on Sending Files »
 		 */
 		animation: Schema.Union([Objects.InputFile, Schema.String]).pipe(
 			Schema.annotate({
@@ -5948,8 +5943,8 @@ export const sendAnimation = HttpApiEndpoint.post("sendAnimation", "/sendAnimati
 			}),
 		),
 		/**
-		 * A JSON-serialized list of special entities that appear in the caption,
-		 * which can be specified instead of parse_mode
+		 * A JSON-serialized list of special entities that appear in the caption, which
+		 * can be specified instead of parse_mode
 		 */
 		caption_entities: Schema.optional(Schema.Array(Objects.MessageEntity)).pipe(
 			Schema.annotate({
@@ -5970,8 +5965,7 @@ export const sendAnimation = HttpApiEndpoint.post("sendAnimation", "/sendAnimati
 			Schema.annotate({ description: "Pass True if the animation needs to be covered with a spoiler animation" }),
 		),
 		/**
-		 * Sends the message silently. Users will receive a notification with no
-		 * sound.
+		 * Sends the message silently. Users will receive a notification with no sound.
 		 */
 		disable_notification: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
@@ -6132,8 +6126,8 @@ export const sendAudio = HttpApiEndpoint.post("sendAudio", "/sendAudio", {
 			}),
 		),
 		/**
-		 * A JSON-serialized list of special entities that appear in the caption,
-		 * which can be specified instead of parse_mode
+		 * A JSON-serialized list of special entities that appear in the caption, which
+		 * can be specified instead of parse_mode
 		 */
 		caption_entities: Schema.optional(Schema.Array(Objects.MessageEntity)).pipe(
 			Schema.annotate({
@@ -6170,8 +6164,7 @@ export const sendAudio = HttpApiEndpoint.post("sendAudio", "/sendAudio", {
 			}),
 		),
 		/**
-		 * Sends the message silently. Users will receive a notification with no
-		 * sound.
+		 * Sends the message silently. Users will receive a notification with no sound.
 		 */
 		disable_notification: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
@@ -6295,12 +6288,12 @@ export const sendChatAction = HttpApiEndpoint.post("sendChatAction", "/sendChatA
 			}),
 		),
 		/**
-		 * Type of action to broadcast. Choose one, depending on what the user is
-		 * about to receive: typing for text messages, upload_photo for photos,
-		 * record_video or upload_video for videos, record_voice or upload_voice for
-		 * voice notes, upload_document for general files, choose_sticker for
-		 * stickers, find_location for location data, record_video_note or
-		 * upload_video_note for video notes.
+		 * Type of action to broadcast. Choose one, depending on what the user is about
+		 * to receive: typing for text messages, upload_photo for photos, record_video
+		 * or upload_video for videos, record_voice or upload_voice for voice notes,
+		 * upload_document for general files, choose_sticker for stickers,
+		 * find_location for location data, record_video_note or upload_video_note for
+		 * video notes.
 		 */
 		action: Schema.String.pipe(
 			Schema.annotate({
@@ -6361,8 +6354,7 @@ export const sendChecklist = HttpApiEndpoint.post("sendChecklist", "/sendCheckli
 			Schema.annotate({ description: "A JSON-serialized object for the checklist to send" }),
 		),
 		/**
-		 * Sends the message silently. Users will receive a notification with no
-		 * sound.
+		 * Sends the message silently. Users will receive a notification with no sound.
 		 */
 		disable_notification: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
@@ -6475,8 +6467,7 @@ export const sendContact = HttpApiEndpoint.post("sendContact", "/sendContact", {
 			Schema.annotate({ description: "Additional data about the contact in the form of a vCard, 0-2048 bytes" }),
 		),
 		/**
-		 * Sends the message silently. Users will receive a notification with no
-		 * sound.
+		 * Sends the message silently. Users will receive a notification with no sound.
 		 */
 		disable_notification: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
@@ -6619,8 +6610,7 @@ export const sendDice = HttpApiEndpoint.post("sendDice", "/sendDice", {
 			}),
 		),
 		/**
-		 * Sends the message silently. Users will receive a notification with no
-		 * sound.
+		 * Sends the message silently. Users will receive a notification with no sound.
 		 */
 		disable_notification: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
@@ -6754,9 +6744,9 @@ export const sendDocument = HttpApiEndpoint.post("sendDocument", "/sendDocument"
 		),
 		/**
 		 * File to send. Pass a file_id as String to send a file that exists on the
-		 * Telegram servers (recommended), pass an HTTP URL as a String for Telegram
-		 * to get a file from the Internet, or upload a new one using
-		 * multipart/form-data. More information on Sending Files »
+		 * Telegram servers (recommended), pass an HTTP URL as a String for Telegram to
+		 * get a file from the Internet, or upload a new one using multipart/form-data.
+		 * More information on Sending Files »
 		 */
 		document: Schema.Union([Objects.InputFile, Schema.String]).pipe(
 			Schema.annotate({
@@ -6800,8 +6790,8 @@ export const sendDocument = HttpApiEndpoint.post("sendDocument", "/sendDocument"
 			}),
 		),
 		/**
-		 * A JSON-serialized list of special entities that appear in the caption,
-		 * which can be specified instead of parse_mode
+		 * A JSON-serialized list of special entities that appear in the caption, which
+		 * can be specified instead of parse_mode
 		 */
 		caption_entities: Schema.optional(Schema.Array(Objects.MessageEntity)).pipe(
 			Schema.annotate({
@@ -6820,8 +6810,7 @@ export const sendDocument = HttpApiEndpoint.post("sendDocument", "/sendDocument"
 			}),
 		),
 		/**
-		 * Sends the message silently. Users will receive a notification with no
-		 * sound.
+		 * Sends the message silently. Users will receive a notification with no sound.
 		 */
 		disable_notification: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
@@ -6941,8 +6930,8 @@ export const sendGame = HttpApiEndpoint.post("sendGame", "/sendGame", {
 			}),
 		),
 		/**
-		 * Short name of the game, serves as the unique identifier for the game. Set
-		 * up your games via @BotFather.
+		 * Short name of the game, serves as the unique identifier for the game. Set up
+		 * your games via @BotFather.
 		 */
 		game_short_name: Schema.String.pipe(
 			Schema.annotate({
@@ -6951,8 +6940,7 @@ export const sendGame = HttpApiEndpoint.post("sendGame", "/sendGame", {
 			}),
 		),
 		/**
-		 * Sends the message silently. Users will receive a notification with no
-		 * sound.
+		 * Sends the message silently. Users will receive a notification with no sound.
 		 */
 		disable_notification: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
@@ -6991,8 +6979,8 @@ export const sendGame = HttpApiEndpoint.post("sendGame", "/sendGame", {
 		),
 		/**
 		 * A JSON-serialized object for an inline keyboard. If empty, one 'Play
-		 * game_title' button will be shown. If not empty, the first button must
-		 * launch the game.
+		 * game_title' button will be shown. If not empty, the first button must launch
+		 * the game.
 		 */
 		reply_markup: Schema.optional(Objects.InlineKeyboardMarkup).pipe(
 			Schema.annotate({
@@ -7046,8 +7034,8 @@ export const sendGift = HttpApiEndpoint.post("sendGift", "/sendGift", {
 			Schema.annotate({ description: "Identifier of the gift; limited gifts can't be sent to channel chats" }),
 		),
 		/**
-		 * Pass True to pay for the gift upgrade from the bot's balance, thereby
-		 * making the upgrade free for the receiver
+		 * Pass True to pay for the gift upgrade from the bot's balance, thereby making
+		 * the upgrade free for the receiver
 		 */
 		pay_for_upgrade: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({
@@ -7063,8 +7051,8 @@ export const sendGift = HttpApiEndpoint.post("sendGift", "/sendGift", {
 		),
 		/**
 		 * Mode for parsing entities in the text. See formatting options for more
-		 * details. Entities other than “bold”, “italic”, “underline”,
-		 * “strikethrough”, “spoiler”, “custom_emoji”, and “date_time” are ignored.
+		 * details. Entities other than “bold”, “italic”, “underline”, “strikethrough”,
+		 * “spoiler”, “custom_emoji”, and “date_time” are ignored.
 		 */
 		text_parse_mode: Schema.optional(Schema.String).pipe(
 			Schema.annotate({
@@ -7192,10 +7180,10 @@ export const sendInvoice = HttpApiEndpoint.post("sendInvoice", "/sendInvoice", {
 		),
 		/**
 		 * The maximum accepted amount for tips in the smallest units of the currency
-		 * (integer, not float/double). For example, for a maximum tip of US$ 1.45
-		 * pass max_tip_amount = 145. See the exp parameter in currencies.json, it
-		 * shows the number of digits past the decimal point for each currency (2 for
-		 * the majority of currencies). Defaults to 0. Not supported for payments in
+		 * (integer, not float/double). For example, for a maximum tip of US$ 1.45 pass
+		 * max_tip_amount = 145. See the exp parameter in currencies.json, it shows the
+		 * number of digits past the decimal point for each currency (2 for the
+		 * majority of currencies). Defaults to 0. Not supported for payments in
 		 * Telegram Stars.
 		 */
 		max_tip_amount: Schema.optional(Schema.Int).pipe(
@@ -7206,9 +7194,9 @@ export const sendInvoice = HttpApiEndpoint.post("sendInvoice", "/sendInvoice", {
 		),
 		/**
 		 * A JSON-serialized array of suggested amounts of tips in the smallest units
-		 * of the currency (integer, not float/double). At most 4 suggested tip
-		 * amounts can be specified. The suggested tip amounts must be positive,
-		 * passed in a strictly increased order and must not exceed max_tip_amount.
+		 * of the currency (integer, not float/double). At most 4 suggested tip amounts
+		 * can be specified. The suggested tip amounts must be positive, passed in a
+		 * strictly increased order and must not exceed max_tip_amount.
 		 */
 		suggested_tip_amounts: Schema.optional(Schema.Array(Schema.Int)).pipe(
 			Schema.annotate({
@@ -7218,8 +7206,8 @@ export const sendInvoice = HttpApiEndpoint.post("sendInvoice", "/sendInvoice", {
 		),
 		/**
 		 * Unique deep-linking parameter. If left empty, forwarded copies of the sent
-		 * message will have a Pay button, allowing multiple users to pay directly
-		 * from the forwarded message, using the same invoice. If non-empty, forwarded
+		 * message will have a Pay button, allowing multiple users to pay directly from
+		 * the forwarded message, using the same invoice. If non-empty, forwarded
 		 * copies of the sent message will have a URL button with a deep link to the
 		 * bot (instead of a Pay button), with the value used as the start parameter.
 		 */
@@ -7242,8 +7230,8 @@ export const sendInvoice = HttpApiEndpoint.post("sendInvoice", "/sendInvoice", {
 		),
 		/**
 		 * URL of the product photo for the invoice. Can be a photo of the goods or a
-		 * marketing image for a service. People like it better when they see what
-		 * they are paying for.
+		 * marketing image for a service. People like it better when they see what they
+		 * are paying for.
 		 */
 		photo_url: Schema.optional(Schema.String).pipe(
 			Schema.annotate({
@@ -7264,8 +7252,8 @@ export const sendInvoice = HttpApiEndpoint.post("sendInvoice", "/sendInvoice", {
 		 */
 		photo_height: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Photo height" })),
 		/**
-		 * Pass True if you require the user's full name to complete the order.
-		 * Ignored for payments in Telegram Stars.
+		 * Pass True if you require the user's full name to complete the order. Ignored
+		 * for payments in Telegram Stars.
 		 */
 		need_name: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({
@@ -7304,8 +7292,8 @@ export const sendInvoice = HttpApiEndpoint.post("sendInvoice", "/sendInvoice", {
 			}),
 		),
 		/**
-		 * Pass True if the user's phone number should be sent to the provider.
-		 * Ignored for payments in Telegram Stars.
+		 * Pass True if the user's phone number should be sent to the provider. Ignored
+		 * for payments in Telegram Stars.
 		 */
 		send_phone_number_to_provider: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({
@@ -7334,8 +7322,7 @@ export const sendInvoice = HttpApiEndpoint.post("sendInvoice", "/sendInvoice", {
 			}),
 		),
 		/**
-		 * Sends the message silently. Users will receive a notification with no
-		 * sound.
+		 * Sends the message silently. Users will receive a notification with no sound.
 		 */
 		disable_notification: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
@@ -7453,10 +7440,10 @@ export const sendLivePhoto = HttpApiEndpoint.post("sendLivePhoto", "/sendLivePho
 		),
 		/**
 		 * Live photo video to send. The video must be no longer than 10 seconds and
-		 * must not exceed 10 MB in size. Pass a file_id as String to send a video
-		 * that exists on the Telegram servers (recommended) or upload a new video
-		 * using multipart/form-data. More information on Sending Files ». Sending
-		 * live photos by a URL is currently unsupported.
+		 * must not exceed 10 MB in size. Pass a file_id as String to send a video that
+		 * exists on the Telegram servers (recommended) or upload a new video using
+		 * multipart/form-data. More information on Sending Files ». Sending live
+		 * photos by a URL is currently unsupported.
 		 */
 		live_photo: Schema.Union([Objects.InputFile, Schema.String]).pipe(
 			Schema.annotate({
@@ -7496,8 +7483,8 @@ export const sendLivePhoto = HttpApiEndpoint.post("sendLivePhoto", "/sendLivePho
 			}),
 		),
 		/**
-		 * A JSON-serialized list of special entities that appear in the caption,
-		 * which can be specified instead of parse_mode
+		 * A JSON-serialized list of special entities that appear in the caption, which
+		 * can be specified instead of parse_mode
 		 */
 		caption_entities: Schema.optional(Schema.Array(Objects.MessageEntity)).pipe(
 			Schema.annotate({
@@ -7518,8 +7505,7 @@ export const sendLivePhoto = HttpApiEndpoint.post("sendLivePhoto", "/sendLivePho
 			Schema.annotate({ description: "Pass True if the video needs to be covered with a spoiler animation" }),
 		),
 		/**
-		 * Sends the message silently. Users will receive a notification with no
-		 * sound.
+		 * Sends the message silently. Users will receive a notification with no sound.
 		 */
 		disable_notification: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
@@ -7694,8 +7680,7 @@ export const sendLocation = HttpApiEndpoint.post("sendLocation", "/sendLocation"
 			}),
 		),
 		/**
-		 * Sends the message silently. Users will receive a notification with no
-		 * sound.
+		 * Sends the message silently. Users will receive a notification with no sound.
 		 */
 		disable_notification: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
@@ -7979,8 +7964,7 @@ export const sendMessage = HttpApiEndpoint.post("sendMessage", "/sendMessage", {
 			Schema.annotate({ description: "Link preview generation options for the message" }),
 		),
 		/**
-		 * Sends the message silently. Users will receive a notification with no
-		 * sound.
+		 * Sends the message silently. Users will receive a notification with no sound.
 		 */
 		disable_notification: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
@@ -8322,8 +8306,8 @@ export const sendPaidMedia = HttpApiEndpoint.post("sendPaidMedia", "/sendPaidMed
 		),
 		/**
 		 * Unique identifier for the target chat or username of the target bot,
-		 * supergroup or channel in the format @username. If the chat is a channel,
-		 * all Telegram Star proceeds from this media will be credited to the chat's
+		 * supergroup or channel in the format @username. If the chat is a channel, all
+		 * Telegram Star proceeds from this media will be credited to the chat's
 		 * balance. Otherwise, they will be credited to the bot's balance.
 		 */
 		chat_id: Schema.Union([Schema.Int, Schema.String]).pipe(
@@ -8394,8 +8378,8 @@ export const sendPaidMedia = HttpApiEndpoint.post("sendPaidMedia", "/sendPaidMed
 			}),
 		),
 		/**
-		 * A JSON-serialized list of special entities that appear in the caption,
-		 * which can be specified instead of parse_mode
+		 * A JSON-serialized list of special entities that appear in the caption, which
+		 * can be specified instead of parse_mode
 		 */
 		caption_entities: Schema.optional(Schema.Array(Objects.MessageEntity)).pipe(
 			Schema.annotate({
@@ -8410,8 +8394,7 @@ export const sendPaidMedia = HttpApiEndpoint.post("sendPaidMedia", "/sendPaidMed
 			Schema.annotate({ description: "Pass True, if the caption must be shown above the message media" }),
 		),
 		/**
-		 * Sends the message silently. Users will receive a notification with no
-		 * sound.
+		 * Sends the message silently. Users will receive a notification with no sound.
 		 */
 		disable_notification: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
@@ -8532,11 +8515,11 @@ export const sendPhoto = HttpApiEndpoint.post("sendPhoto", "/sendPhoto", {
 		),
 		/**
 		 * Photo to send. Pass a file_id as String to send a photo that exists on the
-		 * Telegram servers (recommended), pass an HTTP URL as a String for Telegram
-		 * to get a photo from the Internet, or upload a new photo using
+		 * Telegram servers (recommended), pass an HTTP URL as a String for Telegram to
+		 * get a photo from the Internet, or upload a new photo using
 		 * multipart/form-data. The photo must be at most 10 MB in size. The photo's
-		 * width and height must not exceed 10000 in total. Width and height ratio
-		 * must be at most 20. More information on Sending Files »
+		 * width and height must not exceed 10000 in total. Width and height ratio must
+		 * be at most 20. More information on Sending Files »
 		 */
 		photo: Schema.Union([Objects.InputFile, Schema.String]).pipe(
 			Schema.annotate({
@@ -8564,8 +8547,8 @@ export const sendPhoto = HttpApiEndpoint.post("sendPhoto", "/sendPhoto", {
 			}),
 		),
 		/**
-		 * A JSON-serialized list of special entities that appear in the caption,
-		 * which can be specified instead of parse_mode
+		 * A JSON-serialized list of special entities that appear in the caption, which
+		 * can be specified instead of parse_mode
 		 */
 		caption_entities: Schema.optional(Schema.Array(Objects.MessageEntity)).pipe(
 			Schema.annotate({
@@ -8586,8 +8569,7 @@ export const sendPhoto = HttpApiEndpoint.post("sendPhoto", "/sendPhoto", {
 			Schema.annotate({ description: "Pass True if the photo needs to be covered with a spoiler animation" }),
 		),
 		/**
-		 * Sends the message silently. Users will receive a notification with no
-		 * sound.
+		 * Sends the message silently. Users will receive a notification with no sound.
 		 */
 		disable_notification: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
@@ -8721,8 +8703,8 @@ export const sendPoll = HttpApiEndpoint.post("sendPoll", "/sendPoll", {
 			}),
 		),
 		/**
-		 * A JSON-serialized list of special entities that appear in the poll
-		 * question. It can be specified instead of question_parse_mode.
+		 * A JSON-serialized list of special entities that appear in the poll question.
+		 * It can be specified instead of question_parse_mode.
 		 */
 		question_entities: Schema.optional(Schema.Array(Objects.MessageEntity)).pipe(
 			Schema.annotate({
@@ -8799,9 +8781,9 @@ export const sendPoll = HttpApiEndpoint.post("sendPoll", "/sendPoll", {
 		/**
 		 * A JSON-serialized list of 0-12 two-letter ISO 3166-1 alpha-2 country codes
 		 * indicating the countries from which users can vote in the poll; for channel
-		 * chats only. Use “FT” as a country code to allow users with anonymous
-		 * numbers to vote. If omitted or empty, then users from any country can
-		 * participate in the poll.
+		 * chats only. Use “FT” as a country code to allow users with anonymous numbers
+		 * to vote. If omitted or empty, then users from any country can participate in
+		 * the poll.
 		 */
 		country_codes: Schema.optional(Schema.Array(Schema.String)).pipe(
 			Schema.annotate({
@@ -8856,8 +8838,8 @@ export const sendPoll = HttpApiEndpoint.post("sendPoll", "/sendPoll", {
 			Schema.annotate({ description: "Media added to the quiz explanation" }),
 		),
 		/**
-		 * Amount of time in seconds the poll will be active after creation,
-		 * 5-2628000. Can't be used together with close_date.
+		 * Amount of time in seconds the poll will be active after creation, 5-2628000.
+		 * Can't be used together with close_date.
 		 */
 		open_period: Schema.optional(Schema.Int).pipe(
 			Schema.annotate({
@@ -8877,8 +8859,8 @@ export const sendPoll = HttpApiEndpoint.post("sendPoll", "/sendPoll", {
 			}),
 		),
 		/**
-		 * Pass True if the poll needs to be immediately closed. This can be useful
-		 * for poll preview.
+		 * Pass True if the poll needs to be immediately closed. This can be useful for
+		 * poll preview.
 		 */
 		is_closed: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({
@@ -8886,8 +8868,7 @@ export const sendPoll = HttpApiEndpoint.post("sendPoll", "/sendPoll", {
 			}),
 		),
 		/**
-		 * Description of the poll to be sent, 0-1024 characters after entities
-		 * parsing
+		 * Description of the poll to be sent, 0-1024 characters after entities parsing
 		 */
 		description: Schema.optional(Schema.String).pipe(
 			Schema.annotate({ description: "Description of the poll to be sent, 0-1024 characters after entities parsing" }),
@@ -8918,8 +8899,7 @@ export const sendPoll = HttpApiEndpoint.post("sendPoll", "/sendPoll", {
 			Schema.annotate({ description: "Media added to the poll description" }),
 		),
 		/**
-		 * Sends the message silently. Users will receive a notification with no
-		 * sound.
+		 * Sends the message silently. Users will receive a notification with no sound.
 		 */
 		disable_notification: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
@@ -9047,10 +9027,10 @@ export const sendSticker = HttpApiEndpoint.post("sendSticker", "/sendSticker", {
 		),
 		/**
 		 * Sticker to send. Pass a file_id as String to send a file that exists on the
-		 * Telegram servers (recommended), pass an HTTP URL as a String for Telegram
-		 * to get a .WEBP sticker from the Internet, or upload a new .WEBP, .TGS, or
-		 * .WEBM sticker using multipart/form-data. More information on Sending Files
-		 * ». Video and animated stickers can't be sent via an HTTP URL.
+		 * Telegram servers (recommended), pass an HTTP URL as a String for Telegram to
+		 * get a .WEBP sticker from the Internet, or upload a new .WEBP, .TGS, or .WEBM
+		 * sticker using multipart/form-data. More information on Sending Files ».
+		 * Video and animated stickers can't be sent via an HTTP URL.
 		 */
 		sticker: Schema.Union([Objects.InputFile, Schema.String]).pipe(
 			Schema.annotate({
@@ -9065,8 +9045,7 @@ export const sendSticker = HttpApiEndpoint.post("sendSticker", "/sendSticker", {
 			Schema.annotate({ description: "Emoji associated with the sticker; only for just uploaded stickers" }),
 		),
 		/**
-		 * Sends the message silently. Users will receive a notification with no
-		 * sound.
+		 * Sends the message silently. Users will receive a notification with no sound.
 		 */
 		disable_notification: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
@@ -9239,8 +9218,7 @@ export const sendVenue = HttpApiEndpoint.post("sendVenue", "/sendVenue", {
 			Schema.annotate({ description: "Google Places type of the venue. (See supported types.)" }),
 		),
 		/**
-		 * Sends the message silently. Users will receive a notification with no
-		 * sound.
+		 * Sends the message silently. Users will receive a notification with no sound.
 		 */
 		disable_notification: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
@@ -9374,8 +9352,8 @@ export const sendVideo = HttpApiEndpoint.post("sendVideo", "/sendVideo", {
 		),
 		/**
 		 * Video to send. Pass a file_id as String to send a video that exists on the
-		 * Telegram servers (recommended), pass an HTTP URL as a String for Telegram
-		 * to get a video from the Internet, or upload a new video using
+		 * Telegram servers (recommended), pass an HTTP URL as a String for Telegram to
+		 * get a video from the Internet, or upload a new video using
 		 * multipart/form-data. More information on Sending Files »
 		 */
 		video: Schema.Union([Objects.InputFile, Schema.String]).pipe(
@@ -9451,8 +9429,8 @@ export const sendVideo = HttpApiEndpoint.post("sendVideo", "/sendVideo", {
 			}),
 		),
 		/**
-		 * A JSON-serialized list of special entities that appear in the caption,
-		 * which can be specified instead of parse_mode
+		 * A JSON-serialized list of special entities that appear in the caption, which
+		 * can be specified instead of parse_mode
 		 */
 		caption_entities: Schema.optional(Schema.Array(Objects.MessageEntity)).pipe(
 			Schema.annotate({
@@ -9479,8 +9457,7 @@ export const sendVideo = HttpApiEndpoint.post("sendVideo", "/sendVideo", {
 			Schema.annotate({ description: "Pass True if the uploaded video is suitable for streaming" }),
 		),
 		/**
-		 * Sends the message silently. Users will receive a notification with no
-		 * sound.
+		 * Sends the message silently. Users will receive a notification with no sound.
 		 */
 		disable_notification: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
@@ -9665,8 +9642,7 @@ export const sendVideoNote = HttpApiEndpoint.post("sendVideoNote", "/sendVideoNo
 			}),
 		),
 		/**
-		 * Sends the message silently. Users will receive a notification with no
-		 * sound.
+		 * Sends the message silently. Users will receive a notification with no sound.
 		 */
 		disable_notification: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
@@ -9828,8 +9804,8 @@ export const sendVoice = HttpApiEndpoint.post("sendVoice", "/sendVoice", {
 			}),
 		),
 		/**
-		 * A JSON-serialized list of special entities that appear in the caption,
-		 * which can be specified instead of parse_mode
+		 * A JSON-serialized list of special entities that appear in the caption, which
+		 * can be specified instead of parse_mode
 		 */
 		caption_entities: Schema.optional(Schema.Array(Objects.MessageEntity)).pipe(
 			Schema.annotate({
@@ -9844,8 +9820,7 @@ export const sendVoice = HttpApiEndpoint.post("sendVoice", "/sendVoice", {
 			Schema.annotate({ description: "Duration of the voice message in seconds" }),
 		),
 		/**
-		 * Sends the message silently. Users will receive a notification with no
-		 * sound.
+		 * Sends the message silently. Users will receive a notification with no sound.
 		 */
 		disable_notification: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
@@ -10383,11 +10358,10 @@ export const setChatPermissions = HttpApiEndpoint.post("setChatPermissions", "/s
 		),
 		/**
 		 * Pass True if chat permissions are set independently. Otherwise, the
-		 * can_send_other_messages and can_add_web_page_previews permissions will
-		 * imply the can_send_messages, can_send_audios, can_send_documents,
-		 * can_send_photos, can_send_videos, can_send_video_notes, and
-		 * can_send_voice_notes permissions; the can_send_polls permission will imply
-		 * the can_send_messages permission.
+		 * can_send_other_messages and can_add_web_page_previews permissions will imply
+		 * the can_send_messages, can_send_audios, can_send_documents, can_send_photos,
+		 * can_send_videos, can_send_video_notes, and can_send_voice_notes permissions;
+		 * the can_send_polls permission will imply the can_send_messages permission.
 		 */
 		use_independent_chat_permissions: Schema.optional(Schema.Boolean).pipe(
 			Schema.annotate({
@@ -10685,9 +10659,9 @@ export const setManagedBotAccessSettings = HttpApiEndpoint.post(
 				}),
 			),
 			/**
-			 * A JSON-serialized list of up to 10 identifiers of users who will have
-			 * access to the bot in addition to its owner. Ignored if is_access_restricted
-			 * is false.
+			 * A JSON-serialized list of up to 10 identifiers of users who will have access
+			 * to the bot in addition to its owner. Ignored if is_access_restricted is
+			 * false.
 			 */
 			added_user_ids: Schema.optional(Schema.Array(Schema.Int)).pipe(
 				Schema.annotate({
@@ -10744,9 +10718,9 @@ export const setMessageReaction = HttpApiEndpoint.post("setMessageReaction", "/s
 		/**
 		 * A JSON-serialized list of reaction types to set on the message. Currently,
 		 * as non-premium users, bots can set up to one reaction per message. A custom
-		 * emoji reaction can be used if it is either already present on the message
-		 * or explicitly allowed by chat administrators. Paid reactions can't be used
-		 * by bots.
+		 * emoji reaction can be used if it is either already present on the message or
+		 * explicitly allowed by chat administrators. Paid reactions can't be used by
+		 * bots.
 		 */
 		reaction: Schema.optional(Schema.Array(Objects.ReactionType)).pipe(
 			Schema.annotate({
@@ -10870,8 +10844,8 @@ export const setMyDefaultAdministratorRights = HttpApiEndpoint.post(
 	{
 		payload: Schema.Struct({
 			/**
-			 * A JSON-serialized object describing new default administrator rights. If
-			 * not specified, the default administrator rights will be cleared.
+			 * A JSON-serialized object describing new default administrator rights. If not
+			 * specified, the default administrator rights will be cleared.
 			 */
 			rights: Schema.optional(Objects.ChatAdministratorRights).pipe(
 				Schema.annotate({
@@ -10880,9 +10854,9 @@ export const setMyDefaultAdministratorRights = HttpApiEndpoint.post(
 				}),
 			),
 			/**
-			 * Pass True to change the default administrator rights of the bot in
-			 * channels. Otherwise, the default administrator rights of the bot for groups
-			 * and supergroups will be changed.
+			 * Pass True to change the default administrator rights of the bot in channels.
+			 * Otherwise, the default administrator rights of the bot for groups and
+			 * supergroups will be changed.
 			 */
 			for_channels: Schema.optional(Schema.Boolean).pipe(
 				Schema.annotate({
@@ -11037,8 +11011,8 @@ export const setMyProfilePhoto = HttpApiEndpoint.post("setMyProfilePhoto", "/set
 export const setMyShortDescription = HttpApiEndpoint.post("setMyShortDescription", "/setMyShortDescription", {
 	payload: Schema.Struct({
 		/**
-		 * New short description for the bot; 0-120 characters. Pass an empty string
-		 * to remove the dedicated short description for the given language.
+		 * New short description for the bot; 0-120 characters. Pass an empty string to
+		 * remove the dedicated short description for the given language.
 		 */
 		short_description: Schema.optional(Schema.String).pipe(
 			Schema.annotate({
@@ -11264,10 +11238,9 @@ export const setStickerSetThumbnail = HttpApiEndpoint.post("setStickerSetThumbna
 		 * technical requirements. Pass a file_id as a String to send a file that
 		 * already exists on the Telegram servers, pass an HTTP URL as a String for
 		 * Telegram to get a file from the Internet, or upload a new one using
-		 * multipart/form-data. More information on Sending Files ». Animated and
-		 * video sticker set thumbnails can't be uploaded via HTTP URL. If omitted,
-		 * then the thumbnail is dropped and the first sticker is used as the
-		 * thumbnail.
+		 * multipart/form-data. More information on Sending Files ». Animated and video
+		 * sticker set thumbnails can't be uploaded via HTTP URL. If omitted, then the
+		 * thumbnail is dropped and the first sticker is used as the thumbnail.
 		 */
 		thumbnail: Schema.optional(Schema.Union([Objects.InputFile, Schema.String])).pipe(
 			Schema.annotate({
@@ -11423,9 +11396,9 @@ export const setWebhook = HttpApiEndpoint.post("setWebhook", "/setWebhook", {
 			}),
 		),
 		/**
-		 * A JSON-serialized list of the update types you want your bot to receive.
-		 * For example, specify ["message", "edited_channel_post", "callback_query"]
-		 * to only receive updates of these types. See Update for a complete list of
+		 * A JSON-serialized list of the update types you want your bot to receive. For
+		 * example, specify ["message", "edited_channel_post", "callback_query"] to
+		 * only receive updates of these types. See Update for a complete list of
 		 * available update types. Specify an empty list to receive all update types
 		 * except chat_member, message_reaction, and message_reaction_count (default).
 		 * If not specified, the previous setting will be used.
@@ -12143,8 +12116,8 @@ export const verifyChat = HttpApiEndpoint.post("verifyChat", "/verifyChat", {
 	payload: Schema.Struct({
 		/**
 		 * Unique identifier for the target chat or username of the target bot,
-		 * supergroup or channel in the format @username. Channel direct messages
-		 * chats can't be verified.
+		 * supergroup or channel in the format @username. Channel direct messages chats
+		 * can't be verified.
 		 */
 		chat_id: Schema.Union([Schema.Int, Schema.String]).pipe(
 			Schema.annotate({
@@ -12154,8 +12127,7 @@ export const verifyChat = HttpApiEndpoint.post("verifyChat", "/verifyChat", {
 		),
 		/**
 		 * Custom description for the verification; 0-70 characters. Must be empty if
-		 * the organization isn't allowed to provide a custom verification
-		 * description.
+		 * the organization isn't allowed to provide a custom verification description.
 		 */
 		custom_description: Schema.optional(Schema.String).pipe(
 			Schema.annotate({
@@ -12192,8 +12164,7 @@ export const verifyUser = HttpApiEndpoint.post("verifyUser", "/verifyUser", {
 		user_id: Schema.Int.pipe(Schema.annotate({ description: "Unique identifier of the target user" })),
 		/**
 		 * Custom description for the verification; 0-70 characters. Must be empty if
-		 * the organization isn't allowed to provide a custom verification
-		 * description.
+		 * the organization isn't allowed to provide a custom verification description.
 		 */
 		custom_description: Schema.optional(Schema.String).pipe(
 			Schema.annotate({
