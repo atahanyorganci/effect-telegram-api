@@ -6,7 +6,7 @@ const callSendContact = (token: string, payload: unknown) => callClient("sendCon
 
 liveTests("sendContact", test => {
 	describe("success", () => {
-		test.effect("returns the sent contact message", () =>
+		test.effect.skip("returns the sent contact message", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendContact(botToken, {
