@@ -11,7 +11,6 @@ export default defineConfig({
 		environment: "node",
 		setupFiles: ["./vitest.setup.ts"],
 		globalSetup: ["./test/globalSetup.ts"],
-		globalTeardown: ["./test/globalTeardown.ts"],
 		include: ["test/**/*.test.ts"],
 		testTimeout: 30_000,
 	},

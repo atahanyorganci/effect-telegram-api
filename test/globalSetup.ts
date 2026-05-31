@@ -1,5 +1,10 @@
-import { resetCreatedForumTopicsRegistry } from "./helpers.ts";
+import * as Effect from "effect/Effect";
+import { cleanupTestArtifacts, resetCreatedForumTopicsRegistry } from "./helpers.ts";
 
-export default () => {
+export default async () => {
 	resetCreatedForumTopicsRegistry();
+
+	return async () => {
+		await Effect.runPromise(cleanupTestArtifacts);
+	};
 };
