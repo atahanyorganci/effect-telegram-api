@@ -4,6 +4,8 @@
       buildInputs = with pkgs; [
         nodejs-slim
         corepack
+        doppler
+        just
       ];
       shellHook = ''
         corepack install
