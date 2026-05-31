@@ -1,0 +1,24 @@
+name: CI checks
+description: Run format, lint, typecheck, build, and tests sequentially in the Nix dev shell
+runs:
+  using: composite
+  steps:
+    - name: Format
+      shell: nix develop -c bash -e {0}
+      run: pnpm format
+
+    - name: Lint
+      shell: nix develop -c bash -e {0}
+      run: pnpm lint
+
+    - name: Typecheck
+      shell: nix develop -c bash -e {0}
+      run: pnpm check
+
+    - name: Build
+      shell: nix develop -c bash -e {0}
+      run: pnpm build
+
+    - name: Test
+      shell: nix develop -c bash -e {0}
+      run: pnpm test

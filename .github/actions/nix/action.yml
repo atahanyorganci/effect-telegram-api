@@ -1,0 +1,30 @@
+name: Nix + pnpm
+description: Install the Nix flake dev shell and pnpm dependencies with store caching
+runs:
+  using: composite
+  steps:
+    - name: Install Nix
+      uses: cachix/install-nix-action@v31
+      with:
+        github_access_token: ${{ github.token }}
+
+    - name: Build Nix dev shell
+      shell: bash
+      run: nix build --no-link .#devShells.$(nix eval --impure --raw --expr 'builtins.currentSystem').default
+
+    - name: Get pnpm store path
+      id: pnpm-store
+      shell: nix develop -c bash -e {0}
+      run: echo "path=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
+
+    - name: Cache pnpm store
+      uses: actions/cache@v4
+      with:
+        path: ${{ steps.pnpm-store.outputs.path }}
+        key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-
+
+    - name: Install dependencies
+      shell: nix develop -c bash -e {0}
+      run: pnpm install --frozen-lockfile
