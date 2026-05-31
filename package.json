@@ -8,19 +8,20 @@
 		"Telegram"
 	],
 	"bugs": {
-		"url": "https://github.com/yorgnaci/effect-telegram-api/issues"
+		"url": "https://github.com/atahanyorganci/effect-telegram-api/issues"
 	},
 	"license": "MIT",
 	"author": "Atahan Yorgancı <atahanyorganci@hotmail.com>",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/yorgnaci/effect-telegram-api"
+		"url": "https://github.com/atahanyorganci/effect-telegram-api"
 	},
 	"files": [
-		"src/**/*.ts"
+		"src/**/*.ts",
+		"dist/**/*"
 	],
 	"type": "module",
-	"sideEffects": [],
+	"sideEffects": false,
 	"exports": {
 		"./package.json": "./package.json",
 		".": "./src/index.ts",
@@ -34,30 +35,30 @@
 		"exports": {
 			"./package.json": "./package.json",
 			".": {
-				"types": "./dist/index.d.ts",
+				"types": "./src/index.ts",
 				"default": "./dist/index.js"
 			},
 			"./Client": {
-				"types": "./dist/client/index.d.ts",
+				"types": "./src/client/index.ts",
 				"default": "./dist/client/index.js"
 			},
 			"./Errors": {
-				"types": "./dist/errors/index.d.ts",
-				"default": "./dist/errors/index.js"
+				"types": "./src/errors.ts",
+				"default": "./dist/errors.js"
 			},
 			"./HttpApi": {
-				"types": "./dist/http-api/index.d.ts",
-				"default": "./dist/http-api/index.js"
+				"types": "./src/http-api.ts",
+				"default": "./dist/http-api.js"
 			},
 			"./Schema": {
-				"types": "./dist/schema/index.d.ts",
-				"default": "./dist/schema/index.js"
+				"types": "./src/schema.ts",
+				"default": "./dist/schema.js"
 			}
 		},
 		"provenance": true
 	},
 	"scripts": {
-		"build": "tsgo -p tsconfig.lib.json --noEmit false --outDir dist",
+		"build": "tsgo -p tsconfig.lib.json --noEmit false --outDir dist --declaration false",
 		"check": "tsgo -b",
 		"format": "oxfmt --check .",
 		"format:fix": "oxfmt --write .",
