@@ -3,9 +3,9 @@ import * as Effect from "effect/Effect";
 import * as Layer from "effect/Layer";
 import * as Schema from "effect/Schema";
 import * as HttpApiClient from "effect/unstable/httpapi/HttpApiClient";
-import * as Errors from "./Errors.ts";
-import { TelegramBotApi } from "./Methods.ts";
-import { TelegramClient } from "./TelegramClient.ts";
+import * as Errors from "../errors.ts";
+import { TelegramBotApi } from "../http-api.ts";
+import { TelegramClient } from "./service.ts";
 
 const BASE_URL = "https://api.telegram.org";
 

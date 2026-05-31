@@ -23,7 +23,7 @@ const renderPayloadType = (parameters: readonly Parameter[], knownNames: Readonl
 
 const renderErrorUnion = (method: string, methodErrors: ReadonlyMap<string, MethodErrorsDoc>): string => {
 	const tags = methodErrorTags(method, methodErrors);
-	const members = [...tags.map(tag => `Errors.${tag}`), "TelegramApiError", "HttpClientError.HttpClientError"];
+	const members = [...tags.map(tag => `Errors.${tag}`), "Errors.TelegramApiError", "HttpClientError.HttpClientError"];
 	return members.join(" | ");
 };
 
@@ -69,16 +69,15 @@ export const renderTelegramClientModule = (
 	const sorted = [...methods].sort((a, b) => a.name.localeCompare(b.name));
 	const objectImports = collectObjectImports(sorted, knownNames);
 	const objectImportLine =
-		objectImports.length === 0 ? "" : `import type { ${objectImports.join(", ")} } from "./Objects.ts";\n`;
+		objectImports.length === 0 ? "" : `import type { ${objectImports.join(", ")} } from "../schema.ts";\n`;
 
 	const sections = [
 		GENERATED_HEADER,
 		`import * as Context from "effect/Context";`,
 		`import * as Effect from "effect/Effect";`,
-		`import type * as Errors from "./Errors.ts";`,
+		`import type * as Errors from "../errors.ts";`,
 		objectImportLine.trimEnd(),
 		`import type * as HttpClientError from "effect/unstable/http/HttpClientError";`,
-		`import type { TelegramApiError } from "./TelegramApiError.ts";`,
 		``,
 		`export class TelegramClient extends Context.Service<TelegramClient, {`,
 		...sorted.map(method => renderMethod(method, methodErrors, knownNames)),

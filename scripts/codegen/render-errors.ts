@@ -82,20 +82,28 @@ const renderErrorSchema = (error: ErrorInstance, exportName: string): string => 
 	].join("\n");
 };
 
-export const renderErrorsModule = (docs: readonly MethodErrorsDoc[]): string => {
-	if (docs.length === 0) {
-		return `${GENERATED_HEADER}\n`;
-	}
+const renderTelegramApiErrorClass = (): string =>
+	[
+		`/**`,
+		` * Raised when Telegram responds with \`{ "ok": false }\` and the failure is not documented for the method.`,
+		` */`,
+		`export class TelegramApiError extends Data.TaggedError("TelegramApiError")<{`,
+		`\treadonly errorCode: number;`,
+		`\treadonly description: string;`,
+		`}> {}`,
+	].join("\n");
 
-	const exportNames = buildErrorExportNames(docs);
-	const classes = collectUniqueTags(docs);
-	const schemas = collectUniqueSchemas(docs);
+export const renderErrorsModule = (docs: readonly MethodErrorsDoc[]): string => {
+	const exportNames = docs.length > 0 ? buildErrorExportNames(docs) : new Map<string, string>();
+	const classes = docs.length > 0 ? collectUniqueTags(docs) : [];
+	const schemas = docs.length > 0 ? collectUniqueSchemas(docs) : [];
 
 	return (
 		[
 			GENERATED_HEADER,
 			`import * as Data from "effect/Data";`,
-			`import * as Schema from "effect/Schema";`,
+			...(docs.length > 0 ? [`import * as Schema from "effect/Schema";`] : []),
+			renderTelegramApiErrorClass(),
 			...classes.map(renderErrorClass),
 			...schemas.map(error => renderErrorSchema(error, exportNames.get(errorKey(error))!)),
 		].join("\n\n") + "\n"

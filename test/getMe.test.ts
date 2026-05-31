@@ -1,6 +1,6 @@
 import { assert } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import { TelegramClient } from "../src/TelegramClient.ts";
+import { TelegramClient } from "../src/client/service.ts";
 import { authErrorTests, callGetMe, liveTests, withConfiguredBot } from "./helpers.ts";
 
 liveTests("telegram", test => {

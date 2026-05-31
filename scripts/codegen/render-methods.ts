@@ -93,10 +93,10 @@ export const renderMethodsModule = (
 		.join("\n")}\n\t),\n);`;
 
 	const imports = [
-		...(methodErrors.size > 0 ? [`import * as Errors from "./Errors.ts";`] : []),
+		...(methodErrors.size > 0 ? [`import * as Errors from "./errors.ts";`] : []),
 		`import { HttpApi, HttpApiEndpoint, HttpApiGroup, HttpApiSchema } from "effect/unstable/httpapi";`,
 		`import * as Schema from "effect/Schema";`,
-		`import * as Objects from "./Objects.ts";`,
+		`import * as Objects from "./schema.ts";`,
 	];
 
 	const sections = [

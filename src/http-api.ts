@@ -2,8 +2,8 @@
 
 import * as Schema from "effect/Schema";
 import { HttpApi, HttpApiEndpoint, HttpApiGroup, HttpApiSchema } from "effect/unstable/httpapi";
-import * as Errors from "./Errors.ts";
-import * as Objects from "./Objects.ts";
+import * as Errors from "./errors.ts";
+import * as Objects from "./schema.ts";
 
 /**
  * Use this method to send answers to callback queries sent from inline

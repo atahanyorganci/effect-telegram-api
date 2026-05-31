@@ -24,9 +24,10 @@
 	"exports": {
 		"./package.json": "./package.json",
 		".": "./src/index.ts",
-		"./Client": "./src/Client.ts",
-		"./Objects": "./src/Objects.ts",
-		"./Methods": "./src/Methods.ts"
+		"./Client": "./src/client/index.ts",
+		"./Errors": "./src/errors.ts",
+		"./HttpApi": "./src/http-api.ts",
+		"./Schema": "./src/schema.ts"
 	},
 	"scripts": {
 		"build": "tsgo -p tsconfig.lib.json --noEmit false --outDir dist",

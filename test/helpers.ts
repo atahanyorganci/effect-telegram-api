@@ -10,9 +10,9 @@ import * as Result from "effect/Result";
 import * as Schema from "effect/Schema";
 import { appendFileSync, existsSync, mkdirSync, readFileSync, unlinkSync } from "node:fs";
 import { dirname, resolve } from "node:path";
+import { TelegramClient } from "../src/client/service.ts";
 import * as Telegram from "../src/index.ts";
-import { TelegramClient } from "../src/TelegramClient.ts";
-import type { TelegramApiError } from "../src/TelegramApiError.ts";
+import type { TelegramApiError } from "../src/errors.ts";
 import type { Vitest } from "@effect/vitest";
 
 export const LiveLayer = Layer.mergeAll(NodeServices.layer, NodeHttpClient.layerFetch);

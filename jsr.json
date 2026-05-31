@@ -4,9 +4,10 @@
 	"version": "0.0.0",
 	"exports": {
 		".": "./src/index.ts",
-		"./Client": "./src/Client.ts",
-		"./Objects": "./src/Objects.ts",
-		"./Methods": "./src/Methods.ts"
+		"./Client": "./src/client/index.ts",
+		"./Errors": "./src/errors.ts",
+		"./HttpApi": "./src/http-api.ts",
+		"./Schema": "./src/schema.ts"
 	},
 	"publish": {
 		"include": ["LICENSE", "README.md", "src/**/*.ts"]

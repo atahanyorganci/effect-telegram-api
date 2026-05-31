@@ -5,7 +5,6 @@ import * as FileSystem from "effect/FileSystem";
 import { loadMethodErrors } from "./codegen/load-errors.ts";
 import { loadMethods, loadObjects } from "./codegen/load-spec.ts";
 import { renderErrorsModule } from "./codegen/render-errors.ts";
-import { renderIndexModule } from "./codegen/render-index.ts";
 import { renderMethodsModule } from "./codegen/render-methods.ts";
 import { renderObjectsModule } from "./codegen/render-objects.ts";
 import { renderTelegramClientModule } from "./codegen/render-telegram-client.ts";
@@ -14,12 +13,12 @@ import { collectRefs, INPUT_FILE_TYPE } from "./codegen/render-type-expr.ts";
 import { BOTS_API_DOCUMENT } from "./document.ts";
 
 const SRC_DIR = "src";
-const OBJECTS_PATH = `${SRC_DIR}/Objects.ts`;
-const METHODS_PATH = `${SRC_DIR}/Methods.ts`;
-const ERRORS_PATH = `${SRC_DIR}/Errors.ts`;
-const TELEGRAM_CLIENT_PATH = `${SRC_DIR}/TelegramClient.ts`;
-const TELEGRAM_PATH = `${SRC_DIR}/Telegram.ts`;
-const INDEX_PATH = `${SRC_DIR}/index.ts`;
+const SCHEMA_PATH = `${SRC_DIR}/schema.ts`;
+const HTTP_API_PATH = `${SRC_DIR}/http-api.ts`;
+const ERRORS_PATH = `${SRC_DIR}/errors.ts`;
+const CLIENT_DIR = `${SRC_DIR}/client`;
+const CLIENT_SERVICE_PATH = `${CLIENT_DIR}/service.ts`;
+const CLIENT_LIVE_PATH = `${CLIENT_DIR}/live.ts`;
 
 const program = Effect.gen(function* () {
 	const fs = yield* FileSystem.FileSystem;
@@ -43,22 +42,20 @@ const program = Effect.gen(function* () {
 	const errorsSource = renderErrorsModule([...methodErrors.values()]);
 	const telegramClientSource = renderTelegramClientModule(methods, methodErrors, knownNames);
 	const telegramSource = renderTelegramModule(methods, methodErrors);
-	const indexSource = renderIndexModule(methodErrors.size > 0);
 
 	yield* fs.makeDirectory(SRC_DIR, { recursive: true });
-	yield* fs.writeFileString(OBJECTS_PATH, objectsSource);
-	yield* fs.writeFileString(METHODS_PATH, methodsSource);
+	yield* fs.makeDirectory(CLIENT_DIR, { recursive: true });
+	yield* fs.writeFileString(SCHEMA_PATH, objectsSource);
+	yield* fs.writeFileString(HTTP_API_PATH, methodsSource);
 	yield* fs.writeFileString(ERRORS_PATH, errorsSource);
-	yield* fs.writeFileString(TELEGRAM_CLIENT_PATH, telegramClientSource);
-	yield* fs.writeFileString(TELEGRAM_PATH, telegramSource);
-	yield* fs.writeFileString(INDEX_PATH, indexSource);
+	yield* fs.writeFileString(CLIENT_SERVICE_PATH, telegramClientSource);
+	yield* fs.writeFileString(CLIENT_LIVE_PATH, telegramSource);
 
-	yield* Console.log(`Wrote ${objects.length} object schemas to ${OBJECTS_PATH}`);
-	yield* Console.log(`Wrote ${methods.length} HTTP API endpoints to ${METHODS_PATH}`);
+	yield* Console.log(`Wrote ${objects.length} object schemas to ${SCHEMA_PATH}`);
+	yield* Console.log(`Wrote ${methods.length} HTTP API endpoints to ${HTTP_API_PATH}`);
 	yield* Console.log(`Wrote ${methodErrors.size} method error doc(s) to ${ERRORS_PATH}`);
-	yield* Console.log(`Wrote TelegramClient service to ${TELEGRAM_CLIENT_PATH}`);
-	yield* Console.log(`Wrote Telegram layer to ${TELEGRAM_PATH}`);
-	yield* Console.log(`Wrote package exports to ${INDEX_PATH}`);
+	yield* Console.log(`Wrote TelegramClient service to ${CLIENT_SERVICE_PATH}`);
+	yield* Console.log(`Wrote Telegram layer to ${CLIENT_LIVE_PATH}`);
 	if (placeholders.length > 0) {
 		yield* Console.log(`Emitted ${placeholders.length} placeholder schemas (unions): ${placeholders.join(", ")}`);
 	}

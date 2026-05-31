@@ -4,6 +4,14 @@ import * as Data from "effect/Data";
 import * as Schema from "effect/Schema";
 
 /**
+ * Raised when Telegram responds with `{ "ok": false }` and the failure is not documented for the method.
+ */
+export class TelegramApiError extends Data.TaggedError("TelegramApiError")<{
+	readonly errorCode: number;
+	readonly description: string;
+}> {}
+
+/**
  * required parameters missing
  */
 export class AcceptedGiftTypesNotSpecified extends Data.TaggedError("AcceptedGiftTypesNotSpecified")<{
