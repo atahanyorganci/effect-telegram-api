@@ -129,56 +129,6 @@ export const callLimitedClient = <M extends keyof TelegramClientService>(
 		return yield* callClient(method, limitedBotToken, ...args);
 	}) as Effect.Effect<any, any, TestServices>;
 
-const appendFormData = (form: FormData, key: string, value: unknown): void => {
-	if (value === undefined) {
-		return;
-	}
-	if (value instanceof FormData) {
-		for (const [nestedKey, nestedValue] of value.entries()) {
-			form.append(nestedKey, nestedValue);
-		}
-		return;
-	}
-	if (value instanceof Blob) {
-		form.append(key, value);
-		return;
-	}
-	if (typeof Buffer !== "undefined" && Buffer.isBuffer(value)) {
-		form.append(key, new Blob([Uint8Array.from(value)]), `${key}.bin`);
-		return;
-	}
-	if (value instanceof Uint8Array) {
-		form.append(key, new Blob([Uint8Array.from(value)]), `${key}.bin`);
-		return;
-	}
-	if (typeof value === "object" && value !== null) {
-		form.append(key, JSON.stringify(value));
-		return;
-	}
-	if (
-		typeof value === "string" ||
-		typeof value === "number" ||
-		typeof value === "boolean" ||
-		typeof value === "bigint"
-	) {
-		form.append(key, String(value));
-		return;
-	}
-	form.append(key, JSON.stringify(value));
-};
-
-/** Builds a multipart {@link FormData} payload for Telegram file upload methods. */
-export const formDataPayload = (payload: Record<string, unknown> | FormData): FormData => {
-	if (payload instanceof FormData) {
-		return payload;
-	}
-	const form = new FormData();
-	for (const [key, value] of Object.entries(payload)) {
-		appendFormData(form, key, value);
-	}
-	return form;
-};
-
 /** Record a forum topic id when a test unexpectedly creates one (safe across vitest workers). */
 export const trackCreatedForumTopic = (messageThreadId: number) => {
 	mkdirSync(dirname(createdForumTopicsRegistryPath), { recursive: true });

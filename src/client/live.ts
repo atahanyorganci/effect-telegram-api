@@ -6,6 +6,7 @@ import * as HttpApiClient from "effect/unstable/httpapi/HttpApiClient";
 import * as Errors from "../errors.ts";
 import { TelegramBotApi } from "../http-api.ts";
 import { TelegramClient } from "./service.ts";
+import { toFormData } from "./to-form.ts";
 
 const BASE_URL = "https://api.telegram.org";
 
@@ -2410,7 +2411,7 @@ export const withToken = (token: string) =>
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["savePreparedKeyboardButton"];
 			const sendAnimation = (payload =>
-				apiClient.sendAnimation({ payload: payload as unknown as FormData }).pipe(
+				apiClient.sendAnimation({ payload: toFormData(payload) }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
 						if (
@@ -2432,7 +2433,7 @@ export const withToken = (token: string) =>
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["sendAnimation"];
 			const sendAudio = (payload =>
-				apiClient.sendAudio({ payload: payload as unknown as FormData }).pipe(
+				apiClient.sendAudio({ payload: toFormData(payload) }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
 						if (
@@ -2566,7 +2567,7 @@ export const withToken = (token: string) =>
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["sendDice"];
 			const sendDocument = (payload =>
-				apiClient.sendDocument({ payload: payload as unknown as FormData }).pipe(
+				apiClient.sendDocument({ payload: toFormData(payload) }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
 						if (
@@ -2628,7 +2629,7 @@ export const withToken = (token: string) =>
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["sendInvoice"];
 			const sendLivePhoto = (payload =>
-				apiClient.sendLivePhoto({ payload: payload as unknown as FormData }).pipe(
+				apiClient.sendLivePhoto({ payload: toFormData(payload) }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
 						if (
@@ -3235,7 +3236,7 @@ export const withToken = (token: string) =>
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["sendPaidMedia"];
 			const sendPhoto = (payload =>
-				apiClient.sendPhoto({ payload: payload as unknown as FormData }).pipe(
+				apiClient.sendPhoto({ payload: toFormData(payload) }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
 						if (
@@ -3303,7 +3304,7 @@ export const withToken = (token: string) =>
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["sendPoll"];
 			const sendSticker = (payload =>
-				apiClient.sendSticker({ payload: payload as unknown as FormData }).pipe(
+				apiClient.sendSticker({ payload: toFormData(payload) }).pipe(
 					Effect.map(response => response.result),
 
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
@@ -3349,7 +3350,7 @@ export const withToken = (token: string) =>
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["sendVenue"];
 			const sendVideo = (payload =>
-				apiClient.sendVideo({ payload: payload as unknown as FormData }).pipe(
+				apiClient.sendVideo({ payload: toFormData(payload) }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
 						if (
@@ -3425,7 +3426,7 @@ export const withToken = (token: string) =>
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["sendVideo"];
 			const sendVideoNote = (payload =>
-				apiClient.sendVideoNote({ payload: payload as unknown as FormData }).pipe(
+				apiClient.sendVideoNote({ payload: toFormData(payload) }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
 						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
@@ -3447,7 +3448,7 @@ export const withToken = (token: string) =>
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["sendVideoNote"];
 			const sendVoice = (payload =>
-				apiClient.sendVoice({ payload: payload as unknown as FormData }).pipe(
+				apiClient.sendVoice({ payload: toFormData(payload) }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
 						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
@@ -3719,7 +3720,7 @@ export const withToken = (token: string) =>
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["setChatPermissions"];
 			const setChatPhoto = (payload =>
-				apiClient.setChatPhoto({ payload: payload as unknown as FormData }).pipe(
+				apiClient.setChatPhoto({ payload: toFormData(payload) }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
 						if (
@@ -4052,7 +4053,7 @@ export const withToken = (token: string) =>
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["setStickerPositionInSet"];
 			const setStickerSetThumbnail = (payload =>
-				apiClient.setStickerSetThumbnail({ payload: payload as unknown as FormData }).pipe(
+				apiClient.setStickerSetThumbnail({ payload: toFormData(payload) }).pipe(
 					Effect.map(response => response.result),
 
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
@@ -4092,7 +4093,7 @@ export const withToken = (token: string) =>
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["setUserEmojiStatus"];
 			const setWebhook = (payload =>
-				apiClient.setWebhook({ payload: payload as unknown as FormData }).pipe(
+				apiClient.setWebhook({ payload: toFormData(payload) }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
 						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
@@ -4390,7 +4391,7 @@ export const withToken = (token: string) =>
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["upgradeGift"];
 			const uploadStickerFile = (payload =>
-				apiClient.uploadStickerFile({ payload: payload as unknown as FormData }).pipe(
+				apiClient.uploadStickerFile({ payload: toFormData(payload) }).pipe(
 					Effect.map(response => response.result),
 
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),

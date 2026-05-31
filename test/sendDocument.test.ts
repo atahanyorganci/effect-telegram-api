@@ -1,9 +1,8 @@
 import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import { authErrorTests, callClient, expectErrorTag, formDataPayload, liveTests, telegramConfig } from "./helpers.ts";
+import { authErrorTests, callClient, expectErrorTag, liveTests, telegramConfig } from "./helpers.ts";
 
-const callSendDocument = (token: string, payload: unknown = {}) =>
-	callClient("sendDocument", token, formDataPayload(payload as Record<string, unknown>) as never);
+const callSendDocument = (token: string, payload: unknown = {}) => callClient("sendDocument", token, payload as never);
 
 liveTests("sendDocument", test => {
 	describe("Telegram API errors", () => {

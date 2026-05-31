@@ -13,7 +13,7 @@ const renderApiCall = (method: Method): string => {
 		return `apiClient.${method.name}()`;
 	}
 	if (methodUsesMultipart(method.parameters)) {
-		return `apiClient.${method.name}({ payload: payload as unknown as FormData })`;
+		return `apiClient.${method.name}({ payload: toFormData(payload) })`;
 	}
 	return `apiClient.${method.name}({ payload })`;
 };
@@ -64,6 +64,7 @@ export const renderTelegramModule = (
 		`import * as Errors from "../errors.ts";`,
 		`import { TelegramBotApi } from "../http-api.ts";`,
 		`import { TelegramClient } from "./service.ts";`,
+		`import { toFormData } from "./to-form.ts";`,
 		``,
 		`const BASE_URL = "https://api.telegram.org";`,
 		``,

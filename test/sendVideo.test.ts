@@ -1,12 +1,11 @@
 import { assert, describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
 import { readFileSync } from "node:fs";
-import { authErrorTests, callClient, expectErrorTag, formDataPayload, liveTests, telegramConfig } from "./helpers.ts";
+import { authErrorTests, callClient, expectErrorTag, liveTests, telegramConfig } from "./helpers.ts";
 
 const readVideoFixture = () => readFileSync(new URL("./video.mp4", import.meta.url));
 
-const callSendVideo = (token: string, payload: unknown = {}) =>
-	callClient("sendVideo", token, formDataPayload(payload as Record<string, unknown>) as never);
+const callSendVideo = (token: string, payload: unknown = {}) => callClient("sendVideo", token, payload as never);
 
 liveTests("sendVideo", test => {
 	describe("success", () => {

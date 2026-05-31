@@ -1,9 +1,8 @@
 import { assert, describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import { authErrorTests, callClient, formDataPayload, liveTests, telegramConfig } from "./helpers.ts";
+import { authErrorTests, callClient, liveTests, telegramConfig } from "./helpers.ts";
 
-const callSetWebhook = (token: string, payload: unknown) =>
-	callClient("setWebhook", token, formDataPayload(payload as Record<string, unknown>) as never);
+const callSetWebhook = (token: string, payload: unknown) => callClient("setWebhook", token, payload as never);
 
 liveTests("setWebhook", test => {
 	describe("success", () => {
