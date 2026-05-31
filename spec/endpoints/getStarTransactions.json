@@ -1,0 +1,28 @@
+{
+	"kind": "method",
+	"name": "getStarTransactions",
+	"slug": "getstartransactions",
+	"description": "",
+	"parameters": [
+		{
+			"name": "offset",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "Number of transactions to skip in the response"
+		},
+		{
+			"name": "limit",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "The maximum number of transactions to be retrieved. Values between 1-100 are accepted. Defaults to 100."
+		}
+	],
+	"returns": {
+		"kind": "ref",
+		"name": "StarTransactions"
+	}
+}

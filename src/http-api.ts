@@ -6,6 +6,47 @@ import * as Errors from "./errors.ts";
 import * as Objects from "./schema.ts";
 
 /**
+ * Use this method to add a new sticker to a set created by the bot. Emoji
+ * sticker sets can have up to 200 stickers. Other sticker sets can have up to
+ * 120 stickers
+ * @see https://core.telegram.org/bots/api#addstickertoset
+ */
+export const addStickerToSet = HttpApiEndpoint.post("addStickerToSet", "/addStickerToSet", {
+	payload: Schema.Struct({
+		/**
+		 * User identifier of sticker set owner
+		 */
+		user_id: Schema.Int.pipe(Schema.annotate({ description: "User identifier of sticker set owner" })),
+		/**
+		 * Sticker set name
+		 */
+		name: Schema.String.pipe(Schema.annotate({ description: "Sticker set name" })),
+		/**
+		 * A JSON-serialized object with information about the added sticker. If
+		 * exactly the same sticker had already been added to the set, then the set
+		 * isn't changed.
+		 */
+		sticker: Objects.InputSticker.pipe(
+			Schema.annotate({
+				description:
+					"A JSON-serialized object with information about the added sticker. If exactly the same sticker had already been added to the set, then the set isn't changed.",
+			}),
+		),
+	}).pipe(
+		Schema.annotate({
+			description:
+				"Use this method to add a new sticker to a set created by the bot. Emoji sticker sets can have up to 200 stickers. Other sticker sets can have up to 120 stickers",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Literal(true),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+});
+
+/**
  * Use this method to send answers to callback queries sent from inline
  * keyboards. The answer will be displayed to the user as a notification at the
  * top of the chat screen or as an alert. On success, True
@@ -117,6 +158,189 @@ export const answerGuestQuery = HttpApiEndpoint.post("answerGuestQuery", "/answe
 		Errors.ResultNotSpecifiedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
 	],
+});
+
+/**
+ * Use this method to send answers to an inline query. On success, True
+ * @see https://core.telegram.org/bots/api#answerinlinequery
+ */
+export const answerInlineQuery = HttpApiEndpoint.post("answerInlineQuery", "/answerInlineQuery", {
+	payload: Schema.Struct({
+		/**
+		 * Unique identifier for the answered query
+		 */
+		inline_query_id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier for the answered query" })),
+		/**
+		 * A JSON-serialized array of results for the inline query
+		 */
+		results: Schema.Array(Objects.InlineQueryResult).pipe(
+			Schema.annotate({ description: "A JSON-serialized array of results for the inline query" }),
+		),
+		/**
+		 * The maximum amount of time in seconds that the result of the inline query
+		 * may be cached on the server. Defaults to 300.
+		 */
+		cache_time: Schema.optional(Schema.Int).pipe(
+			Schema.annotate({
+				description:
+					"The maximum amount of time in seconds that the result of the inline query may be cached on the server. Defaults to 300.",
+			}),
+		),
+		/**
+		 * Pass True if results may be cached on the server side only for the user
+		 * that sent the query. By default, results may be returned to any user who
+		 * sends the same query.
+		 */
+		is_personal: Schema.optional(Schema.Boolean).pipe(
+			Schema.annotate({
+				description:
+					"Pass True if results may be cached on the server side only for the user that sent the query. By default, results may be returned to any user who sends the same query.",
+			}),
+		),
+		/**
+		 * Pass the offset that a client should send in the next query with the same
+		 * text to receive more results. Pass an empty string if there are no more
+		 * results or if you don't support pagination. Offset length can't exceed 64
+		 * bytes.
+		 */
+		next_offset: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description:
+					"Pass the offset that a client should send in the next query with the same text to receive more results. Pass an empty string if there are no more results or if you don't support pagination. Offset length can't exceed 64 bytes.",
+			}),
+		),
+		/**
+		 * A JSON-serialized object describing a button to be shown above inline query
+		 * results
+		 */
+		button: Schema.optional(Objects.InlineQueryResultsButton).pipe(
+			Schema.annotate({
+				description: "A JSON-serialized object describing a button to be shown above inline query results",
+			}),
+		),
+	}).pipe(
+		Schema.annotate({ description: "Use this method to send answers to an inline query. On success, True" }),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Literal(true),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+});
+
+/**
+ * Once the user has confirmed their payment and shipping details, the Bot API
+ * sends the final confirmation in the form of an Update with the field
+ * pre_checkout_query. Use this method to respond to such pre-checkout queries.
+ * On success, True
+ * @see https://core.telegram.org/bots/api#answerprecheckoutquery
+ */
+export const answerPreCheckoutQuery = HttpApiEndpoint.post("answerPreCheckoutQuery", "/answerPreCheckoutQuery", {
+	payload: Schema.Struct({
+		/**
+		 * Unique identifier for the query to be answered
+		 */
+		pre_checkout_query_id: Schema.String.pipe(
+			Schema.annotate({ description: "Unique identifier for the query to be answered" }),
+		),
+		/**
+		 * Specify True if everything is alright (goods are available, etc.) and the
+		 * bot is ready to proceed with the order. Use False if there are any
+		 * problems.
+		 */
+		ok: Schema.Boolean.pipe(
+			Schema.annotate({
+				description:
+					"Specify True if everything is alright (goods are available, etc.) and the bot is ready to proceed with the order. Use False if there are any problems.",
+			}),
+		),
+		/**
+		 * Required if ok is False. Error message in human readable form that explains
+		 * the reason for failure to proceed with the checkout (e.g. "Sorry, somebody
+		 * just bought the last of our amazing black T-shirts while you were busy
+		 * filling out your payment details. Please choose a different color or
+		 * garment!"). Telegram will display this message to the user.
+		 */
+		error_message: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description:
+					'Required if ok is False. Error message in human readable form that explains the reason for failure to proceed with the checkout (e.g. "Sorry, somebody just bought the last of our amazing black T-shirts while you were busy filling out your payment details. Please choose a different color or garment!"). Telegram will display this message to the user.',
+			}),
+		),
+	}).pipe(
+		Schema.annotate({
+			description:
+				"Once the user has confirmed their payment and shipping details, the Bot API sends the final confirmation in the form of an Update with the field pre_checkout_query. Use this method to respond to such pre-checkout queries. On success, True",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Literal(true),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+});
+
+/**
+ * If you sent an invoice requesting a shipping address and the parameter
+ * is_flexible was specified, the Bot API will send an Update with a
+ * shipping_query field to the bot. Use this method to reply to shipping
+ * queries. On success, True
+ * @see https://core.telegram.org/bots/api#answershippingquery
+ */
+export const answerShippingQuery = HttpApiEndpoint.post("answerShippingQuery", "/answerShippingQuery", {
+	payload: Schema.Struct({
+		/**
+		 * Unique identifier for the query to be answered
+		 */
+		shipping_query_id: Schema.String.pipe(
+			Schema.annotate({ description: "Unique identifier for the query to be answered" }),
+		),
+		/**
+		 * Pass True if delivery to the specified address is possible and False if
+		 * there are any problems (for example, if delivery to the specified address
+		 * is not possible)
+		 */
+		ok: Schema.Boolean.pipe(
+			Schema.annotate({
+				description:
+					"Pass True if delivery to the specified address is possible and False if there are any problems (for example, if delivery to the specified address is not possible)",
+			}),
+		),
+		/**
+		 * Required if ok is True. A JSON-serialized array of available shipping
+		 * options.
+		 */
+		shipping_options: Schema.optional(Schema.Array(Objects.ShippingOption)).pipe(
+			Schema.annotate({
+				description: "Required if ok is True. A JSON-serialized array of available shipping options.",
+			}),
+		),
+		/**
+		 * Required if ok is False. Error message in human readable form that explains
+		 * why it is impossible to complete the order (e.g. “Sorry, delivery to your
+		 * desired address is unavailable”). Telegram will display this message to the
+		 * user.
+		 */
+		error_message: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description:
+					"Required if ok is False. Error message in human readable form that explains why it is impossible to complete the order (e.g. “Sorry, delivery to your desired address is unavailable”). Telegram will display this message to the user.",
+			}),
+		),
+	}).pipe(
+		Schema.annotate({
+			description:
+				"If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the Bot API will send an Update with a shipping_query field to the bot. Use this method to reply to shipping queries. On success, True",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Literal(true),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 });
 
 /**
@@ -1020,6 +1244,297 @@ export const createForumTopic = HttpApiEndpoint.post("createForumTopic", "/creat
 });
 
 /**
+ * Use this method to create a link for an invoice
+ * @see https://core.telegram.org/bots/api#createinvoicelink
+ */
+export const createInvoiceLink = HttpApiEndpoint.post("createInvoiceLink", "/createInvoiceLink", {
+	payload: Schema.Struct({
+		/**
+		 * Unique identifier of the business connection on behalf of which the link
+		 * will be created. For payments in Telegram Stars only.
+		 */
+		business_connection_id: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description:
+					"Unique identifier of the business connection on behalf of which the link will be created. For payments in Telegram Stars only.",
+			}),
+		),
+		/**
+		 * Product name, 1-32 characters
+		 */
+		title: Schema.String.pipe(Schema.annotate({ description: "Product name, 1-32 characters" })),
+		/**
+		 * Product description, 1-255 characters
+		 */
+		description: Schema.String.pipe(Schema.annotate({ description: "Product description, 1-255 characters" })),
+		/**
+		 * Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the
+		 * user, use it for your internal processes.
+		 */
+		payload: Schema.String.pipe(
+			Schema.annotate({
+				description:
+					"Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use it for your internal processes.",
+			}),
+		),
+		/**
+		 * Payment provider token, obtained via @BotFather. Pass an empty string for
+		 * payments in Telegram Stars.
+		 */
+		provider_token: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description:
+					"Payment provider token, obtained via @BotFather. Pass an empty string for payments in Telegram Stars.",
+			}),
+		),
+		/**
+		 * Three-letter ISO 4217 currency code, see more on currencies. Pass “XTR” for
+		 * payments in Telegram Stars.
+		 */
+		currency: Schema.String.pipe(
+			Schema.annotate({
+				description:
+					"Three-letter ISO 4217 currency code, see more on currencies. Pass “XTR” for payments in Telegram Stars.",
+			}),
+		),
+		/**
+		 * Price breakdown, a JSON-serialized list of components (e.g. product price,
+		 * tax, discount, delivery cost, delivery tax, bonus, etc.). Must contain
+		 * exactly one item for payments in Telegram Stars.
+		 */
+		prices: Schema.Array(Objects.LabeledPrice).pipe(
+			Schema.annotate({
+				description:
+					"Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.). Must contain exactly one item for payments in Telegram Stars.",
+			}),
+		),
+		/**
+		 * The number of seconds the subscription will be active for before the next
+		 * payment. The currency must be set to “XTR” (Telegram Stars) if the
+		 * parameter is used. Currently, it must always be 2592000 (30 days) if
+		 * specified. Any number of subscriptions can be active for a given bot at the
+		 * same time, including multiple concurrent subscriptions from the same user.
+		 * Subscription price must no exceed 10000 Telegram Stars.
+		 */
+		subscription_period: Schema.optional(Schema.Int).pipe(
+			Schema.annotate({
+				description:
+					"The number of seconds the subscription will be active for before the next payment. The currency must be set to “XTR” (Telegram Stars) if the parameter is used. Currently, it must always be 2592000 (30 days) if specified. Any number of subscriptions can be active for a given bot at the same time, including multiple concurrent subscriptions from the same user. Subscription price must no exceed 10000 Telegram Stars.",
+			}),
+		),
+		/**
+		 * The maximum accepted amount for tips in the smallest units of the currency
+		 * (integer, not float/double). For example, for a maximum tip of US$ 1.45
+		 * pass max_tip_amount = 145. See the exp parameter in currencies.json, it
+		 * shows the number of digits past the decimal point for each currency (2 for
+		 * the majority of currencies). Defaults to 0. Not supported for payments in
+		 * Telegram Stars.
+		 */
+		max_tip_amount: Schema.optional(Schema.Int).pipe(
+			Schema.annotate({
+				description:
+					"The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0. Not supported for payments in Telegram Stars.",
+			}),
+		),
+		/**
+		 * A JSON-serialized array of suggested amounts of tips in the smallest units
+		 * of the currency (integer, not float/double). At most 4 suggested tip
+		 * amounts can be specified. The suggested tip amounts must be positive,
+		 * passed in a strictly increased order and must not exceed max_tip_amount.
+		 */
+		suggested_tip_amounts: Schema.optional(Schema.Array(Schema.Int)).pipe(
+			Schema.annotate({
+				description:
+					"A JSON-serialized array of suggested amounts of tips in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount.",
+			}),
+		),
+		/**
+		 * JSON-serialized data about the invoice, which will be shared with the
+		 * payment provider. A detailed description of required fields should be
+		 * provided by the payment provider.
+		 */
+		provider_data: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description:
+					"JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider.",
+			}),
+		),
+		/**
+		 * URL of the product photo for the invoice. Can be a photo of the goods or a
+		 * marketing image for a service.
+		 */
+		photo_url: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description:
+					"URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service.",
+			}),
+		),
+		/**
+		 * Photo size in bytes
+		 */
+		photo_size: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Photo size in bytes" })),
+		/**
+		 * Photo width
+		 */
+		photo_width: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Photo width" })),
+		/**
+		 * Photo height
+		 */
+		photo_height: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Photo height" })),
+		/**
+		 * Pass True if you require the user's full name to complete the order.
+		 * Ignored for payments in Telegram Stars.
+		 */
+		need_name: Schema.optional(Schema.Boolean).pipe(
+			Schema.annotate({
+				description:
+					"Pass True if you require the user's full name to complete the order. Ignored for payments in Telegram Stars.",
+			}),
+		),
+		/**
+		 * Pass True if you require the user's phone number to complete the order.
+		 * Ignored for payments in Telegram Stars.
+		 */
+		need_phone_number: Schema.optional(Schema.Boolean).pipe(
+			Schema.annotate({
+				description:
+					"Pass True if you require the user's phone number to complete the order. Ignored for payments in Telegram Stars.",
+			}),
+		),
+		/**
+		 * Pass True if you require the user's email address to complete the order.
+		 * Ignored for payments in Telegram Stars.
+		 */
+		need_email: Schema.optional(Schema.Boolean).pipe(
+			Schema.annotate({
+				description:
+					"Pass True if you require the user's email address to complete the order. Ignored for payments in Telegram Stars.",
+			}),
+		),
+		/**
+		 * Pass True if you require the user's shipping address to complete the order.
+		 * Ignored for payments in Telegram Stars.
+		 */
+		need_shipping_address: Schema.optional(Schema.Boolean).pipe(
+			Schema.annotate({
+				description:
+					"Pass True if you require the user's shipping address to complete the order. Ignored for payments in Telegram Stars.",
+			}),
+		),
+		/**
+		 * Pass True if the user's phone number should be sent to the provider.
+		 * Ignored for payments in Telegram Stars.
+		 */
+		send_phone_number_to_provider: Schema.optional(Schema.Boolean).pipe(
+			Schema.annotate({
+				description:
+					"Pass True if the user's phone number should be sent to the provider. Ignored for payments in Telegram Stars.",
+			}),
+		),
+		/**
+		 * Pass True if the user's email address should be sent to the provider.
+		 * Ignored for payments in Telegram Stars.
+		 */
+		send_email_to_provider: Schema.optional(Schema.Boolean).pipe(
+			Schema.annotate({
+				description:
+					"Pass True if the user's email address should be sent to the provider. Ignored for payments in Telegram Stars.",
+			}),
+		),
+		/**
+		 * Pass True if the final price depends on the shipping method. Ignored for
+		 * payments in Telegram Stars.
+		 */
+		is_flexible: Schema.optional(Schema.Boolean).pipe(
+			Schema.annotate({
+				description:
+					"Pass True if the final price depends on the shipping method. Ignored for payments in Telegram Stars.",
+			}),
+		),
+	}).pipe(
+		Schema.annotate({ description: "Use this method to create a link for an invoice" }),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.String,
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+});
+
+/**
+ * Use this method to create a new sticker set owned by a user. The bot will be
+ * able to edit the sticker set thus created
+ * @see https://core.telegram.org/bots/api#createnewstickerset
+ */
+export const createNewStickerSet = HttpApiEndpoint.post("createNewStickerSet", "/createNewStickerSet", {
+	payload: Schema.Struct({
+		/**
+		 * User identifier of created sticker set owner
+		 */
+		user_id: Schema.Int.pipe(Schema.annotate({ description: "User identifier of created sticker set owner" })),
+		/**
+		 * Short name of sticker set, to be used in t.me/addstickers/ URLs (e.g.,
+		 * animals). Can contain only English letters, digits and underscores. Must
+		 * begin with a letter, can't contain consecutive underscores and must end in
+		 * "_by_<bot_username>". <bot_username> is case insensitive. 1-64 characters.
+		 */
+		name: Schema.String.pipe(
+			Schema.annotate({
+				description:
+					'Short name of sticker set, to be used in t.me/addstickers/ URLs (e.g., animals). Can contain only English letters, digits and underscores. Must begin with a letter, can\'t contain consecutive underscores and must end in "_by_<bot_username>". <bot_username> is case insensitive. 1-64 characters.',
+			}),
+		),
+		/**
+		 * Sticker set title, 1-64 characters
+		 */
+		title: Schema.String.pipe(Schema.annotate({ description: "Sticker set title, 1-64 characters" })),
+		/**
+		 * A JSON-serialized list of 1-50 initial stickers to be added to the sticker
+		 * set
+		 */
+		stickers: Schema.Array(Objects.InputSticker).pipe(
+			Schema.annotate({
+				description: "A JSON-serialized list of 1-50 initial stickers to be added to the sticker set",
+			}),
+		),
+		/**
+		 * Type of stickers in the set, pass “regular”, “mask”, or “custom_emoji”. By
+		 * default, a regular sticker set is created.
+		 */
+		sticker_type: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description:
+					"Type of stickers in the set, pass “regular”, “mask”, or “custom_emoji”. By default, a regular sticker set is created.",
+			}),
+		),
+		/**
+		 * Pass True if stickers in the sticker set must be repainted to the color of
+		 * text when used in messages, the accent color if used as emoji status, white
+		 * on chat photos, or another appropriate color based on context; for custom
+		 * emoji sticker sets only
+		 */
+		needs_repainting: Schema.optional(Schema.Boolean).pipe(
+			Schema.annotate({
+				description:
+					"Pass True if stickers in the sticker set must be repainted to the color of text when used in messages, the accent color if used as emoji status, white on chat photos, or another appropriate color based on context; for custom emoji sticker sets only",
+			}),
+		),
+	}).pipe(
+		Schema.annotate({
+			description:
+				"Use this method to create a new sticker set owned by a user. The bot will be able to edit the sticker set thus created",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Literal(true),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+});
+
+/**
  * Use this method to decline a chat join request. The bot must be an
  * administrator in the chat for this to work and must have the can_invite_users
  * administrator right
@@ -1563,6 +2078,48 @@ export const deleteMyCommands = HttpApiEndpoint.post("deleteMyCommands", "/delet
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
 	],
+});
+
+/**
+ * Use this method to delete a sticker from a set created by the bot
+ * @see https://core.telegram.org/bots/api#deletestickerfromset
+ */
+export const deleteStickerFromSet = HttpApiEndpoint.post("deleteStickerFromSet", "/deleteStickerFromSet", {
+	payload: Schema.Struct({
+		/**
+		 * File identifier of the sticker
+		 */
+		sticker: Schema.String.pipe(Schema.annotate({ description: "File identifier of the sticker" })),
+	}).pipe(
+		Schema.annotate({ description: "Use this method to delete a sticker from a set created by the bot" }),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Literal(true),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+});
+
+/**
+ * Use this method to delete a sticker set that was created by the bot
+ * @see https://core.telegram.org/bots/api#deletestickerset
+ */
+export const deleteStickerSet = HttpApiEndpoint.post("deleteStickerSet", "/deleteStickerSet", {
+	payload: Schema.Struct({
+		/**
+		 * Sticker set name
+		 */
+		name: Schema.String.pipe(Schema.annotate({ description: "Sticker set name" })),
+	}).pipe(
+		Schema.annotate({ description: "Use this method to delete a sticker set that was created by the bot" }),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Literal(true),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 });
 
 /**
@@ -2474,6 +3031,50 @@ export const editStory = HttpApiEndpoint.post("editStory", "/editStory", {
 });
 
 /**
+ * Allows the bot to cancel or re-enable extension of a subscription paid in
+ * Telegram Stars
+ * @see https://core.telegram.org/bots/api#edituserstarsubscription
+ */
+export const editUserStarSubscription = HttpApiEndpoint.post("editUserStarSubscription", "/editUserStarSubscription", {
+	payload: Schema.Struct({
+		/**
+		 * Identifier of the user whose subscription will be edited
+		 */
+		user_id: Schema.Int.pipe(
+			Schema.annotate({ description: "Identifier of the user whose subscription will be edited" }),
+		),
+		/**
+		 * Telegram payment identifier for the subscription
+		 */
+		telegram_payment_charge_id: Schema.String.pipe(
+			Schema.annotate({ description: "Telegram payment identifier for the subscription" }),
+		),
+		/**
+		 * Pass True to cancel extension of the user subscription; the subscription
+		 * must be active up to the end of the current subscription period. Pass False
+		 * to allow the user to re-enable a subscription that was previously canceled
+		 * by the bot.
+		 */
+		is_canceled: Schema.Boolean.pipe(
+			Schema.annotate({
+				description:
+					"Pass True to cancel extension of the user subscription; the subscription must be active up to the end of the current subscription period. Pass False to allow the user to re-enable a subscription that was previously canceled by the bot.",
+			}),
+		),
+	}).pipe(
+		Schema.annotate({
+			description: "Allows the bot to cancel or re-enable extension of a subscription paid in Telegram Stars",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Literal(true),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+});
+
+/**
  * Use this method to generate a new primary invite link for a chat; any
  * previously generated primary link is revoked. The bot must be an
  * administrator in the chat for this to work and must have the appropriate
@@ -3217,6 +3818,36 @@ export const getChatMenuButton = HttpApiEndpoint.post("getChatMenuButton", "/get
 });
 
 /**
+ * Use this method to get information about custom emoji stickers by their
+ * identifiers
+ * @see https://core.telegram.org/bots/api#getcustomemojistickers
+ */
+export const getCustomEmojiStickers = HttpApiEndpoint.post("getCustomEmojiStickers", "/getCustomEmojiStickers", {
+	payload: Schema.Struct({
+		/**
+		 * A JSON-serialized list of custom emoji identifiers. At most 200 custom
+		 * emoji identifiers can be specified.
+		 */
+		custom_emoji_ids: Schema.Array(Schema.String).pipe(
+			Schema.annotate({
+				description:
+					"A JSON-serialized list of custom emoji identifiers. At most 200 custom emoji identifiers can be specified.",
+			}),
+		),
+	}).pipe(
+		Schema.annotate({
+			description: "Use this method to get information about custom emoji stickers by their identifiers",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Array(Objects.Sticker),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+});
+
+/**
  * Use this method to get basic information about a file and prepare it for
  * downloading. For the moment, bots can download files of up to 20MB in size.
  * On success, a File object
@@ -3274,6 +3905,58 @@ export const getForumTopicIconStickers = HttpApiEndpoint.post(
 		],
 	},
 );
+
+/**
+ * Use this method to get data for high score tables. Will return the score of
+ * the specified user and several of their neighbors in a game
+ * @see https://core.telegram.org/bots/api#getgamehighscores
+ */
+export const getGameHighScores = HttpApiEndpoint.post("getGameHighScores", "/getGameHighScores", {
+	payload: Schema.Struct({
+		/**
+		 * Target user id
+		 */
+		user_id: Schema.Int.pipe(Schema.annotate({ description: "Target user id" })),
+		/**
+		 * Required if inline_message_id is not specified. Unique identifier for the
+		 * target chat.
+		 */
+		chat_id: Schema.optional(Schema.Int).pipe(
+			Schema.annotate({
+				description: "Required if inline_message_id is not specified. Unique identifier for the target chat.",
+			}),
+		),
+		/**
+		 * Required if inline_message_id is not specified. Identifier of the sent
+		 * message.
+		 */
+		message_id: Schema.optional(Schema.Int).pipe(
+			Schema.annotate({
+				description: "Required if inline_message_id is not specified. Identifier of the sent message.",
+			}),
+		),
+		/**
+		 * Required if chat_id and message_id are not specified. Identifier of the
+		 * inline message.
+		 */
+		inline_message_id: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description: "Required if chat_id and message_id are not specified. Identifier of the inline message.",
+			}),
+		),
+	}).pipe(
+		Schema.annotate({
+			description:
+				"Use this method to get data for high score tables. Will return the score of the specified user and several of their neighbors in a game",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Array(Objects.GameHighScore),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+});
 
 /**
  * Use this method to get the access settings of a managed bot
@@ -3528,6 +4211,70 @@ export const getMyShortDescription = HttpApiEndpoint.post("getMyShortDescription
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
 	],
+});
+
+/**
+ * A method to get the current Telegram Stars balance of the bot
+ * @see https://core.telegram.org/bots/api#getmystarbalance
+ */
+export const getMyStarBalance = HttpApiEndpoint.post("getMyStarBalance", "/getMyStarBalance", {
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Objects.StarAmount,
+	}).pipe(
+		Schema.annotate({ description: "A method to get the current Telegram Stars balance of the bot" }),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+});
+
+/**
+ * @see https://core.telegram.org/bots/api#getstartransactions
+ */
+export const getStarTransactions = HttpApiEndpoint.post("getStarTransactions", "/getStarTransactions", {
+	payload: Schema.Struct({
+		/**
+		 * Number of transactions to skip in the response
+		 */
+		offset: Schema.optional(Schema.Int).pipe(
+			Schema.annotate({ description: "Number of transactions to skip in the response" }),
+		),
+		/**
+		 * The maximum number of transactions to be retrieved. Values between 1-100
+		 * are accepted. Defaults to 100.
+		 */
+		limit: Schema.optional(Schema.Int).pipe(
+			Schema.annotate({
+				description:
+					"The maximum number of transactions to be retrieved. Values between 1-100 are accepted. Defaults to 100.",
+			}),
+		),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Objects.StarTransactions,
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+});
+
+/**
+ * Use this method to get a sticker set. On success, a StickerSet object
+ * @see https://core.telegram.org/bots/api#getstickerset
+ */
+export const getStickerSet = HttpApiEndpoint.post("getStickerSet", "/getStickerSet", {
+	payload: Schema.Struct({
+		/**
+		 * Name of the sticker set
+		 */
+		name: Schema.String.pipe(Schema.annotate({ description: "Name of the sticker set" })),
+	}).pipe(
+		Schema.annotate({ description: "Use this method to get a sticker set. On success, a StickerSet object" }),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Objects.StickerSet,
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 });
 
 /**
@@ -4471,6 +5218,31 @@ export const readBusinessMessage = HttpApiEndpoint.post("readBusinessMessage", "
 });
 
 /**
+ * Refunds a successful payment in Telegram Stars
+ * @see https://core.telegram.org/bots/api#refundstarpayment
+ */
+export const refundStarPayment = HttpApiEndpoint.post("refundStarPayment", "/refundStarPayment", {
+	payload: Schema.Struct({
+		/**
+		 * Identifier of the user whose payment will be refunded
+		 */
+		user_id: Schema.Int.pipe(Schema.annotate({ description: "Identifier of the user whose payment will be refunded" })),
+		/**
+		 * Telegram payment identifier
+		 */
+		telegram_payment_charge_id: Schema.String.pipe(Schema.annotate({ description: "Telegram payment identifier" })),
+	}).pipe(
+		Schema.annotate({ description: "Refunds a successful payment in Telegram Stars" }),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Literal(true),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+});
+
+/**
  * Removes the current profile photo of a managed business account. Requires the
  * can_edit_profile_photo business bot right
  * @see https://core.telegram.org/bots/api#removebusinessaccountprofilephoto
@@ -4726,6 +5498,51 @@ export const replaceManagedBotToken = HttpApiEndpoint.post("replaceManagedBotTok
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
 	],
+});
+
+/**
+ * Use this method to replace an existing sticker in a sticker set with a new
+ * one. The method is equivalent to calling deleteStickerFromSet, then
+ * addStickerToSet, then setStickerPositionInSet
+ * @see https://core.telegram.org/bots/api#replacestickerinset
+ */
+export const replaceStickerInSet = HttpApiEndpoint.post("replaceStickerInSet", "/replaceStickerInSet", {
+	payload: Schema.Struct({
+		/**
+		 * User identifier of the sticker set owner
+		 */
+		user_id: Schema.Int.pipe(Schema.annotate({ description: "User identifier of the sticker set owner" })),
+		/**
+		 * Sticker set name
+		 */
+		name: Schema.String.pipe(Schema.annotate({ description: "Sticker set name" })),
+		/**
+		 * File identifier of the replaced sticker
+		 */
+		old_sticker: Schema.String.pipe(Schema.annotate({ description: "File identifier of the replaced sticker" })),
+		/**
+		 * A JSON-serialized object with information about the added sticker. If
+		 * exactly the same sticker had already been added to the set, then the set
+		 * remains unchanged.
+		 */
+		sticker: Objects.InputSticker.pipe(
+			Schema.annotate({
+				description:
+					"A JSON-serialized object with information about the added sticker. If exactly the same sticker had already been added to the set, then the set remains unchanged.",
+			}),
+		),
+	}).pipe(
+		Schema.annotate({
+			description:
+				"Use this method to replace an existing sticker in a sticker set with a new one. The method is equivalent to calling deleteStickerFromSet, then addStickerToSet, then setStickerPositionInSet",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Literal(true),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 });
 
 /**
@@ -6087,6 +6904,114 @@ export const sendDocument = HttpApiEndpoint.post("sendDocument", "/sendDocument"
 });
 
 /**
+ * Use this method to send a game. On success, the sent Message
+ * @see https://core.telegram.org/bots/api#sendgame
+ */
+export const sendGame = HttpApiEndpoint.post("sendGame", "/sendGame", {
+	payload: Schema.Struct({
+		/**
+		 * Unique identifier of the business connection on behalf of which the message
+		 * will be sent
+		 */
+		business_connection_id: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description: "Unique identifier of the business connection on behalf of which the message will be sent",
+			}),
+		),
+		/**
+		 * Unique identifier for the target chat or username of the target bot in the
+		 * format @username. Games can't be sent to channel direct messages chats and
+		 * channel chats.
+		 */
+		chat_id: Schema.Union([Schema.Int, Schema.String]).pipe(
+			Schema.annotate({
+				description:
+					"Unique identifier for the target chat or username of the target bot in the format @username. Games can't be sent to channel direct messages chats and channel chats.",
+			}),
+		),
+		/**
+		 * Unique identifier for the target message thread (topic) of a forum; for
+		 * forum supergroups and private chats of bots with forum topic mode enabled
+		 * only
+		 */
+		message_thread_id: Schema.optional(Schema.Int).pipe(
+			Schema.annotate({
+				description:
+					"Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only",
+			}),
+		),
+		/**
+		 * Short name of the game, serves as the unique identifier for the game. Set
+		 * up your games via @BotFather.
+		 */
+		game_short_name: Schema.String.pipe(
+			Schema.annotate({
+				description:
+					"Short name of the game, serves as the unique identifier for the game. Set up your games via @BotFather.",
+			}),
+		),
+		/**
+		 * Sends the message silently. Users will receive a notification with no
+		 * sound.
+		 */
+		disable_notification: Schema.optional(Schema.Boolean).pipe(
+			Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
+		),
+		/**
+		 * Protects the contents of the sent message from forwarding and saving
+		 */
+		protect_content: Schema.optional(Schema.Boolean).pipe(
+			Schema.annotate({ description: "Protects the contents of the sent message from forwarding and saving" }),
+		),
+		/**
+		 * Pass True to allow up to 1000 messages per second, ignoring broadcasting
+		 * limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will
+		 * be withdrawn from the bot's balance.
+		 */
+		allow_paid_broadcast: Schema.optional(Schema.Boolean).pipe(
+			Schema.annotate({
+				description:
+					"Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.",
+			}),
+		),
+		/**
+		 * Unique identifier of the message effect to be added to the message; for
+		 * private chats only
+		 */
+		message_effect_id: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description: "Unique identifier of the message effect to be added to the message; for private chats only",
+			}),
+		),
+		/**
+		 * Description of the message to reply to
+		 */
+		reply_parameters: Schema.optional(Objects.ReplyParameters).pipe(
+			Schema.annotate({ description: "Description of the message to reply to" }),
+		),
+		/**
+		 * A JSON-serialized object for an inline keyboard. If empty, one 'Play
+		 * game_title' button will be shown. If not empty, the first button must
+		 * launch the game.
+		 */
+		reply_markup: Schema.optional(Objects.InlineKeyboardMarkup).pipe(
+			Schema.annotate({
+				description:
+					"A JSON-serialized object for an inline keyboard. If empty, one 'Play game_title' button will be shown. If not empty, the first button must launch the game.",
+			}),
+		),
+	}).pipe(
+		Schema.annotate({ description: "Use this method to send a game. On success, the sent Message" }),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Objects.Message,
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+});
+
+/**
  * Sends a gift to the given user or channel chat. The gift can't be converted
  * to Telegram Stars by the receiver
  * @see https://core.telegram.org/bots/api#sendgift
@@ -6177,6 +7102,307 @@ export const sendGift = HttpApiEndpoint.post("sendGift", "/sendGift", {
 		Errors.StargiftInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
 	],
+});
+
+/**
+ * Use this method to send invoices. On success, the sent Message
+ * @see https://core.telegram.org/bots/api#sendinvoice
+ */
+export const sendInvoice = HttpApiEndpoint.post("sendInvoice", "/sendInvoice", {
+	payload: Schema.Struct({
+		/**
+		 * Unique identifier for the target chat or username of the target bot,
+		 * supergroup or channel in the format @username
+		 */
+		chat_id: Schema.Union([Schema.Int, Schema.String]).pipe(
+			Schema.annotate({
+				description:
+					"Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username",
+			}),
+		),
+		/**
+		 * Unique identifier for the target message thread (topic) of a forum; for
+		 * forum supergroups and private chats of bots with forum topic mode enabled
+		 * only
+		 */
+		message_thread_id: Schema.optional(Schema.Int).pipe(
+			Schema.annotate({
+				description:
+					"Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only",
+			}),
+		),
+		/**
+		 * Identifier of the direct messages topic to which the message will be sent;
+		 * required if the message is sent to a direct messages chat
+		 */
+		direct_messages_topic_id: Schema.optional(Schema.Int).pipe(
+			Schema.annotate({
+				description:
+					"Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat",
+			}),
+		),
+		/**
+		 * Product name, 1-32 characters
+		 */
+		title: Schema.String.pipe(Schema.annotate({ description: "Product name, 1-32 characters" })),
+		/**
+		 * Product description, 1-255 characters
+		 */
+		description: Schema.String.pipe(Schema.annotate({ description: "Product description, 1-255 characters" })),
+		/**
+		 * Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the
+		 * user, use it for your internal processes.
+		 */
+		payload: Schema.String.pipe(
+			Schema.annotate({
+				description:
+					"Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use it for your internal processes.",
+			}),
+		),
+		/**
+		 * Payment provider token, obtained via @BotFather. Pass an empty string for
+		 * payments in Telegram Stars.
+		 */
+		provider_token: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description:
+					"Payment provider token, obtained via @BotFather. Pass an empty string for payments in Telegram Stars.",
+			}),
+		),
+		/**
+		 * Three-letter ISO 4217 currency code, see more on currencies. Pass “XTR” for
+		 * payments in Telegram Stars.
+		 */
+		currency: Schema.String.pipe(
+			Schema.annotate({
+				description:
+					"Three-letter ISO 4217 currency code, see more on currencies. Pass “XTR” for payments in Telegram Stars.",
+			}),
+		),
+		/**
+		 * Price breakdown, a JSON-serialized list of components (e.g. product price,
+		 * tax, discount, delivery cost, delivery tax, bonus, etc.). Must contain
+		 * exactly one item for payments in Telegram Stars.
+		 */
+		prices: Schema.Array(Objects.LabeledPrice).pipe(
+			Schema.annotate({
+				description:
+					"Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.). Must contain exactly one item for payments in Telegram Stars.",
+			}),
+		),
+		/**
+		 * The maximum accepted amount for tips in the smallest units of the currency
+		 * (integer, not float/double). For example, for a maximum tip of US$ 1.45
+		 * pass max_tip_amount = 145. See the exp parameter in currencies.json, it
+		 * shows the number of digits past the decimal point for each currency (2 for
+		 * the majority of currencies). Defaults to 0. Not supported for payments in
+		 * Telegram Stars.
+		 */
+		max_tip_amount: Schema.optional(Schema.Int).pipe(
+			Schema.annotate({
+				description:
+					"The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0. Not supported for payments in Telegram Stars.",
+			}),
+		),
+		/**
+		 * A JSON-serialized array of suggested amounts of tips in the smallest units
+		 * of the currency (integer, not float/double). At most 4 suggested tip
+		 * amounts can be specified. The suggested tip amounts must be positive,
+		 * passed in a strictly increased order and must not exceed max_tip_amount.
+		 */
+		suggested_tip_amounts: Schema.optional(Schema.Array(Schema.Int)).pipe(
+			Schema.annotate({
+				description:
+					"A JSON-serialized array of suggested amounts of tips in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount.",
+			}),
+		),
+		/**
+		 * Unique deep-linking parameter. If left empty, forwarded copies of the sent
+		 * message will have a Pay button, allowing multiple users to pay directly
+		 * from the forwarded message, using the same invoice. If non-empty, forwarded
+		 * copies of the sent message will have a URL button with a deep link to the
+		 * bot (instead of a Pay button), with the value used as the start parameter.
+		 */
+		start_parameter: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description:
+					"Unique deep-linking parameter. If left empty, forwarded copies of the sent message will have a Pay button, allowing multiple users to pay directly from the forwarded message, using the same invoice. If non-empty, forwarded copies of the sent message will have a URL button with a deep link to the bot (instead of a Pay button), with the value used as the start parameter.",
+			}),
+		),
+		/**
+		 * JSON-serialized data about the invoice, which will be shared with the
+		 * payment provider. A detailed description of required fields should be
+		 * provided by the payment provider.
+		 */
+		provider_data: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description:
+					"JSON-serialized data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider.",
+			}),
+		),
+		/**
+		 * URL of the product photo for the invoice. Can be a photo of the goods or a
+		 * marketing image for a service. People like it better when they see what
+		 * they are paying for.
+		 */
+		photo_url: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description:
+					"URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like it better when they see what they are paying for.",
+			}),
+		),
+		/**
+		 * Photo size in bytes
+		 */
+		photo_size: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Photo size in bytes" })),
+		/**
+		 * Photo width
+		 */
+		photo_width: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Photo width" })),
+		/**
+		 * Photo height
+		 */
+		photo_height: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Photo height" })),
+		/**
+		 * Pass True if you require the user's full name to complete the order.
+		 * Ignored for payments in Telegram Stars.
+		 */
+		need_name: Schema.optional(Schema.Boolean).pipe(
+			Schema.annotate({
+				description:
+					"Pass True if you require the user's full name to complete the order. Ignored for payments in Telegram Stars.",
+			}),
+		),
+		/**
+		 * Pass True if you require the user's phone number to complete the order.
+		 * Ignored for payments in Telegram Stars.
+		 */
+		need_phone_number: Schema.optional(Schema.Boolean).pipe(
+			Schema.annotate({
+				description:
+					"Pass True if you require the user's phone number to complete the order. Ignored for payments in Telegram Stars.",
+			}),
+		),
+		/**
+		 * Pass True if you require the user's email address to complete the order.
+		 * Ignored for payments in Telegram Stars.
+		 */
+		need_email: Schema.optional(Schema.Boolean).pipe(
+			Schema.annotate({
+				description:
+					"Pass True if you require the user's email address to complete the order. Ignored for payments in Telegram Stars.",
+			}),
+		),
+		/**
+		 * Pass True if you require the user's shipping address to complete the order.
+		 * Ignored for payments in Telegram Stars.
+		 */
+		need_shipping_address: Schema.optional(Schema.Boolean).pipe(
+			Schema.annotate({
+				description:
+					"Pass True if you require the user's shipping address to complete the order. Ignored for payments in Telegram Stars.",
+			}),
+		),
+		/**
+		 * Pass True if the user's phone number should be sent to the provider.
+		 * Ignored for payments in Telegram Stars.
+		 */
+		send_phone_number_to_provider: Schema.optional(Schema.Boolean).pipe(
+			Schema.annotate({
+				description:
+					"Pass True if the user's phone number should be sent to the provider. Ignored for payments in Telegram Stars.",
+			}),
+		),
+		/**
+		 * Pass True if the user's email address should be sent to the provider.
+		 * Ignored for payments in Telegram Stars.
+		 */
+		send_email_to_provider: Schema.optional(Schema.Boolean).pipe(
+			Schema.annotate({
+				description:
+					"Pass True if the user's email address should be sent to the provider. Ignored for payments in Telegram Stars.",
+			}),
+		),
+		/**
+		 * Pass True if the final price depends on the shipping method. Ignored for
+		 * payments in Telegram Stars.
+		 */
+		is_flexible: Schema.optional(Schema.Boolean).pipe(
+			Schema.annotate({
+				description:
+					"Pass True if the final price depends on the shipping method. Ignored for payments in Telegram Stars.",
+			}),
+		),
+		/**
+		 * Sends the message silently. Users will receive a notification with no
+		 * sound.
+		 */
+		disable_notification: Schema.optional(Schema.Boolean).pipe(
+			Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
+		),
+		/**
+		 * Protects the contents of the sent message from forwarding and saving
+		 */
+		protect_content: Schema.optional(Schema.Boolean).pipe(
+			Schema.annotate({ description: "Protects the contents of the sent message from forwarding and saving" }),
+		),
+		/**
+		 * Pass True to allow up to 1000 messages per second, ignoring broadcasting
+		 * limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will
+		 * be withdrawn from the bot's balance.
+		 */
+		allow_paid_broadcast: Schema.optional(Schema.Boolean).pipe(
+			Schema.annotate({
+				description:
+					"Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.",
+			}),
+		),
+		/**
+		 * Unique identifier of the message effect to be added to the message; for
+		 * private chats only
+		 */
+		message_effect_id: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description: "Unique identifier of the message effect to be added to the message; for private chats only",
+			}),
+		),
+		/**
+		 * A JSON-serialized object containing the parameters of the suggested post to
+		 * send; for direct messages chats only. If the message is sent as a reply to
+		 * another suggested post, then that suggested post is automatically declined.
+		 */
+		suggested_post_parameters: Schema.optional(Objects.SuggestedPostParameters).pipe(
+			Schema.annotate({
+				description:
+					"A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.",
+			}),
+		),
+		/**
+		 * Description of the message to reply to
+		 */
+		reply_parameters: Schema.optional(Objects.ReplyParameters).pipe(
+			Schema.annotate({ description: "Description of the message to reply to" }),
+		),
+		/**
+		 * A JSON-serialized object for an inline keyboard. If empty, one 'Pay total
+		 * price' button will be shown. If not empty, the first button must be a Pay
+		 * button.
+		 */
+		reply_markup: Schema.optional(Objects.InlineKeyboardMarkup).pipe(
+			Schema.annotate({
+				description:
+					"A JSON-serialized object for an inline keyboard. If empty, one 'Pay total price' button will be shown. If not empty, the first button must be a Pay button.",
+			}),
+		),
+	}).pipe(
+		Schema.annotate({ description: "Use this method to send invoices. On success, the sent Message" }),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Objects.Message,
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 });
 
 /**
@@ -7773,6 +8999,154 @@ export const sendPoll = HttpApiEndpoint.post("sendPoll", "/sendPoll", {
 });
 
 /**
+ * Use this method to send static .WEBP, animated .TGS, or video .WEBM stickers.
+ * On success, the sent Message
+ * @see https://core.telegram.org/bots/api#sendsticker
+ */
+export const sendSticker = HttpApiEndpoint.post("sendSticker", "/sendSticker", {
+	payload: Schema.Struct({
+		/**
+		 * Unique identifier of the business connection on behalf of which the message
+		 * will be sent
+		 */
+		business_connection_id: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description: "Unique identifier of the business connection on behalf of which the message will be sent",
+			}),
+		),
+		/**
+		 * Unique identifier for the target chat or username of the target bot,
+		 * supergroup or channel in the format @username
+		 */
+		chat_id: Schema.Union([Schema.Int, Schema.String]).pipe(
+			Schema.annotate({
+				description:
+					"Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username",
+			}),
+		),
+		/**
+		 * Unique identifier for the target message thread (topic) of a forum; for
+		 * forum supergroups and private chats of bots with forum topic mode enabled
+		 * only
+		 */
+		message_thread_id: Schema.optional(Schema.Int).pipe(
+			Schema.annotate({
+				description:
+					"Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only",
+			}),
+		),
+		/**
+		 * Identifier of the direct messages topic to which the message will be sent;
+		 * required if the message is sent to a direct messages chat
+		 */
+		direct_messages_topic_id: Schema.optional(Schema.Int).pipe(
+			Schema.annotate({
+				description:
+					"Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat",
+			}),
+		),
+		/**
+		 * Sticker to send. Pass a file_id as String to send a file that exists on the
+		 * Telegram servers (recommended), pass an HTTP URL as a String for Telegram
+		 * to get a .WEBP sticker from the Internet, or upload a new .WEBP, .TGS, or
+		 * .WEBM sticker using multipart/form-data. More information on Sending Files
+		 * ». Video and animated stickers can't be sent via an HTTP URL.
+		 */
+		sticker: Schema.Union([Objects.InputFile, Schema.String]).pipe(
+			Schema.annotate({
+				description:
+					"Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP sticker from the Internet, or upload a new .WEBP, .TGS, or .WEBM sticker using multipart/form-data. More information on Sending Files ». Video and animated stickers can't be sent via an HTTP URL.",
+			}),
+		),
+		/**
+		 * Emoji associated with the sticker; only for just uploaded stickers
+		 */
+		emoji: Schema.optional(Schema.String).pipe(
+			Schema.annotate({ description: "Emoji associated with the sticker; only for just uploaded stickers" }),
+		),
+		/**
+		 * Sends the message silently. Users will receive a notification with no
+		 * sound.
+		 */
+		disable_notification: Schema.optional(Schema.Boolean).pipe(
+			Schema.annotate({ description: "Sends the message silently. Users will receive a notification with no sound." }),
+		),
+		/**
+		 * Protects the contents of the sent message from forwarding and saving
+		 */
+		protect_content: Schema.optional(Schema.Boolean).pipe(
+			Schema.annotate({ description: "Protects the contents of the sent message from forwarding and saving" }),
+		),
+		/**
+		 * Pass True to allow up to 1000 messages per second, ignoring broadcasting
+		 * limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will
+		 * be withdrawn from the bot's balance.
+		 */
+		allow_paid_broadcast: Schema.optional(Schema.Boolean).pipe(
+			Schema.annotate({
+				description:
+					"Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.",
+			}),
+		),
+		/**
+		 * Unique identifier of the message effect to be added to the message; for
+		 * private chats only
+		 */
+		message_effect_id: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description: "Unique identifier of the message effect to be added to the message; for private chats only",
+			}),
+		),
+		/**
+		 * A JSON-serialized object containing the parameters of the suggested post to
+		 * send; for direct messages chats only. If the message is sent as a reply to
+		 * another suggested post, then that suggested post is automatically declined.
+		 */
+		suggested_post_parameters: Schema.optional(Objects.SuggestedPostParameters).pipe(
+			Schema.annotate({
+				description:
+					"A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.",
+			}),
+		),
+		/**
+		 * Description of the message to reply to
+		 */
+		reply_parameters: Schema.optional(Objects.ReplyParameters).pipe(
+			Schema.annotate({ description: "Description of the message to reply to" }),
+		),
+		/**
+		 * Additional interface options. A JSON-serialized object for an inline
+		 * keyboard, custom reply keyboard, instructions to remove a reply keyboard or
+		 * to force a reply from the user.
+		 */
+		reply_markup: Schema.optional(
+			Schema.Union([
+				Objects.InlineKeyboardMarkup,
+				Objects.ReplyKeyboardMarkup,
+				Objects.ReplyKeyboardRemove,
+				Objects.ForceReply,
+			]),
+		).pipe(
+			Schema.annotate({
+				description:
+					"Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.",
+			}),
+		),
+	}).pipe(
+		Schema.annotate({
+			description:
+				"Use this method to send static .WEBP, animated .TGS, or video .WEBM stickers. On success, the sent Message",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asMultipart(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Objects.Message,
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+});
+
+/**
  * Use this method to send information about a venue. On success, the sent
  * Message
  * @see https://core.telegram.org/bots/api#sendvenue
@@ -9176,6 +10550,117 @@ export const setChatTitle = HttpApiEndpoint.post("setChatTitle", "/setChatTitle"
 });
 
 /**
+ * Use this method to set the thumbnail of a custom emoji sticker set
+ * @see https://core.telegram.org/bots/api#setcustomemojistickersetthumbnail
+ */
+export const setCustomEmojiStickerSetThumbnail = HttpApiEndpoint.post(
+	"setCustomEmojiStickerSetThumbnail",
+	"/setCustomEmojiStickerSetThumbnail",
+	{
+		payload: Schema.Struct({
+			/**
+			 * Sticker set name
+			 */
+			name: Schema.String.pipe(Schema.annotate({ description: "Sticker set name" })),
+			/**
+			 * Custom emoji identifier of a sticker from the sticker set; pass an empty
+			 * string to drop the thumbnail and use the first sticker as the thumbnail
+			 */
+			custom_emoji_id: Schema.optional(Schema.String).pipe(
+				Schema.annotate({
+					description:
+						"Custom emoji identifier of a sticker from the sticker set; pass an empty string to drop the thumbnail and use the first sticker as the thumbnail",
+				}),
+			),
+		}).pipe(
+			Schema.annotate({ description: "Use this method to set the thumbnail of a custom emoji sticker set" }),
+			Schema.toCodecJson,
+			HttpApiSchema.asJson(),
+		),
+		success: Schema.Struct({
+			ok: Schema.Literal(true),
+			result: Schema.Literal(true),
+		}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+	},
+);
+
+/**
+ * Use this method to set the score of the specified user in a game message. On
+ * success, if the message is not an inline message, the Message
+ * @see https://core.telegram.org/bots/api#setgamescore
+ */
+export const setGameScore = HttpApiEndpoint.post("setGameScore", "/setGameScore", {
+	payload: Schema.Struct({
+		/**
+		 * User identifier
+		 */
+		user_id: Schema.Int.pipe(Schema.annotate({ description: "User identifier" })),
+		/**
+		 * New score, must be non-negative
+		 */
+		score: Schema.Int.pipe(Schema.annotate({ description: "New score, must be non-negative" })),
+		/**
+		 * Pass True if the high score is allowed to decrease. This can be useful when
+		 * fixing mistakes or banning cheaters.
+		 */
+		force: Schema.optional(Schema.Boolean).pipe(
+			Schema.annotate({
+				description:
+					"Pass True if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters.",
+			}),
+		),
+		/**
+		 * Pass True if the game message should not be automatically edited to include
+		 * the current scoreboard
+		 */
+		disable_edit_message: Schema.optional(Schema.Boolean).pipe(
+			Schema.annotate({
+				description:
+					"Pass True if the game message should not be automatically edited to include the current scoreboard",
+			}),
+		),
+		/**
+		 * Required if inline_message_id is not specified. Unique identifier for the
+		 * target chat.
+		 */
+		chat_id: Schema.optional(Schema.Int).pipe(
+			Schema.annotate({
+				description: "Required if inline_message_id is not specified. Unique identifier for the target chat.",
+			}),
+		),
+		/**
+		 * Required if inline_message_id is not specified. Identifier of the sent
+		 * message.
+		 */
+		message_id: Schema.optional(Schema.Int).pipe(
+			Schema.annotate({
+				description: "Required if inline_message_id is not specified. Identifier of the sent message.",
+			}),
+		),
+		/**
+		 * Required if chat_id and message_id are not specified. Identifier of the
+		 * inline message.
+		 */
+		inline_message_id: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description: "Required if chat_id and message_id are not specified. Identifier of the inline message.",
+			}),
+		),
+	}).pipe(
+		Schema.annotate({
+			description:
+				"Use this method to set the score of the specified user in a game message. On success, if the message is not an inline message, the Message",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Union([Objects.Message, Schema.Literal(true)]),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+});
+
+/**
  * Use this method to change the access settings of a managed bot
  * @see https://core.telegram.org/bots/api#setmanagedbotaccesssettings
  */
@@ -9589,6 +11074,254 @@ export const setMyShortDescription = HttpApiEndpoint.post("setMyShortDescription
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
 	],
+});
+
+/**
+ * Informs a user that some of the Telegram Passport elements they provided
+ * contains errors. The user will not be able to re-submit their Passport to you
+ * until the errors are fixed (the contents of the field for which you returned
+ * the error must change)
+ * @see https://core.telegram.org/bots/api#setpassportdataerrors
+ */
+export const setPassportDataErrors = HttpApiEndpoint.post("setPassportDataErrors", "/setPassportDataErrors", {
+	payload: Schema.Struct({
+		/**
+		 * User identifier
+		 */
+		user_id: Schema.Int.pipe(Schema.annotate({ description: "User identifier" })),
+		/**
+		 * A JSON-serialized array describing the errors
+		 */
+		errors: Schema.Array(Objects.PassportElementError).pipe(
+			Schema.annotate({ description: "A JSON-serialized array describing the errors" }),
+		),
+	}).pipe(
+		Schema.annotate({
+			description:
+				"Informs a user that some of the Telegram Passport elements they provided contains errors. The user will not be able to re-submit their Passport to you until the errors are fixed (the contents of the field for which you returned the error must change)",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Literal(true),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+});
+
+/**
+ * Use this method to change the list of emoji assigned to a regular or custom
+ * emoji sticker. The sticker must belong to a sticker set created by the bot
+ * @see https://core.telegram.org/bots/api#setstickeremojilist
+ */
+export const setStickerEmojiList = HttpApiEndpoint.post("setStickerEmojiList", "/setStickerEmojiList", {
+	payload: Schema.Struct({
+		/**
+		 * File identifier of the sticker
+		 */
+		sticker: Schema.String.pipe(Schema.annotate({ description: "File identifier of the sticker" })),
+		/**
+		 * A JSON-serialized list of 1-20 emoji associated with the sticker
+		 */
+		emoji_list: Schema.Array(Schema.String).pipe(
+			Schema.annotate({ description: "A JSON-serialized list of 1-20 emoji associated with the sticker" }),
+		),
+	}).pipe(
+		Schema.annotate({
+			description:
+				"Use this method to change the list of emoji assigned to a regular or custom emoji sticker. The sticker must belong to a sticker set created by the bot",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Literal(true),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+});
+
+/**
+ * Use this method to change search keywords assigned to a regular or custom
+ * emoji sticker. The sticker must belong to a sticker set created by the bot
+ * @see https://core.telegram.org/bots/api#setstickerkeywords
+ */
+export const setStickerKeywords = HttpApiEndpoint.post("setStickerKeywords", "/setStickerKeywords", {
+	payload: Schema.Struct({
+		/**
+		 * File identifier of the sticker
+		 */
+		sticker: Schema.String.pipe(Schema.annotate({ description: "File identifier of the sticker" })),
+		/**
+		 * A JSON-serialized list of 0-20 search keywords for the sticker with total
+		 * length of up to 64 characters
+		 */
+		keywords: Schema.optional(Schema.Array(Schema.String)).pipe(
+			Schema.annotate({
+				description:
+					"A JSON-serialized list of 0-20 search keywords for the sticker with total length of up to 64 characters",
+			}),
+		),
+	}).pipe(
+		Schema.annotate({
+			description:
+				"Use this method to change search keywords assigned to a regular or custom emoji sticker. The sticker must belong to a sticker set created by the bot",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Literal(true),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+});
+
+/**
+ * Use this method to change the mask position of a mask sticker. The sticker
+ * must belong to a sticker set that was created by the bot
+ * @see https://core.telegram.org/bots/api#setstickermaskposition
+ */
+export const setStickerMaskPosition = HttpApiEndpoint.post("setStickerMaskPosition", "/setStickerMaskPosition", {
+	payload: Schema.Struct({
+		/**
+		 * File identifier of the sticker
+		 */
+		sticker: Schema.String.pipe(Schema.annotate({ description: "File identifier of the sticker" })),
+		/**
+		 * A JSON-serialized object with the position where the mask should be placed
+		 * on faces. Omit the parameter to remove the mask position.
+		 */
+		mask_position: Schema.optional(Objects.MaskPosition).pipe(
+			Schema.annotate({
+				description:
+					"A JSON-serialized object with the position where the mask should be placed on faces. Omit the parameter to remove the mask position.",
+			}),
+		),
+	}).pipe(
+		Schema.annotate({
+			description:
+				"Use this method to change the mask position of a mask sticker. The sticker must belong to a sticker set that was created by the bot",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Literal(true),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+});
+
+/**
+ * Use this method to move a sticker in a set created by the bot to a specific
+ * position
+ * @see https://core.telegram.org/bots/api#setstickerpositioninset
+ */
+export const setStickerPositionInSet = HttpApiEndpoint.post("setStickerPositionInSet", "/setStickerPositionInSet", {
+	payload: Schema.Struct({
+		/**
+		 * File identifier of the sticker
+		 */
+		sticker: Schema.String.pipe(Schema.annotate({ description: "File identifier of the sticker" })),
+		/**
+		 * New sticker position in the set, zero-based
+		 */
+		position: Schema.Int.pipe(Schema.annotate({ description: "New sticker position in the set, zero-based" })),
+	}).pipe(
+		Schema.annotate({
+			description: "Use this method to move a sticker in a set created by the bot to a specific position",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Literal(true),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+});
+
+/**
+ * Use this method to set the thumbnail of a regular or mask sticker set. The
+ * format of the thumbnail file must match the format of the stickers in the set
+ * @see https://core.telegram.org/bots/api#setstickersetthumbnail
+ */
+export const setStickerSetThumbnail = HttpApiEndpoint.post("setStickerSetThumbnail", "/setStickerSetThumbnail", {
+	payload: Schema.Struct({
+		/**
+		 * Sticker set name
+		 */
+		name: Schema.String.pipe(Schema.annotate({ description: "Sticker set name" })),
+		/**
+		 * User identifier of the sticker set owner
+		 */
+		user_id: Schema.Int.pipe(Schema.annotate({ description: "User identifier of the sticker set owner" })),
+		/**
+		 * A .WEBP or .PNG image with the thumbnail, must be up to 128 kilobytes in
+		 * size and have a width and height of exactly 100px, or a .TGS animation with
+		 * a thumbnail up to 32 kilobytes in size (see
+		 * https://core.telegram.org/stickers#animation-requirements for animated
+		 * sticker technical requirements), or a .WEBM video with the thumbnail up to
+		 * 32 kilobytes in size; see
+		 * https://core.telegram.org/stickers#video-requirements for video sticker
+		 * technical requirements. Pass a file_id as a String to send a file that
+		 * already exists on the Telegram servers, pass an HTTP URL as a String for
+		 * Telegram to get a file from the Internet, or upload a new one using
+		 * multipart/form-data. More information on Sending Files ». Animated and
+		 * video sticker set thumbnails can't be uploaded via HTTP URL. If omitted,
+		 * then the thumbnail is dropped and the first sticker is used as the
+		 * thumbnail.
+		 */
+		thumbnail: Schema.optional(Schema.Union([Objects.InputFile, Schema.String])).pipe(
+			Schema.annotate({
+				description:
+					"A .WEBP or .PNG image with the thumbnail, must be up to 128 kilobytes in size and have a width and height of exactly 100px, or a .TGS animation with a thumbnail up to 32 kilobytes in size (see https://core.telegram.org/stickers#animation-requirements for animated sticker technical requirements), or a .WEBM video with the thumbnail up to 32 kilobytes in size; see https://core.telegram.org/stickers#video-requirements for video sticker technical requirements. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files ». Animated and video sticker set thumbnails can't be uploaded via HTTP URL. If omitted, then the thumbnail is dropped and the first sticker is used as the thumbnail.",
+			}),
+		),
+		/**
+		 * Format of the thumbnail, must be one of “static” for a .WEBP or .PNG image,
+		 * “animated” for a .TGS animation, or “video” for a .WEBM video
+		 */
+		format: Schema.String.pipe(
+			Schema.annotate({
+				description:
+					"Format of the thumbnail, must be one of “static” for a .WEBP or .PNG image, “animated” for a .TGS animation, or “video” for a .WEBM video",
+			}),
+		),
+	}).pipe(
+		Schema.annotate({
+			description:
+				"Use this method to set the thumbnail of a regular or mask sticker set. The format of the thumbnail file must match the format of the stickers in the set",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asMultipart(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Literal(true),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+});
+
+/**
+ * Use this method to set the title of a created sticker set
+ * @see https://core.telegram.org/bots/api#setstickersettitle
+ */
+export const setStickerSetTitle = HttpApiEndpoint.post("setStickerSetTitle", "/setStickerSetTitle", {
+	payload: Schema.Struct({
+		/**
+		 * Sticker set name
+		 */
+		name: Schema.String.pipe(Schema.annotate({ description: "Sticker set name" })),
+		/**
+		 * Sticker set title, 1-64 characters
+		 */
+		title: Schema.String.pipe(Schema.annotate({ description: "Sticker set title, 1-64 characters" })),
+	}).pipe(
+		Schema.annotate({ description: "Use this method to set the title of a created sticker set" }),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Literal(true),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 });
 
 /**
@@ -10360,6 +12093,49 @@ export const upgradeGift = HttpApiEndpoint.post("upgradeGift", "/upgradeGift", {
 });
 
 /**
+ * Use this method to upload a file with a sticker for later use in the
+ * createNewStickerSet, addStickerToSet, or replaceStickerInSet methods (the
+ * file can be used multiple times)
+ * @see https://core.telegram.org/bots/api#uploadstickerfile
+ */
+export const uploadStickerFile = HttpApiEndpoint.post("uploadStickerFile", "/uploadStickerFile", {
+	payload: Schema.Struct({
+		/**
+		 * User identifier of sticker file owner
+		 */
+		user_id: Schema.Int.pipe(Schema.annotate({ description: "User identifier of sticker file owner" })),
+		/**
+		 * A file with the sticker in .WEBP, .PNG, .TGS, or .WEBM format. See
+		 * https://core.telegram.org/stickers for technical requirements. More
+		 * information on Sending Files »
+		 */
+		sticker: Objects.InputFile.pipe(
+			Schema.annotate({
+				description:
+					"A file with the sticker in .WEBP, .PNG, .TGS, or .WEBM format. See https://core.telegram.org/stickers for technical requirements. More information on Sending Files »",
+			}),
+		),
+		/**
+		 * Format of the sticker, must be one of “static”, “animated”, “video”
+		 */
+		sticker_format: Schema.String.pipe(
+			Schema.annotate({ description: "Format of the sticker, must be one of “static”, “animated”, “video”" }),
+		),
+	}).pipe(
+		Schema.annotate({
+			description:
+				"Use this method to upload a file with a sticker for later use in the createNewStickerSet, addStickerToSet, or replaceStickerInSet methods (the file can be used multiple times)",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asMultipart(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Objects.File,
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+});
+
+/**
  * Verifies a chat on behalf of the organization which is represented by the bot
  * @see https://core.telegram.org/bots/api#verifychat
  */
@@ -10444,8 +12220,12 @@ export const verifyUser = HttpApiEndpoint.post("verifyUser", "/verifyUser", {
 
 export const TelegramBotApi = HttpApi.make("TelegramBotApi").add(
 	HttpApiGroup.make("methods", { topLevel: true }).add(
+		addStickerToSet,
 		answerCallbackQuery,
 		answerGuestQuery,
+		answerInlineQuery,
+		answerPreCheckoutQuery,
+		answerShippingQuery,
 		answerWebAppQuery,
 		approveChatJoinRequest,
 		approveSuggestedPost,
@@ -10460,6 +12240,8 @@ export const TelegramBotApi = HttpApi.make("TelegramBotApi").add(
 		createChatInviteLink,
 		createChatSubscriptionInviteLink,
 		createForumTopic,
+		createInvoiceLink,
+		createNewStickerSet,
 		declineChatJoinRequest,
 		declineSuggestedPost,
 		deleteAllMessageReactions,
@@ -10471,6 +12253,8 @@ export const TelegramBotApi = HttpApi.make("TelegramBotApi").add(
 		deleteMessageReaction,
 		deleteMessages,
 		deleteMyCommands,
+		deleteStickerFromSet,
+		deleteStickerSet,
 		deleteStory,
 		deleteWebhook,
 		editChatInviteLink,
@@ -10484,6 +12268,7 @@ export const TelegramBotApi = HttpApi.make("TelegramBotApi").add(
 		editMessageReplyMarkup,
 		editMessageText,
 		editStory,
+		editUserStarSubscription,
 		exportChatInviteLink,
 		forwardMessage,
 		forwardMessages,
@@ -10497,8 +12282,10 @@ export const TelegramBotApi = HttpApi.make("TelegramBotApi").add(
 		getChatMember,
 		getChatMemberCount,
 		getChatMenuButton,
+		getCustomEmojiStickers,
 		getFile,
 		getForumTopicIconStickers,
+		getGameHighScores,
 		getManagedBotAccessSettings,
 		getManagedBotToken,
 		getMe,
@@ -10507,6 +12294,9 @@ export const TelegramBotApi = HttpApi.make("TelegramBotApi").add(
 		getMyDescription,
 		getMyName,
 		getMyShortDescription,
+		getMyStarBalance,
+		getStarTransactions,
+		getStickerSet,
 		getUpdates,
 		getUserChatBoosts,
 		getUserGifts,
@@ -10522,6 +12312,7 @@ export const TelegramBotApi = HttpApi.make("TelegramBotApi").add(
 		postStory,
 		promoteChatMember,
 		readBusinessMessage,
+		refundStarPayment,
 		removeBusinessAccountProfilePhoto,
 		removeChatVerification,
 		removeMyProfilePhoto,
@@ -10529,6 +12320,7 @@ export const TelegramBotApi = HttpApi.make("TelegramBotApi").add(
 		reopenForumTopic,
 		reopenGeneralForumTopic,
 		replaceManagedBotToken,
+		replaceStickerInSet,
 		repostStory,
 		restrictChatMember,
 		revokeChatInviteLink,
@@ -10541,7 +12333,9 @@ export const TelegramBotApi = HttpApi.make("TelegramBotApi").add(
 		sendContact,
 		sendDice,
 		sendDocument,
+		sendGame,
 		sendGift,
+		sendInvoice,
 		sendLivePhoto,
 		sendLocation,
 		sendMediaGroup,
@@ -10550,6 +12344,7 @@ export const TelegramBotApi = HttpApi.make("TelegramBotApi").add(
 		sendPaidMedia,
 		sendPhoto,
 		sendPoll,
+		sendSticker,
 		sendVenue,
 		sendVideo,
 		sendVideoNote,
@@ -10567,6 +12362,8 @@ export const TelegramBotApi = HttpApi.make("TelegramBotApi").add(
 		setChatPhoto,
 		setChatStickerSet,
 		setChatTitle,
+		setCustomEmojiStickerSetThumbnail,
+		setGameScore,
 		setManagedBotAccessSettings,
 		setMessageReaction,
 		setMyCommands,
@@ -10575,6 +12372,13 @@ export const TelegramBotApi = HttpApi.make("TelegramBotApi").add(
 		setMyName,
 		setMyProfilePhoto,
 		setMyShortDescription,
+		setPassportDataErrors,
+		setStickerEmojiList,
+		setStickerKeywords,
+		setStickerMaskPosition,
+		setStickerPositionInSet,
+		setStickerSetThumbnail,
+		setStickerSetTitle,
 		setUserEmojiStatus,
 		setWebhook,
 		stopMessageLiveLocation,
@@ -10589,6 +12393,7 @@ export const TelegramBotApi = HttpApi.make("TelegramBotApi").add(
 		unpinAllGeneralForumTopicMessages,
 		unpinChatMessage,
 		upgradeGift,
+		uploadStickerFile,
 		verifyChat,
 		verifyUser,
 	),

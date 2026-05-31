@@ -1,0 +1,36 @@
+{
+	"kind": "method",
+	"name": "uploadStickerFile",
+	"slug": "uploadstickerfile",
+	"description": "Use this method to upload a file with a sticker for later use in the createNewStickerSet, addStickerToSet, or replaceStickerInSet methods (the file can be used multiple times)",
+	"parameters": [
+		{
+			"name": "user_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "User identifier of sticker file owner"
+		},
+		{
+			"name": "sticker",
+			"type": {
+				"kind": "file"
+			},
+			"required": true,
+			"description": "A file with the sticker in .WEBP, .PNG, .TGS, or .WEBM format. See https://core.telegram.org/stickers for technical requirements. More information on Sending Files »"
+		},
+		{
+			"name": "sticker_format",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Format of the sticker, must be one of “static”, “animated”, “video”"
+		}
+	],
+	"returns": {
+		"kind": "ref",
+		"name": "File"
+	}
+}

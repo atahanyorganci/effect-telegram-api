@@ -1,0 +1,26 @@
+{
+	"kind": "method",
+	"name": "getCustomEmojiStickers",
+	"slug": "getcustomemojistickers",
+	"description": "Use this method to get information about custom emoji stickers by their identifiers",
+	"parameters": [
+		{
+			"name": "custom_emoji_ids",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "string"
+				}
+			},
+			"required": true,
+			"description": "A JSON-serialized list of custom emoji identifiers. At most 200 custom emoji identifiers can be specified."
+		}
+	],
+	"returns": {
+		"kind": "array",
+		"element": {
+			"kind": "ref",
+			"name": "Sticker"
+		}
+	}
+}

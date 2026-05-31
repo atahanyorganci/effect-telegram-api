@@ -1,0 +1,64 @@
+{
+	"kind": "method",
+	"name": "createNewStickerSet",
+	"slug": "createnewstickerset",
+	"description": "Use this method to create a new sticker set owned by a user. The bot will be able to edit the sticker set thus created",
+	"parameters": [
+		{
+			"name": "user_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "User identifier of created sticker set owner"
+		},
+		{
+			"name": "name",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Short name of sticker set, to be used in t.me/addstickers/ URLs (e.g., animals). Can contain only English letters, digits and underscores. Must begin with a letter, can't contain consecutive underscores and must end in \"_by_<bot_username>\". <bot_username> is case insensitive. 1-64 characters."
+		},
+		{
+			"name": "title",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Sticker set title, 1-64 characters"
+		},
+		{
+			"name": "stickers",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "InputSticker"
+				}
+			},
+			"required": true,
+			"description": "A JSON-serialized list of 1-50 initial stickers to be added to the sticker set"
+		},
+		{
+			"name": "sticker_type",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Type of stickers in the set, pass “regular”, “mask”, or “custom_emoji”. By default, a regular sticker set is created."
+		},
+		{
+			"name": "needs_repainting",
+			"type": {
+				"kind": "boolean"
+			},
+			"required": false,
+			"description": "Pass True if stickers in the sticker set must be repainted to the color of text when used in messages, the accent color if used as emoji status, white on chat photos, or another appropriate color based on context; for custom emoji sticker sets only"
+		}
+	],
+	"returns": {
+		"kind": "literal",
+		"value": true
+	}
+}

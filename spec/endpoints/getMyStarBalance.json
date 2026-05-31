@@ -1,0 +1,11 @@
+{
+	"kind": "method",
+	"name": "getMyStarBalance",
+	"slug": "getmystarbalance",
+	"description": "A method to get the current Telegram Stars balance of the bot",
+	"parameters": [],
+	"returns": {
+		"kind": "ref",
+		"name": "StarAmount"
+	}
+}

@@ -1,0 +1,32 @@
+{
+	"kind": "method",
+	"name": "setPassportDataErrors",
+	"slug": "setpassportdataerrors",
+	"description": "Informs a user that some of the Telegram Passport elements they provided contains errors. The user will not be able to re-submit their Passport to you until the errors are fixed (the contents of the field for which you returned the error must change)",
+	"parameters": [
+		{
+			"name": "user_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "User identifier"
+		},
+		{
+			"name": "errors",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "PassportElementError"
+				}
+			},
+			"required": true,
+			"description": "A JSON-serialized array describing the errors"
+		}
+	],
+	"returns": {
+		"kind": "literal",
+		"value": true
+	}
+}

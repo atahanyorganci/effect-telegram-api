@@ -21,6 +21,12 @@ export const withToken = (token: string) =>
 		Effect.gen(function* () {
 			const apiClient = yield* HttpApiClient.make(TelegramBotApi, { baseUrl: `${BASE_URL}/bot${token}` });
 
+			const addStickerToSet = (payload =>
+				apiClient.addStickerToSet({ payload }).pipe(
+					Effect.map(response => response.result),
+
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["addStickerToSet"];
 			const answerCallbackQuery = (payload =>
 				apiClient.answerCallbackQuery({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -65,6 +71,24 @@ export const withToken = (token: string) =>
 					}),
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["answerGuestQuery"];
+			const answerInlineQuery = (payload =>
+				apiClient.answerInlineQuery({ payload }).pipe(
+					Effect.map(response => response.result),
+
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["answerInlineQuery"];
+			const answerPreCheckoutQuery = (payload =>
+				apiClient.answerPreCheckoutQuery({ payload }).pipe(
+					Effect.map(response => response.result),
+
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["answerPreCheckoutQuery"];
+			const answerShippingQuery = (payload =>
+				apiClient.answerShippingQuery({ payload }).pipe(
+					Effect.map(response => response.result),
+
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["answerShippingQuery"];
 			const answerWebAppQuery = (payload =>
 				apiClient.answerWebAppQuery({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -451,6 +475,18 @@ export const withToken = (token: string) =>
 					}),
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["createForumTopic"];
+			const createInvoiceLink = (payload =>
+				apiClient.createInvoiceLink({ payload }).pipe(
+					Effect.map(response => response.result),
+
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["createInvoiceLink"];
+			const createNewStickerSet = (payload =>
+				apiClient.createNewStickerSet({ payload }).pipe(
+					Effect.map(response => response.result),
+
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["createNewStickerSet"];
 			const declineChatJoinRequest = (payload =>
 				apiClient.declineChatJoinRequest({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -735,6 +771,18 @@ export const withToken = (token: string) =>
 					}),
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["deleteMyCommands"];
+			const deleteStickerFromSet = (payload =>
+				apiClient.deleteStickerFromSet({ payload }).pipe(
+					Effect.map(response => response.result),
+
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["deleteStickerFromSet"];
+			const deleteStickerSet = (payload =>
+				apiClient.deleteStickerSet({ payload }).pipe(
+					Effect.map(response => response.result),
+
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["deleteStickerSet"];
 			const deleteStory = (payload =>
 				apiClient.deleteStory({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -1045,6 +1093,12 @@ export const withToken = (token: string) =>
 					}),
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["editStory"];
+			const editUserStarSubscription = (payload =>
+				apiClient.editUserStarSubscription({ payload }).pipe(
+					Effect.map(response => response.result),
+
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["editUserStarSubscription"];
 			const exportChatInviteLink = (payload =>
 				apiClient.exportChatInviteLink({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -1415,6 +1469,12 @@ export const withToken = (token: string) =>
 					}),
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getChatMenuButton"];
+			const getCustomEmojiStickers = (payload =>
+				apiClient.getCustomEmojiStickers({ payload }).pipe(
+					Effect.map(response => response.result),
+
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["getCustomEmojiStickers"];
 			const getFile = (payload =>
 				apiClient.getFile({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -1459,6 +1519,12 @@ export const withToken = (token: string) =>
 					}),
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getForumTopicIconStickers"];
+			const getGameHighScores = (payload =>
+				apiClient.getGameHighScores({ payload }).pipe(
+					Effect.map(response => response.result),
+
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["getGameHighScores"];
 			const getManagedBotAccessSettings = (payload =>
 				apiClient.getManagedBotAccessSettings({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -1617,6 +1683,24 @@ export const withToken = (token: string) =>
 					}),
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getMyShortDescription"];
+			const getMyStarBalance = (() =>
+				apiClient.getMyStarBalance().pipe(
+					Effect.map(response => response.result),
+
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["getMyStarBalance"];
+			const getStarTransactions = (payload =>
+				apiClient.getStarTransactions({ payload }).pipe(
+					Effect.map(response => response.result),
+
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["getStarTransactions"];
+			const getStickerSet = (payload =>
+				apiClient.getStickerSet({ payload }).pipe(
+					Effect.map(response => response.result),
+
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["getStickerSet"];
 			const getUpdates = (payload =>
 				apiClient.getUpdates({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -2001,6 +2085,12 @@ export const withToken = (token: string) =>
 					}),
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["readBusinessMessage"];
+			const refundStarPayment = (payload =>
+				apiClient.refundStarPayment({ payload }).pipe(
+					Effect.map(response => response.result),
+
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["refundStarPayment"];
 			const removeBusinessAccountProfilePhoto = (payload =>
 				apiClient.removeBusinessAccountProfilePhoto({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -2179,6 +2269,12 @@ export const withToken = (token: string) =>
 					}),
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["replaceManagedBotToken"];
+			const replaceStickerInSet = (payload =>
+				apiClient.replaceStickerInSet({ payload }).pipe(
+					Effect.map(response => response.result),
+
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["replaceStickerInSet"];
 			const repostStory = (payload =>
 				apiClient.repostStory({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -2491,6 +2587,12 @@ export const withToken = (token: string) =>
 					}),
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["sendDocument"];
+			const sendGame = (payload =>
+				apiClient.sendGame({ payload }).pipe(
+					Effect.map(response => response.result),
+
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["sendGame"];
 			const sendGift = (payload =>
 				apiClient.sendGift({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -2519,6 +2621,12 @@ export const withToken = (token: string) =>
 					}),
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["sendGift"];
+			const sendInvoice = (payload =>
+				apiClient.sendInvoice({ payload }).pipe(
+					Effect.map(response => response.result),
+
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["sendInvoice"];
 			const sendLivePhoto = (payload =>
 				apiClient.sendLivePhoto({ payload: payload as unknown as FormData }).pipe(
 					Effect.map(response => response.result),
@@ -3194,6 +3302,12 @@ export const withToken = (token: string) =>
 					}),
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["sendPoll"];
+			const sendSticker = (payload =>
+				apiClient.sendSticker({ payload: payload as unknown as FormData }).pipe(
+					Effect.map(response => response.result),
+
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["sendSticker"];
 			const sendVenue = (payload =>
 				apiClient.sendVenue({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -3688,6 +3802,18 @@ export const withToken = (token: string) =>
 					}),
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["setChatTitle"];
+			const setCustomEmojiStickerSetThumbnail = (payload =>
+				apiClient.setCustomEmojiStickerSetThumbnail({ payload }).pipe(
+					Effect.map(response => response.result),
+
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["setCustomEmojiStickerSetThumbnail"];
+			const setGameScore = (payload =>
+				apiClient.setGameScore({ payload }).pipe(
+					Effect.map(response => response.result),
+
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["setGameScore"];
 			const setManagedBotAccessSettings = (payload =>
 				apiClient.setManagedBotAccessSettings({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -3895,6 +4021,48 @@ export const withToken = (token: string) =>
 					}),
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["setMyShortDescription"];
+			const setPassportDataErrors = (payload =>
+				apiClient.setPassportDataErrors({ payload }).pipe(
+					Effect.map(response => response.result),
+
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["setPassportDataErrors"];
+			const setStickerEmojiList = (payload =>
+				apiClient.setStickerEmojiList({ payload }).pipe(
+					Effect.map(response => response.result),
+
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["setStickerEmojiList"];
+			const setStickerKeywords = (payload =>
+				apiClient.setStickerKeywords({ payload }).pipe(
+					Effect.map(response => response.result),
+
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["setStickerKeywords"];
+			const setStickerMaskPosition = (payload =>
+				apiClient.setStickerMaskPosition({ payload }).pipe(
+					Effect.map(response => response.result),
+
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["setStickerMaskPosition"];
+			const setStickerPositionInSet = (payload =>
+				apiClient.setStickerPositionInSet({ payload }).pipe(
+					Effect.map(response => response.result),
+
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["setStickerPositionInSet"];
+			const setStickerSetThumbnail = (payload =>
+				apiClient.setStickerSetThumbnail({ payload: payload as unknown as FormData }).pipe(
+					Effect.map(response => response.result),
+
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["setStickerSetThumbnail"];
+			const setStickerSetTitle = (payload =>
+				apiClient.setStickerSetTitle({ payload }).pipe(
+					Effect.map(response => response.result),
+
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["setStickerSetTitle"];
 			const setUserEmojiStatus = (payload =>
 				apiClient.setUserEmojiStatus({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -4221,6 +4389,12 @@ export const withToken = (token: string) =>
 					}),
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["upgradeGift"];
+			const uploadStickerFile = (payload =>
+				apiClient.uploadStickerFile({ payload: payload as unknown as FormData }).pipe(
+					Effect.map(response => response.result),
+
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["uploadStickerFile"];
 			const verifyChat = (payload =>
 				apiClient.verifyChat({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -4279,8 +4453,12 @@ export const withToken = (token: string) =>
 				)) as TelegramClientService["verifyUser"];
 
 			return {
+				addStickerToSet,
 				answerCallbackQuery,
 				answerGuestQuery,
+				answerInlineQuery,
+				answerPreCheckoutQuery,
+				answerShippingQuery,
 				answerWebAppQuery,
 				approveChatJoinRequest,
 				approveSuggestedPost,
@@ -4295,6 +4473,8 @@ export const withToken = (token: string) =>
 				createChatInviteLink,
 				createChatSubscriptionInviteLink,
 				createForumTopic,
+				createInvoiceLink,
+				createNewStickerSet,
 				declineChatJoinRequest,
 				declineSuggestedPost,
 				deleteAllMessageReactions,
@@ -4306,6 +4486,8 @@ export const withToken = (token: string) =>
 				deleteMessageReaction,
 				deleteMessages,
 				deleteMyCommands,
+				deleteStickerFromSet,
+				deleteStickerSet,
 				deleteStory,
 				deleteWebhook,
 				editChatInviteLink,
@@ -4319,6 +4501,7 @@ export const withToken = (token: string) =>
 				editMessageReplyMarkup,
 				editMessageText,
 				editStory,
+				editUserStarSubscription,
 				exportChatInviteLink,
 				forwardMessage,
 				forwardMessages,
@@ -4332,8 +4515,10 @@ export const withToken = (token: string) =>
 				getChatMember,
 				getChatMemberCount,
 				getChatMenuButton,
+				getCustomEmojiStickers,
 				getFile,
 				getForumTopicIconStickers,
+				getGameHighScores,
 				getManagedBotAccessSettings,
 				getManagedBotToken,
 				getMe,
@@ -4342,6 +4527,9 @@ export const withToken = (token: string) =>
 				getMyDescription,
 				getMyName,
 				getMyShortDescription,
+				getMyStarBalance,
+				getStarTransactions,
+				getStickerSet,
 				getUpdates,
 				getUserChatBoosts,
 				getUserGifts,
@@ -4357,6 +4545,7 @@ export const withToken = (token: string) =>
 				postStory,
 				promoteChatMember,
 				readBusinessMessage,
+				refundStarPayment,
 				removeBusinessAccountProfilePhoto,
 				removeChatVerification,
 				removeMyProfilePhoto,
@@ -4364,6 +4553,7 @@ export const withToken = (token: string) =>
 				reopenForumTopic,
 				reopenGeneralForumTopic,
 				replaceManagedBotToken,
+				replaceStickerInSet,
 				repostStory,
 				restrictChatMember,
 				revokeChatInviteLink,
@@ -4376,7 +4566,9 @@ export const withToken = (token: string) =>
 				sendContact,
 				sendDice,
 				sendDocument,
+				sendGame,
 				sendGift,
+				sendInvoice,
 				sendLivePhoto,
 				sendLocation,
 				sendMediaGroup,
@@ -4385,6 +4577,7 @@ export const withToken = (token: string) =>
 				sendPaidMedia,
 				sendPhoto,
 				sendPoll,
+				sendSticker,
 				sendVenue,
 				sendVideo,
 				sendVideoNote,
@@ -4402,6 +4595,8 @@ export const withToken = (token: string) =>
 				setChatPhoto,
 				setChatStickerSet,
 				setChatTitle,
+				setCustomEmojiStickerSetThumbnail,
+				setGameScore,
 				setManagedBotAccessSettings,
 				setMessageReaction,
 				setMyCommands,
@@ -4410,6 +4605,13 @@ export const withToken = (token: string) =>
 				setMyName,
 				setMyProfilePhoto,
 				setMyShortDescription,
+				setPassportDataErrors,
+				setStickerEmojiList,
+				setStickerKeywords,
+				setStickerMaskPosition,
+				setStickerPositionInSet,
+				setStickerSetThumbnail,
+				setStickerSetTitle,
 				setUserEmojiStatus,
 				setWebhook,
 				stopMessageLiveLocation,
@@ -4424,6 +4626,7 @@ export const withToken = (token: string) =>
 				unpinAllGeneralForumTopicMessages,
 				unpinChatMessage,
 				upgradeGift,
+				uploadStickerFile,
 				verifyChat,
 				verifyUser,
 			};

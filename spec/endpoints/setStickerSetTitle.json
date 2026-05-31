@@ -1,0 +1,28 @@
+{
+	"kind": "method",
+	"name": "setStickerSetTitle",
+	"slug": "setstickersettitle",
+	"description": "Use this method to set the title of a created sticker set",
+	"parameters": [
+		{
+			"name": "name",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Sticker set name"
+		},
+		{
+			"name": "title",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Sticker set title, 1-64 characters"
+		}
+	],
+	"returns": {
+		"kind": "literal",
+		"value": true
+	}
+}

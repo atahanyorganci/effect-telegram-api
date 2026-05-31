@@ -1,0 +1,20 @@
+{
+	"kind": "method",
+	"name": "getStickerSet",
+	"slug": "getstickerset",
+	"description": "Use this method to get a sticker set. On success, a StickerSet object",
+	"parameters": [
+		{
+			"name": "name",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Name of the sticker set"
+		}
+	],
+	"returns": {
+		"kind": "ref",
+		"name": "StickerSet"
+	}
+}

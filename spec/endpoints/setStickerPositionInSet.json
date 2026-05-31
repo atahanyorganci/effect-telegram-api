@@ -1,0 +1,28 @@
+{
+	"kind": "method",
+	"name": "setStickerPositionInSet",
+	"slug": "setstickerpositioninset",
+	"description": "Use this method to move a sticker in a set created by the bot to a specific position",
+	"parameters": [
+		{
+			"name": "sticker",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "File identifier of the sticker"
+		},
+		{
+			"name": "position",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "New sticker position in the set, zero-based"
+		}
+	],
+	"returns": {
+		"kind": "literal",
+		"value": true
+	}
+}

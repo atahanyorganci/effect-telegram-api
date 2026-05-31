@@ -18,9 +18,11 @@ import type {
 	File,
 	ForceReply,
 	ForumTopic,
+	GameHighScore,
 	Gifts,
 	InlineKeyboardMarkup,
 	InlineQueryResult,
+	InlineQueryResultsButton,
 	InputChecklist,
 	InputFile,
 	InputMedia,
@@ -33,14 +35,18 @@ import type {
 	InputPollMedia,
 	InputPollOption,
 	InputProfilePhoto,
+	InputSticker,
 	InputStoryContent,
 	KeyboardButton,
+	LabeledPrice,
 	LinkPreviewOptions,
+	MaskPosition,
 	MenuButton,
 	Message,
 	MessageEntity,
 	MessageId,
 	OwnedGifts,
+	PassportElementError,
 	Poll,
 	PreparedInlineMessage,
 	PreparedKeyboardButton,
@@ -50,8 +56,11 @@ import type {
 	ReplyParameters,
 	SentGuestMessage,
 	SentWebAppMessage,
+	ShippingOption,
 	StarAmount,
+	StarTransactions,
 	Sticker,
+	StickerSet,
 	Story,
 	StoryArea,
 	SuggestedPostParameters,
@@ -67,6 +76,28 @@ import type * as HttpClientError from "effect/unstable/http/HttpClientError";
 export class TelegramClient extends Context.Service<
 	TelegramClient,
 	{
+		/**
+		 * Use this method to add a new sticker to a set created by the bot. Emoji
+		 * sticker sets can have up to 200 stickers. Other sticker sets can have up to
+		 * 120 stickers
+		 * @see https://core.telegram.org/bots/api#addstickertoset
+		 */
+		readonly addStickerToSet: (payload: {
+			/**
+			 * User identifier of sticker set owner
+			 */
+			readonly user_id: number;
+			/**
+			 * Sticker set name
+			 */
+			readonly name: string;
+			/**
+			 * A JSON-serialized object with information about the added sticker. If
+			 * exactly the same sticker had already been added to the set, then the set
+			 * isn't changed.
+			 */
+			readonly sticker: InputSticker;
+		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
 		/**
 		 * Use this method to send answers to callback queries sent from inline
 		 * keyboards. The answer will be displayed to the user as a notification at the
@@ -133,6 +164,101 @@ export class TelegramClient extends Context.Service<
 			| Errors.TelegramApiError
 			| HttpClientError.HttpClientError
 		>;
+		/**
+		 * Use this method to send answers to an inline query. On success, True
+		 * @see https://core.telegram.org/bots/api#answerinlinequery
+		 */
+		readonly answerInlineQuery: (payload: {
+			/**
+			 * Unique identifier for the answered query
+			 */
+			readonly inline_query_id: string;
+			/**
+			 * A JSON-serialized array of results for the inline query
+			 */
+			readonly results: ReadonlyArray<InlineQueryResult>;
+			/**
+			 * The maximum amount of time in seconds that the result of the inline query
+			 * may be cached on the server. Defaults to 300.
+			 */
+			readonly cache_time?: number | undefined;
+			/**
+			 * Pass True if results may be cached on the server side only for the user
+			 * that sent the query. By default, results may be returned to any user who
+			 * sends the same query.
+			 */
+			readonly is_personal?: boolean | undefined;
+			/**
+			 * Pass the offset that a client should send in the next query with the same
+			 * text to receive more results. Pass an empty string if there are no more
+			 * results or if you don't support pagination. Offset length can't exceed 64
+			 * bytes.
+			 */
+			readonly next_offset?: string | undefined;
+			/**
+			 * A JSON-serialized object describing a button to be shown above inline query
+			 * results
+			 */
+			readonly button?: InlineQueryResultsButton | undefined;
+		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		/**
+		 * Once the user has confirmed their payment and shipping details, the Bot API
+		 * sends the final confirmation in the form of an Update with the field
+		 * pre_checkout_query. Use this method to respond to such pre-checkout queries.
+		 * On success, True
+		 * @see https://core.telegram.org/bots/api#answerprecheckoutquery
+		 */
+		readonly answerPreCheckoutQuery: (payload: {
+			/**
+			 * Unique identifier for the query to be answered
+			 */
+			readonly pre_checkout_query_id: string;
+			/**
+			 * Specify True if everything is alright (goods are available, etc.) and the
+			 * bot is ready to proceed with the order. Use False if there are any
+			 * problems.
+			 */
+			readonly ok: boolean;
+			/**
+			 * Required if ok is False. Error message in human readable form that explains
+			 * the reason for failure to proceed with the checkout (e.g. "Sorry, somebody
+			 * just bought the last of our amazing black T-shirts while you were busy
+			 * filling out your payment details. Please choose a different color or
+			 * garment!"). Telegram will display this message to the user.
+			 */
+			readonly error_message?: string | undefined;
+		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		/**
+		 * If you sent an invoice requesting a shipping address and the parameter
+		 * is_flexible was specified, the Bot API will send an Update with a
+		 * shipping_query field to the bot. Use this method to reply to shipping
+		 * queries. On success, True
+		 * @see https://core.telegram.org/bots/api#answershippingquery
+		 */
+		readonly answerShippingQuery: (payload: {
+			/**
+			 * Unique identifier for the query to be answered
+			 */
+			readonly shipping_query_id: string;
+			/**
+			 * Pass True if delivery to the specified address is possible and False if
+			 * there are any problems (for example, if delivery to the specified address
+			 * is not possible)
+			 */
+			readonly ok: boolean;
+			/**
+			 * Required if ok is True. A JSON-serialized array of available shipping
+			 * options.
+			 */
+			readonly shipping_options?: ReadonlyArray<ShippingOption> | undefined;
+			/**
+			 * Required if ok is False. Error message in human readable form that explains
+			 * why it is impossible to complete the order (e.g. “Sorry, delivery to your
+			 * desired address is unavailable”). Telegram will display this message to the
+			 * user.
+			 */
+			readonly error_message?: string | undefined;
+		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
 		/**
 		 * Use this method to set the result of an interaction with a Web App and send
 		 * a corresponding message on behalf of the user to the chat from which the
@@ -644,6 +770,168 @@ export class TelegramClient extends Context.Service<
 			| HttpClientError.HttpClientError
 		>;
 		/**
+		 * Use this method to create a link for an invoice
+		 * @see https://core.telegram.org/bots/api#createinvoicelink
+		 */
+		readonly createInvoiceLink: (payload: {
+			/**
+			 * Unique identifier of the business connection on behalf of which the link
+			 * will be created. For payments in Telegram Stars only.
+			 */
+			readonly business_connection_id?: string | undefined;
+			/**
+			 * Product name, 1-32 characters
+			 */
+			readonly title: string;
+			/**
+			 * Product description, 1-255 characters
+			 */
+			readonly description: string;
+			/**
+			 * Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the
+			 * user, use it for your internal processes.
+			 */
+			readonly payload: string;
+			/**
+			 * Payment provider token, obtained via @BotFather. Pass an empty string for
+			 * payments in Telegram Stars.
+			 */
+			readonly provider_token?: string | undefined;
+			/**
+			 * Three-letter ISO 4217 currency code, see more on currencies. Pass “XTR” for
+			 * payments in Telegram Stars.
+			 */
+			readonly currency: string;
+			/**
+			 * Price breakdown, a JSON-serialized list of components (e.g. product price,
+			 * tax, discount, delivery cost, delivery tax, bonus, etc.). Must contain
+			 * exactly one item for payments in Telegram Stars.
+			 */
+			readonly prices: ReadonlyArray<LabeledPrice>;
+			/**
+			 * The number of seconds the subscription will be active for before the next
+			 * payment. The currency must be set to “XTR” (Telegram Stars) if the
+			 * parameter is used. Currently, it must always be 2592000 (30 days) if
+			 * specified. Any number of subscriptions can be active for a given bot at the
+			 * same time, including multiple concurrent subscriptions from the same user.
+			 * Subscription price must no exceed 10000 Telegram Stars.
+			 */
+			readonly subscription_period?: number | undefined;
+			/**
+			 * The maximum accepted amount for tips in the smallest units of the currency
+			 * (integer, not float/double). For example, for a maximum tip of US$ 1.45
+			 * pass max_tip_amount = 145. See the exp parameter in currencies.json, it
+			 * shows the number of digits past the decimal point for each currency (2 for
+			 * the majority of currencies). Defaults to 0. Not supported for payments in
+			 * Telegram Stars.
+			 */
+			readonly max_tip_amount?: number | undefined;
+			/**
+			 * A JSON-serialized array of suggested amounts of tips in the smallest units
+			 * of the currency (integer, not float/double). At most 4 suggested tip
+			 * amounts can be specified. The suggested tip amounts must be positive,
+			 * passed in a strictly increased order and must not exceed max_tip_amount.
+			 */
+			readonly suggested_tip_amounts?: ReadonlyArray<number> | undefined;
+			/**
+			 * JSON-serialized data about the invoice, which will be shared with the
+			 * payment provider. A detailed description of required fields should be
+			 * provided by the payment provider.
+			 */
+			readonly provider_data?: string | undefined;
+			/**
+			 * URL of the product photo for the invoice. Can be a photo of the goods or a
+			 * marketing image for a service.
+			 */
+			readonly photo_url?: string | undefined;
+			/**
+			 * Photo size in bytes
+			 */
+			readonly photo_size?: number | undefined;
+			/**
+			 * Photo width
+			 */
+			readonly photo_width?: number | undefined;
+			/**
+			 * Photo height
+			 */
+			readonly photo_height?: number | undefined;
+			/**
+			 * Pass True if you require the user's full name to complete the order.
+			 * Ignored for payments in Telegram Stars.
+			 */
+			readonly need_name?: boolean | undefined;
+			/**
+			 * Pass True if you require the user's phone number to complete the order.
+			 * Ignored for payments in Telegram Stars.
+			 */
+			readonly need_phone_number?: boolean | undefined;
+			/**
+			 * Pass True if you require the user's email address to complete the order.
+			 * Ignored for payments in Telegram Stars.
+			 */
+			readonly need_email?: boolean | undefined;
+			/**
+			 * Pass True if you require the user's shipping address to complete the order.
+			 * Ignored for payments in Telegram Stars.
+			 */
+			readonly need_shipping_address?: boolean | undefined;
+			/**
+			 * Pass True if the user's phone number should be sent to the provider.
+			 * Ignored for payments in Telegram Stars.
+			 */
+			readonly send_phone_number_to_provider?: boolean | undefined;
+			/**
+			 * Pass True if the user's email address should be sent to the provider.
+			 * Ignored for payments in Telegram Stars.
+			 */
+			readonly send_email_to_provider?: boolean | undefined;
+			/**
+			 * Pass True if the final price depends on the shipping method. Ignored for
+			 * payments in Telegram Stars.
+			 */
+			readonly is_flexible?: boolean | undefined;
+		}) => Effect.Effect<string, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		/**
+		 * Use this method to create a new sticker set owned by a user. The bot will be
+		 * able to edit the sticker set thus created
+		 * @see https://core.telegram.org/bots/api#createnewstickerset
+		 */
+		readonly createNewStickerSet: (payload: {
+			/**
+			 * User identifier of created sticker set owner
+			 */
+			readonly user_id: number;
+			/**
+			 * Short name of sticker set, to be used in t.me/addstickers/ URLs (e.g.,
+			 * animals). Can contain only English letters, digits and underscores. Must
+			 * begin with a letter, can't contain consecutive underscores and must end in
+			 * "_by_<bot_username>". <bot_username> is case insensitive. 1-64 characters.
+			 */
+			readonly name: string;
+			/**
+			 * Sticker set title, 1-64 characters
+			 */
+			readonly title: string;
+			/**
+			 * A JSON-serialized list of 1-50 initial stickers to be added to the sticker
+			 * set
+			 */
+			readonly stickers: ReadonlyArray<InputSticker>;
+			/**
+			 * Type of stickers in the set, pass “regular”, “mask”, or “custom_emoji”. By
+			 * default, a regular sticker set is created.
+			 */
+			readonly sticker_type?: string | undefined;
+			/**
+			 * Pass True if stickers in the sticker set must be repainted to the color of
+			 * text when used in messages, the accent color if used as emoji status, white
+			 * on chat photos, or another appropriate color based on context; for custom
+			 * emoji sticker sets only
+			 */
+			readonly needs_repainting?: boolean | undefined;
+		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		/**
 		 * Use this method to decline a chat join request. The bot must be an
 		 * administrator in the chat for this to work and must have the
 		 * can_invite_users administrator right
@@ -944,6 +1232,26 @@ export class TelegramClient extends Context.Service<
 			| Errors.TelegramApiError
 			| HttpClientError.HttpClientError
 		>;
+		/**
+		 * Use this method to delete a sticker from a set created by the bot
+		 * @see https://core.telegram.org/bots/api#deletestickerfromset
+		 */
+		readonly deleteStickerFromSet: (payload: {
+			/**
+			 * File identifier of the sticker
+			 */
+			readonly sticker: string;
+		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		/**
+		 * Use this method to delete a sticker set that was created by the bot
+		 * @see https://core.telegram.org/bots/api#deletestickerset
+		 */
+		readonly deleteStickerSet: (payload: {
+			/**
+			 * Sticker set name
+			 */
+			readonly name: string;
+		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
 		/**
 		 * Deletes a story previously posted by the bot on behalf of a managed business
 		 * account. Requires the can_manage_stories business bot right
@@ -1468,6 +1776,28 @@ export class TelegramClient extends Context.Service<
 			| HttpClientError.HttpClientError
 		>;
 		/**
+		 * Allows the bot to cancel or re-enable extension of a subscription paid in
+		 * Telegram Stars
+		 * @see https://core.telegram.org/bots/api#edituserstarsubscription
+		 */
+		readonly editUserStarSubscription: (payload: {
+			/**
+			 * Identifier of the user whose subscription will be edited
+			 */
+			readonly user_id: number;
+			/**
+			 * Telegram payment identifier for the subscription
+			 */
+			readonly telegram_payment_charge_id: string;
+			/**
+			 * Pass True to cancel extension of the user subscription; the subscription
+			 * must be active up to the end of the current subscription period. Pass False
+			 * to allow the user to re-enable a subscription that was previously canceled
+			 * by the bot.
+			 */
+			readonly is_canceled: boolean;
+		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		/**
 		 * Use this method to generate a new primary invite link for a chat; any
 		 * previously generated primary link is revoked. The bot must be an
 		 * administrator in the chat for this to work and must have the appropriate
@@ -1892,6 +2222,18 @@ export class TelegramClient extends Context.Service<
 			| HttpClientError.HttpClientError
 		>;
 		/**
+		 * Use this method to get information about custom emoji stickers by their
+		 * identifiers
+		 * @see https://core.telegram.org/bots/api#getcustomemojistickers
+		 */
+		readonly getCustomEmojiStickers: (payload: {
+			/**
+			 * A JSON-serialized list of custom emoji identifiers. At most 200 custom
+			 * emoji identifiers can be specified.
+			 */
+			readonly custom_emoji_ids: ReadonlyArray<string>;
+		}) => Effect.Effect<ReadonlyArray<Sticker>, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		/**
 		 * Use this method to get basic information about a file and prepare it for
 		 * downloading. For the moment, bots can download files of up to 20MB in size.
 		 * On success, a File object
@@ -1920,6 +2262,32 @@ export class TelegramClient extends Context.Service<
 			ReadonlyArray<Sticker>,
 			Errors.NotFound | Errors.Unauthorized | Errors.TelegramApiError | HttpClientError.HttpClientError
 		>;
+		/**
+		 * Use this method to get data for high score tables. Will return the score of
+		 * the specified user and several of their neighbors in a game
+		 * @see https://core.telegram.org/bots/api#getgamehighscores
+		 */
+		readonly getGameHighScores: (payload: {
+			/**
+			 * Target user id
+			 */
+			readonly user_id: number;
+			/**
+			 * Required if inline_message_id is not specified. Unique identifier for the
+			 * target chat.
+			 */
+			readonly chat_id?: number | undefined;
+			/**
+			 * Required if inline_message_id is not specified. Identifier of the sent
+			 * message.
+			 */
+			readonly message_id?: number | undefined;
+			/**
+			 * Required if chat_id and message_id are not specified. Identifier of the
+			 * inline message.
+			 */
+			readonly inline_message_id?: string | undefined;
+		}) => Effect.Effect<ReadonlyArray<GameHighScore>, Errors.TelegramApiError | HttpClientError.HttpClientError>;
 		/**
 		 * Use this method to get the access settings of a managed bot
 		 * @see https://core.telegram.org/bots/api#getmanagedbotaccesssettings
@@ -2043,6 +2411,38 @@ export class TelegramClient extends Context.Service<
 			BotShortDescription,
 			Errors.NotFound | Errors.Unauthorized | Errors.TelegramApiError | HttpClientError.HttpClientError
 		>;
+		/**
+		 * A method to get the current Telegram Stars balance of the bot
+		 * @see https://core.telegram.org/bots/api#getmystarbalance
+		 */
+		readonly getMyStarBalance: () => Effect.Effect<
+			StarAmount,
+			Errors.TelegramApiError | HttpClientError.HttpClientError
+		>;
+		/**
+		 * @see https://core.telegram.org/bots/api#getstartransactions
+		 */
+		readonly getStarTransactions: (payload: {
+			/**
+			 * Number of transactions to skip in the response
+			 */
+			readonly offset?: number | undefined;
+			/**
+			 * The maximum number of transactions to be retrieved. Values between 1-100
+			 * are accepted. Defaults to 100.
+			 */
+			readonly limit?: number | undefined;
+		}) => Effect.Effect<StarTransactions, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		/**
+		 * Use this method to get a sticker set. On success, a StickerSet object
+		 * @see https://core.telegram.org/bots/api#getstickerset
+		 */
+		readonly getStickerSet: (payload: {
+			/**
+			 * Name of the sticker set
+			 */
+			readonly name: string;
+		}) => Effect.Effect<StickerSet, Errors.TelegramApiError | HttpClientError.HttpClientError>;
 		/**
 		 * Use this method to receive incoming updates using long polling (wiki)
 		 * @see https://core.telegram.org/bots/api#getupdates
@@ -2586,6 +2986,20 @@ export class TelegramClient extends Context.Service<
 			| HttpClientError.HttpClientError
 		>;
 		/**
+		 * Refunds a successful payment in Telegram Stars
+		 * @see https://core.telegram.org/bots/api#refundstarpayment
+		 */
+		readonly refundStarPayment: (payload: {
+			/**
+			 * Identifier of the user whose payment will be refunded
+			 */
+			readonly user_id: number;
+			/**
+			 * Telegram payment identifier
+			 */
+			readonly telegram_payment_charge_id: string;
+		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		/**
 		 * Removes the current profile photo of a managed business account. Requires
 		 * the can_edit_profile_photo business bot right
 		 * @see https://core.telegram.org/bots/api#removebusinessaccountprofilephoto
@@ -2724,6 +3138,32 @@ export class TelegramClient extends Context.Service<
 			| Errors.TelegramApiError
 			| HttpClientError.HttpClientError
 		>;
+		/**
+		 * Use this method to replace an existing sticker in a sticker set with a new
+		 * one. The method is equivalent to calling deleteStickerFromSet, then
+		 * addStickerToSet, then setStickerPositionInSet
+		 * @see https://core.telegram.org/bots/api#replacestickerinset
+		 */
+		readonly replaceStickerInSet: (payload: {
+			/**
+			 * User identifier of the sticker set owner
+			 */
+			readonly user_id: number;
+			/**
+			 * Sticker set name
+			 */
+			readonly name: string;
+			/**
+			 * File identifier of the replaced sticker
+			 */
+			readonly old_sticker: string;
+			/**
+			 * A JSON-serialized object with information about the added sticker. If
+			 * exactly the same sticker had already been added to the set, then the set
+			 * remains unchanged.
+			 */
+			readonly sticker: InputSticker;
+		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
 		/**
 		 * Reposts a story on behalf of a business account from another business
 		 * account. Both business accounts must be managed by the same bot, and the
@@ -3516,6 +3956,64 @@ export class TelegramClient extends Context.Service<
 			| HttpClientError.HttpClientError
 		>;
 		/**
+		 * Use this method to send a game. On success, the sent Message
+		 * @see https://core.telegram.org/bots/api#sendgame
+		 */
+		readonly sendGame: (payload: {
+			/**
+			 * Unique identifier of the business connection on behalf of which the message
+			 * will be sent
+			 */
+			readonly business_connection_id?: string | undefined;
+			/**
+			 * Unique identifier for the target chat or username of the target bot in the
+			 * format @username. Games can't be sent to channel direct messages chats and
+			 * channel chats.
+			 */
+			readonly chat_id: number | string;
+			/**
+			 * Unique identifier for the target message thread (topic) of a forum; for
+			 * forum supergroups and private chats of bots with forum topic mode enabled
+			 * only
+			 */
+			readonly message_thread_id?: number | undefined;
+			/**
+			 * Short name of the game, serves as the unique identifier for the game. Set
+			 * up your games via @BotFather.
+			 */
+			readonly game_short_name: string;
+			/**
+			 * Sends the message silently. Users will receive a notification with no
+			 * sound.
+			 */
+			readonly disable_notification?: boolean | undefined;
+			/**
+			 * Protects the contents of the sent message from forwarding and saving
+			 */
+			readonly protect_content?: boolean | undefined;
+			/**
+			 * Pass True to allow up to 1000 messages per second, ignoring broadcasting
+			 * limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will
+			 * be withdrawn from the bot's balance.
+			 */
+			readonly allow_paid_broadcast?: boolean | undefined;
+			/**
+			 * Unique identifier of the message effect to be added to the message; for
+			 * private chats only
+			 */
+			readonly message_effect_id?: string | undefined;
+			/**
+			 * Description of the message to reply to
+			 */
+			readonly reply_parameters?: ReplyParameters | undefined;
+			/**
+			 * A JSON-serialized object for an inline keyboard. If empty, one 'Play
+			 * game_title' button will be shown. If not empty, the first button must
+			 * launch the game.
+			 */
+			readonly reply_markup?: InlineKeyboardMarkup | undefined;
+		}) => Effect.Effect<Message, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		/**
 		 * Sends a gift to the given user or channel chat. The gift can't be converted
 		 * to Telegram Stars by the receiver
 		 * @see https://core.telegram.org/bots/api#sendgift
@@ -3567,6 +4065,176 @@ export class TelegramClient extends Context.Service<
 			| Errors.TelegramApiError
 			| HttpClientError.HttpClientError
 		>;
+		/**
+		 * Use this method to send invoices. On success, the sent Message
+		 * @see https://core.telegram.org/bots/api#sendinvoice
+		 */
+		readonly sendInvoice: (payload: {
+			/**
+			 * Unique identifier for the target chat or username of the target bot,
+			 * supergroup or channel in the format @username
+			 */
+			readonly chat_id: number | string;
+			/**
+			 * Unique identifier for the target message thread (topic) of a forum; for
+			 * forum supergroups and private chats of bots with forum topic mode enabled
+			 * only
+			 */
+			readonly message_thread_id?: number | undefined;
+			/**
+			 * Identifier of the direct messages topic to which the message will be sent;
+			 * required if the message is sent to a direct messages chat
+			 */
+			readonly direct_messages_topic_id?: number | undefined;
+			/**
+			 * Product name, 1-32 characters
+			 */
+			readonly title: string;
+			/**
+			 * Product description, 1-255 characters
+			 */
+			readonly description: string;
+			/**
+			 * Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the
+			 * user, use it for your internal processes.
+			 */
+			readonly payload: string;
+			/**
+			 * Payment provider token, obtained via @BotFather. Pass an empty string for
+			 * payments in Telegram Stars.
+			 */
+			readonly provider_token?: string | undefined;
+			/**
+			 * Three-letter ISO 4217 currency code, see more on currencies. Pass “XTR” for
+			 * payments in Telegram Stars.
+			 */
+			readonly currency: string;
+			/**
+			 * Price breakdown, a JSON-serialized list of components (e.g. product price,
+			 * tax, discount, delivery cost, delivery tax, bonus, etc.). Must contain
+			 * exactly one item for payments in Telegram Stars.
+			 */
+			readonly prices: ReadonlyArray<LabeledPrice>;
+			/**
+			 * The maximum accepted amount for tips in the smallest units of the currency
+			 * (integer, not float/double). For example, for a maximum tip of US$ 1.45
+			 * pass max_tip_amount = 145. See the exp parameter in currencies.json, it
+			 * shows the number of digits past the decimal point for each currency (2 for
+			 * the majority of currencies). Defaults to 0. Not supported for payments in
+			 * Telegram Stars.
+			 */
+			readonly max_tip_amount?: number | undefined;
+			/**
+			 * A JSON-serialized array of suggested amounts of tips in the smallest units
+			 * of the currency (integer, not float/double). At most 4 suggested tip
+			 * amounts can be specified. The suggested tip amounts must be positive,
+			 * passed in a strictly increased order and must not exceed max_tip_amount.
+			 */
+			readonly suggested_tip_amounts?: ReadonlyArray<number> | undefined;
+			/**
+			 * Unique deep-linking parameter. If left empty, forwarded copies of the sent
+			 * message will have a Pay button, allowing multiple users to pay directly
+			 * from the forwarded message, using the same invoice. If non-empty, forwarded
+			 * copies of the sent message will have a URL button with a deep link to the
+			 * bot (instead of a Pay button), with the value used as the start parameter.
+			 */
+			readonly start_parameter?: string | undefined;
+			/**
+			 * JSON-serialized data about the invoice, which will be shared with the
+			 * payment provider. A detailed description of required fields should be
+			 * provided by the payment provider.
+			 */
+			readonly provider_data?: string | undefined;
+			/**
+			 * URL of the product photo for the invoice. Can be a photo of the goods or a
+			 * marketing image for a service. People like it better when they see what
+			 * they are paying for.
+			 */
+			readonly photo_url?: string | undefined;
+			/**
+			 * Photo size in bytes
+			 */
+			readonly photo_size?: number | undefined;
+			/**
+			 * Photo width
+			 */
+			readonly photo_width?: number | undefined;
+			/**
+			 * Photo height
+			 */
+			readonly photo_height?: number | undefined;
+			/**
+			 * Pass True if you require the user's full name to complete the order.
+			 * Ignored for payments in Telegram Stars.
+			 */
+			readonly need_name?: boolean | undefined;
+			/**
+			 * Pass True if you require the user's phone number to complete the order.
+			 * Ignored for payments in Telegram Stars.
+			 */
+			readonly need_phone_number?: boolean | undefined;
+			/**
+			 * Pass True if you require the user's email address to complete the order.
+			 * Ignored for payments in Telegram Stars.
+			 */
+			readonly need_email?: boolean | undefined;
+			/**
+			 * Pass True if you require the user's shipping address to complete the order.
+			 * Ignored for payments in Telegram Stars.
+			 */
+			readonly need_shipping_address?: boolean | undefined;
+			/**
+			 * Pass True if the user's phone number should be sent to the provider.
+			 * Ignored for payments in Telegram Stars.
+			 */
+			readonly send_phone_number_to_provider?: boolean | undefined;
+			/**
+			 * Pass True if the user's email address should be sent to the provider.
+			 * Ignored for payments in Telegram Stars.
+			 */
+			readonly send_email_to_provider?: boolean | undefined;
+			/**
+			 * Pass True if the final price depends on the shipping method. Ignored for
+			 * payments in Telegram Stars.
+			 */
+			readonly is_flexible?: boolean | undefined;
+			/**
+			 * Sends the message silently. Users will receive a notification with no
+			 * sound.
+			 */
+			readonly disable_notification?: boolean | undefined;
+			/**
+			 * Protects the contents of the sent message from forwarding and saving
+			 */
+			readonly protect_content?: boolean | undefined;
+			/**
+			 * Pass True to allow up to 1000 messages per second, ignoring broadcasting
+			 * limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will
+			 * be withdrawn from the bot's balance.
+			 */
+			readonly allow_paid_broadcast?: boolean | undefined;
+			/**
+			 * Unique identifier of the message effect to be added to the message; for
+			 * private chats only
+			 */
+			readonly message_effect_id?: string | undefined;
+			/**
+			 * A JSON-serialized object containing the parameters of the suggested post to
+			 * send; for direct messages chats only. If the message is sent as a reply to
+			 * another suggested post, then that suggested post is automatically declined.
+			 */
+			readonly suggested_post_parameters?: SuggestedPostParameters | undefined;
+			/**
+			 * Description of the message to reply to
+			 */
+			readonly reply_parameters?: ReplyParameters | undefined;
+			/**
+			 * A JSON-serialized object for an inline keyboard. If empty, one 'Pay total
+			 * price' button will be shown. If not empty, the first button must be a Pay
+			 * button.
+			 */
+			readonly reply_markup?: InlineKeyboardMarkup | undefined;
+		}) => Effect.Effect<Message, Errors.TelegramApiError | HttpClientError.HttpClientError>;
 		/**
 		 * Use this method to send live photos. On success, the sent Message
 		 * @see https://core.telegram.org/bots/api#sendlivephoto
@@ -4445,6 +5113,84 @@ export class TelegramClient extends Context.Service<
 			| HttpClientError.HttpClientError
 		>;
 		/**
+		 * Use this method to send static .WEBP, animated .TGS, or video .WEBM
+		 * stickers. On success, the sent Message
+		 * @see https://core.telegram.org/bots/api#sendsticker
+		 */
+		readonly sendSticker: (payload: {
+			/**
+			 * Unique identifier of the business connection on behalf of which the message
+			 * will be sent
+			 */
+			readonly business_connection_id?: string | undefined;
+			/**
+			 * Unique identifier for the target chat or username of the target bot,
+			 * supergroup or channel in the format @username
+			 */
+			readonly chat_id: number | string;
+			/**
+			 * Unique identifier for the target message thread (topic) of a forum; for
+			 * forum supergroups and private chats of bots with forum topic mode enabled
+			 * only
+			 */
+			readonly message_thread_id?: number | undefined;
+			/**
+			 * Identifier of the direct messages topic to which the message will be sent;
+			 * required if the message is sent to a direct messages chat
+			 */
+			readonly direct_messages_topic_id?: number | undefined;
+			/**
+			 * Sticker to send. Pass a file_id as String to send a file that exists on the
+			 * Telegram servers (recommended), pass an HTTP URL as a String for Telegram
+			 * to get a .WEBP sticker from the Internet, or upload a new .WEBP, .TGS, or
+			 * .WEBM sticker using multipart/form-data. More information on Sending Files
+			 * ». Video and animated stickers can't be sent via an HTTP URL.
+			 */
+			readonly sticker: InputFile | string;
+			/**
+			 * Emoji associated with the sticker; only for just uploaded stickers
+			 */
+			readonly emoji?: string | undefined;
+			/**
+			 * Sends the message silently. Users will receive a notification with no
+			 * sound.
+			 */
+			readonly disable_notification?: boolean | undefined;
+			/**
+			 * Protects the contents of the sent message from forwarding and saving
+			 */
+			readonly protect_content?: boolean | undefined;
+			/**
+			 * Pass True to allow up to 1000 messages per second, ignoring broadcasting
+			 * limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will
+			 * be withdrawn from the bot's balance.
+			 */
+			readonly allow_paid_broadcast?: boolean | undefined;
+			/**
+			 * Unique identifier of the message effect to be added to the message; for
+			 * private chats only
+			 */
+			readonly message_effect_id?: string | undefined;
+			/**
+			 * A JSON-serialized object containing the parameters of the suggested post to
+			 * send; for direct messages chats only. If the message is sent as a reply to
+			 * another suggested post, then that suggested post is automatically declined.
+			 */
+			readonly suggested_post_parameters?: SuggestedPostParameters | undefined;
+			/**
+			 * Description of the message to reply to
+			 */
+			readonly reply_parameters?: ReplyParameters | undefined;
+			/**
+			 * Additional interface options. A JSON-serialized object for an inline
+			 * keyboard, custom reply keyboard, instructions to remove a reply keyboard or
+			 * to force a reply from the user.
+			 */
+			readonly reply_markup?:
+				| (InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply)
+				| undefined;
+		}) => Effect.Effect<Message, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		/**
 		 * Use this method to send information about a venue. On success, the sent
 		 * Message
 		 * @see https://core.telegram.org/bots/api#sendvenue
@@ -5250,6 +5996,61 @@ export class TelegramClient extends Context.Service<
 			| HttpClientError.HttpClientError
 		>;
 		/**
+		 * Use this method to set the thumbnail of a custom emoji sticker set
+		 * @see https://core.telegram.org/bots/api#setcustomemojistickersetthumbnail
+		 */
+		readonly setCustomEmojiStickerSetThumbnail: (payload: {
+			/**
+			 * Sticker set name
+			 */
+			readonly name: string;
+			/**
+			 * Custom emoji identifier of a sticker from the sticker set; pass an empty
+			 * string to drop the thumbnail and use the first sticker as the thumbnail
+			 */
+			readonly custom_emoji_id?: string | undefined;
+		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		/**
+		 * Use this method to set the score of the specified user in a game message. On
+		 * success, if the message is not an inline message, the Message
+		 * @see https://core.telegram.org/bots/api#setgamescore
+		 */
+		readonly setGameScore: (payload: {
+			/**
+			 * User identifier
+			 */
+			readonly user_id: number;
+			/**
+			 * New score, must be non-negative
+			 */
+			readonly score: number;
+			/**
+			 * Pass True if the high score is allowed to decrease. This can be useful when
+			 * fixing mistakes or banning cheaters.
+			 */
+			readonly force?: boolean | undefined;
+			/**
+			 * Pass True if the game message should not be automatically edited to include
+			 * the current scoreboard
+			 */
+			readonly disable_edit_message?: boolean | undefined;
+			/**
+			 * Required if inline_message_id is not specified. Unique identifier for the
+			 * target chat.
+			 */
+			readonly chat_id?: number | undefined;
+			/**
+			 * Required if inline_message_id is not specified. Identifier of the sent
+			 * message.
+			 */
+			readonly message_id?: number | undefined;
+			/**
+			 * Required if chat_id and message_id are not specified. Identifier of the
+			 * inline message.
+			 */
+			readonly inline_message_id?: string | undefined;
+		}) => Effect.Effect<Message | true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		/**
 		 * Use this method to change the access settings of a managed bot
 		 * @see https://core.telegram.org/bots/api#setmanagedbotaccesssettings
 		 */
@@ -5467,6 +6268,137 @@ export class TelegramClient extends Context.Service<
 			| Errors.TelegramApiError
 			| HttpClientError.HttpClientError
 		>;
+		/**
+		 * Informs a user that some of the Telegram Passport elements they provided
+		 * contains errors. The user will not be able to re-submit their Passport to
+		 * you until the errors are fixed (the contents of the field for which you
+		 * returned the error must change)
+		 * @see https://core.telegram.org/bots/api#setpassportdataerrors
+		 */
+		readonly setPassportDataErrors: (payload: {
+			/**
+			 * User identifier
+			 */
+			readonly user_id: number;
+			/**
+			 * A JSON-serialized array describing the errors
+			 */
+			readonly errors: ReadonlyArray<PassportElementError>;
+		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		/**
+		 * Use this method to change the list of emoji assigned to a regular or custom
+		 * emoji sticker. The sticker must belong to a sticker set created by the bot
+		 * @see https://core.telegram.org/bots/api#setstickeremojilist
+		 */
+		readonly setStickerEmojiList: (payload: {
+			/**
+			 * File identifier of the sticker
+			 */
+			readonly sticker: string;
+			/**
+			 * A JSON-serialized list of 1-20 emoji associated with the sticker
+			 */
+			readonly emoji_list: ReadonlyArray<string>;
+		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		/**
+		 * Use this method to change search keywords assigned to a regular or custom
+		 * emoji sticker. The sticker must belong to a sticker set created by the bot
+		 * @see https://core.telegram.org/bots/api#setstickerkeywords
+		 */
+		readonly setStickerKeywords: (payload: {
+			/**
+			 * File identifier of the sticker
+			 */
+			readonly sticker: string;
+			/**
+			 * A JSON-serialized list of 0-20 search keywords for the sticker with total
+			 * length of up to 64 characters
+			 */
+			readonly keywords?: ReadonlyArray<string> | undefined;
+		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		/**
+		 * Use this method to change the mask position of a mask sticker. The sticker
+		 * must belong to a sticker set that was created by the bot
+		 * @see https://core.telegram.org/bots/api#setstickermaskposition
+		 */
+		readonly setStickerMaskPosition: (payload: {
+			/**
+			 * File identifier of the sticker
+			 */
+			readonly sticker: string;
+			/**
+			 * A JSON-serialized object with the position where the mask should be placed
+			 * on faces. Omit the parameter to remove the mask position.
+			 */
+			readonly mask_position?: MaskPosition | undefined;
+		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		/**
+		 * Use this method to move a sticker in a set created by the bot to a specific
+		 * position
+		 * @see https://core.telegram.org/bots/api#setstickerpositioninset
+		 */
+		readonly setStickerPositionInSet: (payload: {
+			/**
+			 * File identifier of the sticker
+			 */
+			readonly sticker: string;
+			/**
+			 * New sticker position in the set, zero-based
+			 */
+			readonly position: number;
+		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		/**
+		 * Use this method to set the thumbnail of a regular or mask sticker set. The
+		 * format of the thumbnail file must match the format of the stickers in the
+		 * set
+		 * @see https://core.telegram.org/bots/api#setstickersetthumbnail
+		 */
+		readonly setStickerSetThumbnail: (payload: {
+			/**
+			 * Sticker set name
+			 */
+			readonly name: string;
+			/**
+			 * User identifier of the sticker set owner
+			 */
+			readonly user_id: number;
+			/**
+			 * A .WEBP or .PNG image with the thumbnail, must be up to 128 kilobytes in
+			 * size and have a width and height of exactly 100px, or a .TGS animation with
+			 * a thumbnail up to 32 kilobytes in size (see
+			 * https://core.telegram.org/stickers#animation-requirements for animated
+			 * sticker technical requirements), or a .WEBM video with the thumbnail up to
+			 * 32 kilobytes in size; see
+			 * https://core.telegram.org/stickers#video-requirements for video sticker
+			 * technical requirements. Pass a file_id as a String to send a file that
+			 * already exists on the Telegram servers, pass an HTTP URL as a String for
+			 * Telegram to get a file from the Internet, or upload a new one using
+			 * multipart/form-data. More information on Sending Files ». Animated and
+			 * video sticker set thumbnails can't be uploaded via HTTP URL. If omitted,
+			 * then the thumbnail is dropped and the first sticker is used as the
+			 * thumbnail.
+			 */
+			readonly thumbnail?: (InputFile | string) | undefined;
+			/**
+			 * Format of the thumbnail, must be one of “static” for a .WEBP or .PNG image,
+			 * “animated” for a .TGS animation, or “video” for a .WEBM video
+			 */
+			readonly format: string;
+		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
+		/**
+		 * Use this method to set the title of a created sticker set
+		 * @see https://core.telegram.org/bots/api#setstickersettitle
+		 */
+		readonly setStickerSetTitle: (payload: {
+			/**
+			 * Sticker set name
+			 */
+			readonly name: string;
+			/**
+			 * Sticker set title, 1-64 characters
+			 */
+			readonly title: string;
+		}) => Effect.Effect<true, Errors.TelegramApiError | HttpClientError.HttpClientError>;
 		/**
 		 * Changes the emoji status for a given user that previously allowed the bot to
 		 * manage their emoji status via the Mini App method requestEmojiStatusAccess
@@ -5898,6 +6830,28 @@ export class TelegramClient extends Context.Service<
 			| Errors.TelegramApiError
 			| HttpClientError.HttpClientError
 		>;
+		/**
+		 * Use this method to upload a file with a sticker for later use in the
+		 * createNewStickerSet, addStickerToSet, or replaceStickerInSet methods (the
+		 * file can be used multiple times)
+		 * @see https://core.telegram.org/bots/api#uploadstickerfile
+		 */
+		readonly uploadStickerFile: (payload: {
+			/**
+			 * User identifier of sticker file owner
+			 */
+			readonly user_id: number;
+			/**
+			 * A file with the sticker in .WEBP, .PNG, .TGS, or .WEBM format. See
+			 * https://core.telegram.org/stickers for technical requirements. More
+			 * information on Sending Files »
+			 */
+			readonly sticker: InputFile;
+			/**
+			 * Format of the sticker, must be one of “static”, “animated”, “video”
+			 */
+			readonly sticker_format: string;
+		}) => Effect.Effect<File, Errors.TelegramApiError | HttpClientError.HttpClientError>;
 		/**
 		 * Verifies a chat on behalf of the organization which is represented by the
 		 * bot

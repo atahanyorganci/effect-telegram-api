@@ -1,0 +1,77 @@
+{
+	"kind": "method",
+	"name": "setGameScore",
+	"slug": "setgamescore",
+	"description": "Use this method to set the score of the specified user in a game message. On success, if the message is not an inline message, the Message",
+	"parameters": [
+		{
+			"name": "user_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "User identifier"
+		},
+		{
+			"name": "score",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "New score, must be non-negative"
+		},
+		{
+			"name": "force",
+			"type": {
+				"kind": "boolean"
+			},
+			"required": false,
+			"description": "Pass True if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters."
+		},
+		{
+			"name": "disable_edit_message",
+			"type": {
+				"kind": "boolean"
+			},
+			"required": false,
+			"description": "Pass True if the game message should not be automatically edited to include the current scoreboard"
+		},
+		{
+			"name": "chat_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "Required if inline_message_id is not specified. Unique identifier for the target chat."
+		},
+		{
+			"name": "message_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "Required if inline_message_id is not specified. Identifier of the sent message."
+		},
+		{
+			"name": "inline_message_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Required if chat_id and message_id are not specified. Identifier of the inline message."
+		}
+	],
+	"returns": {
+		"kind": "oneOf",
+		"types": [
+			{
+				"kind": "ref",
+				"name": "Message"
+			},
+			{
+				"kind": "literal",
+				"value": true
+			}
+		]
+	}
+}

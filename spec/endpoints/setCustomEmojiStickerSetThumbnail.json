@@ -1,0 +1,28 @@
+{
+	"kind": "method",
+	"name": "setCustomEmojiStickerSetThumbnail",
+	"slug": "setcustomemojistickersetthumbnail",
+	"description": "Use this method to set the thumbnail of a custom emoji sticker set",
+	"parameters": [
+		{
+			"name": "name",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Sticker set name"
+		},
+		{
+			"name": "custom_emoji_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Custom emoji identifier of a sticker from the sticker set; pass an empty string to drop the thumbnail and use the first sticker as the thumbnail"
+		}
+	],
+	"returns": {
+		"kind": "literal",
+		"value": true
+	}
+}

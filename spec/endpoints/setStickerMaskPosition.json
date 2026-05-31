@@ -1,0 +1,29 @@
+{
+	"kind": "method",
+	"name": "setStickerMaskPosition",
+	"slug": "setstickermaskposition",
+	"description": "Use this method to change the mask position of a mask sticker. The sticker must belong to a sticker set that was created by the bot",
+	"parameters": [
+		{
+			"name": "sticker",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "File identifier of the sticker"
+		},
+		{
+			"name": "mask_position",
+			"type": {
+				"kind": "ref",
+				"name": "MaskPosition"
+			},
+			"required": false,
+			"description": "A JSON-serialized object with the position where the mask should be placed on faces. Omit the parameter to remove the mask position."
+		}
+	],
+	"returns": {
+		"kind": "literal",
+		"value": true
+	}
+}

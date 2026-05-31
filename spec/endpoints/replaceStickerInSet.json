@@ -1,0 +1,45 @@
+{
+	"kind": "method",
+	"name": "replaceStickerInSet",
+	"slug": "replacestickerinset",
+	"description": "Use this method to replace an existing sticker in a sticker set with a new one. The method is equivalent to calling deleteStickerFromSet, then addStickerToSet, then setStickerPositionInSet",
+	"parameters": [
+		{
+			"name": "user_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "User identifier of the sticker set owner"
+		},
+		{
+			"name": "name",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Sticker set name"
+		},
+		{
+			"name": "old_sticker",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "File identifier of the replaced sticker"
+		},
+		{
+			"name": "sticker",
+			"type": {
+				"kind": "ref",
+				"name": "InputSticker"
+			},
+			"required": true,
+			"description": "A JSON-serialized object with information about the added sticker. If exactly the same sticker had already been added to the set, then the set remains unchanged."
+		}
+	],
+	"returns": {
+		"kind": "literal",
+		"value": true
+	}
+}
