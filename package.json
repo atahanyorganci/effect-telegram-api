@@ -30,7 +30,31 @@
 		"./Schema": "./src/schema.ts"
 	},
 	"publishConfig": {
-		"access": "public"
+		"access": "public",
+		"exports": {
+			"./package.json": "./package.json",
+			".": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			},
+			"./Client": {
+				"types": "./dist/client/index.d.ts",
+				"default": "./dist/client/index.js"
+			},
+			"./Errors": {
+				"types": "./dist/errors/index.d.ts",
+				"default": "./dist/errors/index.js"
+			},
+			"./HttpApi": {
+				"types": "./dist/http-api/index.d.ts",
+				"default": "./dist/http-api/index.js"
+			},
+			"./Schema": {
+				"types": "./dist/schema/index.d.ts",
+				"default": "./dist/schema/index.js"
+			}
+		},
+		"provenance": true
 	},
 	"scripts": {
 		"build": "tsgo -p tsconfig.lib.json --noEmit false --outDir dist",
