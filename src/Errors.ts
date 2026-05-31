@@ -1382,7 +1382,7 @@ export class WrongRemoteFileIdentifierWrongPadding extends Data.TaggedError("Wro
 /**
  * required parameters missing
  */
-export const AcceptedGiftTypesNotSpecifiedError = Schema.TaggedStruct("AcceptedGiftTypesNotSpecified", {
+export const AcceptedGiftTypesNotSpecifiedError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: accepted gift types aren't specified"),
@@ -1391,7 +1391,7 @@ export const AcceptedGiftTypesNotSpecifiedError = Schema.TaggedStruct("AcceptedG
 /**
  * switch_inline_query_chosen_chat.allow_user_chats is not a boolean
  */
-export const AllowUserChatsMustBeBooleanError = Schema.TaggedStruct("AllowUserChatsMustBeBoolean", {
+export const AllowUserChatsMustBeBooleanError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal(
@@ -1403,7 +1403,7 @@ export const AllowUserChatsMustBeBooleanError = Schema.TaggedStruct("AllowUserCh
  * command contains characters other than lowercase English letters, digits, and
  * underscores
  */
-export const BotCommandInvalidError = Schema.TaggedStruct("BotCommandInvalid", {
+export const BotCommandInvalidError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: BOT_COMMAND_INVALID"),
@@ -1412,7 +1412,7 @@ export const BotCommandInvalidError = Schema.TaggedStruct("BotCommandInvalid", {
 /**
  * BotCommandScope that requires chat_id omits it
  */
-export const BotCommandScopeChatIdMissingError = Schema.TaggedStruct("BotCommandScopeChatIdMissing", {
+export const BotCommandScopeChatIdMissingError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: can't parse BotCommandScope: Can't find field \"chat_id\""),
@@ -1421,7 +1421,7 @@ export const BotCommandScopeChatIdMissingError = Schema.TaggedStruct("BotCommand
 /**
  * BotCommandScope type is unsupported
  */
-export const BotCommandScopeUnsupportedTypeError = Schema.TaggedStruct("BotCommandScopeUnsupportedType", {
+export const BotCommandScopeUnsupportedTypeError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: can't parse BotCommandScope: Unsupported type specified"),
@@ -1430,7 +1430,7 @@ export const BotCommandScopeUnsupportedTypeError = Schema.TaggedStruct("BotComma
 /**
  * BotCommandScope that requires user_id omits it
  */
-export const BotCommandScopeUserIdMissingError = Schema.TaggedStruct("BotCommandScopeUserIdMissing", {
+export const BotCommandScopeUserIdMissingError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: can't parse BotCommandScope: Can't find field \"user_id\""),
@@ -1439,7 +1439,7 @@ export const BotCommandScopeUserIdMissingError = Schema.TaggedStruct("BotCommand
 /**
  * description exceeds the 512 character limit
  */
-export const BotDescriptionInvalidError = Schema.TaggedStruct("BotDescriptionInvalid", {
+export const BotDescriptionInvalidError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: BOT_DESC_INVALID"),
@@ -1448,7 +1448,7 @@ export const BotDescriptionInvalidError = Schema.TaggedStruct("BotDescriptionInv
 /**
  * login_url is missing bot_username
  */
-export const BotDomainInvalidError = Schema.TaggedStruct("BotDomainInvalid", {
+export const BotDomainInvalidError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: BOT_DOMAIN_INVALID"),
@@ -1457,7 +1457,7 @@ export const BotDomainInvalidError = Schema.TaggedStruct("BotDomainInvalid", {
 /**
  * short_description exceeds the 120 character limit
  */
-export const BotShortDescriptionInvalidError = Schema.TaggedStruct("BotShortDescriptionInvalid", {
+export const BotShortDescriptionInvalidError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: BOT_SHARETEXT_INVALID"),
@@ -1466,7 +1466,7 @@ export const BotShortDescriptionInvalidError = Schema.TaggedStruct("BotShortDesc
 /**
  * name is missing or empty
  */
-export const BotTitleInvalidError = Schema.TaggedStruct("BotTitleInvalid", {
+export const BotTitleInvalidError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: BOT_TITLE_INVALID"),
@@ -1475,7 +1475,7 @@ export const BotTitleInvalidError = Schema.TaggedStruct("BotTitleInvalid", {
 /**
  * bot is not allowed to remove verification for the chat
  */
-export const BotVerifierForbiddenError = Schema.TaggedStruct("BotVerifierForbidden", {
+export const BotVerifierForbiddenError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: BOT_VERIFIER_FORBIDDEN"),
@@ -1484,7 +1484,7 @@ export const BotVerifierForbiddenError = Schema.TaggedStruct("BotVerifierForbidd
 /**
  * required parameters missing
  */
-export const BusinessConnectionNotFoundError = Schema.TaggedStruct("BusinessConnectionNotFound", {
+export const BusinessConnectionNotFoundError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: business connection not found"),
@@ -1493,7 +1493,7 @@ export const BusinessConnectionNotFoundError = Schema.TaggedStruct("BusinessConn
 /**
  * copy_text button text is empty or too long
  */
-export const ButtonCopyTextInvalidError = Schema.TaggedStruct("ButtonCopyTextInvalid", {
+export const ButtonCopyTextInvalidError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: BUTTON_COPY_TEXT_INVALID"),
@@ -1502,7 +1502,7 @@ export const ButtonCopyTextInvalidError = Schema.TaggedStruct("ButtonCopyTextInv
 /**
  * inline keyboard callback_data exceeds 64 bytes
  */
-export const ButtonDataInvalidError = Schema.TaggedStruct("ButtonDataInvalid", {
+export const ButtonDataInvalidError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: BUTTON_DATA_INVALID"),
@@ -1511,7 +1511,7 @@ export const ButtonDataInvalidError = Schema.TaggedStruct("ButtonDataInvalid", {
 /**
  * request_users.max_quantity exceeds the allowed maximum
  */
-export const ButtonQuantityMaxInvalidError = Schema.TaggedStruct("ButtonQuantityMaxInvalid", {
+export const ButtonQuantityMaxInvalidError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: BUTTON_QUANTITY_MAX_INVALID"),
@@ -1521,7 +1521,7 @@ export const ButtonQuantityMaxInvalidError = Schema.TaggedStruct("ButtonQuantity
  * inline keyboard button type is invalid (e.g. pay without invoice or
  * callback_game without game)
  */
-export const ButtonTypeInvalidError = Schema.TaggedStruct("ButtonTypeInvalid", {
+export const ButtonTypeInvalidError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: BUTTON_TYPE_INVALID"),
@@ -1530,7 +1530,7 @@ export const ButtonTypeInvalidError = Schema.TaggedStruct("ButtonTypeInvalid", {
 /**
  * callback_query_id is missing or invalid
  */
-export const CallbackQueryIdInvalidError = Schema.TaggedStruct("CallbackQueryIdInvalid", {
+export const CallbackQueryIdInvalidError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: query is too old and response timeout expired or query ID is invalid"),
@@ -1539,7 +1539,7 @@ export const CallbackQueryIdInvalidError = Schema.TaggedStruct("CallbackQueryIdI
 /**
  * chat_id refers to a private chat with the bot
  */
-export const CantChangePrivateChatDescriptionError = Schema.TaggedStruct("CantChangePrivateChatDescription", {
+export const CantChangePrivateChatDescriptionError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: can't change private chat description"),
@@ -1548,7 +1548,7 @@ export const CantChangePrivateChatDescriptionError = Schema.TaggedStruct("CantCh
 /**
  * chat_id refers to a private chat with the bot
  */
-export const CantChangePrivateChatPermissionsError = Schema.TaggedStruct("CantChangePrivateChatPermissions", {
+export const CantChangePrivateChatPermissionsError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: can't change private chat permissions"),
@@ -1557,7 +1557,7 @@ export const CantChangePrivateChatPermissionsError = Schema.TaggedStruct("CantCh
 /**
  * chat_id refers to a private chat with the bot
  */
-export const CantChangePrivateChatPhotoError = Schema.TaggedStruct("CantChangePrivateChatPhoto", {
+export const CantChangePrivateChatPhotoError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: can't change private chat photo"),
@@ -1566,7 +1566,7 @@ export const CantChangePrivateChatPhotoError = Schema.TaggedStruct("CantChangePr
 /**
  * chat_id refers to a private chat with the bot
  */
-export const CantChangePrivateChatTitleError = Schema.TaggedStruct("CantChangePrivateChatTitle", {
+export const CantChangePrivateChatTitleError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: can't change private chat title"),
@@ -1575,7 +1575,7 @@ export const CantChangePrivateChatTitleError = Schema.TaggedStruct("CantChangePr
 /**
  * result object is missing the required type field
  */
-export const CantFindFieldTypeError = Schema.TaggedStruct("CantFindFieldType", {
+export const CantFindFieldTypeError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal('Bad Request: can\'t find field "type"'),
@@ -1584,7 +1584,7 @@ export const CantFindFieldTypeError = Schema.TaggedStruct("CantFindFieldType", {
 /**
  * chat_id refers to a private chat that does not support invite links
  */
-export const CantInviteMembersToPrivateChatError = Schema.TaggedStruct("CantInviteMembersToPrivateChat", {
+export const CantInviteMembersToPrivateChatError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: can't invite members to a private chat"),
@@ -1593,7 +1593,7 @@ export const CantInviteMembersToPrivateChatError = Schema.TaggedStruct("CantInvi
 /**
  * HTML tg-emoji tag references an invalid custom emoji id
  */
-export const CantParseEntitiesInvalidCustomEmojiError = Schema.TaggedStruct("CantParseEntitiesInvalidCustomEmoji", {
+export const CantParseEntitiesInvalidCustomEmojiError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: can't parse entities: Invalid custom emoji identifier specified"),
@@ -1602,7 +1602,7 @@ export const CantParseEntitiesInvalidCustomEmojiError = Schema.TaggedStruct("Can
 /**
  * text with parse_mode MarkdownV2 contains an unclosed bold entity
  */
-export const CantParseEntitiesNoBoldEndError = Schema.TaggedStruct("CantParseEntitiesNoBoldEnd", {
+export const CantParseEntitiesNoBoldEndError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 0"),
@@ -1612,7 +1612,7 @@ export const CantParseEntitiesNoBoldEndError = Schema.TaggedStruct("CantParseEnt
  * text with parse_mode MarkdownV2 has nested formatting with an unclosed bold
  * entity
  */
-export const CantParseEntitiesNoBoldEndError2 = Schema.TaggedStruct("CantParseEntitiesNoBoldEnd", {
+export const CantParseEntitiesNoBoldEndError2 = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 15"),
@@ -1621,7 +1621,7 @@ export const CantParseEntitiesNoBoldEndError2 = Schema.TaggedStruct("CantParseEn
 /**
  * text with parse_mode Markdown contains an unclosed entity
  */
-export const CantParseEntitiesNoEndError = Schema.TaggedStruct("CantParseEntitiesNoEnd", {
+export const CantParseEntitiesNoEndError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal(
@@ -1632,7 +1632,7 @@ export const CantParseEntitiesNoEndError = Schema.TaggedStruct("CantParseEntitie
 /**
  * text with parse_mode HTML contains an unclosed tag
  */
-export const CantParseEntitiesNoHtmlEndTagError = Schema.TaggedStruct("CantParseEntitiesNoHtmlEndTag", {
+export const CantParseEntitiesNoHtmlEndTagError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: can't parse entities: Can't find end tag corresponding to start tag \"b\""),
@@ -1641,7 +1641,7 @@ export const CantParseEntitiesNoHtmlEndTagError = Schema.TaggedStruct("CantParse
 /**
  * text with parse_mode MarkdownV2 contains an unescaped opening brace
  */
-export const CantParseEntitiesReservedCharBraceError = Schema.TaggedStruct("CantParseEntitiesReservedCharBrace", {
+export const CantParseEntitiesReservedCharBraceError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal(
@@ -1652,7 +1652,7 @@ export const CantParseEntitiesReservedCharBraceError = Schema.TaggedStruct("Cant
 /**
  * text with parse_mode MarkdownV2 contains an unescaped hyphen
  */
-export const CantParseEntitiesReservedCharDashError = Schema.TaggedStruct("CantParseEntitiesReservedCharDash", {
+export const CantParseEntitiesReservedCharDashError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal(
@@ -1663,7 +1663,7 @@ export const CantParseEntitiesReservedCharDashError = Schema.TaggedStruct("CantP
 /**
  * text with parse_mode MarkdownV2 contains an unescaped period
  */
-export const CantParseEntitiesReservedCharDotError = Schema.TaggedStruct("CantParseEntitiesReservedCharDot", {
+export const CantParseEntitiesReservedCharDotError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal(
@@ -1674,7 +1674,7 @@ export const CantParseEntitiesReservedCharDotError = Schema.TaggedStruct("CantPa
 /**
  * text with parse_mode MarkdownV2 contains an unescaped equals sign
  */
-export const CantParseEntitiesReservedCharEqualsError = Schema.TaggedStruct("CantParseEntitiesReservedCharEquals", {
+export const CantParseEntitiesReservedCharEqualsError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal(
@@ -1685,21 +1685,18 @@ export const CantParseEntitiesReservedCharEqualsError = Schema.TaggedStruct("Can
 /**
  * text with parse_mode MarkdownV2 contains an unescaped exclamation mark
  */
-export const CantParseEntitiesReservedCharExclamationError = Schema.TaggedStruct(
-	"CantParseEntitiesReservedCharExclamation",
-	{
-		ok: Schema.Literal(false),
-		error_code: Schema.Literal(400),
-		description: Schema.Literal(
-			"Bad Request: can't parse entities: Character '!' is reserved and must be escaped with the preceding '\\'",
-		),
-	},
-);
+export const CantParseEntitiesReservedCharExclamationError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal(
+		"Bad Request: can't parse entities: Character '!' is reserved and must be escaped with the preceding '\\'",
+	),
+});
 
 /**
  * text with parse_mode MarkdownV2 contains an unescaped greater-than sign
  */
-export const CantParseEntitiesReservedCharGreaterError = Schema.TaggedStruct("CantParseEntitiesReservedCharGreater", {
+export const CantParseEntitiesReservedCharGreaterError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal(
@@ -1710,7 +1707,7 @@ export const CantParseEntitiesReservedCharGreaterError = Schema.TaggedStruct("Ca
 /**
  * text with parse_mode MarkdownV2 contains an unescaped hash sign
  */
-export const CantParseEntitiesReservedCharHashError = Schema.TaggedStruct("CantParseEntitiesReservedCharHash", {
+export const CantParseEntitiesReservedCharHashError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal(
@@ -1721,7 +1718,7 @@ export const CantParseEntitiesReservedCharHashError = Schema.TaggedStruct("CantP
 /**
  * text with parse_mode MarkdownV2 contains an unescaped opening parenthesis
  */
-export const CantParseEntitiesReservedCharParenError = Schema.TaggedStruct("CantParseEntitiesReservedCharParen", {
+export const CantParseEntitiesReservedCharParenError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal(
@@ -1732,7 +1729,7 @@ export const CantParseEntitiesReservedCharParenError = Schema.TaggedStruct("Cant
 /**
  * text with parse_mode MarkdownV2 contains an unescaped pipe character
  */
-export const CantParseEntitiesReservedCharPipeError = Schema.TaggedStruct("CantParseEntitiesReservedCharPipe", {
+export const CantParseEntitiesReservedCharPipeError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal(
@@ -1743,7 +1740,7 @@ export const CantParseEntitiesReservedCharPipeError = Schema.TaggedStruct("CantP
 /**
  * text with parse_mode MarkdownV2 contains an unescaped plus sign
  */
-export const CantParseEntitiesReservedCharPlusError = Schema.TaggedStruct("CantParseEntitiesReservedCharPlus", {
+export const CantParseEntitiesReservedCharPlusError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal(
@@ -1754,7 +1751,7 @@ export const CantParseEntitiesReservedCharPlusError = Schema.TaggedStruct("CantP
 /**
  * text with parse_mode HTML has mismatched closing tags
  */
-export const CantParseEntitiesUnmatchedEndTagError = Schema.TaggedStruct("CantParseEntitiesUnmatchedEndTag", {
+export const CantParseEntitiesUnmatchedEndTagError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal(
@@ -1765,7 +1762,7 @@ export const CantParseEntitiesUnmatchedEndTagError = Schema.TaggedStruct("CantPa
 /**
  * text with parse_mode HTML contains a disallowed tag
  */
-export const CantParseEntitiesUnsupportedScriptTagError = Schema.TaggedStruct("CantParseEntitiesUnsupportedScriptTag", {
+export const CantParseEntitiesUnsupportedScriptTagError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal('Bad Request: can\'t parse entities: Unsupported start tag "script" at byte offset 0'),
@@ -1774,7 +1771,7 @@ export const CantParseEntitiesUnsupportedScriptTagError = Schema.TaggedStruct("C
 /**
  * text with parse_mode HTML contains an unknown tag
  */
-export const CantParseEntitiesUnsupportedTagError = Schema.TaggedStruct("CantParseEntitiesUnsupportedTag", {
+export const CantParseEntitiesUnsupportedTagError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal('Bad Request: can\'t parse entities: Unsupported start tag "invalid" at byte offset 0'),
@@ -1783,7 +1780,7 @@ export const CantParseEntitiesUnsupportedTagError = Schema.TaggedStruct("CantPar
 /**
  * options parameter is missing
  */
-export const CantParseOptionsJsonObjectError = Schema.TaggedStruct("CantParseOptionsJsonObject", {
+export const CantParseOptionsJsonObjectError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: can't parse options JSON object"),
@@ -1792,7 +1789,7 @@ export const CantParseOptionsJsonObjectError = Schema.TaggedStruct("CantParseOpt
 /**
  * promotion would demote the chat owner
  */
-export const CantRemoveChatOwnerError = Schema.TaggedStruct("CantRemoveChatOwner", {
+export const CantRemoveChatOwnerError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: can't remove chat owner"),
@@ -1801,7 +1798,7 @@ export const CantRemoveChatOwnerError = Schema.TaggedStruct("CantRemoveChatOwner
 /**
  * bot lacks permission to change the group sticker set
  */
-export const CantSetSupergroupStickerSetError = Schema.TaggedStruct("CantSetSupergroupStickerSet", {
+export const CantSetSupergroupStickerSetError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: can't set supergroup sticker set"),
@@ -1810,21 +1807,18 @@ export const CantSetSupergroupStickerSetError = Schema.TaggedStruct("CantSetSupe
 /**
  * rights.can_delete_messages is not a boolean
  */
-export const ChatAdministratorRightsCanDeleteMessagesMustBeBooleanError = Schema.TaggedStruct(
-	"ChatAdministratorRightsCanDeleteMessagesMustBeBoolean",
-	{
-		ok: Schema.Literal(false),
-		error_code: Schema.Literal(400),
-		description: Schema.Literal(
-			'Bad Request: can\'t parse ChatAdministratorRights: Field "can_delete_messages" must be of type Boolean',
-		),
-	},
-);
+export const ChatAdministratorRightsCanDeleteMessagesMustBeBooleanError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal(
+		'Bad Request: can\'t parse ChatAdministratorRights: Field "can_delete_messages" must be of type Boolean',
+	),
+});
 
 /**
  * bot is not an administrator with can_manage_topics
  */
-export const ChatAdminRequiredError = Schema.TaggedStruct("ChatAdminRequired", {
+export const ChatAdminRequiredError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: CHAT_ADMIN_REQUIRED"),
@@ -1833,7 +1827,7 @@ export const ChatAdminRequiredError = Schema.TaggedStruct("ChatAdminRequired", {
 /**
  * only the chat creator can set member tags
  */
-export const ChatCreatorRequiredError = Schema.TaggedStruct("ChatCreatorRequired", {
+export const ChatCreatorRequiredError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: CHAT_CREATOR_REQUIRED"),
@@ -1842,7 +1836,7 @@ export const ChatCreatorRequiredError = Schema.TaggedStruct("ChatCreatorRequired
 /**
  * required parameters missing
  */
-export const ChatIdEmptyError = Schema.TaggedStruct("ChatIdEmpty", {
+export const ChatIdEmptyError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: chat_id is empty"),
@@ -1851,7 +1845,7 @@ export const ChatIdEmptyError = Schema.TaggedStruct("ChatIdEmpty", {
 /**
  * validation fails
  */
-export const ChatIdentifierEmptyError = Schema.TaggedStruct("ChatIdentifierEmpty", {
+export const ChatIdentifierEmptyError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: chat identifier is empty"),
@@ -1860,7 +1854,7 @@ export const ChatIdentifierEmptyError = Schema.TaggedStruct("ChatIdentifierEmpty
 /**
  * request_chat.chat_is_forum is not a boolean
  */
-export const ChatIsForumMustBeBooleanError = Schema.TaggedStruct("ChatIsForumMustBeBoolean", {
+export const ChatIsForumMustBeBooleanError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal(
@@ -1871,19 +1865,16 @@ export const ChatIsForumMustBeBooleanError = Schema.TaggedStruct("ChatIsForumMus
 /**
  * chat_id refers to a private chat with the bot
  */
-export const ChatMemberStatusCantBeChangedInPrivateChatsError = Schema.TaggedStruct(
-	"ChatMemberStatusCantBeChangedInPrivateChats",
-	{
-		ok: Schema.Literal(false),
-		error_code: Schema.Literal(400),
-		description: Schema.Literal("Bad Request: chat member status can't be changed in private chats"),
-	},
-);
+export const ChatMemberStatusCantBeChangedInPrivateChatsError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: chat member status can't be changed in private chats"),
+});
 
 /**
  * chat_id does not refer to a chat the bot can access
  */
-export const ChatNotFoundError = Schema.TaggedStruct("ChatNotFound", {
+export const ChatNotFoundError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: chat not found"),
@@ -1892,7 +1883,7 @@ export const ChatNotFoundError = Schema.TaggedStruct("ChatNotFound", {
 /**
  * bot lacks permission to delete the forum topic
  */
-export const ChatWriteForbiddenError = Schema.TaggedStruct("ChatWriteForbidden", {
+export const ChatWriteForbiddenError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: CHAT_WRITE_FORBIDDEN"),
@@ -1901,7 +1892,7 @@ export const ChatWriteForbiddenError = Schema.TaggedStruct("ChatWriteForbidden",
 /**
  * checklist parameter is missing
  */
-export const ChecklistRequiredError = Schema.TaggedStruct("ChecklistRequired", {
+export const ChecklistRequiredError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal('Bad Request: parameter "checklist" is required'),
@@ -1910,7 +1901,7 @@ export const ChecklistRequiredError = Schema.TaggedStruct("ChecklistRequired", {
 /**
  * a command entry has an empty description
  */
-export const CommandDescriptionMustBeNonEmptyError = Schema.TaggedStruct("CommandDescriptionMustBeNonEmpty", {
+export const CommandDescriptionMustBeNonEmptyError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: command description must be non-empty"),
@@ -1919,7 +1910,7 @@ export const CommandDescriptionMustBeNonEmptyError = Schema.TaggedStruct("Comman
 /**
  * a command entry has an empty command string
  */
-export const CommandMustBeNonEmptyError = Schema.TaggedStruct("CommandMustBeNonEmpty", {
+export const CommandMustBeNonEmptyError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: command must be non-empty"),
@@ -1928,7 +1919,7 @@ export const CommandMustBeNonEmptyError = Schema.TaggedStruct("CommandMustBeNonE
 /**
  * custom_emoji entity is missing custom_emoji_id
  */
-export const CustomEmojiIdMissingError = Schema.TaggedStruct("CustomEmojiIdMissing", {
+export const CustomEmojiIdMissingError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: can't parse MessageEntity: Can't find field \"custom_emoji_id\""),
@@ -1937,7 +1928,7 @@ export const CustomEmojiIdMissingError = Schema.TaggedStruct("CustomEmojiIdMissi
 /**
  * custom_emoji entity has a non-numeric custom_emoji_id
  */
-export const CustomEmojiIdMustBeNumberError = Schema.TaggedStruct("CustomEmojiIdMustBeNumber", {
+export const CustomEmojiIdMustBeNumberError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal(
@@ -1948,7 +1939,7 @@ export const CustomEmojiIdMustBeNumberError = Schema.TaggedStruct("CustomEmojiId
 /**
  * message_effect_id is not valid
  */
-export const EffectIdInvalidError = Schema.TaggedStruct("EffectIdInvalid", {
+export const EffectIdInvalidError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: EFFECT_ID_INVALID"),
@@ -1957,7 +1948,7 @@ export const EffectIdInvalidError = Schema.TaggedStruct("EffectIdInvalid", {
 /**
  * entities offset is beyond the text length
  */
-export const EntityBeginsAfterTextEndError = Schema.TaggedStruct("EntityBeginsAfterTextEnd", {
+export const EntityBeginsAfterTextEndError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: entity begins after the end of the text at UTF-16 offset 100"),
@@ -1966,7 +1957,7 @@ export const EntityBeginsAfterTextEndError = Schema.TaggedStruct("EntityBeginsAf
 /**
  * entities offset plus length exceeds the text length
  */
-export const EntityEndsAfterTextEndError = Schema.TaggedStruct("EntityEndsAfterTextEnd", {
+export const EntityEndsAfterTextEndError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal(
@@ -1977,7 +1968,7 @@ export const EntityEndsAfterTextEndError = Schema.TaggedStruct("EntityEndsAfterT
 /**
  * entities offset is negative
  */
-export const EntityIncorrectOffsetError = Schema.TaggedStruct("EntityIncorrectOffset", {
+export const EntityIncorrectOffsetError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: receive an entity with incorrect offset -1"),
@@ -1986,7 +1977,7 @@ export const EntityIncorrectOffsetError = Schema.TaggedStruct("EntityIncorrectOf
 /**
  * text_link entity url is empty
  */
-export const EntityUrlEmptyError = Schema.TaggedStruct("EntityUrlEmpty", {
+export const EntityUrlEmptyError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: entity URL '' is invalid: URL host is empty"),
@@ -1995,7 +1986,7 @@ export const EntityUrlEmptyError = Schema.TaggedStruct("EntityUrlEmpty", {
 /**
  * text_link entity url is not a valid HTTP URL
  */
-export const EntityUrlInvalidError = Schema.TaggedStruct("EntityUrlInvalid", {
+export const EntityUrlInvalidError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: entity URL 'not-a-url' is invalid: Wrong HTTP URL"),
@@ -2004,7 +1995,7 @@ export const EntityUrlInvalidError = Schema.TaggedStruct("EntityUrlInvalid", {
 /**
  * file_id parameter is missing or empty
  */
-export const FileIdNotSpecifiedError = Schema.TaggedStruct("FileIdNotSpecified", {
+export const FileIdNotSpecifiedError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: file_id not specified"),
@@ -2013,7 +2004,7 @@ export const FileIdNotSpecifiedError = Schema.TaggedStruct("FileIdNotSpecified",
 /**
  * first_name parameter is missing
  */
-export const FirstNameRequiredError = Schema.TaggedStruct("FirstNameRequired", {
+export const FirstNameRequiredError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal('Bad Request: parameter "first_name" is required'),
@@ -2022,7 +2013,7 @@ export const FirstNameRequiredError = Schema.TaggedStruct("FirstNameRequired", {
 /**
  * allow_paid_broadcast is true but the bot has insufficient Telegram Stars
  */
-export const FloodskipNotAllowedError = Schema.TaggedStruct("FloodskipNotAllowed", {
+export const FloodskipNotAllowedError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: FLOODSKIP_NOT_ALLOWED"),
@@ -2031,7 +2022,7 @@ export const FloodskipNotAllowedError = Schema.TaggedStruct("FloodskipNotAllowed
 /**
  * force_reply is not a boolean
  */
-export const ForceReplyMustBeBooleanError = Schema.TaggedStruct("ForceReplyMustBeBoolean", {
+export const ForceReplyMustBeBooleanError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal('Bad Request: field "force_reply" must be of type Boolean'),
@@ -2040,7 +2031,7 @@ export const ForceReplyMustBeBooleanError = Schema.TaggedStruct("ForceReplyMustB
 /**
  * from_chat_id parameter is missing
  */
-export const FromChatIdRequiredError = Schema.TaggedStruct("FromChatIdRequired", {
+export const FromChatIdRequiredError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal('Bad Request: parameter "from_chat_id" is required'),
@@ -2049,7 +2040,7 @@ export const FromChatIdRequiredError = Schema.TaggedStruct("FromChatIdRequired",
 /**
  * inline keyboard button is missing text
  */
-export const InlineButtonTextMissingError = Schema.TaggedStruct("InlineButtonTextMissing", {
+export const InlineButtonTextMissingError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: can't parse inline keyboard button: Can't find field \"text\""),
@@ -2058,7 +2049,7 @@ export const InlineButtonTextMissingError = Schema.TaggedStruct("InlineButtonTex
 /**
  * inline keyboard button has empty callback_data and no url
  */
-export const InlineButtonTextUnallowedError = Schema.TaggedStruct("InlineButtonTextUnallowed", {
+export const InlineButtonTextUnallowedError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal(
@@ -2069,7 +2060,7 @@ export const InlineButtonTextUnallowedError = Schema.TaggedStruct("InlineButtonT
 /**
  * inline keyboard button url uses an unsupported protocol
  */
-export const InlineButtonUrlFtpUnsupportedError = Schema.TaggedStruct("InlineButtonUrlFtpUnsupported", {
+export const InlineButtonUrlFtpUnsupportedError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal(
@@ -2080,7 +2071,7 @@ export const InlineButtonUrlFtpUnsupportedError = Schema.TaggedStruct("InlineBut
 /**
  * inline keyboard button url is not a valid HTTP URL
  */
-export const InlineButtonUrlInvalidError = Schema.TaggedStruct("InlineButtonUrlInvalid", {
+export const InlineButtonUrlInvalidError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: inline keyboard button URL 'not-a-url' is invalid: Wrong HTTP URL"),
@@ -2089,7 +2080,7 @@ export const InlineButtonUrlInvalidError = Schema.TaggedStruct("InlineButtonUrlI
 /**
  * inline_keyboard is not an array
  */
-export const InlineKeyboardMustBeArrayError = Schema.TaggedStruct("InlineKeyboardMustBeArray", {
+export const InlineKeyboardMustBeArrayError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal('Bad Request: field "inline_keyboard" must be of type Array'),
@@ -2098,7 +2089,7 @@ export const InlineKeyboardMustBeArrayError = Schema.TaggedStruct("InlineKeyboar
 /**
  * chat_id is not a valid private chat id
  */
-export const InvalidChatIdError = Schema.TaggedStruct("InvalidChatId", {
+export const InvalidChatIdError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: invalid chat_id specified"),
@@ -2107,7 +2098,7 @@ export const InvalidChatIdError = Schema.TaggedStruct("InvalidChatId", {
 /**
  * validation fails
  */
-export const InvalidChatIdentifierError = Schema.TaggedStruct("InvalidChatIdentifier", {
+export const InvalidChatIdentifierError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: invalid chat identifier specified"),
@@ -2116,7 +2107,7 @@ export const InvalidChatIdentifierError = Schema.TaggedStruct("InvalidChatIdenti
 /**
  * file_id is not valid
  */
-export const InvalidFileIdError = Schema.TaggedStruct("InvalidFileId", {
+export const InvalidFileIdError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: invalid file_id"),
@@ -2125,7 +2116,7 @@ export const InvalidFileIdError = Schema.TaggedStruct("InvalidFileId", {
 /**
  * suggested_post_parameters price amount is invalid
  */
-export const InvalidStarsAmountError = Schema.TaggedStruct("InvalidStarsAmount", {
+export const InvalidStarsAmountError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: invalid amount of Telegram Stars specified"),
@@ -2134,7 +2125,7 @@ export const InvalidStarsAmountError = Schema.TaggedStruct("InvalidStarsAmount",
 /**
  * required parameters missing
  */
-export const InvalidUserIdError = Schema.TaggedStruct("InvalidUserId", {
+export const InvalidUserIdError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: invalid user_id specified"),
@@ -2143,7 +2134,7 @@ export const InvalidUserIdError = Schema.TaggedStruct("InvalidUserId", {
 /**
  * invite_link is invalid or already revoked
  */
-export const InviteHashExpiredError = Schema.TaggedStruct("InviteHashExpired", {
+export const InviteHashExpiredError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: INVITE_HASH_EXPIRED"),
@@ -2152,7 +2143,7 @@ export const InviteHashExpiredError = Schema.TaggedStruct("InviteHashExpired", {
 /**
  * reply keyboard is_persistent is not a boolean
  */
-export const IsPersistentMustBeBooleanError = Schema.TaggedStruct("IsPersistentMustBeBoolean", {
+export const IsPersistentMustBeBooleanError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal('Bad Request: field "is_persistent" must be of type Boolean'),
@@ -2161,7 +2152,7 @@ export const IsPersistentMustBeBooleanError = Schema.TaggedStruct("IsPersistentM
 /**
  * reply keyboard keyboard is not an array
  */
-export const KeyboardMustBeArrayError = Schema.TaggedStruct("KeyboardMustBeArray", {
+export const KeyboardMustBeArrayError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal('Bad Request: field "keyboard" must be of type Array'),
@@ -2170,7 +2161,7 @@ export const KeyboardMustBeArrayError = Schema.TaggedStruct("KeyboardMustBeArray
 /**
  * request_chat or request_users keyboard button is missing request_id
  */
-export const KeyboardRequestIdMissingError = Schema.TaggedStruct("KeyboardRequestIdMissing", {
+export const KeyboardRequestIdMissingError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: can't parse keyboard button: Can't find field \"request_id\""),
@@ -2179,7 +2170,7 @@ export const KeyboardRequestIdMissingError = Schema.TaggedStruct("KeyboardReques
 /**
  * reply keyboard web_app button url is HTTP instead of HTTPS
  */
-export const KeyboardWebAppUrlHttpNotAllowedError = Schema.TaggedStruct("KeyboardWebAppUrlHttpNotAllowed", {
+export const KeyboardWebAppUrlHttpNotAllowedError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal(
@@ -2190,7 +2181,7 @@ export const KeyboardWebAppUrlHttpNotAllowedError = Schema.TaggedStruct("Keyboar
 /**
  * latitude parameter is missing
  */
-export const LatitudeEmptyError = Schema.TaggedStruct("LatitudeEmpty", {
+export const LatitudeEmptyError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: latitude is empty"),
@@ -2199,7 +2190,7 @@ export const LatitudeEmptyError = Schema.TaggedStruct("LatitudeEmpty", {
 /**
  * limit is zero or negative
  */
-export const LimitMustBePositiveError = Schema.TaggedStruct("LimitMustBePositive", {
+export const LimitMustBePositiveError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: limit must be positive"),
@@ -2208,7 +2199,7 @@ export const LimitMustBePositiveError = Schema.TaggedStruct("LimitMustBePositive
 /**
  * link_preview_options.is_disabled is not a boolean
  */
-export const LinkPreviewIsDisabledMustBeBooleanError = Schema.TaggedStruct("LinkPreviewIsDisabledMustBeBoolean", {
+export const LinkPreviewIsDisabledMustBeBooleanError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal('Bad Request: field "is_disabled" must be of type Boolean'),
@@ -2217,7 +2208,7 @@ export const LinkPreviewIsDisabledMustBeBooleanError = Schema.TaggedStruct("Link
 /**
  * login_url bot_username does not refer to an existing bot
  */
-export const LoginUrlBotNotFoundError = Schema.TaggedStruct("LoginUrlBotNotFound", {
+export const LoginUrlBotNotFoundError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal('Bad Request: bot "nonexistent_bot_xyz_12345" not found'),
@@ -2226,7 +2217,7 @@ export const LoginUrlBotNotFoundError = Schema.TaggedStruct("LoginUrlBotNotFound
 /**
  * login_url bot_username refers to a username that is not a bot
  */
-export const LoginUrlBotNotFoundError2 = Schema.TaggedStruct("LoginUrlBotNotFound", {
+export const LoginUrlBotNotFoundError2 = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal('Bad Request: bot "telegram" not found'),
@@ -2235,7 +2226,7 @@ export const LoginUrlBotNotFoundError2 = Schema.TaggedStruct("LoginUrlBotNotFoun
 /**
  * longitude parameter is missing
  */
-export const LongitudeEmptyError = Schema.TaggedStruct("LongitudeEmpty", {
+export const LongitudeEmptyError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: longitude is empty"),
@@ -2244,7 +2235,7 @@ export const LongitudeEmptyError = Schema.TaggedStruct("LongitudeEmpty", {
 /**
  * media parameter is missing
  */
-export const MediaRequiredError = Schema.TaggedStruct("MediaRequired", {
+export const MediaRequiredError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal('Bad Request: parameter "media" is required'),
@@ -2253,7 +2244,7 @@ export const MediaRequiredError = Schema.TaggedStruct("MediaRequired", {
 /**
  * user_id is not a member of the chat
  */
-export const MemberNotFoundError = Schema.TaggedStruct("MemberNotFound", {
+export const MemberNotFoundError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: member not found"),
@@ -2262,7 +2253,7 @@ export const MemberNotFoundError = Schema.TaggedStruct("MemberNotFound", {
 /**
  * menu_button.type is not a supported MenuButton variant
  */
-export const MenuButtonUnsupportedTypeError = Schema.TaggedStruct("MenuButtonUnsupportedType", {
+export const MenuButtonUnsupportedTypeError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: can't parse menu button: MenuButton has unsupported type"),
@@ -2271,7 +2262,7 @@ export const MenuButtonUnsupportedTypeError = Schema.TaggedStruct("MenuButtonUns
 /**
  * caption exceeds 1024 characters
  */
-export const MessageCaptionTooLongError = Schema.TaggedStruct("MessageCaptionTooLong", {
+export const MessageCaptionTooLongError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: message caption is too long"),
@@ -2280,7 +2271,7 @@ export const MessageCaptionTooLongError = Schema.TaggedStruct("MessageCaptionToo
 /**
  * required parameters missing
  */
-export const MessageIdentifiersAreNotSpecifiedError = Schema.TaggedStruct("MessageIdentifiersAreNotSpecified", {
+export const MessageIdentifiersAreNotSpecifiedError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: message identifiers are not specified"),
@@ -2289,7 +2280,7 @@ export const MessageIdentifiersAreNotSpecifiedError = Schema.TaggedStruct("Messa
 /**
  * text is missing or empty
  */
-export const MessageTextEmptyError = Schema.TaggedStruct("MessageTextEmpty", {
+export const MessageTextEmptyError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: message text is empty"),
@@ -2298,7 +2289,7 @@ export const MessageTextEmptyError = Schema.TaggedStruct("MessageTextEmpty", {
 /**
  * message_thread_id does not refer to an existing forum topic
  */
-export const MessageThreadNotFoundError = Schema.TaggedStruct("MessageThreadNotFound", {
+export const MessageThreadNotFoundError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: message thread not found"),
@@ -2307,7 +2298,7 @@ export const MessageThreadNotFoundError = Schema.TaggedStruct("MessageThreadNotF
 /**
  * message_id is missing or does not refer to an existing message
  */
-export const MessageToCopyNotFoundError = Schema.TaggedStruct("MessageToCopyNotFound", {
+export const MessageToCopyNotFoundError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: message to copy not found"),
@@ -2316,7 +2307,7 @@ export const MessageToCopyNotFoundError = Schema.TaggedStruct("MessageToCopyNotF
 /**
  * message_id is missing or does not refer to an existing message
  */
-export const MessageToForwardNotFoundError = Schema.TaggedStruct("MessageToForwardNotFound", {
+export const MessageToForwardNotFoundError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: message to forward not found"),
@@ -2325,7 +2316,7 @@ export const MessageToForwardNotFoundError = Schema.TaggedStruct("MessageToForwa
 /**
  * text exceeds 4096 characters
  */
-export const MessageTooLongError = Schema.TaggedStruct("MessageTooLong", {
+export const MessageTooLongError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: message is too long"),
@@ -2334,7 +2325,7 @@ export const MessageTooLongError = Schema.TaggedStruct("MessageTooLong", {
 /**
  * message_id is missing or does not refer to an existing message
  */
-export const MessageToPinNotFoundError = Schema.TaggedStruct("MessageToPinNotFound", {
+export const MessageToPinNotFoundError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: message to pin not found"),
@@ -2343,7 +2334,7 @@ export const MessageToPinNotFoundError = Schema.TaggedStruct("MessageToPinNotFou
 /**
  * message_id is missing or does not refer to an existing message
  */
-export const MessageToReactNotFoundError = Schema.TaggedStruct("MessageToReactNotFound", {
+export const MessageToReactNotFoundError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: message to react not found"),
@@ -2352,7 +2343,7 @@ export const MessageToReactNotFoundError = Schema.TaggedStruct("MessageToReactNo
 /**
  * reply_parameters.message_id does not exist in the target chat
  */
-export const MessageToReplyNotFoundError = Schema.TaggedStruct("MessageToReplyNotFound", {
+export const MessageToReplyNotFoundError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: message to be replied not found"),
@@ -2361,7 +2352,7 @@ export const MessageToReplyNotFoundError = Schema.TaggedStruct("MessageToReplyNo
 /**
  * message_id is missing or does not refer to a pinned message
  */
-export const MessageToUnpinNotFoundError = Schema.TaggedStruct("MessageToUnpinNotFound", {
+export const MessageToUnpinNotFoundError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: message to unpin not found"),
@@ -2370,7 +2361,7 @@ export const MessageToUnpinNotFoundError = Schema.TaggedStruct("MessageToUnpinNo
 /**
  * animation parameter is missing
  */
-export const NoAnimationInRequestError = Schema.TaggedStruct("NoAnimationInRequest", {
+export const NoAnimationInRequestError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: there is no animation in the request"),
@@ -2379,7 +2370,7 @@ export const NoAnimationInRequestError = Schema.TaggedStruct("NoAnimationInReque
 /**
  * audio parameter is missing
  */
-export const NoAudioInRequestError = Schema.TaggedStruct("NoAudioInRequest", {
+export const NoAudioInRequestError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: there is no audio in the request"),
@@ -2388,7 +2379,7 @@ export const NoAudioInRequestError = Schema.TaggedStruct("NoAudioInRequest", {
 /**
  * document parameter is missing
  */
-export const NoDocumentInRequestError = Schema.TaggedStruct("NoDocumentInRequest", {
+export const NoDocumentInRequestError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: there is no document in the request"),
@@ -2397,7 +2388,7 @@ export const NoDocumentInRequestError = Schema.TaggedStruct("NoDocumentInRequest
 /**
  * live photo parameter is missing
  */
-export const NoLivePhotoInRequestError = Schema.TaggedStruct("NoLivePhotoInRequest", {
+export const NoLivePhotoInRequestError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: there is no live photo in the request"),
@@ -2406,7 +2397,7 @@ export const NoLivePhotoInRequestError = Schema.TaggedStruct("NoLivePhotoInReque
 /**
  * message_ids is missing or does not refer to existing messages
  */
-export const NoMessagesToForwardError = Schema.TaggedStruct("NoMessagesToForward", {
+export const NoMessagesToForwardError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: there are no messages to forward"),
@@ -2415,7 +2406,7 @@ export const NoMessagesToForwardError = Schema.TaggedStruct("NoMessagesToForward
 /**
  * photo parameter is missing
  */
-export const NoPhotoInRequestError = Schema.TaggedStruct("NoPhotoInRequest", {
+export const NoPhotoInRequestError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: there is no photo in the request"),
@@ -2424,7 +2415,7 @@ export const NoPhotoInRequestError = Schema.TaggedStruct("NoPhotoInRequest", {
 /**
  * bot lacks can_manage_topics for the configured forum topic
  */
-export const NotEnoughRightsToCloseOrOpenTopicError = Schema.TaggedStruct("NotEnoughRightsToCloseOrOpenTopic", {
+export const NotEnoughRightsToCloseOrOpenTopicError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: not enough rights to close or open the topic"),
@@ -2433,7 +2424,7 @@ export const NotEnoughRightsToCloseOrOpenTopicError = Schema.TaggedStruct("NotEn
 /**
  * bot lacks can_manage_topics in the test supergroup
  */
-export const NotEnoughRightsToCreateTopicError = Schema.TaggedStruct("NotEnoughRightsToCreateTopic", {
+export const NotEnoughRightsToCreateTopicError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: not enough rights to create a topic"),
@@ -2442,7 +2433,7 @@ export const NotEnoughRightsToCreateTopicError = Schema.TaggedStruct("NotEnoughR
 /**
  * bot lacks can_manage_topics for the forum topic
  */
-export const NotEnoughRightsToEditTopicError = Schema.TaggedStruct("NotEnoughRightsToEditTopic", {
+export const NotEnoughRightsToEditTopicError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: not enough rights to edit the topic"),
@@ -2451,7 +2442,7 @@ export const NotEnoughRightsToEditTopicError = Schema.TaggedStruct("NotEnoughRig
 /**
  * Token segment is empty or not in bot id:hash form
  */
-export const NotFoundError = Schema.TaggedStruct("NotFound", {
+export const NotFoundError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(404),
 	description: Schema.Literal("Not Found"),
@@ -2460,7 +2451,7 @@ export const NotFoundError = Schema.TaggedStruct("NotFound", {
 /**
  * video parameter is missing
  */
-export const NoVideoInRequestError = Schema.TaggedStruct("NoVideoInRequest", {
+export const NoVideoInRequestError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: there is no video in the request"),
@@ -2469,7 +2460,7 @@ export const NoVideoInRequestError = Schema.TaggedStruct("NoVideoInRequest", {
 /**
  * video_note parameter is missing
  */
-export const NoVideoNoteInRequestError = Schema.TaggedStruct("NoVideoNoteInRequest", {
+export const NoVideoNoteInRequestError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: there is no video note in the request"),
@@ -2478,7 +2469,7 @@ export const NoVideoNoteInRequestError = Schema.TaggedStruct("NoVideoNoteInReque
 /**
  * voice parameter is missing
  */
-export const NoVoiceInRequestError = Schema.TaggedStruct("NoVoiceInRequest", {
+export const NoVoiceInRequestError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: there is no voice in the request"),
@@ -2487,7 +2478,7 @@ export const NoVoiceInRequestError = Schema.TaggedStruct("NoVoiceInRequest", {
 /**
  * reply keyboard one_time_keyboard is not a boolean
  */
-export const OneTimeKeyboardMustBeBooleanError = Schema.TaggedStruct("OneTimeKeyboardMustBeBoolean", {
+export const OneTimeKeyboardMustBeBooleanError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal('Bad Request: field "one_time_keyboard" must be of type Boolean'),
@@ -2496,7 +2487,7 @@ export const OneTimeKeyboardMustBeBooleanError = Schema.TaggedStruct("OneTimeKey
 /**
  * user_id does not refer to a chat participant
  */
-export const ParticipantIdInvalidError = Schema.TaggedStruct("ParticipantIdInvalid", {
+export const ParticipantIdInvalidError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: PARTICIPANT_ID_INVALID"),
@@ -2505,7 +2496,7 @@ export const ParticipantIdInvalidError = Schema.TaggedStruct("ParticipantIdInval
 /**
  * chat_id does not refer to a channel or supergroup that supports boosts
  */
-export const PeerIdInvalidError = Schema.TaggedStruct("PeerIdInvalid", {
+export const PeerIdInvalidError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: PEER_ID_INVALID"),
@@ -2514,7 +2505,7 @@ export const PeerIdInvalidError = Schema.TaggedStruct("PeerIdInvalid", {
 /**
  * phone_number parameter is missing
  */
-export const PhoneNumberRequiredError = Schema.TaggedStruct("PhoneNumberRequired", {
+export const PhoneNumberRequiredError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal('Bad Request: parameter "phone_number" is required'),
@@ -2523,7 +2514,7 @@ export const PhoneNumberRequiredError = Schema.TaggedStruct("PhoneNumberRequired
 /**
  * required parameters missing
  */
-export const PhotoNotSpecifiedError = Schema.TaggedStruct("PhotoNotSpecified", {
+export const PhotoNotSpecifiedError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: photo isn't specified"),
@@ -2532,7 +2523,7 @@ export const PhotoNotSpecifiedError = Schema.TaggedStruct("PhotoNotSpecified", {
 /**
  * options array is empty
  */
-export const PollMustHaveAtLeastOneAnswerOptionError = Schema.TaggedStruct("PollMustHaveAtLeastOneAnswerOption", {
+export const PollMustHaveAtLeastOneAnswerOptionError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: poll must have at least one answer option"),
@@ -2541,7 +2532,7 @@ export const PollMustHaveAtLeastOneAnswerOptionError = Schema.TaggedStruct("Poll
 /**
  * link_preview_options.prefer_large_media is not a boolean
  */
-export const PreferLargeMediaMustBeBooleanError = Schema.TaggedStruct("PreferLargeMediaMustBeBoolean", {
+export const PreferLargeMediaMustBeBooleanError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal('Bad Request: field "prefer_large_media" must be of type Boolean'),
@@ -2550,7 +2541,7 @@ export const PreferLargeMediaMustBeBooleanError = Schema.TaggedStruct("PreferLar
 /**
  * link_preview_options.prefer_small_media is not a boolean
  */
-export const PreferSmallMediaMustBeBooleanError = Schema.TaggedStruct("PreferSmallMediaMustBeBoolean", {
+export const PreferSmallMediaMustBeBooleanError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal('Bad Request: field "prefer_small_media" must be of type Boolean'),
@@ -2559,7 +2550,7 @@ export const PreferSmallMediaMustBeBooleanError = Schema.TaggedStruct("PreferSma
 /**
  * chat does not support paid subscription invite links
  */
-export const PricingChatInvalidError = Schema.TaggedStruct("PricingChatInvalid", {
+export const PricingChatInvalidError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: PRICING_CHAT_INVALID"),
@@ -2568,7 +2559,7 @@ export const PricingChatInvalidError = Schema.TaggedStruct("PricingChatInvalid",
 /**
  * draft_id is missing or invalid
  */
-export const RandomIdInvalidError = Schema.TaggedStruct("RandomIdInvalid", {
+export const RandomIdInvalidError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: RANDOM_ID_INVALID"),
@@ -2577,7 +2568,7 @@ export const RandomIdInvalidError = Schema.TaggedStruct("RandomIdInvalid", {
 /**
  * remove_keyboard is not a boolean
  */
-export const RemoveKeyboardMustBeBooleanError = Schema.TaggedStruct("RemoveKeyboardMustBeBoolean", {
+export const RemoveKeyboardMustBeBooleanError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal('Bad Request: field "remove_keyboard" must be of type Boolean'),
@@ -2586,7 +2577,7 @@ export const RemoveKeyboardMustBeBooleanError = Schema.TaggedStruct("RemoveKeybo
 /**
  * reply_parameters is set without message_id
  */
-export const ReplyMessageIdMissingError = Schema.TaggedStruct("ReplyMessageIdMissing", {
+export const ReplyMessageIdMissingError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal('Bad Request: can\'t find field "message_id"'),
@@ -2595,7 +2586,7 @@ export const ReplyMessageIdMissingError = Schema.TaggedStruct("ReplyMessageIdMis
 /**
  * login_url.request_write_access is not a boolean
  */
-export const RequestWriteAccessMustBeBooleanError = Schema.TaggedStruct("RequestWriteAccessMustBeBoolean", {
+export const RequestWriteAccessMustBeBooleanError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal(
@@ -2606,7 +2597,7 @@ export const RequestWriteAccessMustBeBooleanError = Schema.TaggedStruct("Request
 /**
  * reply keyboard resize_keyboard is not a boolean
  */
-export const ResizeKeyboardMustBeBooleanError = Schema.TaggedStruct("ResizeKeyboardMustBeBoolean", {
+export const ResizeKeyboardMustBeBooleanError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal('Bad Request: field "resize_keyboard" must be of type Boolean'),
@@ -2615,7 +2606,7 @@ export const ResizeKeyboardMustBeBooleanError = Schema.TaggedStruct("ResizeKeybo
 /**
  * required parameters missing
  */
-export const ResultNotSpecifiedError = Schema.TaggedStruct("ResultNotSpecified", {
+export const ResultNotSpecifiedError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: result isn't specified"),
@@ -2624,7 +2615,7 @@ export const ResultNotSpecifiedError = Schema.TaggedStruct("ResultNotSpecified",
 /**
  * reply markup selective is not a boolean
  */
-export const SelectiveMustBeBooleanError = Schema.TaggedStruct("SelectiveMustBeBoolean", {
+export const SelectiveMustBeBooleanError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal('Bad Request: field "selective" must be of type Boolean'),
@@ -2633,7 +2624,7 @@ export const SelectiveMustBeBooleanError = Schema.TaggedStruct("SelectiveMustBeB
 /**
  * sender_chat_id is missing
  */
-export const SenderChatIdEmptyError = Schema.TaggedStruct("SenderChatIdEmpty", {
+export const SenderChatIdEmptyError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: sender_chat_id is empty"),
@@ -2642,7 +2633,7 @@ export const SenderChatIdEmptyError = Schema.TaggedStruct("SenderChatIdEmpty", {
 /**
  * link_preview_options.show_above_text is not a boolean
  */
-export const ShowAboveTextMustBeBooleanError = Schema.TaggedStruct("ShowAboveTextMustBeBoolean", {
+export const ShowAboveTextMustBeBooleanError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal('Bad Request: field "show_above_text" must be of type Boolean'),
@@ -2651,7 +2642,7 @@ export const ShowAboveTextMustBeBooleanError = Schema.TaggedStruct("ShowAboveTex
 /**
  * gift_id is missing or invalid
  */
-export const StargiftInvalidError = Schema.TaggedStruct("StargiftInvalid", {
+export const StargiftInvalidError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: STARGIFT_INVALID"),
@@ -2660,7 +2651,7 @@ export const StargiftInvalidError = Schema.TaggedStruct("StargiftInvalid", {
 /**
  * sticker_set_name is missing or empty
  */
-export const StickerSetNameEmptyError = Schema.TaggedStruct("StickerSetNameEmpty", {
+export const StickerSetNameEmptyError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: sticker_set_name is empty"),
@@ -2669,7 +2660,7 @@ export const StickerSetNameEmptyError = Schema.TaggedStruct("StickerSetNameEmpty
 /**
  * sticker_set_name does not refer to an existing set
  */
-export const StickerSetNotFoundError = Schema.TaggedStruct("StickerSetNotFound", {
+export const StickerSetNotFoundError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: sticker set not found"),
@@ -2678,7 +2669,7 @@ export const StickerSetNotFoundError = Schema.TaggedStruct("StickerSetNotFound",
 /**
  * required parameters missing
  */
-export const StoryContentNotSpecifiedError = Schema.TaggedStruct("StoryContentNotSpecified", {
+export const StoryContentNotSpecifiedError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: story content isn't specified"),
@@ -2687,7 +2678,7 @@ export const StoryContentNotSpecifiedError = Schema.TaggedStruct("StoryContentNo
 /**
  * suggested_post_parameters is used outside a channel direct messages chat
  */
-export const SuggestedPostChannelOnlyError = Schema.TaggedStruct("SuggestedPostChannelOnly", {
+export const SuggestedPostChannelOnlyError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: suggested posts can be sent only to channel direct messages"),
@@ -2696,7 +2687,7 @@ export const SuggestedPostChannelOnlyError = Schema.TaggedStruct("SuggestedPostC
 /**
  * text_link entity is missing url
  */
-export const TextLinkUrlMissingError = Schema.TaggedStruct("TextLinkUrlMissing", {
+export const TextLinkUrlMissingError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: can't parse MessageEntity: Can't find field \"url\""),
@@ -2705,7 +2696,7 @@ export const TextLinkUrlMissingError = Schema.TaggedStruct("TextLinkUrlMissing",
 /**
  * text_mention entity is missing user
  */
-export const TextMentionUserMissingError = Schema.TaggedStruct("TextMentionUserMissing", {
+export const TextMentionUserMissingError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: can't parse MessageEntity: Can't find field \"user\""),
@@ -2714,7 +2705,7 @@ export const TextMentionUserMissingError = Schema.TaggedStruct("TextMentionUserM
 /**
  * text contains only whitespace or parses to empty content
  */
-export const TextMustBeNonEmptyError = Schema.TaggedStruct("TextMustBeNonEmpty", {
+export const TextMustBeNonEmptyError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: text must be non-empty"),
@@ -2723,7 +2714,7 @@ export const TextMustBeNonEmptyError = Schema.TaggedStruct("TextMustBeNonEmpty",
 /**
  * title is missing or empty
  */
-export const TitleEmptyError = Schema.TaggedStruct("TitleEmpty", {
+export const TitleEmptyError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: title must be non-empty"),
@@ -2732,7 +2723,7 @@ export const TitleEmptyError = Schema.TaggedStruct("TitleEmpty", {
 /**
  * Token has bot id:hash form but the secret is invalid
  */
-export const UnauthorizedError = Schema.TaggedStruct("Unauthorized", {
+export const UnauthorizedError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(401),
 	description: Schema.Literal("Unauthorized: invalid token specified"),
@@ -2741,7 +2732,7 @@ export const UnauthorizedError = Schema.TaggedStruct("Unauthorized", {
 /**
  * entities contains an unsupported type value
  */
-export const UnsupportedMessageEntityTypeError = Schema.TaggedStruct("UnsupportedMessageEntityType", {
+export const UnsupportedMessageEntityTypeError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: can't parse MessageEntity: Unsupported type specified"),
@@ -2750,7 +2741,7 @@ export const UnsupportedMessageEntityTypeError = Schema.TaggedStruct("Unsupporte
 /**
  * parse_mode is not HTML, Markdown, or MarkdownV2
  */
-export const UnsupportedParseModeError = Schema.TaggedStruct("UnsupportedParseMode", {
+export const UnsupportedParseModeError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: unsupported parse_mode"),
@@ -2759,7 +2750,7 @@ export const UnsupportedParseModeError = Schema.TaggedStruct("UnsupportedParseMo
 /**
  * user_id does not refer to a pending join request
  */
-export const UserIdInvalidError = Schema.TaggedStruct("UserIdInvalid", {
+export const UserIdInvalidError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: USER_ID_INVALID"),
@@ -2768,7 +2759,7 @@ export const UserIdInvalidError = Schema.TaggedStruct("UserIdInvalid", {
 /**
  * user_id does not refer to an existing user
  */
-export const UserNotFoundError = Schema.TaggedStruct("UserNotFound", {
+export const UserNotFoundError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: user not found"),
@@ -2777,7 +2768,7 @@ export const UserNotFoundError = Schema.TaggedStruct("UserNotFound", {
 /**
  * web_app button url is HTTP instead of HTTPS
  */
-export const WebAppUrlHttpNotAllowedError = Schema.TaggedStruct("WebAppUrlHttpNotAllowed", {
+export const WebAppUrlHttpNotAllowedError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal(
@@ -2788,7 +2779,7 @@ export const WebAppUrlHttpNotAllowedError = Schema.TaggedStruct("WebAppUrlHttpNo
 /**
  * web_app button url is not a valid HTTPS URL
  */
-export const WebAppUrlNotHttpsError = Schema.TaggedStruct("WebAppUrlNotHttps", {
+export const WebAppUrlNotHttpsError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal(
@@ -2799,7 +2790,7 @@ export const WebAppUrlNotHttpsError = Schema.TaggedStruct("WebAppUrlNotHttps", {
 /**
  * link_preview_options.url is not a valid URL
  */
-export const WebpageUrlInvalidError = Schema.TaggedStruct("WebpageUrlInvalid", {
+export const WebpageUrlInvalidError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: WEBPAGE_URL_INVALID"),
@@ -2808,7 +2799,7 @@ export const WebpageUrlInvalidError = Schema.TaggedStruct("WebpageUrlInvalid", {
 /**
  * action is missing or not a supported chat action type
  */
-export const WrongParameterActionError = Schema.TaggedStruct("WrongParameterAction", {
+export const WrongParameterActionError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: wrong parameter action in request"),
@@ -2817,7 +2808,7 @@ export const WrongParameterActionError = Schema.TaggedStruct("WrongParameterActi
 /**
  * video file_id is malformed
  */
-export const WrongRemoteFileIdentifierWrongPaddingError = Schema.TaggedStruct("WrongRemoteFileIdentifierWrongPadding", {
+export const WrongRemoteFileIdentifierWrongPaddingError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: wrong remote file identifier specified: Wrong padding in the string"),

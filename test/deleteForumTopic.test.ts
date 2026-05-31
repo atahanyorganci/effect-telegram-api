@@ -1,14 +1,20 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import {
+	authErrorTests,
+	callClient,
+	expectClientSchemaError,
+	expectErrorTag,
+	liveTests,
+	telegramConfig,
+} from "./helpers.ts";
 
 const callDeleteForumTopic = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.deleteForumTopic, payload);
+	callClient("deleteForumTopic", token, payload as never);
 
-describe("deleteForumTopic", () => {
+liveTests("deleteForumTopic", test => {
 	describe("Telegram API errors", () => {
-		it.effect("ChatWriteForbidden when the bot cannot delete a forum topic", () =>
+		test.effect("ChatWriteForbidden when the bot cannot delete a forum topic", () =>
 			Effect.gen(function* () {
 				const { botToken, groupId } = yield* telegramConfig;
 				const error = yield* callDeleteForumTopic(botToken, {
@@ -16,23 +22,17 @@ describe("deleteForumTopic", () => {
 					message_thread_id: 999_999_999,
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.ChatWriteForbidden>(
-					error,
-					"ChatWriteForbidden",
-					"Bad Request: CHAT_WRITE_FORBIDDEN",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "ChatWriteForbidden", "Bad Request: CHAT_WRITE_FORBIDDEN");
+			}),
 		);
 
-		it.effect("ChatIdEmpty when required parameters missing", () =>
+		test.effect("ChatIdEmpty when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callDeleteForumTopic(botToken, {}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.ChatIdEmpty>(error, "ChatIdEmpty", "Bad Request: chat_id is empty");
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callDeleteForumTopic(botToken, {}));
+			}),
 		);
 	});
 
-	authErrorTests(token => callDeleteForumTopic(token, { chat_id: 0, message_thread_id: 0 }));
+	authErrorTests(test, token => callDeleteForumTopic(token, { chat_id: 0, message_thread_id: 0 }));
 });

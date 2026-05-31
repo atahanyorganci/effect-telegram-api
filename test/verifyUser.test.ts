@@ -1,14 +1,19 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import {
+	authErrorTests,
+	callClient,
+	expectClientSchemaError,
+	expectErrorTag,
+	liveTests,
+	telegramConfig,
+} from "./helpers.ts";
 
-const callVerifyUser = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.verifyUser, payload);
+const callVerifyUser = (token: string, payload: unknown) => callClient("verifyUser", token, payload as never);
 
-describe("verifyUser", () => {
+liveTests("verifyUser", test => {
 	describe("Telegram API errors", () => {
-		it.effect("UserNotFound when user_id does not exist", () =>
+		test.effect("UserNotFound when user_id does not exist", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callVerifyUser(botToken, {
@@ -16,19 +21,17 @@ describe("verifyUser", () => {
 					custom_description: "probe",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.UserNotFound>(error, "UserNotFound", "Bad Request: user not found");
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "UserNotFound", "Bad Request: user not found");
+			}),
 		);
 
-		it.effect("InvalidUserId when required parameters missing", () =>
+		test.effect("InvalidUserId when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callVerifyUser(botToken, {}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.InvalidUserId>(error, "InvalidUserId", "Bad Request: invalid user_id specified");
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callVerifyUser(botToken, {}));
+			}),
 		);
 	});
 
-	authErrorTests(token => callVerifyUser(token, { user_id: 0 }));
+	authErrorTests(test, token => callVerifyUser(token, { user_id: 0 }));
 });

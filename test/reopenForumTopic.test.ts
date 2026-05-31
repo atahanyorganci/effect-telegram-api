@@ -1,14 +1,20 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import {
+	authErrorTests,
+	callClient,
+	expectClientSchemaError,
+	expectErrorTag,
+	liveTests,
+	telegramConfig,
+} from "./helpers.ts";
 
 const callReopenForumTopic = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.reopenForumTopic, payload);
+	callClient("reopenForumTopic", token, payload as never);
 
-describe("reopenForumTopic", () => {
+liveTests("reopenForumTopic", test => {
 	describe("Telegram API errors", () => {
-		it.effect("NotEnoughRightsToCloseOrOpenTopic when the bot cannot manage the configured forum topic", () =>
+		test.effect("NotEnoughRightsToCloseOrOpenTopic when the bot cannot manage the configured forum topic", () =>
 			Effect.gen(function* () {
 				const { botToken, groupId, forumTopicId } = yield* telegramConfig;
 				const error = yield* callReopenForumTopic(botToken, {
@@ -16,23 +22,21 @@ describe("reopenForumTopic", () => {
 					message_thread_id: forumTopicId,
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.NotEnoughRightsToCloseOrOpenTopic>(
+				expectErrorTag(
 					error,
 					"NotEnoughRightsToCloseOrOpenTopic",
 					"Bad Request: not enough rights to close or open the topic",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("ChatIdEmpty when required parameters missing", () =>
+		test.effect("ChatIdEmpty when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callReopenForumTopic(botToken, {}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.ChatIdEmpty>(error, "ChatIdEmpty", "Bad Request: chat_id is empty");
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callReopenForumTopic(botToken, {}));
+			}),
 		);
 	});
 
-	authErrorTests(token => callReopenForumTopic(token, { chat_id: 0, message_thread_id: 0 }));
+	authErrorTests(test, token => callReopenForumTopic(token, { chat_id: 0, message_thread_id: 0 }));
 });

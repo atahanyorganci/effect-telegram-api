@@ -1,21 +1,19 @@
 import { NodeHttpClient, NodeServices } from "@effect/platform-node";
-import { assert, describe, it } from "@effect/vitest";
+import { assert, it } from "@effect/vitest";
+import * as Cause from "effect/Cause";
 import * as Config from "effect/Config";
 import * as ConfigProvider from "effect/ConfigProvider";
 import * as Effect from "effect/Effect";
+import * as Exit from "effect/Exit";
 import * as Layer from "effect/Layer";
+import * as Result from "effect/Result";
 import * as Schema from "effect/Schema";
-import { HttpApiEndpoint } from "effect/unstable/httpapi";
 import { appendFileSync, existsSync, mkdirSync, readFileSync, unlinkSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import * as Telegram from "../src/index.ts";
-import type { TelegramApiError } from "../src/Client.ts";
-import type * as TelegramTypes from "../src/index.ts";
-
-/** Cross-worker registry of forum topics created during tests (not the configured fixture topic). */
-export const createdForumTopicsRegistryPath = resolve(import.meta.dirname, ".artifacts/created-forum-topics.txt");
-
-const bestEffort = <A, E, R>(effect: Effect.Effect<A, E, R>) => effect.pipe(Effect.ignore);
+import { TelegramClient } from "../src/TelegramClient.ts";
+import type { TelegramApiError } from "../src/TelegramApiError.ts";
+import type { Vitest } from "@effect/vitest";
 
 export const LiveLayer = Layer.mergeAll(NodeServices.layer, NodeHttpClient.layerFetch);
 
@@ -27,40 +25,105 @@ export const TelegramConfig = Config.all({
 	forumTopicId: Config.number("TELEGRAM_FORUM_TOPIC_ID"),
 });
 
-const telegramConfigProvider = ConfigProvider.fromUnknown(process.env);
+export const telegramConfig = TelegramConfig.parse(ConfigProvider.fromUnknown(process.env));
 
-export const telegramConfig = TelegramConfig.parse(telegramConfigProvider);
+export const INVALID_BOT_TOKEN = "0000000000:INVALID_TOKEN";
 
-/** Test-only endpoint until `deleteMessage` is in the generated spec. */
-const deleteMessage = HttpApiEndpoint.post("deleteMessage", "/bot/:token/deleteMessage", {
-	params: { token: Schema.String },
-	payload: Schema.Struct({
-		chat_id: Schema.Union([Schema.Int, Schema.String]),
-		message_id: Schema.Int,
-	}),
-	success: Schema.Literal(true),
-});
+type TestServices = Layer.Success<typeof LiveLayer>;
 
-/** Best-effort delete of a bot message created during a test. Ignores Telegram errors. */
-export const deleteSentMessage = (token: string, chatId: number, messageId: number) =>
-	Telegram.Client.callMethod(token, deleteMessage, { chat_id: chatId, message_id: messageId }).pipe(Effect.ignore);
+/** Cross-worker registry of forum topics created during tests (not the configured fixture topic). */
+export const createdForumTopicsRegistryPath = resolve(import.meta.dirname, ".artifacts/created-forum-topics.txt");
 
-export const deleteSentMessages = (token: string, chatId: number, messageIds: readonly number[]) =>
-	Effect.forEach(messageIds, messageId => deleteSentMessage(token, chatId, messageId), { discard: true });
+const bestEffort = <A, E, R>(effect: Effect.Effect<A, E, R>) => effect.pipe(Effect.ignore);
 
-export const clearMessageReaction = (token: string, chatId: number, messageId: number, messageThreadId?: number) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.setMessageReaction, {
-		chat_id: chatId,
-		message_id: messageId,
-		...(messageThreadId === undefined ? {} : { message_thread_id: messageThreadId }),
-		reaction: [],
-	}).pipe(Effect.ignore);
+/** Node platform services plus a {@link Telegram.withToken} layer. */
+export const layerWithToken = (token: string) => Layer.provideMerge(Telegram.withToken(token), LiveLayer);
 
-export const restoreGroupDescription = (token: string, groupId: number, description: string) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.setChatDescription, {
-		chat_id: groupId,
-		description,
-	}).pipe(Effect.ignore);
+/** Provides {@link Telegram.withToken}; requires {@link LiveLayer} in scope. */
+export const withBotToken = <A, E>(token: string, run: Effect.Effect<A, E, TelegramClient>) =>
+	run.pipe(Effect.provide(Telegram.withToken(token)));
+
+/** Runs an effect with `TELEGRAM_BOT_TOKEN`; requires {@link LiveLayer} in scope. */
+export const withConfiguredBot = <A, E>(run: Effect.Effect<A, E, TelegramClient>) =>
+	Effect.gen(function* () {
+		const { botToken } = yield* telegramConfig;
+		return yield* withBotToken(botToken, run);
+	});
+
+type TelegramClientService = (typeof TelegramClient)["Service"];
+
+type ClientMethodArgs<M extends keyof TelegramClientService> = TelegramClientService[M] extends (
+	...args: infer A
+) => unknown
+	? A
+	: never;
+
+/** Calls a {@link TelegramClient} method with an explicit bot token. Requires {@link LiveLayer} in scope. */
+export const callClient = <M extends keyof TelegramClientService>(
+	method: M,
+	token: string,
+	...args: ClientMethodArgs<M>
+): Effect.Effect<any, any, TestServices> =>
+	withBotToken(
+		token,
+		Effect.gen(function* () {
+			const client = yield* TelegramClient;
+			const fn = client[method] as (...methodArgs: ClientMethodArgs<M>) => ReturnType<TelegramClientService[M]>;
+			return yield* fn(...args);
+		}),
+	) as Effect.Effect<any, any, TestServices>;
+
+export const callGetMe = (token: string) => callClient("getMe", token);
+
+const appendFormData = (form: FormData, key: string, value: unknown): void => {
+	if (value === undefined) {
+		return;
+	}
+	if (value instanceof FormData) {
+		for (const [nestedKey, nestedValue] of value.entries()) {
+			form.append(nestedKey, nestedValue);
+		}
+		return;
+	}
+	if (value instanceof Blob) {
+		form.append(key, value);
+		return;
+	}
+	if (typeof Buffer !== "undefined" && Buffer.isBuffer(value)) {
+		form.append(key, new Blob([Uint8Array.from(value)]), `${key}.bin`);
+		return;
+	}
+	if (value instanceof Uint8Array) {
+		form.append(key, new Blob([Uint8Array.from(value)]), `${key}.bin`);
+		return;
+	}
+	if (typeof value === "object" && value !== null) {
+		form.append(key, JSON.stringify(value));
+		return;
+	}
+	if (
+		typeof value === "string" ||
+		typeof value === "number" ||
+		typeof value === "boolean" ||
+		typeof value === "bigint"
+	) {
+		form.append(key, String(value));
+		return;
+	}
+	form.append(key, JSON.stringify(value));
+};
+
+/** Builds a multipart {@link FormData} payload for Telegram file upload methods. */
+export const formDataPayload = (payload: Record<string, unknown> | FormData): FormData => {
+	if (payload instanceof FormData) {
+		return payload;
+	}
+	const form = new FormData();
+	for (const [key, value] of Object.entries(payload)) {
+		appendFormData(form, key, value);
+	}
+	return form;
+};
 
 /** Record a forum topic id when a test unexpectedly creates one (safe across vitest workers). */
 export const trackCreatedForumTopic = (messageThreadId: number) => {
@@ -86,6 +149,17 @@ export const resetCreatedForumTopicsRegistry = () => {
 	}
 };
 
+export const clearMessageReaction = (token: string, chatId: number, messageId: number, messageThreadId?: number) =>
+	callClient("setMessageReaction", token, {
+		chat_id: chatId,
+		message_id: messageId,
+		...(messageThreadId === undefined ? {} : { message_thread_id: messageThreadId }),
+		reaction: [],
+	}).pipe(Effect.ignore);
+
+export const restoreGroupDescription = (token: string, groupId: number, description: string) =>
+	callClient("setChatDescription", token, { chat_id: groupId, description }).pipe(Effect.ignore);
+
 /** Best-effort cleanup of pins and stray forum topics after the suite finishes. */
 export const cleanupTestArtifacts = Effect.gen(function* () {
 	const config = yield* Effect.option(telegramConfig);
@@ -95,36 +169,21 @@ export const cleanupTestArtifacts = Effect.gen(function* () {
 
 	const { botToken, chatId, groupId, forumTopicId } = config.value;
 
-	yield* bestEffort(Telegram.Client.callMethod(botToken, Telegram.Methods.unpinAllChatMessages, { chat_id: chatId }));
-	yield* bestEffort(Telegram.Client.callMethod(botToken, Telegram.Methods.unpinAllChatMessages, { chat_id: groupId }));
+	yield* bestEffort(callClient("unpinAllChatMessages", botToken, { chat_id: chatId }));
+	yield* bestEffort(callClient("unpinAllChatMessages", botToken, { chat_id: groupId }));
 	yield* bestEffort(
-		Telegram.Client.callMethod(botToken, Telegram.Methods.unpinAllForumTopicMessages, {
-			chat_id: groupId,
-			message_thread_id: forumTopicId,
-		}),
+		callClient("unpinAllForumTopicMessages", botToken, { chat_id: groupId, message_thread_id: forumTopicId }),
 	);
-	yield* bestEffort(
-		Telegram.Client.callMethod(botToken, Telegram.Methods.unpinAllGeneralForumTopicMessages, { chat_id: groupId }),
-	);
-	yield* bestEffort(
-		Telegram.Client.callMethod(botToken, Telegram.Methods.reopenForumTopic, {
-			chat_id: groupId,
-			message_thread_id: forumTopicId,
-		}),
-	);
-	yield* bestEffort(
-		Telegram.Client.callMethod(botToken, Telegram.Methods.reopenGeneralForumTopic, { chat_id: groupId }),
-	);
+	yield* bestEffort(callClient("unpinAllGeneralForumTopicMessages", botToken, { chat_id: groupId }));
+	yield* bestEffort(callClient("reopenForumTopic", botToken, { chat_id: groupId, message_thread_id: forumTopicId }));
+	yield* bestEffort(callClient("reopenGeneralForumTopic", botToken, { chat_id: groupId }));
 
 	for (const messageThreadId of readTrackedForumTopicIds()) {
 		if (messageThreadId === forumTopicId) {
 			continue;
 		}
 		yield* bestEffort(
-			Telegram.Client.callMethod(botToken, Telegram.Methods.deleteForumTopic, {
-				chat_id: groupId,
-				message_thread_id: messageThreadId,
-			}),
+			callClient("deleteForumTopic", botToken, { chat_id: groupId, message_thread_id: messageThreadId }),
 		);
 	}
 
@@ -140,48 +199,66 @@ export const expectTelegramApiError = (
 	assert.strictEqual((error as TelegramApiError).description, expected.description);
 };
 
-export const expectErrorTag = <T extends { readonly _tag: string; readonly description: string }>(
-	error: unknown,
-	tag: T["_tag"],
-	description: string,
-) => {
-	assert.strictEqual((error as T).description, description);
-	assert.strictEqual((error as T)._tag, tag);
+export const expectErrorTag = (error: unknown, tag: string, description: string) => {
+	assert.strictEqual((error as { readonly description: string }).description, description);
+	assert.strictEqual((error as { readonly _tag: string })._tag, tag);
 };
 
-export const INVALID_BOT_TOKEN = "0000000000:INVALID_TOKEN";
+const isSchemaErrorDefect = (value: unknown): boolean =>
+	Schema.isSchemaError(value) ||
+	(typeof value === "object" &&
+		value !== null &&
+		"_tag" in value &&
+		(value as { readonly _tag: string })._tag === "SchemaError");
 
-type TestServices = Layer.Success<typeof LiveLayer>;
+export const expectSchemaDie = (exit: Exit.Exit<unknown, unknown>) => {
+	assert.strictEqual(Exit.isFailure(exit), true);
+	if (!Exit.isFailure(exit)) {
+		return;
+	}
+	const defect = Result.getOrNull(Cause.findDefect(exit.cause));
+	assert.notStrictEqual(defect, null);
+	assert.strictEqual(isSchemaErrorDefect(defect), true);
+};
+
+/** Runs a client call and asserts that payload encoding fails with {@link Schema.SchemaError}. */
+export const expectClientSchemaError = (call: Effect.Effect<unknown, unknown, TestServices>) =>
+	call.pipe(
+		Effect.exit,
+		Effect.tap(exit => Effect.sync(() => expectSchemaDie(exit))),
+		Effect.asVoid,
+	);
 
 /** Live tests for invalid or malformed bot tokens (401 / 404). */
-export const authErrorTests = (callWithToken: (token: string) => Effect.Effect<unknown, unknown, TestServices>) => {
-	describe("authentication errors", () => {
-		it.effect("Unauthorized when the token has bot id:hash form but the secret is invalid", () =>
-			Effect.gen(function* () {
-				const error = yield* callWithToken(INVALID_BOT_TOKEN).pipe(Effect.flip);
+export const authErrorTests = (
+	test: Pick<Vitest.MethodsNonLive<TestServices>, "effect">,
+	callWithToken: (token: string) => Effect.Effect<unknown, unknown, TestServices>,
+) => {
+	test.effect("returns Unauthorized when the token has bot id:hash form but the secret is invalid", () =>
+		Effect.gen(function* () {
+			const error = yield* callWithToken(INVALID_BOT_TOKEN).pipe(Effect.flip);
 
-				expectErrorTag<TelegramTypes.Errors.Unauthorized>(
-					error,
-					"Unauthorized",
-					"Unauthorized: invalid token specified",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
-		);
+			expectErrorTag(error, "Unauthorized", "Unauthorized: invalid token specified");
+		}),
+	);
 
-		it.effect("NotFound when the token segment is empty", () =>
-			Effect.gen(function* () {
-				const error = yield* callWithToken("").pipe(Effect.flip);
+	test.effect("returns NotFound when the token segment is empty", () =>
+		Effect.gen(function* () {
+			const error = yield* callWithToken("").pipe(Effect.flip);
 
-				expectErrorTag<TelegramTypes.Errors.NotFound>(error, "NotFound", "Not Found");
-			}).pipe(Effect.provide(LiveLayer)),
-		);
+			expectErrorTag(error, "NotFound", "Not Found");
+		}),
+	);
 
-		it.effect("NotFound when the token is not in bot id:hash form", () =>
-			Effect.gen(function* () {
-				const error = yield* callWithToken("not-a-valid-token").pipe(Effect.flip);
+	test.effect("returns NotFound when the token is not in bot id:hash form", () =>
+		Effect.gen(function* () {
+			const error = yield* callWithToken("not-a-valid-token").pipe(Effect.flip);
 
-				expectErrorTag<TelegramTypes.Errors.NotFound>(error, "NotFound", "Not Found");
-			}).pipe(Effect.provide(LiveLayer)),
-		);
-	});
+			expectErrorTag(error, "NotFound", "Not Found");
+		}),
+	);
 };
+
+/** Shared platform layer for live Telegram integration tests. */
+export const liveTests = (name: string, run: (test: Pick<Vitest.MethodsNonLive<TestServices>, "effect">) => void) =>
+	it.layer(LiveLayer)(name, run);

@@ -1,26 +1,21 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import { authErrorTests, callClient, expectErrorTag, formDataPayload, liveTests, telegramConfig } from "./helpers.ts";
 
-const callSendAnimation = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.sendAnimation, payload);
+const callSendAnimation = (token: string, payload: unknown = {}) =>
+	callClient("sendAnimation", token, formDataPayload(payload as Record<string, unknown>) as never);
 
-describe("sendAnimation", () => {
+liveTests("sendAnimation", test => {
 	describe("Telegram API errors", () => {
-		it.effect("NoAnimationInRequest when animation is missing", () =>
+		test.effect("NoAnimationInRequest when animation is missing", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendAnimation(botToken, { chat_id: chatId }).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.NoAnimationInRequest>(
-					error,
-					"NoAnimationInRequest",
-					"Bad Request: there is no animation in the request",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "NoAnimationInRequest", "Bad Request: there is no animation in the request");
+			}),
 		);
 	});
 
-	authErrorTests(token => callSendAnimation(token, { chat_id: 1 }));
+	authErrorTests(test, token => callSendAnimation(token, { chat_id: 1, animation: "invalid" }));
 });

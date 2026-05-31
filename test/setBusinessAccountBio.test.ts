@@ -1,26 +1,23 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import { authErrorTests, callClient, expectErrorTag, liveTests, telegramConfig } from "./helpers.ts";
 
 const callSetBusinessAccountBio = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.setBusinessAccountBio, payload);
+	callClient("setBusinessAccountBio", token, payload as never);
 
-describe("setBusinessAccountBio", () => {
+liveTests("setBusinessAccountBio", test => {
 	describe("Telegram API errors", () => {
-		it.effect("BusinessConnectionNotFound when required parameters missing", () =>
+		test.effect("BusinessConnectionNotFound when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callSetBusinessAccountBio(botToken, {}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.BusinessConnectionNotFound>(
-					error,
-					"BusinessConnectionNotFound",
-					"Bad Request: business connection not found",
+				const error = yield* callSetBusinessAccountBio(botToken, { business_connection_id: "invalid" }).pipe(
+					Effect.flip,
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+
+				expectErrorTag(error, "BusinessConnectionNotFound", "Bad Request: business connection not found");
+			}),
 		);
 	});
 
-	authErrorTests(token => callSetBusinessAccountBio(token, { business_connection_id: "invalid" }));
+	authErrorTests(test, token => callSetBusinessAccountBio(token, { business_connection_id: "invalid", bio: "" }));
 });

@@ -1,10 +1,7 @@
-import { describe } from "@effect/vitest";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests } from "./helpers.ts";
+import { authErrorTests, callClient, liveTests } from "./helpers.ts";
 
-const callRemoveMyProfilePhoto = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.removeMyProfilePhoto, payload);
+const callRemoveMyProfilePhoto = (token: string) => callClient("removeMyProfilePhoto", token);
 
-describe("removeMyProfilePhoto", () => {
-	authErrorTests(token => callRemoveMyProfilePhoto(token, {}));
+liveTests("removeMyProfilePhoto", test => {
+	authErrorTests(test, callRemoveMyProfilePhoto);
 });

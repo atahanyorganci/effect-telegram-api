@@ -1,55 +1,55 @@
-import { assert, describe, it } from "@effect/vitest";
+import { assert, describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import {
+	authErrorTests,
+	callClient,
+	expectClientSchemaError,
+	expectErrorTag,
+	liveTests,
+	telegramConfig,
+} from "./helpers.ts";
 
 const callExportChatInviteLink = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.exportChatInviteLink, payload);
+	callClient("exportChatInviteLink", token, payload as never);
 
-describe("exportChatInviteLink", () => {
+liveTests("exportChatInviteLink", test => {
 	describe("success", () => {
-		it.effect("returns an invite link for the test supergroup", () =>
+		test.effect("returns an invite link for the test supergroup", () =>
 			Effect.gen(function* () {
 				const { botToken, groupId } = yield* telegramConfig;
 				const inviteLink = yield* callExportChatInviteLink(botToken, { chat_id: groupId });
 
 				assert.match(inviteLink, /^https:\/\/t\.me\//);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 	});
 
 	describe("Telegram API errors", () => {
-		it.effect("CantInviteMembersToPrivateChat when chat_id is a private chat", () =>
+		test.effect("CantInviteMembersToPrivateChat when chat_id is a private chat", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callExportChatInviteLink(botToken, { chat_id: chatId }).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.CantInviteMembersToPrivateChat>(
-					error,
-					"CantInviteMembersToPrivateChat",
-					"Bad Request: can't invite members to a private chat",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "CantInviteMembersToPrivateChat", "Bad Request: can't invite members to a private chat");
+			}),
 		);
 
-		it.effect("ChatNotFound when chat_id does not exist", () =>
+		test.effect("ChatNotFound when chat_id does not exist", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callExportChatInviteLink(botToken, { chat_id: 0 }).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.ChatNotFound>(error, "ChatNotFound", "Bad Request: chat not found");
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "ChatNotFound", "Bad Request: chat not found");
+			}),
 		);
 
-		it.effect("ChatIdEmpty when chat_id is missing", () =>
+		test.effect("ChatIdEmpty when chat_id is missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callExportChatInviteLink(botToken, {}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.ChatIdEmpty>(error, "ChatIdEmpty", "Bad Request: chat_id is empty");
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callExportChatInviteLink(botToken, {}));
+			}),
 		);
 	});
 
-	authErrorTests(token => callExportChatInviteLink(token, { chat_id: 1 }));
+	authErrorTests(test, token => callExportChatInviteLink(token, { chat_id: 1 }));
 });

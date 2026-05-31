@@ -1,14 +1,19 @@
-import { assert, describe, it } from "@effect/vitest";
+import { assert, describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import {
+	authErrorTests,
+	callClient,
+	expectClientSchemaError,
+	expectErrorTag,
+	liveTests,
+	telegramConfig,
+} from "./helpers.ts";
 
-const callSendMessage = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.sendMessage, payload);
+const callSendMessage = (token: string, payload: unknown) => callClient("sendMessage", token, payload as never);
 
-describe("sendMessage", () => {
+liveTests("sendMessage", test => {
 	describe("success", () => {
-		it.effect("sends a message when chat_id and text are valid", () =>
+		test.effect("sends a message when chat_id and text are valid", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendMessage(botToken, {
@@ -18,10 +23,10 @@ describe("sendMessage", () => {
 
 				assert.strictEqual(typeof message.message_id, "number");
 				assert.strictEqual(message.text, "telegram-api test");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("sends a message that is 4096 characters long", () =>
+		test.effect("sends a message that is 4096 characters long", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const text = "x".repeat(4096);
@@ -32,10 +37,10 @@ describe("sendMessage", () => {
 
 				assert.strictEqual(typeof message.message_id, "number");
 				assert.strictEqual(message.text, text);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("sends a message with HTML parse_mode", () =>
+		test.effect("sends a message with HTML parse_mode", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendMessage(botToken, {
@@ -46,10 +51,10 @@ describe("sendMessage", () => {
 
 				assert.strictEqual(typeof message.message_id, "number");
 				assert.strictEqual(message.text, "telegram-api test");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("sends a message with disable_notification", () =>
+		test.effect("sends a message with disable_notification", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendMessage(botToken, {
@@ -60,10 +65,10 @@ describe("sendMessage", () => {
 
 				assert.strictEqual(typeof message.message_id, "number");
 				assert.strictEqual(message.text, "telegram-api silent test");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("sends a message with link preview disabled", () =>
+		test.effect("sends a message with link preview disabled", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendMessage(botToken, {
@@ -73,10 +78,10 @@ describe("sendMessage", () => {
 				});
 
 				assert.strictEqual(typeof message.message_id, "number");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("sends a message with Markdown parse_mode", () =>
+		test.effect("sends a message with Markdown parse_mode", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendMessage(botToken, {
@@ -87,10 +92,10 @@ describe("sendMessage", () => {
 
 				assert.strictEqual(typeof message.message_id, "number");
 				assert.strictEqual(message.text, "bold");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("sends a message with MarkdownV2 parse_mode", () =>
+		test.effect("sends a message with MarkdownV2 parse_mode", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendMessage(botToken, {
@@ -101,10 +106,10 @@ describe("sendMessage", () => {
 
 				assert.strictEqual(typeof message.message_id, "number");
 				assert.strictEqual(message.text, "bold");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("sends a message with protect_content", () =>
+		test.effect("sends a message with protect_content", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendMessage(botToken, {
@@ -115,10 +120,10 @@ describe("sendMessage", () => {
 
 				assert.strictEqual(typeof message.message_id, "number");
 				assert.strictEqual(message.text, "telegram-api protected test");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("sends a message with a valid inline keyboard", () =>
+		test.effect("sends a message with a valid inline keyboard", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendMessage(botToken, {
@@ -130,10 +135,10 @@ describe("sendMessage", () => {
 				});
 
 				assert.strictEqual(typeof message.message_id, "number");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("sends a message with manual entities", () =>
+		test.effect("sends a message with manual entities", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendMessage(botToken, {
@@ -144,10 +149,10 @@ describe("sendMessage", () => {
 
 				assert.strictEqual(typeof message.message_id, "number");
 				assert.strictEqual(message.text, "hello");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("sends a message with force reply markup", () =>
+		test.effect("sends a message with force reply markup", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendMessage(botToken, {
@@ -157,10 +162,10 @@ describe("sendMessage", () => {
 				});
 
 				assert.strictEqual(typeof message.message_id, "number");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("sends a message with reply keyboard markup", () =>
+		test.effect("sends a message with reply keyboard markup", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendMessage(botToken, {
@@ -173,10 +178,10 @@ describe("sendMessage", () => {
 				});
 
 				assert.strictEqual(typeof message.message_id, "number");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("sends a message with remove keyboard markup", () =>
+		test.effect("sends a message with remove keyboard markup", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendMessage(botToken, {
@@ -186,10 +191,10 @@ describe("sendMessage", () => {
 				});
 
 				assert.strictEqual(typeof message.message_id, "number");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("sends a message with link preview above text", () =>
+		test.effect("sends a message with link preview above text", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendMessage(botToken, {
@@ -199,10 +204,10 @@ describe("sendMessage", () => {
 				});
 
 				assert.strictEqual(typeof message.message_id, "number");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("sends a message with nested HTML tags", () =>
+		test.effect("sends a message with nested HTML tags", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendMessage(botToken, {
@@ -213,10 +218,10 @@ describe("sendMessage", () => {
 
 				assert.strictEqual(typeof message.message_id, "number");
 				assert.strictEqual(message.text, "nested");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("sends a reply to a previously sent message", () =>
+		test.effect("sends a reply to a previously sent message", () =>
 			Effect.gen(function* () {
 				const { botToken: token, chatId } = yield* telegramConfig;
 				const original = yield* callSendMessage(token, {
@@ -232,10 +237,10 @@ describe("sendMessage", () => {
 
 				assert.strictEqual(typeof reply.message_id, "number");
 				assert.strictEqual(reply.reply_to_message?.message_id, original.message_id);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("sends a message with switch_inline_query button", () =>
+		test.effect("sends a message with switch_inline_query button", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendMessage(botToken, {
@@ -247,10 +252,10 @@ describe("sendMessage", () => {
 				});
 
 				assert.strictEqual(typeof message.message_id, "number");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("sends a message with copy_text button", () =>
+		test.effect("sends a message with copy_text button", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendMessage(botToken, {
@@ -262,10 +267,10 @@ describe("sendMessage", () => {
 				});
 
 				assert.strictEqual(typeof message.message_id, "number");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("sends a message with maximum length callback_data", () =>
+		test.effect("sends a message with maximum length callback_data", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendMessage(botToken, {
@@ -277,10 +282,10 @@ describe("sendMessage", () => {
 				});
 
 				assert.strictEqual(typeof message.message_id, "number");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("sends a message with spoiler entity", () =>
+		test.effect("sends a message with spoiler entity", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendMessage(botToken, {
@@ -291,10 +296,10 @@ describe("sendMessage", () => {
 
 				assert.strictEqual(typeof message.message_id, "number");
 				assert.strictEqual(message.text, "secret");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("sends a message with underline and strikethrough entities", () =>
+		test.effect("sends a message with underline and strikethrough entities", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendMessage(botToken, {
@@ -307,10 +312,10 @@ describe("sendMessage", () => {
 				});
 
 				assert.strictEqual(typeof message.message_id, "number");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("sends a message with blockquote entities", () =>
+		test.effect("sends a message with blockquote entities", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendMessage(botToken, {
@@ -323,10 +328,10 @@ describe("sendMessage", () => {
 				});
 
 				assert.strictEqual(typeof message.message_id, "number");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("sends a message with HTML spoiler and blockquote tags", () =>
+		test.effect("sends a message with HTML spoiler and blockquote tags", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendMessage(botToken, {
@@ -336,10 +341,10 @@ describe("sendMessage", () => {
 				});
 
 				assert.strictEqual(typeof message.message_id, "number");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("sends a message with link preview url override", () =>
+		test.effect("sends a message with link preview url override", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendMessage(botToken, {
@@ -349,10 +354,10 @@ describe("sendMessage", () => {
 				});
 
 				assert.strictEqual(typeof message.message_id, "number");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("sends a message with force reply placeholder", () =>
+		test.effect("sends a message with force reply placeholder", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendMessage(botToken, {
@@ -362,10 +367,10 @@ describe("sendMessage", () => {
 				});
 
 				assert.strictEqual(typeof message.message_id, "number");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("sends a message with request contact and location keyboard", () =>
+		test.effect("sends a message with request contact and location keyboard", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendMessage(botToken, {
@@ -383,10 +388,10 @@ describe("sendMessage", () => {
 				});
 
 				assert.strictEqual(typeof message.message_id, "number");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("sends a message with escaped MarkdownV2 punctuation", () =>
+		test.effect("sends a message with escaped MarkdownV2 punctuation", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendMessage(botToken, {
@@ -397,10 +402,10 @@ describe("sendMessage", () => {
 
 				assert.strictEqual(typeof message.message_id, "number");
 				assert.strictEqual(message.text, "hello.");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("sends a message when replying to a missing message with allow_sending_without_reply", () =>
+		test.effect("sends a message when replying to a missing message with allow_sending_without_reply", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendMessage(botToken, {
@@ -410,10 +415,10 @@ describe("sendMessage", () => {
 				});
 
 				assert.strictEqual(typeof message.message_id, "number");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("sends a message with case-insensitive parse_mode", () =>
+		test.effect("sends a message with case-insensitive parse_mode", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendMessage(botToken, {
@@ -424,10 +429,10 @@ describe("sendMessage", () => {
 
 				assert.strictEqual(typeof message.message_id, "number");
 				assert.strictEqual(message.text, "lower");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("sends a message with automatic entity types", () =>
+		test.effect("sends a message with automatic entity types", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendMessage(botToken, {
@@ -444,25 +449,19 @@ describe("sendMessage", () => {
 				});
 
 				assert.strictEqual(typeof message.message_id, "number");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 	});
 
 	describe("Telegram API errors", () => {
-		it.effect("MessageTextEmpty when text is missing", () =>
+		test.effect("MessageTextEmpty when text is missing", () =>
 			Effect.gen(function* () {
-				const { botToken } = yield* telegramConfig;
-				const error = yield* callSendMessage(botToken, { chat_id: 0 }).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.MessageTextEmpty>(
-					error,
-					"MessageTextEmpty",
-					"Bad Request: message text is empty",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				const { botToken, chatId } = yield* telegramConfig;
+				yield* expectClientSchemaError(callSendMessage(botToken, { chat_id: chatId }));
+			}),
 		);
 
-		it.effect("MessageTextEmpty when text is an empty string", () =>
+		test.effect("MessageTextEmpty when text is an empty string", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -470,42 +469,36 @@ describe("sendMessage", () => {
 					text: "",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.MessageTextEmpty>(
-					error,
-					"MessageTextEmpty",
-					"Bad Request: message text is empty",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "MessageTextEmpty", "Bad Request: message text is empty");
+			}),
 		);
 
-		it.effect("ChatIdEmpty when chat_id is missing", () =>
+		test.effect("ChatIdEmpty when chat_id is missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callSendMessage(botToken, { text: "test" }).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.ChatIdEmpty>(error, "ChatIdEmpty", "Bad Request: chat_id is empty");
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callSendMessage(botToken, { text: "test" }));
+			}),
 		);
 
-		it.effect("ChatIdEmpty when chat_id is an empty string", () =>
+		test.effect("ChatIdEmpty when chat_id is an empty string", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, { chat_id: "", text: "test" }).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.ChatIdEmpty>(error, "ChatIdEmpty", "Bad Request: chat_id is empty");
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "ChatIdEmpty", "Bad Request: chat_id is empty");
+			}),
 		);
 
-		it.effect("ChatNotFound when chat_id does not exist", () =>
+		test.effect("ChatNotFound when chat_id does not exist", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, { chat_id: 0, text: "test" }).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.ChatNotFound>(error, "ChatNotFound", "Bad Request: chat not found");
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "ChatNotFound", "Bad Request: chat not found");
+			}),
 		);
 
-		it.effect("ChatNotFound when chat_id is an unresolvable @username", () =>
+		test.effect("ChatNotFound when chat_id is an unresolvable @username", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -513,20 +506,20 @@ describe("sendMessage", () => {
 					text: "test",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.ChatNotFound>(error, "ChatNotFound", "Bad Request: chat not found");
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "ChatNotFound", "Bad Request: chat not found");
+			}),
 		);
 
-		it.effect("ChatNotFound when chat_id is a non-numeric string", () =>
+		test.effect("ChatNotFound when chat_id is a non-numeric string", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, { chat_id: "not_a_chat", text: "test" }).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.ChatNotFound>(error, "ChatNotFound", "Bad Request: chat not found");
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "ChatNotFound", "Bad Request: chat not found");
+			}),
 		);
 
-		it.effect("MessageTooLong when text is longer than 4096 characters", () =>
+		test.effect("MessageTooLong when text is longer than 4096 characters", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -534,11 +527,11 @@ describe("sendMessage", () => {
 					text: "x".repeat(4097),
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.MessageTooLong>(error, "MessageTooLong", "Bad Request: message is too long");
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "MessageTooLong", "Bad Request: message is too long");
+			}),
 		);
 
-		it.effect("UnsupportedParseMode when parse_mode is invalid", () =>
+		test.effect("UnsupportedParseMode when parse_mode is invalid", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -547,15 +540,11 @@ describe("sendMessage", () => {
 					parse_mode: "INVALID",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.UnsupportedParseMode>(
-					error,
-					"UnsupportedParseMode",
-					"Bad Request: unsupported parse_mode",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "UnsupportedParseMode", "Bad Request: unsupported parse_mode");
+			}),
 		);
 
-		it.effect("CantParseEntitiesNoEnd when Markdown entity is unclosed", () =>
+		test.effect("CantParseEntitiesNoEnd when Markdown entity is unclosed", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -564,15 +553,15 @@ describe("sendMessage", () => {
 					parse_mode: "Markdown",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.CantParseEntitiesNoEnd>(
+				expectErrorTag(
 					error,
 					"CantParseEntitiesNoEnd",
 					"Bad Request: can't parse entities: Can't find end of the entity starting at byte offset 0",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("CantParseEntitiesNoBoldEnd when MarkdownV2 bold entity is unclosed", () =>
+		test.effect("CantParseEntitiesNoBoldEnd when MarkdownV2 bold entity is unclosed", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -581,15 +570,15 @@ describe("sendMessage", () => {
 					parse_mode: "MarkdownV2",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.CantParseEntitiesNoBoldEnd>(
+				expectErrorTag(
 					error,
 					"CantParseEntitiesNoBoldEnd",
 					"Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 0",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("CantParseEntitiesNoHtmlEndTag when HTML tag is unclosed", () =>
+		test.effect("CantParseEntitiesNoHtmlEndTag when HTML tag is unclosed", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -598,15 +587,15 @@ describe("sendMessage", () => {
 					parse_mode: "HTML",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.CantParseEntitiesNoHtmlEndTag>(
+				expectErrorTag(
 					error,
 					"CantParseEntitiesNoHtmlEndTag",
 					"Bad Request: can't parse entities: Can't find end tag corresponding to start tag \"b\"",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("MessageThreadNotFound when message_thread_id does not exist", () =>
+		test.effect("MessageThreadNotFound when message_thread_id does not exist", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -615,15 +604,11 @@ describe("sendMessage", () => {
 					message_thread_id: 999999999,
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.MessageThreadNotFound>(
-					error,
-					"MessageThreadNotFound",
-					"Bad Request: message thread not found",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "MessageThreadNotFound", "Bad Request: message thread not found");
+			}),
 		);
 
-		it.effect("MessageToReplyNotFound when reply_parameters.message_id does not exist", () =>
+		test.effect("MessageToReplyNotFound when reply_parameters.message_id does not exist", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -632,15 +617,11 @@ describe("sendMessage", () => {
 					reply_parameters: { message_id: 999999999 },
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.MessageToReplyNotFound>(
-					error,
-					"MessageToReplyNotFound",
-					"Bad Request: message to be replied not found",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "MessageToReplyNotFound", "Bad Request: message to be replied not found");
+			}),
 		);
 
-		it.effect("EntityBeginsAfterTextEnd when entity offset is beyond the text", () =>
+		test.effect("EntityBeginsAfterTextEnd when entity offset is beyond the text", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -649,15 +630,15 @@ describe("sendMessage", () => {
 					entities: [{ type: "bold", offset: 100, length: 1 }],
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.EntityBeginsAfterTextEnd>(
+				expectErrorTag(
 					error,
 					"EntityBeginsAfterTextEnd",
 					"Bad Request: entity begins after the end of the text at UTF-16 offset 100",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("EntityEndsAfterTextEnd when entity length exceeds the text", () =>
+		test.effect("EntityEndsAfterTextEnd when entity length exceeds the text", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -666,15 +647,15 @@ describe("sendMessage", () => {
 					entities: [{ type: "bold", offset: 0, length: 100 }],
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.EntityEndsAfterTextEnd>(
+				expectErrorTag(
 					error,
 					"EntityEndsAfterTextEnd",
 					"Bad Request: entity beginning at UTF-16 offset 0 ends after the end of the text at UTF-16 offset 100",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("UnsupportedMessageEntityType when entity type is invalid", () =>
+		test.effect("UnsupportedMessageEntityType when entity type is invalid", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -683,15 +664,15 @@ describe("sendMessage", () => {
 					entities: [{ type: "invalid_type", offset: 0, length: 1 }],
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.UnsupportedMessageEntityType>(
+				expectErrorTag(
 					error,
 					"UnsupportedMessageEntityType",
 					"Bad Request: can't parse MessageEntity: Unsupported type specified",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("ButtonDataInvalid when inline keyboard callback_data is too long", () =>
+		test.effect("ButtonDataInvalid when inline keyboard callback_data is too long", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -702,15 +683,11 @@ describe("sendMessage", () => {
 					},
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.ButtonDataInvalid>(
-					error,
-					"ButtonDataInvalid",
-					"Bad Request: BUTTON_DATA_INVALID",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "ButtonDataInvalid", "Bad Request: BUTTON_DATA_INVALID");
+			}),
 		);
 
-		it.effect("BusinessConnectionNotFound when business_connection_id is invalid", () =>
+		test.effect("BusinessConnectionNotFound when business_connection_id is invalid", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -719,15 +696,11 @@ describe("sendMessage", () => {
 					business_connection_id: "invalid",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.BusinessConnectionNotFound>(
-					error,
-					"BusinessConnectionNotFound",
-					"Bad Request: business connection not found",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "BusinessConnectionNotFound", "Bad Request: business connection not found");
+			}),
 		);
 
-		it.effect("EffectIdInvalid when message_effect_id is invalid", () =>
+		test.effect("EffectIdInvalid when message_effect_id is invalid", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -736,11 +709,11 @@ describe("sendMessage", () => {
 					message_effect_id: "9999999999999999999",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.EffectIdInvalid>(error, "EffectIdInvalid", "Bad Request: EFFECT_ID_INVALID");
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "EffectIdInvalid", "Bad Request: EFFECT_ID_INVALID");
+			}),
 		);
 
-		it.effect("FloodskipNotAllowed when allow_paid_broadcast is true without sufficient Stars", () =>
+		test.effect("FloodskipNotAllowed when allow_paid_broadcast is true without sufficient Stars", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -749,15 +722,11 @@ describe("sendMessage", () => {
 					allow_paid_broadcast: true,
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.FloodskipNotAllowed>(
-					error,
-					"FloodskipNotAllowed",
-					"Bad Request: FLOODSKIP_NOT_ALLOWED",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "FloodskipNotAllowed", "Bad Request: FLOODSKIP_NOT_ALLOWED");
+			}),
 		);
 
-		it.effect("InlineButtonUrlInvalid when inline keyboard url is not a valid HTTP URL", () =>
+		test.effect("InlineButtonUrlInvalid when inline keyboard url is not a valid HTTP URL", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -766,15 +735,15 @@ describe("sendMessage", () => {
 					reply_markup: { inline_keyboard: [[{ text: "link", url: "not-a-url" }]] },
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.InlineButtonUrlInvalid>(
+				expectErrorTag(
 					error,
 					"InlineButtonUrlInvalid",
 					"Bad Request: inline keyboard button URL 'not-a-url' is invalid: Wrong HTTP URL",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("InlineButtonUrlFtpUnsupported when inline keyboard url uses FTP", () =>
+		test.effect("InlineButtonUrlFtpUnsupported when inline keyboard url uses FTP", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -783,15 +752,15 @@ describe("sendMessage", () => {
 					reply_markup: { inline_keyboard: [[{ text: "link", url: "ftp://example.com" }]] },
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.InlineButtonUrlFtpUnsupported>(
+				expectErrorTag(
 					error,
 					"InlineButtonUrlFtpUnsupported",
 					"Bad Request: inline keyboard button URL 'ftp://example.com' is invalid: Unsupported URL protocol",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("InlineButtonTextUnallowed when inline keyboard button has empty callback_data", () =>
+		test.effect("InlineButtonTextUnallowed when inline keyboard button has empty callback_data", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -800,15 +769,15 @@ describe("sendMessage", () => {
 					reply_markup: { inline_keyboard: [[{ text: "btn", callback_data: "" }]] },
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.InlineButtonTextUnallowed>(
+				expectErrorTag(
 					error,
 					"InlineButtonTextUnallowed",
 					"Bad Request: can't parse inline keyboard button: Text buttons are unallowed in the inline keyboard",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("EntityUrlInvalid when text_link entity url is not valid", () =>
+		test.effect("EntityUrlInvalid when text_link entity url is not valid", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -817,15 +786,11 @@ describe("sendMessage", () => {
 					entities: [{ type: "text_link", offset: 0, length: 5, url: "not-a-url" }],
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.EntityUrlInvalid>(
-					error,
-					"EntityUrlInvalid",
-					"Bad Request: entity URL 'not-a-url' is invalid: Wrong HTTP URL",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "EntityUrlInvalid", "Bad Request: entity URL 'not-a-url' is invalid: Wrong HTTP URL");
+			}),
 		);
 
-		it.effect("EntityUrlEmpty when text_link entity url is empty", () =>
+		test.effect("EntityUrlEmpty when text_link entity url is empty", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -834,15 +799,11 @@ describe("sendMessage", () => {
 					entities: [{ type: "text_link", offset: 0, length: 5, url: "" }],
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.EntityUrlEmpty>(
-					error,
-					"EntityUrlEmpty",
-					"Bad Request: entity URL '' is invalid: URL host is empty",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "EntityUrlEmpty", "Bad Request: entity URL '' is invalid: URL host is empty");
+			}),
 		);
 
-		it.effect("EntityIncorrectOffset when entity offset is negative", () =>
+		test.effect("EntityIncorrectOffset when entity offset is negative", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -851,15 +812,11 @@ describe("sendMessage", () => {
 					entities: [{ type: "bold", offset: -1, length: 1 }],
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.EntityIncorrectOffset>(
-					error,
-					"EntityIncorrectOffset",
-					"Bad Request: receive an entity with incorrect offset -1",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "EntityIncorrectOffset", "Bad Request: receive an entity with incorrect offset -1");
+			}),
 		);
 
-		it.effect("CustomEmojiIdMustBeNumber when custom_emoji_id is not numeric", () =>
+		test.effect("CustomEmojiIdMustBeNumber when custom_emoji_id is not numeric", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -868,15 +825,15 @@ describe("sendMessage", () => {
 					entities: [{ type: "custom_emoji", offset: 0, length: 1, custom_emoji_id: "9999999999999999999" }],
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.CustomEmojiIdMustBeNumber>(
+				expectErrorTag(
 					error,
 					"CustomEmojiIdMustBeNumber",
 					'Bad Request: can\'t parse MessageEntity: Field "custom_emoji_id" must be a valid Number',
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("UserNotFound when text_mention entity user does not exist", () =>
+		test.effect("UserNotFound when text_mention entity user does not exist", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -885,11 +842,11 @@ describe("sendMessage", () => {
 					entities: [{ type: "text_mention", offset: 0, length: 4, user: { id: 0, is_bot: false, first_name: "X" } }],
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.UserNotFound>(error, "UserNotFound", "Bad Request: user not found");
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "UserNotFound", "Bad Request: user not found");
+			}),
 		);
 
-		it.effect("CantParseEntitiesReservedCharDot when MarkdownV2 period is unescaped", () =>
+		test.effect("CantParseEntitiesReservedCharDot when MarkdownV2 period is unescaped", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -898,15 +855,15 @@ describe("sendMessage", () => {
 					parse_mode: "MarkdownV2",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.CantParseEntitiesReservedCharDot>(
+				expectErrorTag(
 					error,
 					"CantParseEntitiesReservedCharDot",
 					"Bad Request: can't parse entities: Character '.' is reserved and must be escaped with the preceding '\\'",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("CantParseEntitiesReservedCharDash when MarkdownV2 hyphen is unescaped", () =>
+		test.effect("CantParseEntitiesReservedCharDash when MarkdownV2 hyphen is unescaped", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -915,15 +872,15 @@ describe("sendMessage", () => {
 					parse_mode: "MarkdownV2",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.CantParseEntitiesReservedCharDash>(
+				expectErrorTag(
 					error,
 					"CantParseEntitiesReservedCharDash",
 					"Bad Request: can't parse entities: Character '-' is reserved and must be escaped with the preceding '\\'",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("CantParseEntitiesReservedCharExclamation when MarkdownV2 exclamation is unescaped", () =>
+		test.effect("CantParseEntitiesReservedCharExclamation when MarkdownV2 exclamation is unescaped", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -932,15 +889,15 @@ describe("sendMessage", () => {
 					parse_mode: "MarkdownV2",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.CantParseEntitiesReservedCharExclamation>(
+				expectErrorTag(
 					error,
 					"CantParseEntitiesReservedCharExclamation",
 					"Bad Request: can't parse entities: Character '!' is reserved and must be escaped with the preceding '\\'",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("CantParseEntitiesUnsupportedScriptTag when HTML contains script tag", () =>
+		test.effect("CantParseEntitiesUnsupportedScriptTag when HTML contains script tag", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -949,15 +906,15 @@ describe("sendMessage", () => {
 					parse_mode: "HTML",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.CantParseEntitiesUnsupportedScriptTag>(
+				expectErrorTag(
 					error,
 					"CantParseEntitiesUnsupportedScriptTag",
 					'Bad Request: can\'t parse entities: Unsupported start tag "script" at byte offset 0',
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("CantParseEntitiesUnsupportedTag when HTML contains unknown tag", () =>
+		test.effect("CantParseEntitiesUnsupportedTag when HTML contains unknown tag", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -966,15 +923,15 @@ describe("sendMessage", () => {
 					parse_mode: "HTML",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.CantParseEntitiesUnsupportedTag>(
+				expectErrorTag(
 					error,
 					"CantParseEntitiesUnsupportedTag",
 					'Bad Request: can\'t parse entities: Unsupported start tag "invalid" at byte offset 0',
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("CantParseEntitiesUnmatchedEndTag when HTML closing tags are mismatched", () =>
+		test.effect("CantParseEntitiesUnmatchedEndTag when HTML closing tags are mismatched", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -983,32 +940,28 @@ describe("sendMessage", () => {
 					parse_mode: "HTML",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.CantParseEntitiesUnmatchedEndTag>(
+				expectErrorTag(
 					error,
 					"CantParseEntitiesUnmatchedEndTag",
 					'Bad Request: can\'t parse entities: Unmatched end tag at byte offset 10, expected "</i>", found "</b>"',
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("ReplyMessageIdMissing when reply_parameters has no message_id", () =>
+		test.effect("ReplyMessageIdMissing when reply_parameters has no message_id", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendMessage(botToken, {
-					chat_id: chatId,
-					text: "test",
-					reply_parameters: { quote: "hello" },
-				}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.ReplyMessageIdMissing>(
-					error,
-					"ReplyMessageIdMissing",
-					'Bad Request: can\'t find field "message_id"',
+				yield* expectClientSchemaError(
+					callSendMessage(botToken, {
+						chat_id: chatId,
+						text: "test",
+						reply_parameters: { quote: "hello" },
+					}),
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("SuggestedPostChannelOnly when suggested_post_parameters is used in a private chat", () =>
+		test.effect("SuggestedPostChannelOnly when suggested_post_parameters is used in a private chat", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -1017,15 +970,15 @@ describe("sendMessage", () => {
 					suggested_post_parameters: {},
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.SuggestedPostChannelOnly>(
+				expectErrorTag(
 					error,
 					"SuggestedPostChannelOnly",
 					"Bad Request: suggested posts can be sent only to channel direct messages",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("InvalidStarsAmount when suggested_post_parameters price is invalid", () =>
+		test.effect("InvalidStarsAmount when suggested_post_parameters price is invalid", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -1034,15 +987,11 @@ describe("sendMessage", () => {
 					suggested_post_parameters: { price: { currency: "XTR", amount: 1 } },
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.InvalidStarsAmount>(
-					error,
-					"InvalidStarsAmount",
-					"Bad Request: invalid amount of Telegram Stars specified",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "InvalidStarsAmount", "Bad Request: invalid amount of Telegram Stars specified");
+			}),
 		);
 
-		it.effect("WebpageUrlInvalid when link_preview_options.url is invalid", () =>
+		test.effect("WebpageUrlInvalid when link_preview_options.url is invalid", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -1051,151 +1000,115 @@ describe("sendMessage", () => {
 					link_preview_options: { url: "not-a-url" },
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.WebpageUrlInvalid>(
-					error,
-					"WebpageUrlInvalid",
-					"Bad Request: WEBPAGE_URL_INVALID",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "WebpageUrlInvalid", "Bad Request: WEBPAGE_URL_INVALID");
+			}),
 		);
 
-		it.effect("PreferSmallMediaMustBeBoolean when link_preview_options.prefer_small_media is not boolean", () =>
+		test.effect("PreferSmallMediaMustBeBoolean when link_preview_options.prefer_small_media is not boolean", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendMessage(botToken, {
-					chat_id: chatId,
-					text: "https://example.com",
-					link_preview_options: { prefer_small_media: "yes" },
-				}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.PreferSmallMediaMustBeBoolean>(
-					error,
-					"PreferSmallMediaMustBeBoolean",
-					'Bad Request: field "prefer_small_media" must be of type Boolean',
+				yield* expectClientSchemaError(
+					callSendMessage(botToken, {
+						chat_id: chatId,
+						text: "https://example.com",
+						link_preview_options: { prefer_small_media: "yes" },
+					}),
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("LinkPreviewIsDisabledMustBeBoolean when link_preview_options.is_disabled is not boolean", () =>
+		test.effect("LinkPreviewIsDisabledMustBeBoolean when link_preview_options.is_disabled is not boolean", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendMessage(botToken, {
-					chat_id: chatId,
-					text: "test",
-					link_preview_options: { is_disabled: "yes" },
-				}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.LinkPreviewIsDisabledMustBeBoolean>(
-					error,
-					"LinkPreviewIsDisabledMustBeBoolean",
-					'Bad Request: field "is_disabled" must be of type Boolean',
+				yield* expectClientSchemaError(
+					callSendMessage(botToken, {
+						chat_id: chatId,
+						text: "test",
+						link_preview_options: { is_disabled: "yes" },
+					}),
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("ForceReplyMustBeBoolean when force_reply is not boolean", () =>
+		test.effect("ForceReplyMustBeBoolean when force_reply is not boolean", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendMessage(botToken, {
-					chat_id: chatId,
-					text: "test",
-					reply_markup: { force_reply: "yes" },
-				}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.ForceReplyMustBeBoolean>(
-					error,
-					"ForceReplyMustBeBoolean",
-					'Bad Request: field "force_reply" must be of type Boolean',
+				yield* expectClientSchemaError(
+					callSendMessage(botToken, {
+						chat_id: chatId,
+						text: "test",
+						reply_markup: { force_reply: "yes" },
+					}),
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("RemoveKeyboardMustBeBoolean when remove_keyboard is not boolean", () =>
+		test.effect("RemoveKeyboardMustBeBoolean when remove_keyboard is not boolean", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendMessage(botToken, {
-					chat_id: chatId,
-					text: "test",
-					reply_markup: { remove_keyboard: "yes" },
-				}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.RemoveKeyboardMustBeBoolean>(
-					error,
-					"RemoveKeyboardMustBeBoolean",
-					'Bad Request: field "remove_keyboard" must be of type Boolean',
+				yield* expectClientSchemaError(
+					callSendMessage(botToken, {
+						chat_id: chatId,
+						text: "test",
+						reply_markup: { remove_keyboard: "yes" },
+					}),
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("InlineKeyboardMustBeArray when inline_keyboard is not an array", () =>
+		test.effect("InlineKeyboardMustBeArray when inline_keyboard is not an array", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendMessage(botToken, {
-					chat_id: chatId,
-					text: "test",
-					reply_markup: { inline_keyboard: "bad" },
-				}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.InlineKeyboardMustBeArray>(
-					error,
-					"InlineKeyboardMustBeArray",
-					'Bad Request: field "inline_keyboard" must be of type Array',
+				yield* expectClientSchemaError(
+					callSendMessage(botToken, {
+						chat_id: chatId,
+						text: "test",
+						reply_markup: { inline_keyboard: "bad" },
+					}),
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("SelectiveMustBeBoolean when reply keyboard selective is not boolean", () =>
+		test.effect("SelectiveMustBeBoolean when reply keyboard selective is not boolean", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendMessage(botToken, {
-					chat_id: chatId,
-					text: "test",
-					reply_markup: { keyboard: [[{ text: "A" }]], selective: "yes" },
-				}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.SelectiveMustBeBoolean>(
-					error,
-					"SelectiveMustBeBoolean",
-					'Bad Request: field "selective" must be of type Boolean',
+				yield* expectClientSchemaError(
+					callSendMessage(botToken, {
+						chat_id: chatId,
+						text: "test",
+						reply_markup: { keyboard: [[{ text: "A" }]], selective: "yes" },
+					}),
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("OneTimeKeyboardMustBeBoolean when one_time_keyboard is not boolean", () =>
+		test.effect("OneTimeKeyboardMustBeBoolean when one_time_keyboard is not boolean", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendMessage(botToken, {
-					chat_id: chatId,
-					text: "test",
-					reply_markup: { keyboard: [[{ text: "A" }]], one_time_keyboard: "yes" },
-				}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.OneTimeKeyboardMustBeBoolean>(
-					error,
-					"OneTimeKeyboardMustBeBoolean",
-					'Bad Request: field "one_time_keyboard" must be of type Boolean',
+				yield* expectClientSchemaError(
+					callSendMessage(botToken, {
+						chat_id: chatId,
+						text: "test",
+						reply_markup: { keyboard: [[{ text: "A" }]], one_time_keyboard: "yes" },
+					}),
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("IsPersistentMustBeBoolean when is_persistent is not boolean", () =>
+		test.effect("IsPersistentMustBeBoolean when is_persistent is not boolean", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendMessage(botToken, {
-					chat_id: chatId,
-					text: "test",
-					reply_markup: { keyboard: [[{ text: "A" }]], is_persistent: "yes" },
-				}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.IsPersistentMustBeBoolean>(
-					error,
-					"IsPersistentMustBeBoolean",
-					'Bad Request: field "is_persistent" must be of type Boolean',
+				yield* expectClientSchemaError(
+					callSendMessage(botToken, {
+						chat_id: chatId,
+						text: "test",
+						reply_markup: { keyboard: [[{ text: "A" }]], is_persistent: "yes" },
+					}),
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("WebAppUrlNotHttps when web_app url is not HTTPS", () =>
+		test.effect("WebAppUrlNotHttps when web_app url is not HTTPS", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -1204,15 +1117,15 @@ describe("sendMessage", () => {
 					reply_markup: { inline_keyboard: [[{ text: "app", web_app: { url: "bad" } }]] },
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.WebAppUrlNotHttps>(
+				expectErrorTag(
 					error,
 					"WebAppUrlNotHttps",
 					"Bad Request: inline keyboard button Web App URL 'bad' is invalid: Only HTTPS links are allowed",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("WebAppUrlHttpNotAllowed when web_app url is HTTP", () =>
+		test.effect("WebAppUrlHttpNotAllowed when web_app url is HTTP", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -1221,15 +1134,15 @@ describe("sendMessage", () => {
 					reply_markup: { inline_keyboard: [[{ text: "app", web_app: { url: "http://example.com" } }]] },
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.WebAppUrlHttpNotAllowed>(
+				expectErrorTag(
 					error,
 					"WebAppUrlHttpNotAllowed",
 					"Bad Request: inline keyboard button Web App URL 'http://example.com' is invalid: Only HTTPS links are allowed",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("ButtonTypeInvalid when pay button is used without invoice", () =>
+		test.effect("ButtonTypeInvalid when pay button is used without invoice", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -1238,15 +1151,11 @@ describe("sendMessage", () => {
 					reply_markup: { inline_keyboard: [[{ text: "pay", pay: true }]] },
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.ButtonTypeInvalid>(
-					error,
-					"ButtonTypeInvalid",
-					"Bad Request: BUTTON_TYPE_INVALID",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "ButtonTypeInvalid", "Bad Request: BUTTON_TYPE_INVALID");
+			}),
 		);
 
-		it.effect("ButtonCopyTextInvalid when copy_text is empty", () =>
+		test.effect("ButtonCopyTextInvalid when copy_text is empty", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -1255,15 +1164,11 @@ describe("sendMessage", () => {
 					reply_markup: { inline_keyboard: [[{ text: "copy", copy_text: { text: "" } }]] },
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.ButtonCopyTextInvalid>(
-					error,
-					"ButtonCopyTextInvalid",
-					"Bad Request: BUTTON_COPY_TEXT_INVALID",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "ButtonCopyTextInvalid", "Bad Request: BUTTON_COPY_TEXT_INVALID");
+			}),
 		);
 
-		it.effect("ButtonQuantityMaxInvalid when request_users max_quantity is too large", () =>
+		test.effect("ButtonQuantityMaxInvalid when request_users max_quantity is too large", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -1275,15 +1180,11 @@ describe("sendMessage", () => {
 					},
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.ButtonQuantityMaxInvalid>(
-					error,
-					"ButtonQuantityMaxInvalid",
-					"Bad Request: BUTTON_QUANTITY_MAX_INVALID",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "ButtonQuantityMaxInvalid", "Bad Request: BUTTON_QUANTITY_MAX_INVALID");
+			}),
 		);
 
-		it.effect("LoginUrlBotNotFound when login_url bot_username does not exist", () =>
+		test.effect("LoginUrlBotNotFound when login_url bot_username does not exist", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -1306,24 +1207,20 @@ describe("sendMessage", () => {
 					},
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.LoginUrlBotNotFound>(
-					error,
-					"LoginUrlBotNotFound",
-					'Bad Request: bot "nonexistent_bot_xyz_12345" not found',
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "LoginUrlBotNotFound", 'Bad Request: bot "nonexistent_bot_xyz_12345" not found');
+			}),
 		);
 
-		it.effect("ChatNotFound when chat_id is negative", () =>
+		test.effect("ChatNotFound when chat_id is negative", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, { chat_id: -1, text: "test" }).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.ChatNotFound>(error, "ChatNotFound", "Bad Request: chat not found");
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "ChatNotFound", "Bad Request: chat not found");
+			}),
 		);
 
-		it.effect("TextMustBeNonEmpty when text is whitespace only", () =>
+		test.effect("TextMustBeNonEmpty when text is whitespace only", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -1331,15 +1228,11 @@ describe("sendMessage", () => {
 					text: "   ",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.TextMustBeNonEmpty>(
-					error,
-					"TextMustBeNonEmpty",
-					"Bad Request: text must be non-empty",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "TextMustBeNonEmpty", "Bad Request: text must be non-empty");
+			}),
 		);
 
-		it.effect("BotDomainInvalid when login_url is missing bot_username", () =>
+		test.effect("BotDomainInvalid when login_url is missing bot_username", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -1357,11 +1250,11 @@ describe("sendMessage", () => {
 					},
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.BotDomainInvalid>(error, "BotDomainInvalid", "Bad Request: BOT_DOMAIN_INVALID");
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "BotDomainInvalid", "Bad Request: BOT_DOMAIN_INVALID");
+			}),
 		);
 
-		it.effect("CantParseEntitiesInvalidCustomEmoji when HTML tg-emoji id is invalid", () =>
+		test.effect("CantParseEntitiesInvalidCustomEmoji when HTML tg-emoji id is invalid", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -1370,15 +1263,15 @@ describe("sendMessage", () => {
 					parse_mode: "HTML",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.CantParseEntitiesInvalidCustomEmoji>(
+				expectErrorTag(
 					error,
 					"CantParseEntitiesInvalidCustomEmoji",
 					"Bad Request: can't parse entities: Invalid custom emoji identifier specified",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("CustomEmojiIdMissing when custom_emoji entity has no custom_emoji_id", () =>
+		test.effect("CustomEmojiIdMissing when custom_emoji entity has no custom_emoji_id", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -1387,32 +1280,28 @@ describe("sendMessage", () => {
 					entities: [{ type: "custom_emoji", offset: 0, length: 1 }],
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.CustomEmojiIdMissing>(
+				expectErrorTag(
 					error,
 					"CustomEmojiIdMissing",
 					"Bad Request: can't parse MessageEntity: Can't find field \"custom_emoji_id\"",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("InlineButtonTextMissing when inline keyboard button has no text", () =>
+		test.effect("InlineButtonTextMissing when inline keyboard button has no text", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendMessage(botToken, {
-					chat_id: chatId,
-					text: "test",
-					reply_markup: { inline_keyboard: [[{ callback_data: "x" }]] },
-				}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.InlineButtonTextMissing>(
-					error,
-					"InlineButtonTextMissing",
-					"Bad Request: can't parse inline keyboard button: Can't find field \"text\"",
+				yield* expectClientSchemaError(
+					callSendMessage(botToken, {
+						chat_id: chatId,
+						text: "test",
+						reply_markup: { inline_keyboard: [[{ callback_data: "x" }]] },
+					}),
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("TextLinkUrlMissing when text_link entity has no url", () =>
+		test.effect("TextLinkUrlMissing when text_link entity has no url", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -1421,15 +1310,11 @@ describe("sendMessage", () => {
 					entities: [{ type: "text_link", offset: 0, length: 4 }],
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.TextLinkUrlMissing>(
-					error,
-					"TextLinkUrlMissing",
-					"Bad Request: can't parse MessageEntity: Can't find field \"url\"",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "TextLinkUrlMissing", "Bad Request: can't parse MessageEntity: Can't find field \"url\"");
+			}),
 		);
 
-		it.effect("TextMentionUserMissing when text_mention entity has no user", () =>
+		test.effect("TextMentionUserMissing when text_mention entity has no user", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -1438,57 +1323,49 @@ describe("sendMessage", () => {
 					entities: [{ type: "text_mention", offset: 0, length: 4 }],
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.TextMentionUserMissing>(
+				expectErrorTag(
 					error,
 					"TextMentionUserMissing",
 					"Bad Request: can't parse MessageEntity: Can't find field \"user\"",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("KeyboardRequestIdMissing when request_chat button has no request_id", () =>
+		test.effect("KeyboardRequestIdMissing when request_chat button has no request_id", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendMessage(botToken, {
-					chat_id: chatId,
-					text: "test",
-					reply_markup: {
-						keyboard: [[{ text: "chat", request_chat: { chat_is_channel: true } }]],
-						resize_keyboard: true,
-					},
-				}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.KeyboardRequestIdMissing>(
-					error,
-					"KeyboardRequestIdMissing",
-					"Bad Request: can't parse keyboard button: Can't find field \"request_id\"",
+				yield* expectClientSchemaError(
+					callSendMessage(botToken, {
+						chat_id: chatId,
+						text: "test",
+						reply_markup: {
+							keyboard: [[{ text: "chat", request_chat: { chat_is_channel: true } }]],
+							resize_keyboard: true,
+						},
+					}),
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("ChatIsForumMustBeBoolean when request_chat.chat_is_forum is not boolean", () =>
+		test.effect("ChatIsForumMustBeBoolean when request_chat.chat_is_forum is not boolean", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendMessage(botToken, {
-					chat_id: chatId,
-					text: "test",
-					reply_markup: {
-						keyboard: [
-							[{ text: "chat", request_chat: { request_id: 1, chat_is_channel: true, chat_is_forum: "yes" } }],
-						],
-						resize_keyboard: true,
-					},
-				}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.ChatIsForumMustBeBoolean>(
-					error,
-					"ChatIsForumMustBeBoolean",
-					'Bad Request: can\'t parse keyboard button: Field "chat_is_forum" must be of type Boolean',
+				yield* expectClientSchemaError(
+					callSendMessage(botToken, {
+						chat_id: chatId,
+						text: "test",
+						reply_markup: {
+							keyboard: [
+								[{ text: "chat", request_chat: { request_id: 1, chat_is_channel: true, chat_is_forum: "yes" } }],
+							],
+							resize_keyboard: true,
+						},
+					}),
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("KeyboardWebAppUrlHttpNotAllowed when reply keyboard web_app url is HTTP", () =>
+		test.effect("KeyboardWebAppUrlHttpNotAllowed when reply keyboard web_app url is HTTP", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -1500,133 +1377,109 @@ describe("sendMessage", () => {
 					},
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.KeyboardWebAppUrlHttpNotAllowed>(
+				expectErrorTag(
 					error,
 					"KeyboardWebAppUrlHttpNotAllowed",
 					"Bad Request: keyboard button Web App URL 'http://example.com' is invalid: Only HTTPS links are allowed",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("PreferLargeMediaMustBeBoolean when prefer_large_media is not boolean", () =>
+		test.effect("PreferLargeMediaMustBeBoolean when prefer_large_media is not boolean", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendMessage(botToken, {
-					chat_id: chatId,
-					text: "https://example.com",
-					link_preview_options: { prefer_large_media: "yes" },
-				}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.PreferLargeMediaMustBeBoolean>(
-					error,
-					"PreferLargeMediaMustBeBoolean",
-					'Bad Request: field "prefer_large_media" must be of type Boolean',
+				yield* expectClientSchemaError(
+					callSendMessage(botToken, {
+						chat_id: chatId,
+						text: "https://example.com",
+						link_preview_options: { prefer_large_media: "yes" },
+					}),
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("ShowAboveTextMustBeBoolean when show_above_text is not boolean", () =>
+		test.effect("ShowAboveTextMustBeBoolean when show_above_text is not boolean", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendMessage(botToken, {
-					chat_id: chatId,
-					text: "https://example.com",
-					link_preview_options: { show_above_text: "yes" },
-				}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.ShowAboveTextMustBeBoolean>(
-					error,
-					"ShowAboveTextMustBeBoolean",
-					'Bad Request: field "show_above_text" must be of type Boolean',
+				yield* expectClientSchemaError(
+					callSendMessage(botToken, {
+						chat_id: chatId,
+						text: "https://example.com",
+						link_preview_options: { show_above_text: "yes" },
+					}),
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("ResizeKeyboardMustBeBoolean when resize_keyboard is not boolean", () =>
+		test.effect("ResizeKeyboardMustBeBoolean when resize_keyboard is not boolean", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendMessage(botToken, {
-					chat_id: chatId,
-					text: "test",
-					reply_markup: { keyboard: [[{ text: "A" }]], resize_keyboard: "yes" },
-				}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.ResizeKeyboardMustBeBoolean>(
-					error,
-					"ResizeKeyboardMustBeBoolean",
-					'Bad Request: field "resize_keyboard" must be of type Boolean',
+				yield* expectClientSchemaError(
+					callSendMessage(botToken, {
+						chat_id: chatId,
+						text: "test",
+						reply_markup: { keyboard: [[{ text: "A" }]], resize_keyboard: "yes" },
+					}),
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("KeyboardMustBeArray when keyboard is not an array", () =>
+		test.effect("KeyboardMustBeArray when keyboard is not an array", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendMessage(botToken, {
-					chat_id: chatId,
-					text: "test",
-					reply_markup: { keyboard: "bad" },
-				}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.KeyboardMustBeArray>(
-					error,
-					"KeyboardMustBeArray",
-					'Bad Request: field "keyboard" must be of type Array',
+				yield* expectClientSchemaError(
+					callSendMessage(botToken, {
+						chat_id: chatId,
+						text: "test",
+						reply_markup: { keyboard: "bad" },
+					}),
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("AllowUserChatsMustBeBoolean when allow_user_chats is not boolean", () =>
+		test.effect("AllowUserChatsMustBeBoolean when allow_user_chats is not boolean", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendMessage(botToken, {
-					chat_id: chatId,
-					text: "test",
-					reply_markup: {
-						inline_keyboard: [[{ text: "q", switch_inline_query_chosen_chat: { allow_user_chats: "yes" } }]],
-					},
-				}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.AllowUserChatsMustBeBoolean>(
-					error,
-					"AllowUserChatsMustBeBoolean",
-					'Bad Request: can\'t parse inline keyboard button: Field "allow_user_chats" must be of type Boolean',
+				yield* expectClientSchemaError(
+					callSendMessage(botToken, {
+						chat_id: chatId,
+						text: "test",
+						reply_markup: {
+							inline_keyboard: [[{ text: "q", switch_inline_query_chosen_chat: { allow_user_chats: "yes" } }]],
+						},
+					}),
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("RequestWriteAccessMustBeBoolean when request_write_access is not boolean", () =>
+		test.effect("RequestWriteAccessMustBeBoolean when request_write_access is not boolean", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendMessage(botToken, {
-					chat_id: chatId,
-					text: "test",
-					reply_markup: {
-						inline_keyboard: [
-							[
-								{
-									text: "login",
-									login_url: {
-										url: "https://example.com",
-										forward_text: "x",
-										bot_username: "telegram",
-										request_write_access: "yes",
+				yield* expectClientSchemaError(
+					callSendMessage(botToken, {
+						chat_id: chatId,
+						text: "test",
+						reply_markup: {
+							inline_keyboard: [
+								[
+									{
+										text: "login",
+										login_url: {
+											url: "https://example.com",
+											forward_text: "x",
+											bot_username: "telegram",
+											request_write_access: "yes",
+										},
 									},
-								},
+								],
 							],
-						],
-					},
-				}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.RequestWriteAccessMustBeBoolean>(
-					error,
-					"RequestWriteAccessMustBeBoolean",
-					'Bad Request: can\'t parse inline keyboard button: Field "request_write_access" must be of type Boolean',
+						},
+					}),
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("LoginUrlBotNotFound when login_url bot_username is not a bot", () =>
+		test.effect("LoginUrlBotNotFound when login_url bot_username is not a bot", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -1649,15 +1502,11 @@ describe("sendMessage", () => {
 					},
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.LoginUrlBotNotFound>(
-					error,
-					"LoginUrlBotNotFound",
-					'Bad Request: bot "telegram" not found',
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "LoginUrlBotNotFound", 'Bad Request: bot "telegram" not found');
+			}),
 		);
 
-		it.effect("CantParseEntitiesNoBoldEnd when MarkdownV2 nested formatting is unclosed", () =>
+		test.effect("CantParseEntitiesNoBoldEnd when MarkdownV2 nested formatting is unclosed", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -1666,15 +1515,15 @@ describe("sendMessage", () => {
 					parse_mode: "MarkdownV2",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.CantParseEntitiesNoBoldEnd>(
+				expectErrorTag(
 					error,
 					"CantParseEntitiesNoBoldEnd",
 					"Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 15",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("CantParseEntitiesReservedCharParen when MarkdownV2 parenthesis is unescaped", () =>
+		test.effect("CantParseEntitiesReservedCharParen when MarkdownV2 parenthesis is unescaped", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -1683,15 +1532,15 @@ describe("sendMessage", () => {
 					parse_mode: "MarkdownV2",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.CantParseEntitiesReservedCharParen>(
+				expectErrorTag(
 					error,
 					"CantParseEntitiesReservedCharParen",
 					"Bad Request: can't parse entities: Character '(' is reserved and must be escaped with the preceding '\\'",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("CantParseEntitiesReservedCharHash when MarkdownV2 hash is unescaped", () =>
+		test.effect("CantParseEntitiesReservedCharHash when MarkdownV2 hash is unescaped", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -1700,15 +1549,15 @@ describe("sendMessage", () => {
 					parse_mode: "MarkdownV2",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.CantParseEntitiesReservedCharHash>(
+				expectErrorTag(
 					error,
 					"CantParseEntitiesReservedCharHash",
 					"Bad Request: can't parse entities: Character '#' is reserved and must be escaped with the preceding '\\'",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("CantParseEntitiesReservedCharPlus when MarkdownV2 plus is unescaped", () =>
+		test.effect("CantParseEntitiesReservedCharPlus when MarkdownV2 plus is unescaped", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -1717,15 +1566,15 @@ describe("sendMessage", () => {
 					parse_mode: "MarkdownV2",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.CantParseEntitiesReservedCharPlus>(
+				expectErrorTag(
 					error,
 					"CantParseEntitiesReservedCharPlus",
 					"Bad Request: can't parse entities: Character '+' is reserved and must be escaped with the preceding '\\'",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("CantParseEntitiesReservedCharEquals when MarkdownV2 equals is unescaped", () =>
+		test.effect("CantParseEntitiesReservedCharEquals when MarkdownV2 equals is unescaped", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -1734,15 +1583,15 @@ describe("sendMessage", () => {
 					parse_mode: "MarkdownV2",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.CantParseEntitiesReservedCharEquals>(
+				expectErrorTag(
 					error,
 					"CantParseEntitiesReservedCharEquals",
 					"Bad Request: can't parse entities: Character '=' is reserved and must be escaped with the preceding '\\'",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("CantParseEntitiesReservedCharBrace when MarkdownV2 brace is unescaped", () =>
+		test.effect("CantParseEntitiesReservedCharBrace when MarkdownV2 brace is unescaped", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -1751,15 +1600,15 @@ describe("sendMessage", () => {
 					parse_mode: "MarkdownV2",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.CantParseEntitiesReservedCharBrace>(
+				expectErrorTag(
 					error,
 					"CantParseEntitiesReservedCharBrace",
 					"Bad Request: can't parse entities: Character '{' is reserved and must be escaped with the preceding '\\'",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("CantParseEntitiesReservedCharGreater when MarkdownV2 greater-than is unescaped", () =>
+		test.effect("CantParseEntitiesReservedCharGreater when MarkdownV2 greater-than is unescaped", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -1768,15 +1617,15 @@ describe("sendMessage", () => {
 					parse_mode: "MarkdownV2",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.CantParseEntitiesReservedCharGreater>(
+				expectErrorTag(
 					error,
 					"CantParseEntitiesReservedCharGreater",
 					"Bad Request: can't parse entities: Character '>' is reserved and must be escaped with the preceding '\\'",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("CantParseEntitiesReservedCharPipe when MarkdownV2 pipe is unescaped", () =>
+		test.effect("CantParseEntitiesReservedCharPipe when MarkdownV2 pipe is unescaped", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -1785,15 +1634,15 @@ describe("sendMessage", () => {
 					parse_mode: "MarkdownV2",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.CantParseEntitiesReservedCharPipe>(
+				expectErrorTag(
 					error,
 					"CantParseEntitiesReservedCharPipe",
 					"Bad Request: can't parse entities: Character '|' is reserved and must be escaped with the preceding '\\'",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("ButtonTypeInvalid when callback_game has no game attached", () =>
+		test.effect("ButtonTypeInvalid when callback_game has no game attached", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -1802,15 +1651,11 @@ describe("sendMessage", () => {
 					reply_markup: { inline_keyboard: [[{ text: "game", callback_game: {} }]] },
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.ButtonTypeInvalid>(
-					error,
-					"ButtonTypeInvalid",
-					"Bad Request: BUTTON_TYPE_INVALID",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "ButtonTypeInvalid", "Bad Request: BUTTON_TYPE_INVALID");
+			}),
 		);
 
-		it.effect("ButtonCopyTextInvalid when copy_text exceeds 256 characters", () =>
+		test.effect("ButtonCopyTextInvalid when copy_text exceeds 256 characters", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, {
@@ -1819,14 +1664,10 @@ describe("sendMessage", () => {
 					reply_markup: { inline_keyboard: [[{ text: "copy", copy_text: { text: "x".repeat(257) } }]] },
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.ButtonCopyTextInvalid>(
-					error,
-					"ButtonCopyTextInvalid",
-					"Bad Request: BUTTON_COPY_TEXT_INVALID",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "ButtonCopyTextInvalid", "Bad Request: BUTTON_COPY_TEXT_INVALID");
+			}),
 		);
 	});
 
-	authErrorTests(token => callSendMessage(token, { chat_id: 1, text: "test" }));
+	authErrorTests(test, token => callSendMessage(token, { chat_id: 1, text: "test" }));
 });

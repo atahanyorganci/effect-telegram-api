@@ -1,17 +1,23 @@
-import { assert, describe, it } from "@effect/vitest";
+import { assert, describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import {
+	authErrorTests,
+	callClient,
+	expectClientSchemaError,
+	expectErrorTag,
+	liveTests,
+	telegramConfig,
+} from "./helpers.ts";
 
 const callSetMessageReaction = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.setMessageReaction, payload);
+	callClient("setMessageReaction", token, payload as never);
 
-describe("setMessageReaction", () => {
+liveTests("setMessageReaction", test => {
 	describe("success", () => {
-		it.effect("returns true when reacting to a message in a forum topic", () =>
+		test.effect("returns true when reacting to a message in a forum topic", () =>
 			Effect.gen(function* () {
 				const { botToken, groupId, forumTopicId } = yield* telegramConfig;
-				const message = yield* Telegram.Client.callMethod(botToken, Telegram.Methods.sendDice, {
+				const message = yield* callClient("sendDice", botToken, {
 					chat_id: groupId,
 					message_thread_id: forumTopicId,
 				});
@@ -23,28 +29,24 @@ describe("setMessageReaction", () => {
 				});
 
 				assert.strictEqual(result, true);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 	});
 
 	describe("Telegram API errors", () => {
-		it.effect("MessageToReactNotFound when message_id is missing", () =>
+		test.effect("MessageToReactNotFound when message_id is missing", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSetMessageReaction(botToken, {
-					chat_id: chatId,
-					reaction: [],
-				}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.MessageToReactNotFound>(
-					error,
-					"MessageToReactNotFound",
-					"Bad Request: message to react not found",
+				yield* expectClientSchemaError(
+					callSetMessageReaction(botToken, {
+						chat_id: chatId,
+						reaction: [],
+					}),
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("MessageToReactNotFound when message_id does not exist", () =>
+		test.effect("MessageToReactNotFound when message_id does not exist", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSetMessageReaction(botToken, {
@@ -53,14 +55,10 @@ describe("setMessageReaction", () => {
 					reaction: [],
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.MessageToReactNotFound>(
-					error,
-					"MessageToReactNotFound",
-					"Bad Request: message to react not found",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "MessageToReactNotFound", "Bad Request: message to react not found");
+			}),
 		);
 	});
 
-	authErrorTests(token => callSetMessageReaction(token, { chat_id: 1, message_id: 1, reaction: [] }));
+	authErrorTests(test, token => callSetMessageReaction(token, { chat_id: 1, message_id: 1, reaction: [] }));
 });

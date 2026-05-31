@@ -1,14 +1,19 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import {
+	authErrorTests,
+	callClient,
+	expectClientSchemaError,
+	expectErrorTag,
+	liveTests,
+	telegramConfig,
+} from "./helpers.ts";
 
-const callVerifyChat = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.verifyChat, payload);
+const callVerifyChat = (token: string, payload: unknown) => callClient("verifyChat", token, payload as never);
 
-describe("verifyChat", () => {
+liveTests("verifyChat", test => {
 	describe("Telegram API errors", () => {
-		it.effect("BotVerifierForbidden when the bot cannot verify the private chat", () =>
+		test.effect("BotVerifierForbidden when the bot cannot verify the private chat", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callVerifyChat(botToken, {
@@ -16,23 +21,17 @@ describe("verifyChat", () => {
 					custom_description: "probe",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.BotVerifierForbidden>(
-					error,
-					"BotVerifierForbidden",
-					"Bad Request: BOT_VERIFIER_FORBIDDEN",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "BotVerifierForbidden", "Bad Request: BOT_VERIFIER_FORBIDDEN");
+			}),
 		);
 
-		it.effect("ChatIdEmpty when required parameters missing", () =>
+		test.effect("ChatIdEmpty when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callVerifyChat(botToken, {}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.ChatIdEmpty>(error, "ChatIdEmpty", "Bad Request: chat_id is empty");
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callVerifyChat(botToken, {}));
+			}),
 		);
 	});
 
-	authErrorTests(token => callVerifyChat(token, { chat_id: 0 }));
+	authErrorTests(test, token => callVerifyChat(token, { chat_id: 0 }));
 });

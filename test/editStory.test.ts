@@ -1,28 +1,20 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import { authErrorTests, callClient, expectClientSchemaError, liveTests, telegramConfig } from "./helpers.ts";
 
-const callEditStory = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.editStory, payload);
+const callEditStory = (token: string, payload: unknown) => callClient("editStory", token, payload as never);
 
-describe("editStory", () => {
+liveTests("editStory", test => {
 	describe("Telegram API errors", () => {
-		it.effect("StoryContentNotSpecified when required parameters missing", () =>
+		test.effect("StoryContentNotSpecified when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callEditStory(botToken, {}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.StoryContentNotSpecified>(
-					error,
-					"StoryContentNotSpecified",
-					"Bad Request: story content isn't specified",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callEditStory(botToken, { business_connection_id: "invalid", story_id: 0 }));
+			}),
 		);
 	});
 
-	authErrorTests(token =>
+	authErrorTests(test, token =>
 		callEditStory(token, {
 			business_connection_id: "invalid",
 			story_id: 0,

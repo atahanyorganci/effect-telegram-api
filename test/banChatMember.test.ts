@@ -1,35 +1,34 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import {
+	authErrorTests,
+	callClient,
+	expectClientSchemaError,
+	expectErrorTag,
+	liveTests,
+	telegramConfig,
+} from "./helpers.ts";
 
-const callBanChatMember = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.banChatMember, payload);
+const callBanChatMember = (token: string, payload: unknown) => callClient("banChatMember", token, payload as never);
 
-describe("banChatMember", () => {
+liveTests("banChatMember", test => {
 	describe("Telegram API errors", () => {
-		it.effect("InvalidUserId when user_id is missing", () =>
+		test.effect("InvalidUserId when user_id is missing", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callBanChatMember(botToken, { chat_id: chatId }).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.InvalidUserId>(error, "InvalidUserId", "Bad Request: invalid user_id specified");
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callBanChatMember(botToken, { chat_id: chatId }));
+			}),
 		);
 
-		it.effect("ParticipantIdInvalid when user_id is not a chat participant", () =>
+		test.effect("ParticipantIdInvalid when user_id is not a chat participant", () =>
 			Effect.gen(function* () {
 				const { botToken, groupId } = yield* telegramConfig;
 				const error = yield* callBanChatMember(botToken, { chat_id: groupId, user_id: 1 }).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.ParticipantIdInvalid>(
-					error,
-					"ParticipantIdInvalid",
-					"Bad Request: PARTICIPANT_ID_INVALID",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "ParticipantIdInvalid", "Bad Request: PARTICIPANT_ID_INVALID");
+			}),
 		);
 	});
 
-	authErrorTests(token => callBanChatMember(token, { chat_id: 1, user_id: 1 }));
+	authErrorTests(test, token => callBanChatMember(token, { chat_id: 1, user_id: 1 }));
 });

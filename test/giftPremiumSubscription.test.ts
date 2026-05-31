@@ -1,14 +1,20 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import {
+	authErrorTests,
+	callClient,
+	expectClientSchemaError,
+	expectErrorTag,
+	liveTests,
+	telegramConfig,
+} from "./helpers.ts";
 
 const callGiftPremiumSubscription = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.giftPremiumSubscription, payload);
+	callClient("giftPremiumSubscription", token, payload as never);
 
-describe("giftPremiumSubscription", () => {
+liveTests("giftPremiumSubscription", test => {
 	describe("Telegram API errors", () => {
-		it.effect("UserNotFound when user_id does not exist", () =>
+		test.effect("UserNotFound when user_id does not exist", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callGiftPremiumSubscription(botToken, {
@@ -17,19 +23,17 @@ describe("giftPremiumSubscription", () => {
 					star_count: 100,
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.UserNotFound>(error, "UserNotFound", "Bad Request: user not found");
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "UserNotFound", "Bad Request: user not found");
+			}),
 		);
 
-		it.effect("InvalidUserId when required parameters missing", () =>
+		test.effect("InvalidUserId when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callGiftPremiumSubscription(botToken, {}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.InvalidUserId>(error, "InvalidUserId", "Bad Request: invalid user_id specified");
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callGiftPremiumSubscription(botToken, {}));
+			}),
 		);
 	});
 
-	authErrorTests(token => callGiftPremiumSubscription(token, { user_id: 0, month_count: 1, star_count: 1 }));
+	authErrorTests(test, token => callGiftPremiumSubscription(token, { user_id: 0, month_count: 1, star_count: 1 }));
 });

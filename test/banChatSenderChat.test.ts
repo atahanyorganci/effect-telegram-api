@@ -1,14 +1,20 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import {
+	authErrorTests,
+	callClient,
+	expectClientSchemaError,
+	expectErrorTag,
+	liveTests,
+	telegramConfig,
+} from "./helpers.ts";
 
 const callBanChatSenderChat = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.banChatSenderChat, payload);
+	callClient("banChatSenderChat", token, payload as never);
 
-describe("banChatSenderChat", () => {
+liveTests("banChatSenderChat", test => {
 	describe("Telegram API errors", () => {
-		it.effect("ParticipantIdInvalid when sender_chat_id is invalid", () =>
+		test.effect("ParticipantIdInvalid when sender_chat_id is invalid", () =>
 			Effect.gen(function* () {
 				const { botToken, groupId } = yield* telegramConfig;
 				const error = yield* callBanChatSenderChat(botToken, {
@@ -16,27 +22,17 @@ describe("banChatSenderChat", () => {
 					sender_chat_id: 1,
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.ParticipantIdInvalid>(
-					error,
-					"ParticipantIdInvalid",
-					"Bad Request: PARTICIPANT_ID_INVALID",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "ParticipantIdInvalid", "Bad Request: PARTICIPANT_ID_INVALID");
+			}),
 		);
 
-		it.effect("SenderChatIdEmpty when sender_chat_id is missing", () =>
+		test.effect("SenderChatIdEmpty when sender_chat_id is missing", () =>
 			Effect.gen(function* () {
 				const { botToken, groupId } = yield* telegramConfig;
-				const error = yield* callBanChatSenderChat(botToken, { chat_id: groupId }).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.SenderChatIdEmpty>(
-					error,
-					"SenderChatIdEmpty",
-					"Bad Request: sender_chat_id is empty",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callBanChatSenderChat(botToken, { chat_id: groupId }));
+			}),
 		);
 	});
 
-	authErrorTests(token => callBanChatSenderChat(token, { chat_id: 1 }));
+	authErrorTests(test, token => callBanChatSenderChat(token, { chat_id: 1, sender_chat_id: 1 }));
 });

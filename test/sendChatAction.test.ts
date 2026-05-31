@@ -1,14 +1,19 @@
-import { assert, describe, it } from "@effect/vitest";
+import { assert, describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import {
+	authErrorTests,
+	callClient,
+	expectClientSchemaError,
+	expectErrorTag,
+	liveTests,
+	telegramConfig,
+} from "./helpers.ts";
 
-const callSendChatAction = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.sendChatAction, payload);
+const callSendChatAction = (token: string, payload: unknown) => callClient("sendChatAction", token, payload as never);
 
-describe("sendChatAction", () => {
+liveTests("sendChatAction", test => {
 	describe("success", () => {
-		it.effect("returns true when broadcasting a typing action", () =>
+		test.effect("returns true when broadcasting a typing action", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const result = yield* callSendChatAction(botToken, {
@@ -17,10 +22,10 @@ describe("sendChatAction", () => {
 				});
 
 				assert.strictEqual(result, true);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("returns true when broadcasting a typing action in the test supergroup", () =>
+		test.effect("returns true when broadcasting a typing action in the test supergroup", () =>
 			Effect.gen(function* () {
 				const { botToken, groupId } = yield* telegramConfig;
 				const result = yield* callSendChatAction(botToken, {
@@ -29,43 +34,35 @@ describe("sendChatAction", () => {
 				});
 
 				assert.strictEqual(result, true);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 	});
 
 	describe("Telegram API errors", () => {
-		it.effect("ChatIdEmpty when chat_id is missing", () =>
+		test.effect("ChatIdEmpty when chat_id is missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callSendChatAction(botToken, { action: "typing" }).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.ChatIdEmpty>(error, "ChatIdEmpty", "Bad Request: chat_id is empty");
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callSendChatAction(botToken, {}));
+			}),
 		);
 
-		it.effect("ChatNotFound when chat_id does not exist", () =>
+		test.effect("ChatNotFound when chat_id does not exist", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callSendChatAction(botToken, { chat_id: 0, action: "typing" }).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.ChatNotFound>(error, "ChatNotFound", "Bad Request: chat not found");
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "ChatNotFound", "Bad Request: chat not found");
+			}),
 		);
 
-		it.effect("WrongParameterAction when action is missing", () =>
+		test.effect("WrongParameterAction when action is missing", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendChatAction(botToken, { chat_id: chatId }).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.WrongParameterAction>(
-					error,
-					"WrongParameterAction",
-					"Bad Request: wrong parameter action in request",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callSendChatAction(botToken, { chat_id: chatId }));
+			}),
 		);
 
-		it.effect("WrongParameterAction when action is not supported", () =>
+		test.effect("WrongParameterAction when action is not supported", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendChatAction(botToken, {
@@ -73,14 +70,10 @@ describe("sendChatAction", () => {
 					action: "invalid",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.WrongParameterAction>(
-					error,
-					"WrongParameterAction",
-					"Bad Request: wrong parameter action in request",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "WrongParameterAction", "Bad Request: wrong parameter action in request");
+			}),
 		);
 	});
 
-	authErrorTests(token => callSendChatAction(token, { chat_id: 1, action: "typing" }));
+	authErrorTests(test, token => callSendChatAction(token, { chat_id: 1, action: "typing" }));
 });

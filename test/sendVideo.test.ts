@@ -1,17 +1,16 @@
-import { assert, describe, it } from "@effect/vitest";
+import { assert, describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
 import { readFileSync } from "node:fs";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import { authErrorTests, callClient, expectErrorTag, formDataPayload, liveTests, telegramConfig } from "./helpers.ts";
 
 const readVideoFixture = () => readFileSync(new URL("./video.mp4", import.meta.url));
 
-const callSendVideo = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.sendVideo, payload);
+const callSendVideo = (token: string, payload: unknown = {}) =>
+	callClient("sendVideo", token, formDataPayload(payload as Record<string, unknown>) as never);
 
-describe("sendVideo", () => {
+liveTests("sendVideo", test => {
 	describe("success", () => {
-		it.effect("sends a local video fixture", () =>
+		test.effect("sends a local video fixture", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendVideo(botToken, {
@@ -23,10 +22,10 @@ describe("sendVideo", () => {
 				assert.strictEqual(typeof message.message_id, "number");
 				assert.strictEqual(message.caption, "sendVideo integration test");
 				assert.isDefined(message.video);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("resends an uploaded video by file_id", () =>
+		test.effect("resends an uploaded video by file_id", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const first = yield* callSendVideo(botToken, {
@@ -44,46 +43,39 @@ describe("sendVideo", () => {
 
 				assert.strictEqual(second.caption, "sendVideo file_id resend");
 				assert.strictEqual(second.video?.file_id, fileId);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 	});
 
 	describe("Telegram API errors", () => {
-		it.effect("NoVideoInRequest when video is missing", () =>
+		test.effect("NoVideoInRequest when video is missing", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendVideo(botToken, { chat_id: chatId }).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.NoVideoInRequest>(
-					error,
-					"NoVideoInRequest",
-					"Bad Request: there is no video in the request",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "NoVideoInRequest", "Bad Request: there is no video in the request");
+			}),
 		);
 
-		it.effect("ChatIdEmpty when chat_id is missing", () =>
+		test.effect("ChatIdEmpty when chat_id is missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callSendVideo(botToken, { video: readVideoFixture() }).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.ChatIdEmpty>(error, "ChatIdEmpty", "Bad Request: chat_id is empty");
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "ChatIdEmpty", "Bad Request: chat_id is empty");
+			}),
 		);
 
-		it.effect("ChatIdEmpty when chat_id is an empty string", () =>
+		test.effect("ChatIdEmpty when chat_id is an empty string", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callSendVideo(botToken, {
-					chat_id: "",
-					video: readVideoFixture(),
-				}).pipe(Effect.flip);
+				const error = yield* callSendVideo(botToken, { chat_id: "", video: readVideoFixture() }).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.ChatIdEmpty>(error, "ChatIdEmpty", "Bad Request: chat_id is empty");
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "ChatIdEmpty", "Bad Request: chat_id is empty");
+			}),
 		);
 
-		it.effect("ChatNotFound when chat_id does not exist", () =>
+		test.effect("ChatNotFound when chat_id does not exist", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callSendVideo(botToken, {
@@ -91,11 +83,11 @@ describe("sendVideo", () => {
 					video: readVideoFixture(),
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.ChatNotFound>(error, "ChatNotFound", "Bad Request: chat not found");
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "ChatNotFound", "Bad Request: chat not found");
+			}),
 		);
 
-		it.effect("MessageCaptionTooLong when caption exceeds 1024 characters", () =>
+		test.effect("MessageCaptionTooLong when caption exceeds 1024 characters", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendVideo(botToken, {
@@ -104,15 +96,11 @@ describe("sendVideo", () => {
 					caption: "x".repeat(1025),
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.MessageCaptionTooLong>(
-					error,
-					"MessageCaptionTooLong",
-					"Bad Request: message caption is too long",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "MessageCaptionTooLong", "Bad Request: message caption is too long");
+			}),
 		);
 
-		it.effect("UnsupportedParseMode when parse_mode is invalid", () =>
+		test.effect("UnsupportedParseMode when parse_mode is invalid", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendVideo(botToken, {
@@ -122,15 +110,11 @@ describe("sendVideo", () => {
 					parse_mode: "INVALID",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.UnsupportedParseMode>(
-					error,
-					"UnsupportedParseMode",
-					"Bad Request: unsupported parse_mode",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "UnsupportedParseMode", "Bad Request: unsupported parse_mode");
+			}),
 		);
 
-		it.effect("CantParseEntitiesNoBoldEnd when caption MarkdownV2 bold entity is unclosed", () =>
+		test.effect("CantParseEntitiesNoBoldEnd when caption MarkdownV2 bold entity is unclosed", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendVideo(botToken, {
@@ -140,15 +124,15 @@ describe("sendVideo", () => {
 					parse_mode: "MarkdownV2",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.CantParseEntitiesNoBoldEnd>(
+				expectErrorTag(
 					error,
 					"CantParseEntitiesNoBoldEnd",
 					"Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 0",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("MessageThreadNotFound when message_thread_id does not exist", () =>
+		test.effect("MessageThreadNotFound when message_thread_id does not exist", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendVideo(botToken, {
@@ -157,15 +141,11 @@ describe("sendVideo", () => {
 					message_thread_id: 999999999,
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.MessageThreadNotFound>(
-					error,
-					"MessageThreadNotFound",
-					"Bad Request: message thread not found",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "MessageThreadNotFound", "Bad Request: message thread not found");
+			}),
 		);
 
-		it.effect("MessageToReplyNotFound when reply_parameters.message_id does not exist", () =>
+		test.effect("MessageToReplyNotFound when reply_parameters.message_id does not exist", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendVideo(botToken, {
@@ -174,15 +154,11 @@ describe("sendVideo", () => {
 					reply_parameters: { message_id: 999999999 },
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.MessageToReplyNotFound>(
-					error,
-					"MessageToReplyNotFound",
-					"Bad Request: message to be replied not found",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "MessageToReplyNotFound", "Bad Request: message to be replied not found");
+			}),
 		);
 
-		it.effect("WrongRemoteFileIdentifierWrongPadding when video file_id is malformed", () =>
+		test.effect("WrongRemoteFileIdentifierWrongPadding when video file_id is malformed", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendVideo(botToken, {
@@ -190,14 +166,14 @@ describe("sendVideo", () => {
 					video: "invalid-file-id",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.WrongRemoteFileIdentifierWrongPadding>(
+				expectErrorTag(
 					error,
 					"WrongRemoteFileIdentifierWrongPadding",
 					"Bad Request: wrong remote file identifier specified: Wrong padding in the string",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 	});
 
-	authErrorTests(token => callSendVideo(token, { chat_id: 1 }));
+	authErrorTests(test, token => callSendVideo(token, { chat_id: 1, video: "invalid" }));
 });

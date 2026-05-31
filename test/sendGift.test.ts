@@ -1,31 +1,25 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import { authErrorTests, callClient, expectClientSchemaError, liveTests, telegramConfig } from "./helpers.ts";
 
-const callSendGift = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.sendGift, payload);
+const callSendGift = (token: string, payload: unknown) => callClient("sendGift", token, payload as never);
 
-describe("sendGift", () => {
+liveTests("sendGift", test => {
 	describe("Telegram API errors", () => {
-		it.effect("StargiftInvalid when gift_id is missing", () =>
+		test.effect("StargiftInvalid when gift_id is missing", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendGift(botToken, { user_id: chatId }).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.StargiftInvalid>(error, "StargiftInvalid", "Bad Request: STARGIFT_INVALID");
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callSendGift(botToken, { user_id: chatId }));
+			}),
 		);
 
-		it.effect("InvalidUserId when required parameters missing", () =>
+		test.effect("InvalidUserId when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callSendGift(botToken, {}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.InvalidUserId>(error, "InvalidUserId", "Bad Request: invalid user_id specified");
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callSendGift(botToken, {}));
+			}),
 		);
 	});
 
-	authErrorTests(token => callSendGift(token, { gift_id: "invalid" }));
+	authErrorTests(test, token => callSendGift(token, { gift_id: "invalid" }));
 });

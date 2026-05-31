@@ -1,32 +1,36 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import { authErrorTests, callClient, expectClientSchemaError, liveTests, telegramConfig } from "./helpers.ts";
 
 const callSetBusinessAccountGiftSettings = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.setBusinessAccountGiftSettings, payload);
+	callClient("setBusinessAccountGiftSettings", token, payload as never);
 
-describe("setBusinessAccountGiftSettings", () => {
+liveTests("setBusinessAccountGiftSettings", test => {
 	describe("Telegram API errors", () => {
-		it.effect("AcceptedGiftTypesNotSpecified when required parameters missing", () =>
+		test.effect("AcceptedGiftTypesNotSpecified when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callSetBusinessAccountGiftSettings(botToken, {}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.AcceptedGiftTypesNotSpecified>(
-					error,
-					"AcceptedGiftTypesNotSpecified",
-					"Bad Request: accepted gift types aren't specified",
+				yield* expectClientSchemaError(
+					callSetBusinessAccountGiftSettings(botToken, {
+						business_connection_id: "invalid",
+						show_gift_button: true,
+					}),
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 	});
 
-	authErrorTests(token =>
+	authErrorTests(test, token =>
 		callSetBusinessAccountGiftSettings(token, {
 			business_connection_id: "invalid",
 			show_gift_button: true,
-			accepted_gift_types: {},
+			accepted_gift_types: {
+				unlimited_gifts: true,
+				limited_gifts: true,
+				unique_gifts: true,
+				premium_subscription: true,
+				gifts_from_channels: true,
+			},
 		}),
 	);
 });

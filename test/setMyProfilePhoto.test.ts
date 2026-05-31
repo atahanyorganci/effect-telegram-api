@@ -1,26 +1,21 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import { authErrorTests, callClient, expectClientSchemaError, liveTests, telegramConfig } from "./helpers.ts";
 
 const callSetMyProfilePhoto = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.setMyProfilePhoto, payload);
+	callClient("setMyProfilePhoto", token, payload as never);
 
-describe("setMyProfilePhoto", () => {
+liveTests("setMyProfilePhoto", test => {
 	describe("Telegram API errors", () => {
-		it.effect("PhotoNotSpecified when required parameters missing", () =>
+		test.effect("PhotoNotSpecified when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callSetMyProfilePhoto(botToken, {}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.PhotoNotSpecified>(
-					error,
-					"PhotoNotSpecified",
-					"Bad Request: photo isn't specified",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callSetMyProfilePhoto(botToken, {}));
+			}),
 		);
 	});
 
-	authErrorTests(token => callSetMyProfilePhoto(token, { photo: { type: "static", photo: { file_id: "invalid" } } }));
+	authErrorTests(test, token =>
+		callSetMyProfilePhoto(token, { photo: { type: "static", photo: { file_id: "invalid" } } }),
+	);
 });

@@ -1,39 +1,39 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import {
+	authErrorTests,
+	callClient,
+	expectClientSchemaError,
+	expectErrorTag,
+	liveTests,
+	telegramConfig,
+} from "./helpers.ts";
 
 const callAnswerCallbackQuery = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.answerCallbackQuery, payload);
+	callClient("answerCallbackQuery", token, payload as never);
 
-describe("answerCallbackQuery", () => {
+liveTests("answerCallbackQuery", test => {
 	describe("Telegram API errors", () => {
-		it.effect("CallbackQueryIdInvalid when callback_query_id is missing", () =>
+		test.effect("CallbackQueryIdInvalid when callback_query_id is missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callAnswerCallbackQuery(botToken, {}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.CallbackQueryIdInvalid>(
-					error,
-					"CallbackQueryIdInvalid",
-					"Bad Request: query is too old and response timeout expired or query ID is invalid",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callAnswerCallbackQuery(botToken, {}));
+			}),
 		);
 
-		it.effect("CallbackQueryIdInvalid when callback_query_id is invalid", () =>
+		test.effect("CallbackQueryIdInvalid when callback_query_id is invalid", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callAnswerCallbackQuery(botToken, { callback_query_id: "invalid" }).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.CallbackQueryIdInvalid>(
+				expectErrorTag(
 					error,
 					"CallbackQueryIdInvalid",
 					"Bad Request: query is too old and response timeout expired or query ID is invalid",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 	});
 
-	authErrorTests(token => callAnswerCallbackQuery(token, { callback_query_id: "invalid" }));
+	authErrorTests(test, token => callAnswerCallbackQuery(token, { callback_query_id: "invalid" }));
 });

@@ -1,26 +1,21 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import { authErrorTests, callClient, expectClientSchemaError, liveTests, telegramConfig } from "./helpers.ts";
 
 const callDeleteBusinessMessages = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.deleteBusinessMessages, payload);
+	callClient("deleteBusinessMessages", token, payload as never);
 
-describe("deleteBusinessMessages", () => {
+liveTests("deleteBusinessMessages", test => {
 	describe("Telegram API errors", () => {
-		it.effect("MessageIdentifiersAreNotSpecified when required parameters missing", () =>
+		test.effect("MessageIdentifiersAreNotSpecified when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callDeleteBusinessMessages(botToken, {}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.MessageIdentifiersAreNotSpecified>(
-					error,
-					"MessageIdentifiersAreNotSpecified",
-					"Bad Request: message identifiers are not specified",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callDeleteBusinessMessages(botToken, {}));
+			}),
 		);
 	});
 
-	authErrorTests(token => callDeleteBusinessMessages(token, { business_connection_id: "invalid", message_ids: [0] }));
+	authErrorTests(test, token =>
+		callDeleteBusinessMessages(token, { business_connection_id: "invalid", message_ids: [0] }),
+	);
 });

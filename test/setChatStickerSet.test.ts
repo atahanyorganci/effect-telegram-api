@@ -1,14 +1,20 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import {
+	authErrorTests,
+	callClient,
+	expectClientSchemaError,
+	expectErrorTag,
+	liveTests,
+	telegramConfig,
+} from "./helpers.ts";
 
 const callSetChatStickerSet = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.setChatStickerSet, payload);
+	callClient("setChatStickerSet", token, payload as never);
 
-describe("setChatStickerSet", () => {
+liveTests("setChatStickerSet", test => {
 	describe("Telegram API errors", () => {
-		it.effect("StickerSetNameEmpty when sticker_set_name is empty", () =>
+		test.effect("StickerSetNameEmpty when sticker_set_name is empty", () =>
 			Effect.gen(function* () {
 				const { botToken, groupId } = yield* telegramConfig;
 				const error = yield* callSetChatStickerSet(botToken, {
@@ -16,15 +22,11 @@ describe("setChatStickerSet", () => {
 					sticker_set_name: "",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.StickerSetNameEmpty>(
-					error,
-					"StickerSetNameEmpty",
-					"Bad Request: sticker_set_name is empty",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "StickerSetNameEmpty", "Bad Request: sticker_set_name is empty");
+			}),
 		);
 
-		it.effect("StickerSetNotFound when sticker_set_name does not exist", () =>
+		test.effect("StickerSetNotFound when sticker_set_name does not exist", () =>
 			Effect.gen(function* () {
 				const { botToken, groupId } = yield* telegramConfig;
 				const error = yield* callSetChatStickerSet(botToken, {
@@ -32,23 +34,17 @@ describe("setChatStickerSet", () => {
 					sticker_set_name: "InvalidSetName_xyz",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.StickerSetNotFound>(
-					error,
-					"StickerSetNotFound",
-					"Bad Request: sticker set not found",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "StickerSetNotFound", "Bad Request: sticker set not found");
+			}),
 		);
 
-		it.effect("ChatIdEmpty when required parameters missing", () =>
+		test.effect("ChatIdEmpty when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callSetChatStickerSet(botToken, {}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.ChatIdEmpty>(error, "ChatIdEmpty", "Bad Request: chat_id is empty");
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callSetChatStickerSet(botToken, {}));
+			}),
 		);
 	});
 
-	authErrorTests(token => callSetChatStickerSet(token, { chat_id: 0, sticker_set_name: "invalid" }));
+	authErrorTests(test, token => callSetChatStickerSet(token, { chat_id: 0, sticker_set_name: "invalid" }));
 });

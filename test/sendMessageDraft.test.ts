@@ -1,31 +1,26 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import { authErrorTests, callClient, expectClientSchemaError, liveTests, telegramConfig } from "./helpers.ts";
 
 const callSendMessageDraft = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.sendMessageDraft, payload);
+	callClient("sendMessageDraft", token, payload as never);
 
-describe("sendMessageDraft", () => {
+liveTests("sendMessageDraft", test => {
 	describe("Telegram API errors", () => {
-		it.effect("RandomIdInvalid when draft_id is missing", () =>
+		test.effect("RandomIdInvalid when draft_id is missing", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendMessageDraft(botToken, { chat_id: chatId }).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.RandomIdInvalid>(error, "RandomIdInvalid", "Bad Request: RANDOM_ID_INVALID");
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callSendMessageDraft(botToken, { chat_id: chatId }));
+			}),
 		);
 
-		it.effect("ChatIdEmpty when required parameters missing", () =>
+		test.effect("ChatIdEmpty when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callSendMessageDraft(botToken, {}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.ChatIdEmpty>(error, "ChatIdEmpty", "Bad Request: chat_id is empty");
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callSendMessageDraft(botToken, {}));
+			}),
 		);
 	});
 
-	authErrorTests(token => callSendMessageDraft(token, { chat_id: 0, draft_id: 0 }));
+	authErrorTests(test, token => callSendMessageDraft(token, { chat_id: 0, draft_id: 0 }));
 });

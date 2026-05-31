@@ -1,26 +1,21 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import { authErrorTests, callClient, expectClientSchemaError, liveTests, telegramConfig } from "./helpers.ts";
 
 const callSetBusinessAccountName = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.setBusinessAccountName, payload);
+	callClient("setBusinessAccountName", token, payload as never);
 
-describe("setBusinessAccountName", () => {
+liveTests("setBusinessAccountName", test => {
 	describe("Telegram API errors", () => {
-		it.effect("FirstNameRequired when required parameters missing", () =>
+		test.effect("FirstNameRequired when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callSetBusinessAccountName(botToken, {}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.FirstNameRequired>(
-					error,
-					"FirstNameRequired",
-					'Bad Request: parameter "first_name" is required',
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callSetBusinessAccountName(botToken, {}));
+			}),
 		);
 	});
 
-	authErrorTests(token => callSetBusinessAccountName(token, { business_connection_id: "invalid", first_name: "Test" }));
+	authErrorTests(test, token =>
+		callSetBusinessAccountName(token, { business_connection_id: "invalid", first_name: "Test" }),
+	);
 });

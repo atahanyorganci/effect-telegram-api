@@ -1,14 +1,21 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig, trackCreatedForumTopic } from "./helpers.ts";
+import {
+	authErrorTests,
+	callClient,
+	expectClientSchemaError,
+	expectErrorTag,
+	liveTests,
+	telegramConfig,
+	trackCreatedForumTopic,
+} from "./helpers.ts";
 
 const callCreateForumTopic = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.createForumTopic, payload);
+	callClient("createForumTopic", token, payload as never);
 
-describe("createForumTopic", () => {
+liveTests("createForumTopic", test => {
 	describe("Telegram API errors", () => {
-		it.effect("NotEnoughRightsToCreateTopic when the bot cannot manage topics", () =>
+		test.effect("NotEnoughRightsToCreateTopic when the bot cannot manage topics", () =>
 			Effect.gen(function* () {
 				const { botToken, groupId } = yield* telegramConfig;
 				yield* callCreateForumTopic(botToken, {
@@ -18,7 +25,7 @@ describe("createForumTopic", () => {
 					Effect.matchEffect({
 						onFailure: error =>
 							Effect.sync(() =>
-								expectErrorTag<Telegram.Errors.NotEnoughRightsToCreateTopic>(
+								expectErrorTag(
 									error,
 									"NotEnoughRightsToCreateTopic",
 									"Bad Request: not enough rights to create a topic",
@@ -31,18 +38,16 @@ describe("createForumTopic", () => {
 							}),
 					}),
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("ChatIdEmpty when required parameters missing", () =>
+		test.effect("ChatIdEmpty when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callCreateForumTopic(botToken, {}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.ChatIdEmpty>(error, "ChatIdEmpty", "Bad Request: chat_id is empty");
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callCreateForumTopic(botToken, {}));
+			}),
 		);
 	});
 
-	authErrorTests(token => callCreateForumTopic(token, { chat_id: 0, name: "test" }));
+	authErrorTests(test, token => callCreateForumTopic(token, { chat_id: 0, name: "test" }));
 });

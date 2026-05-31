@@ -1,27 +1,22 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import { authErrorTests, callClient, expectErrorTag, liveTests, telegramConfig } from "./helpers.ts";
 
 const callUnpinChatMessage = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.unpinChatMessage, payload);
+	callClient("unpinChatMessage", token, payload as never);
 
-describe("unpinChatMessage", () => {
+liveTests("unpinChatMessage", test => {
 	describe("Telegram API errors", () => {
-		it.effect("MessageToUnpinNotFound when message_id is missing in a supergroup", () =>
+		test.effect("MessageToUnpinNotFound when message_id is missing in a supergroup", () =>
 			Effect.gen(function* () {
 				const { botToken, groupId } = yield* telegramConfig;
 				const error = yield* callUnpinChatMessage(botToken, { chat_id: groupId }).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.MessageToUnpinNotFound>(
-					error,
-					"MessageToUnpinNotFound",
-					"Bad Request: message to unpin not found",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "MessageToUnpinNotFound", "Bad Request: message to unpin not found");
+			}),
 		);
 
-		it.effect("MessageToUnpinNotFound when message_id does not exist", () =>
+		test.effect("MessageToUnpinNotFound when message_id does not exist", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callUnpinChatMessage(botToken, {
@@ -29,14 +24,10 @@ describe("unpinChatMessage", () => {
 					message_id: 999_999_999,
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.MessageToUnpinNotFound>(
-					error,
-					"MessageToUnpinNotFound",
-					"Bad Request: message to unpin not found",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "MessageToUnpinNotFound", "Bad Request: message to unpin not found");
+			}),
 		);
 	});
 
-	authErrorTests(token => callUnpinChatMessage(token, { chat_id: 1, message_id: 1 }));
+	authErrorTests(test, token => callUnpinChatMessage(token, { chat_id: 1, message_id: 1 }));
 });

@@ -1,35 +1,35 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import {
+	authErrorTests,
+	callClient,
+	expectClientSchemaError,
+	expectErrorTag,
+	liveTests,
+	telegramConfig,
+} from "./helpers.ts";
 
 const callDeleteChatStickerSet = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.deleteChatStickerSet, payload);
+	callClient("deleteChatStickerSet", token, payload as never);
 
-describe("deleteChatStickerSet", () => {
+liveTests("deleteChatStickerSet", test => {
 	describe("Telegram API errors", () => {
-		it.effect("CantSetSupergroupStickerSet when the bot cannot change the group sticker set", () =>
+		test.effect("CantSetSupergroupStickerSet when the bot cannot change the group sticker set", () =>
 			Effect.gen(function* () {
 				const { botToken, groupId } = yield* telegramConfig;
 				const error = yield* callDeleteChatStickerSet(botToken, { chat_id: groupId }).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.CantSetSupergroupStickerSet>(
-					error,
-					"CantSetSupergroupStickerSet",
-					"Bad Request: can't set supergroup sticker set",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "CantSetSupergroupStickerSet", "Bad Request: can't set supergroup sticker set");
+			}),
 		);
 
-		it.effect("ChatIdEmpty when required parameters missing", () =>
+		test.effect("ChatIdEmpty when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callDeleteChatStickerSet(botToken, {}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.ChatIdEmpty>(error, "ChatIdEmpty", "Bad Request: chat_id is empty");
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callDeleteChatStickerSet(botToken, {}));
+			}),
 		);
 	});
 
-	authErrorTests(token => callDeleteChatStickerSet(token, { chat_id: 0 }));
+	authErrorTests(test, token => callDeleteChatStickerSet(token, { chat_id: 0 }));
 });

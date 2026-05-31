@@ -1,14 +1,12 @@
-import { assert, describe, it } from "@effect/vitest";
+import { assert, describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import { authErrorTests, callClient, expectClientSchemaError, liveTests, telegramConfig } from "./helpers.ts";
 
-const callSendContact = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.sendContact, payload);
+const callSendContact = (token: string, payload: unknown) => callClient("sendContact", token, payload as never);
 
-describe("sendContact", () => {
+liveTests("sendContact", test => {
 	describe("success", () => {
-		it.effect("returns the sent contact message", () =>
+		test.effect("returns the sent contact message", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendContact(botToken, {
@@ -20,43 +18,37 @@ describe("sendContact", () => {
 				assert.strictEqual(typeof message.message_id, "number");
 				assert.strictEqual(typeof message.contact?.phone_number, "string");
 				assert.strictEqual(message.contact?.first_name, "Test");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 	});
 
 	describe("Telegram API errors", () => {
-		it.effect("PhoneNumberRequired when phone_number is missing", () =>
+		test.effect("PhoneNumberRequired when phone_number is missing", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendContact(botToken, {
-					chat_id: chatId,
-					first_name: "Test",
-				}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.PhoneNumberRequired>(
-					error,
-					"PhoneNumberRequired",
-					'Bad Request: parameter "phone_number" is required',
+				yield* expectClientSchemaError(
+					callSendContact(botToken, {
+						chat_id: chatId,
+						first_name: "Test",
+					}),
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("FirstNameRequired when first_name is missing", () =>
+		test.effect("FirstNameRequired when first_name is missing", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendContact(botToken, {
-					chat_id: chatId,
-					phone_number: "+10000000000",
-				}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.FirstNameRequired>(
-					error,
-					"FirstNameRequired",
-					'Bad Request: parameter "first_name" is required',
+				yield* expectClientSchemaError(
+					callSendContact(botToken, {
+						chat_id: chatId,
+						phone_number: "+10000000000",
+					}),
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 	});
 
-	authErrorTests(token => callSendContact(token, { chat_id: 1, phone_number: "+10000000000", first_name: "Test" }));
+	authErrorTests(test, token =>
+		callSendContact(token, { chat_id: 1, phone_number: "+10000000000", first_name: "Test" }),
+	);
 });

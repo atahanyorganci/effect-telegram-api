@@ -1,26 +1,23 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import { authErrorTests, callClient, expectErrorTag, liveTests, telegramConfig } from "./helpers.ts";
 
 const callGetBusinessAccountStarBalance = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.getBusinessAccountStarBalance, payload);
+	callClient("getBusinessAccountStarBalance", token, payload as never);
 
-describe("getBusinessAccountStarBalance", () => {
+liveTests("getBusinessAccountStarBalance", test => {
 	describe("Telegram API errors", () => {
-		it.effect("BusinessConnectionNotFound when required parameters missing", () =>
+		test.effect("BusinessConnectionNotFound when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callGetBusinessAccountStarBalance(botToken, {}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.BusinessConnectionNotFound>(
-					error,
-					"BusinessConnectionNotFound",
-					"Bad Request: business connection not found",
+				const error = yield* callGetBusinessAccountStarBalance(botToken, { business_connection_id: "invalid" }).pipe(
+					Effect.flip,
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+
+				expectErrorTag(error, "BusinessConnectionNotFound", "Bad Request: business connection not found");
+			}),
 		);
 	});
 
-	authErrorTests(token => callGetBusinessAccountStarBalance(token, { business_connection_id: "invalid" }));
+	authErrorTests(test, token => callGetBusinessAccountStarBalance(token, { business_connection_id: "invalid" }));
 });

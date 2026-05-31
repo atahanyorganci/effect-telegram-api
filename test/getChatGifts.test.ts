@@ -1,43 +1,46 @@
-import { assert, describe, it } from "@effect/vitest";
+import { assert, describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import {
+	authErrorTests,
+	callClient,
+	expectClientSchemaError,
+	expectErrorTag,
+	liveTests,
+	telegramConfig,
+} from "./helpers.ts";
 
-const callGetChatGifts = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.getChatGifts, payload);
+const callGetChatGifts = (token: string, payload: unknown) => callClient("getChatGifts", token, payload as never);
 
-describe("getChatGifts", () => {
+liveTests("getChatGifts", test => {
 	describe("success", () => {
-		it.effect("returns owned gifts for a valid chat_id", () =>
+		test.effect("returns owned gifts for a valid chat_id", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const gifts = yield* callGetChatGifts(botToken, { chat_id: chatId });
 
 				assert.strictEqual(typeof gifts.total_count, "number");
 				assert.ok(Array.isArray(gifts.gifts));
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 	});
 
 	describe("Telegram API errors", () => {
-		it.effect("ChatNotFound when chat_id does not exist", () =>
+		test.effect("ChatNotFound when chat_id does not exist", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callGetChatGifts(botToken, { chat_id: 0 }).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.ChatNotFound>(error, "ChatNotFound", "Bad Request: chat not found");
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "ChatNotFound", "Bad Request: chat not found");
+			}),
 		);
 
-		it.effect("ChatIdEmpty when chat_id is missing", () =>
+		test.effect("ChatIdEmpty when chat_id is missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callGetChatGifts(botToken, {}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.ChatIdEmpty>(error, "ChatIdEmpty", "Bad Request: chat_id is empty");
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callGetChatGifts(botToken, {}));
+			}),
 		);
 	});
 
-	authErrorTests(token => callGetChatGifts(token, { chat_id: 1 }));
+	authErrorTests(test, token => callGetChatGifts(token, { chat_id: 1 }));
 });

@@ -1,6 +1,22 @@
-import type { TypeExpr } from "../parse/model.ts";
+import type { Parameter, TypeExpr } from "../parse/model.ts";
 
 export const INPUT_FILE_TYPE = "InputFile";
+
+export const typeUsesMultipart = (type: TypeExpr): boolean => {
+	switch (type.kind) {
+		case "file":
+			return true;
+		case "array":
+			return typeUsesMultipart(type.element);
+		case "oneOf":
+			return type.types.some(typeUsesMultipart);
+		default:
+			return false;
+	}
+};
+
+export const methodUsesMultipart = (parameters: readonly Parameter[]): boolean =>
+	parameters.some(parameter => typeUsesMultipart(parameter.type));
 
 export interface RenderRefStrategy {
 	/** Render a reference to a named object schema (e.g. `Message`). */
@@ -143,6 +159,9 @@ export const collectRefs = (type: TypeExpr, into: Set<string>): void => {
 			for (const member of type.types) {
 				collectRefs(member, into);
 			}
+			return;
+		case "file":
+			into.add(INPUT_FILE_TYPE);
 			return;
 		default:
 			return;

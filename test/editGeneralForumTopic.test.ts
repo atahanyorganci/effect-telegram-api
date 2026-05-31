@@ -1,14 +1,20 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import {
+	authErrorTests,
+	callClient,
+	expectClientSchemaError,
+	expectErrorTag,
+	liveTests,
+	telegramConfig,
+} from "./helpers.ts";
 
 const callEditGeneralForumTopic = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.editGeneralForumTopic, payload);
+	callClient("editGeneralForumTopic", token, payload as never);
 
-describe("editGeneralForumTopic", () => {
+liveTests("editGeneralForumTopic", test => {
 	describe("Telegram API errors", () => {
-		it.effect("ChatAdminRequired when the bot is not a forum administrator", () =>
+		test.effect("ChatAdminRequired when the bot is not a forum administrator", () =>
 			Effect.gen(function* () {
 				const { botToken, groupId } = yield* telegramConfig;
 				const error = yield* callEditGeneralForumTopic(botToken, {
@@ -16,23 +22,17 @@ describe("editGeneralForumTopic", () => {
 					name: "General probe",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.ChatAdminRequired>(
-					error,
-					"ChatAdminRequired",
-					"Bad Request: CHAT_ADMIN_REQUIRED",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "ChatAdminRequired", "Bad Request: CHAT_ADMIN_REQUIRED");
+			}),
 		);
 
-		it.effect("ChatIdEmpty when required parameters missing", () =>
+		test.effect("ChatIdEmpty when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callEditGeneralForumTopic(botToken, {}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.ChatIdEmpty>(error, "ChatIdEmpty", "Bad Request: chat_id is empty");
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callEditGeneralForumTopic(botToken, {}));
+			}),
 		);
 	});
 
-	authErrorTests(token => callEditGeneralForumTopic(token, { chat_id: 0, name: "test" }));
+	authErrorTests(test, token => callEditGeneralForumTopic(token, { chat_id: 0, name: "test" }));
 });

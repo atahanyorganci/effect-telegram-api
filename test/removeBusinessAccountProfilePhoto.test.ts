@@ -1,26 +1,19 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import { authErrorTests, callClient, expectClientSchemaError, liveTests, telegramConfig } from "./helpers.ts";
 
 const callRemoveBusinessAccountProfilePhoto = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.removeBusinessAccountProfilePhoto, payload);
+	callClient("removeBusinessAccountProfilePhoto", token, payload as never);
 
-describe("removeBusinessAccountProfilePhoto", () => {
+liveTests("removeBusinessAccountProfilePhoto", test => {
 	describe("Telegram API errors", () => {
-		it.effect("BusinessConnectionNotFound when validation fails", () =>
+		test.effect("BusinessConnectionNotFound when validation fails", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callRemoveBusinessAccountProfilePhoto(botToken, {}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.BusinessConnectionNotFound>(
-					error,
-					"BusinessConnectionNotFound",
-					"Bad Request: business connection not found",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callRemoveBusinessAccountProfilePhoto(botToken, {}));
+			}),
 		);
 	});
 
-	authErrorTests(token => callRemoveBusinessAccountProfilePhoto(token, {}));
+	authErrorTests(test, token => callRemoveBusinessAccountProfilePhoto(token, { business_connection_id: "invalid" }));
 });

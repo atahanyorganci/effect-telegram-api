@@ -1,14 +1,20 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import {
+	authErrorTests,
+	callClient,
+	expectClientSchemaError,
+	expectErrorTag,
+	liveTests,
+	telegramConfig,
+} from "./helpers.ts";
 
 const callSetChatPermissions = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.setChatPermissions, payload);
+	callClient("setChatPermissions", token, payload as never);
 
-describe("setChatPermissions", () => {
+liveTests("setChatPermissions", test => {
 	describe("Telegram API errors", () => {
-		it.effect("CantChangePrivateChatPermissions when chat_id is a private chat", () =>
+		test.effect("CantChangePrivateChatPermissions when chat_id is a private chat", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSetChatPermissions(botToken, {
@@ -16,23 +22,17 @@ describe("setChatPermissions", () => {
 					permissions: { can_send_messages: true },
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.CantChangePrivateChatPermissions>(
-					error,
-					"CantChangePrivateChatPermissions",
-					"Bad Request: can't change private chat permissions",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "CantChangePrivateChatPermissions", "Bad Request: can't change private chat permissions");
+			}),
 		);
 
-		it.effect("ChatIdEmpty when required parameters missing", () =>
+		test.effect("ChatIdEmpty when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callSetChatPermissions(botToken, {}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.ChatIdEmpty>(error, "ChatIdEmpty", "Bad Request: chat_id is empty");
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callSetChatPermissions(botToken, {}));
+			}),
 		);
 	});
 
-	authErrorTests(token => callSetChatPermissions(token, { chat_id: 0, permissions: {} }));
+	authErrorTests(test, token => callSetChatPermissions(token, { chat_id: 0, permissions: {} }));
 });

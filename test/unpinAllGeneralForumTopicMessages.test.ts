@@ -1,22 +1,19 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import { authErrorTests, callClient, expectClientSchemaError, liveTests, telegramConfig } from "./helpers.ts";
 
 const callUnpinAllGeneralForumTopicMessages = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.unpinAllGeneralForumTopicMessages, payload);
+	callClient("unpinAllGeneralForumTopicMessages", token, payload as never);
 
-describe("unpinAllGeneralForumTopicMessages", () => {
+liveTests("unpinAllGeneralForumTopicMessages", test => {
 	describe("Telegram API errors", () => {
-		it.effect("ChatIdEmpty when required parameters missing", () =>
+		test.effect("ChatIdEmpty when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callUnpinAllGeneralForumTopicMessages(botToken, {}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.ChatIdEmpty>(error, "ChatIdEmpty", "Bad Request: chat_id is empty");
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callUnpinAllGeneralForumTopicMessages(botToken, {}));
+			}),
 		);
 	});
 
-	authErrorTests(token => callUnpinAllGeneralForumTopicMessages(token, { chat_id: 0 }));
+	authErrorTests(test, token => callUnpinAllGeneralForumTopicMessages(token, { chat_id: 0 }));
 });

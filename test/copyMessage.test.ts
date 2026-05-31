@@ -1,17 +1,22 @@
-import { assert, describe, it } from "@effect/vitest";
+import { assert, describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import {
+	authErrorTests,
+	callClient,
+	expectClientSchemaError,
+	expectErrorTag,
+	liveTests,
+	telegramConfig,
+} from "./helpers.ts";
 
-const callCopyMessage = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.copyMessage, payload);
+const callCopyMessage = (token: string, payload: unknown) => callClient("copyMessage", token, payload as never);
 
-describe("copyMessage", () => {
+liveTests("copyMessage", test => {
 	describe("success", () => {
-		it.effect("returns the new message id", () =>
+		test.effect("returns the new message id", () =>
 			Effect.gen(function* () {
 				const { botToken: token, chatId } = yield* telegramConfig;
-				const source = yield* Telegram.Client.callMethod(token, Telegram.Methods.sendDice, { chat_id: chatId });
+				const source = yield* callClient("sendDice", token, { chat_id: chatId });
 				const result = yield* callCopyMessage(token, {
 					chat_id: chatId,
 					from_chat_id: chatId,
@@ -19,28 +24,24 @@ describe("copyMessage", () => {
 				});
 
 				assert.strictEqual(typeof result.message_id, "number");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 	});
 
 	describe("Telegram API errors", () => {
-		it.effect("FromChatIdRequired when from_chat_id is missing", () =>
+		test.effect("FromChatIdRequired when from_chat_id is missing", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callCopyMessage(botToken, {
-					chat_id: chatId,
-					message_id: 1,
-				}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.FromChatIdRequired>(
-					error,
-					"FromChatIdRequired",
-					'Bad Request: parameter "from_chat_id" is required',
+				yield* expectClientSchemaError(
+					callCopyMessage(botToken, {
+						chat_id: chatId,
+						message_id: 1,
+					}),
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("MessageToCopyNotFound when message_id does not exist", () =>
+		test.effect("MessageToCopyNotFound when message_id does not exist", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callCopyMessage(botToken, {
@@ -49,14 +50,10 @@ describe("copyMessage", () => {
 					message_id: 999_999_999,
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.MessageToCopyNotFound>(
-					error,
-					"MessageToCopyNotFound",
-					"Bad Request: message to copy not found",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "MessageToCopyNotFound", "Bad Request: message to copy not found");
+			}),
 		);
 	});
 
-	authErrorTests(token => callCopyMessage(token, { chat_id: 1, from_chat_id: 1, message_id: 1 }));
+	authErrorTests(test, token => callCopyMessage(token, { chat_id: 1, from_chat_id: 1, message_id: 1 }));
 });

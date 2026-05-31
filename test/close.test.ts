@@ -1,10 +1,7 @@
-import { describe } from "@effect/vitest";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests } from "./helpers.ts";
+import { authErrorTests, callClient, liveTests } from "./helpers.ts";
 
-const callClose = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.close, payload);
+const callClose = (token: string) => callClient("close", token);
 
-describe("close", () => {
-	authErrorTests(token => callClose(token, {}));
+liveTests("close", test => {
+	authErrorTests(test, callClose);
 });

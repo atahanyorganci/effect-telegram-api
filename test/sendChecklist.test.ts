@@ -1,26 +1,26 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import { authErrorTests, callClient, expectClientSchemaError, liveTests, telegramConfig } from "./helpers.ts";
 
-const callSendChecklist = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.sendChecklist, payload);
+const callSendChecklist = (token: string, payload: unknown) => callClient("sendChecklist", token, payload as never);
 
-describe("sendChecklist", () => {
+liveTests("sendChecklist", test => {
 	describe("Telegram API errors", () => {
-		it.effect("ChecklistRequired when checklist is missing", () =>
+		test.effect("ChecklistRequired when checklist is missing", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendChecklist(botToken, { chat_id: chatId }).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.ChecklistRequired>(
-					error,
-					"ChecklistRequired",
-					'Bad Request: parameter "checklist" is required',
+				yield* expectClientSchemaError(
+					callSendChecklist(botToken, { business_connection_id: "invalid", chat_id: chatId }),
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 	});
 
-	authErrorTests(token => callSendChecklist(token, { chat_id: 1 }));
+	authErrorTests(test, token =>
+		callSendChecklist(token, {
+			business_connection_id: "invalid",
+			chat_id: 1,
+			checklist: { title: "t", tasks: [{ id: 1, text: "t" }] },
+		}),
+	);
 });

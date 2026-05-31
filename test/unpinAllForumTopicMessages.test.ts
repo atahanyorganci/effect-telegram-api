@@ -1,14 +1,13 @@
-import { assert, describe, it } from "@effect/vitest";
+import { assert, describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import { authErrorTests, callClient, expectClientSchemaError, liveTests, telegramConfig } from "./helpers.ts";
 
 const callUnpinAllForumTopicMessages = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.unpinAllForumTopicMessages, payload);
+	callClient("unpinAllForumTopicMessages", token, payload as never);
 
-describe("unpinAllForumTopicMessages", () => {
+liveTests("unpinAllForumTopicMessages", test => {
 	describe("success", () => {
-		it.effect("returns true for the configured forum topic", () =>
+		test.effect("returns true for the configured forum topic", () =>
 			Effect.gen(function* () {
 				const { botToken, groupId, forumTopicId } = yield* telegramConfig;
 				const result = yield* callUnpinAllForumTopicMessages(botToken, {
@@ -17,20 +16,18 @@ describe("unpinAllForumTopicMessages", () => {
 				});
 
 				assert.strictEqual(result, true);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 	});
 
 	describe("Telegram API errors", () => {
-		it.effect("ChatIdEmpty when required parameters missing", () =>
+		test.effect("ChatIdEmpty when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callUnpinAllForumTopicMessages(botToken, {}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.ChatIdEmpty>(error, "ChatIdEmpty", "Bad Request: chat_id is empty");
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callUnpinAllForumTopicMessages(botToken, {}));
+			}),
 		);
 	});
 
-	authErrorTests(token => callUnpinAllForumTopicMessages(token, { chat_id: 0, message_thread_id: 0 }));
+	authErrorTests(test, token => callUnpinAllForumTopicMessages(token, { chat_id: 0, message_thread_id: 0 }));
 });

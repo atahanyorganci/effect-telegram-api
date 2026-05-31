@@ -1,44 +1,48 @@
-import { assert, describe, it } from "@effect/vitest";
+import { assert, describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import {
+	authErrorTests,
+	callClient,
+	expectClientSchemaError,
+	expectErrorTag,
+	liveTests,
+	telegramConfig,
+} from "./helpers.ts";
 
 const callGetUserProfilePhotos = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.getUserProfilePhotos, payload);
+	callClient("getUserProfilePhotos", token, payload as never);
 
-describe("getUserProfilePhotos", () => {
+liveTests("getUserProfilePhotos", test => {
 	describe("success", () => {
-		it.effect("returns profile photo metadata for the authenticated bot user", () =>
+		test.effect("returns profile photo metadata for the authenticated bot user", () =>
 			Effect.gen(function* () {
 				const { botToken: token } = yield* telegramConfig;
-				const me = yield* Telegram.Client.callMethod(token, Telegram.Methods.getMe);
+				const me = yield* callClient("getMe", token);
 				const photos = yield* callGetUserProfilePhotos(token, { user_id: me.id });
 
 				assert.strictEqual(typeof photos.total_count, "number");
 				assert.ok(Array.isArray(photos.photos));
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 	});
 
 	describe("Telegram API errors", () => {
-		it.effect("InvalidUserId when user_id is missing", () =>
+		test.effect("InvalidUserId when user_id is missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callGetUserProfilePhotos(botToken, {}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.InvalidUserId>(error, "InvalidUserId", "Bad Request: invalid user_id specified");
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callGetUserProfilePhotos(botToken, {}));
+			}),
 		);
 
-		it.effect("UserNotFound when user_id does not exist", () =>
+		test.effect("UserNotFound when user_id does not exist", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callGetUserProfilePhotos(botToken, { user_id: 999_999_999_999 }).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.UserNotFound>(error, "UserNotFound", "Bad Request: user not found");
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "UserNotFound", "Bad Request: user not found");
+			}),
 		);
 	});
 
-	authErrorTests(token => callGetUserProfilePhotos(token, { user_id: 1 }));
+	authErrorTests(test, token => callGetUserProfilePhotos(token, { user_id: 1 }));
 });

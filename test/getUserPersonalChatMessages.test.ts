@@ -1,14 +1,20 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import {
+	authErrorTests,
+	callClient,
+	expectClientSchemaError,
+	expectErrorTag,
+	liveTests,
+	telegramConfig,
+} from "./helpers.ts";
 
 const callGetUserPersonalChatMessages = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.getUserPersonalChatMessages, payload);
+	callClient("getUserPersonalChatMessages", token, payload as never);
 
-describe("getUserPersonalChatMessages", () => {
+liveTests("getUserPersonalChatMessages", test => {
 	describe("Telegram API errors", () => {
-		it.effect("LimitMustBePositive when limit is zero", () =>
+		test.effect("LimitMustBePositive when limit is zero", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callGetUserPersonalChatMessages(botToken, {
@@ -16,23 +22,17 @@ describe("getUserPersonalChatMessages", () => {
 					limit: 0,
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.LimitMustBePositive>(
-					error,
-					"LimitMustBePositive",
-					"Bad Request: limit must be positive",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "LimitMustBePositive", "Bad Request: limit must be positive");
+			}),
 		);
 
-		it.effect("InvalidUserId when required parameters missing", () =>
+		test.effect("InvalidUserId when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callGetUserPersonalChatMessages(botToken, {}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.InvalidUserId>(error, "InvalidUserId", "Bad Request: invalid user_id specified");
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callGetUserPersonalChatMessages(botToken, {}));
+			}),
 		);
 	});
 
-	authErrorTests(token => callGetUserPersonalChatMessages(token, { user_id: 0, limit: 1 }));
+	authErrorTests(test, token => callGetUserPersonalChatMessages(token, { user_id: 0, limit: 1 }));
 });

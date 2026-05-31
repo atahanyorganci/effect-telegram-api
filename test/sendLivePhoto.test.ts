@@ -1,26 +1,21 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import { authErrorTests, callClient, expectErrorTag, formDataPayload, liveTests, telegramConfig } from "./helpers.ts";
 
-const callSendLivePhoto = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.sendLivePhoto, payload);
+const callSendLivePhoto = (token: string, payload: unknown = {}) =>
+	callClient("sendLivePhoto", token, formDataPayload(payload as Record<string, unknown>) as never);
 
-describe("sendLivePhoto", () => {
+liveTests("sendLivePhoto", test => {
 	describe("Telegram API errors", () => {
-		it.effect("NoLivePhotoInRequest when live photo is missing", () =>
+		test.effect("NoLivePhotoInRequest when live photo is missing", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendLivePhoto(botToken, { chat_id: chatId }).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.NoLivePhotoInRequest>(
-					error,
-					"NoLivePhotoInRequest",
-					"Bad Request: there is no live photo in the request",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "NoLivePhotoInRequest", "Bad Request: there is no live photo in the request");
+			}),
 		);
 	});
 
-	authErrorTests(token => callSendLivePhoto(token, { chat_id: 1 }));
+	authErrorTests(test, token => callSendLivePhoto(token, { chat_id: 1, photo: "invalid" }));
 });

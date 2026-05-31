@@ -1,26 +1,20 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import { authErrorTests, callClient, expectClientSchemaError, liveTests, telegramConfig } from "./helpers.ts";
 
-const callSendPaidMedia = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.sendPaidMedia, payload);
+const callSendPaidMedia = (token: string, payload: unknown) => callClient("sendPaidMedia", token, payload as never);
 
-describe("sendPaidMedia", () => {
+liveTests("sendPaidMedia", test => {
 	describe("Telegram API errors", () => {
-		it.effect("MediaRequired when media is missing", () =>
+		test.effect("MediaRequired when media is missing", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendPaidMedia(botToken, { chat_id: chatId }).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.MediaRequired>(
-					error,
-					"MediaRequired",
-					'Bad Request: parameter "media" is required',
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callSendPaidMedia(botToken, { chat_id: chatId }));
+			}),
 		);
 	});
 
-	authErrorTests(token => callSendPaidMedia(token, { chat_id: 1 }));
+	authErrorTests(test, token =>
+		callSendPaidMedia(token, { chat_id: 1, star_count: 1, media: [{ type: "photo", media: "attach://file" }] }),
+	);
 });

@@ -1,34 +1,33 @@
-import { assert, describe, it } from "@effect/vitest";
+import { assert, describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import { authErrorTests, callClient, expectErrorTag, liveTests, telegramConfig } from "./helpers.ts";
 
-const callGetChatMenuButton = (token: string, payload?: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.getChatMenuButton, payload);
+const callGetChatMenuButton = (token: string, payload: unknown = {}) =>
+	callClient("getChatMenuButton", token, payload as never);
 
-describe("getChatMenuButton", () => {
+liveTests("getChatMenuButton", test => {
 	describe("success", () => {
-		it.effect("returns the default menu button when chat_id is omitted", () =>
+		test.effect("returns the default menu button when chat_id is omitted", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
 				const menuButton = yield* callGetChatMenuButton(botToken);
 				const button = menuButton as { readonly type: string };
 
 				assert.strictEqual(typeof button.type, "string");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 	});
 
 	describe("Telegram API errors", () => {
-		it.effect("InvalidChatId when chat_id is not a valid private chat", () =>
+		test.effect("InvalidChatId when chat_id is not a valid private chat", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callGetChatMenuButton(botToken, { chat_id: 0 }).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.InvalidChatId>(error, "InvalidChatId", "Bad Request: invalid chat_id specified");
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "InvalidChatId", "Bad Request: invalid chat_id specified");
+			}),
 		);
 	});
 
-	authErrorTests(token => callGetChatMenuButton(token));
+	authErrorTests(test, token => callGetChatMenuButton(token, {}));
 });

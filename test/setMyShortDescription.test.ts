@@ -1,39 +1,34 @@
-import { assert, describe, it } from "@effect/vitest";
+import { assert, describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import { authErrorTests, callClient, expectErrorTag, liveTests, telegramConfig } from "./helpers.ts";
 
 const callSetMyShortDescription = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.setMyShortDescription, payload);
+	callClient("setMyShortDescription", token, payload as never);
 
-describe("setMyShortDescription", () => {
+liveTests("setMyShortDescription", test => {
 	describe("success", () => {
-		it.effect("returns true when clearing the bot short description", () =>
+		test.effect("returns true when clearing the bot short description", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
 				const result = yield* callSetMyShortDescription(botToken, { short_description: "" });
 
 				assert.strictEqual(result, true);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 	});
 
 	describe("Telegram API errors", () => {
-		it.effect("BotShortDescriptionInvalid when short_description exceeds the limit", () =>
+		test.effect("BotShortDescriptionInvalid when short_description exceeds the limit", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callSetMyShortDescription(botToken, { short_description: "x".repeat(121) }).pipe(
 					Effect.flip,
 				);
 
-				expectErrorTag<Telegram.Errors.BotShortDescriptionInvalid>(
-					error,
-					"BotShortDescriptionInvalid",
-					"Bad Request: BOT_SHARETEXT_INVALID",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "BotShortDescriptionInvalid", "Bad Request: BOT_SHARETEXT_INVALID");
+			}),
 		);
 	});
 
-	authErrorTests(token => callSetMyShortDescription(token, { short_description: "" }));
+	authErrorTests(test, token => callSetMyShortDescription(token, { short_description: "" }));
 });

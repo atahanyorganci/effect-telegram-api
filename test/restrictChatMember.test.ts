@@ -1,14 +1,20 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import {
+	authErrorTests,
+	callClient,
+	expectClientSchemaError,
+	expectErrorTag,
+	liveTests,
+	telegramConfig,
+} from "./helpers.ts";
 
 const callRestrictChatMember = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.restrictChatMember, payload);
+	callClient("restrictChatMember", token, payload as never);
 
-describe("restrictChatMember", () => {
+liveTests("restrictChatMember", test => {
 	describe("Telegram API errors", () => {
-		it.effect("ParticipantIdInvalid when user_id is not a chat participant", () =>
+		test.effect("ParticipantIdInvalid when user_id is not a chat participant", () =>
 			Effect.gen(function* () {
 				const { botToken, groupId } = yield* telegramConfig;
 				const error = yield* callRestrictChatMember(botToken, {
@@ -17,23 +23,17 @@ describe("restrictChatMember", () => {
 					permissions: { can_send_messages: false },
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.ParticipantIdInvalid>(
-					error,
-					"ParticipantIdInvalid",
-					"Bad Request: PARTICIPANT_ID_INVALID",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "ParticipantIdInvalid", "Bad Request: PARTICIPANT_ID_INVALID");
+			}),
 		);
 
-		it.effect("InvalidUserId when user_id is missing", () =>
+		test.effect("InvalidUserId when user_id is missing", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callRestrictChatMember(botToken, { chat_id: chatId }).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.InvalidUserId>(error, "InvalidUserId", "Bad Request: invalid user_id specified");
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callRestrictChatMember(botToken, { chat_id: chatId }));
+			}),
 		);
 	});
 
-	authErrorTests(token => callRestrictChatMember(token, { chat_id: 1 }));
+	authErrorTests(test, token => callRestrictChatMember(token, { chat_id: 1, user_id: 1, permissions: {} }));
 });

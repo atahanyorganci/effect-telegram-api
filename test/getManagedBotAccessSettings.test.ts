@@ -1,22 +1,19 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import { authErrorTests, callClient, expectClientSchemaError, liveTests, telegramConfig } from "./helpers.ts";
 
 const callGetManagedBotAccessSettings = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.getManagedBotAccessSettings, payload);
+	callClient("getManagedBotAccessSettings", token, payload as never);
 
-describe("getManagedBotAccessSettings", () => {
+liveTests("getManagedBotAccessSettings", test => {
 	describe("Telegram API errors", () => {
-		it.effect("InvalidUserId when required parameters missing", () =>
+		test.effect("InvalidUserId when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callGetManagedBotAccessSettings(botToken, {}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.InvalidUserId>(error, "InvalidUserId", "Bad Request: invalid user_id specified");
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callGetManagedBotAccessSettings(botToken, {}));
+			}),
 		);
 	});
 
-	authErrorTests(token => callGetManagedBotAccessSettings(token, { user_id: 0 }));
+	authErrorTests(test, token => callGetManagedBotAccessSettings(token, { user_id: 0 }));
 });

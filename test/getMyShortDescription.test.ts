@@ -1,22 +1,21 @@
-import { assert, describe, it } from "@effect/vitest";
+import { assert, describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, LiveLayer, telegramConfig } from "./helpers.ts";
+import { authErrorTests, callClient, liveTests, telegramConfig } from "./helpers.ts";
 
-const callGetMyShortDescription = (token: string) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.getMyShortDescription);
+const callGetMyShortDescription = (token: string, payload: unknown = {}) =>
+	callClient("getMyShortDescription", token, payload as never);
 
-describe("getMyShortDescription", () => {
+liveTests("getMyShortDescription", test => {
 	describe("success", () => {
-		it.effect("returns the bot short description", () =>
+		test.effect("returns the bot short description", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
 				const short = yield* callGetMyShortDescription(botToken);
 
 				assert.strictEqual(typeof short.short_description, "string");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 	});
 
-	authErrorTests(callGetMyShortDescription);
+	authErrorTests(test, token => callGetMyShortDescription(token));
 });

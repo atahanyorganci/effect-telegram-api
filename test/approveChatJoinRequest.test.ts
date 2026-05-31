@@ -1,14 +1,20 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import {
+	authErrorTests,
+	callClient,
+	expectClientSchemaError,
+	expectErrorTag,
+	liveTests,
+	telegramConfig,
+} from "./helpers.ts";
 
 const callApproveChatJoinRequest = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.approveChatJoinRequest, payload);
+	callClient("approveChatJoinRequest", token, payload as never);
 
-describe("approveChatJoinRequest", () => {
+liveTests("approveChatJoinRequest", test => {
 	describe("Telegram API errors", () => {
-		it.effect("UserIdInvalid when user_id does not refer to a pending join request", () =>
+		test.effect("UserIdInvalid when user_id does not refer to a pending join request", () =>
 			Effect.gen(function* () {
 				const { botToken, groupId } = yield* telegramConfig;
 				const error = yield* callApproveChatJoinRequest(botToken, {
@@ -16,19 +22,17 @@ describe("approveChatJoinRequest", () => {
 					user_id: 1,
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.UserIdInvalid>(error, "UserIdInvalid", "Bad Request: USER_ID_INVALID");
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "UserIdInvalid", "Bad Request: USER_ID_INVALID");
+			}),
 		);
 
-		it.effect("InvalidUserId when required parameters missing", () =>
+		test.effect("InvalidUserId when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callApproveChatJoinRequest(botToken, {}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.InvalidUserId>(error, "InvalidUserId", "Bad Request: invalid user_id specified");
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callApproveChatJoinRequest(botToken, {}));
+			}),
 		);
 	});
 
-	authErrorTests(token => callApproveChatJoinRequest(token, { chat_id: 0, user_id: 0 }));
+	authErrorTests(test, token => callApproveChatJoinRequest(token, { chat_id: 0, user_id: 0 }));
 });

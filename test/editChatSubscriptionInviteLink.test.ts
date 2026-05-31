@@ -1,14 +1,20 @@
-import { describe, it } from "@effect/vitest";
+import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import {
+	authErrorTests,
+	callClient,
+	expectClientSchemaError,
+	expectErrorTag,
+	liveTests,
+	telegramConfig,
+} from "./helpers.ts";
 
 const callEditChatSubscriptionInviteLink = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.editChatSubscriptionInviteLink, payload);
+	callClient("editChatSubscriptionInviteLink", token, payload as never);
 
-describe("editChatSubscriptionInviteLink", () => {
+liveTests("editChatSubscriptionInviteLink", test => {
 	describe("Telegram API errors", () => {
-		it.effect("InviteHashExpired when invite_link is invalid", () =>
+		test.effect("InviteHashExpired when invite_link is invalid", () =>
 			Effect.gen(function* () {
 				const { botToken, groupId } = yield* telegramConfig;
 				const error = yield* callEditChatSubscriptionInviteLink(botToken, {
@@ -16,25 +22,19 @@ describe("editChatSubscriptionInviteLink", () => {
 					invite_link: "https://t.me/+bogus",
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.InviteHashExpired>(
-					error,
-					"InviteHashExpired",
-					"Bad Request: INVITE_HASH_EXPIRED",
-				);
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "InviteHashExpired", "Bad Request: INVITE_HASH_EXPIRED");
+			}),
 		);
 
-		it.effect("ChatIdEmpty when required parameters missing", () =>
+		test.effect("ChatIdEmpty when required parameters missing", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
-				const error = yield* callEditChatSubscriptionInviteLink(botToken, {}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.ChatIdEmpty>(error, "ChatIdEmpty", "Bad Request: chat_id is empty");
-			}).pipe(Effect.provide(LiveLayer)),
+				yield* expectClientSchemaError(callEditChatSubscriptionInviteLink(botToken, {}));
+			}),
 		);
 	});
 
-	authErrorTests(token =>
+	authErrorTests(test, token =>
 		callEditChatSubscriptionInviteLink(token, { chat_id: 0, invite_link: "https://t.me/+invalid" }),
 	);
 });

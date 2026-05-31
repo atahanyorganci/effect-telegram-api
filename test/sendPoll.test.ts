@@ -1,62 +1,59 @@
-import { assert, describe, it } from "@effect/vitest";
+import { assert, describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import * as Telegram from "../src/index.ts";
-import { authErrorTests, expectErrorTag, LiveLayer, telegramConfig } from "./helpers.ts";
+import {
+	authErrorTests,
+	callClient,
+	expectClientSchemaError,
+	expectErrorTag,
+	liveTests,
+	telegramConfig,
+} from "./helpers.ts";
 
-const callSendPoll = (token: string, payload: unknown) =>
-	Telegram.Client.callMethod(token, Telegram.Methods.sendPoll, payload);
+const callSendPoll = (token: string, payload: unknown) => callClient("sendPoll", token, payload as never);
 
-describe("sendPoll", () => {
+liveTests("sendPoll", test => {
 	describe("success", () => {
-		it.effect("returns the sent poll message", () =>
+		test.effect("returns the sent poll message", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const message = yield* callSendPoll(botToken, {
 					chat_id: chatId,
 					question: "Favorite color?",
-					options: ["Red", "Blue"],
+					options: [{ text: "Red" }, { text: "Blue" }],
 				});
 
 				assert.strictEqual(typeof message.message_id, "number");
 				assert.strictEqual(typeof message.poll?.id, "string");
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 	});
 
 	describe("Telegram API errors", () => {
-		it.effect("TextMustBeNonEmpty when question is missing", () =>
+		test.effect("TextMustBeNonEmpty when question is missing", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendPoll(botToken, {
-					chat_id: chatId,
-					options: ["A", "B"],
-				}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.TextMustBeNonEmpty>(
-					error,
-					"TextMustBeNonEmpty",
-					"Bad Request: text must be non-empty",
+				yield* expectClientSchemaError(
+					callSendPoll(botToken, {
+						chat_id: chatId,
+						options: [{ text: "A" }, { text: "B" }],
+					}),
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("CantParseOptionsJsonObject when options is missing", () =>
+		test.effect("CantParseOptionsJsonObject when options is missing", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
-				const error = yield* callSendPoll(botToken, {
-					chat_id: chatId,
-					question: "Question?",
-				}).pipe(Effect.flip);
-
-				expectErrorTag<Telegram.Errors.CantParseOptionsJsonObject>(
-					error,
-					"CantParseOptionsJsonObject",
-					"Bad Request: can't parse options JSON object",
+				yield* expectClientSchemaError(
+					callSendPoll(botToken, {
+						chat_id: chatId,
+						question: "Question?",
+					}),
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("PollMustHaveAtLeastOneAnswerOption when options is empty", () =>
+		test.effect("PollMustHaveAtLeastOneAnswerOption when options is empty", () =>
 			Effect.gen(function* () {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSendPoll(botToken, {
@@ -65,27 +62,29 @@ describe("sendPoll", () => {
 					options: [],
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.PollMustHaveAtLeastOneAnswerOption>(
+				expectErrorTag(
 					error,
 					"PollMustHaveAtLeastOneAnswerOption",
 					"Bad Request: poll must have at least one answer option",
 				);
-			}).pipe(Effect.provide(LiveLayer)),
+			}),
 		);
 
-		it.effect("ChatNotFound when chat_id does not exist", () =>
+		test.effect("ChatNotFound when chat_id does not exist", () =>
 			Effect.gen(function* () {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callSendPoll(botToken, {
 					chat_id: 0,
 					question: "Question?",
-					options: ["A", "B"],
+					options: [{ text: "A" }, { text: "B" }],
 				}).pipe(Effect.flip);
 
-				expectErrorTag<Telegram.Errors.ChatNotFound>(error, "ChatNotFound", "Bad Request: chat not found");
-			}).pipe(Effect.provide(LiveLayer)),
+				expectErrorTag(error, "ChatNotFound", "Bad Request: chat not found");
+			}),
 		);
 	});
 
-	authErrorTests(token => callSendPoll(token, { chat_id: 1, question: "Q?", options: ["A", "B"] }));
+	authErrorTests(test, token =>
+		callSendPoll(token, { chat_id: 1, question: "Q?", options: [{ text: "A" }, { text: "B" }] }),
+	);
 });
