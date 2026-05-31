@@ -90,12 +90,15 @@ Valid when the environment cannot support success:
 
 ### Environment variables
 
-| Variable                  | Used for                                       |
-| ------------------------- | ---------------------------------------------- |
-| `TELEGRAM_BOT_TOKEN`      | All live tests                                 |
-| `TELEGRAM_CHAT_ID`        | Private user chat (DM with the bot)            |
-| `TELEGRAM_GROUP_CHAT_ID`  | Supergroup admin, invite links, member queries |
-| `TELEGRAM_FORUM_TOPIC_ID` | Forum topic threads (`message_thread_id`)      |
+| Variable                     | Used for                                                                  |
+| ---------------------------- | ------------------------------------------------------------------------- |
+| `TELEGRAM_BOT_TOKEN`         | Admin bot: success tests, cleanup, pin/invite/description in supergroup   |
+| `TELEGRAM_LIMITED_BOT_TOKEN` | Member bot (no topic/admin rights): supergroup “not enough rights” errors |
+| `TELEGRAM_CHAT_ID`           | Private user chat (DM with the bot)                                       |
+| `TELEGRAM_GROUP_CHAT_ID`     | Supergroup admin, invite links, member queries                            |
+| `TELEGRAM_FORUM_TOPIC_ID`    | Forum topic threads (`message_thread_id`)                                 |
+
+Add both bots to the test supergroup. Promote only `TELEGRAM_BOT_TOKEN` to administrator with the permissions success tests need. Leave `TELEGRAM_LIMITED_BOT_TOKEN` as an ordinary member.
 
 Success tests that need a supergroup or forum topic destructure `groupId` and `forumTopicId` from `telegramConfig` alongside `botToken` and `chatId`.
 
@@ -121,7 +124,7 @@ After the full suite, `test/globalTeardown.ts` runs `cleanupTestArtifacts` from 
 
 7. **Editing `src/` directly** — Changes will be wiped on the next codegen. Treat `src/Errors.ts` and `src/Methods.ts` as generated output.
 
-8. **Parallelism and rate limits** — The full suite hits the live API. Expect flakiness under flood limits; avoid redundant success tests that spam the same chat.
+8. **Parallelism and rate limits** — The full suite hits the live API. `callClient` retries 429 responses with exponential backoff (see `retryOnRateLimit` in `helpers.ts`). Reduce `maxWorkers` in `vitest.config.ts` if limits persist.
 
 ## How to split work
 

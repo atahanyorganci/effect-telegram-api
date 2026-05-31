@@ -1,4 +1,4 @@
 {
 	"method": "reopenForumTopic",
-	"errors": ["ChatIdEmpty", "NotEnoughRightsToCloseOrOpenTopic"]
+	"errors": ["ChatIdEmpty", "ChatAdminRequired", "NotEnoughRightsToCloseOrOpenTopic"]
 }

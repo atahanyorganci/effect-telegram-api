@@ -16,8 +16,8 @@ liveTests("hideGeneralForumTopic", test => {
 	describe("Telegram API errors", () => {
 		test.effect("NotEnoughRightsToCloseOrOpenTopic when the bot cannot manage the general forum topic", () =>
 			Effect.gen(function* () {
-				const { botToken, groupId } = yield* telegramConfig;
-				const error = yield* callHideGeneralForumTopic(botToken, { chat_id: groupId }).pipe(Effect.flip);
+				const { limitedBotToken, groupId } = yield* telegramConfig;
+				const error = yield* callHideGeneralForumTopic(limitedBotToken, { chat_id: groupId }).pipe(Effect.flip);
 
 				expectErrorTag(
 					error,

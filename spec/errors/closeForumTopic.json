@@ -1,4 +1,4 @@
 {
 	"method": "closeForumTopic",
-	"errors": ["ChatIdEmpty", "NotEnoughRightsToCloseOrOpenTopic"]
+	"errors": ["ChatIdEmpty", "ChatAdminRequired", "NotEnoughRightsToCloseOrOpenTopic"]
 }

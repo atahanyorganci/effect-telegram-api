@@ -17,8 +17,8 @@ liveTests("createForumTopic", test => {
 	describe("Telegram API errors", () => {
 		test.effect("NotEnoughRightsToCreateTopic when the bot cannot manage topics", () =>
 			Effect.gen(function* () {
-				const { botToken, groupId } = yield* telegramConfig;
-				yield* callCreateForumTopic(botToken, {
+				const { limitedBotToken, groupId } = yield* telegramConfig;
+				yield* callCreateForumTopic(limitedBotToken, {
 					chat_id: groupId,
 					name: "integration-test-topic",
 				}).pipe(

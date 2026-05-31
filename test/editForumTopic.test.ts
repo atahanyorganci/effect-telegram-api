@@ -15,14 +15,14 @@ liveTests("editForumTopic", test => {
 	describe("Telegram API errors", () => {
 		test.effect("NotEnoughRightsToEditTopic when the bot cannot manage the configured forum topic", () =>
 			Effect.gen(function* () {
-				const { botToken, groupId, forumTopicId } = yield* telegramConfig;
-				const error = yield* callEditForumTopic(botToken, {
+				const { limitedBotToken, groupId, forumTopicId } = yield* telegramConfig;
+				const error = yield* callEditForumTopic(limitedBotToken, {
 					chat_id: groupId,
 					message_thread_id: forumTopicId,
 					name: "probe-renamed-topic",
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "NotEnoughRightsToEditTopic", "Bad Request: not enough rights to edit the topic");
+				expectErrorTag(error, "ChatAdminRequired", "Bad Request: CHAT_ADMIN_REQUIRED");
 			}),
 		);
 

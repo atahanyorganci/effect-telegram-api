@@ -16,8 +16,8 @@ liveTests("reopenGeneralForumTopic", test => {
 	describe("Telegram API errors", () => {
 		test.effect("ChatAdminRequired when the bot is not a forum administrator", () =>
 			Effect.gen(function* () {
-				const { botToken, groupId } = yield* telegramConfig;
-				const error = yield* callReopenGeneralForumTopic(botToken, { chat_id: groupId }).pipe(Effect.flip);
+				const { limitedBotToken, groupId } = yield* telegramConfig;
+				const error = yield* callReopenGeneralForumTopic(limitedBotToken, { chat_id: groupId }).pipe(Effect.flip);
 
 				expectErrorTag(error, "ChatAdminRequired", "Bad Request: CHAT_ADMIN_REQUIRED");
 			}),

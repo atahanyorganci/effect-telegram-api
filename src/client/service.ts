@@ -257,6 +257,7 @@ export class TelegramClient extends Context.Service<
 			readonly message_thread_id: number;
 		}) => Effect.Effect<
 			true,
+			| Errors.ChatAdminRequired
 			| Errors.ChatIdEmpty
 			| Errors.NotEnoughRightsToCloseOrOpenTopic
 			| Errors.NotFound
@@ -848,6 +849,7 @@ export class TelegramClient extends Context.Service<
 			readonly icon_custom_emoji_id?: string | undefined;
 		}) => Effect.Effect<
 			true,
+			| Errors.ChatAdminRequired
 			| Errors.ChatIdEmpty
 			| Errors.NotEnoughRightsToEditTopic
 			| Errors.NotFound
@@ -2030,6 +2032,7 @@ export class TelegramClient extends Context.Service<
 			readonly message_thread_id: number;
 		}) => Effect.Effect<
 			true,
+			| Errors.ChatAdminRequired
 			| Errors.ChatIdEmpty
 			| Errors.NotEnoughRightsToCloseOrOpenTopic
 			| Errors.NotFound

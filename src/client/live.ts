@@ -200,6 +200,12 @@ export const withToken = (token: string) =>
 						if (
 							"error_code" in error &&
 							error.error_code === 400 &&
+							error.description === "Bad Request: CHAT_ADMIN_REQUIRED"
+						)
+							return new Errors.ChatAdminRequired(error);
+						if (
+							"error_code" in error &&
+							error.error_code === 400 &&
 							error.description === "Bad Request: chat_id is empty"
 						)
 							return new Errors.ChatIdEmpty(error);
@@ -514,6 +520,12 @@ export const withToken = (token: string) =>
 						if (
 							"error_code" in error &&
 							error.error_code === 400 &&
+							error.description === "Bad Request: not enough rights to change supergroup sticker set"
+						)
+							return new Errors.CantSetSupergroupStickerSet(error);
+						if (
+							"error_code" in error &&
+							error.error_code === 400 &&
 							error.description === "Bad Request: chat_id is empty"
 						)
 							return new Errors.ChatIdEmpty(error);
@@ -673,6 +685,12 @@ export const withToken = (token: string) =>
 				apiClient.editForumTopic({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
+						if (
+							"error_code" in error &&
+							error.error_code === 400 &&
+							error.description === "Bad Request: CHAT_ADMIN_REQUIRED"
+						)
+							return new Errors.ChatAdminRequired(error);
 						if (
 							"error_code" in error &&
 							error.error_code === 400 &&
@@ -1769,6 +1787,12 @@ export const withToken = (token: string) =>
 				apiClient.reopenForumTopic({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
+						if (
+							"error_code" in error &&
+							error.error_code === 400 &&
+							error.description === "Bad Request: CHAT_ADMIN_REQUIRED"
+						)
+							return new Errors.ChatAdminRequired(error);
 						if (
 							"error_code" in error &&
 							error.error_code === 400 &&

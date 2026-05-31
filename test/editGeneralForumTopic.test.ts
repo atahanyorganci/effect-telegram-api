@@ -16,8 +16,8 @@ liveTests("editGeneralForumTopic", test => {
 	describe("Telegram API errors", () => {
 		test.effect("ChatAdminRequired when the bot is not a forum administrator", () =>
 			Effect.gen(function* () {
-				const { botToken, groupId } = yield* telegramConfig;
-				const error = yield* callEditGeneralForumTopic(botToken, {
+				const { limitedBotToken, groupId } = yield* telegramConfig;
+				const error = yield* callEditGeneralForumTopic(limitedBotToken, {
 					chat_id: groupId,
 					name: "General probe",
 				}).pipe(Effect.flip);

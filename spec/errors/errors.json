@@ -232,8 +232,14 @@
 		{
 			"tag": "CantSetSupergroupStickerSet",
 			"errorCode": 400,
-			"description": "Bad Request: can't set supergroup sticker set",
-			"when": "bot lacks permission to change the group sticker set"
+			"description": "Bad Request: not enough rights to change supergroup sticker set",
+			"when": "bot lacks permission to change the group sticker set",
+			"variants": [
+				{
+					"description": "Bad Request: can't set supergroup sticker set",
+					"when": "legacy Telegram wording for the same permission failure"
+				}
+			]
 		},
 		{
 			"tag": "ChatAdminRequired",

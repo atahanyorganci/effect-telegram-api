@@ -7,10 +7,12 @@ import * as Effect from "effect/Effect";
 import * as Exit from "effect/Exit";
 import * as Layer from "effect/Layer";
 import * as Result from "effect/Result";
+import * as Schedule from "effect/Schedule";
 import * as Schema from "effect/Schema";
+import * as HttpClientError from "effect/unstable/http/HttpClientError";
 import { appendFileSync, existsSync, mkdirSync, readFileSync, unlinkSync } from "node:fs";
 import { dirname, resolve } from "node:path";
-import { TelegramClient } from "../src/client/service.ts";
+import * as TelegramClient from "../src/client/index.ts";
 import * as Telegram from "../src/index.ts";
 import type { TelegramApiError } from "../src/errors.ts";
 import type { Vitest } from "@effect/vitest";
@@ -20,6 +22,7 @@ export const LiveLayer = Layer.mergeAll(NodeServices.layer, NodeHttpClient.layer
 /** Typed Telegram test env vars from `.env`. */
 export const TelegramConfig = Config.all({
 	botToken: Config.string("TELEGRAM_BOT_TOKEN"),
+	limitedBotToken: Config.string("TELEGRAM_LIMITED_BOT_TOKEN"),
 	chatId: Config.number("TELEGRAM_CHAT_ID"),
 	groupId: Config.number("TELEGRAM_GROUP_CHAT_ID"),
 	forumTopicId: Config.number("TELEGRAM_FORUM_TOPIC_ID"),
@@ -36,21 +39,54 @@ export const createdForumTopicsRegistryPath = resolve(import.meta.dirname, ".art
 
 const bestEffort = <A, E, R>(effect: Effect.Effect<A, E, R>) => effect.pipe(Effect.ignore);
 
+/** True when Telegram (or the transport) responded with HTTP 429 Too Many Requests. */
+export const isRateLimitedError = (error: unknown): boolean => {
+	if (!HttpClientError.isHttpClientError(error)) {
+		return typeof error === "object" && error !== null && String(error).includes("429");
+	}
+	return error.response?.status === 429 || error.message.includes("(429 ");
+};
+
+/**
+ * Fast exponential backoff, then longer fixed delays when Telegram keeps returning 429.
+ * Phase 1 delays: 1s, 2s, 4s, 8s. Phase 2 delays: 10s, 10s, 10s.
+ */
+const rateLimitRetrySchedule = Schedule.andThen(
+	Schedule.exponential("1 second", 2).pipe(Schedule.take(4)),
+	Schedule.spaced("10 seconds").pipe(Schedule.take(3)),
+);
+
+/** Retries live API calls when the failure is a 429 rate limit. */
+export const retryOnRateLimit = <A, E, R>(effect: Effect.Effect<A, E, R>) =>
+	effect.pipe(
+		Effect.retry({
+			while: isRateLimitedError,
+			schedule: rateLimitRetrySchedule,
+		}),
+	);
+
 /** Node platform services plus a {@link Telegram.withToken} layer. */
-export const layerWithToken = (token: string) => Layer.provideMerge(Telegram.withToken(token), LiveLayer);
+export const layerWithToken = (token: string) => Layer.provideMerge(TelegramClient.withToken(token), LiveLayer);
 
 /** Provides {@link Telegram.withToken}; requires {@link LiveLayer} in scope. */
-export const withBotToken = <A, E>(token: string, run: Effect.Effect<A, E, TelegramClient>) =>
-	run.pipe(Effect.provide(Telegram.withToken(token)));
+export const withBotToken = <A, E>(token: string, run: Effect.Effect<A, E, TelegramClient.TelegramClient>) =>
+	run.pipe(Effect.provide(TelegramClient.withToken(token)));
 
 /** Runs an effect with `TELEGRAM_BOT_TOKEN`; requires {@link LiveLayer} in scope. */
-export const withConfiguredBot = <A, E>(run: Effect.Effect<A, E, TelegramClient>) =>
+export const withConfiguredBot = <A, E>(run: Effect.Effect<A, E, TelegramClient.TelegramClient>) =>
 	Effect.gen(function* () {
 		const { botToken } = yield* telegramConfig;
 		return yield* withBotToken(botToken, run);
 	});
 
-type TelegramClientService = (typeof TelegramClient)["Service"];
+/** Runs an effect with `TELEGRAM_LIMITED_BOT_TOKEN` (non-admin member in the test supergroup). */
+export const withLimitedBot = <A, E>(run: Effect.Effect<A, E, TelegramClient.TelegramClient>) =>
+	Effect.gen(function* () {
+		const { limitedBotToken } = yield* telegramConfig;
+		return yield* withBotToken(limitedBotToken, run);
+	});
+
+type TelegramClientService = (typeof TelegramClient.TelegramClient)["Service"];
 
 type ClientMethodArgs<M extends keyof TelegramClientService> = TelegramClientService[M] extends (
 	...args: infer A
@@ -66,12 +102,24 @@ export const callClient = <M extends keyof TelegramClientService>(
 ): Effect.Effect<any, any, TestServices> =>
 	withBotToken(
 		token,
-		Effect.gen(function* () {
-			const client = yield* TelegramClient;
-			const fn = client[method] as (...methodArgs: ClientMethodArgs<M>) => ReturnType<TelegramClientService[M]>;
-			return yield* fn(...args);
-		}),
+		retryOnRateLimit(
+			Effect.gen(function* () {
+				const client = yield* TelegramClient.TelegramClient;
+				const fn = client[method] as (...methodArgs: ClientMethodArgs<M>) => ReturnType<TelegramClientService[M]>;
+				return yield* fn(...args);
+			}),
+		),
 	) as Effect.Effect<any, any, TestServices>;
+
+/** Calls a {@link TelegramClient} method with `TELEGRAM_LIMITED_BOT_TOKEN`. Requires {@link LiveLayer} in scope. */
+export const callLimitedClient = <M extends keyof TelegramClientService>(
+	method: M,
+	...args: ClientMethodArgs<M>
+): Effect.Effect<any, any, TestServices> =>
+	Effect.gen(function* () {
+		const { limitedBotToken } = yield* telegramConfig;
+		return yield* callClient(method, limitedBotToken, ...args);
+	}) as Effect.Effect<any, any, TestServices>;
 
 export const callGetMe = (token: string) => callClient("getMe", token);
 

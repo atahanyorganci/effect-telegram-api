@@ -394,7 +394,7 @@ export class CantRemoveChatOwner extends Data.TaggedError("CantRemoveChatOwner")
 }> {}
 
 /**
- * bot lacks permission to change the group sticker set
+ * legacy Telegram wording for the same permission failure
  */
 export class CantSetSupergroupStickerSet extends Data.TaggedError("CantSetSupergroupStickerSet")<{
 	readonly ok: false;
@@ -1804,12 +1804,21 @@ export const CantRemoveChatOwnerError = Schema.Struct({
 });
 
 /**
- * bot lacks permission to change the group sticker set
+ * legacy Telegram wording for the same permission failure
  */
 export const CantSetSupergroupStickerSetError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: can't set supergroup sticker set"),
+});
+
+/**
+ * bot lacks permission to change the group sticker set
+ */
+export const CantSetSupergroupStickerSetError2 = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: not enough rights to change supergroup sticker set"),
 });
 
 /**

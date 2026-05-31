@@ -16,10 +16,14 @@ liveTests("deleteChatStickerSet", test => {
 	describe("Telegram API errors", () => {
 		test.effect("CantSetSupergroupStickerSet when the bot cannot change the group sticker set", () =>
 			Effect.gen(function* () {
-				const { botToken, groupId } = yield* telegramConfig;
-				const error = yield* callDeleteChatStickerSet(botToken, { chat_id: groupId }).pipe(Effect.flip);
+				const { limitedBotToken, groupId } = yield* telegramConfig;
+				const error = yield* callDeleteChatStickerSet(limitedBotToken, { chat_id: groupId }).pipe(Effect.flip);
 
-				expectErrorTag(error, "CantSetSupergroupStickerSet", "Bad Request: can't set supergroup sticker set");
+				expectErrorTag(
+					error,
+					"CantSetSupergroupStickerSet",
+					"Bad Request: not enough rights to change supergroup sticker set",
+				);
 			}),
 		);
 

@@ -364,6 +364,7 @@ export const closeForumTopic = HttpApiEndpoint.post("closeForumTopic", "/closeFo
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
+		Errors.ChatAdminRequiredError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotEnoughRightsToCloseOrOpenTopicError.pipe(
 			Schema.toCodecJson,
@@ -1116,6 +1117,11 @@ export const deleteChatStickerSet = HttpApiEndpoint.post("deleteChatStickerSet",
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
 		Errors.CantSetSupergroupStickerSetError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.CantSetSupergroupStickerSetError2.pipe(
+			Schema.toCodecJson,
+			HttpApiSchema.asJson(),
+			HttpApiSchema.status(400),
+		),
 		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
@@ -1439,6 +1445,7 @@ export const editForumTopic = HttpApiEndpoint.post("editForumTopic", "/editForum
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
+		Errors.ChatAdminRequiredError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotEnoughRightsToEditTopicError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
@@ -3586,6 +3593,7 @@ export const reopenForumTopic = HttpApiEndpoint.post("reopenForumTopic", "/reope
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
+		Errors.ChatAdminRequiredError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotEnoughRightsToCloseOrOpenTopicError.pipe(
 			Schema.toCodecJson,

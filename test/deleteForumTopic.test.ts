@@ -16,8 +16,8 @@ liveTests("deleteForumTopic", test => {
 	describe("Telegram API errors", () => {
 		test.effect("ChatWriteForbidden when the bot cannot delete a forum topic", () =>
 			Effect.gen(function* () {
-				const { botToken, groupId } = yield* telegramConfig;
-				const error = yield* callDeleteForumTopic(botToken, {
+				const { limitedBotToken, groupId } = yield* telegramConfig;
+				const error = yield* callDeleteForumTopic(limitedBotToken, {
 					chat_id: groupId,
 					message_thread_id: 999_999_999,
 				}).pipe(Effect.flip);

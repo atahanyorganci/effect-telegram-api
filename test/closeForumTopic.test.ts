@@ -15,17 +15,13 @@ liveTests("closeForumTopic", test => {
 	describe("Telegram API errors", () => {
 		test.effect("NotEnoughRightsToCloseOrOpenTopic when the bot cannot manage the configured forum topic", () =>
 			Effect.gen(function* () {
-				const { botToken, groupId, forumTopicId } = yield* telegramConfig;
-				const error = yield* callCloseForumTopic(botToken, {
+				const { limitedBotToken, groupId, forumTopicId } = yield* telegramConfig;
+				const error = yield* callCloseForumTopic(limitedBotToken, {
 					chat_id: groupId,
 					message_thread_id: forumTopicId,
 				}).pipe(Effect.flip);
 
-				expectErrorTag(
-					error,
-					"NotEnoughRightsToCloseOrOpenTopic",
-					"Bad Request: not enough rights to close or open the topic",
-				);
+				expectErrorTag(error, "ChatAdminRequired", "Bad Request: CHAT_ADMIN_REQUIRED");
 			}),
 		);
 
