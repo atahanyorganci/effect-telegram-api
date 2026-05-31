@@ -1,4 +1,4 @@
 {
 	"method": "unpinAllChatMessages",
-	"errors": ["ChatIdEmpty"]
+	"errors": ["BadRequest"]
 }

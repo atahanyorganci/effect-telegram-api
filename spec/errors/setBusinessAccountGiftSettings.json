@@ -1,4 +1,4 @@
 {
 	"method": "setBusinessAccountGiftSettings",
-	"errors": ["AcceptedGiftTypesNotSpecified"]
+	"errors": ["BadRequest"]
 }

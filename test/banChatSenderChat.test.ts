@@ -22,7 +22,7 @@ liveTests("banChatSenderChat", test => {
 					sender_chat_id: 1,
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "ParticipantIdInvalid", "Bad Request: PARTICIPANT_ID_INVALID");
+				expectErrorTag(error, "BadRequest", "Bad Request: PARTICIPANT_ID_INVALID");
 			}),
 		);
 

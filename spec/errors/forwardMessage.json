@@ -1,4 +1,4 @@
 {
 	"method": "forwardMessage",
-	"errors": ["ChatIdEmpty", "ChatNotFound", "FromChatIdRequired", "MessageToForwardNotFound", "MessageThreadNotFound"]
+	"errors": ["BadRequest"]
 }

@@ -21,7 +21,7 @@ liveTests("verifyChat", test => {
 					custom_description: "probe",
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "BotVerifierForbidden", "Bad Request: BOT_VERIFIER_FORBIDDEN");
+				expectErrorTag(error, "BadRequest", "Bad Request: BOT_VERIFIER_FORBIDDEN");
 			}),
 		);
 

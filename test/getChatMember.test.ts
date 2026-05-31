@@ -44,7 +44,7 @@ liveTests("getChatMember", test => {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callGetChatMember(botToken, { chat_id: 0, user_id: 1 }).pipe(Effect.flip);
 
-				expectErrorTag(error, "ChatNotFound", "Bad Request: chat not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: chat not found");
 			}),
 		);
 
@@ -67,7 +67,7 @@ liveTests("getChatMember", test => {
 				const { botToken, groupId } = yield* telegramConfig;
 				const error = yield* callGetChatMember(botToken, { chat_id: groupId, user_id: 1 }).pipe(Effect.flip);
 
-				expectErrorTag(error, "ParticipantIdInvalid", "Bad Request: PARTICIPANT_ID_INVALID");
+				expectErrorTag(error, "BadRequest", "Bad Request: PARTICIPANT_ID_INVALID");
 			}),
 		);
 
@@ -79,7 +79,7 @@ liveTests("getChatMember", test => {
 					user_id: 999_999_999_999,
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "MemberNotFound", "Bad Request: member not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: member not found");
 			}),
 		);
 	});

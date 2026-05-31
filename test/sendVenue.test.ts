@@ -50,7 +50,7 @@ liveTests("sendVenue", test => {
 					address: "Addr",
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "ChatNotFound", "Bad Request: chat not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: chat not found");
 			}),
 		);
 

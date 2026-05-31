@@ -1,4 +1,4 @@
 {
 	"method": "declineSuggestedPost",
-	"errors": ["SuggestedPostNotFound"]
+	"errors": ["BadRequest"]
 }

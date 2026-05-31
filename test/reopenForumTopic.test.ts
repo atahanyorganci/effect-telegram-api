@@ -22,7 +22,7 @@ liveTests("reopenForumTopic", test => {
 					message_thread_id: forumTopicId,
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "ChatAdminRequired", "Bad Request: CHAT_ADMIN_REQUIRED");
+				expectErrorTag(error, "BadRequest", "Bad Request: CHAT_ADMIN_REQUIRED");
 			}),
 		);
 

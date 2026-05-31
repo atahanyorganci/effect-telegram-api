@@ -22,7 +22,7 @@ liveTests("editForumTopic", test => {
 					name: "probe-renamed-topic",
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "ChatAdminRequired", "Bad Request: CHAT_ADMIN_REQUIRED");
+				expectErrorTag(error, "BadRequest", "Bad Request: CHAT_ADMIN_REQUIRED");
 			}),
 		);
 

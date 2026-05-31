@@ -1,4 +1,4 @@
 {
 	"method": "getUserPersonalChatMessages",
-	"errors": ["InvalidUserId", "LimitMustBePositive"]
+	"errors": ["BadRequest"]
 }

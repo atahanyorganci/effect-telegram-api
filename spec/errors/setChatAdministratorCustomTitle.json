@@ -1,4 +1,4 @@
 {
 	"method": "setChatAdministratorCustomTitle",
-	"errors": ["InvalidUserId", "ParticipantIdInvalid"]
+	"errors": ["BadRequest"]
 }

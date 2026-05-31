@@ -1,4 +1,4 @@
 {
 	"method": "unpinAllForumTopicMessages",
-	"errors": ["ChatIdEmpty"]
+	"errors": ["BadRequest"]
 }

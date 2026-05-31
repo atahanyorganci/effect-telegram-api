@@ -208,7 +208,6 @@ const sendAnimationPayload = Schema.Struct({
 		description:
 			"Use this method to send animation files (GIF or H.264/MPEG-4 AVC video without sound). On success, the sent Message",
 	}),
-	Schema.toCodecJson,
 );
 const sendAudioPayload = Schema.Struct({
 	/**
@@ -388,7 +387,6 @@ const sendAudioPayload = Schema.Struct({
 		description:
 			"Use this method to send audio files, if you want Telegram clients to display them in the music player. Your audio must be in the .MP3 or .M4A format. On success, the sent Message",
 	}),
-	Schema.toCodecJson,
 );
 const sendDocumentPayload = Schema.Struct({
 	/**
@@ -564,10 +562,7 @@ const sendDocumentPayload = Schema.Struct({
 				"Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.",
 		}),
 	),
-}).pipe(
-	Schema.annotate({ description: "Use this method to send general files. On success, the sent Message" }),
-	Schema.toCodecJson,
-);
+}).pipe(Schema.annotate({ description: "Use this method to send general files. On success, the sent Message" }));
 const sendLivePhotoPayload = Schema.Struct({
 	/**
 	 * Unique identifier of the business connection on behalf of which the message
@@ -742,10 +737,7 @@ const sendLivePhotoPayload = Schema.Struct({
 				"Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.",
 		}),
 	),
-}).pipe(
-	Schema.annotate({ description: "Use this method to send live photos. On success, the sent Message" }),
-	Schema.toCodecJson,
-);
+}).pipe(Schema.annotate({ description: "Use this method to send live photos. On success, the sent Message" }));
 const sendPhotoPayload = Schema.Struct({
 	/**
 	 * Unique identifier of the business connection on behalf of which the message
@@ -909,10 +901,7 @@ const sendPhotoPayload = Schema.Struct({
 				"Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.",
 		}),
 	),
-}).pipe(
-	Schema.annotate({ description: "Use this method to send photos. On success, the sent Message" }),
-	Schema.toCodecJson,
-);
+}).pipe(Schema.annotate({ description: "Use this method to send photos. On success, the sent Message" }));
 const sendStickerPayload = Schema.Struct({
 	/**
 	 * Unique identifier of the business connection on behalf of which the message
@@ -1045,7 +1034,6 @@ const sendStickerPayload = Schema.Struct({
 		description:
 			"Use this method to send static .WEBP, animated .TGS, or video .WEBM stickers. On success, the sent Message",
 	}),
-	Schema.toCodecJson,
 );
 const sendVideoPayload = Schema.Struct({
 	/**
@@ -1266,7 +1254,6 @@ const sendVideoPayload = Schema.Struct({
 		description:
 			"Use this method to send video files, Telegram clients support MPEG4 videos (other formats may be sent as Document). On success, the sent Message",
 	}),
-	Schema.toCodecJson,
 );
 const sendVideoNotePayload = Schema.Struct({
 	/**
@@ -1419,7 +1406,6 @@ const sendVideoNotePayload = Schema.Struct({
 		description:
 			"As of v.4.0, Telegram clients support rounded square MPEG4 videos of up to 1 minute long. Use this method to send video messages. On success, the sent Message",
 	}),
-	Schema.toCodecJson,
 );
 const sendVoicePayload = Schema.Struct({
 	/**
@@ -1577,7 +1563,6 @@ const sendVoicePayload = Schema.Struct({
 		description:
 			"Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. For this to work, your audio must be in an .OGG file encoded with OPUS, or in .MP3 format, or in .M4A format (other formats may be sent as Audio or Document). On success, the sent Message",
 	}),
-	Schema.toCodecJson,
 );
 const setChatPhotoPayload = Schema.Struct({
 	/**
@@ -1598,7 +1583,6 @@ const setChatPhotoPayload = Schema.Struct({
 		description:
 			"Use this method to set a new profile photo for the chat. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights",
 	}),
-	Schema.toCodecJson,
 );
 const setStickerSetThumbnailPayload = Schema.Struct({
 	/**
@@ -1645,7 +1629,6 @@ const setStickerSetThumbnailPayload = Schema.Struct({
 		description:
 			"Use this method to set the thumbnail of a regular or mask sticker set. The format of the thumbnail file must match the format of the stickers in the set",
 	}),
-	Schema.toCodecJson,
 );
 const setWebhookPayload = Schema.Struct({
 	/**
@@ -1729,7 +1712,6 @@ const setWebhookPayload = Schema.Struct({
 		description:
 			"Use this method to specify a URL and receive incoming updates via an outgoing webhook. Whenever there is an update for the bot, we will send an HTTPS POST request to the specified URL, containing a JSON-serialized Update. In case of an unsuccessful request (a request with response HTTP status code different from 2XY), we will repeat the request and give up after a reasonable amount of attempts",
 	}),
-	Schema.toCodecJson,
 );
 const uploadStickerFilePayload = Schema.Struct({
 	/**
@@ -1758,7 +1740,6 @@ const uploadStickerFilePayload = Schema.Struct({
 		description:
 			"Use this method to upload a file with a sticker for later use in the createNewStickerSet, addStickerToSet, or replaceStickerInSet methods (the file can be used multiple times)",
 	}),
-	Schema.toCodecJson,
 );
 
 /**
@@ -1779,20 +1760,14 @@ export const withToken = (token: string) =>
 				apiClient.answerCallbackQuery({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: query is too old and response timeout expired or query ID is invalid"
-						)
-							return new Errors.CallbackQueryIdInvalid(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["answerCallbackQuery"];
@@ -1800,20 +1775,14 @@ export const withToken = (token: string) =>
 				apiClient.answerGuestQuery({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: result isn't specified"
-						)
-							return new Errors.ResultNotSpecified(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["answerGuestQuery"];
@@ -1833,26 +1802,14 @@ export const withToken = (token: string) =>
 				apiClient.answerWebAppQuery({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: query is too old and response timeout expired or query ID is invalid"
-						)
-							return new Errors.CallbackQueryIdInvalid(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: result isn't specified"
-						)
-							return new Errors.ResultNotSpecified(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["answerWebAppQuery"];
@@ -1860,26 +1817,14 @@ export const withToken = (token: string) =>
 				apiClient.approveChatJoinRequest({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: invalid user_id specified"
-						)
-							return new Errors.InvalidUserId(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: USER_ID_INVALID"
-						)
-							return new Errors.UserIdInvalid(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["approveChatJoinRequest"];
@@ -1887,20 +1832,14 @@ export const withToken = (token: string) =>
 				apiClient.approveSuggestedPost({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: suggested post not found"
-						)
-							return new Errors.SuggestedPostNotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["approveSuggestedPost"];
@@ -1908,26 +1847,14 @@ export const withToken = (token: string) =>
 				apiClient.banChatMember({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: invalid user_id specified"
-						)
-							return new Errors.InvalidUserId(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: PARTICIPANT_ID_INVALID"
-						)
-							return new Errors.ParticipantIdInvalid(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["banChatMember"];
@@ -1935,26 +1862,14 @@ export const withToken = (token: string) =>
 				apiClient.banChatSenderChat({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: PARTICIPANT_ID_INVALID"
-						)
-							return new Errors.ParticipantIdInvalid(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: sender_chat_id is empty"
-						)
-							return new Errors.SenderChatIdEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["banChatSenderChat"];
@@ -1962,14 +1877,12 @@ export const withToken = (token: string) =>
 				apiClient.close().pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["close"];
@@ -1977,32 +1890,14 @@ export const withToken = (token: string) =>
 				apiClient.closeForumTopic({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: CHAT_ADMIN_REQUIRED"
-						)
-							return new Errors.ChatAdminRequired(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: not enough rights to close or open the topic"
-						)
-							return new Errors.NotEnoughRightsToCloseOrOpenTopic(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["closeForumTopic"];
@@ -2010,26 +1905,14 @@ export const withToken = (token: string) =>
 				apiClient.closeGeneralForumTopic({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: CHAT_ADMIN_REQUIRED"
-						)
-							return new Errors.ChatAdminRequired(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["closeGeneralForumTopic"];
@@ -2037,20 +1920,14 @@ export const withToken = (token: string) =>
 				apiClient.convertGiftToStars({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: business connection not found"
-						)
-							return new Errors.BusinessConnectionNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["convertGiftToStars"];
@@ -2058,26 +1935,14 @@ export const withToken = (token: string) =>
 				apiClient.copyMessage({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === 'Bad Request: parameter "from_chat_id" is required'
-						)
-							return new Errors.FromChatIdRequired(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: message to copy not found"
-						)
-							return new Errors.MessageToCopyNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["copyMessage"];
@@ -2085,26 +1950,14 @@ export const withToken = (token: string) =>
 				apiClient.copyMessages({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === 'Bad Request: parameter "from_chat_id" is required'
-						)
-							return new Errors.FromChatIdRequired(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: there are no messages to forward"
-						)
-							return new Errors.NoMessagesToForward(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["copyMessages"];
@@ -2112,32 +1965,14 @@ export const withToken = (token: string) =>
 				apiClient.createChatInviteLink({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: can't invite members to a private chat"
-						)
-							return new Errors.CantInviteMembersToPrivateChat(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat not found"
-						)
-							return new Errors.ChatNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["createChatInviteLink"];
@@ -2145,32 +1980,14 @@ export const withToken = (token: string) =>
 				apiClient.createChatSubscriptionInviteLink({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: can't invite members to a private chat"
-						)
-							return new Errors.CantInviteMembersToPrivateChat(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: PRICING_CHAT_INVALID"
-						)
-							return new Errors.PricingChatInvalid(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["createChatSubscriptionInviteLink"];
@@ -2178,26 +1995,14 @@ export const withToken = (token: string) =>
 				apiClient.createForumTopic({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: not enough rights to create a topic"
-						)
-							return new Errors.NotEnoughRightsToCreateTopic(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["createForumTopic"];
@@ -2213,26 +2018,14 @@ export const withToken = (token: string) =>
 				apiClient.declineChatJoinRequest({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: invalid user_id specified"
-						)
-							return new Errors.InvalidUserId(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: USER_ID_INVALID"
-						)
-							return new Errors.UserIdInvalid(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["declineChatJoinRequest"];
@@ -2240,20 +2033,14 @@ export const withToken = (token: string) =>
 				apiClient.declineSuggestedPost({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: suggested post not found"
-						)
-							return new Errors.SuggestedPostNotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["declineSuggestedPost"];
@@ -2261,20 +2048,14 @@ export const withToken = (token: string) =>
 				apiClient.deleteAllMessageReactions({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: PARTICIPANT_ID_INVALID"
-						)
-							return new Errors.ParticipantIdInvalid(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["deleteAllMessageReactions"];
@@ -2282,20 +2063,14 @@ export const withToken = (token: string) =>
 				apiClient.deleteBusinessMessages({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: message identifiers are not specified"
-						)
-							return new Errors.MessageIdentifiersAreNotSpecified(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["deleteBusinessMessages"];
@@ -2303,26 +2078,14 @@ export const withToken = (token: string) =>
 				apiClient.deleteChatPhoto({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: can't change private chat photo"
-						)
-							return new Errors.CantChangePrivateChatPhoto(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["deleteChatPhoto"];
@@ -2330,32 +2093,14 @@ export const withToken = (token: string) =>
 				apiClient.deleteChatStickerSet({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: can't set supergroup sticker set"
-						)
-							return new Errors.CantSetSupergroupStickerSet(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: not enough rights to change supergroup sticker set"
-						)
-							return new Errors.CantSetSupergroupStickerSet(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["deleteChatStickerSet"];
@@ -2363,26 +2108,14 @@ export const withToken = (token: string) =>
 				apiClient.deleteForumTopic({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: CHAT_WRITE_FORBIDDEN"
-						)
-							return new Errors.ChatWriteForbidden(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["deleteForumTopic"];
@@ -2390,26 +2123,14 @@ export const withToken = (token: string) =>
 				apiClient.deleteMessage({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat not found"
-						)
-							return new Errors.ChatNotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: message to delete not found"
-						)
-							return new Errors.MessageToDeleteNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["deleteMessage"];
@@ -2417,20 +2138,14 @@ export const withToken = (token: string) =>
 				apiClient.deleteMessageReaction({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: message to delete reactions not found"
-						)
-							return new Errors.MessageToDeleteReactionsNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["deleteMessageReaction"];
@@ -2438,14 +2153,12 @@ export const withToken = (token: string) =>
 				apiClient.deleteMessages({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["deleteMessages"];
@@ -2453,32 +2166,14 @@ export const withToken = (token: string) =>
 				apiClient.deleteMyCommands({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: can't parse BotCommandScope: Can't find field \"chat_id\""
-						)
-							return new Errors.BotCommandScopeChatIdMissing(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: can't parse BotCommandScope: Unsupported type specified"
-						)
-							return new Errors.BotCommandScopeUnsupportedType(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: can't parse BotCommandScope: Can't find field \"user_id\""
-						)
-							return new Errors.BotCommandScopeUserIdMissing(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["deleteMyCommands"];
@@ -2494,20 +2189,14 @@ export const withToken = (token: string) =>
 				apiClient.deleteStory({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: business connection not found"
-						)
-							return new Errors.BusinessConnectionNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["deleteStory"];
@@ -2515,14 +2204,12 @@ export const withToken = (token: string) =>
 				apiClient.deleteWebhook({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["deleteWebhook"];
@@ -2530,26 +2217,14 @@ export const withToken = (token: string) =>
 				apiClient.editChatInviteLink({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: INVITE_HASH_EXPIRED"
-						)
-							return new Errors.InviteHashExpired(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["editChatInviteLink"];
@@ -2557,26 +2232,14 @@ export const withToken = (token: string) =>
 				apiClient.editChatSubscriptionInviteLink({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: INVITE_HASH_EXPIRED"
-						)
-							return new Errors.InviteHashExpired(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["editChatSubscriptionInviteLink"];
@@ -2584,32 +2247,14 @@ export const withToken = (token: string) =>
 				apiClient.editForumTopic({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: CHAT_ADMIN_REQUIRED"
-						)
-							return new Errors.ChatAdminRequired(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: not enough rights to edit the topic"
-						)
-							return new Errors.NotEnoughRightsToEditTopic(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["editForumTopic"];
@@ -2617,26 +2262,14 @@ export const withToken = (token: string) =>
 				apiClient.editGeneralForumTopic({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: CHAT_ADMIN_REQUIRED"
-						)
-							return new Errors.ChatAdminRequired(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["editGeneralForumTopic"];
@@ -2644,20 +2277,14 @@ export const withToken = (token: string) =>
 				apiClient.editMessageCaption({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: message to edit not found"
-						)
-							return new Errors.MessageToEditNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["editMessageCaption"];
@@ -2665,14 +2292,12 @@ export const withToken = (token: string) =>
 				apiClient.editMessageChecklist({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["editMessageChecklist"];
@@ -2680,20 +2305,14 @@ export const withToken = (token: string) =>
 				apiClient.editMessageLiveLocation({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: message to edit not found"
-						)
-							return new Errors.MessageToEditNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["editMessageLiveLocation"];
@@ -2701,20 +2320,14 @@ export const withToken = (token: string) =>
 				apiClient.editMessageMedia({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: message to edit not found"
-						)
-							return new Errors.MessageToEditNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["editMessageMedia"];
@@ -2722,20 +2335,14 @@ export const withToken = (token: string) =>
 				apiClient.editMessageReplyMarkup({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: message to edit not found"
-						)
-							return new Errors.MessageToEditNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["editMessageReplyMarkup"];
@@ -2743,26 +2350,14 @@ export const withToken = (token: string) =>
 				apiClient.editMessageText({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat not found"
-						)
-							return new Errors.ChatNotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: message to edit not found"
-						)
-							return new Errors.MessageToEditNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["editMessageText"];
@@ -2770,20 +2365,14 @@ export const withToken = (token: string) =>
 				apiClient.editStory({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: story content isn't specified"
-						)
-							return new Errors.StoryContentNotSpecified(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["editStory"];
@@ -2795,32 +2384,14 @@ export const withToken = (token: string) =>
 				apiClient.exportChatInviteLink({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: can't invite members to a private chat"
-						)
-							return new Errors.CantInviteMembersToPrivateChat(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat not found"
-						)
-							return new Errors.ChatNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["exportChatInviteLink"];
@@ -2828,44 +2399,14 @@ export const withToken = (token: string) =>
 				apiClient.forwardMessage({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat not found"
-						)
-							return new Errors.ChatNotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === 'Bad Request: parameter "from_chat_id" is required'
-						)
-							return new Errors.FromChatIdRequired(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: message thread not found"
-						)
-							return new Errors.MessageThreadNotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: message to forward not found"
-						)
-							return new Errors.MessageToForwardNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["forwardMessage"];
@@ -2873,26 +2414,14 @@ export const withToken = (token: string) =>
 				apiClient.forwardMessages({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === 'Bad Request: parameter "from_chat_id" is required'
-						)
-							return new Errors.FromChatIdRequired(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: there are no messages to forward"
-						)
-							return new Errors.NoMessagesToForward(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["forwardMessages"];
@@ -2900,14 +2429,12 @@ export const withToken = (token: string) =>
 				apiClient.getAvailableGifts().pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["getAvailableGifts"];
@@ -2915,20 +2442,14 @@ export const withToken = (token: string) =>
 				apiClient.getBusinessAccountGifts({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: business connection not found"
-						)
-							return new Errors.BusinessConnectionNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["getBusinessAccountGifts"];
@@ -2936,20 +2457,14 @@ export const withToken = (token: string) =>
 				apiClient.getBusinessAccountStarBalance({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: business connection not found"
-						)
-							return new Errors.BusinessConnectionNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["getBusinessAccountStarBalance"];
@@ -2957,20 +2472,14 @@ export const withToken = (token: string) =>
 				apiClient.getBusinessConnection({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: business connection not found"
-						)
-							return new Errors.BusinessConnectionNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["getBusinessConnection"];
@@ -2978,26 +2487,14 @@ export const withToken = (token: string) =>
 				apiClient.getChat({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat not found"
-						)
-							return new Errors.ChatNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["getChat"];
@@ -3005,26 +2502,14 @@ export const withToken = (token: string) =>
 				apiClient.getChatAdministrators({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat not found"
-						)
-							return new Errors.ChatNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["getChatAdministrators"];
@@ -3032,26 +2517,14 @@ export const withToken = (token: string) =>
 				apiClient.getChatGifts({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat not found"
-						)
-							return new Errors.ChatNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["getChatGifts"];
@@ -3059,44 +2532,14 @@ export const withToken = (token: string) =>
 				apiClient.getChatMember({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat not found"
-						)
-							return new Errors.ChatNotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: invalid user_id specified"
-						)
-							return new Errors.InvalidUserId(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: member not found"
-						)
-							return new Errors.MemberNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: PARTICIPANT_ID_INVALID"
-						)
-							return new Errors.ParticipantIdInvalid(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["getChatMember"];
@@ -3104,26 +2547,14 @@ export const withToken = (token: string) =>
 				apiClient.getChatMemberCount({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat not found"
-						)
-							return new Errors.ChatNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["getChatMemberCount"];
@@ -3131,20 +2562,14 @@ export const withToken = (token: string) =>
 				apiClient.getChatMenuButton({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: invalid chat_id specified"
-						)
-							return new Errors.InvalidChatId(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["getChatMenuButton"];
@@ -3156,26 +2581,14 @@ export const withToken = (token: string) =>
 				apiClient.getFile({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: file_id not specified"
-						)
-							return new Errors.FileIdNotSpecified(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: invalid file_id"
-						)
-							return new Errors.InvalidFileId(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["getFile"];
@@ -3183,14 +2596,12 @@ export const withToken = (token: string) =>
 				apiClient.getForumTopicIconStickers().pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["getForumTopicIconStickers"];
@@ -3202,20 +2613,14 @@ export const withToken = (token: string) =>
 				apiClient.getManagedBotAccessSettings({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: invalid user_id specified"
-						)
-							return new Errors.InvalidUserId(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["getManagedBotAccessSettings"];
@@ -3223,20 +2628,14 @@ export const withToken = (token: string) =>
 				apiClient.getManagedBotToken({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: invalid user_id specified"
-						)
-							return new Errors.InvalidUserId(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["getManagedBotToken"];
@@ -3244,14 +2643,12 @@ export const withToken = (token: string) =>
 				apiClient.getMe().pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["getMe"];
@@ -3259,32 +2656,14 @@ export const withToken = (token: string) =>
 				apiClient.getMyCommands({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: can't parse BotCommandScope: Can't find field \"chat_id\""
-						)
-							return new Errors.BotCommandScopeChatIdMissing(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: can't parse BotCommandScope: Unsupported type specified"
-						)
-							return new Errors.BotCommandScopeUnsupportedType(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: can't parse BotCommandScope: Can't find field \"user_id\""
-						)
-							return new Errors.BotCommandScopeUserIdMissing(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["getMyCommands"];
@@ -3292,14 +2671,12 @@ export const withToken = (token: string) =>
 				apiClient.getMyDefaultAdministratorRights({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["getMyDefaultAdministratorRights"];
@@ -3307,14 +2684,12 @@ export const withToken = (token: string) =>
 				apiClient.getMyDescription({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["getMyDescription"];
@@ -3322,14 +2697,12 @@ export const withToken = (token: string) =>
 				apiClient.getMyName({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["getMyName"];
@@ -3337,14 +2710,12 @@ export const withToken = (token: string) =>
 				apiClient.getMyShortDescription({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["getMyShortDescription"];
@@ -3364,14 +2735,12 @@ export const withToken = (token: string) =>
 				apiClient.getUpdates({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["getUpdates"];
@@ -3379,38 +2748,14 @@ export const withToken = (token: string) =>
 				apiClient.getUserChatBoosts({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat not found"
-						)
-							return new Errors.ChatNotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: invalid user_id specified"
-						)
-							return new Errors.InvalidUserId(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: PEER_ID_INVALID"
-						)
-							return new Errors.PeerIdInvalid(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["getUserChatBoosts"];
@@ -3418,26 +2763,14 @@ export const withToken = (token: string) =>
 				apiClient.getUserGifts({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: invalid user_id specified"
-						)
-							return new Errors.InvalidUserId(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: user not found"
-						)
-							return new Errors.UserNotFound(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["getUserGifts"];
@@ -3445,26 +2778,14 @@ export const withToken = (token: string) =>
 				apiClient.getUserPersonalChatMessages({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: invalid user_id specified"
-						)
-							return new Errors.InvalidUserId(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: limit must be positive"
-						)
-							return new Errors.LimitMustBePositive(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["getUserPersonalChatMessages"];
@@ -3472,26 +2793,14 @@ export const withToken = (token: string) =>
 				apiClient.getUserProfileAudios({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: invalid user_id specified"
-						)
-							return new Errors.InvalidUserId(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: user not found"
-						)
-							return new Errors.UserNotFound(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["getUserProfileAudios"];
@@ -3499,26 +2808,14 @@ export const withToken = (token: string) =>
 				apiClient.getUserProfilePhotos({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: invalid user_id specified"
-						)
-							return new Errors.InvalidUserId(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: user not found"
-						)
-							return new Errors.UserNotFound(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["getUserProfilePhotos"];
@@ -3526,14 +2823,12 @@ export const withToken = (token: string) =>
 				apiClient.getWebhookInfo().pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["getWebhookInfo"];
@@ -3541,26 +2836,14 @@ export const withToken = (token: string) =>
 				apiClient.giftPremiumSubscription({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: invalid user_id specified"
-						)
-							return new Errors.InvalidUserId(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: user not found"
-						)
-							return new Errors.UserNotFound(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["giftPremiumSubscription"];
@@ -3568,26 +2851,14 @@ export const withToken = (token: string) =>
 				apiClient.hideGeneralForumTopic({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: not enough rights to close or open the topic"
-						)
-							return new Errors.NotEnoughRightsToCloseOrOpenTopic(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["hideGeneralForumTopic"];
@@ -3595,26 +2866,14 @@ export const withToken = (token: string) =>
 				apiClient.leaveChat({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat member status can't be changed in private chats"
-						)
-							return new Errors.ChatMemberStatusCantBeChangedInPrivateChats(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["leaveChat"];
@@ -3622,14 +2881,12 @@ export const withToken = (token: string) =>
 				apiClient.logOut().pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["logOut"];
@@ -3637,26 +2894,14 @@ export const withToken = (token: string) =>
 				apiClient.pinChatMessage({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat not found"
-						)
-							return new Errors.ChatNotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: message to pin not found"
-						)
-							return new Errors.MessageToPinNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["pinChatMessage"];
@@ -3664,20 +2909,14 @@ export const withToken = (token: string) =>
 				apiClient.postStory({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: story content isn't specified"
-						)
-							return new Errors.StoryContentNotSpecified(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["postStory"];
@@ -3685,26 +2924,14 @@ export const withToken = (token: string) =>
 				apiClient.promoteChatMember({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: can't remove chat owner"
-						)
-							return new Errors.CantRemoveChatOwner(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: invalid user_id specified"
-						)
-							return new Errors.InvalidUserId(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["promoteChatMember"];
@@ -3712,20 +2939,14 @@ export const withToken = (token: string) =>
 				apiClient.readBusinessMessage({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat identifier is empty"
-						)
-							return new Errors.ChatIdentifierEmpty(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["readBusinessMessage"];
@@ -3737,20 +2958,14 @@ export const withToken = (token: string) =>
 				apiClient.removeBusinessAccountProfilePhoto({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: business connection not found"
-						)
-							return new Errors.BusinessConnectionNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["removeBusinessAccountProfilePhoto"];
@@ -3758,26 +2973,14 @@ export const withToken = (token: string) =>
 				apiClient.removeChatVerification({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: BOT_VERIFIER_FORBIDDEN"
-						)
-							return new Errors.BotVerifierForbidden(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: invalid chat identifier specified"
-						)
-							return new Errors.InvalidChatIdentifier(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["removeChatVerification"];
@@ -3785,14 +2988,12 @@ export const withToken = (token: string) =>
 				apiClient.removeMyProfilePhoto().pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["removeMyProfilePhoto"];
@@ -3800,26 +3001,14 @@ export const withToken = (token: string) =>
 				apiClient.removeUserVerification({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: invalid user_id specified"
-						)
-							return new Errors.InvalidUserId(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: PEER_ID_INVALID"
-						)
-							return new Errors.PeerIdInvalid(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["removeUserVerification"];
@@ -3827,32 +3016,14 @@ export const withToken = (token: string) =>
 				apiClient.reopenForumTopic({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: CHAT_ADMIN_REQUIRED"
-						)
-							return new Errors.ChatAdminRequired(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: not enough rights to close or open the topic"
-						)
-							return new Errors.NotEnoughRightsToCloseOrOpenTopic(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["reopenForumTopic"];
@@ -3860,26 +3031,14 @@ export const withToken = (token: string) =>
 				apiClient.reopenGeneralForumTopic({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: CHAT_ADMIN_REQUIRED"
-						)
-							return new Errors.ChatAdminRequired(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["reopenGeneralForumTopic"];
@@ -3887,20 +3046,14 @@ export const withToken = (token: string) =>
 				apiClient.replaceManagedBotToken({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: invalid user_id specified"
-						)
-							return new Errors.InvalidUserId(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["replaceManagedBotToken"];
@@ -3912,26 +3065,14 @@ export const withToken = (token: string) =>
 				apiClient.repostStory({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: business connection not found"
-						)
-							return new Errors.BusinessConnectionNotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === 'Bad Request: parameter "from_chat_id" is required'
-						)
-							return new Errors.FromChatIdRequired(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["repostStory"];
@@ -3939,26 +3080,14 @@ export const withToken = (token: string) =>
 				apiClient.restrictChatMember({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: invalid user_id specified"
-						)
-							return new Errors.InvalidUserId(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: PARTICIPANT_ID_INVALID"
-						)
-							return new Errors.ParticipantIdInvalid(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["restrictChatMember"];
@@ -3966,26 +3095,14 @@ export const withToken = (token: string) =>
 				apiClient.revokeChatInviteLink({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: INVITE_HASH_EXPIRED"
-						)
-							return new Errors.InviteHashExpired(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["revokeChatInviteLink"];
@@ -3993,26 +3110,14 @@ export const withToken = (token: string) =>
 				apiClient.savePreparedInlineMessage({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === 'Bad Request: can\'t find field "type"'
-						)
-							return new Errors.CantFindFieldType(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: invalid user_id specified"
-						)
-							return new Errors.InvalidUserId(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["savePreparedInlineMessage"];
@@ -4020,20 +3125,14 @@ export const withToken = (token: string) =>
 				apiClient.savePreparedKeyboardButton({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: invalid user_id specified"
-						)
-							return new Errors.InvalidUserId(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["savePreparedKeyboardButton"];
@@ -4043,20 +3142,14 @@ export const withToken = (token: string) =>
 					.pipe(
 						Effect.map(response => response.result),
 						Effect.mapError(error => {
-							if (
-								"error_code" in error &&
-								error.error_code === 400 &&
-								error.description === "Bad Request: there is no animation in the request"
-							)
-								return new Errors.NoAnimationInRequest(error);
-							if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-								return new Errors.NotFound(error);
-							if (
-								"error_code" in error &&
-								error.error_code === 401 &&
-								error.description === "Unauthorized: invalid token specified"
-							)
-								return new Errors.Unauthorized(error);
+							if ("error_code" in error && error.error_code === 400)
+								return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+							if ("error_code" in error && error.error_code === 404)
+								return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+							if ("error_code" in error && error.error_code === 401)
+								return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+							if ("error_code" in error && "description" in error)
+								return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 							return error;
 						}),
 					)) as TelegramClientService["sendAnimation"];
@@ -4066,20 +3159,14 @@ export const withToken = (token: string) =>
 					.pipe(
 						Effect.map(response => response.result),
 						Effect.mapError(error => {
-							if (
-								"error_code" in error &&
-								error.error_code === 400 &&
-								error.description === "Bad Request: there is no audio in the request"
-							)
-								return new Errors.NoAudioInRequest(error);
-							if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-								return new Errors.NotFound(error);
-							if (
-								"error_code" in error &&
-								error.error_code === 401 &&
-								error.description === "Unauthorized: invalid token specified"
-							)
-								return new Errors.Unauthorized(error);
+							if ("error_code" in error && error.error_code === 400)
+								return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+							if ("error_code" in error && error.error_code === 404)
+								return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+							if ("error_code" in error && error.error_code === 401)
+								return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+							if ("error_code" in error && "description" in error)
+								return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 							return error;
 						}),
 					)) as TelegramClientService["sendAudio"];
@@ -4087,32 +3174,14 @@ export const withToken = (token: string) =>
 				apiClient.sendChatAction({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat not found"
-						)
-							return new Errors.ChatNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: wrong parameter action in request"
-						)
-							return new Errors.WrongParameterAction(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["sendChatAction"];
@@ -4120,20 +3189,14 @@ export const withToken = (token: string) =>
 				apiClient.sendChecklist({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === 'Bad Request: parameter "checklist" is required'
-						)
-							return new Errors.ChecklistRequired(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["sendChecklist"];
@@ -4141,26 +3204,14 @@ export const withToken = (token: string) =>
 				apiClient.sendContact({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === 'Bad Request: parameter "first_name" is required'
-						)
-							return new Errors.FirstNameRequired(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === 'Bad Request: parameter "phone_number" is required'
-						)
-							return new Errors.PhoneNumberRequired(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["sendContact"];
@@ -4168,26 +3219,14 @@ export const withToken = (token: string) =>
 				apiClient.sendDice({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat not found"
-						)
-							return new Errors.ChatNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["sendDice"];
@@ -4197,20 +3236,14 @@ export const withToken = (token: string) =>
 					.pipe(
 						Effect.map(response => response.result),
 						Effect.mapError(error => {
-							if (
-								"error_code" in error &&
-								error.error_code === 400 &&
-								error.description === "Bad Request: there is no document in the request"
-							)
-								return new Errors.NoDocumentInRequest(error);
-							if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-								return new Errors.NotFound(error);
-							if (
-								"error_code" in error &&
-								error.error_code === 401 &&
-								error.description === "Unauthorized: invalid token specified"
-							)
-								return new Errors.Unauthorized(error);
+							if ("error_code" in error && error.error_code === 400)
+								return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+							if ("error_code" in error && error.error_code === 404)
+								return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+							if ("error_code" in error && error.error_code === 401)
+								return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+							if ("error_code" in error && "description" in error)
+								return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 							return error;
 						}),
 					)) as TelegramClientService["sendDocument"];
@@ -4222,26 +3255,14 @@ export const withToken = (token: string) =>
 				apiClient.sendGift({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: invalid user_id specified"
-						)
-							return new Errors.InvalidUserId(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: STARGIFT_INVALID"
-						)
-							return new Errors.StargiftInvalid(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["sendGift"];
@@ -4255,20 +3276,14 @@ export const withToken = (token: string) =>
 					.pipe(
 						Effect.map(response => response.result),
 						Effect.mapError(error => {
-							if (
-								"error_code" in error &&
-								error.error_code === 400 &&
-								error.description === "Bad Request: there is no live photo in the request"
-							)
-								return new Errors.NoLivePhotoInRequest(error);
-							if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-								return new Errors.NotFound(error);
-							if (
-								"error_code" in error &&
-								error.error_code === 401 &&
-								error.description === "Unauthorized: invalid token specified"
-							)
-								return new Errors.Unauthorized(error);
+							if ("error_code" in error && error.error_code === 400)
+								return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+							if ("error_code" in error && error.error_code === 404)
+								return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+							if ("error_code" in error && error.error_code === 401)
+								return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+							if ("error_code" in error && "description" in error)
+								return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 							return error;
 						}),
 					)) as TelegramClientService["sendLivePhoto"];
@@ -4276,26 +3291,14 @@ export const withToken = (token: string) =>
 				apiClient.sendLocation({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: latitude is empty"
-						)
-							return new Errors.LatitudeEmpty(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["sendLocation"];
@@ -4303,20 +3306,14 @@ export const withToken = (token: string) =>
 				apiClient.sendMediaGroup({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === 'Bad Request: parameter "media" is required'
-						)
-							return new Errors.MediaRequired(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["sendMediaGroup"];
@@ -4324,483 +3321,14 @@ export const withToken = (token: string) =>
 				apiClient.sendMessage({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description ===
-								'Bad Request: can\'t parse inline keyboard button: Field "allow_user_chats" must be of type Boolean'
-						)
-							return new Errors.AllowUserChatsMustBeBoolean(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: BOT_DOMAIN_INVALID"
-						)
-							return new Errors.BotDomainInvalid(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: business connection not found"
-						)
-							return new Errors.BusinessConnectionNotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: BUTTON_COPY_TEXT_INVALID"
-						)
-							return new Errors.ButtonCopyTextInvalid(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: BUTTON_DATA_INVALID"
-						)
-							return new Errors.ButtonDataInvalid(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: BUTTON_QUANTITY_MAX_INVALID"
-						)
-							return new Errors.ButtonQuantityMaxInvalid(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: BUTTON_TYPE_INVALID"
-						)
-							return new Errors.ButtonTypeInvalid(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: can't parse entities: Invalid custom emoji identifier specified"
-						)
-							return new Errors.CantParseEntitiesInvalidCustomEmoji(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 0"
-						)
-							return new Errors.CantParseEntitiesNoBoldEnd(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 15"
-						)
-							return new Errors.CantParseEntitiesNoBoldEnd(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description ===
-								"Bad Request: can't parse entities: Can't find end of the entity starting at byte offset 0"
-						)
-							return new Errors.CantParseEntitiesNoEnd(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description ===
-								"Bad Request: can't parse entities: Can't find end tag corresponding to start tag \"b\""
-						)
-							return new Errors.CantParseEntitiesNoHtmlEndTag(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description ===
-								"Bad Request: can't parse entities: Character '{' is reserved and must be escaped with the preceding '\\'"
-						)
-							return new Errors.CantParseEntitiesReservedCharBrace(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description ===
-								"Bad Request: can't parse entities: Character '-' is reserved and must be escaped with the preceding '\\'"
-						)
-							return new Errors.CantParseEntitiesReservedCharDash(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description ===
-								"Bad Request: can't parse entities: Character '.' is reserved and must be escaped with the preceding '\\'"
-						)
-							return new Errors.CantParseEntitiesReservedCharDot(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description ===
-								"Bad Request: can't parse entities: Character '=' is reserved and must be escaped with the preceding '\\'"
-						)
-							return new Errors.CantParseEntitiesReservedCharEquals(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description ===
-								"Bad Request: can't parse entities: Character '!' is reserved and must be escaped with the preceding '\\'"
-						)
-							return new Errors.CantParseEntitiesReservedCharExclamation(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description ===
-								"Bad Request: can't parse entities: Character '>' is reserved and must be escaped with the preceding '\\'"
-						)
-							return new Errors.CantParseEntitiesReservedCharGreater(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description ===
-								"Bad Request: can't parse entities: Character '#' is reserved and must be escaped with the preceding '\\'"
-						)
-							return new Errors.CantParseEntitiesReservedCharHash(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description ===
-								"Bad Request: can't parse entities: Character '(' is reserved and must be escaped with the preceding '\\'"
-						)
-							return new Errors.CantParseEntitiesReservedCharParen(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description ===
-								"Bad Request: can't parse entities: Character '|' is reserved and must be escaped with the preceding '\\'"
-						)
-							return new Errors.CantParseEntitiesReservedCharPipe(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description ===
-								"Bad Request: can't parse entities: Character '+' is reserved and must be escaped with the preceding '\\'"
-						)
-							return new Errors.CantParseEntitiesReservedCharPlus(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description ===
-								'Bad Request: can\'t parse entities: Unmatched end tag at byte offset 10, expected "</i>", found "</b>"'
-						)
-							return new Errors.CantParseEntitiesUnmatchedEndTag(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description ===
-								'Bad Request: can\'t parse entities: Unsupported start tag "script" at byte offset 0'
-						)
-							return new Errors.CantParseEntitiesUnsupportedScriptTag(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description ===
-								'Bad Request: can\'t parse entities: Unsupported start tag "invalid" at byte offset 0'
-						)
-							return new Errors.CantParseEntitiesUnsupportedTag(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description ===
-								'Bad Request: can\'t parse keyboard button: Field "chat_is_forum" must be of type Boolean'
-						)
-							return new Errors.ChatIsForumMustBeBoolean(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat not found"
-						)
-							return new Errors.ChatNotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: can't parse MessageEntity: Can't find field \"custom_emoji_id\""
-						)
-							return new Errors.CustomEmojiIdMissing(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description ===
-								'Bad Request: can\'t parse MessageEntity: Field "custom_emoji_id" must be a valid Number'
-						)
-							return new Errors.CustomEmojiIdMustBeNumber(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: EFFECT_ID_INVALID"
-						)
-							return new Errors.EffectIdInvalid(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: entity begins after the end of the text at UTF-16 offset 100"
-						)
-							return new Errors.EntityBeginsAfterTextEnd(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description ===
-								"Bad Request: entity beginning at UTF-16 offset 0 ends after the end of the text at UTF-16 offset 100"
-						)
-							return new Errors.EntityEndsAfterTextEnd(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: receive an entity with incorrect offset -1"
-						)
-							return new Errors.EntityIncorrectOffset(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: entity URL '' is invalid: URL host is empty"
-						)
-							return new Errors.EntityUrlEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: entity URL 'not-a-url' is invalid: Wrong HTTP URL"
-						)
-							return new Errors.EntityUrlInvalid(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: FLOODSKIP_NOT_ALLOWED"
-						)
-							return new Errors.FloodskipNotAllowed(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === 'Bad Request: field "force_reply" must be of type Boolean'
-						)
-							return new Errors.ForceReplyMustBeBoolean(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: can't parse inline keyboard button: Can't find field \"text\""
-						)
-							return new Errors.InlineButtonTextMissing(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description ===
-								"Bad Request: can't parse inline keyboard button: Text buttons are unallowed in the inline keyboard"
-						)
-							return new Errors.InlineButtonTextUnallowed(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description ===
-								"Bad Request: inline keyboard button URL 'ftp://example.com' is invalid: Unsupported URL protocol"
-						)
-							return new Errors.InlineButtonUrlFtpUnsupported(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: inline keyboard button URL 'not-a-url' is invalid: Wrong HTTP URL"
-						)
-							return new Errors.InlineButtonUrlInvalid(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === 'Bad Request: field "inline_keyboard" must be of type Array'
-						)
-							return new Errors.InlineKeyboardMustBeArray(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: invalid amount of Telegram Stars specified"
-						)
-							return new Errors.InvalidStarsAmount(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === 'Bad Request: field "is_persistent" must be of type Boolean'
-						)
-							return new Errors.IsPersistentMustBeBoolean(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === 'Bad Request: field "keyboard" must be of type Array'
-						)
-							return new Errors.KeyboardMustBeArray(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: can't parse keyboard button: Can't find field \"request_id\""
-						)
-							return new Errors.KeyboardRequestIdMissing(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description ===
-								"Bad Request: keyboard button Web App URL 'http://example.com' is invalid: Only HTTPS links are allowed"
-						)
-							return new Errors.KeyboardWebAppUrlHttpNotAllowed(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === 'Bad Request: field "is_disabled" must be of type Boolean'
-						)
-							return new Errors.LinkPreviewIsDisabledMustBeBoolean(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === 'Bad Request: bot "nonexistent_bot_xyz_12345" not found'
-						)
-							return new Errors.LoginUrlBotNotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === 'Bad Request: bot "telegram" not found'
-						)
-							return new Errors.LoginUrlBotNotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: message text is empty"
-						)
-							return new Errors.MessageTextEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: message thread not found"
-						)
-							return new Errors.MessageThreadNotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: message is too long"
-						)
-							return new Errors.MessageTooLong(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: message to be replied not found"
-						)
-							return new Errors.MessageToReplyNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === 'Bad Request: field "one_time_keyboard" must be of type Boolean'
-						)
-							return new Errors.OneTimeKeyboardMustBeBoolean(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === 'Bad Request: field "prefer_large_media" must be of type Boolean'
-						)
-							return new Errors.PreferLargeMediaMustBeBoolean(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === 'Bad Request: field "prefer_small_media" must be of type Boolean'
-						)
-							return new Errors.PreferSmallMediaMustBeBoolean(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === 'Bad Request: field "remove_keyboard" must be of type Boolean'
-						)
-							return new Errors.RemoveKeyboardMustBeBoolean(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === 'Bad Request: can\'t find field "message_id"'
-						)
-							return new Errors.ReplyMessageIdMissing(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description ===
-								'Bad Request: can\'t parse inline keyboard button: Field "request_write_access" must be of type Boolean'
-						)
-							return new Errors.RequestWriteAccessMustBeBoolean(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === 'Bad Request: field "resize_keyboard" must be of type Boolean'
-						)
-							return new Errors.ResizeKeyboardMustBeBoolean(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === 'Bad Request: field "selective" must be of type Boolean'
-						)
-							return new Errors.SelectiveMustBeBoolean(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === 'Bad Request: field "show_above_text" must be of type Boolean'
-						)
-							return new Errors.ShowAboveTextMustBeBoolean(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: suggested posts can be sent only to channel direct messages"
-						)
-							return new Errors.SuggestedPostChannelOnly(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: can't parse MessageEntity: Can't find field \"url\""
-						)
-							return new Errors.TextLinkUrlMissing(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: can't parse MessageEntity: Can't find field \"user\""
-						)
-							return new Errors.TextMentionUserMissing(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: text must be non-empty"
-						)
-							return new Errors.TextMustBeNonEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: can't parse MessageEntity: Unsupported type specified"
-						)
-							return new Errors.UnsupportedMessageEntityType(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: unsupported parse_mode"
-						)
-							return new Errors.UnsupportedParseMode(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: user not found"
-						)
-							return new Errors.UserNotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description ===
-								"Bad Request: inline keyboard button Web App URL 'http://example.com' is invalid: Only HTTPS links are allowed"
-						)
-							return new Errors.WebAppUrlHttpNotAllowed(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description ===
-								"Bad Request: inline keyboard button Web App URL 'bad' is invalid: Only HTTPS links are allowed"
-						)
-							return new Errors.WebAppUrlNotHttps(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: WEBPAGE_URL_INVALID"
-						)
-							return new Errors.WebpageUrlInvalid(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["sendMessage"];
@@ -4808,26 +3336,14 @@ export const withToken = (token: string) =>
 				apiClient.sendMessageDraft({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: RANDOM_ID_INVALID"
-						)
-							return new Errors.RandomIdInvalid(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["sendMessageDraft"];
@@ -4835,20 +3351,14 @@ export const withToken = (token: string) =>
 				apiClient.sendPaidMedia({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === 'Bad Request: parameter "media" is required'
-						)
-							return new Errors.MediaRequired(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["sendPaidMedia"];
@@ -4858,20 +3368,14 @@ export const withToken = (token: string) =>
 					.pipe(
 						Effect.map(response => response.result),
 						Effect.mapError(error => {
-							if (
-								"error_code" in error &&
-								error.error_code === 400 &&
-								error.description === "Bad Request: there is no photo in the request"
-							)
-								return new Errors.NoPhotoInRequest(error);
-							if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-								return new Errors.NotFound(error);
-							if (
-								"error_code" in error &&
-								error.error_code === 401 &&
-								error.description === "Unauthorized: invalid token specified"
-							)
-								return new Errors.Unauthorized(error);
+							if ("error_code" in error && error.error_code === 400)
+								return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+							if ("error_code" in error && error.error_code === 404)
+								return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+							if ("error_code" in error && error.error_code === 401)
+								return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+							if ("error_code" in error && "description" in error)
+								return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 							return error;
 						}),
 					)) as TelegramClientService["sendPhoto"];
@@ -4879,44 +3383,14 @@ export const withToken = (token: string) =>
 				apiClient.sendPoll({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: can't parse options JSON object"
-						)
-							return new Errors.CantParseOptionsJsonObject(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat not found"
-						)
-							return new Errors.ChatNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: poll must have at least one answer option"
-						)
-							return new Errors.PollMustHaveAtLeastOneAnswerOption(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: text must be non-empty"
-						)
-							return new Errors.TextMustBeNonEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["sendPoll"];
@@ -4928,38 +3402,14 @@ export const withToken = (token: string) =>
 				apiClient.sendVenue({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat not found"
-						)
-							return new Errors.ChatNotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: latitude is empty"
-						)
-							return new Errors.LatitudeEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: longitude is empty"
-						)
-							return new Errors.LongitudeEmpty(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["sendVenue"];
@@ -4969,76 +3419,14 @@ export const withToken = (token: string) =>
 					.pipe(
 						Effect.map(response => response.result),
 						Effect.mapError(error => {
-							if (
-								"error_code" in error &&
-								error.error_code === 400 &&
-								error.description ===
-									"Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 0"
-							)
-								return new Errors.CantParseEntitiesNoBoldEnd(error);
-							if (
-								"error_code" in error &&
-								error.error_code === 400 &&
-								error.description ===
-									"Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 15"
-							)
-								return new Errors.CantParseEntitiesNoBoldEnd(error);
-							if (
-								"error_code" in error &&
-								error.error_code === 400 &&
-								error.description === "Bad Request: chat_id is empty"
-							)
-								return new Errors.ChatIdEmpty(error);
-							if (
-								"error_code" in error &&
-								error.error_code === 400 &&
-								error.description === "Bad Request: chat not found"
-							)
-								return new Errors.ChatNotFound(error);
-							if (
-								"error_code" in error &&
-								error.error_code === 400 &&
-								error.description === "Bad Request: message caption is too long"
-							)
-								return new Errors.MessageCaptionTooLong(error);
-							if (
-								"error_code" in error &&
-								error.error_code === 400 &&
-								error.description === "Bad Request: message thread not found"
-							)
-								return new Errors.MessageThreadNotFound(error);
-							if (
-								"error_code" in error &&
-								error.error_code === 400 &&
-								error.description === "Bad Request: message to be replied not found"
-							)
-								return new Errors.MessageToReplyNotFound(error);
-							if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-								return new Errors.NotFound(error);
-							if (
-								"error_code" in error &&
-								error.error_code === 400 &&
-								error.description === "Bad Request: there is no video in the request"
-							)
-								return new Errors.NoVideoInRequest(error);
-							if (
-								"error_code" in error &&
-								error.error_code === 401 &&
-								error.description === "Unauthorized: invalid token specified"
-							)
-								return new Errors.Unauthorized(error);
-							if (
-								"error_code" in error &&
-								error.error_code === 400 &&
-								error.description === "Bad Request: unsupported parse_mode"
-							)
-								return new Errors.UnsupportedParseMode(error);
-							if (
-								"error_code" in error &&
-								error.error_code === 400 &&
-								error.description === "Bad Request: wrong remote file identifier specified: Wrong padding in the string"
-							)
-								return new Errors.WrongRemoteFileIdentifierWrongPadding(error);
+							if ("error_code" in error && error.error_code === 400)
+								return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+							if ("error_code" in error && error.error_code === 404)
+								return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+							if ("error_code" in error && error.error_code === 401)
+								return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+							if ("error_code" in error && "description" in error)
+								return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 							return error;
 						}),
 					)) as TelegramClientService["sendVideo"];
@@ -5048,20 +3436,14 @@ export const withToken = (token: string) =>
 					.pipe(
 						Effect.map(response => response.result),
 						Effect.mapError(error => {
-							if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-								return new Errors.NotFound(error);
-							if (
-								"error_code" in error &&
-								error.error_code === 400 &&
-								error.description === "Bad Request: there is no video note in the request"
-							)
-								return new Errors.NoVideoNoteInRequest(error);
-							if (
-								"error_code" in error &&
-								error.error_code === 401 &&
-								error.description === "Unauthorized: invalid token specified"
-							)
-								return new Errors.Unauthorized(error);
+							if ("error_code" in error && error.error_code === 400)
+								return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+							if ("error_code" in error && error.error_code === 404)
+								return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+							if ("error_code" in error && error.error_code === 401)
+								return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+							if ("error_code" in error && "description" in error)
+								return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 							return error;
 						}),
 					)) as TelegramClientService["sendVideoNote"];
@@ -5071,20 +3453,14 @@ export const withToken = (token: string) =>
 					.pipe(
 						Effect.map(response => response.result),
 						Effect.mapError(error => {
-							if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-								return new Errors.NotFound(error);
-							if (
-								"error_code" in error &&
-								error.error_code === 400 &&
-								error.description === "Bad Request: there is no voice in the request"
-							)
-								return new Errors.NoVoiceInRequest(error);
-							if (
-								"error_code" in error &&
-								error.error_code === 401 &&
-								error.description === "Unauthorized: invalid token specified"
-							)
-								return new Errors.Unauthorized(error);
+							if ("error_code" in error && error.error_code === 400)
+								return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+							if ("error_code" in error && error.error_code === 404)
+								return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+							if ("error_code" in error && error.error_code === 401)
+								return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+							if ("error_code" in error && "description" in error)
+								return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 							return error;
 						}),
 					)) as TelegramClientService["sendVoice"];
@@ -5092,20 +3468,14 @@ export const withToken = (token: string) =>
 				apiClient.setBusinessAccountBio({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: business connection not found"
-						)
-							return new Errors.BusinessConnectionNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["setBusinessAccountBio"];
@@ -5113,20 +3483,14 @@ export const withToken = (token: string) =>
 				apiClient.setBusinessAccountGiftSettings({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: accepted gift types aren't specified"
-						)
-							return new Errors.AcceptedGiftTypesNotSpecified(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["setBusinessAccountGiftSettings"];
@@ -5134,20 +3498,14 @@ export const withToken = (token: string) =>
 				apiClient.setBusinessAccountName({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === 'Bad Request: parameter "first_name" is required'
-						)
-							return new Errors.FirstNameRequired(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["setBusinessAccountName"];
@@ -5155,20 +3513,14 @@ export const withToken = (token: string) =>
 				apiClient.setBusinessAccountProfilePhoto({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: photo isn't specified"
-						)
-							return new Errors.PhotoNotSpecified(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["setBusinessAccountProfilePhoto"];
@@ -5176,20 +3528,14 @@ export const withToken = (token: string) =>
 				apiClient.setBusinessAccountUsername({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: business connection not found"
-						)
-							return new Errors.BusinessConnectionNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["setBusinessAccountUsername"];
@@ -5197,26 +3543,14 @@ export const withToken = (token: string) =>
 				apiClient.setChatAdministratorCustomTitle({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: invalid user_id specified"
-						)
-							return new Errors.InvalidUserId(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: PARTICIPANT_ID_INVALID"
-						)
-							return new Errors.ParticipantIdInvalid(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["setChatAdministratorCustomTitle"];
@@ -5224,26 +3558,14 @@ export const withToken = (token: string) =>
 				apiClient.setChatDescription({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: can't change private chat description"
-						)
-							return new Errors.CantChangePrivateChatDescription(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["setChatDescription"];
@@ -5251,32 +3573,14 @@ export const withToken = (token: string) =>
 				apiClient.setChatMemberTag({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: CHAT_CREATOR_REQUIRED"
-						)
-							return new Errors.ChatCreatorRequired(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: invalid user_id specified"
-						)
-							return new Errors.InvalidUserId(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: PARTICIPANT_ID_INVALID"
-						)
-							return new Errors.ParticipantIdInvalid(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["setChatMemberTag"];
@@ -5284,20 +3588,14 @@ export const withToken = (token: string) =>
 				apiClient.setChatMenuButton({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: can't parse menu button: MenuButton has unsupported type"
-						)
-							return new Errors.MenuButtonUnsupportedType(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["setChatMenuButton"];
@@ -5305,26 +3603,14 @@ export const withToken = (token: string) =>
 				apiClient.setChatPermissions({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: can't change private chat permissions"
-						)
-							return new Errors.CantChangePrivateChatPermissions(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["setChatPermissions"];
@@ -5334,20 +3620,14 @@ export const withToken = (token: string) =>
 					.pipe(
 						Effect.map(response => response.result),
 						Effect.mapError(error => {
-							if (
-								"error_code" in error &&
-								error.error_code === 400 &&
-								error.description === "Bad Request: there is no photo in the request"
-							)
-								return new Errors.NoPhotoInRequest(error);
-							if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-								return new Errors.NotFound(error);
-							if (
-								"error_code" in error &&
-								error.error_code === 401 &&
-								error.description === "Unauthorized: invalid token specified"
-							)
-								return new Errors.Unauthorized(error);
+							if ("error_code" in error && error.error_code === 400)
+								return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+							if ("error_code" in error && error.error_code === 404)
+								return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+							if ("error_code" in error && error.error_code === 401)
+								return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+							if ("error_code" in error && "description" in error)
+								return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 							return error;
 						}),
 					)) as TelegramClientService["setChatPhoto"];
@@ -5355,32 +3635,14 @@ export const withToken = (token: string) =>
 				apiClient.setChatStickerSet({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: sticker_set_name is empty"
-						)
-							return new Errors.StickerSetNameEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: sticker set not found"
-						)
-							return new Errors.StickerSetNotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["setChatStickerSet"];
@@ -5388,26 +3650,14 @@ export const withToken = (token: string) =>
 				apiClient.setChatTitle({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: can't change private chat title"
-						)
-							return new Errors.CantChangePrivateChatTitle(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: title must be non-empty"
-						)
-							return new Errors.TitleEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["setChatTitle"];
@@ -5423,20 +3673,14 @@ export const withToken = (token: string) =>
 				apiClient.setManagedBotAccessSettings({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: invalid user_id specified"
-						)
-							return new Errors.InvalidUserId(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["setManagedBotAccessSettings"];
@@ -5444,20 +3688,14 @@ export const withToken = (token: string) =>
 				apiClient.setMessageReaction({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: message to react not found"
-						)
-							return new Errors.MessageToReactNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["setMessageReaction"];
@@ -5465,50 +3703,14 @@ export const withToken = (token: string) =>
 				apiClient.setMyCommands({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: BOT_COMMAND_INVALID"
-						)
-							return new Errors.BotCommandInvalid(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: can't parse BotCommandScope: Can't find field \"chat_id\""
-						)
-							return new Errors.BotCommandScopeChatIdMissing(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: can't parse BotCommandScope: Unsupported type specified"
-						)
-							return new Errors.BotCommandScopeUnsupportedType(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: can't parse BotCommandScope: Can't find field \"user_id\""
-						)
-							return new Errors.BotCommandScopeUserIdMissing(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: command description must be non-empty"
-						)
-							return new Errors.CommandDescriptionMustBeNonEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: command must be non-empty"
-						)
-							return new Errors.CommandMustBeNonEmpty(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["setMyCommands"];
@@ -5516,21 +3718,14 @@ export const withToken = (token: string) =>
 				apiClient.setMyDefaultAdministratorRights({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description ===
-								'Bad Request: can\'t parse ChatAdministratorRights: Field "can_delete_messages" must be of type Boolean'
-						)
-							return new Errors.ChatAdministratorRightsCanDeleteMessagesMustBeBoolean(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["setMyDefaultAdministratorRights"];
@@ -5538,20 +3733,14 @@ export const withToken = (token: string) =>
 				apiClient.setMyDescription({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: BOT_DESC_INVALID"
-						)
-							return new Errors.BotDescriptionInvalid(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["setMyDescription"];
@@ -5559,20 +3748,14 @@ export const withToken = (token: string) =>
 				apiClient.setMyName({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: BOT_TITLE_INVALID"
-						)
-							return new Errors.BotTitleInvalid(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["setMyName"];
@@ -5580,20 +3763,14 @@ export const withToken = (token: string) =>
 				apiClient.setMyProfilePhoto({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: photo isn't specified"
-						)
-							return new Errors.PhotoNotSpecified(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["setMyProfilePhoto"];
@@ -5601,20 +3778,14 @@ export const withToken = (token: string) =>
 				apiClient.setMyShortDescription({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: BOT_SHARETEXT_INVALID"
-						)
-							return new Errors.BotShortDescriptionInvalid(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["setMyShortDescription"];
@@ -5650,26 +3821,14 @@ export const withToken = (token: string) =>
 				apiClient.setUserEmojiStatus({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: invalid user_id specified"
-						)
-							return new Errors.InvalidUserId(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: user not found"
-						)
-							return new Errors.UserNotFound(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["setUserEmojiStatus"];
@@ -5679,14 +3838,12 @@ export const withToken = (token: string) =>
 					.pipe(
 						Effect.map(response => response.result),
 						Effect.mapError(error => {
-							if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-								return new Errors.NotFound(error);
-							if (
-								"error_code" in error &&
-								error.error_code === 401 &&
-								error.description === "Unauthorized: invalid token specified"
-							)
-								return new Errors.Unauthorized(error);
+							if ("error_code" in error && error.error_code === 404)
+								return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+							if ("error_code" in error && error.error_code === 401)
+								return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+							if ("error_code" in error && "description" in error)
+								return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 							return error;
 						}),
 					)) as TelegramClientService["setWebhook"];
@@ -5694,20 +3851,14 @@ export const withToken = (token: string) =>
 				apiClient.stopMessageLiveLocation({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: message to edit not found"
-						)
-							return new Errors.MessageToEditNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["stopMessageLiveLocation"];
@@ -5715,20 +3866,14 @@ export const withToken = (token: string) =>
 				apiClient.stopPoll({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: message with poll to stop not found"
-						)
-							return new Errors.MessageWithPollToStopNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["stopPoll"];
@@ -5736,20 +3881,14 @@ export const withToken = (token: string) =>
 				apiClient.transferBusinessAccountStars({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: business connection not found"
-						)
-							return new Errors.BusinessConnectionNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["transferBusinessAccountStars"];
@@ -5757,20 +3896,14 @@ export const withToken = (token: string) =>
 				apiClient.transferGift({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat identifier is empty"
-						)
-							return new Errors.ChatIdentifierEmpty(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["transferGift"];
@@ -5778,26 +3911,14 @@ export const withToken = (token: string) =>
 				apiClient.unbanChatMember({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: invalid user_id specified"
-						)
-							return new Errors.InvalidUserId(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: PARTICIPANT_ID_INVALID"
-						)
-							return new Errors.ParticipantIdInvalid(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["unbanChatMember"];
@@ -5805,26 +3926,14 @@ export const withToken = (token: string) =>
 				apiClient.unbanChatSenderChat({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: PARTICIPANT_ID_INVALID"
-						)
-							return new Errors.ParticipantIdInvalid(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: sender_chat_id is empty"
-						)
-							return new Errors.SenderChatIdEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["unbanChatSenderChat"];
@@ -5832,26 +3941,14 @@ export const withToken = (token: string) =>
 				apiClient.unhideGeneralForumTopic({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: not enough rights to close or open the topic"
-						)
-							return new Errors.NotEnoughRightsToCloseOrOpenTopic(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["unhideGeneralForumTopic"];
@@ -5859,20 +3956,14 @@ export const withToken = (token: string) =>
 				apiClient.unpinAllChatMessages({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["unpinAllChatMessages"];
@@ -5880,20 +3971,14 @@ export const withToken = (token: string) =>
 				apiClient.unpinAllForumTopicMessages({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["unpinAllForumTopicMessages"];
@@ -5901,20 +3986,14 @@ export const withToken = (token: string) =>
 				apiClient.unpinAllGeneralForumTopicMessages({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["unpinAllGeneralForumTopicMessages"];
@@ -5922,20 +4001,14 @@ export const withToken = (token: string) =>
 				apiClient.unpinChatMessage({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: message to unpin not found"
-						)
-							return new Errors.MessageToUnpinNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["unpinChatMessage"];
@@ -5943,20 +4016,14 @@ export const withToken = (token: string) =>
 				apiClient.upgradeGift({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: business connection not found"
-						)
-							return new Errors.BusinessConnectionNotFound(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["upgradeGift"];
@@ -5968,26 +4035,14 @@ export const withToken = (token: string) =>
 				apiClient.verifyChat({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: BOT_VERIFIER_FORBIDDEN"
-						)
-							return new Errors.BotVerifierForbidden(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: chat_id is empty"
-						)
-							return new Errors.ChatIdEmpty(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["verifyChat"];
@@ -5995,26 +4050,14 @@ export const withToken = (token: string) =>
 				apiClient.verifyUser({ payload }).pipe(
 					Effect.map(response => response.result),
 					Effect.mapError(error => {
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: invalid user_id specified"
-						)
-							return new Errors.InvalidUserId(error);
-						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
-							return new Errors.NotFound(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 401 &&
-							error.description === "Unauthorized: invalid token specified"
-						)
-							return new Errors.Unauthorized(error);
-						if (
-							"error_code" in error &&
-							error.error_code === 400 &&
-							error.description === "Bad Request: user not found"
-						)
-							return new Errors.UserNotFound(error);
+						if ("error_code" in error && error.error_code === 400)
+							return new Errors.BadRequest({ ok: false, error_code: 400, description: error.description });
+						if ("error_code" in error && error.error_code === 404)
+							return new Errors.NotFound({ ok: false, error_code: 404, description: error.description });
+						if ("error_code" in error && error.error_code === 401)
+							return new Errors.Unauthorized({ ok: false, error_code: 401, description: error.description });
+						if ("error_code" in error && "description" in error)
+							return new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });
 						return error;
 					}),
 				)) as TelegramClientService["verifyUser"];

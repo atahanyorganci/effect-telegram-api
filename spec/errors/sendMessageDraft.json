@@ -1,4 +1,4 @@
 {
 	"method": "sendMessageDraft",
-	"errors": ["ChatIdEmpty", "RandomIdInvalid"]
+	"errors": ["BadRequest"]
 }

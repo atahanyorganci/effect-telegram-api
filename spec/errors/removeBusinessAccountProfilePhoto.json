@@ -1,4 +1,4 @@
 {
 	"method": "removeBusinessAccountProfilePhoto",
-	"errors": ["BusinessConnectionNotFound"]
+	"errors": ["BadRequest"]
 }

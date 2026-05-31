@@ -39,7 +39,7 @@ liveTests("getUserProfilePhotos", test => {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callGetUserProfilePhotos(botToken, { user_id: 999_999_999_999 }).pipe(Effect.flip);
 
-				expectErrorTag(error, "UserNotFound", "Bad Request: user not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: user not found");
 			}),
 		);
 	});

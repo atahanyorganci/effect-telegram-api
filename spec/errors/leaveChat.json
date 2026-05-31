@@ -1,4 +1,4 @@
 {
 	"method": "leaveChat",
-	"errors": ["ChatIdEmpty", "ChatMemberStatusCantBeChangedInPrivateChats"]
+	"errors": ["BadRequest"]
 }

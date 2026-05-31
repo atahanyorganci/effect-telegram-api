@@ -51,7 +51,7 @@ liveTests("copyMessages", test => {
 					message_ids: [999_999_999],
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "NoMessagesToForward", "Bad Request: there are no messages to forward");
+				expectErrorTag(error, "BadRequest", "Bad Request: there are no messages to forward");
 			}),
 		);
 	});

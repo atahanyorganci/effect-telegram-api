@@ -64,7 +64,7 @@ liveTests("pinChatMessage", test => {
 					message_id: 999_999_999,
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "MessageToPinNotFound", "Bad Request: message to pin not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: message to pin not found");
 			}),
 		);
 
@@ -73,7 +73,7 @@ liveTests("pinChatMessage", test => {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callPinChatMessage(botToken, { chat_id: 0, message_id: 1 }).pipe(Effect.flip);
 
-				expectErrorTag(error, "ChatNotFound", "Bad Request: chat not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: chat not found");
 			}),
 		);
 	});

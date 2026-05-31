@@ -1,4 +1,4 @@
 {
 	"method": "setChatStickerSet",
-	"errors": ["ChatIdEmpty", "StickerSetNameEmpty", "StickerSetNotFound"]
+	"errors": ["BadRequest"]
 }

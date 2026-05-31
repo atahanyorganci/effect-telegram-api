@@ -1,10 +1,4 @@
 {
 	"method": "sendPoll",
-	"errors": [
-		"ChatIdEmpty",
-		"ChatNotFound",
-		"TextMustBeNonEmpty",
-		"CantParseOptionsJsonObject",
-		"PollMustHaveAtLeastOneAnswerOption"
-	]
+	"errors": ["BadRequest"]
 }

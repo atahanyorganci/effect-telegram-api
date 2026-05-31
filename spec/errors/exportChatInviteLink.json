@@ -1,4 +1,4 @@
 {
 	"method": "exportChatInviteLink",
-	"errors": ["CantInviteMembersToPrivateChat", "ChatIdEmpty", "ChatNotFound"]
+	"errors": ["BadRequest"]
 }

@@ -1,4 +1,4 @@
 {
 	"method": "setBusinessAccountBio",
-	"errors": ["BusinessConnectionNotFound"]
+	"errors": ["BadRequest"]
 }

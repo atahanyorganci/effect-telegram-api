@@ -43,7 +43,7 @@ const program = Effect.gen(function* () {
 		INPUT_FILE_TYPE,
 	]);
 	const methodsSource = renderMethodsModule(methods, methodErrors);
-	const errorsSource = renderErrorsModule([...methodErrors.values()]);
+	const errorsSource = renderErrorsModule();
 	const telegramClientSource = renderTelegramClientModule(methods, methodErrors, knownNames);
 	const telegramSource = renderTelegramModule(methods, methodErrors);
 

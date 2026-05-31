@@ -51,7 +51,7 @@ liveTests("sendChatAction", test => {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callSendChatAction(botToken, { chat_id: 0, action: "typing" }).pipe(Effect.flip);
 
-				expectErrorTag(error, "ChatNotFound", "Bad Request: chat not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: chat not found");
 			}),
 		);
 
@@ -70,7 +70,7 @@ liveTests("sendChatAction", test => {
 					action: "invalid",
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "WrongParameterAction", "Bad Request: wrong parameter action in request");
+				expectErrorTag(error, "BadRequest", "Bad Request: wrong parameter action in request");
 			}),
 		);
 	});

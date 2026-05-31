@@ -1,4 +1,4 @@
 {
 	"method": "editMessageCaption",
-	"errors": ["MessageToEditNotFound"]
+	"errors": ["BadRequest"]
 }

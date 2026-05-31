@@ -28,7 +28,7 @@ liveTests("answerCallbackQuery", test => {
 
 				expectErrorTag(
 					error,
-					"CallbackQueryIdInvalid",
+					"BadRequest",
 					"Bad Request: query is too old and response timeout expired or query ID is invalid",
 				);
 			}),

@@ -1,4 +1,4 @@
 {
 	"method": "sendLocation",
-	"errors": ["ChatIdEmpty", "LatitudeEmpty"]
+	"errors": ["BadRequest"]
 }

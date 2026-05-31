@@ -1,4 +1,4 @@
 {
 	"method": "hideGeneralForumTopic",
-	"errors": ["ChatIdEmpty", "NotEnoughRightsToCloseOrOpenTopic"]
+	"errors": ["BadRequest"]
 }

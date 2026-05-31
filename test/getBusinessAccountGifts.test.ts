@@ -14,7 +14,7 @@ liveTests("getBusinessAccountGifts", test => {
 					Effect.flip,
 				);
 
-				expectErrorTag(error, "BusinessConnectionNotFound", "Bad Request: business connection not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: business connection not found");
 			}),
 		);
 	});

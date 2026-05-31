@@ -44,7 +44,7 @@ liveTests("promoteChatMember", test => {
 					can_delete_messages: true,
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "CantRemoveChatOwner", "Bad Request: can't remove chat owner");
+				expectErrorTag(error, "BadRequest", "Bad Request: can't remove chat owner");
 			}),
 		);
 

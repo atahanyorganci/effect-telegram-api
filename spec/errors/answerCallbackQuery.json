@@ -1,4 +1,4 @@
 {
 	"method": "answerCallbackQuery",
-	"errors": ["CallbackQueryIdInvalid"]
+	"errors": ["BadRequest"]
 }

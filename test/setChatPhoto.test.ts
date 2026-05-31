@@ -14,5 +14,5 @@ liveTests("setChatPhoto", test => {
 		);
 	});
 
-	authErrorTests(test, token => callSetChatPhoto(token, { chat_id: 1, photo: "invalid" }));
+	authErrorTests(test, token => callSetChatPhoto(token, { chat_id: 1, photo: new Uint8Array([0]) }));
 });

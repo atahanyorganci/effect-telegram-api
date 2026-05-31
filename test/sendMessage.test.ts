@@ -469,7 +469,7 @@ liveTests("sendMessage", test => {
 					text: "",
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "MessageTextEmpty", "Bad Request: message text is empty");
+				expectErrorTag(error, "BadRequest", "Bad Request: message text is empty");
 			}),
 		);
 
@@ -485,7 +485,7 @@ liveTests("sendMessage", test => {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, { chat_id: "", text: "test" }).pipe(Effect.flip);
 
-				expectErrorTag(error, "ChatIdEmpty", "Bad Request: chat_id is empty");
+				expectErrorTag(error, "BadRequest", "Bad Request: chat_id is empty");
 			}),
 		);
 
@@ -494,7 +494,7 @@ liveTests("sendMessage", test => {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, { chat_id: 0, text: "test" }).pipe(Effect.flip);
 
-				expectErrorTag(error, "ChatNotFound", "Bad Request: chat not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: chat not found");
 			}),
 		);
 
@@ -506,7 +506,7 @@ liveTests("sendMessage", test => {
 					text: "test",
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "ChatNotFound", "Bad Request: chat not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: chat not found");
 			}),
 		);
 
@@ -515,7 +515,7 @@ liveTests("sendMessage", test => {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, { chat_id: "not_a_chat", text: "test" }).pipe(Effect.flip);
 
-				expectErrorTag(error, "ChatNotFound", "Bad Request: chat not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: chat not found");
 			}),
 		);
 
@@ -527,7 +527,7 @@ liveTests("sendMessage", test => {
 					text: "x".repeat(4097),
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "MessageTooLong", "Bad Request: message is too long");
+				expectErrorTag(error, "BadRequest", "Bad Request: message is too long");
 			}),
 		);
 
@@ -540,7 +540,7 @@ liveTests("sendMessage", test => {
 					parse_mode: "INVALID",
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "UnsupportedParseMode", "Bad Request: unsupported parse_mode");
+				expectErrorTag(error, "BadRequest", "Bad Request: unsupported parse_mode");
 			}),
 		);
 
@@ -555,7 +555,7 @@ liveTests("sendMessage", test => {
 
 				expectErrorTag(
 					error,
-					"CantParseEntitiesNoEnd",
+					"BadRequest",
 					"Bad Request: can't parse entities: Can't find end of the entity starting at byte offset 0",
 				);
 			}),
@@ -572,7 +572,7 @@ liveTests("sendMessage", test => {
 
 				expectErrorTag(
 					error,
-					"CantParseEntitiesNoBoldEnd",
+					"BadRequest",
 					"Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 0",
 				);
 			}),
@@ -589,7 +589,7 @@ liveTests("sendMessage", test => {
 
 				expectErrorTag(
 					error,
-					"CantParseEntitiesNoHtmlEndTag",
+					"BadRequest",
 					"Bad Request: can't parse entities: Can't find end tag corresponding to start tag \"b\"",
 				);
 			}),
@@ -604,7 +604,7 @@ liveTests("sendMessage", test => {
 					message_thread_id: 999999999,
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "MessageThreadNotFound", "Bad Request: message thread not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: message thread not found");
 			}),
 		);
 
@@ -617,7 +617,7 @@ liveTests("sendMessage", test => {
 					reply_parameters: { message_id: 999999999 },
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "MessageToReplyNotFound", "Bad Request: message to be replied not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: message to be replied not found");
 			}),
 		);
 
@@ -632,7 +632,7 @@ liveTests("sendMessage", test => {
 
 				expectErrorTag(
 					error,
-					"EntityBeginsAfterTextEnd",
+					"BadRequest",
 					"Bad Request: entity begins after the end of the text at UTF-16 offset 100",
 				);
 			}),
@@ -649,7 +649,7 @@ liveTests("sendMessage", test => {
 
 				expectErrorTag(
 					error,
-					"EntityEndsAfterTextEnd",
+					"BadRequest",
 					"Bad Request: entity beginning at UTF-16 offset 0 ends after the end of the text at UTF-16 offset 100",
 				);
 			}),
@@ -664,11 +664,7 @@ liveTests("sendMessage", test => {
 					entities: [{ type: "invalid_type", offset: 0, length: 1 }],
 				}).pipe(Effect.flip);
 
-				expectErrorTag(
-					error,
-					"UnsupportedMessageEntityType",
-					"Bad Request: can't parse MessageEntity: Unsupported type specified",
-				);
+				expectErrorTag(error, "BadRequest", "Bad Request: can't parse MessageEntity: Unsupported type specified");
 			}),
 		);
 
@@ -683,7 +679,7 @@ liveTests("sendMessage", test => {
 					},
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "ButtonDataInvalid", "Bad Request: BUTTON_DATA_INVALID");
+				expectErrorTag(error, "BadRequest", "Bad Request: BUTTON_DATA_INVALID");
 			}),
 		);
 
@@ -696,7 +692,7 @@ liveTests("sendMessage", test => {
 					business_connection_id: "invalid",
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "BusinessConnectionNotFound", "Bad Request: business connection not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: business connection not found");
 			}),
 		);
 
@@ -709,7 +705,7 @@ liveTests("sendMessage", test => {
 					message_effect_id: "9999999999999999999",
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "EffectIdInvalid", "Bad Request: EFFECT_ID_INVALID");
+				expectErrorTag(error, "BadRequest", "Bad Request: EFFECT_ID_INVALID");
 			}),
 		);
 
@@ -722,7 +718,7 @@ liveTests("sendMessage", test => {
 					allow_paid_broadcast: true,
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "FloodskipNotAllowed", "Bad Request: FLOODSKIP_NOT_ALLOWED");
+				expectErrorTag(error, "BadRequest", "Bad Request: FLOODSKIP_NOT_ALLOWED");
 			}),
 		);
 
@@ -737,7 +733,7 @@ liveTests("sendMessage", test => {
 
 				expectErrorTag(
 					error,
-					"InlineButtonUrlInvalid",
+					"BadRequest",
 					"Bad Request: inline keyboard button URL 'not-a-url' is invalid: Wrong HTTP URL",
 				);
 			}),
@@ -754,7 +750,7 @@ liveTests("sendMessage", test => {
 
 				expectErrorTag(
 					error,
-					"InlineButtonUrlFtpUnsupported",
+					"BadRequest",
 					"Bad Request: inline keyboard button URL 'ftp://example.com' is invalid: Unsupported URL protocol",
 				);
 			}),
@@ -771,7 +767,7 @@ liveTests("sendMessage", test => {
 
 				expectErrorTag(
 					error,
-					"InlineButtonTextUnallowed",
+					"BadRequest",
 					"Bad Request: can't parse inline keyboard button: Text buttons are unallowed in the inline keyboard",
 				);
 			}),
@@ -786,7 +782,7 @@ liveTests("sendMessage", test => {
 					entities: [{ type: "text_link", offset: 0, length: 5, url: "not-a-url" }],
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "EntityUrlInvalid", "Bad Request: entity URL 'not-a-url' is invalid: Wrong HTTP URL");
+				expectErrorTag(error, "BadRequest", "Bad Request: entity URL 'not-a-url' is invalid: Wrong HTTP URL");
 			}),
 		);
 
@@ -799,7 +795,7 @@ liveTests("sendMessage", test => {
 					entities: [{ type: "text_link", offset: 0, length: 5, url: "" }],
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "EntityUrlEmpty", "Bad Request: entity URL '' is invalid: URL host is empty");
+				expectErrorTag(error, "BadRequest", "Bad Request: entity URL '' is invalid: URL host is empty");
 			}),
 		);
 
@@ -812,7 +808,7 @@ liveTests("sendMessage", test => {
 					entities: [{ type: "bold", offset: -1, length: 1 }],
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "EntityIncorrectOffset", "Bad Request: receive an entity with incorrect offset -1");
+				expectErrorTag(error, "BadRequest", "Bad Request: receive an entity with incorrect offset -1");
 			}),
 		);
 
@@ -827,7 +823,7 @@ liveTests("sendMessage", test => {
 
 				expectErrorTag(
 					error,
-					"CustomEmojiIdMustBeNumber",
+					"BadRequest",
 					'Bad Request: can\'t parse MessageEntity: Field "custom_emoji_id" must be a valid Number',
 				);
 			}),
@@ -842,7 +838,7 @@ liveTests("sendMessage", test => {
 					entities: [{ type: "text_mention", offset: 0, length: 4, user: { id: 0, is_bot: false, first_name: "X" } }],
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "UserNotFound", "Bad Request: user not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: user not found");
 			}),
 		);
 
@@ -857,7 +853,7 @@ liveTests("sendMessage", test => {
 
 				expectErrorTag(
 					error,
-					"CantParseEntitiesReservedCharDot",
+					"BadRequest",
 					"Bad Request: can't parse entities: Character '.' is reserved and must be escaped with the preceding '\\'",
 				);
 			}),
@@ -874,7 +870,7 @@ liveTests("sendMessage", test => {
 
 				expectErrorTag(
 					error,
-					"CantParseEntitiesReservedCharDash",
+					"BadRequest",
 					"Bad Request: can't parse entities: Character '-' is reserved and must be escaped with the preceding '\\'",
 				);
 			}),
@@ -891,7 +887,7 @@ liveTests("sendMessage", test => {
 
 				expectErrorTag(
 					error,
-					"CantParseEntitiesReservedCharExclamation",
+					"BadRequest",
 					"Bad Request: can't parse entities: Character '!' is reserved and must be escaped with the preceding '\\'",
 				);
 			}),
@@ -908,7 +904,7 @@ liveTests("sendMessage", test => {
 
 				expectErrorTag(
 					error,
-					"CantParseEntitiesUnsupportedScriptTag",
+					"BadRequest",
 					'Bad Request: can\'t parse entities: Unsupported start tag "script" at byte offset 0',
 				);
 			}),
@@ -925,7 +921,7 @@ liveTests("sendMessage", test => {
 
 				expectErrorTag(
 					error,
-					"CantParseEntitiesUnsupportedTag",
+					"BadRequest",
 					'Bad Request: can\'t parse entities: Unsupported start tag "invalid" at byte offset 0',
 				);
 			}),
@@ -942,7 +938,7 @@ liveTests("sendMessage", test => {
 
 				expectErrorTag(
 					error,
-					"CantParseEntitiesUnmatchedEndTag",
+					"BadRequest",
 					'Bad Request: can\'t parse entities: Unmatched end tag at byte offset 10, expected "</i>", found "</b>"',
 				);
 			}),
@@ -970,11 +966,7 @@ liveTests("sendMessage", test => {
 					suggested_post_parameters: {},
 				}).pipe(Effect.flip);
 
-				expectErrorTag(
-					error,
-					"SuggestedPostChannelOnly",
-					"Bad Request: suggested posts can be sent only to channel direct messages",
-				);
+				expectErrorTag(error, "BadRequest", "Bad Request: suggested posts can be sent only to channel direct messages");
 			}),
 		);
 
@@ -987,7 +979,7 @@ liveTests("sendMessage", test => {
 					suggested_post_parameters: { price: { currency: "XTR", amount: 1 } },
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "InvalidStarsAmount", "Bad Request: invalid amount of Telegram Stars specified");
+				expectErrorTag(error, "BadRequest", "Bad Request: invalid amount of Telegram Stars specified");
 			}),
 		);
 
@@ -1000,7 +992,7 @@ liveTests("sendMessage", test => {
 					link_preview_options: { url: "not-a-url" },
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "WebpageUrlInvalid", "Bad Request: WEBPAGE_URL_INVALID");
+				expectErrorTag(error, "BadRequest", "Bad Request: WEBPAGE_URL_INVALID");
 			}),
 		);
 
@@ -1119,7 +1111,7 @@ liveTests("sendMessage", test => {
 
 				expectErrorTag(
 					error,
-					"WebAppUrlNotHttps",
+					"BadRequest",
 					"Bad Request: inline keyboard button Web App URL 'bad' is invalid: Only HTTPS links are allowed",
 				);
 			}),
@@ -1136,7 +1128,7 @@ liveTests("sendMessage", test => {
 
 				expectErrorTag(
 					error,
-					"WebAppUrlHttpNotAllowed",
+					"BadRequest",
 					"Bad Request: inline keyboard button Web App URL 'http://example.com' is invalid: Only HTTPS links are allowed",
 				);
 			}),
@@ -1151,7 +1143,7 @@ liveTests("sendMessage", test => {
 					reply_markup: { inline_keyboard: [[{ text: "pay", pay: true }]] },
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "ButtonTypeInvalid", "Bad Request: BUTTON_TYPE_INVALID");
+				expectErrorTag(error, "BadRequest", "Bad Request: BUTTON_TYPE_INVALID");
 			}),
 		);
 
@@ -1164,7 +1156,7 @@ liveTests("sendMessage", test => {
 					reply_markup: { inline_keyboard: [[{ text: "copy", copy_text: { text: "" } }]] },
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "ButtonCopyTextInvalid", "Bad Request: BUTTON_COPY_TEXT_INVALID");
+				expectErrorTag(error, "BadRequest", "Bad Request: BUTTON_COPY_TEXT_INVALID");
 			}),
 		);
 
@@ -1180,7 +1172,7 @@ liveTests("sendMessage", test => {
 					},
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "ButtonQuantityMaxInvalid", "Bad Request: BUTTON_QUANTITY_MAX_INVALID");
+				expectErrorTag(error, "BadRequest", "Bad Request: BUTTON_QUANTITY_MAX_INVALID");
 			}),
 		);
 
@@ -1207,7 +1199,7 @@ liveTests("sendMessage", test => {
 					},
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "LoginUrlBotNotFound", 'Bad Request: bot "nonexistent_bot_xyz_12345" not found');
+				expectErrorTag(error, "BadRequest", 'Bad Request: bot "nonexistent_bot_xyz_12345" not found');
 			}),
 		);
 
@@ -1216,7 +1208,7 @@ liveTests("sendMessage", test => {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callSendMessage(botToken, { chat_id: -1, text: "test" }).pipe(Effect.flip);
 
-				expectErrorTag(error, "ChatNotFound", "Bad Request: chat not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: chat not found");
 			}),
 		);
 
@@ -1228,7 +1220,7 @@ liveTests("sendMessage", test => {
 					text: "   ",
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "TextMustBeNonEmpty", "Bad Request: text must be non-empty");
+				expectErrorTag(error, "BadRequest", "Bad Request: text must be non-empty");
 			}),
 		);
 
@@ -1250,7 +1242,7 @@ liveTests("sendMessage", test => {
 					},
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "BotDomainInvalid", "Bad Request: BOT_DOMAIN_INVALID");
+				expectErrorTag(error, "BadRequest", "Bad Request: BOT_DOMAIN_INVALID");
 			}),
 		);
 
@@ -1265,7 +1257,7 @@ liveTests("sendMessage", test => {
 
 				expectErrorTag(
 					error,
-					"CantParseEntitiesInvalidCustomEmoji",
+					"BadRequest",
 					"Bad Request: can't parse entities: Invalid custom emoji identifier specified",
 				);
 			}),
@@ -1282,7 +1274,7 @@ liveTests("sendMessage", test => {
 
 				expectErrorTag(
 					error,
-					"CustomEmojiIdMissing",
+					"BadRequest",
 					"Bad Request: can't parse MessageEntity: Can't find field \"custom_emoji_id\"",
 				);
 			}),
@@ -1310,7 +1302,7 @@ liveTests("sendMessage", test => {
 					entities: [{ type: "text_link", offset: 0, length: 4 }],
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "TextLinkUrlMissing", "Bad Request: can't parse MessageEntity: Can't find field \"url\"");
+				expectErrorTag(error, "BadRequest", "Bad Request: can't parse MessageEntity: Can't find field \"url\"");
 			}),
 		);
 
@@ -1323,11 +1315,7 @@ liveTests("sendMessage", test => {
 					entities: [{ type: "text_mention", offset: 0, length: 4 }],
 				}).pipe(Effect.flip);
 
-				expectErrorTag(
-					error,
-					"TextMentionUserMissing",
-					"Bad Request: can't parse MessageEntity: Can't find field \"user\"",
-				);
+				expectErrorTag(error, "BadRequest", "Bad Request: can't parse MessageEntity: Can't find field \"user\"");
 			}),
 		);
 
@@ -1379,7 +1367,7 @@ liveTests("sendMessage", test => {
 
 				expectErrorTag(
 					error,
-					"KeyboardWebAppUrlHttpNotAllowed",
+					"BadRequest",
 					"Bad Request: keyboard button Web App URL 'http://example.com' is invalid: Only HTTPS links are allowed",
 				);
 			}),
@@ -1502,7 +1490,7 @@ liveTests("sendMessage", test => {
 					},
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "LoginUrlBotNotFound", 'Bad Request: bot "telegram" not found');
+				expectErrorTag(error, "BadRequest", 'Bad Request: bot "telegram" not found');
 			}),
 		);
 
@@ -1517,7 +1505,7 @@ liveTests("sendMessage", test => {
 
 				expectErrorTag(
 					error,
-					"CantParseEntitiesNoBoldEnd",
+					"BadRequest",
 					"Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 15",
 				);
 			}),
@@ -1534,7 +1522,7 @@ liveTests("sendMessage", test => {
 
 				expectErrorTag(
 					error,
-					"CantParseEntitiesReservedCharParen",
+					"BadRequest",
 					"Bad Request: can't parse entities: Character '(' is reserved and must be escaped with the preceding '\\'",
 				);
 			}),
@@ -1551,7 +1539,7 @@ liveTests("sendMessage", test => {
 
 				expectErrorTag(
 					error,
-					"CantParseEntitiesReservedCharHash",
+					"BadRequest",
 					"Bad Request: can't parse entities: Character '#' is reserved and must be escaped with the preceding '\\'",
 				);
 			}),
@@ -1568,7 +1556,7 @@ liveTests("sendMessage", test => {
 
 				expectErrorTag(
 					error,
-					"CantParseEntitiesReservedCharPlus",
+					"BadRequest",
 					"Bad Request: can't parse entities: Character '+' is reserved and must be escaped with the preceding '\\'",
 				);
 			}),
@@ -1585,7 +1573,7 @@ liveTests("sendMessage", test => {
 
 				expectErrorTag(
 					error,
-					"CantParseEntitiesReservedCharEquals",
+					"BadRequest",
 					"Bad Request: can't parse entities: Character '=' is reserved and must be escaped with the preceding '\\'",
 				);
 			}),
@@ -1602,7 +1590,7 @@ liveTests("sendMessage", test => {
 
 				expectErrorTag(
 					error,
-					"CantParseEntitiesReservedCharBrace",
+					"BadRequest",
 					"Bad Request: can't parse entities: Character '{' is reserved and must be escaped with the preceding '\\'",
 				);
 			}),
@@ -1619,7 +1607,7 @@ liveTests("sendMessage", test => {
 
 				expectErrorTag(
 					error,
-					"CantParseEntitiesReservedCharGreater",
+					"BadRequest",
 					"Bad Request: can't parse entities: Character '>' is reserved and must be escaped with the preceding '\\'",
 				);
 			}),
@@ -1636,7 +1624,7 @@ liveTests("sendMessage", test => {
 
 				expectErrorTag(
 					error,
-					"CantParseEntitiesReservedCharPipe",
+					"BadRequest",
 					"Bad Request: can't parse entities: Character '|' is reserved and must be escaped with the preceding '\\'",
 				);
 			}),
@@ -1651,7 +1639,7 @@ liveTests("sendMessage", test => {
 					reply_markup: { inline_keyboard: [[{ text: "game", callback_game: {} }]] },
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "ButtonTypeInvalid", "Bad Request: BUTTON_TYPE_INVALID");
+				expectErrorTag(error, "BadRequest", "Bad Request: BUTTON_TYPE_INVALID");
 			}),
 		);
 
@@ -1664,7 +1652,7 @@ liveTests("sendMessage", test => {
 					reply_markup: { inline_keyboard: [[{ text: "copy", copy_text: { text: "x".repeat(257) } }]] },
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "ButtonCopyTextInvalid", "Bad Request: BUTTON_COPY_TEXT_INVALID");
+				expectErrorTag(error, "BadRequest", "Bad Request: BUTTON_COPY_TEXT_INVALID");
 			}),
 		);
 	});

@@ -1,4 +1,4 @@
 {
 	"method": "sendDice",
-	"errors": ["ChatIdEmpty", "ChatNotFound"]
+	"errors": ["BadRequest"]
 }

@@ -43,7 +43,7 @@ liveTests("setChatDescription", test => {
 					description: "probe",
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "CantChangePrivateChatDescription", "Bad Request: can't change private chat description");
+				expectErrorTag(error, "BadRequest", "Bad Request: can't change private chat description");
 			}),
 		);
 

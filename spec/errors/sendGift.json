@@ -1,4 +1,4 @@
 {
 	"method": "sendGift",
-	"errors": ["InvalidUserId", "StargiftInvalid"]
+	"errors": ["BadRequest"]
 }

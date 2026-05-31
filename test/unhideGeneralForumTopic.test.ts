@@ -19,11 +19,7 @@ liveTests("unhideGeneralForumTopic", test => {
 				const { limitedBotToken, groupId } = yield* telegramConfig;
 				const error = yield* callUnhideGeneralForumTopic(limitedBotToken, { chat_id: groupId }).pipe(Effect.flip);
 
-				expectErrorTag(
-					error,
-					"NotEnoughRightsToCloseOrOpenTopic",
-					"Bad Request: not enough rights to close or open the topic",
-				);
+				expectErrorTag(error, "BadRequest", "Bad Request: not enough rights to close or open the topic");
 			}),
 		);
 

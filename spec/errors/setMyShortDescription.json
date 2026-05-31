@@ -1,4 +1,4 @@
 {
 	"method": "setMyShortDescription",
-	"errors": ["BotShortDescriptionInvalid"]
+	"errors": ["BadRequest"]
 }

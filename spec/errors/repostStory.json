@@ -1,4 +1,4 @@
 {
 	"method": "repostStory",
-	"errors": ["FromChatIdRequired", "BusinessConnectionNotFound"]
+	"errors": ["BadRequest"]
 }

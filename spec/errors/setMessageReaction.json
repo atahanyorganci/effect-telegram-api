@@ -1,4 +1,4 @@
 {
 	"method": "setMessageReaction",
-	"errors": ["MessageToReactNotFound"]
+	"errors": ["BadRequest"]
 }

@@ -30,9 +30,9 @@ export const renderPayloadEncodeSchemaExpr = (method: Method): string => {
 	const struct = `Schema.Struct({\n${fields}\n})`;
 	const description = method.description.trim();
 	if (description.length === 0) {
-		return `${struct}.pipe(Schema.toCodecJson)`;
+		return struct;
 	}
-	return `${struct}.pipe(\n\tSchema.annotate({ description: ${JSON.stringify(description)} }),\n\tSchema.toCodecJson,\n)`;
+	return `${struct}.pipe(\n\tSchema.annotate({ description: ${JSON.stringify(description)} }),\n)`;
 };
 
 export const renderPayloadEncodingPipe = (parameters: readonly Parameter[], description: string): string => {

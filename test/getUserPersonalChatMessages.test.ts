@@ -22,7 +22,7 @@ liveTests("getUserPersonalChatMessages", test => {
 					limit: 0,
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "LimitMustBePositive", "Bad Request: limit must be positive");
+				expectErrorTag(error, "BadRequest", "Bad Request: limit must be positive");
 			}),
 		);
 

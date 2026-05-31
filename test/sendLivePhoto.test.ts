@@ -15,5 +15,5 @@ liveTests("sendLivePhoto", test => {
 		);
 	});
 
-	authErrorTests(test, token => callSendLivePhoto(token, { chat_id: 1, photo: "invalid" }));
+	authErrorTests(test, token => callSendLivePhoto(token, { chat_id: 1, live_photo: "invalid", photo: "invalid" }));
 });

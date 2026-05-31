@@ -2,964 +2,166 @@
 	"common": ["NotFound", "Unauthorized"],
 	"errors": [
 		{
-			"tag": "AcceptedGiftTypesNotSpecified",
-			"errorCode": 400,
-			"description": "Bad Request: accepted gift types aren't specified",
-			"when": "required parameters missing"
-		},
-		{
-			"tag": "AllowUserChatsMustBeBoolean",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse inline keyboard button: Field \"allow_user_chats\" must be of type Boolean",
-			"when": "switch_inline_query_chosen_chat.allow_user_chats is not a boolean"
-		},
-		{
-			"tag": "BotCommandInvalid",
-			"errorCode": 400,
-			"description": "Bad Request: BOT_COMMAND_INVALID",
-			"when": "command contains characters other than lowercase English letters, digits, and underscores"
-		},
-		{
-			"tag": "BotDomainInvalid",
-			"errorCode": 400,
-			"description": "Bad Request: BOT_DOMAIN_INVALID",
-			"when": "login_url is missing bot_username"
-		},
-		{
-			"tag": "BotTitleInvalid",
-			"errorCode": 400,
-			"description": "Bad Request: BOT_TITLE_INVALID",
-			"when": "name is missing or empty"
-		},
-		{
-			"tag": "BotVerifierForbidden",
-			"errorCode": 400,
-			"description": "Bad Request: BOT_VERIFIER_FORBIDDEN",
-			"when": "bot is not allowed to remove verification for the chat"
-		},
-		{
-			"tag": "BusinessConnectionNotFound",
-			"errorCode": 400,
-			"description": "Bad Request: business connection not found",
-			"when": "required parameters missing"
-		},
-		{
-			"tag": "ButtonCopyTextInvalid",
-			"errorCode": 400,
-			"description": "Bad Request: BUTTON_COPY_TEXT_INVALID",
-			"when": "copy_text button text is empty or too long"
-		},
-		{
-			"tag": "ButtonDataInvalid",
-			"errorCode": 400,
-			"description": "Bad Request: BUTTON_DATA_INVALID",
-			"when": "inline keyboard callback_data exceeds 64 bytes"
-		},
-		{
-			"tag": "ButtonQuantityMaxInvalid",
-			"errorCode": 400,
-			"description": "Bad Request: BUTTON_QUANTITY_MAX_INVALID",
-			"when": "request_users.max_quantity exceeds the allowed maximum"
-		},
-		{
-			"tag": "ButtonTypeInvalid",
-			"errorCode": 400,
-			"description": "Bad Request: BUTTON_TYPE_INVALID",
-			"when": "inline keyboard button type is invalid (e.g. pay without invoice or callback_game without game)"
-		},
-		{
-			"tag": "CallbackQueryIdInvalid",
-			"errorCode": 400,
-			"description": "Bad Request: query is too old and response timeout expired or query ID is invalid",
-			"when": "callback_query_id is missing or invalid"
-		},
-		{
-			"tag": "CantChangePrivateChatDescription",
-			"errorCode": 400,
-			"description": "Bad Request: can't change private chat description",
-			"when": "chat_id refers to a private chat with the bot"
-		},
-		{
-			"tag": "CantChangePrivateChatPermissions",
-			"errorCode": 400,
-			"description": "Bad Request: can't change private chat permissions",
-			"when": "chat_id refers to a private chat with the bot"
-		},
-		{
-			"tag": "CantChangePrivateChatPhoto",
-			"errorCode": 400,
-			"description": "Bad Request: can't change private chat photo",
-			"when": "chat_id refers to a private chat with the bot"
-		},
-		{
-			"tag": "CantChangePrivateChatTitle",
-			"errorCode": 400,
-			"description": "Bad Request: can't change private chat title",
-			"when": "chat_id refers to a private chat with the bot"
-		},
-		{
-			"tag": "CantFindFieldType",
-			"errorCode": 400,
-			"description": "Bad Request: can't find field \"type\"",
-			"when": "result object is missing the required type field"
-		},
-		{
-			"tag": "CantInviteMembersToPrivateChat",
-			"errorCode": 400,
-			"description": "Bad Request: can't invite members to a private chat",
-			"when": "chat_id refers to a private chat that does not support invite links"
-		},
-		{
-			"tag": "CantParseEntitiesInvalidCustomEmoji",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse entities: Invalid custom emoji identifier specified",
-			"when": "HTML tg-emoji tag references an invalid custom emoji id"
-		},
-		{
-			"tag": "CantParseEntitiesNoBoldEnd",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 0",
-			"when": "text with parse_mode MarkdownV2 contains an unclosed bold entity",
-			"variants": [
-				{
-					"description": "Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 15",
-					"when": "text with parse_mode MarkdownV2 has nested formatting with an unclosed bold entity"
-				}
-			]
-		},
-		{
-			"tag": "CantParseEntitiesNoEnd",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse entities: Can't find end of the entity starting at byte offset 0",
-			"when": "text with parse_mode Markdown contains an unclosed entity"
-		},
-		{
-			"tag": "CantParseEntitiesNoHtmlEndTag",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse entities: Can't find end tag corresponding to start tag \"b\"",
-			"when": "text with parse_mode HTML contains an unclosed tag"
-		},
-		{
-			"tag": "CantParseEntitiesReservedCharBrace",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse entities: Character '{' is reserved and must be escaped with the preceding '\\'",
-			"when": "text with parse_mode MarkdownV2 contains an unescaped opening brace"
-		},
-		{
-			"tag": "CantParseEntitiesReservedCharDash",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse entities: Character '-' is reserved and must be escaped with the preceding '\\'",
-			"when": "text with parse_mode MarkdownV2 contains an unescaped hyphen"
-		},
-		{
-			"tag": "CantParseEntitiesReservedCharDot",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse entities: Character '.' is reserved and must be escaped with the preceding '\\'",
-			"when": "text with parse_mode MarkdownV2 contains an unescaped period"
-		},
-		{
-			"tag": "CantParseEntitiesReservedCharEquals",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse entities: Character '=' is reserved and must be escaped with the preceding '\\'",
-			"when": "text with parse_mode MarkdownV2 contains an unescaped equals sign"
-		},
-		{
-			"tag": "CantParseEntitiesReservedCharExclamation",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse entities: Character '!' is reserved and must be escaped with the preceding '\\'",
-			"when": "text with parse_mode MarkdownV2 contains an unescaped exclamation mark"
-		},
-		{
-			"tag": "CantParseEntitiesReservedCharGreater",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse entities: Character '>' is reserved and must be escaped with the preceding '\\'",
-			"when": "text with parse_mode MarkdownV2 contains an unescaped greater-than sign"
-		},
-		{
-			"tag": "CantParseEntitiesReservedCharHash",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse entities: Character '#' is reserved and must be escaped with the preceding '\\'",
-			"when": "text with parse_mode MarkdownV2 contains an unescaped hash sign"
-		},
-		{
-			"tag": "CantParseEntitiesReservedCharParen",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse entities: Character '(' is reserved and must be escaped with the preceding '\\'",
-			"when": "text with parse_mode MarkdownV2 contains an unescaped opening parenthesis"
-		},
-		{
-			"tag": "CantParseEntitiesReservedCharPipe",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse entities: Character '|' is reserved and must be escaped with the preceding '\\'",
-			"when": "text with parse_mode MarkdownV2 contains an unescaped pipe character"
-		},
-		{
-			"tag": "CantParseEntitiesReservedCharPlus",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse entities: Character '+' is reserved and must be escaped with the preceding '\\'",
-			"when": "text with parse_mode MarkdownV2 contains an unescaped plus sign"
-		},
-		{
-			"tag": "CantParseEntitiesUnmatchedEndTag",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse entities: Unmatched end tag at byte offset 10, expected \"</i>\", found \"</b>\"",
-			"when": "text with parse_mode HTML has mismatched closing tags"
-		},
-		{
-			"tag": "CantParseEntitiesUnsupportedScriptTag",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse entities: Unsupported start tag \"script\" at byte offset 0",
-			"when": "text with parse_mode HTML contains a disallowed tag"
-		},
-		{
-			"tag": "CantParseEntitiesUnsupportedTag",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse entities: Unsupported start tag \"invalid\" at byte offset 0",
-			"when": "text with parse_mode HTML contains an unknown tag"
-		},
-		{
-			"tag": "CantParseOptionsJsonObject",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse options JSON object",
-			"when": "options parameter is missing"
-		},
-		{
-			"tag": "CantRemoveChatOwner",
-			"errorCode": 400,
-			"description": "Bad Request: can't remove chat owner",
-			"when": "promotion would demote the chat owner"
-		},
-		{
-			"tag": "CantSetSupergroupStickerSet",
-			"errorCode": 400,
-			"description": "Bad Request: not enough rights to change supergroup sticker set",
-			"when": "bot lacks permission to change the group sticker set",
-			"variants": [
-				{
-					"description": "Bad Request: can't set supergroup sticker set",
-					"when": "legacy Telegram wording for the same permission failure"
-				}
-			]
-		},
-		{
-			"tag": "ChatAdminRequired",
-			"errorCode": 400,
-			"description": "Bad Request: CHAT_ADMIN_REQUIRED",
-			"when": "bot is not an administrator with can_manage_topics"
-		},
-		{
-			"tag": "ChatCreatorRequired",
-			"errorCode": 400,
-			"description": "Bad Request: CHAT_CREATOR_REQUIRED",
-			"when": "only the chat creator can set member tags"
-		},
-		{
-			"tag": "ChatIdEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: chat_id is empty",
-			"when": "required parameters missing"
-		},
-		{
-			"tag": "ChatIdentifierEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: chat identifier is empty",
-			"when": "validation fails"
-		},
-		{
-			"tag": "ChatIsForumMustBeBoolean",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse keyboard button: Field \"chat_is_forum\" must be of type Boolean",
-			"when": "request_chat.chat_is_forum is not a boolean"
-		},
-		{
-			"tag": "ChatMemberStatusCantBeChangedInPrivateChats",
-			"errorCode": 400,
-			"description": "Bad Request: chat member status can't be changed in private chats",
-			"when": "chat_id refers to a private chat with the bot"
-		},
-		{
-			"tag": "ChatNotFound",
-			"errorCode": 400,
-			"description": "Bad Request: chat not found",
-			"when": "chat_id does not refer to a chat the bot can access"
-		},
-		{
-			"tag": "ChatWriteForbidden",
-			"errorCode": 400,
-			"description": "Bad Request: CHAT_WRITE_FORBIDDEN",
-			"when": "bot lacks permission to delete the forum topic"
-		},
-		{
-			"tag": "ChecklistRequired",
-			"errorCode": 400,
-			"description": "Bad Request: parameter \"checklist\" is required",
-			"when": "checklist parameter is missing"
-		},
-		{
-			"tag": "CommandDescriptionMustBeNonEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: command description must be non-empty",
-			"when": "a command entry has an empty description"
-		},
-		{
-			"tag": "CommandMustBeNonEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: command must be non-empty",
-			"when": "a command entry has an empty command string"
-		},
-		{
-			"tag": "CustomEmojiIdMissing",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse MessageEntity: Can't find field \"custom_emoji_id\"",
-			"when": "custom_emoji entity is missing custom_emoji_id"
-		},
-		{
-			"tag": "CustomEmojiIdMustBeNumber",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse MessageEntity: Field \"custom_emoji_id\" must be a valid Number",
-			"when": "custom_emoji entity has a non-numeric custom_emoji_id"
-		},
-		{
-			"tag": "EffectIdInvalid",
-			"errorCode": 400,
-			"description": "Bad Request: EFFECT_ID_INVALID",
-			"when": "message_effect_id is not valid"
-		},
-		{
-			"tag": "EntityBeginsAfterTextEnd",
-			"errorCode": 400,
-			"description": "Bad Request: entity begins after the end of the text at UTF-16 offset 100",
-			"when": "entities offset is beyond the text length"
-		},
-		{
-			"tag": "EntityEndsAfterTextEnd",
-			"errorCode": 400,
-			"description": "Bad Request: entity beginning at UTF-16 offset 0 ends after the end of the text at UTF-16 offset 100",
-			"when": "entities offset plus length exceeds the text length"
-		},
-		{
-			"tag": "EntityIncorrectOffset",
-			"errorCode": 400,
-			"description": "Bad Request: receive an entity with incorrect offset -1",
-			"when": "entities offset is negative"
-		},
-		{
-			"tag": "EntityUrlEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: entity URL '' is invalid: URL host is empty",
-			"when": "text_link entity url is empty"
-		},
-		{
-			"tag": "EntityUrlInvalid",
-			"errorCode": 400,
-			"description": "Bad Request: entity URL 'not-a-url' is invalid: Wrong HTTP URL",
-			"when": "text_link entity url is not a valid HTTP URL"
-		},
-		{
-			"tag": "FileIdNotSpecified",
-			"errorCode": 400,
-			"description": "Bad Request: file_id not specified",
-			"when": "file_id parameter is missing or empty"
-		},
-		{
-			"tag": "FirstNameRequired",
-			"errorCode": 400,
-			"description": "Bad Request: parameter \"first_name\" is required",
-			"when": "first_name parameter is missing"
-		},
-		{
-			"tag": "FloodskipNotAllowed",
-			"errorCode": 400,
-			"description": "Bad Request: FLOODSKIP_NOT_ALLOWED",
-			"when": "allow_paid_broadcast is true but the bot has insufficient Telegram Stars"
-		},
-		{
-			"tag": "ForceReplyMustBeBoolean",
-			"errorCode": 400,
-			"description": "Bad Request: field \"force_reply\" must be of type Boolean",
-			"when": "force_reply is not a boolean"
-		},
-		{
-			"tag": "FromChatIdRequired",
-			"errorCode": 400,
-			"description": "Bad Request: parameter \"from_chat_id\" is required",
-			"when": "from_chat_id parameter is missing"
-		},
-		{
-			"tag": "InlineButtonTextMissing",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse inline keyboard button: Can't find field \"text\"",
-			"when": "inline keyboard button is missing text"
-		},
-		{
-			"tag": "InlineButtonTextUnallowed",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse inline keyboard button: Text buttons are unallowed in the inline keyboard",
-			"when": "inline keyboard button has empty callback_data and no url"
-		},
-		{
-			"tag": "InlineButtonUrlFtpUnsupported",
-			"errorCode": 400,
-			"description": "Bad Request: inline keyboard button URL 'ftp://example.com' is invalid: Unsupported URL protocol",
-			"when": "inline keyboard button url uses an unsupported protocol"
-		},
-		{
-			"tag": "InlineButtonUrlInvalid",
-			"errorCode": 400,
-			"description": "Bad Request: inline keyboard button URL 'not-a-url' is invalid: Wrong HTTP URL",
-			"when": "inline keyboard button url is not a valid HTTP URL"
-		},
-		{
-			"tag": "InlineKeyboardMustBeArray",
-			"errorCode": 400,
-			"description": "Bad Request: field \"inline_keyboard\" must be of type Array",
-			"when": "inline_keyboard is not an array"
-		},
-		{
-			"tag": "InvalidChatId",
-			"errorCode": 400,
-			"description": "Bad Request: invalid chat_id specified",
-			"when": "chat_id is not a valid private chat id"
-		},
-		{
-			"tag": "InvalidChatIdentifier",
-			"errorCode": 400,
-			"description": "Bad Request: invalid chat identifier specified",
-			"when": "validation fails"
-		},
-		{
-			"tag": "InvalidFileId",
-			"errorCode": 400,
-			"description": "Bad Request: invalid file_id",
-			"when": "file_id is not valid"
-		},
-		{
-			"tag": "InvalidStarsAmount",
-			"errorCode": 400,
-			"description": "Bad Request: invalid amount of Telegram Stars specified",
-			"when": "suggested_post_parameters price amount is invalid"
-		},
-		{
-			"tag": "InvalidUserId",
-			"errorCode": 400,
-			"description": "Bad Request: invalid user_id specified",
-			"when": "required parameters missing"
-		},
-		{
-			"tag": "InviteHashExpired",
-			"errorCode": 400,
-			"description": "Bad Request: INVITE_HASH_EXPIRED",
-			"when": "invite_link is invalid or already revoked"
-		},
-		{
-			"tag": "IsPersistentMustBeBoolean",
-			"errorCode": 400,
-			"description": "Bad Request: field \"is_persistent\" must be of type Boolean",
-			"when": "reply keyboard is_persistent is not a boolean"
-		},
-		{
-			"tag": "KeyboardMustBeArray",
-			"errorCode": 400,
-			"description": "Bad Request: field \"keyboard\" must be of type Array",
-			"when": "reply keyboard keyboard is not an array"
-		},
-		{
-			"tag": "KeyboardRequestIdMissing",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse keyboard button: Can't find field \"request_id\"",
-			"when": "request_chat or request_users keyboard button is missing request_id"
-		},
-		{
-			"tag": "KeyboardWebAppUrlHttpNotAllowed",
-			"errorCode": 400,
-			"description": "Bad Request: keyboard button Web App URL 'http://example.com' is invalid: Only HTTPS links are allowed",
-			"when": "reply keyboard web_app button url is HTTP instead of HTTPS"
-		},
-		{
-			"tag": "LatitudeEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: latitude is empty",
-			"when": "latitude parameter is missing"
-		},
-		{
-			"tag": "LimitMustBePositive",
-			"errorCode": 400,
-			"description": "Bad Request: limit must be positive",
-			"when": "limit is zero or negative"
-		},
-		{
-			"tag": "LinkPreviewIsDisabledMustBeBoolean",
-			"errorCode": 400,
-			"description": "Bad Request: field \"is_disabled\" must be of type Boolean",
-			"when": "link_preview_options.is_disabled is not a boolean"
-		},
-		{
-			"tag": "LoginUrlBotNotFound",
-			"errorCode": 400,
-			"description": "Bad Request: bot \"nonexistent_bot_xyz_12345\" not found",
-			"when": "login_url bot_username does not refer to an existing bot",
-			"variants": [
-				{
-					"description": "Bad Request: bot \"telegram\" not found",
-					"when": "login_url bot_username refers to a username that is not a bot"
-				}
-			]
-		},
-		{
-			"tag": "LongitudeEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: longitude is empty",
-			"when": "longitude parameter is missing"
-		},
-		{
-			"tag": "MediaRequired",
-			"errorCode": 400,
-			"description": "Bad Request: parameter \"media\" is required",
-			"when": "media parameter is missing"
-		},
-		{
-			"tag": "MemberNotFound",
-			"errorCode": 400,
-			"description": "Bad Request: member not found",
-			"when": "user_id is not a member of the chat"
-		},
-		{
-			"tag": "MenuButtonUnsupportedType",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse menu button: MenuButton has unsupported type",
-			"when": "menu_button.type is not a supported MenuButton variant"
-		},
-		{
-			"tag": "MessageCaptionTooLong",
-			"errorCode": 400,
-			"description": "Bad Request: message caption is too long",
-			"when": "caption exceeds 1024 characters"
-		},
-		{
-			"tag": "MessageIdentifiersAreNotSpecified",
-			"errorCode": 400,
-			"description": "Bad Request: message identifiers are not specified",
-			"when": "required parameters missing"
-		},
-		{
-			"tag": "MessageTextEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: message text is empty",
-			"when": "text is missing or empty"
-		},
-		{
-			"tag": "MessageThreadNotFound",
-			"errorCode": 400,
-			"description": "Bad Request: message thread not found",
-			"when": "message_thread_id does not refer to an existing forum topic"
-		},
-		{
-			"tag": "MessageToCopyNotFound",
-			"errorCode": 400,
-			"description": "Bad Request: message to copy not found",
-			"when": "message_id is missing or does not refer to an existing message"
-		},
-		{
-			"tag": "MessageToDeleteNotFound",
-			"errorCode": 400,
-			"description": "Bad Request: message to delete not found",
-			"when": "message_id does not refer to an existing message"
-		},
-		{
-			"tag": "MessageToDeleteReactionsNotFound",
-			"errorCode": 400,
-			"description": "Bad Request: message to delete reactions not found",
-			"when": "message_id does not refer to an existing message"
-		},
-		{
-			"tag": "MessageToEditNotFound",
-			"errorCode": 400,
-			"description": "Bad Request: message to edit not found",
-			"when": "message_id or inline_message_id does not refer to an existing message"
-		},
-		{
-			"tag": "MessageToForwardNotFound",
-			"errorCode": 400,
-			"description": "Bad Request: message to forward not found",
-			"when": "message_id is missing or does not refer to an existing message"
-		},
-		{
-			"tag": "MessageTooLong",
-			"errorCode": 400,
-			"description": "Bad Request: message is too long",
-			"when": "text exceeds 4096 characters"
-		},
-		{
-			"tag": "MessageToPinNotFound",
-			"errorCode": 400,
-			"description": "Bad Request: message to pin not found",
-			"when": "message_id is missing or does not refer to an existing message"
-		},
-		{
-			"tag": "MessageToReactNotFound",
-			"errorCode": 400,
-			"description": "Bad Request: message to react not found",
-			"when": "message_id is missing or does not refer to an existing message"
-		},
-		{
-			"tag": "MessageToReplyNotFound",
-			"errorCode": 400,
-			"description": "Bad Request: message to be replied not found",
-			"when": "reply_parameters.message_id does not exist in the target chat"
-		},
-		{
-			"tag": "MessageToUnpinNotFound",
-			"errorCode": 400,
-			"description": "Bad Request: message to unpin not found",
-			"when": "message_id is missing or does not refer to a pinned message"
-		},
-		{
-			"tag": "MessageWithPollToStopNotFound",
-			"errorCode": 400,
-			"description": "Bad Request: message with poll to stop not found",
-			"when": "message_id does not refer to an existing poll message"
-		},
-		{
-			"tag": "NoAnimationInRequest",
-			"errorCode": 400,
-			"description": "Bad Request: there is no animation in the request",
-			"when": "animation parameter is missing"
-		},
-		{
-			"tag": "NoAudioInRequest",
-			"errorCode": 400,
-			"description": "Bad Request: there is no audio in the request",
-			"when": "audio parameter is missing"
-		},
-		{
-			"tag": "NoDocumentInRequest",
-			"errorCode": 400,
-			"description": "Bad Request: there is no document in the request",
-			"when": "document parameter is missing"
-		},
-		{
-			"tag": "NoLivePhotoInRequest",
-			"errorCode": 400,
-			"description": "Bad Request: there is no live photo in the request",
-			"when": "live photo parameter is missing"
-		},
-		{
-			"tag": "NoMessagesToForward",
-			"errorCode": 400,
-			"description": "Bad Request: there are no messages to forward",
-			"when": "message_ids is missing or does not refer to existing messages"
-		},
-		{
-			"tag": "NoPhotoInRequest",
-			"errorCode": 400,
-			"description": "Bad Request: there is no photo in the request",
-			"when": "photo parameter is missing"
-		},
-		{
-			"tag": "NotEnoughRightsToCloseOrOpenTopic",
-			"errorCode": 400,
-			"description": "Bad Request: not enough rights to close or open the topic",
-			"when": "bot lacks can_manage_topics for the configured forum topic"
-		},
-		{
-			"tag": "NotEnoughRightsToCreateTopic",
-			"errorCode": 400,
-			"description": "Bad Request: not enough rights to create a topic",
-			"when": "bot lacks can_manage_topics in the test supergroup"
-		},
-		{
-			"tag": "NotEnoughRightsToEditTopic",
-			"errorCode": 400,
-			"description": "Bad Request: not enough rights to edit the topic",
-			"when": "bot lacks can_manage_topics for the forum topic"
-		},
-		{
-			"tag": "NotFound",
-			"errorCode": 404,
-			"description": "Not Found",
-			"when": "Token segment is empty or not in bot id:hash form"
-		},
-		{
-			"tag": "NoVideoInRequest",
-			"errorCode": 400,
-			"description": "Bad Request: there is no video in the request",
-			"when": "video parameter is missing"
-		},
-		{
-			"tag": "NoVideoNoteInRequest",
-			"errorCode": 400,
-			"description": "Bad Request: there is no video note in the request",
-			"when": "video_note parameter is missing"
-		},
-		{
-			"tag": "NoVoiceInRequest",
-			"errorCode": 400,
-			"description": "Bad Request: there is no voice in the request",
-			"when": "voice parameter is missing"
-		},
-		{
-			"tag": "OneTimeKeyboardMustBeBoolean",
-			"errorCode": 400,
-			"description": "Bad Request: field \"one_time_keyboard\" must be of type Boolean",
-			"when": "reply keyboard one_time_keyboard is not a boolean"
-		},
-		{
-			"tag": "ParticipantIdInvalid",
-			"errorCode": 400,
-			"description": "Bad Request: PARTICIPANT_ID_INVALID",
-			"when": "user_id does not refer to a chat participant"
-		},
-		{
-			"tag": "PeerIdInvalid",
-			"errorCode": 400,
-			"description": "Bad Request: PEER_ID_INVALID",
-			"when": "chat_id does not refer to a channel or supergroup that supports boosts"
-		},
-		{
-			"tag": "PhoneNumberRequired",
-			"errorCode": 400,
-			"description": "Bad Request: parameter \"phone_number\" is required",
-			"when": "phone_number parameter is missing"
-		},
-		{
-			"tag": "PhotoNotSpecified",
-			"errorCode": 400,
-			"description": "Bad Request: photo isn't specified",
-			"when": "required parameters missing"
-		},
-		{
-			"tag": "PollMustHaveAtLeastOneAnswerOption",
-			"errorCode": 400,
-			"description": "Bad Request: poll must have at least one answer option",
-			"when": "options array is empty"
-		},
-		{
-			"tag": "PreferLargeMediaMustBeBoolean",
-			"errorCode": 400,
-			"description": "Bad Request: field \"prefer_large_media\" must be of type Boolean",
-			"when": "link_preview_options.prefer_large_media is not a boolean"
-		},
-		{
-			"tag": "PreferSmallMediaMustBeBoolean",
-			"errorCode": 400,
-			"description": "Bad Request: field \"prefer_small_media\" must be of type Boolean",
-			"when": "link_preview_options.prefer_small_media is not a boolean"
-		},
-		{
-			"tag": "PricingChatInvalid",
-			"errorCode": 400,
-			"description": "Bad Request: PRICING_CHAT_INVALID",
-			"when": "chat does not support paid subscription invite links"
-		},
-		{
-			"tag": "RandomIdInvalid",
-			"errorCode": 400,
-			"description": "Bad Request: RANDOM_ID_INVALID",
-			"when": "draft_id is missing or invalid"
-		},
-		{
-			"tag": "RemoveKeyboardMustBeBoolean",
-			"errorCode": 400,
-			"description": "Bad Request: field \"remove_keyboard\" must be of type Boolean",
-			"when": "remove_keyboard is not a boolean"
-		},
-		{
-			"tag": "ReplyMessageIdMissing",
-			"errorCode": 400,
-			"description": "Bad Request: can't find field \"message_id\"",
-			"when": "reply_parameters is set without message_id"
-		},
-		{
-			"tag": "RequestWriteAccessMustBeBoolean",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse inline keyboard button: Field \"request_write_access\" must be of type Boolean",
-			"when": "login_url.request_write_access is not a boolean"
-		},
-		{
-			"tag": "ResizeKeyboardMustBeBoolean",
-			"errorCode": 400,
-			"description": "Bad Request: field \"resize_keyboard\" must be of type Boolean",
-			"when": "reply keyboard resize_keyboard is not a boolean"
-		},
-		{
-			"tag": "ResultNotSpecified",
-			"errorCode": 400,
-			"description": "Bad Request: result isn't specified",
-			"when": "required parameters missing"
-		},
-		{
-			"tag": "SelectiveMustBeBoolean",
-			"errorCode": 400,
-			"description": "Bad Request: field \"selective\" must be of type Boolean",
-			"when": "reply markup selective is not a boolean"
-		},
-		{
-			"tag": "SenderChatIdEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: sender_chat_id is empty",
-			"when": "sender_chat_id is missing"
-		},
-		{
-			"tag": "ShowAboveTextMustBeBoolean",
-			"errorCode": 400,
-			"description": "Bad Request: field \"show_above_text\" must be of type Boolean",
-			"when": "link_preview_options.show_above_text is not a boolean"
-		},
-		{
-			"tag": "StargiftInvalid",
-			"errorCode": 400,
-			"description": "Bad Request: STARGIFT_INVALID",
-			"when": "gift_id is missing or invalid"
-		},
-		{
-			"tag": "StickerSetNameEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: sticker_set_name is empty",
-			"when": "sticker_set_name is missing or empty"
-		},
-		{
-			"tag": "StickerSetNotFound",
-			"errorCode": 400,
-			"description": "Bad Request: sticker set not found",
-			"when": "sticker_set_name does not refer to an existing set"
-		},
-		{
-			"tag": "StoryContentNotSpecified",
-			"errorCode": 400,
-			"description": "Bad Request: story content isn't specified",
-			"when": "required parameters missing"
-		},
-		{
-			"tag": "SuggestedPostChannelOnly",
-			"errorCode": 400,
-			"description": "Bad Request: suggested posts can be sent only to channel direct messages",
-			"when": "suggested_post_parameters is used outside a channel direct messages chat"
-		},
-		{
-			"tag": "SuggestedPostNotFound",
-			"errorCode": 400,
-			"description": "Bad Request: suggested post not found",
-			"when": "message_id does not refer to an existing suggested post"
-		},
-		{
-			"tag": "TextLinkUrlMissing",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse MessageEntity: Can't find field \"url\"",
-			"when": "text_link entity is missing url"
-		},
-		{
-			"tag": "TextMentionUserMissing",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse MessageEntity: Can't find field \"user\"",
-			"when": "text_mention entity is missing user"
-		},
-		{
-			"tag": "TextMustBeNonEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: text must be non-empty",
-			"when": "text contains only whitespace or parses to empty content"
-		},
-		{
-			"tag": "TitleEmpty",
-			"errorCode": 400,
-			"description": "Bad Request: title must be non-empty",
-			"when": "title is missing or empty"
+			"tag": "BadRequest",
+			"errorCode": 400
 		},
 		{
 			"tag": "Unauthorized",
 			"errorCode": 401,
-			"description": "Unauthorized: invalid token specified",
 			"when": "Token has bot id:hash form but the secret is invalid"
 		},
 		{
-			"tag": "UnsupportedMessageEntityType",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse MessageEntity: Unsupported type specified",
-			"when": "entities contains an unsupported type value"
+			"tag": "PaymentRequired",
+			"errorCode": 402
 		},
 		{
-			"tag": "UnsupportedParseMode",
-			"errorCode": 400,
-			"description": "Bad Request: unsupported parse_mode",
-			"when": "parse_mode is not HTML, Markdown, or MarkdownV2"
+			"tag": "Forbidden",
+			"errorCode": 403
 		},
 		{
-			"tag": "UserIdInvalid",
-			"errorCode": 400,
-			"description": "Bad Request: USER_ID_INVALID",
-			"when": "user_id does not refer to a pending join request"
+			"tag": "NotFound",
+			"errorCode": 404,
+			"when": "Token segment is empty or not in bot id:hash form"
 		},
 		{
-			"tag": "UserNotFound",
-			"errorCode": 400,
-			"description": "Bad Request: user not found",
-			"when": "user_id does not refer to an existing user"
+			"tag": "MethodNotAllowed",
+			"errorCode": 405
 		},
 		{
-			"tag": "WebAppUrlHttpNotAllowed",
-			"errorCode": 400,
-			"description": "Bad Request: inline keyboard button Web App URL 'http://example.com' is invalid: Only HTTPS links are allowed",
-			"when": "web_app button url is HTTP instead of HTTPS"
+			"tag": "NotAcceptable",
+			"errorCode": 406
 		},
 		{
-			"tag": "WebAppUrlNotHttps",
-			"errorCode": 400,
-			"description": "Bad Request: inline keyboard button Web App URL 'bad' is invalid: Only HTTPS links are allowed",
-			"when": "web_app button url is not a valid HTTPS URL"
+			"tag": "ProxyAuthenticationRequired",
+			"errorCode": 407
 		},
 		{
-			"tag": "WebpageUrlInvalid",
-			"errorCode": 400,
-			"description": "Bad Request: WEBPAGE_URL_INVALID",
-			"when": "link_preview_options.url is not a valid URL"
+			"tag": "RequestTimeout",
+			"errorCode": 408
 		},
 		{
-			"tag": "WrongParameterAction",
-			"errorCode": 400,
-			"description": "Bad Request: wrong parameter action in request",
-			"when": "action is missing or not a supported chat action type"
+			"tag": "Conflict",
+			"errorCode": 409
 		},
 		{
-			"tag": "WrongRemoteFileIdentifierWrongPadding",
-			"errorCode": 400,
-			"description": "Bad Request: wrong remote file identifier specified: Wrong padding in the string",
-			"when": "video file_id is malformed"
+			"tag": "Gone",
+			"errorCode": 410
 		},
 		{
-			"tag": "BotDescriptionInvalid",
-			"errorCode": 400,
-			"description": "Bad Request: BOT_DESC_INVALID",
-			"when": "description exceeds the 512 character limit"
+			"tag": "LengthRequired",
+			"errorCode": 411
 		},
 		{
-			"tag": "BotShortDescriptionInvalid",
-			"errorCode": 400,
-			"description": "Bad Request: BOT_SHARETEXT_INVALID",
-			"when": "short_description exceeds the 120 character limit"
+			"tag": "PreconditionFailed",
+			"errorCode": 412
 		},
 		{
-			"tag": "BotCommandScopeChatIdMissing",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse BotCommandScope: Can't find field \"chat_id\"",
-			"when": "BotCommandScope that requires chat_id omits it"
+			"tag": "PayloadTooLarge",
+			"errorCode": 413
 		},
 		{
-			"tag": "BotCommandScopeUserIdMissing",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse BotCommandScope: Can't find field \"user_id\"",
-			"when": "BotCommandScope that requires user_id omits it"
+			"tag": "UriTooLong",
+			"errorCode": 414
 		},
 		{
-			"tag": "BotCommandScopeUnsupportedType",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse BotCommandScope: Unsupported type specified",
-			"when": "BotCommandScope type is unsupported"
+			"tag": "UnsupportedMediaType",
+			"errorCode": 415
 		},
 		{
-			"tag": "ChatAdministratorRightsCanDeleteMessagesMustBeBoolean",
-			"errorCode": 400,
-			"description": "Bad Request: can't parse ChatAdministratorRights: Field \"can_delete_messages\" must be of type Boolean",
-			"when": "rights.can_delete_messages is not a boolean"
+			"tag": "RangeNotSatisfiable",
+			"errorCode": 416
+		},
+		{
+			"tag": "ExpectationFailed",
+			"errorCode": 417
+		},
+		{
+			"tag": "ImATeapot",
+			"errorCode": 418
+		},
+		{
+			"tag": "MisdirectedRequest",
+			"errorCode": 421
+		},
+		{
+			"tag": "UnprocessableContent",
+			"errorCode": 422
+		},
+		{
+			"tag": "Locked",
+			"errorCode": 423
+		},
+		{
+			"tag": "FailedDependency",
+			"errorCode": 424
+		},
+		{
+			"tag": "TooEarly",
+			"errorCode": 425
+		},
+		{
+			"tag": "UpgradeRequired",
+			"errorCode": 426
+		},
+		{
+			"tag": "PreconditionRequired",
+			"errorCode": 428
+		},
+		{
+			"tag": "TooManyRequests",
+			"errorCode": 429
+		},
+		{
+			"tag": "RequestHeaderFieldsTooLarge",
+			"errorCode": 431
+		},
+		{
+			"tag": "UnavailableForLegalReasons",
+			"errorCode": 451
+		},
+		{
+			"tag": "InternalServerError",
+			"errorCode": 500
+		},
+		{
+			"tag": "NotImplemented",
+			"errorCode": 501
+		},
+		{
+			"tag": "BadGateway",
+			"errorCode": 502
+		},
+		{
+			"tag": "ServiceUnavailable",
+			"errorCode": 503
+		},
+		{
+			"tag": "GatewayTimeout",
+			"errorCode": 504
+		},
+		{
+			"tag": "HttpVersionNotSupported",
+			"errorCode": 505
+		},
+		{
+			"tag": "VariantAlsoNegotiates",
+			"errorCode": 506
+		},
+		{
+			"tag": "InsufficientStorage",
+			"errorCode": 507
+		},
+		{
+			"tag": "LoopDetected",
+			"errorCode": 508
+		},
+		{
+			"tag": "NotExtended",
+			"errorCode": 510
+		},
+		{
+			"tag": "NetworkAuthenticationRequired",
+			"errorCode": 511
 		}
 	]
 }

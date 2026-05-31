@@ -1,4 +1,4 @@
 {
 	"method": "getBusinessAccountStarBalance",
-	"errors": ["BusinessConnectionNotFound"]
+	"errors": ["BadRequest"]
 }

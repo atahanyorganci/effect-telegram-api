@@ -1,4 +1,4 @@
 {
 	"method": "setUserEmojiStatus",
-	"errors": ["InvalidUserId", "UserNotFound"]
+	"errors": ["BadRequest"]
 }

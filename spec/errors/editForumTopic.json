@@ -1,4 +1,4 @@
 {
 	"method": "editForumTopic",
-	"errors": ["ChatIdEmpty", "ChatAdminRequired", "NotEnoughRightsToEditTopic"]
+	"errors": ["BadRequest"]
 }

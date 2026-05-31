@@ -1,5 +1,5 @@
 import { docUrlFromSlug } from "../document.ts";
-import { methodErrorTags } from "./render-errors.ts";
+import { methodStatusTags } from "./render-errors.ts";
 import { collectRefs, renderJsDoc, renderTsType } from "./render-type-expr.ts";
 import type { Method, Parameter } from "../parse/model.ts";
 import type { MethodErrorsDoc } from "./model-errors.ts";
@@ -23,7 +23,7 @@ const renderPayloadType = (parameters: readonly Parameter[], knownNames: Readonl
 };
 
 const renderErrorUnion = (method: string, methodErrors: ReadonlyMap<string, MethodErrorsDoc>): string => {
-	const tags = methodErrorTags(method, methodErrors);
+	const tags = methodStatusTags(method, methodErrors);
 	const members = [
 		...tags.map(tag => `Errors.${tag}`),
 		"Errors.TelegramApiError",

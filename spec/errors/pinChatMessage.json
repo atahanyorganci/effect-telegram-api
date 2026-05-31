@@ -1,4 +1,4 @@
 {
 	"method": "pinChatMessage",
-	"errors": ["ChatNotFound", "MessageToPinNotFound"]
+	"errors": ["BadRequest"]
 }

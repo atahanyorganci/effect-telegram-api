@@ -1,4 +1,4 @@
 {
 	"method": "sendChecklist",
-	"errors": ["ChecklistRequired"]
+	"errors": ["BadRequest"]
 }

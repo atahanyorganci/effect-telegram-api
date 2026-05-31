@@ -25,7 +25,7 @@ liveTests("banChatMember", test => {
 				const { botToken, groupId } = yield* telegramConfig;
 				const error = yield* callBanChatMember(botToken, { chat_id: groupId, user_id: 1 }).pipe(Effect.flip);
 
-				expectErrorTag(error, "ParticipantIdInvalid", "Bad Request: PARTICIPANT_ID_INVALID");
+				expectErrorTag(error, "BadRequest", "Bad Request: PARTICIPANT_ID_INVALID");
 			}),
 		);
 	});

@@ -23,7 +23,7 @@ liveTests("setMyName", test => {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callSetMyName(botToken, { name: "" }).pipe(Effect.flip);
 
-				expectErrorTag(error, "BotTitleInvalid", "Bad Request: BOT_TITLE_INVALID");
+				expectErrorTag(error, "BadRequest", "Bad Request: BOT_TITLE_INVALID");
 			}),
 		);
 
@@ -32,7 +32,7 @@ liveTests("setMyName", test => {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callSetMyName(botToken, {}).pipe(Effect.flip);
 
-				expectErrorTag(error, "BotTitleInvalid", "Bad Request: BOT_TITLE_INVALID");
+				expectErrorTag(error, "BadRequest", "Bad Request: BOT_TITLE_INVALID");
 			}),
 		);
 	});

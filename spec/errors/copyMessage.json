@@ -1,4 +1,4 @@
 {
 	"method": "copyMessage",
-	"errors": ["FromChatIdRequired", "MessageToCopyNotFound"]
+	"errors": ["BadRequest"]
 }

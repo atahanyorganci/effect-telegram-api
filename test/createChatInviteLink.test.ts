@@ -39,7 +39,7 @@ liveTests("createChatInviteLink", test => {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callCreateChatInviteLink(botToken, { chat_id: chatId }).pipe(Effect.flip);
 
-				expectErrorTag(error, "CantInviteMembersToPrivateChat", "Bad Request: can't invite members to a private chat");
+				expectErrorTag(error, "BadRequest", "Bad Request: can't invite members to a private chat");
 			}),
 		);
 
@@ -48,7 +48,7 @@ liveTests("createChatInviteLink", test => {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callCreateChatInviteLink(botToken, { chat_id: 0 }).pipe(Effect.flip);
 
-				expectErrorTag(error, "ChatNotFound", "Bad Request: chat not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: chat not found");
 			}),
 		);
 

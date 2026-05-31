@@ -23,7 +23,7 @@ liveTests("createChatSubscriptionInviteLink", test => {
 					subscription_price: 100,
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "CantInviteMembersToPrivateChat", "Bad Request: can't invite members to a private chat");
+				expectErrorTag(error, "BadRequest", "Bad Request: can't invite members to a private chat");
 			}),
 		);
 
@@ -36,7 +36,7 @@ liveTests("createChatSubscriptionInviteLink", test => {
 					subscription_price: 100,
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "PricingChatInvalid", "Bad Request: PRICING_CHAT_INVALID");
+				expectErrorTag(error, "BadRequest", "Bad Request: PRICING_CHAT_INVALID");
 			}),
 		);
 

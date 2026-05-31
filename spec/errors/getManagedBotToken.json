@@ -1,4 +1,4 @@
 {
 	"method": "getManagedBotToken",
-	"errors": ["InvalidUserId"]
+	"errors": ["BadRequest"]
 }

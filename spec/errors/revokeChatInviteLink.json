@@ -1,4 +1,4 @@
 {
 	"method": "revokeChatInviteLink",
-	"errors": ["ChatIdEmpty", "InviteHashExpired"]
+	"errors": ["BadRequest"]
 }

@@ -1,4 +1,4 @@
 {
 	"method": "savePreparedKeyboardButton",
-	"errors": ["InvalidUserId"]
+	"errors": ["BadRequest"]
 }

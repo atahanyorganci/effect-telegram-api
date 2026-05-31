@@ -1,4 +1,4 @@
 {
 	"method": "answerWebAppQuery",
-	"errors": ["ResultNotSpecified", "CallbackQueryIdInvalid"]
+	"errors": ["BadRequest"]
 }

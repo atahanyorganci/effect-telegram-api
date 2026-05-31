@@ -1,4 +1,4 @@
 {
 	"method": "editChatSubscriptionInviteLink",
-	"errors": ["ChatIdEmpty", "InviteHashExpired"]
+	"errors": ["BadRequest"]
 }

@@ -1,4 +1,4 @@
 {
 	"method": "sendVideoNote",
-	"errors": ["NoVideoNoteInRequest"]
+	"errors": ["BadRequest"]
 }

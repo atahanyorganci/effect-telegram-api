@@ -19,7 +19,7 @@ liveTests("removeUserVerification", test => {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callRemoveUserVerification(botToken, { user_id: 1 }).pipe(Effect.flip);
 
-				expectErrorTag(error, "PeerIdInvalid", "Bad Request: PEER_ID_INVALID");
+				expectErrorTag(error, "BadRequest", "Bad Request: PEER_ID_INVALID");
 			}),
 		);
 

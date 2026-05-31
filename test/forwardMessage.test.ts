@@ -63,7 +63,7 @@ liveTests("forwardMessage", test => {
 					message_id: 999_999_999,
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "MessageToForwardNotFound", "Bad Request: message to forward not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: message to forward not found");
 			}),
 		);
 
@@ -77,7 +77,7 @@ liveTests("forwardMessage", test => {
 					message_thread_id: 999_999_999,
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "MessageThreadNotFound", "Bad Request: message thread not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: message thread not found");
 			}),
 		);
 
@@ -90,7 +90,7 @@ liveTests("forwardMessage", test => {
 					message_id: 1,
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "ChatNotFound", "Bad Request: chat not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: chat not found");
 			}),
 		);
 	});

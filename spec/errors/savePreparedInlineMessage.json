@@ -1,4 +1,4 @@
 {
 	"method": "savePreparedInlineMessage",
-	"errors": ["InvalidUserId", "CantFindFieldType"]
+	"errors": ["BadRequest"]
 }

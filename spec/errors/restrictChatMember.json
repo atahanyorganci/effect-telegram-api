@@ -1,4 +1,4 @@
 {
 	"method": "restrictChatMember",
-	"errors": ["InvalidUserId", "ParticipantIdInvalid"]
+	"errors": ["BadRequest"]
 }

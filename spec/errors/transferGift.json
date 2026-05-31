@@ -1,4 +1,4 @@
 {
 	"method": "transferGift",
-	"errors": ["ChatIdentifierEmpty"]
+	"errors": ["BadRequest"]
 }

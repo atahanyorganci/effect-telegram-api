@@ -55,7 +55,7 @@ liveTests("setMessageReaction", test => {
 					reaction: [],
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "MessageToReactNotFound", "Bad Request: message to react not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: message to react not found");
 			}),
 		);
 	});

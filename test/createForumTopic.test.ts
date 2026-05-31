@@ -25,11 +25,7 @@ liveTests("createForumTopic", test => {
 					Effect.matchEffect({
 						onFailure: error =>
 							Effect.sync(() =>
-								expectErrorTag(
-									error,
-									"NotEnoughRightsToCreateTopic",
-									"Bad Request: not enough rights to create a topic",
-								),
+								expectErrorTag(error, "BadRequest", "Bad Request: not enough rights to create a topic"),
 							),
 						onSuccess: topic =>
 							Effect.gen(function* () {

@@ -43,7 +43,7 @@ liveTests("editMessageText", test => {
 					text: "telegram-api missing edit target",
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "MessageToEditNotFound", "Bad Request: message to edit not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: message to edit not found");
 			}),
 		);
 
@@ -56,7 +56,7 @@ liveTests("editMessageText", test => {
 					text: "telegram-api invalid chat",
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "ChatNotFound", "Bad Request: chat not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: chat not found");
 			}),
 		);
 	});

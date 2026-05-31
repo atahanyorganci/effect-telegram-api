@@ -22,7 +22,7 @@ liveTests("setChatStickerSet", test => {
 					sticker_set_name: "",
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "StickerSetNameEmpty", "Bad Request: sticker_set_name is empty");
+				expectErrorTag(error, "BadRequest", "Bad Request: sticker_set_name is empty");
 			}),
 		);
 
@@ -34,7 +34,7 @@ liveTests("setChatStickerSet", test => {
 					sticker_set_name: "InvalidSetName_xyz",
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "StickerSetNotFound", "Bad Request: sticker set not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: sticker set not found");
 			}),
 		);
 

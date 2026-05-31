@@ -1,4 +1,4 @@
 {
 	"method": "getUserGifts",
-	"errors": ["InvalidUserId", "UserNotFound"]
+	"errors": ["BadRequest"]
 }

@@ -23,7 +23,7 @@ liveTests("repostStory", test => {
 					active_period: 3600,
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "BusinessConnectionNotFound", "Bad Request: business connection not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: business connection not found");
 			}),
 		);
 

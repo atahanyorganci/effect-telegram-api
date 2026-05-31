@@ -50,7 +50,7 @@ liveTests("copyMessage", test => {
 					message_id: 999_999_999,
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "MessageToCopyNotFound", "Bad Request: message to copy not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: message to copy not found");
 			}),
 		);
 	});

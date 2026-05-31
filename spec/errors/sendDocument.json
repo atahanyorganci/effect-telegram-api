@@ -1,4 +1,4 @@
 {
 	"method": "sendDocument",
-	"errors": ["NoDocumentInRequest"]
+	"errors": ["BadRequest"]
 }

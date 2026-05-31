@@ -23,7 +23,7 @@ liveTests("setChatAdministratorCustomTitle", test => {
 					custom_title: "probe",
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "ParticipantIdInvalid", "Bad Request: PARTICIPANT_ID_INVALID");
+				expectErrorTag(error, "BadRequest", "Bad Request: PARTICIPANT_ID_INVALID");
 			}),
 		);
 

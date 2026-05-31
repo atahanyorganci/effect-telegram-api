@@ -1,4 +1,4 @@
 {
 	"method": "getUserProfileAudios",
-	"errors": ["InvalidUserId", "UserNotFound"]
+	"errors": ["BadRequest"]
 }

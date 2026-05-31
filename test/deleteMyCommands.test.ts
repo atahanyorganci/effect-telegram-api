@@ -23,11 +23,7 @@ liveTests("deleteMyCommands", test => {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callDeleteMyCommands(botToken, { scope: { type: "chat" } }).pipe(Effect.flip);
 
-				expectErrorTag(
-					error,
-					"BotCommandScopeChatIdMissing",
-					"Bad Request: can't parse BotCommandScope: Can't find field \"chat_id\"",
-				);
+				expectErrorTag(error, "BadRequest", "Bad Request: can't parse BotCommandScope: Can't find field \"chat_id\"");
 			}),
 		);
 	});

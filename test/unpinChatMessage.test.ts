@@ -12,7 +12,7 @@ liveTests("unpinChatMessage", test => {
 				const { botToken, groupId } = yield* telegramConfig;
 				const error = yield* callUnpinChatMessage(botToken, { chat_id: groupId }).pipe(Effect.flip);
 
-				expectErrorTag(error, "MessageToUnpinNotFound", "Bad Request: message to unpin not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: message to unpin not found");
 			}),
 		);
 
@@ -24,7 +24,7 @@ liveTests("unpinChatMessage", test => {
 					message_id: 999_999_999,
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "MessageToUnpinNotFound", "Bad Request: message to unpin not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: message to unpin not found");
 			}),
 		);
 	});

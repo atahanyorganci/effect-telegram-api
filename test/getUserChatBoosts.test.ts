@@ -37,7 +37,7 @@ liveTests("getUserChatBoosts", test => {
 					user_id: me.id,
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "PeerIdInvalid", "Bad Request: PEER_ID_INVALID");
+				expectErrorTag(error, "BadRequest", "Bad Request: PEER_ID_INVALID");
 			}),
 		);
 
@@ -46,7 +46,7 @@ liveTests("getUserChatBoosts", test => {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callGetUserChatBoosts(botToken, { chat_id: 0, user_id: 1 }).pipe(Effect.flip);
 
-				expectErrorTag(error, "ChatNotFound", "Bad Request: chat not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: chat not found");
 			}),
 		);
 

@@ -1,4 +1,4 @@
 {
 	"method": "createChatInviteLink",
-	"errors": ["CantInviteMembersToPrivateChat", "ChatIdEmpty", "ChatNotFound"]
+	"errors": ["BadRequest"]
 }

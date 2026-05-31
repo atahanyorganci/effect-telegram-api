@@ -27,7 +27,7 @@ liveTests("setMyCommands", test => {
 					commands: [{ command: "bad command", description: "Invalid" }],
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "BotCommandInvalid", "Bad Request: BOT_COMMAND_INVALID");
+				expectErrorTag(error, "BadRequest", "Bad Request: BOT_COMMAND_INVALID");
 			}),
 		);
 
@@ -38,7 +38,7 @@ liveTests("setMyCommands", test => {
 					commands: [{ command: "", description: "Missing command" }],
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "CommandMustBeNonEmpty", "Bad Request: command must be non-empty");
+				expectErrorTag(error, "BadRequest", "Bad Request: command must be non-empty");
 			}),
 		);
 
@@ -49,7 +49,7 @@ liveTests("setMyCommands", test => {
 					commands: [{ command: "start", description: "" }],
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "CommandDescriptionMustBeNonEmpty", "Bad Request: command description must be non-empty");
+				expectErrorTag(error, "BadRequest", "Bad Request: command description must be non-empty");
 			}),
 		);
 
@@ -61,11 +61,7 @@ liveTests("setMyCommands", test => {
 					scope: { type: "chat" },
 				}).pipe(Effect.flip);
 
-				expectErrorTag(
-					error,
-					"BotCommandScopeChatIdMissing",
-					"Bad Request: can't parse BotCommandScope: Can't find field \"chat_id\"",
-				);
+				expectErrorTag(error, "BadRequest", "Bad Request: can't parse BotCommandScope: Can't find field \"chat_id\"");
 			}),
 		);
 
@@ -79,11 +75,7 @@ liveTests("setMyCommands", test => {
 
 				// Union members without chat_id/user_id fields can match first; Telegram
 				// then parses type "chat_member" and reports the first missing field.
-				expectErrorTag(
-					error,
-					"BotCommandScopeChatIdMissing",
-					"Bad Request: can't parse BotCommandScope: Can't find field \"chat_id\"",
-				);
+				expectErrorTag(error, "BadRequest", "Bad Request: can't parse BotCommandScope: Can't find field \"chat_id\"");
 			}),
 		);
 
@@ -95,11 +87,7 @@ liveTests("setMyCommands", test => {
 					scope: { type: "invalid" },
 				}).pipe(Effect.flip);
 
-				expectErrorTag(
-					error,
-					"BotCommandScopeUnsupportedType",
-					"Bad Request: can't parse BotCommandScope: Unsupported type specified",
-				);
+				expectErrorTag(error, "BadRequest", "Bad Request: can't parse BotCommandScope: Unsupported type specified");
 			}),
 		);
 	});

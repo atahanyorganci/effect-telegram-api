@@ -62,11 +62,7 @@ liveTests("sendPoll", test => {
 					options: [],
 				}).pipe(Effect.flip);
 
-				expectErrorTag(
-					error,
-					"PollMustHaveAtLeastOneAnswerOption",
-					"Bad Request: poll must have at least one answer option",
-				);
+				expectErrorTag(error, "BadRequest", "Bad Request: poll must have at least one answer option");
 			}),
 		);
 
@@ -79,7 +75,7 @@ liveTests("sendPoll", test => {
 					options: [{ text: "A" }, { text: "B" }],
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "ChatNotFound", "Bad Request: chat not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: chat not found");
 			}),
 		);
 	});

@@ -1,4 +1,4 @@
 {
 	"method": "getBusinessAccountGifts",
-	"errors": ["BusinessConnectionNotFound"]
+	"errors": ["BadRequest"]
 }

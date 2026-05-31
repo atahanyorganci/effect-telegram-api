@@ -27,11 +27,7 @@ liveTests("setChatMenuButton", test => {
 					menu_button: { type: "invalid" },
 				}).pipe(Effect.flip);
 
-				expectErrorTag(
-					error,
-					"MenuButtonUnsupportedType",
-					"Bad Request: can't parse menu button: MenuButton has unsupported type",
-				);
+				expectErrorTag(error, "BadRequest", "Bad Request: can't parse menu button: MenuButton has unsupported type");
 			}),
 		);
 	});

@@ -22,7 +22,7 @@ liveTests("declineSuggestedPost", test => {
 					message_id: 999_999_999,
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "SuggestedPostNotFound", "Bad Request: suggested post not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: suggested post not found");
 			}),
 		);
 	});

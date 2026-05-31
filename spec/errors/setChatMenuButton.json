@@ -1,4 +1,4 @@
 {
 	"method": "setChatMenuButton",
-	"errors": ["MenuButtonUnsupportedType"]
+	"errors": ["BadRequest"]
 }

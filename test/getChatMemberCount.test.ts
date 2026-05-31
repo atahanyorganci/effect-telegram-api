@@ -41,7 +41,7 @@ liveTests("getChatMemberCount", test => {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callGetChatMemberCount(botToken, { chat_id: 0 }).pipe(Effect.flip);
 
-				expectErrorTag(error, "ChatNotFound", "Bad Request: chat not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: chat not found");
 			}),
 		);
 

@@ -18,7 +18,7 @@ liveTests("setChatTitle", test => {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callSetChatTitle(botToken, { chat_id: chatId, title: "probe" }).pipe(Effect.flip);
 
-				expectErrorTag(error, "CantChangePrivateChatTitle", "Bad Request: can't change private chat title");
+				expectErrorTag(error, "BadRequest", "Bad Request: can't change private chat title");
 			}),
 		);
 

@@ -1,4 +1,4 @@
 {
 	"method": "createChatSubscriptionInviteLink",
-	"errors": ["ChatIdEmpty", "CantInviteMembersToPrivateChat", "PricingChatInvalid"]
+	"errors": ["BadRequest"]
 }

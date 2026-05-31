@@ -36,7 +36,7 @@ liveTests("stopMessageLiveLocation", test => {
 					message_id: 999_999_999,
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "MessageToEditNotFound", "Bad Request: message to edit not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: message to edit not found");
 			}),
 		);
 	});

@@ -1,4 +1,4 @@
 {
 	"method": "editMessageMedia",
-	"errors": ["MessageToEditNotFound"]
+	"errors": ["BadRequest"]
 }

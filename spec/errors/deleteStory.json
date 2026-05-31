@@ -1,4 +1,4 @@
 {
 	"method": "deleteStory",
-	"errors": ["BusinessConnectionNotFound"]
+	"errors": ["BadRequest"]
 }

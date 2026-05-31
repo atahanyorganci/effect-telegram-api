@@ -1,4 +1,4 @@
 {
 	"method": "deleteForumTopic",
-	"errors": ["ChatIdEmpty", "ChatWriteForbidden"]
+	"errors": ["BadRequest"]
 }

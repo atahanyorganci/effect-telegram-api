@@ -1,4 +1,4 @@
 {
 	"method": "getChatMenuButton",
-	"errors": ["InvalidChatId"]
+	"errors": ["BadRequest"]
 }

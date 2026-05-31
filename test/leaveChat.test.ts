@@ -18,11 +18,7 @@ liveTests("leaveChat", test => {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callLeaveChat(botToken, { chat_id: chatId }).pipe(Effect.flip);
 
-				expectErrorTag(
-					error,
-					"ChatMemberStatusCantBeChangedInPrivateChats",
-					"Bad Request: chat member status can't be changed in private chats",
-				);
+				expectErrorTag(error, "BadRequest", "Bad Request: chat member status can't be changed in private chats");
 			}),
 		);
 

@@ -12,7 +12,7 @@ liveTests("removeChatVerification", test => {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callRemoveChatVerification(botToken, { chat_id: chatId }).pipe(Effect.flip);
 
-				expectErrorTag(error, "BotVerifierForbidden", "Bad Request: BOT_VERIFIER_FORBIDDEN");
+				expectErrorTag(error, "BadRequest", "Bad Request: BOT_VERIFIER_FORBIDDEN");
 			}),
 		);
 
@@ -21,7 +21,7 @@ liveTests("removeChatVerification", test => {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callRemoveChatVerification(botToken, { chat_id: 0 }).pipe(Effect.flip);
 
-				expectErrorTag(error, "InvalidChatIdentifier", "Bad Request: invalid chat identifier specified");
+				expectErrorTag(error, "BadRequest", "Bad Request: invalid chat identifier specified");
 			}),
 		);
 	});

@@ -1,4 +1,4 @@
 {
 	"method": "setBusinessAccountName",
-	"errors": ["FirstNameRequired"]
+	"errors": ["BadRequest"]
 }

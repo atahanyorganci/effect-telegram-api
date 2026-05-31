@@ -1,4 +1,4 @@
 {
 	"method": "setMyProfilePhoto",
-	"errors": ["PhotoNotSpecified"]
+	"errors": ["BadRequest"]
 }

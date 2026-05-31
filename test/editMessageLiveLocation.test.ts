@@ -40,7 +40,7 @@ liveTests("editMessageLiveLocation", test => {
 					longitude: 28.98,
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "MessageToEditNotFound", "Bad Request: message to edit not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: message to edit not found");
 			}),
 		);
 	});

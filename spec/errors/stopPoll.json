@@ -1,4 +1,4 @@
 {
 	"method": "stopPoll",
-	"errors": ["MessageWithPollToStopNotFound"]
+	"errors": ["BadRequest"]
 }

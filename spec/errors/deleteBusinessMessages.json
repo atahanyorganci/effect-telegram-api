@@ -1,4 +1,4 @@
 {
 	"method": "deleteBusinessMessages",
-	"errors": ["MessageIdentifiersAreNotSpecified"]
+	"errors": ["BadRequest"]
 }

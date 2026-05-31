@@ -1,4 +1,4 @@
 {
 	"method": "getFile",
-	"errors": ["FileIdNotSpecified", "InvalidFileId"]
+	"errors": ["BadRequest"]
 }

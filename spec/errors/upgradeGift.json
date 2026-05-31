@@ -1,4 +1,4 @@
 {
 	"method": "upgradeGift",
-	"errors": ["BusinessConnectionNotFound"]
+	"errors": ["BadRequest"]
 }

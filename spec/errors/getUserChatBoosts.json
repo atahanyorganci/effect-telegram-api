@@ -1,4 +1,4 @@
 {
 	"method": "getUserChatBoosts",
-	"errors": ["ChatIdEmpty", "ChatNotFound", "InvalidUserId", "PeerIdInvalid"]
+	"errors": ["BadRequest"]
 }

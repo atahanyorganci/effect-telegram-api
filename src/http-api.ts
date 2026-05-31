@@ -117,9 +117,10 @@ export const answerCallbackQuery = HttpApiEndpoint.post("answerCallbackQuery", "
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.CallbackQueryIdInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -154,9 +155,10 @@ export const answerGuestQuery = HttpApiEndpoint.post("answerGuestQuery", "/answe
 		result: Objects.SentGuestMessage,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
-		Errors.ResultNotSpecifiedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -375,10 +377,10 @@ export const answerWebAppQuery = HttpApiEndpoint.post("answerWebAppQuery", "/ans
 		result: Objects.SentWebAppMessage,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.CallbackQueryIdInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
-		Errors.ResultNotSpecifiedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -416,10 +418,10 @@ export const approveChatJoinRequest = HttpApiEndpoint.post("approveChatJoinReque
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.InvalidUserIdError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
-		Errors.UserIdInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -464,9 +466,10 @@ export const approveSuggestedPost = HttpApiEndpoint.post("approveSuggestedPost",
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
-		Errors.SuggestedPostNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -530,10 +533,10 @@ export const banChatMember = HttpApiEndpoint.post("banChatMember", "/banChatMemb
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.InvalidUserIdError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
-		Errors.ParticipantIdInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -573,10 +576,10 @@ export const banChatSenderChat = HttpApiEndpoint.post("banChatSenderChat", "/ban
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
-		Errors.ParticipantIdInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.SenderChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -602,6 +605,7 @@ export const close = HttpApiEndpoint.post("close", "/close", {
 	error: [
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -642,15 +646,10 @@ export const closeForumTopic = HttpApiEndpoint.post("closeForumTopic", "/closeFo
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatAdminRequiredError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.NotEnoughRightsToCloseOrOpenTopicError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -685,10 +684,10 @@ export const closeGeneralForumTopic = HttpApiEndpoint.post("closeGeneralForumTop
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatAdminRequiredError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -727,9 +726,10 @@ export const convertGiftToStars = HttpApiEndpoint.post("convertGiftToStars", "/c
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.BusinessConnectionNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -917,10 +917,10 @@ export const copyMessage = HttpApiEndpoint.post("copyMessage", "/copyMessage", {
 		result: Objects.MessageId,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.FromChatIdRequiredError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.MessageToCopyNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -1021,10 +1021,10 @@ export const copyMessages = HttpApiEndpoint.post("copyMessages", "/copyMessages"
 		result: Schema.Array(Objects.MessageId),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.FromChatIdRequiredError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.NoMessagesToForwardError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -1089,15 +1089,10 @@ export const createChatInviteLink = HttpApiEndpoint.post("createChatInviteLink",
 		result: Objects.ChatInviteLink,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.CantInviteMembersToPrivateChatError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ChatNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -1160,15 +1155,10 @@ export const createChatSubscriptionInviteLink = HttpApiEndpoint.post(
 			result: Objects.ChatInviteLink,
 		}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		error: [
-			Errors.CantInviteMembersToPrivateChatError.pipe(
-				Schema.toCodecJson,
-				HttpApiSchema.asJson(),
-				HttpApiSchema.status(400),
-			),
-			Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+			Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 			Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
-			Errors.PricingChatInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 			Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+			Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		],
 	},
 );
@@ -1230,14 +1220,10 @@ export const createForumTopic = HttpApiEndpoint.post("createForumTopic", "/creat
 		result: Objects.ForumTopic,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.NotEnoughRightsToCreateTopicError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -1566,10 +1552,10 @@ export const declineChatJoinRequest = HttpApiEndpoint.post("declineChatJoinReque
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.InvalidUserIdError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
-		Errors.UserIdInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -1608,9 +1594,10 @@ export const declineSuggestedPost = HttpApiEndpoint.post("declineSuggestedPost",
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
-		Errors.SuggestedPostNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -1666,9 +1653,10 @@ export const deleteAllMessageReactions = HttpApiEndpoint.post(
 			result: Schema.Literal(true),
 		}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		error: [
+			Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 			Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
-			Errors.ParticipantIdInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 			Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+			Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		],
 	},
 );
@@ -1715,13 +1703,10 @@ export const deleteBusinessMessages = HttpApiEndpoint.post("deleteBusinessMessag
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.MessageIdentifiersAreNotSpecifiedError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -1755,10 +1740,10 @@ export const deleteChatPhoto = HttpApiEndpoint.post("deleteChatPhoto", "/deleteC
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.CantChangePrivateChatPhotoError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -1795,15 +1780,10 @@ export const deleteChatStickerSet = HttpApiEndpoint.post("deleteChatStickerSet",
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.CantSetSupergroupStickerSetError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.CantSetSupergroupStickerSetError2.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -1845,10 +1825,10 @@ export const deleteForumTopic = HttpApiEndpoint.post("deleteForumTopic", "/delet
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ChatWriteForbiddenError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -1901,10 +1881,10 @@ export const deleteMessage = HttpApiEndpoint.post("deleteMessage", "/deleteMessa
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.MessageToDeleteNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -1961,13 +1941,10 @@ export const deleteMessageReaction = HttpApiEndpoint.post("deleteMessageReaction
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.MessageToDeleteReactionsNotFoundError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -2013,6 +1990,7 @@ export const deleteMessages = HttpApiEndpoint.post("deleteMessages", "/deleteMes
 	error: [
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -2058,23 +2036,10 @@ export const deleteMyCommands = HttpApiEndpoint.post("deleteMyCommands", "/delet
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.BotCommandScopeChatIdMissingError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.BotCommandScopeUnsupportedTypeError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.BotCommandScopeUserIdMissingError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -2150,9 +2115,10 @@ export const deleteStory = HttpApiEndpoint.post("deleteStory", "/deleteStory", {
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.BusinessConnectionNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -2183,6 +2149,7 @@ export const deleteWebhook = HttpApiEndpoint.post("deleteWebhook", "/deleteWebho
 	error: [
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -2250,10 +2217,10 @@ export const editChatInviteLink = HttpApiEndpoint.post("editChatInviteLink", "/e
 		result: Objects.ChatInviteLink,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.InviteHashExpiredError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -2298,10 +2265,10 @@ export const editChatSubscriptionInviteLink = HttpApiEndpoint.post(
 			result: Objects.ChatInviteLink,
 		}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		error: [
-			Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-			Errors.InviteHashExpiredError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+			Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 			Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 			Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+			Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		],
 	},
 );
@@ -2366,11 +2333,10 @@ export const editForumTopic = HttpApiEndpoint.post("editForumTopic", "/editForum
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatAdminRequiredError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.NotEnoughRightsToEditTopicError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -2409,10 +2375,10 @@ export const editGeneralForumTopic = HttpApiEndpoint.post("editGeneralForumTopic
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatAdminRequiredError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -2516,9 +2482,10 @@ export const editMessageCaption = HttpApiEndpoint.post("editMessageCaption", "/e
 		result: Schema.Union([Objects.Message, Schema.Literal(true)]),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.MessageToEditNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -2578,6 +2545,7 @@ export const editMessageChecklist = HttpApiEndpoint.post("editMessageChecklist",
 	error: [
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -2695,9 +2663,10 @@ export const editMessageLiveLocation = HttpApiEndpoint.post("editMessageLiveLoca
 		result: Schema.Union([Objects.Message, Schema.Literal(true)]),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.MessageToEditNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -2777,9 +2746,10 @@ export const editMessageMedia = HttpApiEndpoint.post("editMessageMedia", "/editM
 		result: Schema.Union([Objects.Message, Schema.Literal(true)]),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.MessageToEditNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -2848,9 +2818,10 @@ export const editMessageReplyMarkup = HttpApiEndpoint.post("editMessageReplyMark
 		result: Schema.Union([Objects.Message, Schema.Literal(true)]),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.MessageToEditNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -2950,10 +2921,10 @@ export const editMessageText = HttpApiEndpoint.post("editMessageText", "/editMes
 		result: Schema.Union([Objects.Message, Schema.Literal(true)]),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.MessageToEditNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -3022,9 +2993,10 @@ export const editStory = HttpApiEndpoint.post("editStory", "/editStory", {
 		result: Objects.Story,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
-		Errors.StoryContentNotSpecifiedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -3103,15 +3075,10 @@ export const exportChatInviteLink = HttpApiEndpoint.post("exportChatInviteLink",
 		result: Schema.String,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.CantInviteMembersToPrivateChatError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ChatNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -3221,13 +3188,10 @@ export const forwardMessage = HttpApiEndpoint.post("forwardMessage", "/forwardMe
 		result: Objects.Message,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ChatNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.FromChatIdRequiredError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.MessageThreadNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.MessageToForwardNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -3319,10 +3283,10 @@ export const forwardMessages = HttpApiEndpoint.post("forwardMessages", "/forward
 		result: Schema.Array(Objects.MessageId),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.FromChatIdRequiredError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.NoMessagesToForwardError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -3337,6 +3301,7 @@ export const getAvailableGifts = HttpApiEndpoint.post("getAvailableGifts", "/get
 	error: [
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -3438,9 +3403,10 @@ export const getBusinessAccountGifts = HttpApiEndpoint.post("getBusinessAccountG
 		result: Objects.OwnedGifts,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.BusinessConnectionNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -3464,13 +3430,10 @@ export const getBusinessAccountStarBalance = HttpApiEndpoint.post(
 			result: Objects.StarAmount,
 		}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		error: [
-			Errors.BusinessConnectionNotFoundError.pipe(
-				Schema.toCodecJson,
-				HttpApiSchema.asJson(),
-				HttpApiSchema.status(400),
-			),
+			Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 			Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 			Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+			Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		],
 	},
 );
@@ -3500,9 +3463,10 @@ export const getBusinessConnection = HttpApiEndpoint.post("getBusinessConnection
 		result: Objects.BusinessConnection,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.BusinessConnectionNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -3532,10 +3496,10 @@ export const getChat = HttpApiEndpoint.post("getChat", "/getChat", {
 		result: Objects.ChatFullInfo,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ChatNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -3575,10 +3539,10 @@ export const getChatAdministrators = HttpApiEndpoint.post("getChatAdministrators
 		result: Schema.Array(Objects.ChatMember),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ChatNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -3693,10 +3657,10 @@ export const getChatGifts = HttpApiEndpoint.post("getChatGifts", "/getChatGifts"
 		result: Objects.OwnedGifts,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ChatNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -3735,13 +3699,10 @@ export const getChatMember = HttpApiEndpoint.post("getChatMember", "/getChatMemb
 		result: Objects.ChatMember,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ChatNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.InvalidUserIdError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.MemberNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
-		Errors.ParticipantIdInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -3771,10 +3732,10 @@ export const getChatMemberCount = HttpApiEndpoint.post("getChatMemberCount", "/g
 		result: Schema.Int,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ChatNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -3808,9 +3769,10 @@ export const getChatMenuButton = HttpApiEndpoint.post("getChatMenuButton", "/get
 		result: Objects.MenuButton,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.InvalidChatIdError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -3869,10 +3831,10 @@ export const getFile = HttpApiEndpoint.post("getFile", "/getFile", {
 		result: Objects.File,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.FileIdNotSpecifiedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.InvalidFileIdError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -3899,6 +3861,7 @@ export const getForumTopicIconStickers = HttpApiEndpoint.post(
 		error: [
 			Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 			Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+			Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		],
 	},
 );
@@ -3980,9 +3943,10 @@ export const getManagedBotAccessSettings = HttpApiEndpoint.post(
 			result: Objects.BotAccessSettings,
 		}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		error: [
-			Errors.InvalidUserIdError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+			Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 			Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 			Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+			Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		],
 	},
 );
@@ -4009,9 +3973,10 @@ export const getManagedBotToken = HttpApiEndpoint.post("getManagedBotToken", "/g
 		result: Schema.String,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.InvalidUserIdError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -4031,6 +3996,7 @@ export const getMe = HttpApiEndpoint.post("getMe", "/getMe", {
 	error: [
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -4069,23 +4035,10 @@ export const getMyCommands = HttpApiEndpoint.post("getMyCommands", "/getMyComman
 		result: Schema.Array(Objects.BotCommand),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.BotCommandScopeChatIdMissingError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.BotCommandScopeUnsupportedTypeError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.BotCommandScopeUserIdMissingError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -4121,6 +4074,7 @@ export const getMyDefaultAdministratorRights = HttpApiEndpoint.post(
 		error: [
 			Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 			Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+			Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		],
 	},
 );
@@ -4150,6 +4104,7 @@ export const getMyDescription = HttpApiEndpoint.post("getMyDescription", "/getMy
 	error: [
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -4177,6 +4132,7 @@ export const getMyName = HttpApiEndpoint.post("getMyName", "/getMyName", {
 	error: [
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -4207,6 +4163,7 @@ export const getMyShortDescription = HttpApiEndpoint.post("getMyShortDescription
 	error: [
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -4345,6 +4302,7 @@ export const getUpdates = HttpApiEndpoint.post("getUpdates", "/getUpdates", {
 	error: [
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -4381,12 +4339,10 @@ export const getUserChatBoosts = HttpApiEndpoint.post("getUserChatBoosts", "/get
 		result: Objects.UserChatBoosts,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ChatNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.InvalidUserIdError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
-		Errors.PeerIdInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -4474,10 +4430,10 @@ export const getUserGifts = HttpApiEndpoint.post("getUserGifts", "/getUserGifts"
 		result: Objects.OwnedGifts,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.InvalidUserIdError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
-		Errors.UserNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -4513,10 +4469,10 @@ export const getUserPersonalChatMessages = HttpApiEndpoint.post(
 			result: Schema.Array(Objects.Message),
 		}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		error: [
-			Errors.InvalidUserIdError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-			Errors.LimitMustBePositiveError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+			Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 			Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 			Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+			Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		],
 	},
 );
@@ -4559,10 +4515,10 @@ export const getUserProfileAudios = HttpApiEndpoint.post("getUserProfileAudios",
 		result: Objects.UserProfileAudios,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.InvalidUserIdError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
-		Errors.UserNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -4604,10 +4560,10 @@ export const getUserProfilePhotos = HttpApiEndpoint.post("getUserProfilePhotos",
 		result: Objects.UserProfilePhotos,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.InvalidUserIdError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
-		Errors.UserNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -4627,6 +4583,7 @@ export const getWebhookInfo = HttpApiEndpoint.post("getWebhookInfo", "/getWebhoo
 	error: [
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -4707,10 +4664,10 @@ export const giftPremiumSubscription = HttpApiEndpoint.post("giftPremiumSubscrip
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.InvalidUserIdError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
-		Errors.UserNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -4746,14 +4703,10 @@ export const hideGeneralForumTopic = HttpApiEndpoint.post("hideGeneralForumTopic
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.NotEnoughRightsToCloseOrOpenTopicError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -4784,14 +4737,10 @@ export const leaveChat = HttpApiEndpoint.post("leaveChat", "/leaveChat", {
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ChatMemberStatusCantBeChangedInPrivateChatsError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -4818,6 +4767,7 @@ export const logOut = HttpApiEndpoint.post("logOut", "/logOut", {
 	error: [
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -4877,10 +4827,10 @@ export const pinChatMessage = HttpApiEndpoint.post("pinChatMessage", "/pinChatMe
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.MessageToPinNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -4970,9 +4920,10 @@ export const postStory = HttpApiEndpoint.post("postStory", "/postStory", {
 		result: Objects.Story,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
-		Errors.StoryContentNotSpecifiedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -5158,10 +5109,10 @@ export const promoteChatMember = HttpApiEndpoint.post("promoteChatMember", "/pro
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.CantRemoveChatOwnerError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.InvalidUserIdError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -5208,9 +5159,10 @@ export const readBusinessMessage = HttpApiEndpoint.post("readBusinessMessage", "
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatIdentifierEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -5280,13 +5232,10 @@ export const removeBusinessAccountProfilePhoto = HttpApiEndpoint.post(
 			result: Schema.Literal(true),
 		}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		error: [
-			Errors.BusinessConnectionNotFoundError.pipe(
-				Schema.toCodecJson,
-				HttpApiSchema.asJson(),
-				HttpApiSchema.status(400),
-			),
+			Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 			Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 			Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+			Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		],
 	},
 );
@@ -5321,10 +5270,10 @@ export const removeChatVerification = HttpApiEndpoint.post("removeChatVerificati
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.BotVerifierForbiddenError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.InvalidChatIdentifierError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -5344,6 +5293,7 @@ export const removeMyProfilePhoto = HttpApiEndpoint.post("removeMyProfilePhoto",
 	error: [
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -5371,10 +5321,10 @@ export const removeUserVerification = HttpApiEndpoint.post("removeUserVerificati
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.InvalidUserIdError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
-		Errors.PeerIdInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -5415,15 +5365,10 @@ export const reopenForumTopic = HttpApiEndpoint.post("reopenForumTopic", "/reope
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatAdminRequiredError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.NotEnoughRightsToCloseOrOpenTopicError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -5459,10 +5404,10 @@ export const reopenGeneralForumTopic = HttpApiEndpoint.post("reopenGeneralForumT
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatAdminRequiredError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -5491,9 +5436,10 @@ export const replaceManagedBotToken = HttpApiEndpoint.post("replaceManagedBotTok
 		result: Schema.String,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.InvalidUserIdError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -5607,10 +5553,10 @@ export const repostStory = HttpApiEndpoint.post("repostStory", "/repostStory", {
 		result: Objects.Story,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.BusinessConnectionNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.FromChatIdRequiredError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -5680,10 +5626,10 @@ export const restrictChatMember = HttpApiEndpoint.post("restrictChatMember", "/r
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.InvalidUserIdError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
-		Errors.ParticipantIdInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -5722,10 +5668,10 @@ export const revokeChatInviteLink = HttpApiEndpoint.post("revokeChatInviteLink",
 		result: Objects.ChatInviteLink,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.InviteHashExpiredError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -5784,10 +5730,10 @@ export const savePreparedInlineMessage = HttpApiEndpoint.post(
 			result: Objects.PreparedInlineMessage,
 		}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		error: [
-			Errors.CantFindFieldTypeError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-			Errors.InvalidUserIdError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+			Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 			Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 			Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+			Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		],
 	},
 );
@@ -5827,9 +5773,10 @@ export const savePreparedKeyboardButton = HttpApiEndpoint.post(
 			result: Objects.PreparedKeyboardButton,
 		}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		error: [
-			Errors.InvalidUserIdError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+			Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 			Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 			Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+			Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		],
 	},
 );
@@ -6044,9 +5991,10 @@ export const sendAnimation = HttpApiEndpoint.post("sendAnimation", "/sendAnimati
 		result: Objects.Message,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.NoAnimationInRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -6243,9 +6191,10 @@ export const sendAudio = HttpApiEndpoint.post("sendAudio", "/sendAudio", {
 		result: Objects.Message,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.NoAudioInRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -6314,11 +6263,10 @@ export const sendChatAction = HttpApiEndpoint.post("sendChatAction", "/sendChatA
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ChatNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
-		Errors.WrongParameterActionError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -6396,9 +6344,10 @@ export const sendChecklist = HttpApiEndpoint.post("sendChecklist", "/sendCheckli
 		result: Objects.Message,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChecklistRequiredError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -6543,10 +6492,10 @@ export const sendContact = HttpApiEndpoint.post("sendContact", "/sendContact", {
 		result: Objects.Message,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.FirstNameRequiredError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
-		Errors.PhoneNumberRequiredError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -6689,10 +6638,10 @@ export const sendDice = HttpApiEndpoint.post("sendDice", "/sendDice", {
 		result: Objects.Message,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ChatNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -6886,9 +6835,10 @@ export const sendDocument = HttpApiEndpoint.post("sendDocument", "/sendDocument"
 		result: Objects.Message,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.NoDocumentInRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -7085,10 +7035,10 @@ export const sendGift = HttpApiEndpoint.post("sendGift", "/sendGift", {
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.InvalidUserIdError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
-		Errors.StargiftInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -7581,9 +7531,10 @@ export const sendLivePhoto = HttpApiEndpoint.post("sendLivePhoto", "/sendLivePho
 		result: Objects.Message,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.NoLivePhotoInRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -7756,10 +7707,10 @@ export const sendLocation = HttpApiEndpoint.post("sendLocation", "/sendLocation"
 		result: Objects.Message,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.LatitudeEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -7880,9 +7831,10 @@ export const sendMediaGroup = HttpApiEndpoint.post("sendMediaGroup", "/sendMedia
 		result: Schema.Array(Objects.Message),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.MediaRequiredError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -8040,174 +7992,10 @@ export const sendMessage = HttpApiEndpoint.post("sendMessage", "/sendMessage", {
 		result: Objects.Message,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.AllowUserChatsMustBeBooleanError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.BotDomainInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.BusinessConnectionNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ButtonCopyTextInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ButtonDataInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ButtonQuantityMaxInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ButtonTypeInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.CantParseEntitiesInvalidCustomEmojiError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.CantParseEntitiesNoBoldEndError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.CantParseEntitiesNoBoldEndError2.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.CantParseEntitiesNoEndError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.CantParseEntitiesNoHtmlEndTagError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.CantParseEntitiesReservedCharBraceError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.CantParseEntitiesReservedCharDashError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.CantParseEntitiesReservedCharDotError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.CantParseEntitiesReservedCharEqualsError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.CantParseEntitiesReservedCharExclamationError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.CantParseEntitiesReservedCharGreaterError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.CantParseEntitiesReservedCharHashError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.CantParseEntitiesReservedCharParenError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.CantParseEntitiesReservedCharPipeError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.CantParseEntitiesReservedCharPlusError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.CantParseEntitiesUnmatchedEndTagError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.CantParseEntitiesUnsupportedScriptTagError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.CantParseEntitiesUnsupportedTagError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ChatIsForumMustBeBooleanError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ChatNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.CustomEmojiIdMissingError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.CustomEmojiIdMustBeNumberError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.EffectIdInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.EntityBeginsAfterTextEndError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.EntityEndsAfterTextEndError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.EntityIncorrectOffsetError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.EntityUrlEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.EntityUrlInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.FloodskipNotAllowedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ForceReplyMustBeBooleanError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.InlineButtonTextMissingError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.InlineButtonTextUnallowedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.InlineButtonUrlFtpUnsupportedError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.InlineButtonUrlInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.InlineKeyboardMustBeArrayError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.InvalidStarsAmountError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.IsPersistentMustBeBooleanError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.KeyboardMustBeArrayError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.KeyboardRequestIdMissingError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.KeyboardWebAppUrlHttpNotAllowedError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.LinkPreviewIsDisabledMustBeBooleanError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.LoginUrlBotNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.LoginUrlBotNotFoundError2.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.MessageTextEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.MessageThreadNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.MessageTooLongError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.MessageToReplyNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
-		Errors.OneTimeKeyboardMustBeBooleanError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.PreferLargeMediaMustBeBooleanError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.PreferSmallMediaMustBeBooleanError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.RemoveKeyboardMustBeBooleanError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ReplyMessageIdMissingError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.RequestWriteAccessMustBeBooleanError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.ResizeKeyboardMustBeBooleanError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.SelectiveMustBeBooleanError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ShowAboveTextMustBeBooleanError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.SuggestedPostChannelOnlyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.TextLinkUrlMissingError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.TextMentionUserMissingError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.TextMustBeNonEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
-		Errors.UnsupportedMessageEntityTypeError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.UnsupportedParseModeError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.UserNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.WebAppUrlHttpNotAllowedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.WebAppUrlNotHttpsError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.WebpageUrlInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -8282,10 +8070,10 @@ export const sendMessageDraft = HttpApiEndpoint.post("sendMessageDraft", "/sendM
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
-		Errors.RandomIdInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -8461,9 +8249,10 @@ export const sendPaidMedia = HttpApiEndpoint.post("sendPaidMedia", "/sendPaidMed
 		result: Objects.Message,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.MediaRequiredError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -8645,9 +8434,10 @@ export const sendPhoto = HttpApiEndpoint.post("sendPhoto", "/sendPhoto", {
 		result: Objects.Message,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.NoPhotoInRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -8964,17 +8754,10 @@ export const sendPoll = HttpApiEndpoint.post("sendPoll", "/sendPoll", {
 		result: Objects.Message,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.CantParseOptionsJsonObjectError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ChatNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
-		Errors.PollMustHaveAtLeastOneAnswerOptionError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.TextMustBeNonEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -9294,12 +9077,10 @@ export const sendVenue = HttpApiEndpoint.post("sendVenue", "/sendVenue", {
 		result: Objects.Message,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ChatNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.LatitudeEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.LongitudeEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -9536,22 +9317,10 @@ export const sendVideo = HttpApiEndpoint.post("sendVideo", "/sendVideo", {
 		result: Objects.Message,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.CantParseEntitiesNoBoldEndError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.CantParseEntitiesNoBoldEndError2.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ChatNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.MessageCaptionTooLongError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.MessageThreadNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.MessageToReplyNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
-		Errors.NoVideoInRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
-		Errors.UnsupportedParseModeError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.WrongRemoteFileIdentifierWrongPaddingError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -9721,9 +9490,10 @@ export const sendVideoNote = HttpApiEndpoint.post("sendVideoNote", "/sendVideoNo
 		result: Objects.Message,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
-		Errors.NoVideoNoteInRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -9899,9 +9669,10 @@ export const sendVoice = HttpApiEndpoint.post("sendVoice", "/sendVoice", {
 		result: Objects.Message,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
-		Errors.NoVoiceInRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -9936,9 +9707,10 @@ export const setBusinessAccountBio = HttpApiEndpoint.post("setBusinessAccountBio
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.BusinessConnectionNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -9987,13 +9759,10 @@ export const setBusinessAccountGiftSettings = HttpApiEndpoint.post(
 			result: Schema.Literal(true),
 		}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		error: [
-			Errors.AcceptedGiftTypesNotSpecifiedError.pipe(
-				Schema.toCodecJson,
-				HttpApiSchema.asJson(),
-				HttpApiSchema.status(400),
-			),
+			Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 			Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 			Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+			Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		],
 	},
 );
@@ -10036,9 +9805,10 @@ export const setBusinessAccountName = HttpApiEndpoint.post("setBusinessAccountNa
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.FirstNameRequiredError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -10086,9 +9856,10 @@ export const setBusinessAccountProfilePhoto = HttpApiEndpoint.post(
 			result: Schema.Literal(true),
 		}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		error: [
+			Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 			Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
-			Errors.PhotoNotSpecifiedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 			Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+			Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		],
 	},
 );
@@ -10128,13 +9899,10 @@ export const setBusinessAccountUsername = HttpApiEndpoint.post(
 			result: Schema.Literal(true),
 		}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		error: [
-			Errors.BusinessConnectionNotFoundError.pipe(
-				Schema.toCodecJson,
-				HttpApiSchema.asJson(),
-				HttpApiSchema.status(400),
-			),
+			Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 			Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 			Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+			Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		],
 	},
 );
@@ -10184,10 +9952,10 @@ export const setChatAdministratorCustomTitle = HttpApiEndpoint.post(
 			result: Schema.Literal(true),
 		}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		error: [
-			Errors.InvalidUserIdError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+			Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 			Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
-			Errors.ParticipantIdInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 			Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+			Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		],
 	},
 );
@@ -10228,14 +9996,10 @@ export const setChatDescription = HttpApiEndpoint.post("setChatDescription", "/s
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.CantChangePrivateChatDescriptionError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -10280,11 +10044,10 @@ export const setChatMemberTag = HttpApiEndpoint.post("setChatMemberTag", "/setCh
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatCreatorRequiredError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.InvalidUserIdError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
-		Errors.ParticipantIdInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -10326,9 +10089,10 @@ export const setChatMenuButton = HttpApiEndpoint.post("setChatMenuButton", "/set
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.MenuButtonUnsupportedTypeError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -10382,14 +10146,10 @@ export const setChatPermissions = HttpApiEndpoint.post("setChatPermissions", "/s
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.CantChangePrivateChatPermissionsError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -10429,9 +10189,10 @@ export const setChatPhoto = HttpApiEndpoint.post("setChatPhoto", "/setChatPhoto"
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.NoPhotoInRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -10474,11 +10235,10 @@ export const setChatStickerSet = HttpApiEndpoint.post("setChatStickerSet", "/set
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
-		Errors.StickerSetNameEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.StickerSetNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -10516,10 +10276,10 @@ export const setChatTitle = HttpApiEndpoint.post("setChatTitle", "/setChatTitle"
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.CantChangePrivateChatTitleError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
-		Errors.TitleEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -10679,9 +10439,10 @@ export const setManagedBotAccessSettings = HttpApiEndpoint.post(
 			result: Schema.Literal(true),
 		}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		error: [
-			Errors.InvalidUserIdError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+			Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 			Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 			Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+			Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		],
 	},
 );
@@ -10747,9 +10508,10 @@ export const setMessageReaction = HttpApiEndpoint.post("setMessageReaction", "/s
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.MessageToReactNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -10804,30 +10566,10 @@ export const setMyCommands = HttpApiEndpoint.post("setMyCommands", "/setMyComman
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.BotCommandInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.BotCommandScopeChatIdMissingError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.BotCommandScopeUnsupportedTypeError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.BotCommandScopeUserIdMissingError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.CommandDescriptionMustBeNonEmptyError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
-		Errors.CommandMustBeNonEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -10877,13 +10619,10 @@ export const setMyDefaultAdministratorRights = HttpApiEndpoint.post(
 			result: Schema.Literal(true),
 		}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		error: [
-			Errors.ChatAdministratorRightsCanDeleteMessagesMustBeBooleanError.pipe(
-				Schema.toCodecJson,
-				HttpApiSchema.asJson(),
-				HttpApiSchema.status(400),
-			),
+			Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 			Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 			Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+			Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		],
 	},
 );
@@ -10928,9 +10667,10 @@ export const setMyDescription = HttpApiEndpoint.post("setMyDescription", "/setMy
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.BotDescriptionInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -10970,9 +10710,10 @@ export const setMyName = HttpApiEndpoint.post("setMyName", "/setMyName", {
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.BotTitleInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -10996,9 +10737,10 @@ export const setMyProfilePhoto = HttpApiEndpoint.post("setMyProfilePhoto", "/set
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
-		Errors.PhotoNotSpecifiedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -11044,9 +10786,10 @@ export const setMyShortDescription = HttpApiEndpoint.post("setMyShortDescription
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.BotShortDescriptionInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -11336,10 +11079,10 @@ export const setUserEmojiStatus = HttpApiEndpoint.post("setUserEmojiStatus", "/s
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.InvalidUserIdError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
-		Errors.UserNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -11445,6 +11188,7 @@ export const setWebhook = HttpApiEndpoint.post("setWebhook", "/setWebhook", {
 	error: [
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -11515,9 +11259,10 @@ export const stopMessageLiveLocation = HttpApiEndpoint.post("stopMessageLiveLoca
 		result: Schema.Union([Objects.Message, Schema.Literal(true)]),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.MessageToEditNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -11570,13 +11315,10 @@ export const stopPoll = HttpApiEndpoint.post("stopPoll", "/stopPoll", {
 		result: Objects.Poll,
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.MessageWithPollToStopNotFoundError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -11613,13 +11355,10 @@ export const transferBusinessAccountStars = HttpApiEndpoint.post(
 			result: Schema.Literal(true),
 		}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		error: [
-			Errors.BusinessConnectionNotFoundError.pipe(
-				Schema.toCodecJson,
-				HttpApiSchema.asJson(),
-				HttpApiSchema.status(400),
-			),
+			Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 			Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 			Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+			Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		],
 	},
 );
@@ -11678,9 +11417,10 @@ export const transferGift = HttpApiEndpoint.post("transferGift", "/transferGift"
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatIdentifierEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -11729,10 +11469,10 @@ export const unbanChatMember = HttpApiEndpoint.post("unbanChatMember", "/unbanCh
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.InvalidUserIdError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
-		Errors.ParticipantIdInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -11770,10 +11510,10 @@ export const unbanChatSenderChat = HttpApiEndpoint.post("unbanChatSenderChat", "
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
-		Errors.ParticipantIdInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.SenderChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -11808,14 +11548,10 @@ export const unhideGeneralForumTopic = HttpApiEndpoint.post("unhideGeneralForumT
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.NotEnoughRightsToCloseOrOpenTopicError.pipe(
-			Schema.toCodecJson,
-			HttpApiSchema.asJson(),
-			HttpApiSchema.status(400),
-		),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -11851,9 +11587,10 @@ export const unpinAllChatMessages = HttpApiEndpoint.post("unpinAllChatMessages",
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -11898,9 +11635,10 @@ export const unpinAllForumTopicMessages = HttpApiEndpoint.post(
 			result: Schema.Literal(true),
 		}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		error: [
-			Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+			Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 			Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 			Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+			Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		],
 	},
 );
@@ -11939,9 +11677,10 @@ export const unpinAllGeneralForumTopicMessages = HttpApiEndpoint.post(
 			result: Schema.Literal(true),
 		}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		error: [
-			Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+			Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 			Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 			Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+			Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 		],
 	},
 );
@@ -11998,9 +11737,10 @@ export const unpinChatMessage = HttpApiEndpoint.post("unpinChatMessage", "/unpin
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.MessageToUnpinNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -12059,9 +11799,10 @@ export const upgradeGift = HttpApiEndpoint.post("upgradeGift", "/upgradeGift", {
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.BusinessConnectionNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -12145,10 +11886,10 @@ export const verifyChat = HttpApiEndpoint.post("verifyChat", "/verifyChat", {
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.BotVerifierForbiddenError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
-		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 
@@ -12182,10 +11923,10 @@ export const verifyUser = HttpApiEndpoint.post("verifyUser", "/verifyUser", {
 		result: Schema.Literal(true),
 	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	error: [
-		Errors.InvalidUserIdError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.BadRequestError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
-		Errors.UserNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
 	],
 });
 

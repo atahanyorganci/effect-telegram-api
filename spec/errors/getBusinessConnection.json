@@ -1,4 +1,4 @@
 {
 	"method": "getBusinessConnection",
-	"errors": ["BusinessConnectionNotFound"]
+	"errors": ["BadRequest"]
 }

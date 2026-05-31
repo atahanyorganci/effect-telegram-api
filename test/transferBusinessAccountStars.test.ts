@@ -15,7 +15,7 @@ liveTests("transferBusinessAccountStars", test => {
 					star_count: 1,
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "BusinessConnectionNotFound", "Bad Request: business connection not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: business connection not found");
 			}),
 		);
 	});

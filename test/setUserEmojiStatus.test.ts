@@ -22,7 +22,7 @@ liveTests("setUserEmojiStatus", test => {
 					emoji_status_custom_emoji_id: "1",
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "UserNotFound", "Bad Request: user not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: user not found");
 			}),
 		);
 

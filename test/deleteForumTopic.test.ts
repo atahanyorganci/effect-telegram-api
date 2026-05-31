@@ -22,7 +22,7 @@ liveTests("deleteForumTopic", test => {
 					message_thread_id: 999_999_999,
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "ChatWriteForbidden", "Bad Request: CHAT_WRITE_FORBIDDEN");
+				expectErrorTag(error, "BadRequest", "Bad Request: CHAT_WRITE_FORBIDDEN");
 			}),
 		);
 

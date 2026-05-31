@@ -1,4 +1,4 @@
 {
 	"method": "deleteMessageReaction",
-	"errors": ["MessageToDeleteReactionsNotFound"]
+	"errors": ["BadRequest"]
 }

@@ -11,1336 +11,17 @@ export class TelegramApiError extends Data.TaggedError("TelegramApiError")<{
 	readonly description: string;
 }> {}
 
-/**
- * required parameters missing
- */
-export class AcceptedGiftTypesNotSpecified extends Data.TaggedError("AcceptedGiftTypesNotSpecified")<{
+export class BadRequest extends Data.TaggedError("BadRequest")<{
 	readonly ok: false;
 	readonly error_code: 400;
 	readonly description: string;
 }> {}
 
-/**
- * switch_inline_query_chosen_chat.allow_user_chats is not a boolean
- */
-export class AllowUserChatsMustBeBoolean extends Data.TaggedError("AllowUserChatsMustBeBoolean")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * command contains characters other than lowercase English letters, digits, and
- * underscores
- */
-export class BotCommandInvalid extends Data.TaggedError("BotCommandInvalid")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * BotCommandScope that requires chat_id omits it
- */
-export class BotCommandScopeChatIdMissing extends Data.TaggedError("BotCommandScopeChatIdMissing")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * BotCommandScope type is unsupported
- */
-export class BotCommandScopeUnsupportedType extends Data.TaggedError("BotCommandScopeUnsupportedType")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * BotCommandScope that requires user_id omits it
- */
-export class BotCommandScopeUserIdMissing extends Data.TaggedError("BotCommandScopeUserIdMissing")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * description exceeds the 512 character limit
- */
-export class BotDescriptionInvalid extends Data.TaggedError("BotDescriptionInvalid")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * login_url is missing bot_username
- */
-export class BotDomainInvalid extends Data.TaggedError("BotDomainInvalid")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * short_description exceeds the 120 character limit
- */
-export class BotShortDescriptionInvalid extends Data.TaggedError("BotShortDescriptionInvalid")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * name is missing or empty
- */
-export class BotTitleInvalid extends Data.TaggedError("BotTitleInvalid")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * bot is not allowed to remove verification for the chat
- */
-export class BotVerifierForbidden extends Data.TaggedError("BotVerifierForbidden")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * required parameters missing
- */
-export class BusinessConnectionNotFound extends Data.TaggedError("BusinessConnectionNotFound")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * copy_text button text is empty or too long
- */
-export class ButtonCopyTextInvalid extends Data.TaggedError("ButtonCopyTextInvalid")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * inline keyboard callback_data exceeds 64 bytes
- */
-export class ButtonDataInvalid extends Data.TaggedError("ButtonDataInvalid")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * request_users.max_quantity exceeds the allowed maximum
- */
-export class ButtonQuantityMaxInvalid extends Data.TaggedError("ButtonQuantityMaxInvalid")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * inline keyboard button type is invalid (e.g. pay without invoice or
- * callback_game without game)
- */
-export class ButtonTypeInvalid extends Data.TaggedError("ButtonTypeInvalid")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * callback_query_id is missing or invalid
- */
-export class CallbackQueryIdInvalid extends Data.TaggedError("CallbackQueryIdInvalid")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * chat_id refers to a private chat with the bot
- */
-export class CantChangePrivateChatDescription extends Data.TaggedError("CantChangePrivateChatDescription")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * chat_id refers to a private chat with the bot
- */
-export class CantChangePrivateChatPermissions extends Data.TaggedError("CantChangePrivateChatPermissions")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * chat_id refers to a private chat with the bot
- */
-export class CantChangePrivateChatPhoto extends Data.TaggedError("CantChangePrivateChatPhoto")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * chat_id refers to a private chat with the bot
- */
-export class CantChangePrivateChatTitle extends Data.TaggedError("CantChangePrivateChatTitle")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * result object is missing the required type field
- */
-export class CantFindFieldType extends Data.TaggedError("CantFindFieldType")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * chat_id refers to a private chat that does not support invite links
- */
-export class CantInviteMembersToPrivateChat extends Data.TaggedError("CantInviteMembersToPrivateChat")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * HTML tg-emoji tag references an invalid custom emoji id
- */
-export class CantParseEntitiesInvalidCustomEmoji extends Data.TaggedError("CantParseEntitiesInvalidCustomEmoji")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * text with parse_mode MarkdownV2 contains an unclosed bold entity
- */
-export class CantParseEntitiesNoBoldEnd extends Data.TaggedError("CantParseEntitiesNoBoldEnd")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * text with parse_mode Markdown contains an unclosed entity
- */
-export class CantParseEntitiesNoEnd extends Data.TaggedError("CantParseEntitiesNoEnd")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * text with parse_mode HTML contains an unclosed tag
- */
-export class CantParseEntitiesNoHtmlEndTag extends Data.TaggedError("CantParseEntitiesNoHtmlEndTag")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * text with parse_mode MarkdownV2 contains an unescaped opening brace
- */
-export class CantParseEntitiesReservedCharBrace extends Data.TaggedError("CantParseEntitiesReservedCharBrace")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * text with parse_mode MarkdownV2 contains an unescaped hyphen
- */
-export class CantParseEntitiesReservedCharDash extends Data.TaggedError("CantParseEntitiesReservedCharDash")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * text with parse_mode MarkdownV2 contains an unescaped period
- */
-export class CantParseEntitiesReservedCharDot extends Data.TaggedError("CantParseEntitiesReservedCharDot")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * text with parse_mode MarkdownV2 contains an unescaped equals sign
- */
-export class CantParseEntitiesReservedCharEquals extends Data.TaggedError("CantParseEntitiesReservedCharEquals")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * text with parse_mode MarkdownV2 contains an unescaped exclamation mark
- */
-export class CantParseEntitiesReservedCharExclamation extends Data.TaggedError(
-	"CantParseEntitiesReservedCharExclamation",
-)<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * text with parse_mode MarkdownV2 contains an unescaped greater-than sign
- */
-export class CantParseEntitiesReservedCharGreater extends Data.TaggedError("CantParseEntitiesReservedCharGreater")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * text with parse_mode MarkdownV2 contains an unescaped hash sign
- */
-export class CantParseEntitiesReservedCharHash extends Data.TaggedError("CantParseEntitiesReservedCharHash")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * text with parse_mode MarkdownV2 contains an unescaped opening parenthesis
- */
-export class CantParseEntitiesReservedCharParen extends Data.TaggedError("CantParseEntitiesReservedCharParen")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * text with parse_mode MarkdownV2 contains an unescaped pipe character
- */
-export class CantParseEntitiesReservedCharPipe extends Data.TaggedError("CantParseEntitiesReservedCharPipe")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * text with parse_mode MarkdownV2 contains an unescaped plus sign
- */
-export class CantParseEntitiesReservedCharPlus extends Data.TaggedError("CantParseEntitiesReservedCharPlus")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * text with parse_mode HTML has mismatched closing tags
- */
-export class CantParseEntitiesUnmatchedEndTag extends Data.TaggedError("CantParseEntitiesUnmatchedEndTag")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * text with parse_mode HTML contains a disallowed tag
- */
-export class CantParseEntitiesUnsupportedScriptTag extends Data.TaggedError("CantParseEntitiesUnsupportedScriptTag")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * text with parse_mode HTML contains an unknown tag
- */
-export class CantParseEntitiesUnsupportedTag extends Data.TaggedError("CantParseEntitiesUnsupportedTag")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * options parameter is missing
- */
-export class CantParseOptionsJsonObject extends Data.TaggedError("CantParseOptionsJsonObject")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * promotion would demote the chat owner
- */
-export class CantRemoveChatOwner extends Data.TaggedError("CantRemoveChatOwner")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * legacy Telegram wording for the same permission failure
- */
-export class CantSetSupergroupStickerSet extends Data.TaggedError("CantSetSupergroupStickerSet")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * rights.can_delete_messages is not a boolean
- */
-export class ChatAdministratorRightsCanDeleteMessagesMustBeBoolean extends Data.TaggedError(
-	"ChatAdministratorRightsCanDeleteMessagesMustBeBoolean",
-)<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * bot is not an administrator with can_manage_topics
- */
-export class ChatAdminRequired extends Data.TaggedError("ChatAdminRequired")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * only the chat creator can set member tags
- */
-export class ChatCreatorRequired extends Data.TaggedError("ChatCreatorRequired")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * required parameters missing
- */
-export class ChatIdEmpty extends Data.TaggedError("ChatIdEmpty")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * validation fails
- */
-export class ChatIdentifierEmpty extends Data.TaggedError("ChatIdentifierEmpty")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * request_chat.chat_is_forum is not a boolean
- */
-export class ChatIsForumMustBeBoolean extends Data.TaggedError("ChatIsForumMustBeBoolean")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * chat_id refers to a private chat with the bot
- */
-export class ChatMemberStatusCantBeChangedInPrivateChats extends Data.TaggedError(
-	"ChatMemberStatusCantBeChangedInPrivateChats",
-)<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * chat_id does not refer to a chat the bot can access
- */
-export class ChatNotFound extends Data.TaggedError("ChatNotFound")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * bot lacks permission to delete the forum topic
- */
-export class ChatWriteForbidden extends Data.TaggedError("ChatWriteForbidden")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * checklist parameter is missing
- */
-export class ChecklistRequired extends Data.TaggedError("ChecklistRequired")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * a command entry has an empty description
- */
-export class CommandDescriptionMustBeNonEmpty extends Data.TaggedError("CommandDescriptionMustBeNonEmpty")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * a command entry has an empty command string
- */
-export class CommandMustBeNonEmpty extends Data.TaggedError("CommandMustBeNonEmpty")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * custom_emoji entity is missing custom_emoji_id
- */
-export class CustomEmojiIdMissing extends Data.TaggedError("CustomEmojiIdMissing")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * custom_emoji entity has a non-numeric custom_emoji_id
- */
-export class CustomEmojiIdMustBeNumber extends Data.TaggedError("CustomEmojiIdMustBeNumber")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * message_effect_id is not valid
- */
-export class EffectIdInvalid extends Data.TaggedError("EffectIdInvalid")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * entities offset is beyond the text length
- */
-export class EntityBeginsAfterTextEnd extends Data.TaggedError("EntityBeginsAfterTextEnd")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * entities offset plus length exceeds the text length
- */
-export class EntityEndsAfterTextEnd extends Data.TaggedError("EntityEndsAfterTextEnd")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * entities offset is negative
- */
-export class EntityIncorrectOffset extends Data.TaggedError("EntityIncorrectOffset")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * text_link entity url is empty
- */
-export class EntityUrlEmpty extends Data.TaggedError("EntityUrlEmpty")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * text_link entity url is not a valid HTTP URL
- */
-export class EntityUrlInvalid extends Data.TaggedError("EntityUrlInvalid")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * file_id parameter is missing or empty
- */
-export class FileIdNotSpecified extends Data.TaggedError("FileIdNotSpecified")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * first_name parameter is missing
- */
-export class FirstNameRequired extends Data.TaggedError("FirstNameRequired")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * allow_paid_broadcast is true but the bot has insufficient Telegram Stars
- */
-export class FloodskipNotAllowed extends Data.TaggedError("FloodskipNotAllowed")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * force_reply is not a boolean
- */
-export class ForceReplyMustBeBoolean extends Data.TaggedError("ForceReplyMustBeBoolean")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * from_chat_id parameter is missing
- */
-export class FromChatIdRequired extends Data.TaggedError("FromChatIdRequired")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * inline keyboard button is missing text
- */
-export class InlineButtonTextMissing extends Data.TaggedError("InlineButtonTextMissing")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * inline keyboard button has empty callback_data and no url
- */
-export class InlineButtonTextUnallowed extends Data.TaggedError("InlineButtonTextUnallowed")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * inline keyboard button url uses an unsupported protocol
- */
-export class InlineButtonUrlFtpUnsupported extends Data.TaggedError("InlineButtonUrlFtpUnsupported")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * inline keyboard button url is not a valid HTTP URL
- */
-export class InlineButtonUrlInvalid extends Data.TaggedError("InlineButtonUrlInvalid")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * inline_keyboard is not an array
- */
-export class InlineKeyboardMustBeArray extends Data.TaggedError("InlineKeyboardMustBeArray")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * chat_id is not a valid private chat id
- */
-export class InvalidChatId extends Data.TaggedError("InvalidChatId")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * validation fails
- */
-export class InvalidChatIdentifier extends Data.TaggedError("InvalidChatIdentifier")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * file_id is not valid
- */
-export class InvalidFileId extends Data.TaggedError("InvalidFileId")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * suggested_post_parameters price amount is invalid
- */
-export class InvalidStarsAmount extends Data.TaggedError("InvalidStarsAmount")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * required parameters missing
- */
-export class InvalidUserId extends Data.TaggedError("InvalidUserId")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * invite_link is invalid or already revoked
- */
-export class InviteHashExpired extends Data.TaggedError("InviteHashExpired")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * reply keyboard is_persistent is not a boolean
- */
-export class IsPersistentMustBeBoolean extends Data.TaggedError("IsPersistentMustBeBoolean")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * reply keyboard keyboard is not an array
- */
-export class KeyboardMustBeArray extends Data.TaggedError("KeyboardMustBeArray")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * request_chat or request_users keyboard button is missing request_id
- */
-export class KeyboardRequestIdMissing extends Data.TaggedError("KeyboardRequestIdMissing")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * reply keyboard web_app button url is HTTP instead of HTTPS
- */
-export class KeyboardWebAppUrlHttpNotAllowed extends Data.TaggedError("KeyboardWebAppUrlHttpNotAllowed")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * latitude parameter is missing
- */
-export class LatitudeEmpty extends Data.TaggedError("LatitudeEmpty")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * limit is zero or negative
- */
-export class LimitMustBePositive extends Data.TaggedError("LimitMustBePositive")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * link_preview_options.is_disabled is not a boolean
- */
-export class LinkPreviewIsDisabledMustBeBoolean extends Data.TaggedError("LinkPreviewIsDisabledMustBeBoolean")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * login_url bot_username does not refer to an existing bot
- */
-export class LoginUrlBotNotFound extends Data.TaggedError("LoginUrlBotNotFound")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * longitude parameter is missing
- */
-export class LongitudeEmpty extends Data.TaggedError("LongitudeEmpty")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * media parameter is missing
- */
-export class MediaRequired extends Data.TaggedError("MediaRequired")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * user_id is not a member of the chat
- */
-export class MemberNotFound extends Data.TaggedError("MemberNotFound")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * menu_button.type is not a supported MenuButton variant
- */
-export class MenuButtonUnsupportedType extends Data.TaggedError("MenuButtonUnsupportedType")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * caption exceeds 1024 characters
- */
-export class MessageCaptionTooLong extends Data.TaggedError("MessageCaptionTooLong")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * required parameters missing
- */
-export class MessageIdentifiersAreNotSpecified extends Data.TaggedError("MessageIdentifiersAreNotSpecified")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * text is missing or empty
- */
-export class MessageTextEmpty extends Data.TaggedError("MessageTextEmpty")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * message_thread_id does not refer to an existing forum topic
- */
-export class MessageThreadNotFound extends Data.TaggedError("MessageThreadNotFound")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * message_id is missing or does not refer to an existing message
- */
-export class MessageToCopyNotFound extends Data.TaggedError("MessageToCopyNotFound")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * message_id does not refer to an existing message
- */
-export class MessageToDeleteNotFound extends Data.TaggedError("MessageToDeleteNotFound")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * message_id does not refer to an existing message
- */
-export class MessageToDeleteReactionsNotFound extends Data.TaggedError("MessageToDeleteReactionsNotFound")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * message_id or inline_message_id does not refer to an existing message
- */
-export class MessageToEditNotFound extends Data.TaggedError("MessageToEditNotFound")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * message_id is missing or does not refer to an existing message
- */
-export class MessageToForwardNotFound extends Data.TaggedError("MessageToForwardNotFound")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * text exceeds 4096 characters
- */
-export class MessageTooLong extends Data.TaggedError("MessageTooLong")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * message_id is missing or does not refer to an existing message
- */
-export class MessageToPinNotFound extends Data.TaggedError("MessageToPinNotFound")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * message_id is missing or does not refer to an existing message
- */
-export class MessageToReactNotFound extends Data.TaggedError("MessageToReactNotFound")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * reply_parameters.message_id does not exist in the target chat
- */
-export class MessageToReplyNotFound extends Data.TaggedError("MessageToReplyNotFound")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * message_id is missing or does not refer to a pinned message
- */
-export class MessageToUnpinNotFound extends Data.TaggedError("MessageToUnpinNotFound")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * message_id does not refer to an existing poll message
- */
-export class MessageWithPollToStopNotFound extends Data.TaggedError("MessageWithPollToStopNotFound")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * animation parameter is missing
- */
-export class NoAnimationInRequest extends Data.TaggedError("NoAnimationInRequest")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * audio parameter is missing
- */
-export class NoAudioInRequest extends Data.TaggedError("NoAudioInRequest")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * document parameter is missing
- */
-export class NoDocumentInRequest extends Data.TaggedError("NoDocumentInRequest")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * live photo parameter is missing
- */
-export class NoLivePhotoInRequest extends Data.TaggedError("NoLivePhotoInRequest")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * message_ids is missing or does not refer to existing messages
- */
-export class NoMessagesToForward extends Data.TaggedError("NoMessagesToForward")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * photo parameter is missing
- */
-export class NoPhotoInRequest extends Data.TaggedError("NoPhotoInRequest")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * bot lacks can_manage_topics for the configured forum topic
- */
-export class NotEnoughRightsToCloseOrOpenTopic extends Data.TaggedError("NotEnoughRightsToCloseOrOpenTopic")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * bot lacks can_manage_topics in the test supergroup
- */
-export class NotEnoughRightsToCreateTopic extends Data.TaggedError("NotEnoughRightsToCreateTopic")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * bot lacks can_manage_topics for the forum topic
- */
-export class NotEnoughRightsToEditTopic extends Data.TaggedError("NotEnoughRightsToEditTopic")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * Token segment is empty or not in bot id:hash form
- */
-export class NotFound extends Data.TaggedError("NotFound")<{
-	readonly ok: false;
-	readonly error_code: 404;
-	readonly description: string;
-}> {}
-
-/**
- * video parameter is missing
- */
-export class NoVideoInRequest extends Data.TaggedError("NoVideoInRequest")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * video_note parameter is missing
- */
-export class NoVideoNoteInRequest extends Data.TaggedError("NoVideoNoteInRequest")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * voice parameter is missing
- */
-export class NoVoiceInRequest extends Data.TaggedError("NoVoiceInRequest")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * reply keyboard one_time_keyboard is not a boolean
- */
-export class OneTimeKeyboardMustBeBoolean extends Data.TaggedError("OneTimeKeyboardMustBeBoolean")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * user_id does not refer to a chat participant
- */
-export class ParticipantIdInvalid extends Data.TaggedError("ParticipantIdInvalid")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * chat_id does not refer to a channel or supergroup that supports boosts
- */
-export class PeerIdInvalid extends Data.TaggedError("PeerIdInvalid")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * phone_number parameter is missing
- */
-export class PhoneNumberRequired extends Data.TaggedError("PhoneNumberRequired")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * required parameters missing
- */
-export class PhotoNotSpecified extends Data.TaggedError("PhotoNotSpecified")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * options array is empty
- */
-export class PollMustHaveAtLeastOneAnswerOption extends Data.TaggedError("PollMustHaveAtLeastOneAnswerOption")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * link_preview_options.prefer_large_media is not a boolean
- */
-export class PreferLargeMediaMustBeBoolean extends Data.TaggedError("PreferLargeMediaMustBeBoolean")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * link_preview_options.prefer_small_media is not a boolean
- */
-export class PreferSmallMediaMustBeBoolean extends Data.TaggedError("PreferSmallMediaMustBeBoolean")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * chat does not support paid subscription invite links
- */
-export class PricingChatInvalid extends Data.TaggedError("PricingChatInvalid")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * draft_id is missing or invalid
- */
-export class RandomIdInvalid extends Data.TaggedError("RandomIdInvalid")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * remove_keyboard is not a boolean
- */
-export class RemoveKeyboardMustBeBoolean extends Data.TaggedError("RemoveKeyboardMustBeBoolean")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * reply_parameters is set without message_id
- */
-export class ReplyMessageIdMissing extends Data.TaggedError("ReplyMessageIdMissing")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * login_url.request_write_access is not a boolean
- */
-export class RequestWriteAccessMustBeBoolean extends Data.TaggedError("RequestWriteAccessMustBeBoolean")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * reply keyboard resize_keyboard is not a boolean
- */
-export class ResizeKeyboardMustBeBoolean extends Data.TaggedError("ResizeKeyboardMustBeBoolean")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * required parameters missing
- */
-export class ResultNotSpecified extends Data.TaggedError("ResultNotSpecified")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * reply markup selective is not a boolean
- */
-export class SelectiveMustBeBoolean extends Data.TaggedError("SelectiveMustBeBoolean")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * sender_chat_id is missing
- */
-export class SenderChatIdEmpty extends Data.TaggedError("SenderChatIdEmpty")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * link_preview_options.show_above_text is not a boolean
- */
-export class ShowAboveTextMustBeBoolean extends Data.TaggedError("ShowAboveTextMustBeBoolean")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * gift_id is missing or invalid
- */
-export class StargiftInvalid extends Data.TaggedError("StargiftInvalid")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * sticker_set_name is missing or empty
- */
-export class StickerSetNameEmpty extends Data.TaggedError("StickerSetNameEmpty")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * sticker_set_name does not refer to an existing set
- */
-export class StickerSetNotFound extends Data.TaggedError("StickerSetNotFound")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * required parameters missing
- */
-export class StoryContentNotSpecified extends Data.TaggedError("StoryContentNotSpecified")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * suggested_post_parameters is used outside a channel direct messages chat
- */
-export class SuggestedPostChannelOnly extends Data.TaggedError("SuggestedPostChannelOnly")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * message_id does not refer to an existing suggested post
- */
-export class SuggestedPostNotFound extends Data.TaggedError("SuggestedPostNotFound")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * text_link entity is missing url
- */
-export class TextLinkUrlMissing extends Data.TaggedError("TextLinkUrlMissing")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * text_mention entity is missing user
- */
-export class TextMentionUserMissing extends Data.TaggedError("TextMentionUserMissing")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * text contains only whitespace or parses to empty content
- */
-export class TextMustBeNonEmpty extends Data.TaggedError("TextMustBeNonEmpty")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * title is missing or empty
- */
-export class TitleEmpty extends Data.TaggedError("TitleEmpty")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
+export const BadRequestError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.String,
+});
 
 /**
  * Token has bot id:hash form but the secret is invalid
@@ -1352,1190 +33,46 @@ export class Unauthorized extends Data.TaggedError("Unauthorized")<{
 }> {}
 
 /**
- * entities contains an unsupported type value
+ * Token has bot id:hash form but the secret is invalid
  */
-export class UnsupportedMessageEntityType extends Data.TaggedError("UnsupportedMessageEntityType")<{
+export const UnauthorizedError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(401),
+	description: Schema.String,
+});
+
+export class PaymentRequired extends Data.TaggedError("PaymentRequired")<{
 	readonly ok: false;
-	readonly error_code: 400;
+	readonly error_code: 402;
 	readonly description: string;
 }> {}
 
-/**
- * parse_mode is not HTML, Markdown, or MarkdownV2
- */
-export class UnsupportedParseMode extends Data.TaggedError("UnsupportedParseMode")<{
+export const PaymentRequiredError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(402),
+	description: Schema.String,
+});
+
+export class Forbidden extends Data.TaggedError("Forbidden")<{
 	readonly ok: false;
-	readonly error_code: 400;
+	readonly error_code: 403;
 	readonly description: string;
 }> {}
 
+export const ForbiddenError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(403),
+	description: Schema.String,
+});
+
 /**
- * user_id does not refer to a pending join request
+ * Token segment is empty or not in bot id:hash form
  */
-export class UserIdInvalid extends Data.TaggedError("UserIdInvalid")<{
+export class NotFound extends Data.TaggedError("NotFound")<{
 	readonly ok: false;
-	readonly error_code: 400;
+	readonly error_code: 404;
 	readonly description: string;
 }> {}
-
-/**
- * user_id does not refer to an existing user
- */
-export class UserNotFound extends Data.TaggedError("UserNotFound")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * web_app button url is HTTP instead of HTTPS
- */
-export class WebAppUrlHttpNotAllowed extends Data.TaggedError("WebAppUrlHttpNotAllowed")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * web_app button url is not a valid HTTPS URL
- */
-export class WebAppUrlNotHttps extends Data.TaggedError("WebAppUrlNotHttps")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * link_preview_options.url is not a valid URL
- */
-export class WebpageUrlInvalid extends Data.TaggedError("WebpageUrlInvalid")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * action is missing or not a supported chat action type
- */
-export class WrongParameterAction extends Data.TaggedError("WrongParameterAction")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * video file_id is malformed
- */
-export class WrongRemoteFileIdentifierWrongPadding extends Data.TaggedError("WrongRemoteFileIdentifierWrongPadding")<{
-	readonly ok: false;
-	readonly error_code: 400;
-	readonly description: string;
-}> {}
-
-/**
- * required parameters missing
- */
-export const AcceptedGiftTypesNotSpecifiedError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: accepted gift types aren't specified"),
-});
-
-/**
- * switch_inline_query_chosen_chat.allow_user_chats is not a boolean
- */
-export const AllowUserChatsMustBeBooleanError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal(
-		'Bad Request: can\'t parse inline keyboard button: Field "allow_user_chats" must be of type Boolean',
-	),
-});
-
-/**
- * command contains characters other than lowercase English letters, digits, and
- * underscores
- */
-export const BotCommandInvalidError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: BOT_COMMAND_INVALID"),
-});
-
-/**
- * BotCommandScope that requires chat_id omits it
- */
-export const BotCommandScopeChatIdMissingError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: can't parse BotCommandScope: Can't find field \"chat_id\""),
-});
-
-/**
- * BotCommandScope type is unsupported
- */
-export const BotCommandScopeUnsupportedTypeError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: can't parse BotCommandScope: Unsupported type specified"),
-});
-
-/**
- * BotCommandScope that requires user_id omits it
- */
-export const BotCommandScopeUserIdMissingError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: can't parse BotCommandScope: Can't find field \"user_id\""),
-});
-
-/**
- * description exceeds the 512 character limit
- */
-export const BotDescriptionInvalidError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: BOT_DESC_INVALID"),
-});
-
-/**
- * login_url is missing bot_username
- */
-export const BotDomainInvalidError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: BOT_DOMAIN_INVALID"),
-});
-
-/**
- * short_description exceeds the 120 character limit
- */
-export const BotShortDescriptionInvalidError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: BOT_SHARETEXT_INVALID"),
-});
-
-/**
- * name is missing or empty
- */
-export const BotTitleInvalidError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: BOT_TITLE_INVALID"),
-});
-
-/**
- * bot is not allowed to remove verification for the chat
- */
-export const BotVerifierForbiddenError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: BOT_VERIFIER_FORBIDDEN"),
-});
-
-/**
- * required parameters missing
- */
-export const BusinessConnectionNotFoundError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: business connection not found"),
-});
-
-/**
- * copy_text button text is empty or too long
- */
-export const ButtonCopyTextInvalidError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: BUTTON_COPY_TEXT_INVALID"),
-});
-
-/**
- * inline keyboard callback_data exceeds 64 bytes
- */
-export const ButtonDataInvalidError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: BUTTON_DATA_INVALID"),
-});
-
-/**
- * request_users.max_quantity exceeds the allowed maximum
- */
-export const ButtonQuantityMaxInvalidError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: BUTTON_QUANTITY_MAX_INVALID"),
-});
-
-/**
- * inline keyboard button type is invalid (e.g. pay without invoice or
- * callback_game without game)
- */
-export const ButtonTypeInvalidError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: BUTTON_TYPE_INVALID"),
-});
-
-/**
- * callback_query_id is missing or invalid
- */
-export const CallbackQueryIdInvalidError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: query is too old and response timeout expired or query ID is invalid"),
-});
-
-/**
- * chat_id refers to a private chat with the bot
- */
-export const CantChangePrivateChatDescriptionError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: can't change private chat description"),
-});
-
-/**
- * chat_id refers to a private chat with the bot
- */
-export const CantChangePrivateChatPermissionsError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: can't change private chat permissions"),
-});
-
-/**
- * chat_id refers to a private chat with the bot
- */
-export const CantChangePrivateChatPhotoError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: can't change private chat photo"),
-});
-
-/**
- * chat_id refers to a private chat with the bot
- */
-export const CantChangePrivateChatTitleError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: can't change private chat title"),
-});
-
-/**
- * result object is missing the required type field
- */
-export const CantFindFieldTypeError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal('Bad Request: can\'t find field "type"'),
-});
-
-/**
- * chat_id refers to a private chat that does not support invite links
- */
-export const CantInviteMembersToPrivateChatError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: can't invite members to a private chat"),
-});
-
-/**
- * HTML tg-emoji tag references an invalid custom emoji id
- */
-export const CantParseEntitiesInvalidCustomEmojiError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: can't parse entities: Invalid custom emoji identifier specified"),
-});
-
-/**
- * text with parse_mode MarkdownV2 contains an unclosed bold entity
- */
-export const CantParseEntitiesNoBoldEndError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 0"),
-});
-
-/**
- * text with parse_mode MarkdownV2 has nested formatting with an unclosed bold
- * entity
- */
-export const CantParseEntitiesNoBoldEndError2 = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 15"),
-});
-
-/**
- * text with parse_mode Markdown contains an unclosed entity
- */
-export const CantParseEntitiesNoEndError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal(
-		"Bad Request: can't parse entities: Can't find end of the entity starting at byte offset 0",
-	),
-});
-
-/**
- * text with parse_mode HTML contains an unclosed tag
- */
-export const CantParseEntitiesNoHtmlEndTagError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: can't parse entities: Can't find end tag corresponding to start tag \"b\""),
-});
-
-/**
- * text with parse_mode MarkdownV2 contains an unescaped opening brace
- */
-export const CantParseEntitiesReservedCharBraceError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal(
-		"Bad Request: can't parse entities: Character '{' is reserved and must be escaped with the preceding '\\'",
-	),
-});
-
-/**
- * text with parse_mode MarkdownV2 contains an unescaped hyphen
- */
-export const CantParseEntitiesReservedCharDashError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal(
-		"Bad Request: can't parse entities: Character '-' is reserved and must be escaped with the preceding '\\'",
-	),
-});
-
-/**
- * text with parse_mode MarkdownV2 contains an unescaped period
- */
-export const CantParseEntitiesReservedCharDotError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal(
-		"Bad Request: can't parse entities: Character '.' is reserved and must be escaped with the preceding '\\'",
-	),
-});
-
-/**
- * text with parse_mode MarkdownV2 contains an unescaped equals sign
- */
-export const CantParseEntitiesReservedCharEqualsError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal(
-		"Bad Request: can't parse entities: Character '=' is reserved and must be escaped with the preceding '\\'",
-	),
-});
-
-/**
- * text with parse_mode MarkdownV2 contains an unescaped exclamation mark
- */
-export const CantParseEntitiesReservedCharExclamationError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal(
-		"Bad Request: can't parse entities: Character '!' is reserved and must be escaped with the preceding '\\'",
-	),
-});
-
-/**
- * text with parse_mode MarkdownV2 contains an unescaped greater-than sign
- */
-export const CantParseEntitiesReservedCharGreaterError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal(
-		"Bad Request: can't parse entities: Character '>' is reserved and must be escaped with the preceding '\\'",
-	),
-});
-
-/**
- * text with parse_mode MarkdownV2 contains an unescaped hash sign
- */
-export const CantParseEntitiesReservedCharHashError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal(
-		"Bad Request: can't parse entities: Character '#' is reserved and must be escaped with the preceding '\\'",
-	),
-});
-
-/**
- * text with parse_mode MarkdownV2 contains an unescaped opening parenthesis
- */
-export const CantParseEntitiesReservedCharParenError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal(
-		"Bad Request: can't parse entities: Character '(' is reserved and must be escaped with the preceding '\\'",
-	),
-});
-
-/**
- * text with parse_mode MarkdownV2 contains an unescaped pipe character
- */
-export const CantParseEntitiesReservedCharPipeError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal(
-		"Bad Request: can't parse entities: Character '|' is reserved and must be escaped with the preceding '\\'",
-	),
-});
-
-/**
- * text with parse_mode MarkdownV2 contains an unescaped plus sign
- */
-export const CantParseEntitiesReservedCharPlusError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal(
-		"Bad Request: can't parse entities: Character '+' is reserved and must be escaped with the preceding '\\'",
-	),
-});
-
-/**
- * text with parse_mode HTML has mismatched closing tags
- */
-export const CantParseEntitiesUnmatchedEndTagError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal(
-		'Bad Request: can\'t parse entities: Unmatched end tag at byte offset 10, expected "</i>", found "</b>"',
-	),
-});
-
-/**
- * text with parse_mode HTML contains a disallowed tag
- */
-export const CantParseEntitiesUnsupportedScriptTagError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal('Bad Request: can\'t parse entities: Unsupported start tag "script" at byte offset 0'),
-});
-
-/**
- * text with parse_mode HTML contains an unknown tag
- */
-export const CantParseEntitiesUnsupportedTagError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal('Bad Request: can\'t parse entities: Unsupported start tag "invalid" at byte offset 0'),
-});
-
-/**
- * options parameter is missing
- */
-export const CantParseOptionsJsonObjectError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: can't parse options JSON object"),
-});
-
-/**
- * promotion would demote the chat owner
- */
-export const CantRemoveChatOwnerError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: can't remove chat owner"),
-});
-
-/**
- * legacy Telegram wording for the same permission failure
- */
-export const CantSetSupergroupStickerSetError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: can't set supergroup sticker set"),
-});
-
-/**
- * bot lacks permission to change the group sticker set
- */
-export const CantSetSupergroupStickerSetError2 = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: not enough rights to change supergroup sticker set"),
-});
-
-/**
- * rights.can_delete_messages is not a boolean
- */
-export const ChatAdministratorRightsCanDeleteMessagesMustBeBooleanError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal(
-		'Bad Request: can\'t parse ChatAdministratorRights: Field "can_delete_messages" must be of type Boolean',
-	),
-});
-
-/**
- * bot is not an administrator with can_manage_topics
- */
-export const ChatAdminRequiredError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: CHAT_ADMIN_REQUIRED"),
-});
-
-/**
- * only the chat creator can set member tags
- */
-export const ChatCreatorRequiredError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: CHAT_CREATOR_REQUIRED"),
-});
-
-/**
- * required parameters missing
- */
-export const ChatIdEmptyError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: chat_id is empty"),
-});
-
-/**
- * validation fails
- */
-export const ChatIdentifierEmptyError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: chat identifier is empty"),
-});
-
-/**
- * request_chat.chat_is_forum is not a boolean
- */
-export const ChatIsForumMustBeBooleanError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal(
-		'Bad Request: can\'t parse keyboard button: Field "chat_is_forum" must be of type Boolean',
-	),
-});
-
-/**
- * chat_id refers to a private chat with the bot
- */
-export const ChatMemberStatusCantBeChangedInPrivateChatsError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: chat member status can't be changed in private chats"),
-});
-
-/**
- * chat_id does not refer to a chat the bot can access
- */
-export const ChatNotFoundError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: chat not found"),
-});
-
-/**
- * bot lacks permission to delete the forum topic
- */
-export const ChatWriteForbiddenError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: CHAT_WRITE_FORBIDDEN"),
-});
-
-/**
- * checklist parameter is missing
- */
-export const ChecklistRequiredError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal('Bad Request: parameter "checklist" is required'),
-});
-
-/**
- * a command entry has an empty description
- */
-export const CommandDescriptionMustBeNonEmptyError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: command description must be non-empty"),
-});
-
-/**
- * a command entry has an empty command string
- */
-export const CommandMustBeNonEmptyError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: command must be non-empty"),
-});
-
-/**
- * custom_emoji entity is missing custom_emoji_id
- */
-export const CustomEmojiIdMissingError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: can't parse MessageEntity: Can't find field \"custom_emoji_id\""),
-});
-
-/**
- * custom_emoji entity has a non-numeric custom_emoji_id
- */
-export const CustomEmojiIdMustBeNumberError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal(
-		'Bad Request: can\'t parse MessageEntity: Field "custom_emoji_id" must be a valid Number',
-	),
-});
-
-/**
- * message_effect_id is not valid
- */
-export const EffectIdInvalidError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: EFFECT_ID_INVALID"),
-});
-
-/**
- * entities offset is beyond the text length
- */
-export const EntityBeginsAfterTextEndError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: entity begins after the end of the text at UTF-16 offset 100"),
-});
-
-/**
- * entities offset plus length exceeds the text length
- */
-export const EntityEndsAfterTextEndError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal(
-		"Bad Request: entity beginning at UTF-16 offset 0 ends after the end of the text at UTF-16 offset 100",
-	),
-});
-
-/**
- * entities offset is negative
- */
-export const EntityIncorrectOffsetError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: receive an entity with incorrect offset -1"),
-});
-
-/**
- * text_link entity url is empty
- */
-export const EntityUrlEmptyError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: entity URL '' is invalid: URL host is empty"),
-});
-
-/**
- * text_link entity url is not a valid HTTP URL
- */
-export const EntityUrlInvalidError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: entity URL 'not-a-url' is invalid: Wrong HTTP URL"),
-});
-
-/**
- * file_id parameter is missing or empty
- */
-export const FileIdNotSpecifiedError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: file_id not specified"),
-});
-
-/**
- * first_name parameter is missing
- */
-export const FirstNameRequiredError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal('Bad Request: parameter "first_name" is required'),
-});
-
-/**
- * allow_paid_broadcast is true but the bot has insufficient Telegram Stars
- */
-export const FloodskipNotAllowedError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: FLOODSKIP_NOT_ALLOWED"),
-});
-
-/**
- * force_reply is not a boolean
- */
-export const ForceReplyMustBeBooleanError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal('Bad Request: field "force_reply" must be of type Boolean'),
-});
-
-/**
- * from_chat_id parameter is missing
- */
-export const FromChatIdRequiredError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal('Bad Request: parameter "from_chat_id" is required'),
-});
-
-/**
- * inline keyboard button is missing text
- */
-export const InlineButtonTextMissingError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: can't parse inline keyboard button: Can't find field \"text\""),
-});
-
-/**
- * inline keyboard button has empty callback_data and no url
- */
-export const InlineButtonTextUnallowedError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal(
-		"Bad Request: can't parse inline keyboard button: Text buttons are unallowed in the inline keyboard",
-	),
-});
-
-/**
- * inline keyboard button url uses an unsupported protocol
- */
-export const InlineButtonUrlFtpUnsupportedError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal(
-		"Bad Request: inline keyboard button URL 'ftp://example.com' is invalid: Unsupported URL protocol",
-	),
-});
-
-/**
- * inline keyboard button url is not a valid HTTP URL
- */
-export const InlineButtonUrlInvalidError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: inline keyboard button URL 'not-a-url' is invalid: Wrong HTTP URL"),
-});
-
-/**
- * inline_keyboard is not an array
- */
-export const InlineKeyboardMustBeArrayError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal('Bad Request: field "inline_keyboard" must be of type Array'),
-});
-
-/**
- * chat_id is not a valid private chat id
- */
-export const InvalidChatIdError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: invalid chat_id specified"),
-});
-
-/**
- * validation fails
- */
-export const InvalidChatIdentifierError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: invalid chat identifier specified"),
-});
-
-/**
- * file_id is not valid
- */
-export const InvalidFileIdError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: invalid file_id"),
-});
-
-/**
- * suggested_post_parameters price amount is invalid
- */
-export const InvalidStarsAmountError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: invalid amount of Telegram Stars specified"),
-});
-
-/**
- * required parameters missing
- */
-export const InvalidUserIdError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: invalid user_id specified"),
-});
-
-/**
- * invite_link is invalid or already revoked
- */
-export const InviteHashExpiredError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: INVITE_HASH_EXPIRED"),
-});
-
-/**
- * reply keyboard is_persistent is not a boolean
- */
-export const IsPersistentMustBeBooleanError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal('Bad Request: field "is_persistent" must be of type Boolean'),
-});
-
-/**
- * reply keyboard keyboard is not an array
- */
-export const KeyboardMustBeArrayError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal('Bad Request: field "keyboard" must be of type Array'),
-});
-
-/**
- * request_chat or request_users keyboard button is missing request_id
- */
-export const KeyboardRequestIdMissingError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: can't parse keyboard button: Can't find field \"request_id\""),
-});
-
-/**
- * reply keyboard web_app button url is HTTP instead of HTTPS
- */
-export const KeyboardWebAppUrlHttpNotAllowedError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal(
-		"Bad Request: keyboard button Web App URL 'http://example.com' is invalid: Only HTTPS links are allowed",
-	),
-});
-
-/**
- * latitude parameter is missing
- */
-export const LatitudeEmptyError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: latitude is empty"),
-});
-
-/**
- * limit is zero or negative
- */
-export const LimitMustBePositiveError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: limit must be positive"),
-});
-
-/**
- * link_preview_options.is_disabled is not a boolean
- */
-export const LinkPreviewIsDisabledMustBeBooleanError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal('Bad Request: field "is_disabled" must be of type Boolean'),
-});
-
-/**
- * login_url bot_username does not refer to an existing bot
- */
-export const LoginUrlBotNotFoundError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal('Bad Request: bot "nonexistent_bot_xyz_12345" not found'),
-});
-
-/**
- * login_url bot_username refers to a username that is not a bot
- */
-export const LoginUrlBotNotFoundError2 = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal('Bad Request: bot "telegram" not found'),
-});
-
-/**
- * longitude parameter is missing
- */
-export const LongitudeEmptyError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: longitude is empty"),
-});
-
-/**
- * media parameter is missing
- */
-export const MediaRequiredError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal('Bad Request: parameter "media" is required'),
-});
-
-/**
- * user_id is not a member of the chat
- */
-export const MemberNotFoundError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: member not found"),
-});
-
-/**
- * menu_button.type is not a supported MenuButton variant
- */
-export const MenuButtonUnsupportedTypeError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: can't parse menu button: MenuButton has unsupported type"),
-});
-
-/**
- * caption exceeds 1024 characters
- */
-export const MessageCaptionTooLongError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: message caption is too long"),
-});
-
-/**
- * required parameters missing
- */
-export const MessageIdentifiersAreNotSpecifiedError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: message identifiers are not specified"),
-});
-
-/**
- * text is missing or empty
- */
-export const MessageTextEmptyError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: message text is empty"),
-});
-
-/**
- * message_thread_id does not refer to an existing forum topic
- */
-export const MessageThreadNotFoundError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: message thread not found"),
-});
-
-/**
- * message_id is missing or does not refer to an existing message
- */
-export const MessageToCopyNotFoundError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: message to copy not found"),
-});
-
-/**
- * message_id does not refer to an existing message
- */
-export const MessageToDeleteNotFoundError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: message to delete not found"),
-});
-
-/**
- * message_id does not refer to an existing message
- */
-export const MessageToDeleteReactionsNotFoundError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: message to delete reactions not found"),
-});
-
-/**
- * message_id or inline_message_id does not refer to an existing message
- */
-export const MessageToEditNotFoundError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: message to edit not found"),
-});
-
-/**
- * message_id is missing or does not refer to an existing message
- */
-export const MessageToForwardNotFoundError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: message to forward not found"),
-});
-
-/**
- * text exceeds 4096 characters
- */
-export const MessageTooLongError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: message is too long"),
-});
-
-/**
- * message_id is missing or does not refer to an existing message
- */
-export const MessageToPinNotFoundError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: message to pin not found"),
-});
-
-/**
- * message_id is missing or does not refer to an existing message
- */
-export const MessageToReactNotFoundError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: message to react not found"),
-});
-
-/**
- * reply_parameters.message_id does not exist in the target chat
- */
-export const MessageToReplyNotFoundError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: message to be replied not found"),
-});
-
-/**
- * message_id is missing or does not refer to a pinned message
- */
-export const MessageToUnpinNotFoundError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: message to unpin not found"),
-});
-
-/**
- * message_id does not refer to an existing poll message
- */
-export const MessageWithPollToStopNotFoundError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: message with poll to stop not found"),
-});
-
-/**
- * animation parameter is missing
- */
-export const NoAnimationInRequestError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: there is no animation in the request"),
-});
-
-/**
- * audio parameter is missing
- */
-export const NoAudioInRequestError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: there is no audio in the request"),
-});
-
-/**
- * document parameter is missing
- */
-export const NoDocumentInRequestError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: there is no document in the request"),
-});
-
-/**
- * live photo parameter is missing
- */
-export const NoLivePhotoInRequestError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: there is no live photo in the request"),
-});
-
-/**
- * message_ids is missing or does not refer to existing messages
- */
-export const NoMessagesToForwardError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: there are no messages to forward"),
-});
-
-/**
- * photo parameter is missing
- */
-export const NoPhotoInRequestError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: there is no photo in the request"),
-});
-
-/**
- * bot lacks can_manage_topics for the configured forum topic
- */
-export const NotEnoughRightsToCloseOrOpenTopicError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: not enough rights to close or open the topic"),
-});
-
-/**
- * bot lacks can_manage_topics in the test supergroup
- */
-export const NotEnoughRightsToCreateTopicError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: not enough rights to create a topic"),
-});
-
-/**
- * bot lacks can_manage_topics for the forum topic
- */
-export const NotEnoughRightsToEditTopicError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: not enough rights to edit the topic"),
-});
 
 /**
  * Token segment is empty or not in bot id:hash form
@@ -2543,380 +80,434 @@ export const NotEnoughRightsToEditTopicError = Schema.Struct({
 export const NotFoundError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(404),
-	description: Schema.Literal("Not Found"),
+	description: Schema.String,
+});
+
+export class MethodNotAllowed extends Data.TaggedError("MethodNotAllowed")<{
+	readonly ok: false;
+	readonly error_code: 405;
+	readonly description: string;
+}> {}
+
+export const MethodNotAllowedError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(405),
+	description: Schema.String,
+});
+
+export class NotAcceptable extends Data.TaggedError("NotAcceptable")<{
+	readonly ok: false;
+	readonly error_code: 406;
+	readonly description: string;
+}> {}
+
+export const NotAcceptableError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(406),
+	description: Schema.String,
+});
+
+export class ProxyAuthenticationRequired extends Data.TaggedError("ProxyAuthenticationRequired")<{
+	readonly ok: false;
+	readonly error_code: 407;
+	readonly description: string;
+}> {}
+
+export const ProxyAuthenticationRequiredError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(407),
+	description: Schema.String,
+});
+
+export class RequestTimeout extends Data.TaggedError("RequestTimeout")<{
+	readonly ok: false;
+	readonly error_code: 408;
+	readonly description: string;
+}> {}
+
+export const RequestTimeoutError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(408),
+	description: Schema.String,
+});
+
+export class Conflict extends Data.TaggedError("Conflict")<{
+	readonly ok: false;
+	readonly error_code: 409;
+	readonly description: string;
+}> {}
+
+export const ConflictError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(409),
+	description: Schema.String,
+});
+
+export class Gone extends Data.TaggedError("Gone")<{
+	readonly ok: false;
+	readonly error_code: 410;
+	readonly description: string;
+}> {}
+
+export const GoneError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(410),
+	description: Schema.String,
+});
+
+export class LengthRequired extends Data.TaggedError("LengthRequired")<{
+	readonly ok: false;
+	readonly error_code: 411;
+	readonly description: string;
+}> {}
+
+export const LengthRequiredError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(411),
+	description: Schema.String,
+});
+
+export class PreconditionFailed extends Data.TaggedError("PreconditionFailed")<{
+	readonly ok: false;
+	readonly error_code: 412;
+	readonly description: string;
+}> {}
+
+export const PreconditionFailedError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(412),
+	description: Schema.String,
+});
+
+export class PayloadTooLarge extends Data.TaggedError("PayloadTooLarge")<{
+	readonly ok: false;
+	readonly error_code: 413;
+	readonly description: string;
+}> {}
+
+export const PayloadTooLargeError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(413),
+	description: Schema.String,
+});
+
+export class UriTooLong extends Data.TaggedError("UriTooLong")<{
+	readonly ok: false;
+	readonly error_code: 414;
+	readonly description: string;
+}> {}
+
+export const UriTooLongError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(414),
+	description: Schema.String,
+});
+
+export class UnsupportedMediaType extends Data.TaggedError("UnsupportedMediaType")<{
+	readonly ok: false;
+	readonly error_code: 415;
+	readonly description: string;
+}> {}
+
+export const UnsupportedMediaTypeError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(415),
+	description: Schema.String,
+});
+
+export class RangeNotSatisfiable extends Data.TaggedError("RangeNotSatisfiable")<{
+	readonly ok: false;
+	readonly error_code: 416;
+	readonly description: string;
+}> {}
+
+export const RangeNotSatisfiableError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(416),
+	description: Schema.String,
+});
+
+export class ExpectationFailed extends Data.TaggedError("ExpectationFailed")<{
+	readonly ok: false;
+	readonly error_code: 417;
+	readonly description: string;
+}> {}
+
+export const ExpectationFailedError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(417),
+	description: Schema.String,
+});
+
+export class ImATeapot extends Data.TaggedError("ImATeapot")<{
+	readonly ok: false;
+	readonly error_code: 418;
+	readonly description: string;
+}> {}
+
+export const ImATeapotError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(418),
+	description: Schema.String,
+});
+
+export class MisdirectedRequest extends Data.TaggedError("MisdirectedRequest")<{
+	readonly ok: false;
+	readonly error_code: 421;
+	readonly description: string;
+}> {}
+
+export const MisdirectedRequestError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(421),
+	description: Schema.String,
+});
+
+export class UnprocessableContent extends Data.TaggedError("UnprocessableContent")<{
+	readonly ok: false;
+	readonly error_code: 422;
+	readonly description: string;
+}> {}
+
+export const UnprocessableContentError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(422),
+	description: Schema.String,
+});
+
+export class Locked extends Data.TaggedError("Locked")<{
+	readonly ok: false;
+	readonly error_code: 423;
+	readonly description: string;
+}> {}
+
+export const LockedError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(423),
+	description: Schema.String,
+});
+
+export class FailedDependency extends Data.TaggedError("FailedDependency")<{
+	readonly ok: false;
+	readonly error_code: 424;
+	readonly description: string;
+}> {}
+
+export const FailedDependencyError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(424),
+	description: Schema.String,
+});
+
+export class TooEarly extends Data.TaggedError("TooEarly")<{
+	readonly ok: false;
+	readonly error_code: 425;
+	readonly description: string;
+}> {}
+
+export const TooEarlyError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(425),
+	description: Schema.String,
+});
+
+export class UpgradeRequired extends Data.TaggedError("UpgradeRequired")<{
+	readonly ok: false;
+	readonly error_code: 426;
+	readonly description: string;
+}> {}
+
+export const UpgradeRequiredError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(426),
+	description: Schema.String,
+});
+
+export class PreconditionRequired extends Data.TaggedError("PreconditionRequired")<{
+	readonly ok: false;
+	readonly error_code: 428;
+	readonly description: string;
+}> {}
+
+export const PreconditionRequiredError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(428),
+	description: Schema.String,
+});
+
+export class TooManyRequests extends Data.TaggedError("TooManyRequests")<{
+	readonly ok: false;
+	readonly error_code: 429;
+	readonly description: string;
+}> {}
+
+export const TooManyRequestsError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(429),
+	description: Schema.String,
+});
+
+export class RequestHeaderFieldsTooLarge extends Data.TaggedError("RequestHeaderFieldsTooLarge")<{
+	readonly ok: false;
+	readonly error_code: 431;
+	readonly description: string;
+}> {}
+
+export const RequestHeaderFieldsTooLargeError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(431),
+	description: Schema.String,
+});
+
+export class UnavailableForLegalReasons extends Data.TaggedError("UnavailableForLegalReasons")<{
+	readonly ok: false;
+	readonly error_code: 451;
+	readonly description: string;
+}> {}
+
+export const UnavailableForLegalReasonsError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(451),
+	description: Schema.String,
+});
+
+export class InternalServerError extends Data.TaggedError("InternalServerError")<{
+	readonly ok: false;
+	readonly error_code: 500;
+	readonly description: string;
+}> {}
+
+export const InternalServerErrorError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(500),
+	description: Schema.String,
+});
+
+export class NotImplemented extends Data.TaggedError("NotImplemented")<{
+	readonly ok: false;
+	readonly error_code: 501;
+	readonly description: string;
+}> {}
+
+export const NotImplementedError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(501),
+	description: Schema.String,
+});
+
+export class BadGateway extends Data.TaggedError("BadGateway")<{
+	readonly ok: false;
+	readonly error_code: 502;
+	readonly description: string;
+}> {}
+
+export const BadGatewayError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(502),
+	description: Schema.String,
+});
+
+export class ServiceUnavailable extends Data.TaggedError("ServiceUnavailable")<{
+	readonly ok: false;
+	readonly error_code: 503;
+	readonly description: string;
+}> {}
+
+export const ServiceUnavailableError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(503),
+	description: Schema.String,
+});
+
+export class GatewayTimeout extends Data.TaggedError("GatewayTimeout")<{
+	readonly ok: false;
+	readonly error_code: 504;
+	readonly description: string;
+}> {}
+
+export const GatewayTimeoutError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(504),
+	description: Schema.String,
+});
+
+export class HttpVersionNotSupported extends Data.TaggedError("HttpVersionNotSupported")<{
+	readonly ok: false;
+	readonly error_code: 505;
+	readonly description: string;
+}> {}
+
+export const HttpVersionNotSupportedError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(505),
+	description: Schema.String,
+});
+
+export class VariantAlsoNegotiates extends Data.TaggedError("VariantAlsoNegotiates")<{
+	readonly ok: false;
+	readonly error_code: 506;
+	readonly description: string;
+}> {}
+
+export const VariantAlsoNegotiatesError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(506),
+	description: Schema.String,
+});
+
+export class InsufficientStorage extends Data.TaggedError("InsufficientStorage")<{
+	readonly ok: false;
+	readonly error_code: 507;
+	readonly description: string;
+}> {}
+
+export const InsufficientStorageError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(507),
+	description: Schema.String,
+});
+
+export class LoopDetected extends Data.TaggedError("LoopDetected")<{
+	readonly ok: false;
+	readonly error_code: 508;
+	readonly description: string;
+}> {}
+
+export const LoopDetectedError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(508),
+	description: Schema.String,
+});
+
+export class NotExtended extends Data.TaggedError("NotExtended")<{
+	readonly ok: false;
+	readonly error_code: 510;
+	readonly description: string;
+}> {}
+
+export const NotExtendedError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(510),
+	description: Schema.String,
+});
+
+export class NetworkAuthenticationRequired extends Data.TaggedError("NetworkAuthenticationRequired")<{
+	readonly ok: false;
+	readonly error_code: 511;
+	readonly description: string;
+}> {}
+
+export const NetworkAuthenticationRequiredError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(511),
+	description: Schema.String,
 });
 
 /**
- * video parameter is missing
+ * Catch-all wire schema for undocumented `{ "ok": false }` responses.
  */
-export const NoVideoInRequestError = Schema.Struct({
+export const TelegramApiFailureError = Schema.Struct({
 	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: there is no video in the request"),
-});
-
-/**
- * video_note parameter is missing
- */
-export const NoVideoNoteInRequestError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: there is no video note in the request"),
-});
-
-/**
- * voice parameter is missing
- */
-export const NoVoiceInRequestError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: there is no voice in the request"),
-});
-
-/**
- * reply keyboard one_time_keyboard is not a boolean
- */
-export const OneTimeKeyboardMustBeBooleanError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal('Bad Request: field "one_time_keyboard" must be of type Boolean'),
-});
-
-/**
- * user_id does not refer to a chat participant
- */
-export const ParticipantIdInvalidError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: PARTICIPANT_ID_INVALID"),
-});
-
-/**
- * chat_id does not refer to a channel or supergroup that supports boosts
- */
-export const PeerIdInvalidError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: PEER_ID_INVALID"),
-});
-
-/**
- * phone_number parameter is missing
- */
-export const PhoneNumberRequiredError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal('Bad Request: parameter "phone_number" is required'),
-});
-
-/**
- * required parameters missing
- */
-export const PhotoNotSpecifiedError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: photo isn't specified"),
-});
-
-/**
- * options array is empty
- */
-export const PollMustHaveAtLeastOneAnswerOptionError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: poll must have at least one answer option"),
-});
-
-/**
- * link_preview_options.prefer_large_media is not a boolean
- */
-export const PreferLargeMediaMustBeBooleanError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal('Bad Request: field "prefer_large_media" must be of type Boolean'),
-});
-
-/**
- * link_preview_options.prefer_small_media is not a boolean
- */
-export const PreferSmallMediaMustBeBooleanError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal('Bad Request: field "prefer_small_media" must be of type Boolean'),
-});
-
-/**
- * chat does not support paid subscription invite links
- */
-export const PricingChatInvalidError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: PRICING_CHAT_INVALID"),
-});
-
-/**
- * draft_id is missing or invalid
- */
-export const RandomIdInvalidError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: RANDOM_ID_INVALID"),
-});
-
-/**
- * remove_keyboard is not a boolean
- */
-export const RemoveKeyboardMustBeBooleanError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal('Bad Request: field "remove_keyboard" must be of type Boolean'),
-});
-
-/**
- * reply_parameters is set without message_id
- */
-export const ReplyMessageIdMissingError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal('Bad Request: can\'t find field "message_id"'),
-});
-
-/**
- * login_url.request_write_access is not a boolean
- */
-export const RequestWriteAccessMustBeBooleanError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal(
-		'Bad Request: can\'t parse inline keyboard button: Field "request_write_access" must be of type Boolean',
-	),
-});
-
-/**
- * reply keyboard resize_keyboard is not a boolean
- */
-export const ResizeKeyboardMustBeBooleanError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal('Bad Request: field "resize_keyboard" must be of type Boolean'),
-});
-
-/**
- * required parameters missing
- */
-export const ResultNotSpecifiedError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: result isn't specified"),
-});
-
-/**
- * reply markup selective is not a boolean
- */
-export const SelectiveMustBeBooleanError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal('Bad Request: field "selective" must be of type Boolean'),
-});
-
-/**
- * sender_chat_id is missing
- */
-export const SenderChatIdEmptyError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: sender_chat_id is empty"),
-});
-
-/**
- * link_preview_options.show_above_text is not a boolean
- */
-export const ShowAboveTextMustBeBooleanError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal('Bad Request: field "show_above_text" must be of type Boolean'),
-});
-
-/**
- * gift_id is missing or invalid
- */
-export const StargiftInvalidError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: STARGIFT_INVALID"),
-});
-
-/**
- * sticker_set_name is missing or empty
- */
-export const StickerSetNameEmptyError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: sticker_set_name is empty"),
-});
-
-/**
- * sticker_set_name does not refer to an existing set
- */
-export const StickerSetNotFoundError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: sticker set not found"),
-});
-
-/**
- * required parameters missing
- */
-export const StoryContentNotSpecifiedError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: story content isn't specified"),
-});
-
-/**
- * suggested_post_parameters is used outside a channel direct messages chat
- */
-export const SuggestedPostChannelOnlyError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: suggested posts can be sent only to channel direct messages"),
-});
-
-/**
- * message_id does not refer to an existing suggested post
- */
-export const SuggestedPostNotFoundError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: suggested post not found"),
-});
-
-/**
- * text_link entity is missing url
- */
-export const TextLinkUrlMissingError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: can't parse MessageEntity: Can't find field \"url\""),
-});
-
-/**
- * text_mention entity is missing user
- */
-export const TextMentionUserMissingError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: can't parse MessageEntity: Can't find field \"user\""),
-});
-
-/**
- * text contains only whitespace or parses to empty content
- */
-export const TextMustBeNonEmptyError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: text must be non-empty"),
-});
-
-/**
- * title is missing or empty
- */
-export const TitleEmptyError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: title must be non-empty"),
-});
-
-/**
- * Token has bot id:hash form but the secret is invalid
- */
-export const UnauthorizedError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(401),
-	description: Schema.Literal("Unauthorized: invalid token specified"),
-});
-
-/**
- * entities contains an unsupported type value
- */
-export const UnsupportedMessageEntityTypeError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: can't parse MessageEntity: Unsupported type specified"),
-});
-
-/**
- * parse_mode is not HTML, Markdown, or MarkdownV2
- */
-export const UnsupportedParseModeError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: unsupported parse_mode"),
-});
-
-/**
- * user_id does not refer to a pending join request
- */
-export const UserIdInvalidError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: USER_ID_INVALID"),
-});
-
-/**
- * user_id does not refer to an existing user
- */
-export const UserNotFoundError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: user not found"),
-});
-
-/**
- * web_app button url is HTTP instead of HTTPS
- */
-export const WebAppUrlHttpNotAllowedError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal(
-		"Bad Request: inline keyboard button Web App URL 'http://example.com' is invalid: Only HTTPS links are allowed",
-	),
-});
-
-/**
- * web_app button url is not a valid HTTPS URL
- */
-export const WebAppUrlNotHttpsError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal(
-		"Bad Request: inline keyboard button Web App URL 'bad' is invalid: Only HTTPS links are allowed",
-	),
-});
-
-/**
- * link_preview_options.url is not a valid URL
- */
-export const WebpageUrlInvalidError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: WEBPAGE_URL_INVALID"),
-});
-
-/**
- * action is missing or not a supported chat action type
- */
-export const WrongParameterActionError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: wrong parameter action in request"),
-});
-
-/**
- * video file_id is malformed
- */
-export const WrongRemoteFileIdentifierWrongPaddingError = Schema.Struct({
-	ok: Schema.Literal(false),
-	error_code: Schema.Literal(400),
-	description: Schema.Literal("Bad Request: wrong remote file identifier specified: Wrong padding in the string"),
+	error_code: Schema.Number,
+	description: Schema.String,
 });

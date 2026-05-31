@@ -42,7 +42,7 @@ liveTests("deleteMessageReaction", test => {
 					user_id: 1,
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "MessageToDeleteReactionsNotFound", "Bad Request: message to delete reactions not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: message to delete reactions not found");
 			}),
 		);
 	});

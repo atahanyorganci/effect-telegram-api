@@ -1,4 +1,4 @@
 {
 	"method": "sendVoice",
-	"errors": ["NoVoiceInRequest"]
+	"errors": ["BadRequest"]
 }

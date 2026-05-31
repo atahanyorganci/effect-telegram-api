@@ -1,4 +1,4 @@
 {
 	"method": "sendChatAction",
-	"errors": ["ChatIdEmpty", "ChatNotFound", "WrongParameterAction"]
+	"errors": ["BadRequest"]
 }

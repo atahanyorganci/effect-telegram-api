@@ -1,4 +1,4 @@
 {
 	"method": "stopMessageLiveLocation",
-	"errors": ["MessageToEditNotFound"]
+	"errors": ["BadRequest"]
 }

@@ -22,7 +22,7 @@ liveTests("setChatPermissions", test => {
 					permissions: { can_send_messages: true },
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "CantChangePrivateChatPermissions", "Bad Request: can't change private chat permissions");
+				expectErrorTag(error, "BadRequest", "Bad Request: can't change private chat permissions");
 			}),
 		);
 

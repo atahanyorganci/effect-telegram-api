@@ -38,7 +38,7 @@ liveTests("editMessageCaption", test => {
 					caption: "telegram-api missing caption target",
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "MessageToEditNotFound", "Bad Request: message to edit not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: message to edit not found");
 			}),
 		);
 	});

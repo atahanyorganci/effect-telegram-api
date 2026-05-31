@@ -41,7 +41,7 @@ liveTests("editMessageReplyMarkup", test => {
 					reply_markup: { inline_keyboard: [] },
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "MessageToEditNotFound", "Bad Request: message to edit not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: message to edit not found");
 			}),
 		);
 	});

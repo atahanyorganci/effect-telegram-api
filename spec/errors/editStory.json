@@ -1,4 +1,4 @@
 {
 	"method": "editStory",
-	"errors": ["StoryContentNotSpecified"]
+	"errors": ["BadRequest"]
 }

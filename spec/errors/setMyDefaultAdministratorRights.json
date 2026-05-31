@@ -1,4 +1,4 @@
 {
 	"method": "setMyDefaultAdministratorRights",
-	"errors": ["ChatAdministratorRightsCanDeleteMessagesMustBeBoolean"]
+	"errors": ["BadRequest"]
 }

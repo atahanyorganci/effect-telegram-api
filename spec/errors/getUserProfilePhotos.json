@@ -1,4 +1,4 @@
 {
 	"method": "getUserProfilePhotos",
-	"errors": ["InvalidUserId", "UserNotFound"]
+	"errors": ["BadRequest"]
 }

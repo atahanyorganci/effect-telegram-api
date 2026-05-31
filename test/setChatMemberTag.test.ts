@@ -23,7 +23,7 @@ liveTests("setChatMemberTag", test => {
 					tag: "probe",
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "ParticipantIdInvalid", "Bad Request: PARTICIPANT_ID_INVALID");
+				expectErrorTag(error, "BadRequest", "Bad Request: PARTICIPANT_ID_INVALID");
 			}),
 		);
 
@@ -36,7 +36,7 @@ liveTests("setChatMemberTag", test => {
 					tag: "",
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "ChatCreatorRequired", "Bad Request: CHAT_CREATOR_REQUIRED");
+				expectErrorTag(error, "BadRequest", "Bad Request: CHAT_CREATOR_REQUIRED");
 			}),
 		);
 

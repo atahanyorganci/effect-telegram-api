@@ -73,7 +73,7 @@ liveTests("sendVideo", test => {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callSendVideo(botToken, { chat_id: "", video: readVideoFixture() }).pipe(Effect.flip);
 
-				expectErrorTag(error, "ChatIdEmpty", "Bad Request: chat_id is empty");
+				expectErrorTag(error, "BadRequest", "Bad Request: chat_id is empty");
 			}),
 		);
 
@@ -85,7 +85,7 @@ liveTests("sendVideo", test => {
 					video: readVideoFixture(),
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "ChatNotFound", "Bad Request: chat not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: chat not found");
 			}),
 		);
 
@@ -98,7 +98,7 @@ liveTests("sendVideo", test => {
 					caption: "x".repeat(1025),
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "MessageCaptionTooLong", "Bad Request: message caption is too long");
+				expectErrorTag(error, "BadRequest", "Bad Request: message caption is too long");
 			}),
 		);
 
@@ -112,7 +112,7 @@ liveTests("sendVideo", test => {
 					parse_mode: "INVALID",
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "UnsupportedParseMode", "Bad Request: unsupported parse_mode");
+				expectErrorTag(error, "BadRequest", "Bad Request: unsupported parse_mode");
 			}),
 		);
 
@@ -128,7 +128,7 @@ liveTests("sendVideo", test => {
 
 				expectErrorTag(
 					error,
-					"CantParseEntitiesNoBoldEnd",
+					"BadRequest",
 					"Bad Request: can't parse entities: Can't find end of Bold entity at byte offset 0",
 				);
 			}),
@@ -143,7 +143,7 @@ liveTests("sendVideo", test => {
 					message_thread_id: 999999999,
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "MessageThreadNotFound", "Bad Request: message thread not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: message thread not found");
 			}),
 		);
 
@@ -156,7 +156,7 @@ liveTests("sendVideo", test => {
 					reply_parameters: { message_id: 999999999 },
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "MessageToReplyNotFound", "Bad Request: message to be replied not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: message to be replied not found");
 			}),
 		);
 
@@ -170,7 +170,7 @@ liveTests("sendVideo", test => {
 
 				expectErrorTag(
 					error,
-					"WrongRemoteFileIdentifierWrongPadding",
+					"BadRequest",
 					"Bad Request: wrong remote file identifier specified: Wrong padding in the string",
 				);
 			}),

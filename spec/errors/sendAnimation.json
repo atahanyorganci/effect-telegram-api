@@ -1,4 +1,4 @@
 {
 	"method": "sendAnimation",
-	"errors": ["NoAnimationInRequest"]
+	"errors": ["BadRequest"]
 }

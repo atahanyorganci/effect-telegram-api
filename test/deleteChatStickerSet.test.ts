@@ -19,11 +19,7 @@ liveTests("deleteChatStickerSet", test => {
 				const { limitedBotToken, groupId } = yield* telegramConfig;
 				const error = yield* callDeleteChatStickerSet(limitedBotToken, { chat_id: groupId }).pipe(Effect.flip);
 
-				expectErrorTag(
-					error,
-					"CantSetSupergroupStickerSet",
-					"Bad Request: not enough rights to change supergroup sticker set",
-				);
+				expectErrorTag(error, "BadRequest", "Bad Request: not enough rights to change supergroup sticker set");
 			}),
 		);
 

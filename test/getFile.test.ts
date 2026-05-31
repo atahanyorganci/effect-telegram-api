@@ -37,7 +37,7 @@ liveTests("getFile", test => {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callGetFile(botToken, { file_id: "invalid" }).pipe(Effect.flip);
 
-				expectErrorTag(error, "InvalidFileId", "Bad Request: invalid file_id");
+				expectErrorTag(error, "BadRequest", "Bad Request: invalid file_id");
 			}),
 		);
 

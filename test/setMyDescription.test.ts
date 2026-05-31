@@ -23,7 +23,7 @@ liveTests("setMyDescription", test => {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callSetMyDescription(botToken, { description: "x".repeat(513) }).pipe(Effect.flip);
 
-				expectErrorTag(error, "BotDescriptionInvalid", "Bad Request: BOT_DESC_INVALID");
+				expectErrorTag(error, "BadRequest", "Bad Request: BOT_DESC_INVALID");
 			}),
 		);
 	});

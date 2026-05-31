@@ -1,4 +1,4 @@
 {
 	"method": "getChatMemberCount",
-	"errors": ["ChatIdEmpty", "ChatNotFound"]
+	"errors": ["BadRequest"]
 }

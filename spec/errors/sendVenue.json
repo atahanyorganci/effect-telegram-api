@@ -1,4 +1,4 @@
 {
 	"method": "sendVenue",
-	"errors": ["ChatIdEmpty", "ChatNotFound", "LatitudeEmpty", "LongitudeEmpty"]
+	"errors": ["BadRequest"]
 }

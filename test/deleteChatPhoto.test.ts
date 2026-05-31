@@ -18,7 +18,7 @@ liveTests("deleteChatPhoto", test => {
 				const { botToken, chatId } = yield* telegramConfig;
 				const error = yield* callDeleteChatPhoto(botToken, { chat_id: chatId }).pipe(Effect.flip);
 
-				expectErrorTag(error, "CantChangePrivateChatPhoto", "Bad Request: can't change private chat photo");
+				expectErrorTag(error, "BadRequest", "Bad Request: can't change private chat photo");
 			}),
 		);
 

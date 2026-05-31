@@ -23,7 +23,7 @@ liveTests("restrictChatMember", test => {
 					permissions: { can_send_messages: false },
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "ParticipantIdInvalid", "Bad Request: PARTICIPANT_ID_INVALID");
+				expectErrorTag(error, "BadRequest", "Bad Request: PARTICIPANT_ID_INVALID");
 			}),
 		);
 

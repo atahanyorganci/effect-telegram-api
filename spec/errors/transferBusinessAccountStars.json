@@ -1,4 +1,4 @@
 {
 	"method": "transferBusinessAccountStars",
-	"errors": ["BusinessConnectionNotFound"]
+	"errors": ["BadRequest"]
 }

@@ -1,4 +1,4 @@
-import { expandMethodErrors } from "./render-errors.ts";
+import { methodStatusCodes, statusTagForCode } from "./render-errors.ts";
 import { renderInlinedPayloadSchemas } from "./render-payload-schema.ts";
 import { methodUsesMultipart } from "./render-type-expr.ts";
 import type { Method } from "../parse/model.ts";
@@ -25,14 +25,22 @@ const renderMapError = (method: Method, methodErrors: ReadonlyMap<string, Method
 		return "";
 	}
 
-	const checks = expandMethodErrors(doc.errors)
-		.map(
-			error =>
-				`\t\t\tif ("error_code" in error && error.error_code === ${error.errorCode} && error.description === ${JSON.stringify(error.description)}) return new Errors.${error.tag}(error);`,
-		)
+	const codes = methodStatusCodes(method.name, methodErrors);
+	const checks = codes
+		.map(code => {
+			const tag = statusTagForCode(code);
+			return `\t\t\tif ("error_code" in error && error.error_code === ${code}) return new Errors.${tag}({ ok: false, error_code: ${code}, description: error.description });`;
+		})
 		.join("\n");
 
-	return [`\t\t\tEffect.mapError(error => {`, checks, `\t\t\t\treturn error;`, `\t\t\t}),`].join("\n");
+	return [
+		`\t\t\tEffect.mapError(error => {`,
+		checks,
+		`\t\t\t\tif ("error_code" in error && "description" in error)`,
+		`\t\t\t\t\treturn new Errors.TelegramApiError({ errorCode: error.error_code, description: error.description });`,
+		`\t\t\t\treturn error;`,
+		`\t\t\t}),`,
+	].join("\n");
 };
 
 const renderMethodImpl = (method: Method, methodErrors: ReadonlyMap<string, MethodErrorsDoc>): string => {

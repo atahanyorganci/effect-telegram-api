@@ -1,4 +1,4 @@
 {
 	"method": "unhideGeneralForumTopic",
-	"errors": ["ChatIdEmpty", "NotEnoughRightsToCloseOrOpenTopic"]
+	"errors": ["BadRequest"]
 }

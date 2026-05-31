@@ -1,4 +1,4 @@
 {
 	"method": "unbanChatSenderChat",
-	"errors": ["SenderChatIdEmpty", "ParticipantIdInvalid"]
+	"errors": ["BadRequest"]
 }

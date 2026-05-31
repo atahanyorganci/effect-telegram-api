@@ -1,4 +1,4 @@
 {
 	"method": "sendLivePhoto",
-	"errors": ["NoLivePhotoInRequest"]
+	"errors": ["BadRequest"]
 }

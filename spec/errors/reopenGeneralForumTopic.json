@@ -1,4 +1,4 @@
 {
 	"method": "reopenGeneralForumTopic",
-	"errors": ["ChatIdEmpty", "ChatAdminRequired"]
+	"errors": ["BadRequest"]
 }

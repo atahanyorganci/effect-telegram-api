@@ -137,7 +137,7 @@ export class TelegramClient extends Context.Service<
 			readonly cache_time?: number | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.CallbackQueryIdInvalid
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -160,8 +160,8 @@ export class TelegramClient extends Context.Service<
 			readonly result: InlineQueryResult;
 		}) => Effect.Effect<
 			SentGuestMessage,
+			| Errors.BadRequest
 			| Errors.NotFound
-			| Errors.ResultNotSpecified
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
 			| Schema.SchemaError
@@ -279,9 +279,8 @@ export class TelegramClient extends Context.Service<
 			readonly result: InlineQueryResult;
 		}) => Effect.Effect<
 			SentWebAppMessage,
-			| Errors.CallbackQueryIdInvalid
+			| Errors.BadRequest
 			| Errors.NotFound
-			| Errors.ResultNotSpecified
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
 			| Schema.SchemaError
@@ -305,10 +304,9 @@ export class TelegramClient extends Context.Service<
 			readonly user_id: number;
 		}) => Effect.Effect<
 			true,
-			| Errors.InvalidUserId
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
-			| Errors.UserIdInvalid
 			| Errors.TelegramApiError
 			| Schema.SchemaError
 			| HttpClientError.HttpClientError
@@ -337,8 +335,8 @@ export class TelegramClient extends Context.Service<
 			readonly send_date?: number | undefined;
 		}) => Effect.Effect<
 			true,
+			| Errors.BadRequest
 			| Errors.NotFound
-			| Errors.SuggestedPostNotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
 			| Schema.SchemaError
@@ -377,9 +375,8 @@ export class TelegramClient extends Context.Service<
 			readonly revoke_messages?: boolean | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.InvalidUserId
+			| Errors.BadRequest
 			| Errors.NotFound
-			| Errors.ParticipantIdInvalid
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
 			| Schema.SchemaError
@@ -405,9 +402,8 @@ export class TelegramClient extends Context.Service<
 			readonly sender_chat_id: number;
 		}) => Effect.Effect<
 			true,
+			| Errors.BadRequest
 			| Errors.NotFound
-			| Errors.ParticipantIdInvalid
-			| Errors.SenderChatIdEmpty
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
 			| Schema.SchemaError
@@ -447,9 +443,7 @@ export class TelegramClient extends Context.Service<
 			readonly message_thread_id: number;
 		}) => Effect.Effect<
 			true,
-			| Errors.ChatAdminRequired
-			| Errors.ChatIdEmpty
-			| Errors.NotEnoughRightsToCloseOrOpenTopic
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -470,8 +464,7 @@ export class TelegramClient extends Context.Service<
 			readonly chat_id: number | string;
 		}) => Effect.Effect<
 			true,
-			| Errors.ChatAdminRequired
-			| Errors.ChatIdEmpty
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -495,7 +488,7 @@ export class TelegramClient extends Context.Service<
 			readonly owned_gift_id: string;
 		}) => Effect.Effect<
 			true,
-			| Errors.BusinessConnectionNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -601,8 +594,7 @@ export class TelegramClient extends Context.Service<
 				| undefined;
 		}) => Effect.Effect<
 			MessageId,
-			| Errors.FromChatIdRequired
-			| Errors.MessageToCopyNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -663,8 +655,7 @@ export class TelegramClient extends Context.Service<
 			readonly remove_caption?: boolean | undefined;
 		}) => Effect.Effect<
 			ReadonlyArray<MessageId>,
-			| Errors.FromChatIdRequired
-			| Errors.NoMessagesToForward
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -704,9 +695,7 @@ export class TelegramClient extends Context.Service<
 			readonly creates_join_request?: boolean | undefined;
 		}) => Effect.Effect<
 			ChatInviteLink,
-			| Errors.CantInviteMembersToPrivateChat
-			| Errors.ChatIdEmpty
-			| Errors.ChatNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -742,10 +731,8 @@ export class TelegramClient extends Context.Service<
 			readonly subscription_price: number;
 		}) => Effect.Effect<
 			ChatInviteLink,
-			| Errors.CantInviteMembersToPrivateChat
-			| Errors.ChatIdEmpty
+			| Errors.BadRequest
 			| Errors.NotFound
-			| Errors.PricingChatInvalid
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
 			| Schema.SchemaError
@@ -781,8 +768,7 @@ export class TelegramClient extends Context.Service<
 			readonly icon_custom_emoji_id?: string | undefined;
 		}) => Effect.Effect<
 			ForumTopic,
-			| Errors.ChatIdEmpty
-			| Errors.NotEnoughRightsToCreateTopic
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -969,10 +955,9 @@ export class TelegramClient extends Context.Service<
 			readonly user_id: number;
 		}) => Effect.Effect<
 			true,
-			| Errors.InvalidUserId
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
-			| Errors.UserIdInvalid
 			| Errors.TelegramApiError
 			| Schema.SchemaError
 			| HttpClientError.HttpClientError
@@ -998,8 +983,8 @@ export class TelegramClient extends Context.Service<
 			readonly comment?: string | undefined;
 		}) => Effect.Effect<
 			true,
+			| Errors.BadRequest
 			| Errors.NotFound
-			| Errors.SuggestedPostNotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
 			| Schema.SchemaError
@@ -1029,8 +1014,8 @@ export class TelegramClient extends Context.Service<
 			readonly actor_chat_id?: number | undefined;
 		}) => Effect.Effect<
 			true,
+			| Errors.BadRequest
 			| Errors.NotFound
-			| Errors.ParticipantIdInvalid
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
 			| Schema.SchemaError
@@ -1057,7 +1042,7 @@ export class TelegramClient extends Context.Service<
 			readonly message_ids: ReadonlyArray<number>;
 		}) => Effect.Effect<
 			true,
-			| Errors.MessageIdentifiersAreNotSpecified
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -1078,8 +1063,7 @@ export class TelegramClient extends Context.Service<
 			readonly chat_id: number | string;
 		}) => Effect.Effect<
 			true,
-			| Errors.CantChangePrivateChatPhoto
-			| Errors.ChatIdEmpty
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -1102,8 +1086,7 @@ export class TelegramClient extends Context.Service<
 			readonly chat_id: number | string;
 		}) => Effect.Effect<
 			true,
-			| Errors.CantSetSupergroupStickerSet
-			| Errors.ChatIdEmpty
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -1129,8 +1112,7 @@ export class TelegramClient extends Context.Service<
 			readonly message_thread_id: number;
 		}) => Effect.Effect<
 			true,
-			| Errors.ChatIdEmpty
-			| Errors.ChatWriteForbidden
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -1170,8 +1152,7 @@ export class TelegramClient extends Context.Service<
 			readonly message_id: number;
 		}) => Effect.Effect<
 			true,
-			| Errors.ChatNotFound
-			| Errors.MessageToDeleteNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -1206,7 +1187,7 @@ export class TelegramClient extends Context.Service<
 			readonly actor_chat_id?: number | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.MessageToDeleteReactionsNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -1257,9 +1238,7 @@ export class TelegramClient extends Context.Service<
 			readonly language_code?: string | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.BotCommandScopeChatIdMissing
-			| Errors.BotCommandScopeUnsupportedType
-			| Errors.BotCommandScopeUserIdMissing
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -1302,7 +1281,7 @@ export class TelegramClient extends Context.Service<
 			readonly story_id: number;
 		}) => Effect.Effect<
 			true,
-			| Errors.BusinessConnectionNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -1363,8 +1342,7 @@ export class TelegramClient extends Context.Service<
 			readonly creates_join_request?: boolean | undefined;
 		}) => Effect.Effect<
 			ChatInviteLink,
-			| Errors.ChatIdEmpty
-			| Errors.InviteHashExpired
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -1392,8 +1370,7 @@ export class TelegramClient extends Context.Service<
 			readonly name?: string | undefined;
 		}) => Effect.Effect<
 			ChatInviteLink,
-			| Errors.ChatIdEmpty
-			| Errors.InviteHashExpired
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -1432,9 +1409,7 @@ export class TelegramClient extends Context.Service<
 			readonly icon_custom_emoji_id?: string | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.ChatAdminRequired
-			| Errors.ChatIdEmpty
-			| Errors.NotEnoughRightsToEditTopic
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -1459,8 +1434,7 @@ export class TelegramClient extends Context.Service<
 			readonly name: string;
 		}) => Effect.Effect<
 			true,
-			| Errors.ChatAdminRequired
-			| Errors.ChatIdEmpty
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -1519,7 +1493,7 @@ export class TelegramClient extends Context.Service<
 			readonly reply_markup?: InlineKeyboardMarkup | undefined;
 		}) => Effect.Effect<
 			Message | true,
-			| Errors.MessageToEditNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -1628,7 +1602,7 @@ export class TelegramClient extends Context.Service<
 			readonly reply_markup?: InlineKeyboardMarkup | undefined;
 		}) => Effect.Effect<
 			Message | true,
-			| Errors.MessageToEditNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -1677,7 +1651,7 @@ export class TelegramClient extends Context.Service<
 			readonly reply_markup?: InlineKeyboardMarkup | undefined;
 		}) => Effect.Effect<
 			Message | true,
-			| Errors.MessageToEditNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -1717,7 +1691,7 @@ export class TelegramClient extends Context.Service<
 			readonly reply_markup?: InlineKeyboardMarkup | undefined;
 		}) => Effect.Effect<
 			Message | true,
-			| Errors.MessageToEditNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -1775,8 +1749,7 @@ export class TelegramClient extends Context.Service<
 			readonly reply_markup?: InlineKeyboardMarkup | undefined;
 		}) => Effect.Effect<
 			Message | true,
-			| Errors.ChatNotFound
-			| Errors.MessageToEditNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -1821,8 +1794,8 @@ export class TelegramClient extends Context.Service<
 			readonly areas?: ReadonlyArray<StoryArea> | undefined;
 		}) => Effect.Effect<
 			Story,
+			| Errors.BadRequest
 			| Errors.NotFound
-			| Errors.StoryContentNotSpecified
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
 			| Schema.SchemaError
@@ -1865,9 +1838,7 @@ export class TelegramClient extends Context.Service<
 			readonly chat_id: number | string;
 		}) => Effect.Effect<
 			string,
-			| Errors.CantInviteMembersToPrivateChat
-			| Errors.ChatIdEmpty
-			| Errors.ChatNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -1931,11 +1902,7 @@ export class TelegramClient extends Context.Service<
 			readonly message_id: number;
 		}) => Effect.Effect<
 			Message,
-			| Errors.ChatIdEmpty
-			| Errors.ChatNotFound
-			| Errors.FromChatIdRequired
-			| Errors.MessageThreadNotFound
-			| Errors.MessageToForwardNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -1989,8 +1956,7 @@ export class TelegramClient extends Context.Service<
 			readonly protect_content?: boolean | undefined;
 		}) => Effect.Effect<
 			ReadonlyArray<MessageId>,
-			| Errors.FromChatIdRequired
-			| Errors.NoMessagesToForward
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -2064,7 +2030,7 @@ export class TelegramClient extends Context.Service<
 			readonly limit?: number | undefined;
 		}) => Effect.Effect<
 			OwnedGifts,
-			| Errors.BusinessConnectionNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -2081,7 +2047,7 @@ export class TelegramClient extends Context.Service<
 			readonly business_connection_id: string;
 		}) => Effect.Effect<
 			StarAmount,
-			| Errors.BusinessConnectionNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -2100,7 +2066,7 @@ export class TelegramClient extends Context.Service<
 			readonly business_connection_id: string;
 		}) => Effect.Effect<
 			BusinessConnection,
-			| Errors.BusinessConnectionNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -2119,8 +2085,7 @@ export class TelegramClient extends Context.Service<
 			readonly chat_id: number | string;
 		}) => Effect.Effect<
 			ChatFullInfo,
-			| Errors.ChatIdEmpty
-			| Errors.ChatNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -2144,8 +2109,7 @@ export class TelegramClient extends Context.Service<
 			readonly return_bots?: boolean | undefined;
 		}) => Effect.Effect<
 			ReadonlyArray<ChatMember>,
-			| Errors.ChatIdEmpty
-			| Errors.ChatNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -2213,8 +2177,7 @@ export class TelegramClient extends Context.Service<
 			readonly limit?: number | undefined;
 		}) => Effect.Effect<
 			OwnedGifts,
-			| Errors.ChatIdEmpty
-			| Errors.ChatNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -2239,12 +2202,8 @@ export class TelegramClient extends Context.Service<
 			readonly user_id: number;
 		}) => Effect.Effect<
 			ChatMember,
-			| Errors.ChatIdEmpty
-			| Errors.ChatNotFound
-			| Errors.InvalidUserId
-			| Errors.MemberNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
-			| Errors.ParticipantIdInvalid
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
 			| Schema.SchemaError
@@ -2262,8 +2221,7 @@ export class TelegramClient extends Context.Service<
 			readonly chat_id: number | string;
 		}) => Effect.Effect<
 			number,
-			| Errors.ChatIdEmpty
-			| Errors.ChatNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -2283,7 +2241,7 @@ export class TelegramClient extends Context.Service<
 			readonly chat_id?: number | undefined;
 		}) => Effect.Effect<
 			MenuButton,
-			| Errors.InvalidChatId
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -2318,8 +2276,7 @@ export class TelegramClient extends Context.Service<
 			readonly file_id: string;
 		}) => Effect.Effect<
 			File,
-			| Errors.FileIdNotSpecified
-			| Errors.InvalidFileId
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -2379,7 +2336,7 @@ export class TelegramClient extends Context.Service<
 			readonly user_id: number;
 		}) => Effect.Effect<
 			BotAccessSettings,
-			| Errors.InvalidUserId
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -2397,7 +2354,7 @@ export class TelegramClient extends Context.Service<
 			readonly user_id: number;
 		}) => Effect.Effect<
 			string,
-			| Errors.InvalidUserId
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -2433,9 +2390,7 @@ export class TelegramClient extends Context.Service<
 			readonly language_code?: string | undefined;
 		}) => Effect.Effect<
 			ReadonlyArray<BotCommand>,
-			| Errors.BotCommandScopeChatIdMissing
-			| Errors.BotCommandScopeUnsupportedType
-			| Errors.BotCommandScopeUserIdMissing
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -2612,11 +2567,8 @@ export class TelegramClient extends Context.Service<
 			readonly user_id: number;
 		}) => Effect.Effect<
 			UserChatBoosts,
-			| Errors.ChatIdEmpty
-			| Errors.ChatNotFound
-			| Errors.InvalidUserId
+			| Errors.BadRequest
 			| Errors.NotFound
-			| Errors.PeerIdInvalid
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
 			| Schema.SchemaError
@@ -2670,10 +2622,9 @@ export class TelegramClient extends Context.Service<
 			readonly limit?: number | undefined;
 		}) => Effect.Effect<
 			OwnedGifts,
-			| Errors.InvalidUserId
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
-			| Errors.UserNotFound
 			| Errors.TelegramApiError
 			| Schema.SchemaError
 			| HttpClientError.HttpClientError
@@ -2695,8 +2646,7 @@ export class TelegramClient extends Context.Service<
 			readonly limit: number;
 		}) => Effect.Effect<
 			ReadonlyArray<Message>,
-			| Errors.InvalidUserId
-			| Errors.LimitMustBePositive
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -2724,10 +2674,9 @@ export class TelegramClient extends Context.Service<
 			readonly limit?: number | undefined;
 		}) => Effect.Effect<
 			UserProfileAudios,
-			| Errors.InvalidUserId
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
-			| Errors.UserNotFound
 			| Errors.TelegramApiError
 			| Schema.SchemaError
 			| HttpClientError.HttpClientError
@@ -2753,10 +2702,9 @@ export class TelegramClient extends Context.Service<
 			readonly limit?: number | undefined;
 		}) => Effect.Effect<
 			UserProfilePhotos,
-			| Errors.InvalidUserId
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
-			| Errors.UserNotFound
 			| Errors.TelegramApiError
 			| Schema.SchemaError
 			| HttpClientError.HttpClientError
@@ -2813,10 +2761,9 @@ export class TelegramClient extends Context.Service<
 			readonly text_entities?: ReadonlyArray<MessageEntity> | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.InvalidUserId
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
-			| Errors.UserNotFound
 			| Errors.TelegramApiError
 			| Schema.SchemaError
 			| HttpClientError.HttpClientError
@@ -2836,8 +2783,7 @@ export class TelegramClient extends Context.Service<
 			readonly chat_id: number | string;
 		}) => Effect.Effect<
 			true,
-			| Errors.ChatIdEmpty
-			| Errors.NotEnoughRightsToCloseOrOpenTopic
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -2857,8 +2803,7 @@ export class TelegramClient extends Context.Service<
 			readonly chat_id: number | string;
 		}) => Effect.Effect<
 			true,
-			| Errors.ChatIdEmpty
-			| Errors.ChatMemberStatusCantBeChangedInPrivateChats
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -2912,8 +2857,7 @@ export class TelegramClient extends Context.Service<
 			readonly disable_notification?: boolean | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.ChatNotFound
-			| Errors.MessageToPinNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -2968,8 +2912,8 @@ export class TelegramClient extends Context.Service<
 			readonly protect_content?: boolean | undefined;
 		}) => Effect.Effect<
 			Story,
+			| Errors.BadRequest
 			| Errors.NotFound
-			| Errors.StoryContentNotSpecified
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
 			| Schema.SchemaError
@@ -3078,8 +3022,7 @@ export class TelegramClient extends Context.Service<
 			readonly can_manage_tags?: boolean | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.CantRemoveChatOwner
-			| Errors.InvalidUserId
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -3108,7 +3051,7 @@ export class TelegramClient extends Context.Service<
 			readonly message_id: number;
 		}) => Effect.Effect<
 			true,
-			| Errors.ChatIdentifierEmpty
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -3148,7 +3091,7 @@ export class TelegramClient extends Context.Service<
 			readonly is_public?: boolean | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.BusinessConnectionNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -3168,8 +3111,7 @@ export class TelegramClient extends Context.Service<
 			readonly chat_id: number | string;
 		}) => Effect.Effect<
 			true,
-			| Errors.BotVerifierForbidden
-			| Errors.InvalidChatIdentifier
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -3200,9 +3142,8 @@ export class TelegramClient extends Context.Service<
 			readonly user_id: number;
 		}) => Effect.Effect<
 			true,
-			| Errors.InvalidUserId
+			| Errors.BadRequest
 			| Errors.NotFound
-			| Errors.PeerIdInvalid
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
 			| Schema.SchemaError
@@ -3227,9 +3168,7 @@ export class TelegramClient extends Context.Service<
 			readonly message_thread_id: number;
 		}) => Effect.Effect<
 			true,
-			| Errors.ChatAdminRequired
-			| Errors.ChatIdEmpty
-			| Errors.NotEnoughRightsToCloseOrOpenTopic
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -3251,8 +3190,7 @@ export class TelegramClient extends Context.Service<
 			readonly chat_id: number | string;
 		}) => Effect.Effect<
 			true,
-			| Errors.ChatAdminRequired
-			| Errors.ChatIdEmpty
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -3271,7 +3209,7 @@ export class TelegramClient extends Context.Service<
 			readonly user_id: number;
 		}) => Effect.Effect<
 			string,
-			| Errors.InvalidUserId
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -3342,8 +3280,7 @@ export class TelegramClient extends Context.Service<
 			readonly protect_content?: boolean | undefined;
 		}) => Effect.Effect<
 			Story,
-			| Errors.BusinessConnectionNotFound
-			| Errors.FromChatIdRequired
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -3388,9 +3325,8 @@ export class TelegramClient extends Context.Service<
 			readonly until_date?: number | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.InvalidUserId
+			| Errors.BadRequest
 			| Errors.NotFound
-			| Errors.ParticipantIdInvalid
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
 			| Schema.SchemaError
@@ -3415,8 +3351,7 @@ export class TelegramClient extends Context.Service<
 			readonly invite_link: string;
 		}) => Effect.Effect<
 			ChatInviteLink,
-			| Errors.ChatIdEmpty
-			| Errors.InviteHashExpired
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -3454,8 +3389,7 @@ export class TelegramClient extends Context.Service<
 			readonly allow_channel_chats?: boolean | undefined;
 		}) => Effect.Effect<
 			PreparedInlineMessage,
-			| Errors.CantFindFieldType
-			| Errors.InvalidUserId
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -3478,7 +3412,7 @@ export class TelegramClient extends Context.Service<
 			readonly button: KeyboardButton;
 		}) => Effect.Effect<
 			PreparedKeyboardButton,
-			| Errors.InvalidUserId
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -3605,7 +3539,7 @@ export class TelegramClient extends Context.Service<
 				| undefined;
 		}) => Effect.Effect<
 			Message,
-			| Errors.NoAnimationInRequest
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -3724,7 +3658,7 @@ export class TelegramClient extends Context.Service<
 				| undefined;
 		}) => Effect.Effect<
 			Message,
-			| Errors.NoAudioInRequest
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -3765,11 +3699,9 @@ export class TelegramClient extends Context.Service<
 			readonly action: string;
 		}) => Effect.Effect<
 			true,
-			| Errors.ChatIdEmpty
-			| Errors.ChatNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
-			| Errors.WrongParameterAction
 			| Errors.TelegramApiError
 			| Schema.SchemaError
 			| HttpClientError.HttpClientError
@@ -3817,7 +3749,7 @@ export class TelegramClient extends Context.Service<
 			readonly reply_markup?: InlineKeyboardMarkup | undefined;
 		}) => Effect.Effect<
 			Message,
-			| Errors.ChecklistRequired
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -3906,9 +3838,8 @@ export class TelegramClient extends Context.Service<
 				| undefined;
 		}) => Effect.Effect<
 			Message,
-			| Errors.FirstNameRequired
+			| Errors.BadRequest
 			| Errors.NotFound
-			| Errors.PhoneNumberRequired
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
 			| Schema.SchemaError
@@ -3988,8 +3919,7 @@ export class TelegramClient extends Context.Service<
 				| undefined;
 		}) => Effect.Effect<
 			Message,
-			| Errors.ChatIdEmpty
-			| Errors.ChatNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -4100,7 +4030,7 @@ export class TelegramClient extends Context.Service<
 				| undefined;
 		}) => Effect.Effect<
 			Message,
-			| Errors.NoDocumentInRequest
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -4210,9 +4140,8 @@ export class TelegramClient extends Context.Service<
 			readonly text_entities?: ReadonlyArray<MessageEntity> | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.InvalidUserId
+			| Errors.BadRequest
 			| Errors.NotFound
-			| Errors.StargiftInvalid
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
 			| Schema.SchemaError
@@ -4492,7 +4421,7 @@ export class TelegramClient extends Context.Service<
 				| undefined;
 		}) => Effect.Effect<
 			Message,
-			| Errors.NoLivePhotoInRequest
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -4594,8 +4523,7 @@ export class TelegramClient extends Context.Service<
 				| undefined;
 		}) => Effect.Effect<
 			Message,
-			| Errors.ChatIdEmpty
-			| Errors.LatitudeEmpty
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -4663,7 +4591,7 @@ export class TelegramClient extends Context.Service<
 			readonly reply_parameters?: ReplyParameters | undefined;
 		}) => Effect.Effect<
 			ReadonlyArray<Message>,
-			| Errors.MediaRequired
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -4754,80 +4682,9 @@ export class TelegramClient extends Context.Service<
 				| undefined;
 		}) => Effect.Effect<
 			Message,
-			| Errors.AllowUserChatsMustBeBoolean
-			| Errors.BotDomainInvalid
-			| Errors.BusinessConnectionNotFound
-			| Errors.ButtonCopyTextInvalid
-			| Errors.ButtonDataInvalid
-			| Errors.ButtonQuantityMaxInvalid
-			| Errors.ButtonTypeInvalid
-			| Errors.CantParseEntitiesInvalidCustomEmoji
-			| Errors.CantParseEntitiesNoBoldEnd
-			| Errors.CantParseEntitiesNoEnd
-			| Errors.CantParseEntitiesNoHtmlEndTag
-			| Errors.CantParseEntitiesReservedCharBrace
-			| Errors.CantParseEntitiesReservedCharDash
-			| Errors.CantParseEntitiesReservedCharDot
-			| Errors.CantParseEntitiesReservedCharEquals
-			| Errors.CantParseEntitiesReservedCharExclamation
-			| Errors.CantParseEntitiesReservedCharGreater
-			| Errors.CantParseEntitiesReservedCharHash
-			| Errors.CantParseEntitiesReservedCharParen
-			| Errors.CantParseEntitiesReservedCharPipe
-			| Errors.CantParseEntitiesReservedCharPlus
-			| Errors.CantParseEntitiesUnmatchedEndTag
-			| Errors.CantParseEntitiesUnsupportedScriptTag
-			| Errors.CantParseEntitiesUnsupportedTag
-			| Errors.ChatIdEmpty
-			| Errors.ChatIsForumMustBeBoolean
-			| Errors.ChatNotFound
-			| Errors.CustomEmojiIdMissing
-			| Errors.CustomEmojiIdMustBeNumber
-			| Errors.EffectIdInvalid
-			| Errors.EntityBeginsAfterTextEnd
-			| Errors.EntityEndsAfterTextEnd
-			| Errors.EntityIncorrectOffset
-			| Errors.EntityUrlEmpty
-			| Errors.EntityUrlInvalid
-			| Errors.FloodskipNotAllowed
-			| Errors.ForceReplyMustBeBoolean
-			| Errors.InlineButtonTextMissing
-			| Errors.InlineButtonTextUnallowed
-			| Errors.InlineButtonUrlFtpUnsupported
-			| Errors.InlineButtonUrlInvalid
-			| Errors.InlineKeyboardMustBeArray
-			| Errors.InvalidStarsAmount
-			| Errors.IsPersistentMustBeBoolean
-			| Errors.KeyboardMustBeArray
-			| Errors.KeyboardRequestIdMissing
-			| Errors.KeyboardWebAppUrlHttpNotAllowed
-			| Errors.LinkPreviewIsDisabledMustBeBoolean
-			| Errors.LoginUrlBotNotFound
-			| Errors.MessageTextEmpty
-			| Errors.MessageThreadNotFound
-			| Errors.MessageTooLong
-			| Errors.MessageToReplyNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
-			| Errors.OneTimeKeyboardMustBeBoolean
-			| Errors.PreferLargeMediaMustBeBoolean
-			| Errors.PreferSmallMediaMustBeBoolean
-			| Errors.RemoveKeyboardMustBeBoolean
-			| Errors.ReplyMessageIdMissing
-			| Errors.RequestWriteAccessMustBeBoolean
-			| Errors.ResizeKeyboardMustBeBoolean
-			| Errors.SelectiveMustBeBoolean
-			| Errors.ShowAboveTextMustBeBoolean
-			| Errors.SuggestedPostChannelOnly
-			| Errors.TextLinkUrlMissing
-			| Errors.TextMentionUserMissing
-			| Errors.TextMustBeNonEmpty
 			| Errors.Unauthorized
-			| Errors.UnsupportedMessageEntityType
-			| Errors.UnsupportedParseMode
-			| Errors.UserNotFound
-			| Errors.WebAppUrlHttpNotAllowed
-			| Errors.WebAppUrlNotHttps
-			| Errors.WebpageUrlInvalid
 			| Errors.TelegramApiError
 			| Schema.SchemaError
 			| HttpClientError.HttpClientError
@@ -4870,9 +4727,8 @@ export class TelegramClient extends Context.Service<
 			readonly entities?: ReadonlyArray<MessageEntity> | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.ChatIdEmpty
+			| Errors.BadRequest
 			| Errors.NotFound
-			| Errors.RandomIdInvalid
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
 			| Schema.SchemaError
@@ -4973,7 +4829,7 @@ export class TelegramClient extends Context.Service<
 				| undefined;
 		}) => Effect.Effect<
 			Message,
-			| Errors.MediaRequired
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -5078,7 +4934,7 @@ export class TelegramClient extends Context.Service<
 				| undefined;
 		}) => Effect.Effect<
 			Message,
-			| Errors.NoPhotoInRequest
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -5262,12 +5118,8 @@ export class TelegramClient extends Context.Service<
 				| undefined;
 		}) => Effect.Effect<
 			Message,
-			| Errors.CantParseOptionsJsonObject
-			| Errors.ChatIdEmpty
-			| Errors.ChatNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
-			| Errors.PollMustHaveAtLeastOneAnswerOption
-			| Errors.TextMustBeNonEmpty
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
 			| Schema.SchemaError
@@ -5452,10 +5304,7 @@ export class TelegramClient extends Context.Service<
 				| undefined;
 		}) => Effect.Effect<
 			Message,
-			| Errors.ChatIdEmpty
-			| Errors.ChatNotFound
-			| Errors.LatitudeEmpty
-			| Errors.LongitudeEmpty
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -5598,17 +5447,9 @@ export class TelegramClient extends Context.Service<
 				| undefined;
 		}) => Effect.Effect<
 			Message,
-			| Errors.CantParseEntitiesNoBoldEnd
-			| Errors.ChatIdEmpty
-			| Errors.ChatNotFound
-			| Errors.MessageCaptionTooLong
-			| Errors.MessageThreadNotFound
-			| Errors.MessageToReplyNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
-			| Errors.NoVideoInRequest
 			| Errors.Unauthorized
-			| Errors.UnsupportedParseMode
-			| Errors.WrongRemoteFileIdentifierWrongPadding
 			| Errors.TelegramApiError
 			| Schema.SchemaError
 			| HttpClientError.HttpClientError
@@ -5707,8 +5548,8 @@ export class TelegramClient extends Context.Service<
 				| undefined;
 		}) => Effect.Effect<
 			Message,
+			| Errors.BadRequest
 			| Errors.NotFound
-			| Errors.NoVideoNoteInRequest
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
 			| Schema.SchemaError
@@ -5809,8 +5650,8 @@ export class TelegramClient extends Context.Service<
 				| undefined;
 		}) => Effect.Effect<
 			Message,
+			| Errors.BadRequest
 			| Errors.NotFound
-			| Errors.NoVoiceInRequest
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
 			| Schema.SchemaError
@@ -5832,7 +5673,7 @@ export class TelegramClient extends Context.Service<
 			readonly bio?: string | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.BusinessConnectionNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -5860,7 +5701,7 @@ export class TelegramClient extends Context.Service<
 			readonly accepted_gift_types: AcceptedGiftTypes;
 		}) => Effect.Effect<
 			true,
-			| Errors.AcceptedGiftTypesNotSpecified
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -5887,7 +5728,7 @@ export class TelegramClient extends Context.Service<
 			readonly last_name?: string | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.FirstNameRequired
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -5916,8 +5757,8 @@ export class TelegramClient extends Context.Service<
 			readonly is_public?: boolean | undefined;
 		}) => Effect.Effect<
 			true,
+			| Errors.BadRequest
 			| Errors.NotFound
-			| Errors.PhotoNotSpecified
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
 			| Schema.SchemaError
@@ -5939,7 +5780,7 @@ export class TelegramClient extends Context.Service<
 			readonly username?: string | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.BusinessConnectionNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -5968,9 +5809,8 @@ export class TelegramClient extends Context.Service<
 			readonly custom_title: string;
 		}) => Effect.Effect<
 			true,
-			| Errors.InvalidUserId
+			| Errors.BadRequest
 			| Errors.NotFound
-			| Errors.ParticipantIdInvalid
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
 			| Schema.SchemaError
@@ -5994,8 +5834,7 @@ export class TelegramClient extends Context.Service<
 			readonly description?: string | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.CantChangePrivateChatDescription
-			| Errors.ChatIdEmpty
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -6024,10 +5863,8 @@ export class TelegramClient extends Context.Service<
 			readonly tag?: string | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.ChatCreatorRequired
-			| Errors.InvalidUserId
+			| Errors.BadRequest
 			| Errors.NotFound
-			| Errors.ParticipantIdInvalid
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
 			| Schema.SchemaError
@@ -6051,7 +5888,7 @@ export class TelegramClient extends Context.Service<
 			readonly menu_button?: MenuButton | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.MenuButtonUnsupportedType
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -6085,8 +5922,7 @@ export class TelegramClient extends Context.Service<
 			readonly use_independent_chat_permissions?: boolean | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.CantChangePrivateChatPermissions
-			| Errors.ChatIdEmpty
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -6111,7 +5947,7 @@ export class TelegramClient extends Context.Service<
 			readonly photo: InputFile;
 		}) => Effect.Effect<
 			true,
-			| Errors.NoPhotoInRequest
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -6138,10 +5974,8 @@ export class TelegramClient extends Context.Service<
 			readonly sticker_set_name: string;
 		}) => Effect.Effect<
 			true,
-			| Errors.ChatIdEmpty
+			| Errors.BadRequest
 			| Errors.NotFound
-			| Errors.StickerSetNameEmpty
-			| Errors.StickerSetNotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
 			| Schema.SchemaError
@@ -6165,9 +5999,8 @@ export class TelegramClient extends Context.Service<
 			readonly title: string;
 		}) => Effect.Effect<
 			true,
-			| Errors.CantChangePrivateChatTitle
+			| Errors.BadRequest
 			| Errors.NotFound
-			| Errors.TitleEmpty
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
 			| Schema.SchemaError
@@ -6250,7 +6083,7 @@ export class TelegramClient extends Context.Service<
 			readonly added_user_ids?: ReadonlyArray<number> | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.InvalidUserId
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -6289,7 +6122,7 @@ export class TelegramClient extends Context.Service<
 			readonly is_big?: boolean | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.MessageToReactNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -6320,12 +6153,7 @@ export class TelegramClient extends Context.Service<
 			readonly language_code?: string | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.BotCommandInvalid
-			| Errors.BotCommandScopeChatIdMissing
-			| Errors.BotCommandScopeUnsupportedType
-			| Errors.BotCommandScopeUserIdMissing
-			| Errors.CommandDescriptionMustBeNonEmpty
-			| Errors.CommandMustBeNonEmpty
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -6353,7 +6181,7 @@ export class TelegramClient extends Context.Service<
 			readonly for_channels?: boolean | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.ChatAdministratorRightsCanDeleteMessagesMustBeBoolean
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -6378,7 +6206,7 @@ export class TelegramClient extends Context.Service<
 			readonly language_code?: string | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.BotDescriptionInvalid
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -6402,7 +6230,7 @@ export class TelegramClient extends Context.Service<
 			readonly language_code?: string | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.BotTitleInvalid
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -6420,8 +6248,8 @@ export class TelegramClient extends Context.Service<
 			readonly photo: InputProfilePhoto;
 		}) => Effect.Effect<
 			true,
+			| Errors.BadRequest
 			| Errors.NotFound
-			| Errors.PhotoNotSpecified
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
 			| Schema.SchemaError
@@ -6447,7 +6275,7 @@ export class TelegramClient extends Context.Service<
 			readonly language_code?: string | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.BotShortDescriptionInvalid
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -6606,10 +6434,9 @@ export class TelegramClient extends Context.Service<
 			readonly emoji_status_expiration_date?: number | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.InvalidUserId
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
-			| Errors.UserNotFound
 			| Errors.TelegramApiError
 			| Schema.SchemaError
 			| HttpClientError.HttpClientError
@@ -6711,7 +6538,7 @@ export class TelegramClient extends Context.Service<
 			readonly reply_markup?: InlineKeyboardMarkup | undefined;
 		}) => Effect.Effect<
 			Message | true,
-			| Errors.MessageToEditNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -6744,7 +6571,7 @@ export class TelegramClient extends Context.Service<
 			readonly reply_markup?: InlineKeyboardMarkup | undefined;
 		}) => Effect.Effect<
 			Poll,
-			| Errors.MessageWithPollToStopNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -6767,7 +6594,7 @@ export class TelegramClient extends Context.Service<
 			readonly star_count: number;
 		}) => Effect.Effect<
 			true,
-			| Errors.BusinessConnectionNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -6802,7 +6629,7 @@ export class TelegramClient extends Context.Service<
 			readonly star_count?: number | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.ChatIdentifierEmpty
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -6835,9 +6662,8 @@ export class TelegramClient extends Context.Service<
 			readonly only_if_banned?: boolean | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.InvalidUserId
+			| Errors.BadRequest
 			| Errors.NotFound
-			| Errors.ParticipantIdInvalid
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
 			| Schema.SchemaError
@@ -6861,9 +6687,8 @@ export class TelegramClient extends Context.Service<
 			readonly sender_chat_id: number;
 		}) => Effect.Effect<
 			true,
+			| Errors.BadRequest
 			| Errors.NotFound
-			| Errors.ParticipantIdInvalid
-			| Errors.SenderChatIdEmpty
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
 			| Schema.SchemaError
@@ -6883,8 +6708,7 @@ export class TelegramClient extends Context.Service<
 			readonly chat_id: number | string;
 		}) => Effect.Effect<
 			true,
-			| Errors.ChatIdEmpty
-			| Errors.NotEnoughRightsToCloseOrOpenTopic
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -6907,7 +6731,7 @@ export class TelegramClient extends Context.Service<
 			readonly chat_id: number | string;
 		}) => Effect.Effect<
 			true,
-			| Errors.ChatIdEmpty
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -6934,7 +6758,7 @@ export class TelegramClient extends Context.Service<
 			readonly message_thread_id: number;
 		}) => Effect.Effect<
 			true,
-			| Errors.ChatIdEmpty
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -6955,7 +6779,7 @@ export class TelegramClient extends Context.Service<
 			readonly chat_id: number | string;
 		}) => Effect.Effect<
 			true,
-			| Errors.ChatIdEmpty
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -6989,7 +6813,7 @@ export class TelegramClient extends Context.Service<
 			readonly message_id?: number | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.MessageToUnpinNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -7026,7 +6850,7 @@ export class TelegramClient extends Context.Service<
 			readonly star_count?: number | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.BusinessConnectionNotFound
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -7075,8 +6899,7 @@ export class TelegramClient extends Context.Service<
 			readonly custom_description?: string | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.BotVerifierForbidden
-			| Errors.ChatIdEmpty
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -7101,10 +6924,9 @@ export class TelegramClient extends Context.Service<
 			readonly custom_description?: string | undefined;
 		}) => Effect.Effect<
 			true,
-			| Errors.InvalidUserId
+			| Errors.BadRequest
 			| Errors.NotFound
 			| Errors.Unauthorized
-			| Errors.UserNotFound
 			| Errors.TelegramApiError
 			| Schema.SchemaError
 			| HttpClientError.HttpClientError

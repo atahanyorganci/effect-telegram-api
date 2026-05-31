@@ -25,7 +25,7 @@ liveTests("setMyShortDescription", test => {
 					Effect.flip,
 				);
 
-				expectErrorTag(error, "BotShortDescriptionInvalid", "Bad Request: BOT_SHARETEXT_INVALID");
+				expectErrorTag(error, "BadRequest", "Bad Request: BOT_SHARETEXT_INVALID");
 			}),
 		);
 	});

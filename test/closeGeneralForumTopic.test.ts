@@ -19,7 +19,7 @@ liveTests("closeGeneralForumTopic", test => {
 				const { limitedBotToken, groupId } = yield* telegramConfig;
 				const error = yield* callCloseGeneralForumTopic(limitedBotToken, { chat_id: groupId }).pipe(Effect.flip);
 
-				expectErrorTag(error, "ChatAdminRequired", "Bad Request: CHAT_ADMIN_REQUIRED");
+				expectErrorTag(error, "BadRequest", "Bad Request: CHAT_ADMIN_REQUIRED");
 			}),
 		);
 

@@ -1,4 +1,4 @@
 {
 	"method": "banChatSenderChat",
-	"errors": ["SenderChatIdEmpty", "ParticipantIdInvalid"]
+	"errors": ["BadRequest"]
 }

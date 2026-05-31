@@ -1,4 +1,4 @@
 {
 	"method": "deleteChatPhoto",
-	"errors": ["ChatIdEmpty", "CantChangePrivateChatPhoto"]
+	"errors": ["BadRequest"]
 }

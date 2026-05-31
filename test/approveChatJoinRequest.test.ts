@@ -22,7 +22,7 @@ liveTests("approveChatJoinRequest", test => {
 					user_id: 1,
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "UserIdInvalid", "Bad Request: USER_ID_INVALID");
+				expectErrorTag(error, "BadRequest", "Bad Request: USER_ID_INVALID");
 			}),
 		);
 

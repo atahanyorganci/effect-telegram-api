@@ -1,4 +1,4 @@
 {
 	"method": "getMyCommands",
-	"errors": ["BotCommandScopeChatIdMissing", "BotCommandScopeUserIdMissing", "BotCommandScopeUnsupportedType"]
+	"errors": ["BadRequest"]
 }

@@ -1,4 +1,4 @@
 {
 	"method": "sendContact",
-	"errors": ["PhoneNumberRequired", "FirstNameRequired"]
+	"errors": ["BadRequest"]
 }

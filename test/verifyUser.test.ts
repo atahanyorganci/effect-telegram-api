@@ -21,7 +21,7 @@ liveTests("verifyUser", test => {
 					custom_description: "probe",
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "UserNotFound", "Bad Request: user not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: user not found");
 			}),
 		);
 

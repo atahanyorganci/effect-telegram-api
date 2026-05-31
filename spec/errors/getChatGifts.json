@@ -1,4 +1,4 @@
 {
 	"method": "getChatGifts",
-	"errors": ["ChatIdEmpty", "ChatNotFound"]
+	"errors": ["BadRequest"]
 }

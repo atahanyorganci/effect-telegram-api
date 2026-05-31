@@ -1,4 +1,4 @@
 {
 	"method": "setMyName",
-	"errors": ["BotTitleInvalid"]
+	"errors": ["BadRequest"]
 }

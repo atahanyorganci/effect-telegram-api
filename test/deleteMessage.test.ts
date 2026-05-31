@@ -40,7 +40,7 @@ liveTests("deleteMessage", test => {
 					message_id: 999_999_999,
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "MessageToDeleteNotFound", "Bad Request: message to delete not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: message to delete not found");
 			}),
 		);
 
@@ -52,7 +52,7 @@ liveTests("deleteMessage", test => {
 					message_id: 1,
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "ChatNotFound", "Bad Request: chat not found");
+				expectErrorTag(error, "BadRequest", "Bad Request: chat not found");
 			}),
 		);
 	});

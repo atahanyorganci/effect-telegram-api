@@ -1,14 +1,4 @@
 {
 	"method": "sendVideo",
-	"errors": [
-		"NoVideoInRequest",
-		"ChatIdEmpty",
-		"ChatNotFound",
-		"MessageCaptionTooLong",
-		"UnsupportedParseMode",
-		"CantParseEntitiesNoBoldEnd",
-		"MessageThreadNotFound",
-		"MessageToReplyNotFound",
-		"WrongRemoteFileIdentifierWrongPadding"
-	]
+	"errors": ["BadRequest"]
 }

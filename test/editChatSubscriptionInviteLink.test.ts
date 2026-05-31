@@ -22,7 +22,7 @@ liveTests("editChatSubscriptionInviteLink", test => {
 					invite_link: "https://t.me/+bogus",
 				}).pipe(Effect.flip);
 
-				expectErrorTag(error, "InviteHashExpired", "Bad Request: INVITE_HASH_EXPIRED");
+				expectErrorTag(error, "BadRequest", "Bad Request: INVITE_HASH_EXPIRED");
 			}),
 		);
 

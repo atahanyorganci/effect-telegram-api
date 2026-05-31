@@ -1,4 +1,4 @@
 {
 	"method": "convertGiftToStars",
-	"errors": ["BusinessConnectionNotFound"]
+	"errors": ["BadRequest"]
 }

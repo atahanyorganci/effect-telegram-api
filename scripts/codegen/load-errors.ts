@@ -3,42 +3,39 @@ import * as FileSystem from "effect/FileSystem";
 import * as Schema from "effect/Schema";
 import { errorsCatalogPath, errorsSpecDir } from "../document.ts";
 import { parseError } from "../parse/errors.ts";
-import { ErrorsDoc, expandError, MethodErrorsRefDoc } from "./model-errors.ts";
+import { HTTP_STATUS_ERRORS_BY_TAG } from "./http-status-errors.ts";
+import { ErrorsDoc, MethodErrorsRefDoc } from "./model-errors.ts";
 import type { MethodError, MethodErrorsDoc } from "./model-errors.ts";
 
 const decodeErrorsDoc = Schema.decodeUnknownSync(ErrorsDoc);
 const decodeMethodErrorsRef = Schema.decodeUnknownSync(MethodErrorsRefDoc);
 
-const resolveTags = (
-	method: string,
-	tags: readonly string[],
-	byTag: ReadonlyMap<string, MethodError>,
-): MethodErrorsDoc["errors"] =>
-	tags.flatMap(tag => {
-		const error = byTag.get(tag);
+const resolveTags = (method: string, tags: readonly string[]): MethodErrorsDoc["errors"] =>
+	tags.map(tag => {
+		const error = HTTP_STATUS_ERRORS_BY_TAG.get(tag);
 		if (error === undefined) {
 			throw parseError(`Unknown error tag ${JSON.stringify(tag)} referenced by method ${method}`);
 		}
-		return expandError(error);
+		return { tag: error.tag, errorCode: error.errorCode, when: error.when };
 	});
 
 const mergeCommon = (
 	errors: MethodErrorsDoc["errors"],
 	commonTags: readonly string[],
-	byTag: ReadonlyMap<string, MethodError>,
+	catalogByTag: ReadonlyMap<string, MethodError>,
 ): MethodErrorsDoc["errors"] => {
 	const methodTags = new Set(errors.map(error => error.tag));
 	const merged = [...errors];
 	for (const tag of commonTags) {
 		if (!methodTags.has(tag)) {
-			const error = byTag.get(tag);
+			const error = catalogByTag.get(tag);
 			if (error === undefined) {
 				throw parseError(`Unknown common error tag ${JSON.stringify(tag)}`);
 			}
-			merged.push(...expandError(error));
+			merged.push(error);
 		}
 	}
-	return merged.sort((a, b) => a.tag.localeCompare(b.tag) || a.description.localeCompare(b.description));
+	return merged.sort((a, b) => a.tag.localeCompare(b.tag));
 };
 
 export const loadMethodErrors = Effect.fn("loadMethodErrors")(function* (specDir: string) {
@@ -48,7 +45,7 @@ export const loadMethodErrors = Effect.fn("loadMethodErrors")(function* (specDir
 
 	const catalogContents = yield* fs.readFileString(catalogPath);
 	const catalog = decodeErrorsDoc(JSON.parse(catalogContents));
-	const byTag = new Map(catalog.errors.map(error => [error.tag, error] as const));
+	const catalogByTag = new Map(catalog.errors.map(error => [error.tag, error] as const));
 
 	const entries = yield* fs.readDirectory(errorsDir);
 	const files = entries.filter(entry => entry.endsWith(".json") && entry !== "errors.json").sort();
@@ -66,10 +63,10 @@ export const loadMethodErrors = Effect.fn("loadMethodErrors")(function* (specDir
 			return yield* Effect.fail(parseError(`Duplicate errors doc for method: ${doc.method}`));
 		}
 
-		const errors = resolveTags(doc.method, doc.errors, byTag);
+		const errors = resolveTags(doc.method, doc.errors);
 		byMethod.set(doc.method, {
 			method: doc.method,
-			errors: mergeCommon(errors, catalog.common, byTag),
+			errors: mergeCommon(errors, catalog.common, catalogByTag),
 		});
 	}
 	return byMethod;

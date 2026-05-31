@@ -1,5 +1,5 @@
 import { docUrlFromSlug } from "../document.ts";
-import { buildErrorExportNames, errorKey, expandMethodErrors } from "./render-errors.ts";
+import { methodStatusErrors, statusErrorSchemaName } from "./render-errors.ts";
 import { renderEndpointPayloadExpr, payloadSchemaStrategy } from "./render-payload-schema.ts";
 import { renderJsDoc, renderSchemaExpr } from "./render-type-expr.ts";
 import type { Method } from "../parse/model.ts";
@@ -19,32 +19,27 @@ const renderSuccessSchema = (method: Method): string => {
 	return `\tsuccess: ${envelope}${pipe},`;
 };
 
-const renderErrorField = (
-	method: Method,
-	methodErrors: ReadonlyMap<string, MethodErrorsDoc>,
-	exportNames: ReadonlyMap<string, string>,
-): string => {
+const renderErrorField = (method: Method, methodErrors: ReadonlyMap<string, MethodErrorsDoc>): string => {
 	const doc = methodErrors.get(method.name);
 	if (doc === undefined || doc.errors.length === 0) {
 		return "";
 	}
 
-	const refs = expandMethodErrors(doc.errors).map(
-		error =>
-			`Errors.${exportNames.get(errorKey(error))!}.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(${error.errorCode}))`,
-	);
+	const refs = [
+		...methodStatusErrors(method.name, methodErrors).map(
+			error =>
+				`Errors.${statusErrorSchemaName(error.tag)}.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(${error.errorCode}))`,
+		),
+		`Errors.TelegramApiFailureError.pipe(Schema.toCodecJson, HttpApiSchema.asJson())`,
+	];
 	return `\terror: [\n\t\t${refs.join(",\n\t\t")},\n\t],`;
 };
 
-const renderMethod = (
-	method: Method,
-	methodErrors: ReadonlyMap<string, MethodErrorsDoc>,
-	exportNames: ReadonlyMap<string, string>,
-): string => {
+const renderMethod = (method: Method, methodErrors: ReadonlyMap<string, MethodErrorsDoc>): string => {
 	const doc = renderJsDoc(method.description, "", docUrlFromSlug(method.slug));
 	const path = methodPath(method.name);
 	const success = renderSuccessSchema(method);
-	const errors = renderErrorField(method, methodErrors, exportNames);
+	const errors = renderErrorField(method, methodErrors);
 
 	if (method.parameters.length === 0) {
 		return `${doc}export const ${method.name} = HttpApiEndpoint.post("${method.name}", "${path}", {\n${success}${errors}\n});`;
@@ -59,7 +54,6 @@ export const renderMethodsModule = (
 	methodErrors: ReadonlyMap<string, MethodErrorsDoc>,
 ): string => {
 	const sorted = [...methods].sort((a, b) => a.name.localeCompare(b.name));
-	const exportNames = buildErrorExportNames([...methodErrors.values()]);
 	const api = `export const TelegramBotApi = HttpApi.make("TelegramBotApi").add(\n\tHttpApiGroup.make("methods", { topLevel: true }).add(\n${sorted
 		.map(method => `\t\t${method.name},`)
 		.join("\n")}\n\t),\n);`;
@@ -74,7 +68,7 @@ export const renderMethodsModule = (
 	const sections = [
 		GENERATED_HEADER,
 		imports.join("\n"),
-		...sorted.map(method => renderMethod(method, methodErrors, exportNames)),
+		...sorted.map(method => renderMethod(method, methodErrors)),
 		api,
 	];
 

@@ -1,4 +1,4 @@
 {
 	"method": "setChatTitle",
-	"errors": ["TitleEmpty", "CantChangePrivateChatTitle"]
+	"errors": ["BadRequest"]
 }

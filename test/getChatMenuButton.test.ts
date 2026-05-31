@@ -24,7 +24,7 @@ liveTests("getChatMenuButton", test => {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callGetChatMenuButton(botToken, { chat_id: 0 }).pipe(Effect.flip);
 
-				expectErrorTag(error, "InvalidChatId", "Bad Request: invalid chat_id specified");
+				expectErrorTag(error, "BadRequest", "Bad Request: invalid chat_id specified");
 			}),
 		);
 	});

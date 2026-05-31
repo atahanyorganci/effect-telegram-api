@@ -1,4 +1,4 @@
 {
 	"method": "promoteChatMember",
-	"errors": ["InvalidUserId", "CantRemoveChatOwner"]
+	"errors": ["BadRequest"]
 }

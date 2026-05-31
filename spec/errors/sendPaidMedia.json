@@ -1,4 +1,4 @@
 {
 	"method": "sendPaidMedia",
-	"errors": ["MediaRequired"]
+	"errors": ["BadRequest"]
 }
