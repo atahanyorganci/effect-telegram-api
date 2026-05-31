@@ -4,18 +4,20 @@ Guide for adding live integration coverage for Telegram Bot API RPC methods.
 
 ## Goal
 
-Expand live integration coverage for Telegram Bot API RPC methods. Each method gets HTTP status-code error channels and a matching test file, so undocumented API failures surface as `TelegramApiError` instead of untyped wire payloads.
+Each Bot API method should have a matching `test/{methodName}.test.ts` that exercises the generated `TelegramClient` against the live API. Undocumented `{ ok: false }` responses surface as `TelegramApiError`; documented HTTP status codes surface as tagged errors (`BadRequest`, `NotFound`, …) when listed in `spec/errors/{method}.json`.
+
+As of the current tree there are ~176 parsed endpoints and ~147 test files — compare `spec/endpoints/` with `test/*.test.ts` to find gaps.
 
 ## Error model
 
 Each client method exposes four error channels:
 
-| Channel                           | Always?    | Example                                                       |
-| --------------------------------- | ---------- | ------------------------------------------------------------- |
-| `HttpClientError.HttpClientError` | Yes        | transport failures, decode errors                             |
-| `Schema.SchemaError`              | Yes        | missing required payload fields                               |
-| `Errors.TelegramApiError`         | Yes        | `{ ok: false }` with a status code not listed for this method |
-| HTTP status errors from tests     | Per method | `BadRequest`, `NotFound`, `Unauthorized`, …                   |
+| Channel                           | Always?    | Example                                                  |
+| --------------------------------- | ---------- | -------------------------------------------------------- |
+| `HttpClientError.HttpClientError` | Yes        | transport failures, decode errors                        |
+| `Schema.SchemaError`              | Yes        | missing required payload fields                          |
+| `Errors.TelegramApiError`         | Yes        | `{ ok: false }` with a status not listed for this method |
+| HTTP status errors from tests     | Per method | `BadRequest`, `NotFound`, `Unauthorized`, …              |
 
 Errors are grouped by **HTTP status code only** — all Telegram `error_code: 400` responses use the `BadRequest` tag regardless of `description`. Tests still assert the exact `description` string via `expectErrorTag`.
 
@@ -37,9 +39,10 @@ The full HTTP 4xx/5xx catalog lives in `scripts/codegen/http-status-errors.ts`. 
 3. **Add status tags** — Append the HTTP status tag (e.g. `BadRequest` for `error_code: 400`) to `spec/errors/{method}.json` if not already present. Status definitions are fixed in `spec/errors/errors.json`; do not add description-specific tags.
 
 4. **Write `test/{method}.test.ts`** — Mirror nearby tests (`getChat.test.ts`, `sendMessage.test.ts`). Standard structure:
+   - `liveTests("{method}", test => { … })` with `it.layer(LiveLayer)` from `helpers.ts`
    - `success` (when feasible)
-   - `Telegram API errors`
-   - `authErrorTests(...)` from `helpers.ts`
+   - `Telegram API errors` (use `expectErrorTag` or `expectClientSchemaError` for missing fields)
+   - `authErrorTests(test, token => call…)` from `helpers.ts`
 
 5. **Run codegen**
 
@@ -50,7 +53,7 @@ The full HTTP 4xx/5xx catalog lives in `scripts/codegen/http-status-errors.ts`. 
 6. **Run formatter and linter**
 
    ```sh
-   pnpm format
+   pnpm format:fix
    pnpm lint
    ```
 
@@ -77,7 +80,7 @@ The full HTTP 4xx/5xx catalog lives in `scripts/codegen/http-status-errors.ts`. 
 | Run codegen after error JSON changes                                         | Commit tests that expect tags codegen doesn't know about           |
 | Use `expectErrorTag` with status tags (`BadRequest`, `NotFound`, …)          | Assert on raw `TelegramApiError` unless intentionally testing gaps |
 
-`spec/errors/errors.json` defines shared errors (`Unauthorized`, `NotFound`) in `common`; those tags are merged into every method doc at codegen time. Do not duplicate them in a method's JSON unless testing method-specific behavior.
+`spec/errors/errors.json` defines shared errors (`Unauthorized`, `NotFound`) in `common`; those tags are merged into every method at codegen time. Do not duplicate them in a method's JSON unless testing method-specific behavior.
 
 ## Test design guidance
 
@@ -96,13 +99,21 @@ Valid when the environment cannot support success:
 - Private chat blocks invite links (`exportChatInviteLink`, `createChatInviteLink`)
 - Boosts need a channel or supergroup (`getUserChatBoosts`)
 
-### Shared helpers
+### Shared helpers (`helpers.ts`)
 
-- `telegramConfig` — loads typed env from `.env` via Effect `Config`
+- `telegramConfig` — loads typed env from `.env` via Effect `Config` at module load
+- `liveTests` / `LiveLayer` — `NodeServices` + `NodeHttpClient.layerFetch`
+- `callClient(method, token, …args)` — invokes `TelegramClient` with rate-limit retries
+- `callLimitedClient(method, …args)` — same with `TELEGRAM_LIMITED_BOT_TOKEN`
 - `authErrorTests(fn)` — standard 401/404 token cases (`Unauthorized`, `NotFound`)
+- `expectErrorTag(error, tag, description)` — assert tagged API error
+- `expectClientSchemaError(call)` — assert `SchemaError` for invalid payloads before the wire
+- `trackCreatedForumTopic` — register forum topics for teardown cleanup
 - Chain methods when you need fixtures (`sendDice` → `forwardMessage`)
 
 ### Environment variables
+
+Create a `.env` in the repo root with:
 
 | Variable                     | Used for                                                                  |
 | ---------------------------- | ------------------------------------------------------------------------- |
@@ -116,11 +127,13 @@ Add both bots to the test supergroup. Promote only `TELEGRAM_BOT_TOKEN` to admin
 
 Success tests that need a supergroup or forum topic destructure `groupId` and `forumTopicId` from `telegramConfig` alongside `botToken` and `chatId`.
 
+Vitest loads `.env` from the repo root in `vitest.config.ts` and `vitest.setup.ts` before collection, so tests and `skipIf` guards see credentials without importing `dotenv` in each file. Standalone probe scripts still need `import "dotenv/config"`.
+
 ### Side effects
 
 Sending messages, pinning, deleting commands, and similar actions are acceptable in this suite, but document cleanup and avoid destructive admin operations unless you have a disposable test group.
 
-After the full suite, `test/globalTeardown.ts` runs `cleanupTestArtifacts` from `helpers.ts`: it clears pinned messages in the configured chats and forum topics, reopens the configured fixture topic if it was closed, and deletes any forum topics recorded via `trackCreatedForumTopic`. Messages are left in place. Pin success tests also unpin in `Effect.ensuring` so a failed assertion does not leave a pin behind.
+After the full suite, `test/globalSetup.ts` runs `cleanupTestArtifacts` on teardown: clears pinned messages in the configured chats and forum topics, reopens the configured fixture topic if it was closed, and deletes forum topics recorded via `trackCreatedForumTopic`. Messages are left in place. Pin success tests also unpin in `Effect.ensuring` so a failed assertion does not leave a pin behind.
 
 ## Common pitfalls
 
@@ -128,7 +141,7 @@ After the full suite, `test/globalTeardown.ts` runs `cleanupTestArtifacts` from 
 
 2. **Environment assumptions** — `TELEGRAM_CHAT_ID` as a private user chat blocks many group/channel methods. Do not force success tests; document the limitation in the test file or omit success coverage.
 
-3. **Missing `dotenv`** — Probes and scripts need `import 'dotenv/config'` or tests run without credentials and return misleading 404s.
+3. **Missing `.env`** — Without credentials, `telegramConfig` fails at import and the suite will not run. Probes run outside vitest need `import "dotenv/config"`.
 
 4. **Schema decode failures are not API errors** — If success fails with `SchemaError`, the spec/parser return type is wrong (for example `forwardMessages` returning `MessageId[]`). Fix parsing, not the test.
 

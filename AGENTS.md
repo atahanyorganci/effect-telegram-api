@@ -1,10 +1,30 @@
-# `@yorganc/telegram-api`
+# `@yorganci/effect-telegram-api`
 
-Telegram Bot API docs are not published as OpenAPI. This project parses [Telegram's HTML documentation](https://core.telegram.org/bots/api) and generates a structured spec, eventually OpenAPI.
+Type-safe [Telegram Bot API](https://core.telegram.org/bots/api) client built with [Effect](https://effect.website) v4. Telegram does not publish OpenAPI; this repo ingests their HTML docs into a JSON spec, then codegen's TypeScript under `src/`.
 
-## Goal
+## Layout
 
-Programmatically parse Telegram's API documentation and generate OpenAPI spec.
+```text
+spec/
+  api.raw.html, api.html     # pinned doc snapshot (gitignored)
+  schema/                    # object IR (~200 JSON files, gitignored)
+  endpoints/                 # method IR (~170 JSON files, gitignored)
+  errors/                    # HTTP status error catalog + per-method tags (tracked)
+scripts/
+  fetch.ts, parse.ts         # ingest pipeline
+  codegen.ts                 # spec → src/
+src/                         # generated client (do not hand-edit)
+  schema.ts                  # Telegram object schemas
+  http-api.ts                # HttpApi contract (TelegramBotApi)
+  errors.ts                  # tagged API errors
+  client/
+    service.ts               # TelegramClient Context.Service interface
+    live.ts                  # withToken layer + method implementations
+    to-form.ts               # multipart form encoding (hand-maintained)
+test/                        # live integration tests (one file per RPC method)
+```
+
+NEVER EDIT GENERATED FILES UNDER `spec/endpoints/*`, `spec/schema/*`, `src/` FILES. UPDATE THEM THROUGH `scripts/` CODEGEN SCRIPTS.
 
 ## Dependencies
 
@@ -14,11 +34,12 @@ HTML parsing uses `node-html-parser`.
 
 ## Pipeline
 
-Parse the **sanitized local snapshot** (`spec/api.html`), not the live URL.
+Work from the **sanitized local snapshot** (`spec/api.html`), not the live URL.
 
 ```sh
-pnpm ingest:fetch   # fetch → normalize → verify hash → write HTML
-pnpm ingest:parse   # parse HTML → write JSON spec
+pnpm scripts:fetch    # fetch → normalize → verify hash → write HTML
+pnpm scripts:parse    # parse HTML → spec/schema, spec/endpoints
+pnpm scripts:codegen  # spec → src/schema.ts, src/http-api.ts, src/errors.ts, src/client/
 ```
 
 ### Fetch (`scripts/fetch*.ts`, `sanitize-document.ts`, `hash.ts`)
@@ -37,7 +58,7 @@ Section-scoped discovery via hardcoded `h3` ids:
 | ------- | ------------------- | ---------------------------- |
 | Objects | `available-types`   | `spec/schema/{Name}.json`    |
 | Methods | `available-methods` | `spec/endpoints/{name}.json` |
-| Errors  | (integration tests) | `spec/errors/{name}.json`    |
+| Errors  | integration tests   | `spec/errors/{name}.json`    |
 
 Each `h4[id]` under a section is a block. Classification is by shape, not naming:
 
@@ -46,6 +67,18 @@ Each `h4[id]` under a section is a block. Classification is by shape, not naming
 - “can be one of” + list → union (skipped for now)
 
 Shared parsers: `parse-type-expr.ts` (primitives, refs, arrays, `oneOf`), `walk-block.ts` (collect section until next heading).
+
+### Codegen (`scripts/codegen/`)
+
+Reads `spec/schema/`, `spec/endpoints/`, and `spec/errors/`. Writes:
+
+| Output                  | Role                                                 |
+| ----------------------- | ---------------------------------------------------- |
+| `src/schema.ts`         | Effect schemas for Telegram types                    |
+| `src/http-api.ts`       | `TelegramBotApi` (`HttpApi`, endpoints, wire codecs) |
+| `src/errors.ts`         | Shared + per-method tagged errors                    |
+| `src/client/service.ts` | `TelegramClient` method signatures                   |
+| `src/client/live.ts`    | `withToken(token)` layer wiring `HttpApiClient`      |
 
 ## Spec IR (`scripts/parse/model.ts`)
 
@@ -57,17 +90,27 @@ Shared parsers: `parse-type-expr.ts` (primitives, refs, arrays, `oneOf`), `walk-
 
 Method return types are inferred from prose (`parse-return-type.ts`): ref links, `Returns True`, `Returns Int`, `as String`, `Message | True`, etc.
 
-## Layout
+## Client and errors
 
-Parsed `spec/schema/`, `spec/endpoints/`, and `spec/*.html` are gitignored; `spec/errors/` is tracked (integration test catalog).
+- **`TelegramClient`** — one method per Bot API RPC; typed payloads and results from the spec.
+- **`withToken(token)`** — `Layer` that binds `https://api.telegram.org/bot{token}` via `HttpApiClient.make(TelegramBotApi, …)`.
+- **Error channels** — `HttpClientError`, `SchemaError`, documented HTTP status tags from `spec/errors/` (e.g. `BadRequest`), and `TelegramApiError` for undocumented `{ ok: false }` responses. Status tags map to Telegram `error_code` (400 → `BadRequest`), not description strings.
 
-```text
-spec/
-  api.raw.html
-  api.html
-  schema/    # ~201 JSON files (generated)
-  endpoints/ # ~129 JSON files (generated)
-  errors/    # error catalog + per-method tags (tracked)
+Do not edit generated files under `src/` except `src/client/to-form.ts`. Change `scripts/` or `spec/`, then re-run parse/codegen.
+
+## Tests
+
+Live integration tests call the real API. See [`test/README.md`](./test/README.md) for env vars, workflow, and contribution rules.
+
+```sh
+pnpm test          # vitest run (requires .env)
+pnpm test:watch
 ```
 
-Config and paths: `scripts/document.ts`.
+## Agent rules
+
+| Do                                                     | Don't                                               |
+| ------------------------------------------------------ | --------------------------------------------------- |
+| Fix parsers/codegen/spec/errors JSON                   | Hand-edit generated `src/` (except `to-form.ts`)    |
+| Run `scripts:codegen` after spec or error JSON changes | Commit tests that expect tags codegen does not emit |
+| Match existing test patterns in `test/`                | Invent new client or error APIs without codegen     |
