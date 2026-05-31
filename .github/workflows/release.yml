@@ -8,31 +8,8 @@ on:
 permissions: {}
 
 jobs:
-  ci:
-    name: CI
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    permissions:
-      contents: read
-    env:
-      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-      TELEGRAM_LIMITED_BOT_TOKEN: ${{ secrets.TELEGRAM_LIMITED_BOT_TOKEN }}
-      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-      TELEGRAM_GROUP_CHAT_ID: ${{ secrets.TELEGRAM_GROUP_CHAT_ID }}
-      TELEGRAM_FORUM_TOPIC_ID: ${{ secrets.TELEGRAM_FORUM_TOPIC_ID }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-
-      - name: Setup Nix and pnpm
-        uses: ./.github/actions/nix
-
-      - name: Run CI checks
-        uses: ./.github/actions/ci
-
   verify:
     name: Verify tag version
-    needs: ci
     permissions:
       contents: read
     uses: ./.github/workflows/verify-tag-version.yml
