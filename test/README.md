@@ -125,6 +125,8 @@ Create a `.env` in the repo root with:
 
 Add both bots to the test supergroup. Promote only `TELEGRAM_BOT_TOKEN` to administrator with the permissions success tests need. Leave `TELEGRAM_LIMITED_BOT_TOKEN` as an ordinary member.
 
+**CI:** set all five variables above as GitHub Actions secrets (same names). `.github/workflows/ci.yml` and release CI run `pnpm test` with them.
+
 Success tests that need a supergroup or forum topic destructure `groupId` and `forumTopicId` from `telegramConfig` alongside `botToken` and `chatId`.
 
 Vitest loads `.env` from the repo root in `vitest.config.ts` and `vitest.setup.ts` before collection, so tests and `skipIf` guards see credentials without importing `dotenv` in each file. Standalone probe scripts still need `import "dotenv/config"`.

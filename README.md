@@ -64,8 +64,30 @@ pnpm install
 pnpm scripts:fetch    # fetch and sanitize docs → spec/api.html
 pnpm scripts:parse    # parse HTML → spec/schema, spec/endpoints
 pnpm scripts:codegen  # generate src/
+pnpm check            # typecheck
 pnpm test             # live integration tests (needs .env)
 ```
+
+## CI and releases
+
+**CI** (`.github/workflows/ci.yml`) runs on every pull request and on pushes to `main`, sequentially: format → lint → typecheck → build → test. Configure `TELEGRAM_*` repository secrets (see [`test/README.md`](./test/README.md)).
+
+**Release** (`.github/workflows/release.yml`) runs on tag push `v*` (e.g. `v0.1.0`):
+
+1. Same CI checks as above
+2. Verifies the tag matches `package.json` and `jsr.json` (`.github/workflows/verify-tag-version.yml`)
+3. In parallel: publish to npm (OIDC), publish to JSR, and create a GitHub Release with generated notes
+
+Before tagging, bump versions and sync JSR:
+
+```sh
+# edit package.json version, then:
+pnpm sync:jsr
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+Repository secrets: `JSR_TOKEN`, all `TELEGRAM_*` for CI tests, and npm trusted publisher for the **Release** workflow.
 
 ## Acknowledgments
 

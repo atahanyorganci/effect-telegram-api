@@ -1,0 +1,38 @@
+name: Verify tag version
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        description: Git tag (e.g. v1.2.3)
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Verify tag version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Verify tag matches package.json and jsr.json
+        shell: bash
+        run: |
+          ref="${{ inputs.tag }}"
+          ver="${ref#v}"
+          pkg="$(node -e "console.log(JSON.parse(require('node:fs').readFileSync('package.json','utf8')).version)")"
+          jsr="$(node -e "console.log(JSON.parse(require('node:fs').readFileSync('jsr.json','utf8')).version)")"
+
+          if [ "$ver" != "$pkg" ]; then
+            echo "::error::Tag version '$ver' must match package.json version '$pkg'"
+            exit 1
+          fi
+
+          if [ "$ver" != "$jsr" ]; then
+            echo "::error::Tag version '$ver' must match jsr.json version '$jsr'"
+            exit 1
+          fi

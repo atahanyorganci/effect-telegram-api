@@ -1,0 +1,108 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions: {}
+
+jobs:
+  ci:
+    name: CI
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_LIMITED_BOT_TOKEN: ${{ secrets.TELEGRAM_LIMITED_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      TELEGRAM_GROUP_CHAT_ID: ${{ secrets.TELEGRAM_GROUP_CHAT_ID }}
+      TELEGRAM_FORUM_TOPIC_ID: ${{ secrets.TELEGRAM_FORUM_TOPIC_ID }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Nix and pnpm
+        uses: ./.github/actions/nix
+
+      - name: Run CI checks
+        uses: ./.github/actions/ci
+
+  verify:
+    name: Verify tag version
+    needs: ci
+    permissions:
+      contents: read
+    uses: ./.github/workflows/verify-tag-version.yml
+    with:
+      tag: ${{ github.ref_name }}
+
+  publish-npm:
+    name: Publish npm
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Nix and pnpm
+        uses: ./.github/actions/nix
+
+      - name: Build
+        shell: nix develop -c bash -e {0}
+        run: pnpm build
+
+      - name: Publish to npm
+        shell: nix develop -c bash -e {0}
+        run: pnpm publish:npm
+
+  publish-jsr:
+    name: Publish JSR
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Nix and pnpm
+        uses: ./.github/actions/nix
+
+      - name: Build
+        shell: nix develop -c bash -e {0}
+        run: pnpm build
+
+      - name: Publish to JSR
+        shell: nix develop -c bash -e {0}
+        run: pnpm publish:jsr
+
+  github-release:
+    name: GitHub Release
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}

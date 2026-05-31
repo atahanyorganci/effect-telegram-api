@@ -29,6 +29,9 @@
 		"./HttpApi": "./src/http-api.ts",
 		"./Schema": "./src/schema.ts"
 	},
+	"publishConfig": {
+		"access": "public"
+	},
 	"scripts": {
 		"build": "tsgo -p tsconfig.lib.json --noEmit false --outDir dist",
 		"check": "tsgo -b",
