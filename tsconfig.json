@@ -1,26 +1,5 @@
 {
 	"$schema": "http://json.schemastore.org/tsconfig",
-	"extends": "./.vendor/effect/tsconfig.base.json",
-	"include": ["src", "scripts", "test", "vitest.setup.ts", "vitest.config.ts"],
-	"compilerOptions": {
-		"rootDir": ".",
-		"noEmit": true,
-		"declaration": false,
-		"declarationMap": false,
-		"sourceMap": false,
-		"composite": false,
-		"incremental": false,
-		"isolatedModules": true,
-		"types": ["node"],
-		"plugins": [
-			{
-				"name": "@effect/language-service",
-				"transform": "@effect/language-service/transform",
-				"namespaceImportPackages": ["effect", "@effect/*"],
-				"includeSuggestionsInTsc": false,
-				"ignoreEffectWarningsInTscExitCode": true,
-				"ignoreEffectErrorsInTscExitCode": true
-			}
-		]
-	}
+	"files": [],
+	"references": [{ "path": "./tsconfig.lib.json" }, { "path": "./tsconfig.node.json" }]
 }
