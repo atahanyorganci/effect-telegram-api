@@ -45,8 +45,8 @@ const parseConditionalReturn = (paragraph: HTMLElement): TypeExpr | undefined =>
 		return undefined;
 	}
 
-	const link = paragraph.querySelector('a[href^="#"]');
-	if (link === null) {
+	const link = paragraph.querySelectorAll('a[href^="#"]').find(link => /^[A-Z]/.test(link.text.trim()));
+	if (link === undefined) {
 		return undefined;
 	}
 

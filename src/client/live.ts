@@ -121,6 +121,28 @@ export const withToken = (token: string) =>
 					}),
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["approveChatJoinRequest"];
+			const approveSuggestedPost = (payload =>
+				apiClient.approveSuggestedPost({ payload }).pipe(
+					Effect.map(response => response.result),
+					Effect.mapError(error => {
+						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
+							return new Errors.NotFound(error);
+						if (
+							"error_code" in error &&
+							error.error_code === 400 &&
+							error.description === "Bad Request: suggested post not found"
+						)
+							return new Errors.SuggestedPostNotFound(error);
+						if (
+							"error_code" in error &&
+							error.error_code === 401 &&
+							error.description === "Unauthorized: invalid token specified"
+						)
+							return new Errors.Unauthorized(error);
+						return error;
+					}),
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["approveSuggestedPost"];
 			const banChatMember = (payload =>
 				apiClient.banChatMember({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -457,6 +479,50 @@ export const withToken = (token: string) =>
 					}),
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["declineChatJoinRequest"];
+			const declineSuggestedPost = (payload =>
+				apiClient.declineSuggestedPost({ payload }).pipe(
+					Effect.map(response => response.result),
+					Effect.mapError(error => {
+						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
+							return new Errors.NotFound(error);
+						if (
+							"error_code" in error &&
+							error.error_code === 400 &&
+							error.description === "Bad Request: suggested post not found"
+						)
+							return new Errors.SuggestedPostNotFound(error);
+						if (
+							"error_code" in error &&
+							error.error_code === 401 &&
+							error.description === "Unauthorized: invalid token specified"
+						)
+							return new Errors.Unauthorized(error);
+						return error;
+					}),
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["declineSuggestedPost"];
+			const deleteAllMessageReactions = (payload =>
+				apiClient.deleteAllMessageReactions({ payload }).pipe(
+					Effect.map(response => response.result),
+					Effect.mapError(error => {
+						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
+							return new Errors.NotFound(error);
+						if (
+							"error_code" in error &&
+							error.error_code === 400 &&
+							error.description === "Bad Request: PARTICIPANT_ID_INVALID"
+						)
+							return new Errors.ParticipantIdInvalid(error);
+						if (
+							"error_code" in error &&
+							error.error_code === 401 &&
+							error.description === "Unauthorized: invalid token specified"
+						)
+							return new Errors.Unauthorized(error);
+						return error;
+					}),
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["deleteAllMessageReactions"];
 			const deleteBusinessMessages = (payload =>
 				apiClient.deleteBusinessMessages({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -569,6 +635,72 @@ export const withToken = (token: string) =>
 					}),
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["deleteForumTopic"];
+			const deleteMessage = (payload =>
+				apiClient.deleteMessage({ payload }).pipe(
+					Effect.map(response => response.result),
+					Effect.mapError(error => {
+						if (
+							"error_code" in error &&
+							error.error_code === 400 &&
+							error.description === "Bad Request: chat not found"
+						)
+							return new Errors.ChatNotFound(error);
+						if (
+							"error_code" in error &&
+							error.error_code === 400 &&
+							error.description === "Bad Request: message to delete not found"
+						)
+							return new Errors.MessageToDeleteNotFound(error);
+						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
+							return new Errors.NotFound(error);
+						if (
+							"error_code" in error &&
+							error.error_code === 401 &&
+							error.description === "Unauthorized: invalid token specified"
+						)
+							return new Errors.Unauthorized(error);
+						return error;
+					}),
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["deleteMessage"];
+			const deleteMessageReaction = (payload =>
+				apiClient.deleteMessageReaction({ payload }).pipe(
+					Effect.map(response => response.result),
+					Effect.mapError(error => {
+						if (
+							"error_code" in error &&
+							error.error_code === 400 &&
+							error.description === "Bad Request: message to delete reactions not found"
+						)
+							return new Errors.MessageToDeleteReactionsNotFound(error);
+						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
+							return new Errors.NotFound(error);
+						if (
+							"error_code" in error &&
+							error.error_code === 401 &&
+							error.description === "Unauthorized: invalid token specified"
+						)
+							return new Errors.Unauthorized(error);
+						return error;
+					}),
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["deleteMessageReaction"];
+			const deleteMessages = (payload =>
+				apiClient.deleteMessages({ payload }).pipe(
+					Effect.map(response => response.result),
+					Effect.mapError(error => {
+						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
+							return new Errors.NotFound(error);
+						if (
+							"error_code" in error &&
+							error.error_code === 401 &&
+							error.description === "Unauthorized: invalid token specified"
+						)
+							return new Errors.Unauthorized(error);
+						return error;
+					}),
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["deleteMessages"];
 			const deleteMyCommands = (payload =>
 				apiClient.deleteMyCommands({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -759,6 +891,138 @@ export const withToken = (token: string) =>
 					}),
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["editGeneralForumTopic"];
+			const editMessageCaption = (payload =>
+				apiClient.editMessageCaption({ payload }).pipe(
+					Effect.map(response => response.result),
+					Effect.mapError(error => {
+						if (
+							"error_code" in error &&
+							error.error_code === 400 &&
+							error.description === "Bad Request: message to edit not found"
+						)
+							return new Errors.MessageToEditNotFound(error);
+						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
+							return new Errors.NotFound(error);
+						if (
+							"error_code" in error &&
+							error.error_code === 401 &&
+							error.description === "Unauthorized: invalid token specified"
+						)
+							return new Errors.Unauthorized(error);
+						return error;
+					}),
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["editMessageCaption"];
+			const editMessageChecklist = (payload =>
+				apiClient.editMessageChecklist({ payload }).pipe(
+					Effect.map(response => response.result),
+					Effect.mapError(error => {
+						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
+							return new Errors.NotFound(error);
+						if (
+							"error_code" in error &&
+							error.error_code === 401 &&
+							error.description === "Unauthorized: invalid token specified"
+						)
+							return new Errors.Unauthorized(error);
+						return error;
+					}),
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["editMessageChecklist"];
+			const editMessageLiveLocation = (payload =>
+				apiClient.editMessageLiveLocation({ payload }).pipe(
+					Effect.map(response => response.result),
+					Effect.mapError(error => {
+						if (
+							"error_code" in error &&
+							error.error_code === 400 &&
+							error.description === "Bad Request: message to edit not found"
+						)
+							return new Errors.MessageToEditNotFound(error);
+						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
+							return new Errors.NotFound(error);
+						if (
+							"error_code" in error &&
+							error.error_code === 401 &&
+							error.description === "Unauthorized: invalid token specified"
+						)
+							return new Errors.Unauthorized(error);
+						return error;
+					}),
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["editMessageLiveLocation"];
+			const editMessageMedia = (payload =>
+				apiClient.editMessageMedia({ payload }).pipe(
+					Effect.map(response => response.result),
+					Effect.mapError(error => {
+						if (
+							"error_code" in error &&
+							error.error_code === 400 &&
+							error.description === "Bad Request: message to edit not found"
+						)
+							return new Errors.MessageToEditNotFound(error);
+						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
+							return new Errors.NotFound(error);
+						if (
+							"error_code" in error &&
+							error.error_code === 401 &&
+							error.description === "Unauthorized: invalid token specified"
+						)
+							return new Errors.Unauthorized(error);
+						return error;
+					}),
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["editMessageMedia"];
+			const editMessageReplyMarkup = (payload =>
+				apiClient.editMessageReplyMarkup({ payload }).pipe(
+					Effect.map(response => response.result),
+					Effect.mapError(error => {
+						if (
+							"error_code" in error &&
+							error.error_code === 400 &&
+							error.description === "Bad Request: message to edit not found"
+						)
+							return new Errors.MessageToEditNotFound(error);
+						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
+							return new Errors.NotFound(error);
+						if (
+							"error_code" in error &&
+							error.error_code === 401 &&
+							error.description === "Unauthorized: invalid token specified"
+						)
+							return new Errors.Unauthorized(error);
+						return error;
+					}),
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["editMessageReplyMarkup"];
+			const editMessageText = (payload =>
+				apiClient.editMessageText({ payload }).pipe(
+					Effect.map(response => response.result),
+					Effect.mapError(error => {
+						if (
+							"error_code" in error &&
+							error.error_code === 400 &&
+							error.description === "Bad Request: chat not found"
+						)
+							return new Errors.ChatNotFound(error);
+						if (
+							"error_code" in error &&
+							error.error_code === 400 &&
+							error.description === "Bad Request: message to edit not found"
+						)
+							return new Errors.MessageToEditNotFound(error);
+						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
+							return new Errors.NotFound(error);
+						if (
+							"error_code" in error &&
+							error.error_code === 401 &&
+							error.description === "Unauthorized: invalid token specified"
+						)
+							return new Errors.Unauthorized(error);
+						return error;
+					}),
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["editMessageText"];
 			const editStory = (payload =>
 				apiClient.editStory({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -3675,6 +3939,50 @@ export const withToken = (token: string) =>
 					}),
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["setWebhook"];
+			const stopMessageLiveLocation = (payload =>
+				apiClient.stopMessageLiveLocation({ payload }).pipe(
+					Effect.map(response => response.result),
+					Effect.mapError(error => {
+						if (
+							"error_code" in error &&
+							error.error_code === 400 &&
+							error.description === "Bad Request: message to edit not found"
+						)
+							return new Errors.MessageToEditNotFound(error);
+						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
+							return new Errors.NotFound(error);
+						if (
+							"error_code" in error &&
+							error.error_code === 401 &&
+							error.description === "Unauthorized: invalid token specified"
+						)
+							return new Errors.Unauthorized(error);
+						return error;
+					}),
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["stopMessageLiveLocation"];
+			const stopPoll = (payload =>
+				apiClient.stopPoll({ payload }).pipe(
+					Effect.map(response => response.result),
+					Effect.mapError(error => {
+						if (
+							"error_code" in error &&
+							error.error_code === 400 &&
+							error.description === "Bad Request: message with poll to stop not found"
+						)
+							return new Errors.MessageWithPollToStopNotFound(error);
+						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
+							return new Errors.NotFound(error);
+						if (
+							"error_code" in error &&
+							error.error_code === 401 &&
+							error.description === "Unauthorized: invalid token specified"
+						)
+							return new Errors.Unauthorized(error);
+						return error;
+					}),
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["stopPoll"];
 			const transferBusinessAccountStars = (payload =>
 				apiClient.transferBusinessAccountStars({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -3975,6 +4283,7 @@ export const withToken = (token: string) =>
 				answerGuestQuery,
 				answerWebAppQuery,
 				approveChatJoinRequest,
+				approveSuggestedPost,
 				banChatMember,
 				banChatSenderChat,
 				close,
@@ -3987,10 +4296,15 @@ export const withToken = (token: string) =>
 				createChatSubscriptionInviteLink,
 				createForumTopic,
 				declineChatJoinRequest,
+				declineSuggestedPost,
+				deleteAllMessageReactions,
 				deleteBusinessMessages,
 				deleteChatPhoto,
 				deleteChatStickerSet,
 				deleteForumTopic,
+				deleteMessage,
+				deleteMessageReaction,
+				deleteMessages,
 				deleteMyCommands,
 				deleteStory,
 				deleteWebhook,
@@ -3998,6 +4312,12 @@ export const withToken = (token: string) =>
 				editChatSubscriptionInviteLink,
 				editForumTopic,
 				editGeneralForumTopic,
+				editMessageCaption,
+				editMessageChecklist,
+				editMessageLiveLocation,
+				editMessageMedia,
+				editMessageReplyMarkup,
+				editMessageText,
 				editStory,
 				exportChatInviteLink,
 				forwardMessage,
@@ -4092,6 +4412,8 @@ export const withToken = (token: string) =>
 				setMyShortDescription,
 				setUserEmojiStatus,
 				setWebhook,
+				stopMessageLiveLocation,
+				stopPoll,
 				transferBusinessAccountStars,
 				transferGift,
 				unbanChatMember,

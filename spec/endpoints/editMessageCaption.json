@@ -1,0 +1,106 @@
+{
+	"kind": "method",
+	"name": "editMessageCaption",
+	"slug": "editmessagecaption",
+	"description": "Use this method to edit captions of messages. On success, if the edited message is not an inline message, the edited Message",
+	"parameters": [
+		{
+			"name": "business_connection_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Unique identifier of the business connection on behalf of which the message to be edited was sent"
+		},
+		{
+			"name": "chat_id",
+			"type": {
+				"kind": "oneOf",
+				"types": [
+					{
+						"kind": "integer"
+					},
+					{
+						"kind": "string"
+					}
+				]
+			},
+			"required": false,
+			"description": "Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username."
+		},
+		{
+			"name": "message_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "Required if inline_message_id is not specified. Identifier of the message to edit."
+		},
+		{
+			"name": "inline_message_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Required if chat_id and message_id are not specified. Identifier of the inline message."
+		},
+		{
+			"name": "caption",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "New caption of the message, 0-1024 characters after entities parsing"
+		},
+		{
+			"name": "parse_mode",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Mode for parsing entities in the message caption. See formatting options for more details."
+		},
+		{
+			"name": "caption_entities",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "MessageEntity"
+				}
+			},
+			"required": false,
+			"description": "A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode"
+		},
+		{
+			"name": "show_caption_above_media",
+			"type": {
+				"kind": "boolean"
+			},
+			"required": false,
+			"description": "Pass True, if the caption must be shown above the message media. Supported only for animation, photo and video messages."
+		},
+		{
+			"name": "reply_markup",
+			"type": {
+				"kind": "ref",
+				"name": "InlineKeyboardMarkup"
+			},
+			"required": false,
+			"description": "A JSON-serialized object for an inline keyboard"
+		}
+	],
+	"returns": {
+		"kind": "oneOf",
+		"types": [
+			{
+				"kind": "ref",
+				"name": "Message"
+			},
+			{
+				"kind": "literal",
+				"value": true
+			}
+		]
+	}
+}

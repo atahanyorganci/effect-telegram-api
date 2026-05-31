@@ -1,0 +1,4 @@
+{
+	"method": "editMessageText",
+	"errors": ["ChatNotFound", "MessageToEditNotFound"]
+}

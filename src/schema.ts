@@ -67,6 +67,10 @@ export const InlineQueryResult = Schema.Unknown;
 export type InlineQueryResult = typeof InlineQueryResult.Type;
 
 // TODO: union/polymorphic type not yet generated from the spec.
+export const InputMedia = Schema.Unknown;
+export type InputMedia = typeof InputMedia.Type;
+
+// TODO: union/polymorphic type not yet generated from the spec.
 export const InputPaidMedia = Schema.Unknown;
 export type InputPaidMedia = typeof InputPaidMedia.Type;
 

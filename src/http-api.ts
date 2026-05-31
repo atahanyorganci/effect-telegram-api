@@ -197,6 +197,52 @@ export const approveChatJoinRequest = HttpApiEndpoint.post("approveChatJoinReque
 });
 
 /**
+ * Use this method to approve a suggested post in a direct messages chat. The
+ * bot must have the 'can_post_messages' administrator right in the
+ * corresponding channel chat
+ */
+export const approveSuggestedPost = HttpApiEndpoint.post("approveSuggestedPost", "/approveSuggestedPost", {
+	payload: Schema.Struct({
+		/**
+		 * Unique identifier for the target direct messages chat
+		 */
+		chat_id: Schema.Int.pipe(Schema.annotate({ description: "Unique identifier for the target direct messages chat" })),
+		/**
+		 * Identifier of a suggested post message to approve
+		 */
+		message_id: Schema.Int.pipe(Schema.annotate({ description: "Identifier of a suggested post message to approve" })),
+		/**
+		 * Point in time (Unix timestamp) when the post is expected to be published;
+		 * omit if the date has already been specified when the suggested post was
+		 * created. If specified, then the date must be not more than 2678400 seconds
+		 * (30 days) in the future.
+		 */
+		send_date: Schema.optional(Schema.Int).pipe(
+			Schema.annotate({
+				description:
+					"Point in time (Unix timestamp) when the post is expected to be published; omit if the date has already been specified when the suggested post was created. If specified, then the date must be not more than 2678400 seconds (30 days) in the future.",
+			}),
+		),
+	}).pipe(
+		Schema.annotate({
+			description:
+				"Use this method to approve a suggested post in a direct messages chat. The bot must have the 'can_post_messages' administrator right in the corresponding channel chat",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Literal(true),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+	error: [
+		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
+		Errors.SuggestedPostNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+	],
+});
+
+/**
  * Use this method to ban a user in a group, a supergroup or a channel. In the
  * case of supergroups and channels, the user will not be able to return to the
  * chat on their own using invite links, etc., unless unbanned first. The bot
@@ -998,6 +1044,104 @@ export const declineChatJoinRequest = HttpApiEndpoint.post("declineChatJoinReque
 });
 
 /**
+ * Use this method to decline a suggested post in a direct messages chat. The
+ * bot must have the 'can_manage_direct_messages' administrator right in the
+ * corresponding channel chat
+ */
+export const declineSuggestedPost = HttpApiEndpoint.post("declineSuggestedPost", "/declineSuggestedPost", {
+	payload: Schema.Struct({
+		/**
+		 * Unique identifier for the target direct messages chat
+		 */
+		chat_id: Schema.Int.pipe(Schema.annotate({ description: "Unique identifier for the target direct messages chat" })),
+		/**
+		 * Identifier of a suggested post message to decline
+		 */
+		message_id: Schema.Int.pipe(Schema.annotate({ description: "Identifier of a suggested post message to decline" })),
+		/**
+		 * Comment for the creator of the suggested post; 0-128 characters
+		 */
+		comment: Schema.optional(Schema.String).pipe(
+			Schema.annotate({ description: "Comment for the creator of the suggested post; 0-128 characters" }),
+		),
+	}).pipe(
+		Schema.annotate({
+			description:
+				"Use this method to decline a suggested post in a direct messages chat. The bot must have the 'can_manage_direct_messages' administrator right in the corresponding channel chat",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Literal(true),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+	error: [
+		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
+		Errors.SuggestedPostNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+	],
+});
+
+/**
+ * Use this method to remove up to 10000 recent reactions in a group or a
+ * supergroup chat added by a given user or chat. The bot must have the
+ * 'can_delete_messages' administrator right in the chat
+ */
+export const deleteAllMessageReactions = HttpApiEndpoint.post(
+	"deleteAllMessageReactions",
+	"/deleteAllMessageReactions",
+	{
+		payload: Schema.Struct({
+			/**
+			 * Unique identifier for the target chat or username of the target supergroup
+			 * in the format @username
+			 */
+			chat_id: Schema.Union([Schema.Int, Schema.String]).pipe(
+				Schema.annotate({
+					description:
+						"Unique identifier for the target chat or username of the target supergroup in the format @username",
+				}),
+			),
+			/**
+			 * Identifier of the user whose reactions will be removed, if the reactions
+			 * were added by a user
+			 */
+			user_id: Schema.optional(Schema.Int).pipe(
+				Schema.annotate({
+					description: "Identifier of the user whose reactions will be removed, if the reactions were added by a user",
+				}),
+			),
+			/**
+			 * Identifier of the chat whose reactions will be removed, if the reactions
+			 * were added by a chat
+			 */
+			actor_chat_id: Schema.optional(Schema.Int).pipe(
+				Schema.annotate({
+					description: "Identifier of the chat whose reactions will be removed, if the reactions were added by a chat",
+				}),
+			),
+		}).pipe(
+			Schema.annotate({
+				description:
+					"Use this method to remove up to 10000 recent reactions in a group or a supergroup chat added by a given user or chat. The bot must have the 'can_delete_messages' administrator right in the chat",
+			}),
+			Schema.toCodecJson,
+			HttpApiSchema.asJson(),
+		),
+		success: Schema.Struct({
+			ok: Schema.Literal(true),
+			result: Schema.Literal(true),
+		}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+		error: [
+			Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
+			Errors.ParticipantIdInvalidError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+			Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+		],
+	},
+);
+
+/**
  * Delete messages on behalf of a business account. Requires the
  * can_delete_sent_messages business bot right to delete messages sent by the
  * bot itself, or the can_delete_all_messages business bot right to delete any
@@ -1167,6 +1311,167 @@ export const deleteForumTopic = HttpApiEndpoint.post("deleteForumTopic", "/delet
 	error: [
 		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.ChatWriteForbiddenError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
+		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+	],
+});
+
+/**
+ * Use this method to delete a message, including service messages, with the
+ * following limitations:
+ * - A message can only be deleted if it was sent less than 48 hours ago.
+ * - Service messages about a supergroup, channel, or forum topic creation can't
+ * be deleted.
+ * - A dice message in a private chat can only be deleted if it was sent more
+ * than 24 hours ago.
+ * - Bots can delete outgoing messages in private chats, groups, and
+ * supergroups.
+ * - Bots can delete incoming messages in private chats.
+ * - Bots granted can_post_messages permissions can delete outgoing messages in
+ * channels.
+ * - If the bot is an administrator of a group, it can delete any message there.
+ * - If the bot has can_delete_messages administrator right in a supergroup or a
+ * channel, it can delete any message there.
+ * - If the bot has can_manage_direct_messages administrator right in a channel,
+ * it can delete any message in the corresponding direct messages chat
+ */
+export const deleteMessage = HttpApiEndpoint.post("deleteMessage", "/deleteMessage", {
+	payload: Schema.Struct({
+		/**
+		 * Unique identifier for the target chat or username of the target bot,
+		 * supergroup or channel in the format @username
+		 */
+		chat_id: Schema.Union([Schema.Int, Schema.String]).pipe(
+			Schema.annotate({
+				description:
+					"Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username",
+			}),
+		),
+		/**
+		 * Identifier of the message to delete
+		 */
+		message_id: Schema.Int.pipe(Schema.annotate({ description: "Identifier of the message to delete" })),
+	}).pipe(
+		Schema.annotate({
+			description:
+				"Use this method to delete a message, including service messages, with the following limitations:\n- A message can only be deleted if it was sent less than 48 hours ago.\n- Service messages about a supergroup, channel, or forum topic creation can't be deleted.\n- A dice message in a private chat can only be deleted if it was sent more than 24 hours ago.\n- Bots can delete outgoing messages in private chats, groups, and supergroups.\n- Bots can delete incoming messages in private chats.\n- Bots granted can_post_messages permissions can delete outgoing messages in channels.\n- If the bot is an administrator of a group, it can delete any message there.\n- If the bot has can_delete_messages administrator right in a supergroup or a channel, it can delete any message there.\n- If the bot has can_manage_direct_messages administrator right in a channel, it can delete any message in the corresponding direct messages chat",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Literal(true),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+	error: [
+		Errors.ChatNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.MessageToDeleteNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
+		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+	],
+});
+
+/**
+ * Use this method to remove a reaction from a message in a group or a
+ * supergroup chat. The bot must have the 'can_delete_messages' administrator
+ * right in the chat
+ */
+export const deleteMessageReaction = HttpApiEndpoint.post("deleteMessageReaction", "/deleteMessageReaction", {
+	payload: Schema.Struct({
+		/**
+		 * Unique identifier for the target chat or username of the target supergroup
+		 * in the format @username
+		 */
+		chat_id: Schema.Union([Schema.Int, Schema.String]).pipe(
+			Schema.annotate({
+				description:
+					"Unique identifier for the target chat or username of the target supergroup in the format @username",
+			}),
+		),
+		/**
+		 * Identifier of the target message
+		 */
+		message_id: Schema.Int.pipe(Schema.annotate({ description: "Identifier of the target message" })),
+		/**
+		 * Identifier of the user whose reaction will be removed, if the reaction was
+		 * added by a user
+		 */
+		user_id: Schema.optional(Schema.Int).pipe(
+			Schema.annotate({
+				description: "Identifier of the user whose reaction will be removed, if the reaction was added by a user",
+			}),
+		),
+		/**
+		 * Identifier of the chat whose reaction will be removed, if the reaction was
+		 * added by a chat
+		 */
+		actor_chat_id: Schema.optional(Schema.Int).pipe(
+			Schema.annotate({
+				description: "Identifier of the chat whose reaction will be removed, if the reaction was added by a chat",
+			}),
+		),
+	}).pipe(
+		Schema.annotate({
+			description:
+				"Use this method to remove a reaction from a message in a group or a supergroup chat. The bot must have the 'can_delete_messages' administrator right in the chat",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Literal(true),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+	error: [
+		Errors.MessageToDeleteReactionsNotFoundError.pipe(
+			Schema.toCodecJson,
+			HttpApiSchema.asJson(),
+			HttpApiSchema.status(400),
+		),
+		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
+		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+	],
+});
+
+/**
+ * Use this method to delete multiple messages simultaneously. If some of the
+ * specified messages can't be found, they are skipped
+ */
+export const deleteMessages = HttpApiEndpoint.post("deleteMessages", "/deleteMessages", {
+	payload: Schema.Struct({
+		/**
+		 * Unique identifier for the target chat or username of the target bot,
+		 * supergroup or channel in the format @username
+		 */
+		chat_id: Schema.Union([Schema.Int, Schema.String]).pipe(
+			Schema.annotate({
+				description:
+					"Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username",
+			}),
+		),
+		/**
+		 * A JSON-serialized list of 1-100 identifiers of messages to delete. See
+		 * deleteMessage for limitations on which messages can be deleted.
+		 */
+		message_ids: Schema.Array(Schema.Int).pipe(
+			Schema.annotate({
+				description:
+					"A JSON-serialized list of 1-100 identifiers of messages to delete. See deleteMessage for limitations on which messages can be deleted.",
+			}),
+		),
+	}).pipe(
+		Schema.annotate({
+			description:
+				"Use this method to delete multiple messages simultaneously. If some of the specified messages can't be found, they are skipped",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Literal(true),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+	error: [
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
 	],
@@ -1518,6 +1823,541 @@ export const editGeneralForumTopic = HttpApiEndpoint.post("editGeneralForumTopic
 	error: [
 		Errors.ChatAdminRequiredError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.ChatIdEmptyError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
+		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+	],
+});
+
+/**
+ * Use this method to edit captions of messages. On success, if the edited
+ * message is not an inline message, the edited Message
+ */
+export const editMessageCaption = HttpApiEndpoint.post("editMessageCaption", "/editMessageCaption", {
+	payload: Schema.Struct({
+		/**
+		 * Unique identifier of the business connection on behalf of which the message
+		 * to be edited was sent
+		 */
+		business_connection_id: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description:
+					"Unique identifier of the business connection on behalf of which the message to be edited was sent",
+			}),
+		),
+		/**
+		 * Required if inline_message_id is not specified. Unique identifier for the
+		 * target chat or username of the target bot, supergroup or channel in the
+		 * format @username.
+		 */
+		chat_id: Schema.optional(Schema.Union([Schema.Int, Schema.String])).pipe(
+			Schema.annotate({
+				description:
+					"Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username.",
+			}),
+		),
+		/**
+		 * Required if inline_message_id is not specified. Identifier of the message
+		 * to edit.
+		 */
+		message_id: Schema.optional(Schema.Int).pipe(
+			Schema.annotate({
+				description: "Required if inline_message_id is not specified. Identifier of the message to edit.",
+			}),
+		),
+		/**
+		 * Required if chat_id and message_id are not specified. Identifier of the
+		 * inline message.
+		 */
+		inline_message_id: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description: "Required if chat_id and message_id are not specified. Identifier of the inline message.",
+			}),
+		),
+		/**
+		 * New caption of the message, 0-1024 characters after entities parsing
+		 */
+		caption: Schema.optional(Schema.String).pipe(
+			Schema.annotate({ description: "New caption of the message, 0-1024 characters after entities parsing" }),
+		),
+		/**
+		 * Mode for parsing entities in the message caption. See formatting options
+		 * for more details.
+		 */
+		parse_mode: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description: "Mode for parsing entities in the message caption. See formatting options for more details.",
+			}),
+		),
+		/**
+		 * A JSON-serialized list of special entities that appear in the caption,
+		 * which can be specified instead of parse_mode
+		 */
+		caption_entities: Schema.optional(Schema.Array(Objects.MessageEntity)).pipe(
+			Schema.annotate({
+				description:
+					"A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode",
+			}),
+		),
+		/**
+		 * Pass True, if the caption must be shown above the message media. Supported
+		 * only for animation, photo and video messages.
+		 */
+		show_caption_above_media: Schema.optional(Schema.Boolean).pipe(
+			Schema.annotate({
+				description:
+					"Pass True, if the caption must be shown above the message media. Supported only for animation, photo and video messages.",
+			}),
+		),
+		/**
+		 * A JSON-serialized object for an inline keyboard
+		 */
+		reply_markup: Schema.optional(Objects.InlineKeyboardMarkup).pipe(
+			Schema.annotate({ description: "A JSON-serialized object for an inline keyboard" }),
+		),
+	}).pipe(
+		Schema.annotate({
+			description:
+				"Use this method to edit captions of messages. On success, if the edited message is not an inline message, the edited Message",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Union([Objects.Message, Schema.Literal(true)]),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+	error: [
+		Errors.MessageToEditNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
+		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+	],
+});
+
+/**
+ * Use this method to edit a checklist on behalf of a connected business
+ * account. On success, the edited Message
+ */
+export const editMessageChecklist = HttpApiEndpoint.post("editMessageChecklist", "/editMessageChecklist", {
+	payload: Schema.Struct({
+		/**
+		 * Unique identifier of the business connection on behalf of which the message
+		 * will be sent
+		 */
+		business_connection_id: Schema.String.pipe(
+			Schema.annotate({
+				description: "Unique identifier of the business connection on behalf of which the message will be sent",
+			}),
+		),
+		/**
+		 * Unique identifier for the target chat or username of the target bot in the
+		 * format @username
+		 */
+		chat_id: Schema.Union([Schema.Int, Schema.String]).pipe(
+			Schema.annotate({
+				description: "Unique identifier for the target chat or username of the target bot in the format @username",
+			}),
+		),
+		/**
+		 * Unique identifier for the target message
+		 */
+		message_id: Schema.Int.pipe(Schema.annotate({ description: "Unique identifier for the target message" })),
+		/**
+		 * A JSON-serialized object for the new checklist
+		 */
+		checklist: Objects.InputChecklist.pipe(
+			Schema.annotate({ description: "A JSON-serialized object for the new checklist" }),
+		),
+		/**
+		 * A JSON-serialized object for the new inline keyboard for the message
+		 */
+		reply_markup: Schema.optional(Objects.InlineKeyboardMarkup).pipe(
+			Schema.annotate({ description: "A JSON-serialized object for the new inline keyboard for the message" }),
+		),
+	}).pipe(
+		Schema.annotate({
+			description:
+				"Use this method to edit a checklist on behalf of a connected business account. On success, the edited Message",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Objects.Message,
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+	error: [
+		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
+		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+	],
+});
+
+/**
+ * Use this method to edit live location messages. A location can be edited
+ * until its live_period expires or editing is explicitly disabled by a call to
+ * stopMessageLiveLocation. On success, if the edited message is not an inline
+ * message, the edited Message
+ */
+export const editMessageLiveLocation = HttpApiEndpoint.post("editMessageLiveLocation", "/editMessageLiveLocation", {
+	payload: Schema.Struct({
+		/**
+		 * Unique identifier of the business connection on behalf of which the message
+		 * to be edited was sent
+		 */
+		business_connection_id: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description:
+					"Unique identifier of the business connection on behalf of which the message to be edited was sent",
+			}),
+		),
+		/**
+		 * Required if inline_message_id is not specified. Unique identifier for the
+		 * target chat or username of the target bot, supergroup or channel in the
+		 * format @username.
+		 */
+		chat_id: Schema.optional(Schema.Union([Schema.Int, Schema.String])).pipe(
+			Schema.annotate({
+				description:
+					"Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username.",
+			}),
+		),
+		/**
+		 * Required if inline_message_id is not specified. Identifier of the message
+		 * to edit.
+		 */
+		message_id: Schema.optional(Schema.Int).pipe(
+			Schema.annotate({
+				description: "Required if inline_message_id is not specified. Identifier of the message to edit.",
+			}),
+		),
+		/**
+		 * Required if chat_id and message_id are not specified. Identifier of the
+		 * inline message.
+		 */
+		inline_message_id: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description: "Required if chat_id and message_id are not specified. Identifier of the inline message.",
+			}),
+		),
+		/**
+		 * Latitude of new location
+		 */
+		latitude: Schema.Number.pipe(Schema.annotate({ description: "Latitude of new location" })),
+		/**
+		 * Longitude of new location
+		 */
+		longitude: Schema.Number.pipe(Schema.annotate({ description: "Longitude of new location" })),
+		/**
+		 * New period in seconds during which the location can be updated, starting
+		 * from the message send date. If 0x7FFFFFFF is specified, then the location
+		 * can be updated forever. Otherwise, the new value must not exceed the
+		 * current live_period by more than a day, and the live location expiration
+		 * date must remain within the next 90 days. If not specified, then
+		 * live_period remains unchanged.
+		 */
+		live_period: Schema.optional(Schema.Int).pipe(
+			Schema.annotate({
+				description:
+					"New period in seconds during which the location can be updated, starting from the message send date. If 0x7FFFFFFF is specified, then the location can be updated forever. Otherwise, the new value must not exceed the current live_period by more than a day, and the live location expiration date must remain within the next 90 days. If not specified, then live_period remains unchanged.",
+			}),
+		),
+		/**
+		 * The radius of uncertainty for the location, measured in meters; 0-1500
+		 */
+		horizontal_accuracy: Schema.optional(Schema.Number).pipe(
+			Schema.annotate({ description: "The radius of uncertainty for the location, measured in meters; 0-1500" }),
+		),
+		/**
+		 * Direction in which the user is moving, in degrees. Must be between 1 and
+		 * 360 if specified.
+		 */
+		heading: Schema.optional(Schema.Int).pipe(
+			Schema.annotate({
+				description: "Direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.",
+			}),
+		),
+		/**
+		 * The maximum distance for proximity alerts about approaching another chat
+		 * member, in meters. Must be between 1 and 100000 if specified.
+		 */
+		proximity_alert_radius: Schema.optional(Schema.Int).pipe(
+			Schema.annotate({
+				description:
+					"The maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.",
+			}),
+		),
+		/**
+		 * A JSON-serialized object for a new inline keyboard
+		 */
+		reply_markup: Schema.optional(Objects.InlineKeyboardMarkup).pipe(
+			Schema.annotate({ description: "A JSON-serialized object for a new inline keyboard" }),
+		),
+	}).pipe(
+		Schema.annotate({
+			description:
+				"Use this method to edit live location messages. A location can be edited until its live_period expires or editing is explicitly disabled by a call to stopMessageLiveLocation. On success, if the edited message is not an inline message, the edited Message",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Union([Objects.Message, Schema.Literal(true)]),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+	error: [
+		Errors.MessageToEditNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
+		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+	],
+});
+
+/**
+ * Use this method to edit animation, audio, document, live photo, photo, or
+ * video messages, or to add media to text messages. If a message is part of a
+ * message album, then it can be edited only to an audio for audio albums, only
+ * to a document for document albums and to a photo, a live photo, or a video
+ * otherwise. When an inline message is edited, a new file can't be uploaded;
+ * use a previously uploaded file via its file_id or specify a URL. On success,
+ * if the edited message is not an inline message, the edited Message
+ */
+export const editMessageMedia = HttpApiEndpoint.post("editMessageMedia", "/editMessageMedia", {
+	payload: Schema.Struct({
+		/**
+		 * Unique identifier of the business connection on behalf of which the message
+		 * to be edited was sent
+		 */
+		business_connection_id: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description:
+					"Unique identifier of the business connection on behalf of which the message to be edited was sent",
+			}),
+		),
+		/**
+		 * Required if inline_message_id is not specified. Unique identifier for the
+		 * target chat or username of the target bot, supergroup or channel in the
+		 * format @username.
+		 */
+		chat_id: Schema.optional(Schema.Union([Schema.Int, Schema.String])).pipe(
+			Schema.annotate({
+				description:
+					"Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username.",
+			}),
+		),
+		/**
+		 * Required if inline_message_id is not specified. Identifier of the message
+		 * to edit.
+		 */
+		message_id: Schema.optional(Schema.Int).pipe(
+			Schema.annotate({
+				description: "Required if inline_message_id is not specified. Identifier of the message to edit.",
+			}),
+		),
+		/**
+		 * Required if chat_id and message_id are not specified. Identifier of the
+		 * inline message.
+		 */
+		inline_message_id: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description: "Required if chat_id and message_id are not specified. Identifier of the inline message.",
+			}),
+		),
+		/**
+		 * A JSON-serialized object for a new media content of the message
+		 */
+		media: Objects.InputMedia.pipe(
+			Schema.annotate({ description: "A JSON-serialized object for a new media content of the message" }),
+		),
+		/**
+		 * A JSON-serialized object for a new inline keyboard
+		 */
+		reply_markup: Schema.optional(Objects.InlineKeyboardMarkup).pipe(
+			Schema.annotate({ description: "A JSON-serialized object for a new inline keyboard" }),
+		),
+	}).pipe(
+		Schema.annotate({
+			description:
+				"Use this method to edit animation, audio, document, live photo, photo, or video messages, or to add media to text messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo, a live photo, or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file_id or specify a URL. On success, if the edited message is not an inline message, the edited Message",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Union([Objects.Message, Schema.Literal(true)]),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+	error: [
+		Errors.MessageToEditNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
+		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+	],
+});
+
+/**
+ * Use this method to edit only the reply markup of messages. On success, if the
+ * edited message is not an inline message, the edited Message
+ */
+export const editMessageReplyMarkup = HttpApiEndpoint.post("editMessageReplyMarkup", "/editMessageReplyMarkup", {
+	payload: Schema.Struct({
+		/**
+		 * Unique identifier of the business connection on behalf of which the message
+		 * to be edited was sent
+		 */
+		business_connection_id: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description:
+					"Unique identifier of the business connection on behalf of which the message to be edited was sent",
+			}),
+		),
+		/**
+		 * Required if inline_message_id is not specified. Unique identifier for the
+		 * target chat or username of the target bot, supergroup or channel in the
+		 * format @username.
+		 */
+		chat_id: Schema.optional(Schema.Union([Schema.Int, Schema.String])).pipe(
+			Schema.annotate({
+				description:
+					"Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username.",
+			}),
+		),
+		/**
+		 * Required if inline_message_id is not specified. Identifier of the message
+		 * to edit.
+		 */
+		message_id: Schema.optional(Schema.Int).pipe(
+			Schema.annotate({
+				description: "Required if inline_message_id is not specified. Identifier of the message to edit.",
+			}),
+		),
+		/**
+		 * Required if chat_id and message_id are not specified. Identifier of the
+		 * inline message.
+		 */
+		inline_message_id: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description: "Required if chat_id and message_id are not specified. Identifier of the inline message.",
+			}),
+		),
+		/**
+		 * A JSON-serialized object for an inline keyboard
+		 */
+		reply_markup: Schema.optional(Objects.InlineKeyboardMarkup).pipe(
+			Schema.annotate({ description: "A JSON-serialized object for an inline keyboard" }),
+		),
+	}).pipe(
+		Schema.annotate({
+			description:
+				"Use this method to edit only the reply markup of messages. On success, if the edited message is not an inline message, the edited Message",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Union([Objects.Message, Schema.Literal(true)]),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+	error: [
+		Errors.MessageToEditNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
+		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+	],
+});
+
+/**
+ * Use this method to edit text and game messages. On success, if the edited
+ * message is not an inline message, the edited Message
+ */
+export const editMessageText = HttpApiEndpoint.post("editMessageText", "/editMessageText", {
+	payload: Schema.Struct({
+		/**
+		 * Unique identifier of the business connection on behalf of which the message
+		 * to be edited was sent
+		 */
+		business_connection_id: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description:
+					"Unique identifier of the business connection on behalf of which the message to be edited was sent",
+			}),
+		),
+		/**
+		 * Required if inline_message_id is not specified. Unique identifier for the
+		 * target chat or username of the target bot, supergroup or channel in the
+		 * format @username.
+		 */
+		chat_id: Schema.optional(Schema.Union([Schema.Int, Schema.String])).pipe(
+			Schema.annotate({
+				description:
+					"Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username.",
+			}),
+		),
+		/**
+		 * Required if inline_message_id is not specified. Identifier of the message
+		 * to edit.
+		 */
+		message_id: Schema.optional(Schema.Int).pipe(
+			Schema.annotate({
+				description: "Required if inline_message_id is not specified. Identifier of the message to edit.",
+			}),
+		),
+		/**
+		 * Required if chat_id and message_id are not specified. Identifier of the
+		 * inline message.
+		 */
+		inline_message_id: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description: "Required if chat_id and message_id are not specified. Identifier of the inline message.",
+			}),
+		),
+		/**
+		 * New text of the message, 1-4096 characters after entities parsing
+		 */
+		text: Schema.String.pipe(
+			Schema.annotate({ description: "New text of the message, 1-4096 characters after entities parsing" }),
+		),
+		/**
+		 * Mode for parsing entities in the message text. See formatting options for
+		 * more details.
+		 */
+		parse_mode: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description: "Mode for parsing entities in the message text. See formatting options for more details.",
+			}),
+		),
+		/**
+		 * A JSON-serialized list of special entities that appear in message text,
+		 * which can be specified instead of parse_mode
+		 */
+		entities: Schema.optional(Schema.Array(Objects.MessageEntity)).pipe(
+			Schema.annotate({
+				description:
+					"A JSON-serialized list of special entities that appear in message text, which can be specified instead of parse_mode",
+			}),
+		),
+		/**
+		 * Link preview generation options for the message
+		 */
+		link_preview_options: Schema.optional(Objects.LinkPreviewOptions).pipe(
+			Schema.annotate({ description: "Link preview generation options for the message" }),
+		),
+		/**
+		 * A JSON-serialized object for an inline keyboard
+		 */
+		reply_markup: Schema.optional(Objects.InlineKeyboardMarkup).pipe(
+			Schema.annotate({ description: "A JSON-serialized object for an inline keyboard" }),
+		),
+	}).pipe(
+		Schema.annotate({
+			description:
+				"Use this method to edit text and game messages. On success, if the edited message is not an inline message, the edited Message",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Union([Objects.Message, Schema.Literal(true)]),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+	error: [
+		Errors.ChatNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.MessageToEditNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
 	],
@@ -8760,6 +9600,136 @@ export const setWebhook = HttpApiEndpoint.post("setWebhook", "/setWebhook", {
 });
 
 /**
+ * Use this method to stop updating a live location message before live_period
+ * expires. On success, if the message is not an inline message, the edited
+ * Message
+ */
+export const stopMessageLiveLocation = HttpApiEndpoint.post("stopMessageLiveLocation", "/stopMessageLiveLocation", {
+	payload: Schema.Struct({
+		/**
+		 * Unique identifier of the business connection on behalf of which the message
+		 * to be edited was sent
+		 */
+		business_connection_id: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description:
+					"Unique identifier of the business connection on behalf of which the message to be edited was sent",
+			}),
+		),
+		/**
+		 * Required if inline_message_id is not specified. Unique identifier for the
+		 * target chat or username of the target bot, supergroup or channel in the
+		 * format @username.
+		 */
+		chat_id: Schema.optional(Schema.Union([Schema.Int, Schema.String])).pipe(
+			Schema.annotate({
+				description:
+					"Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username.",
+			}),
+		),
+		/**
+		 * Required if inline_message_id is not specified. Identifier of the message
+		 * with live location to stop.
+		 */
+		message_id: Schema.optional(Schema.Int).pipe(
+			Schema.annotate({
+				description:
+					"Required if inline_message_id is not specified. Identifier of the message with live location to stop.",
+			}),
+		),
+		/**
+		 * Required if chat_id and message_id are not specified. Identifier of the
+		 * inline message.
+		 */
+		inline_message_id: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description: "Required if chat_id and message_id are not specified. Identifier of the inline message.",
+			}),
+		),
+		/**
+		 * A JSON-serialized object for a new inline keyboard
+		 */
+		reply_markup: Schema.optional(Objects.InlineKeyboardMarkup).pipe(
+			Schema.annotate({ description: "A JSON-serialized object for a new inline keyboard" }),
+		),
+	}).pipe(
+		Schema.annotate({
+			description:
+				"Use this method to stop updating a live location message before live_period expires. On success, if the message is not an inline message, the edited Message",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Union([Objects.Message, Schema.Literal(true)]),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+	error: [
+		Errors.MessageToEditNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
+		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+	],
+});
+
+/**
+ * Use this method to stop a poll which was sent by the bot. On success, the
+ * stopped Poll
+ */
+export const stopPoll = HttpApiEndpoint.post("stopPoll", "/stopPoll", {
+	payload: Schema.Struct({
+		/**
+		 * Unique identifier of the business connection on behalf of which the message
+		 * to be edited was sent
+		 */
+		business_connection_id: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description:
+					"Unique identifier of the business connection on behalf of which the message to be edited was sent",
+			}),
+		),
+		/**
+		 * Unique identifier for the target chat or username of the target bot,
+		 * supergroup or channel in the format @username
+		 */
+		chat_id: Schema.Union([Schema.Int, Schema.String]).pipe(
+			Schema.annotate({
+				description:
+					"Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username",
+			}),
+		),
+		/**
+		 * Identifier of the original message with the poll
+		 */
+		message_id: Schema.Int.pipe(Schema.annotate({ description: "Identifier of the original message with the poll" })),
+		/**
+		 * A JSON-serialized object for a new message inline keyboard
+		 */
+		reply_markup: Schema.optional(Objects.InlineKeyboardMarkup).pipe(
+			Schema.annotate({ description: "A JSON-serialized object for a new message inline keyboard" }),
+		),
+	}).pipe(
+		Schema.annotate({
+			description: "Use this method to stop a poll which was sent by the bot. On success, the stopped Poll",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Objects.Poll,
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+	error: [
+		Errors.MessageWithPollToStopNotFoundError.pipe(
+			Schema.toCodecJson,
+			HttpApiSchema.asJson(),
+			HttpApiSchema.status(400),
+		),
+		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
+		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+	],
+});
+
+/**
  * Transfers Telegram Stars from the business account balance to the bot's
  * balance. Requires the can_transfer_stars business bot right
  */
@@ -9321,6 +10291,7 @@ export const TelegramBotApi = HttpApi.make("TelegramBotApi").add(
 		answerGuestQuery,
 		answerWebAppQuery,
 		approveChatJoinRequest,
+		approveSuggestedPost,
 		banChatMember,
 		banChatSenderChat,
 		close,
@@ -9333,10 +10304,15 @@ export const TelegramBotApi = HttpApi.make("TelegramBotApi").add(
 		createChatSubscriptionInviteLink,
 		createForumTopic,
 		declineChatJoinRequest,
+		declineSuggestedPost,
+		deleteAllMessageReactions,
 		deleteBusinessMessages,
 		deleteChatPhoto,
 		deleteChatStickerSet,
 		deleteForumTopic,
+		deleteMessage,
+		deleteMessageReaction,
+		deleteMessages,
 		deleteMyCommands,
 		deleteStory,
 		deleteWebhook,
@@ -9344,6 +10320,12 @@ export const TelegramBotApi = HttpApi.make("TelegramBotApi").add(
 		editChatSubscriptionInviteLink,
 		editForumTopic,
 		editGeneralForumTopic,
+		editMessageCaption,
+		editMessageChecklist,
+		editMessageLiveLocation,
+		editMessageMedia,
+		editMessageReplyMarkup,
+		editMessageText,
 		editStory,
 		exportChatInviteLink,
 		forwardMessage,
@@ -9438,6 +10420,8 @@ export const TelegramBotApi = HttpApi.make("TelegramBotApi").add(
 		setMyShortDescription,
 		setUserEmojiStatus,
 		setWebhook,
+		stopMessageLiveLocation,
+		stopPoll,
 		transferBusinessAccountStars,
 		transferGift,
 		unbanChatMember,

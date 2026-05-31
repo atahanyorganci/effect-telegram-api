@@ -1,0 +1,4 @@
+{
+	"method": "editMessageLiveLocation",
+	"errors": ["MessageToEditNotFound"]
+}

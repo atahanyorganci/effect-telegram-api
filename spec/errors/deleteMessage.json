@@ -1,0 +1,4 @@
+{
+	"method": "deleteMessage",
+	"errors": ["ChatNotFound", "MessageToDeleteNotFound"]
+}

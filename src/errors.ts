@@ -884,6 +884,33 @@ export class MessageToCopyNotFound extends Data.TaggedError("MessageToCopyNotFou
 }> {}
 
 /**
+ * message_id does not refer to an existing message
+ */
+export class MessageToDeleteNotFound extends Data.TaggedError("MessageToDeleteNotFound")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * message_id does not refer to an existing message
+ */
+export class MessageToDeleteReactionsNotFound extends Data.TaggedError("MessageToDeleteReactionsNotFound")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * message_id or inline_message_id does not refer to an existing message
+ */
+export class MessageToEditNotFound extends Data.TaggedError("MessageToEditNotFound")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
  * message_id is missing or does not refer to an existing message
  */
 export class MessageToForwardNotFound extends Data.TaggedError("MessageToForwardNotFound")<{
@@ -932,6 +959,15 @@ export class MessageToReplyNotFound extends Data.TaggedError("MessageToReplyNotF
  * message_id is missing or does not refer to a pinned message
  */
 export class MessageToUnpinNotFound extends Data.TaggedError("MessageToUnpinNotFound")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * message_id does not refer to an existing poll message
+ */
+export class MessageWithPollToStopNotFound extends Data.TaggedError("MessageWithPollToStopNotFound")<{
 	readonly ok: false;
 	readonly error_code: 400;
 	readonly description: string;
@@ -1256,6 +1292,15 @@ export class StoryContentNotSpecified extends Data.TaggedError("StoryContentNotS
  * suggested_post_parameters is used outside a channel direct messages chat
  */
 export class SuggestedPostChannelOnly extends Data.TaggedError("SuggestedPostChannelOnly")<{
+	readonly ok: false;
+	readonly error_code: 400;
+	readonly description: string;
+}> {}
+
+/**
+ * message_id does not refer to an existing suggested post
+ */
+export class SuggestedPostNotFound extends Data.TaggedError("SuggestedPostNotFound")<{
 	readonly ok: false;
 	readonly error_code: 400;
 	readonly description: string;
@@ -2322,6 +2367,33 @@ export const MessageToCopyNotFoundError = Schema.Struct({
 });
 
 /**
+ * message_id does not refer to an existing message
+ */
+export const MessageToDeleteNotFoundError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: message to delete not found"),
+});
+
+/**
+ * message_id does not refer to an existing message
+ */
+export const MessageToDeleteReactionsNotFoundError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: message to delete reactions not found"),
+});
+
+/**
+ * message_id or inline_message_id does not refer to an existing message
+ */
+export const MessageToEditNotFoundError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: message to edit not found"),
+});
+
+/**
  * message_id is missing or does not refer to an existing message
  */
 export const MessageToForwardNotFoundError = Schema.Struct({
@@ -2373,6 +2445,15 @@ export const MessageToUnpinNotFoundError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: message to unpin not found"),
+});
+
+/**
+ * message_id does not refer to an existing poll message
+ */
+export const MessageWithPollToStopNotFoundError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: message with poll to stop not found"),
 });
 
 /**
@@ -2699,6 +2780,15 @@ export const SuggestedPostChannelOnlyError = Schema.Struct({
 	ok: Schema.Literal(false),
 	error_code: Schema.Literal(400),
 	description: Schema.Literal("Bad Request: suggested posts can be sent only to channel direct messages"),
+});
+
+/**
+ * message_id does not refer to an existing suggested post
+ */
+export const SuggestedPostNotFoundError = Schema.Struct({
+	ok: Schema.Literal(false),
+	error_code: Schema.Literal(400),
+	description: Schema.Literal("Bad Request: suggested post not found"),
 });
 
 /**

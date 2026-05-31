@@ -77,9 +77,7 @@
 			},
 			"required": false,
 			"description": "True, if the bot can be invited to groups.",
-			"conditions": [
-				"Returned only in getMe"
-			]
+			"conditions": ["Returned only in getMe"]
 		},
 		{
 			"name": "can_read_all_group_messages",
@@ -88,9 +86,7 @@
 			},
 			"required": false,
 			"description": "True, if privacy mode is disabled for the bot.",
-			"conditions": [
-				"Returned only in getMe"
-			]
+			"conditions": ["Returned only in getMe"]
 		},
 		{
 			"name": "supports_guest_queries",
@@ -99,9 +95,7 @@
 			},
 			"required": false,
 			"description": "True, if the bot supports guest queries from chats it is not a member of.",
-			"conditions": [
-				"Returned only in getMe"
-			]
+			"conditions": ["Returned only in getMe"]
 		},
 		{
 			"name": "supports_inline_queries",
@@ -110,9 +104,7 @@
 			},
 			"required": false,
 			"description": "True, if the bot supports inline queries.",
-			"conditions": [
-				"Returned only in getMe"
-			]
+			"conditions": ["Returned only in getMe"]
 		},
 		{
 			"name": "can_connect_to_business",
@@ -121,9 +113,7 @@
 			},
 			"required": false,
 			"description": "True, if the bot can be connected to a user account to manage it.",
-			"conditions": [
-				"Returned only in getMe"
-			]
+			"conditions": ["Returned only in getMe"]
 		},
 		{
 			"name": "has_main_web_app",
@@ -132,9 +122,7 @@
 			},
 			"required": false,
 			"description": "True, if the bot has a main Web App.",
-			"conditions": [
-				"Returned only in getMe"
-			]
+			"conditions": ["Returned only in getMe"]
 		},
 		{
 			"name": "has_topics_enabled",
@@ -143,9 +131,7 @@
 			},
 			"required": false,
 			"description": "True, if the bot has forum topic mode enabled in private chats.",
-			"conditions": [
-				"Returned only in getMe"
-			]
+			"conditions": ["Returned only in getMe"]
 		},
 		{
 			"name": "allows_users_to_create_topics",
@@ -154,9 +140,7 @@
 			},
 			"required": false,
 			"description": "True, if the bot allows users to create and delete topics in private chats.",
-			"conditions": [
-				"Returned only in getMe"
-			]
+			"conditions": ["Returned only in getMe"]
 		},
 		{
 			"name": "can_manage_bots",
@@ -165,9 +149,7 @@
 			},
 			"required": false,
 			"description": "True, if other bots can be created to be controlled by the bot.",
-			"conditions": [
-				"Returned only in getMe"
-			]
+			"conditions": ["Returned only in getMe"]
 		}
 	]
 }

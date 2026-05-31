@@ -1,0 +1,52 @@
+{
+	"kind": "method",
+	"name": "deleteMessageReaction",
+	"slug": "deletemessagereaction",
+	"description": "Use this method to remove a reaction from a message in a group or a supergroup chat. The bot must have the 'can_delete_messages' administrator right in the chat",
+	"parameters": [
+		{
+			"name": "chat_id",
+			"type": {
+				"kind": "oneOf",
+				"types": [
+					{
+						"kind": "integer"
+					},
+					{
+						"kind": "string"
+					}
+				]
+			},
+			"required": true,
+			"description": "Unique identifier for the target chat or username of the target supergroup in the format @username"
+		},
+		{
+			"name": "message_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Identifier of the target message"
+		},
+		{
+			"name": "user_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "Identifier of the user whose reaction will be removed, if the reaction was added by a user"
+		},
+		{
+			"name": "actor_chat_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "Identifier of the chat whose reaction will be removed, if the reaction was added by a chat"
+		}
+	],
+	"returns": {
+		"kind": "literal",
+		"value": true
+	}
+}

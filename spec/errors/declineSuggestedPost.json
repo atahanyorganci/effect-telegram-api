@@ -1,0 +1,4 @@
+{
+	"method": "declineSuggestedPost",
+	"errors": ["SuggestedPostNotFound"]
+}

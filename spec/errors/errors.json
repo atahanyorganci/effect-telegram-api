@@ -560,6 +560,24 @@
 			"when": "message_id is missing or does not refer to an existing message"
 		},
 		{
+			"tag": "MessageToDeleteNotFound",
+			"errorCode": 400,
+			"description": "Bad Request: message to delete not found",
+			"when": "message_id does not refer to an existing message"
+		},
+		{
+			"tag": "MessageToDeleteReactionsNotFound",
+			"errorCode": 400,
+			"description": "Bad Request: message to delete reactions not found",
+			"when": "message_id does not refer to an existing message"
+		},
+		{
+			"tag": "MessageToEditNotFound",
+			"errorCode": 400,
+			"description": "Bad Request: message to edit not found",
+			"when": "message_id or inline_message_id does not refer to an existing message"
+		},
+		{
 			"tag": "MessageToForwardNotFound",
 			"errorCode": 400,
 			"description": "Bad Request: message to forward not found",
@@ -594,6 +612,12 @@
 			"errorCode": 400,
 			"description": "Bad Request: message to unpin not found",
 			"when": "message_id is missing or does not refer to a pinned message"
+		},
+		{
+			"tag": "MessageWithPollToStopNotFound",
+			"errorCode": 400,
+			"description": "Bad Request: message with poll to stop not found",
+			"when": "message_id does not refer to an existing poll message"
 		},
 		{
 			"tag": "NoAnimationInRequest",
@@ -810,6 +834,12 @@
 			"errorCode": 400,
 			"description": "Bad Request: suggested posts can be sent only to channel direct messages",
 			"when": "suggested_post_parameters is used outside a channel direct messages chat"
+		},
+		{
+			"tag": "SuggestedPostNotFound",
+			"errorCode": 400,
+			"description": "Bad Request: suggested post not found",
+			"when": "message_id does not refer to an existing suggested post"
 		},
 		{
 			"tag": "TextLinkUrlMissing",

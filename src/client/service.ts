@@ -32,6 +32,7 @@ import type {
 	MessageEntity,
 	MessageId,
 	OwnedGifts,
+	Poll,
 	PreparedInlineMessage,
 	PreparedKeyboardButton,
 	ReplyKeyboardMarkup,
@@ -163,6 +164,35 @@ export class TelegramClient extends Context.Service<
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.UserIdInvalid
+			| Errors.TelegramApiError
+			| HttpClientError.HttpClientError
+		>;
+		/**
+		 * Use this method to approve a suggested post in a direct messages chat. The
+		 * bot must have the 'can_post_messages' administrator right in the
+		 * corresponding channel chat
+		 */
+		readonly approveSuggestedPost: (payload: {
+			/**
+			 * Unique identifier for the target direct messages chat
+			 */
+			readonly chat_id: number;
+			/**
+			 * Identifier of a suggested post message to approve
+			 */
+			readonly message_id: number;
+			/**
+			 * Point in time (Unix timestamp) when the post is expected to be published;
+			 * omit if the date has already been specified when the suggested post was
+			 * created. If specified, then the date must be not more than 2678400 seconds
+			 * (30 days) in the future.
+			 */
+			readonly send_date?: number | undefined;
+		}) => Effect.Effect<
+			true,
+			| Errors.NotFound
+			| Errors.SuggestedPostNotFound
+			| Errors.Unauthorized
 			| Errors.TelegramApiError
 			| HttpClientError.HttpClientError
 		>;
@@ -611,6 +641,61 @@ export class TelegramClient extends Context.Service<
 			| HttpClientError.HttpClientError
 		>;
 		/**
+		 * Use this method to decline a suggested post in a direct messages chat. The
+		 * bot must have the 'can_manage_direct_messages' administrator right in the
+		 * corresponding channel chat
+		 */
+		readonly declineSuggestedPost: (payload: {
+			/**
+			 * Unique identifier for the target direct messages chat
+			 */
+			readonly chat_id: number;
+			/**
+			 * Identifier of a suggested post message to decline
+			 */
+			readonly message_id: number;
+			/**
+			 * Comment for the creator of the suggested post; 0-128 characters
+			 */
+			readonly comment?: string | undefined;
+		}) => Effect.Effect<
+			true,
+			| Errors.NotFound
+			| Errors.SuggestedPostNotFound
+			| Errors.Unauthorized
+			| Errors.TelegramApiError
+			| HttpClientError.HttpClientError
+		>;
+		/**
+		 * Use this method to remove up to 10000 recent reactions in a group or a
+		 * supergroup chat added by a given user or chat. The bot must have the
+		 * 'can_delete_messages' administrator right in the chat
+		 */
+		readonly deleteAllMessageReactions: (payload: {
+			/**
+			 * Unique identifier for the target chat or username of the target supergroup
+			 * in the format @username
+			 */
+			readonly chat_id: number | string;
+			/**
+			 * Identifier of the user whose reactions will be removed, if the reactions
+			 * were added by a user
+			 */
+			readonly user_id?: number | undefined;
+			/**
+			 * Identifier of the chat whose reactions will be removed, if the reactions
+			 * were added by a chat
+			 */
+			readonly actor_chat_id?: number | undefined;
+		}) => Effect.Effect<
+			true,
+			| Errors.NotFound
+			| Errors.ParticipantIdInvalid
+			| Errors.Unauthorized
+			| Errors.TelegramApiError
+			| HttpClientError.HttpClientError
+		>;
+		/**
 		 * Delete messages on behalf of a business account. Requires the
 		 * can_delete_sent_messages business bot right to delete messages sent by the
 		 * bot itself, or the can_delete_all_messages business bot right to delete any
@@ -702,6 +787,97 @@ export class TelegramClient extends Context.Service<
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
 			| HttpClientError.HttpClientError
+		>;
+		/**
+		 * Use this method to delete a message, including service messages, with the
+		 * following limitations:
+		 * - A message can only be deleted if it was sent less than 48 hours ago.
+		 * - Service messages about a supergroup, channel, or forum topic creation
+		 * can't be deleted.
+		 * - A dice message in a private chat can only be deleted if it was sent more
+		 * than 24 hours ago.
+		 * - Bots can delete outgoing messages in private chats, groups, and
+		 * supergroups.
+		 * - Bots can delete incoming messages in private chats.
+		 * - Bots granted can_post_messages permissions can delete outgoing messages in
+		 * channels.
+		 * - If the bot is an administrator of a group, it can delete any message
+		 * there.
+		 * - If the bot has can_delete_messages administrator right in a supergroup or
+		 * a channel, it can delete any message there.
+		 * - If the bot has can_manage_direct_messages administrator right in a
+		 * channel, it can delete any message in the corresponding direct messages chat
+		 */
+		readonly deleteMessage: (payload: {
+			/**
+			 * Unique identifier for the target chat or username of the target bot,
+			 * supergroup or channel in the format @username
+			 */
+			readonly chat_id: number | string;
+			/**
+			 * Identifier of the message to delete
+			 */
+			readonly message_id: number;
+		}) => Effect.Effect<
+			true,
+			| Errors.ChatNotFound
+			| Errors.MessageToDeleteNotFound
+			| Errors.NotFound
+			| Errors.Unauthorized
+			| Errors.TelegramApiError
+			| HttpClientError.HttpClientError
+		>;
+		/**
+		 * Use this method to remove a reaction from a message in a group or a
+		 * supergroup chat. The bot must have the 'can_delete_messages' administrator
+		 * right in the chat
+		 */
+		readonly deleteMessageReaction: (payload: {
+			/**
+			 * Unique identifier for the target chat or username of the target supergroup
+			 * in the format @username
+			 */
+			readonly chat_id: number | string;
+			/**
+			 * Identifier of the target message
+			 */
+			readonly message_id: number;
+			/**
+			 * Identifier of the user whose reaction will be removed, if the reaction was
+			 * added by a user
+			 */
+			readonly user_id?: number | undefined;
+			/**
+			 * Identifier of the chat whose reaction will be removed, if the reaction was
+			 * added by a chat
+			 */
+			readonly actor_chat_id?: number | undefined;
+		}) => Effect.Effect<
+			true,
+			| Errors.MessageToDeleteReactionsNotFound
+			| Errors.NotFound
+			| Errors.Unauthorized
+			| Errors.TelegramApiError
+			| HttpClientError.HttpClientError
+		>;
+		/**
+		 * Use this method to delete multiple messages simultaneously. If some of the
+		 * specified messages can't be found, they are skipped
+		 */
+		readonly deleteMessages: (payload: {
+			/**
+			 * Unique identifier for the target chat or username of the target bot,
+			 * supergroup or channel in the format @username
+			 */
+			readonly chat_id: number | string;
+			/**
+			 * A JSON-serialized list of 1-100 identifiers of messages to delete. See
+			 * deleteMessage for limitations on which messages can be deleted.
+			 */
+			readonly message_ids: ReadonlyArray<number>;
+		}) => Effect.Effect<
+			true,
+			Errors.NotFound | Errors.Unauthorized | Errors.TelegramApiError | HttpClientError.HttpClientError
 		>;
 		/**
 		 * Use this method to delete the list of the bot's commands for the given scope
@@ -891,6 +1067,307 @@ export class TelegramClient extends Context.Service<
 			true,
 			| Errors.ChatAdminRequired
 			| Errors.ChatIdEmpty
+			| Errors.NotFound
+			| Errors.Unauthorized
+			| Errors.TelegramApiError
+			| HttpClientError.HttpClientError
+		>;
+		/**
+		 * Use this method to edit captions of messages. On success, if the edited
+		 * message is not an inline message, the edited Message
+		 */
+		readonly editMessageCaption: (payload: {
+			/**
+			 * Unique identifier of the business connection on behalf of which the message
+			 * to be edited was sent
+			 */
+			readonly business_connection_id?: string | undefined;
+			/**
+			 * Required if inline_message_id is not specified. Unique identifier for the
+			 * target chat or username of the target bot, supergroup or channel in the
+			 * format @username.
+			 */
+			readonly chat_id?: (number | string) | undefined;
+			/**
+			 * Required if inline_message_id is not specified. Identifier of the message
+			 * to edit.
+			 */
+			readonly message_id?: number | undefined;
+			/**
+			 * Required if chat_id and message_id are not specified. Identifier of the
+			 * inline message.
+			 */
+			readonly inline_message_id?: string | undefined;
+			/**
+			 * New caption of the message, 0-1024 characters after entities parsing
+			 */
+			readonly caption?: string | undefined;
+			/**
+			 * Mode for parsing entities in the message caption. See formatting options
+			 * for more details.
+			 */
+			readonly parse_mode?: string | undefined;
+			/**
+			 * A JSON-serialized list of special entities that appear in the caption,
+			 * which can be specified instead of parse_mode
+			 */
+			readonly caption_entities?: ReadonlyArray<MessageEntity> | undefined;
+			/**
+			 * Pass True, if the caption must be shown above the message media. Supported
+			 * only for animation, photo and video messages.
+			 */
+			readonly show_caption_above_media?: boolean | undefined;
+			/**
+			 * A JSON-serialized object for an inline keyboard
+			 */
+			readonly reply_markup?: InlineKeyboardMarkup | undefined;
+		}) => Effect.Effect<
+			Message | true,
+			| Errors.MessageToEditNotFound
+			| Errors.NotFound
+			| Errors.Unauthorized
+			| Errors.TelegramApiError
+			| HttpClientError.HttpClientError
+		>;
+		/**
+		 * Use this method to edit a checklist on behalf of a connected business
+		 * account. On success, the edited Message
+		 */
+		readonly editMessageChecklist: (payload: {
+			/**
+			 * Unique identifier of the business connection on behalf of which the message
+			 * will be sent
+			 */
+			readonly business_connection_id: string;
+			/**
+			 * Unique identifier for the target chat or username of the target bot in the
+			 * format @username
+			 */
+			readonly chat_id: number | string;
+			/**
+			 * Unique identifier for the target message
+			 */
+			readonly message_id: number;
+			/**
+			 * A JSON-serialized object for the new checklist
+			 */
+			readonly checklist: InputChecklist;
+			/**
+			 * A JSON-serialized object for the new inline keyboard for the message
+			 */
+			readonly reply_markup?: InlineKeyboardMarkup | undefined;
+		}) => Effect.Effect<
+			Message,
+			Errors.NotFound | Errors.Unauthorized | Errors.TelegramApiError | HttpClientError.HttpClientError
+		>;
+		/**
+		 * Use this method to edit live location messages. A location can be edited
+		 * until its live_period expires or editing is explicitly disabled by a call to
+		 * stopMessageLiveLocation. On success, if the edited message is not an inline
+		 * message, the edited Message
+		 */
+		readonly editMessageLiveLocation: (payload: {
+			/**
+			 * Unique identifier of the business connection on behalf of which the message
+			 * to be edited was sent
+			 */
+			readonly business_connection_id?: string | undefined;
+			/**
+			 * Required if inline_message_id is not specified. Unique identifier for the
+			 * target chat or username of the target bot, supergroup or channel in the
+			 * format @username.
+			 */
+			readonly chat_id?: (number | string) | undefined;
+			/**
+			 * Required if inline_message_id is not specified. Identifier of the message
+			 * to edit.
+			 */
+			readonly message_id?: number | undefined;
+			/**
+			 * Required if chat_id and message_id are not specified. Identifier of the
+			 * inline message.
+			 */
+			readonly inline_message_id?: string | undefined;
+			/**
+			 * Latitude of new location
+			 */
+			readonly latitude: number;
+			/**
+			 * Longitude of new location
+			 */
+			readonly longitude: number;
+			/**
+			 * New period in seconds during which the location can be updated, starting
+			 * from the message send date. If 0x7FFFFFFF is specified, then the location
+			 * can be updated forever. Otherwise, the new value must not exceed the
+			 * current live_period by more than a day, and the live location expiration
+			 * date must remain within the next 90 days. If not specified, then
+			 * live_period remains unchanged.
+			 */
+			readonly live_period?: number | undefined;
+			/**
+			 * The radius of uncertainty for the location, measured in meters; 0-1500
+			 */
+			readonly horizontal_accuracy?: number | undefined;
+			/**
+			 * Direction in which the user is moving, in degrees. Must be between 1 and
+			 * 360 if specified.
+			 */
+			readonly heading?: number | undefined;
+			/**
+			 * The maximum distance for proximity alerts about approaching another chat
+			 * member, in meters. Must be between 1 and 100000 if specified.
+			 */
+			readonly proximity_alert_radius?: number | undefined;
+			/**
+			 * A JSON-serialized object for a new inline keyboard
+			 */
+			readonly reply_markup?: InlineKeyboardMarkup | undefined;
+		}) => Effect.Effect<
+			Message | true,
+			| Errors.MessageToEditNotFound
+			| Errors.NotFound
+			| Errors.Unauthorized
+			| Errors.TelegramApiError
+			| HttpClientError.HttpClientError
+		>;
+		/**
+		 * Use this method to edit animation, audio, document, live photo, photo, or
+		 * video messages, or to add media to text messages. If a message is part of a
+		 * message album, then it can be edited only to an audio for audio albums, only
+		 * to a document for document albums and to a photo, a live photo, or a video
+		 * otherwise. When an inline message is edited, a new file can't be uploaded;
+		 * use a previously uploaded file via its file_id or specify a URL. On success,
+		 * if the edited message is not an inline message, the edited Message
+		 */
+		readonly editMessageMedia: (payload: {
+			/**
+			 * Unique identifier of the business connection on behalf of which the message
+			 * to be edited was sent
+			 */
+			readonly business_connection_id?: string | undefined;
+			/**
+			 * Required if inline_message_id is not specified. Unique identifier for the
+			 * target chat or username of the target bot, supergroup or channel in the
+			 * format @username.
+			 */
+			readonly chat_id?: (number | string) | undefined;
+			/**
+			 * Required if inline_message_id is not specified. Identifier of the message
+			 * to edit.
+			 */
+			readonly message_id?: number | undefined;
+			/**
+			 * Required if chat_id and message_id are not specified. Identifier of the
+			 * inline message.
+			 */
+			readonly inline_message_id?: string | undefined;
+			/**
+			 * A JSON-serialized object for a new media content of the message
+			 */
+			readonly media: unknown;
+			/**
+			 * A JSON-serialized object for a new inline keyboard
+			 */
+			readonly reply_markup?: InlineKeyboardMarkup | undefined;
+		}) => Effect.Effect<
+			Message | true,
+			| Errors.MessageToEditNotFound
+			| Errors.NotFound
+			| Errors.Unauthorized
+			| Errors.TelegramApiError
+			| HttpClientError.HttpClientError
+		>;
+		/**
+		 * Use this method to edit only the reply markup of messages. On success, if
+		 * the edited message is not an inline message, the edited Message
+		 */
+		readonly editMessageReplyMarkup: (payload: {
+			/**
+			 * Unique identifier of the business connection on behalf of which the message
+			 * to be edited was sent
+			 */
+			readonly business_connection_id?: string | undefined;
+			/**
+			 * Required if inline_message_id is not specified. Unique identifier for the
+			 * target chat or username of the target bot, supergroup or channel in the
+			 * format @username.
+			 */
+			readonly chat_id?: (number | string) | undefined;
+			/**
+			 * Required if inline_message_id is not specified. Identifier of the message
+			 * to edit.
+			 */
+			readonly message_id?: number | undefined;
+			/**
+			 * Required if chat_id and message_id are not specified. Identifier of the
+			 * inline message.
+			 */
+			readonly inline_message_id?: string | undefined;
+			/**
+			 * A JSON-serialized object for an inline keyboard
+			 */
+			readonly reply_markup?: InlineKeyboardMarkup | undefined;
+		}) => Effect.Effect<
+			Message | true,
+			| Errors.MessageToEditNotFound
+			| Errors.NotFound
+			| Errors.Unauthorized
+			| Errors.TelegramApiError
+			| HttpClientError.HttpClientError
+		>;
+		/**
+		 * Use this method to edit text and game messages. On success, if the edited
+		 * message is not an inline message, the edited Message
+		 */
+		readonly editMessageText: (payload: {
+			/**
+			 * Unique identifier of the business connection on behalf of which the message
+			 * to be edited was sent
+			 */
+			readonly business_connection_id?: string | undefined;
+			/**
+			 * Required if inline_message_id is not specified. Unique identifier for the
+			 * target chat or username of the target bot, supergroup or channel in the
+			 * format @username.
+			 */
+			readonly chat_id?: (number | string) | undefined;
+			/**
+			 * Required if inline_message_id is not specified. Identifier of the message
+			 * to edit.
+			 */
+			readonly message_id?: number | undefined;
+			/**
+			 * Required if chat_id and message_id are not specified. Identifier of the
+			 * inline message.
+			 */
+			readonly inline_message_id?: string | undefined;
+			/**
+			 * New text of the message, 1-4096 characters after entities parsing
+			 */
+			readonly text: string;
+			/**
+			 * Mode for parsing entities in the message text. See formatting options for
+			 * more details.
+			 */
+			readonly parse_mode?: string | undefined;
+			/**
+			 * A JSON-serialized list of special entities that appear in message text,
+			 * which can be specified instead of parse_mode
+			 */
+			readonly entities?: ReadonlyArray<MessageEntity> | undefined;
+			/**
+			 * Link preview generation options for the message
+			 */
+			readonly link_preview_options?: LinkPreviewOptions | undefined;
+			/**
+			 * A JSON-serialized object for an inline keyboard
+			 */
+			readonly reply_markup?: InlineKeyboardMarkup | undefined;
+		}) => Effect.Effect<
+			Message | true,
+			| Errors.ChatNotFound
+			| Errors.MessageToEditNotFound
 			| Errors.NotFound
 			| Errors.Unauthorized
 			| Errors.TelegramApiError
@@ -4922,6 +5399,76 @@ export class TelegramClient extends Context.Service<
 		}) => Effect.Effect<
 			true,
 			Errors.NotFound | Errors.Unauthorized | Errors.TelegramApiError | HttpClientError.HttpClientError
+		>;
+		/**
+		 * Use this method to stop updating a live location message before live_period
+		 * expires. On success, if the message is not an inline message, the edited
+		 * Message
+		 */
+		readonly stopMessageLiveLocation: (payload: {
+			/**
+			 * Unique identifier of the business connection on behalf of which the message
+			 * to be edited was sent
+			 */
+			readonly business_connection_id?: string | undefined;
+			/**
+			 * Required if inline_message_id is not specified. Unique identifier for the
+			 * target chat or username of the target bot, supergroup or channel in the
+			 * format @username.
+			 */
+			readonly chat_id?: (number | string) | undefined;
+			/**
+			 * Required if inline_message_id is not specified. Identifier of the message
+			 * with live location to stop.
+			 */
+			readonly message_id?: number | undefined;
+			/**
+			 * Required if chat_id and message_id are not specified. Identifier of the
+			 * inline message.
+			 */
+			readonly inline_message_id?: string | undefined;
+			/**
+			 * A JSON-serialized object for a new inline keyboard
+			 */
+			readonly reply_markup?: InlineKeyboardMarkup | undefined;
+		}) => Effect.Effect<
+			Message | true,
+			| Errors.MessageToEditNotFound
+			| Errors.NotFound
+			| Errors.Unauthorized
+			| Errors.TelegramApiError
+			| HttpClientError.HttpClientError
+		>;
+		/**
+		 * Use this method to stop a poll which was sent by the bot. On success, the
+		 * stopped Poll
+		 */
+		readonly stopPoll: (payload: {
+			/**
+			 * Unique identifier of the business connection on behalf of which the message
+			 * to be edited was sent
+			 */
+			readonly business_connection_id?: string | undefined;
+			/**
+			 * Unique identifier for the target chat or username of the target bot,
+			 * supergroup or channel in the format @username
+			 */
+			readonly chat_id: number | string;
+			/**
+			 * Identifier of the original message with the poll
+			 */
+			readonly message_id: number;
+			/**
+			 * A JSON-serialized object for a new message inline keyboard
+			 */
+			readonly reply_markup?: InlineKeyboardMarkup | undefined;
+		}) => Effect.Effect<
+			Poll,
+			| Errors.MessageWithPollToStopNotFound
+			| Errors.NotFound
+			| Errors.Unauthorized
+			| Errors.TelegramApiError
+			| HttpClientError.HttpClientError
 		>;
 		/**
 		 * Transfers Telegram Stars from the business account balance to the bot's

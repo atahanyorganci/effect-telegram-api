@@ -1,0 +1,4 @@
+{
+	"method": "deleteAllMessageReactions",
+	"errors": ["ParticipantIdInvalid"]
+}

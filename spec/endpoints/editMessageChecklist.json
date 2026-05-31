@@ -1,0 +1,62 @@
+{
+	"kind": "method",
+	"name": "editMessageChecklist",
+	"slug": "editmessagechecklist",
+	"description": "Use this method to edit a checklist on behalf of a connected business account. On success, the edited Message",
+	"parameters": [
+		{
+			"name": "business_connection_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Unique identifier of the business connection on behalf of which the message will be sent"
+		},
+		{
+			"name": "chat_id",
+			"type": {
+				"kind": "oneOf",
+				"types": [
+					{
+						"kind": "integer"
+					},
+					{
+						"kind": "string"
+					}
+				]
+			},
+			"required": true,
+			"description": "Unique identifier for the target chat or username of the target bot in the format @username"
+		},
+		{
+			"name": "message_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Unique identifier for the target message"
+		},
+		{
+			"name": "checklist",
+			"type": {
+				"kind": "ref",
+				"name": "InputChecklist"
+			},
+			"required": true,
+			"description": "A JSON-serialized object for the new checklist"
+		},
+		{
+			"name": "reply_markup",
+			"type": {
+				"kind": "ref",
+				"name": "InlineKeyboardMarkup"
+			},
+			"required": false,
+			"description": "A JSON-serialized object for the new inline keyboard for the message"
+		}
+	],
+	"returns": {
+		"kind": "ref",
+		"name": "Message"
+	}
+}
