@@ -625,6 +625,22 @@ export const withToken = (token: string) =>
 					}),
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["deleteStory"];
+			const deleteWebhook = (payload =>
+				apiClient.deleteWebhook({ payload }).pipe(
+					Effect.map(response => response.result),
+					Effect.mapError(error => {
+						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
+							return new Errors.NotFound(error);
+						if (
+							"error_code" in error &&
+							error.error_code === 401 &&
+							error.description === "Unauthorized: invalid token specified"
+						)
+							return new Errors.Unauthorized(error);
+						return error;
+					}),
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["deleteWebhook"];
 			const editChatInviteLink = (payload =>
 				apiClient.editChatInviteLink({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -1337,6 +1353,22 @@ export const withToken = (token: string) =>
 					}),
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getMyShortDescription"];
+			const getUpdates = (payload =>
+				apiClient.getUpdates({ payload }).pipe(
+					Effect.map(response => response.result),
+					Effect.mapError(error => {
+						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
+							return new Errors.NotFound(error);
+						if (
+							"error_code" in error &&
+							error.error_code === 401 &&
+							error.description === "Unauthorized: invalid token specified"
+						)
+							return new Errors.Unauthorized(error);
+						return error;
+					}),
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["getUpdates"];
 			const getUserChatBoosts = (payload =>
 				apiClient.getUserChatBoosts({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -1489,6 +1521,22 @@ export const withToken = (token: string) =>
 					}),
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["getUserProfilePhotos"];
+			const getWebhookInfo = (() =>
+				apiClient.getWebhookInfo().pipe(
+					Effect.map(response => response.result),
+					Effect.mapError(error => {
+						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
+							return new Errors.NotFound(error);
+						if (
+							"error_code" in error &&
+							error.error_code === 401 &&
+							error.description === "Unauthorized: invalid token specified"
+						)
+							return new Errors.Unauthorized(error);
+						return error;
+					}),
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["getWebhookInfo"];
 			const giftPremiumSubscription = (payload =>
 				apiClient.giftPremiumSubscription({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -3611,6 +3659,22 @@ export const withToken = (token: string) =>
 					}),
 					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
 				)) as TelegramClientService["setUserEmojiStatus"];
+			const setWebhook = (payload =>
+				apiClient.setWebhook({ payload: payload as unknown as FormData }).pipe(
+					Effect.map(response => response.result),
+					Effect.mapError(error => {
+						if ("error_code" in error && error.error_code === 404 && error.description === "Not Found")
+							return new Errors.NotFound(error);
+						if (
+							"error_code" in error &&
+							error.error_code === 401 &&
+							error.description === "Unauthorized: invalid token specified"
+						)
+							return new Errors.Unauthorized(error);
+						return error;
+					}),
+					Effect.catchIf(Schema.isSchemaError, error => Effect.die(error)),
+				)) as TelegramClientService["setWebhook"];
 			const transferBusinessAccountStars = (payload =>
 				apiClient.transferBusinessAccountStars({ payload }).pipe(
 					Effect.map(response => response.result),
@@ -3929,6 +3993,7 @@ export const withToken = (token: string) =>
 				deleteForumTopic,
 				deleteMyCommands,
 				deleteStory,
+				deleteWebhook,
 				editChatInviteLink,
 				editChatSubscriptionInviteLink,
 				editForumTopic,
@@ -3957,11 +4022,13 @@ export const withToken = (token: string) =>
 				getMyDescription,
 				getMyName,
 				getMyShortDescription,
+				getUpdates,
 				getUserChatBoosts,
 				getUserGifts,
 				getUserPersonalChatMessages,
 				getUserProfileAudios,
 				getUserProfilePhotos,
+				getWebhookInfo,
 				giftPremiumSubscription,
 				hideGeneralForumTopic,
 				leaveChat,
@@ -4024,6 +4091,7 @@ export const withToken = (token: string) =>
 				setMyProfilePhoto,
 				setMyShortDescription,
 				setUserEmojiStatus,
+				setWebhook,
 				transferBusinessAccountStars,
 				transferGift,
 				unbanChatMember,

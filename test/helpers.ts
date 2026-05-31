@@ -13,7 +13,6 @@ import * as HttpClientError from "effect/unstable/http/HttpClientError";
 import { appendFileSync, existsSync, mkdirSync, readFileSync, unlinkSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import * as TelegramClient from "../src/client/index.ts";
-import * as Telegram from "../src/index.ts";
 import type { TelegramApiError } from "../src/errors.ts";
 import type { Vitest } from "@effect/vitest";
 
@@ -42,7 +41,16 @@ const bestEffort = <A, E, R>(effect: Effect.Effect<A, E, R>) => effect.pipe(Effe
 /** True when Telegram (or the transport) responded with HTTP 429 Too Many Requests. */
 export const isRateLimitedError = (error: unknown): boolean => {
 	if (!HttpClientError.isHttpClientError(error)) {
-		return typeof error === "object" && error !== null && String(error).includes("429");
+		if (typeof error === "string") {
+			return error.includes("429");
+		}
+		if (typeof error === "number") {
+			return error === 429;
+		}
+		if (typeof error === "object" && error !== null && "message" in error) {
+			return typeof error.message === "string" && error.message.includes("429");
+		}
+		return false;
 	}
 	return error.response?.status === 429 || error.message.includes("(429 ");
 };

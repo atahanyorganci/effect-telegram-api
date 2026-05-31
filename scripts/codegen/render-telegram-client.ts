@@ -74,7 +74,7 @@ export const renderTelegramClientModule = (
 	const sections = [
 		GENERATED_HEADER,
 		`import * as Context from "effect/Context";`,
-		`import * as Effect from "effect/Effect";`,
+		`import type * as Effect from "effect/Effect";`,
 		`import type * as Errors from "../errors.ts";`,
 		objectImportLine.trimEnd(),
 		`import type * as HttpClientError from "effect/unstable/http/HttpClientError";`,

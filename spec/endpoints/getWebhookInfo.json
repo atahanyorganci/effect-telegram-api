@@ -1,0 +1,11 @@
+{
+	"kind": "method",
+	"name": "getWebhookInfo",
+	"slug": "getwebhookinfo",
+	"description": "Use this method to get current webhook status",
+	"parameters": [],
+	"returns": {
+		"kind": "ref",
+		"name": "WebhookInfo"
+	}
+}

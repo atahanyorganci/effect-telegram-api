@@ -1,0 +1,20 @@
+{
+	"kind": "method",
+	"name": "deleteWebhook",
+	"slug": "deletewebhook",
+	"description": "Use this method to remove webhook integration if you decide to switch back to getUpdates",
+	"parameters": [
+		{
+			"name": "drop_pending_updates",
+			"type": {
+				"kind": "boolean"
+			},
+			"required": false,
+			"description": "Pass True to drop all pending updates"
+		}
+	],
+	"returns": {
+		"kind": "literal",
+		"value": true
+	}
+}

@@ -1,0 +1,83 @@
+{
+	"kind": "object",
+	"name": "WebhookInfo",
+	"slug": "webhookinfo",
+	"description": "Describes the current status of a webhook.",
+	"fields": [
+		{
+			"name": "url",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Webhook URL, may be empty if webhook is not set up"
+		},
+		{
+			"name": "has_custom_certificate",
+			"type": {
+				"kind": "boolean"
+			},
+			"required": true,
+			"description": "True, if a custom certificate was provided for webhook certificate checks"
+		},
+		{
+			"name": "pending_update_count",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Number of updates awaiting delivery"
+		},
+		{
+			"name": "ip_address",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Currently used webhook IP address"
+		},
+		{
+			"name": "last_error_date",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "Unix time for the most recent error that happened when trying to deliver an update via webhook"
+		},
+		{
+			"name": "last_error_message",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Error message in human-readable format for the most recent error that happened when trying to deliver an update via webhook"
+		},
+		{
+			"name": "last_synchronization_error_date",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "Unix time of the most recent error that happened when trying to synchronize available updates with Telegram datacenters"
+		},
+		{
+			"name": "max_connections",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "The maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery"
+		},
+		{
+			"name": "allowed_updates",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "string"
+				}
+			},
+			"required": false,
+			"description": "A list of update types the bot is subscribed to. Defaults to all update types except chat_member, message_reaction, and message_reaction_count."
+		}
+	]
+}

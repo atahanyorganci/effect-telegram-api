@@ -35,6 +35,10 @@ export const ChatMember = Schema.Unknown;
 export type ChatMember = typeof ChatMember.Type;
 
 // TODO: union/polymorphic type not yet generated from the spec.
+export const ChosenInlineResult = Schema.Unknown;
+export type ChosenInlineResult = typeof ChosenInlineResult.Type;
+
+// TODO: union/polymorphic type not yet generated from the spec.
 export const ForumTopicClosed = Schema.Unknown;
 export type ForumTopicClosed = typeof ForumTopicClosed.Type;
 
@@ -53,6 +57,10 @@ export type GeneralForumTopicHidden = typeof GeneralForumTopicHidden.Type;
 // TODO: union/polymorphic type not yet generated from the spec.
 export const GeneralForumTopicUnhidden = Schema.Unknown;
 export type GeneralForumTopicUnhidden = typeof GeneralForumTopicUnhidden.Type;
+
+// TODO: union/polymorphic type not yet generated from the spec.
+export const InlineQuery = Schema.Unknown;
+export type InlineQuery = typeof InlineQuery.Type;
 
 // TODO: union/polymorphic type not yet generated from the spec.
 export const InlineQueryResult = Schema.Unknown;
@@ -103,8 +111,16 @@ export const PaidMedia = Schema.Unknown;
 export type PaidMedia = typeof PaidMedia.Type;
 
 // TODO: union/polymorphic type not yet generated from the spec.
+export const PaidMediaPurchased = Schema.Unknown;
+export type PaidMediaPurchased = typeof PaidMediaPurchased.Type;
+
+// TODO: union/polymorphic type not yet generated from the spec.
 export const PassportData = Schema.Unknown;
 export type PassportData = typeof PassportData.Type;
+
+// TODO: union/polymorphic type not yet generated from the spec.
+export const PreCheckoutQuery = Schema.Unknown;
+export type PreCheckoutQuery = typeof PreCheckoutQuery.Type;
 
 // TODO: union/polymorphic type not yet generated from the spec.
 export const ReactionType = Schema.Unknown;
@@ -113,6 +129,10 @@ export type ReactionType = typeof ReactionType.Type;
 // TODO: union/polymorphic type not yet generated from the spec.
 export const RefundedPayment = Schema.Unknown;
 export type RefundedPayment = typeof RefundedPayment.Type;
+
+// TODO: union/polymorphic type not yet generated from the spec.
+export const ShippingQuery = Schema.Unknown;
+export type ShippingQuery = typeof ShippingQuery.Type;
 
 // TODO: union/polymorphic type not yet generated from the spec.
 export const Sticker = Schema.Unknown;
@@ -10295,6 +10315,251 @@ export const SuggestedPostParameters = Schema.Struct({
 export type SuggestedPostParameters = typeof SuggestedPostParameters.Type;
 
 /**
+ * This object represents an incoming update.
+ * At most one of the optional fields can be present in any given update.
+ */
+export const Update = Schema.Struct({
+	/**
+	 * The update's unique identifier. Update identifiers start from a certain
+	 * positive number and increase sequentially. This identifier becomes
+	 * especially handy if you're using webhooks, since it allows you to ignore
+	 * repeated updates or to restore the correct update sequence, should they get
+	 * out of order. If there are no new updates for at least a week, then
+	 * identifier of the next update will be chosen randomly instead of
+	 * sequentially.
+	 */
+	update_id: Schema.Int.pipe(
+		Schema.annotate({
+			description:
+				"The update's unique identifier. Update identifiers start from a certain positive number and increase sequentially. This identifier becomes especially handy if you're using webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially.",
+		}),
+	),
+	/**
+	 * New incoming message of any kind - text, photo, sticker, etc.
+	 */
+	message: Schema.optional(Message).pipe(
+		Schema.annotate({ description: "New incoming message of any kind - text, photo, sticker, etc." }),
+	),
+	/**
+	 * New version of a message that is known to the bot and was edited. This
+	 * update may at times be triggered by changes to message fields that are
+	 * either unavailable or not actively used by your bot.
+	 */
+	edited_message: Schema.optional(Message).pipe(
+		Schema.annotate({
+			description:
+				"New version of a message that is known to the bot and was edited. This update may at times be triggered by changes to message fields that are either unavailable or not actively used by your bot.",
+		}),
+	),
+	/**
+	 * New incoming channel post of any kind - text, photo, sticker, etc.
+	 */
+	channel_post: Schema.optional(Message).pipe(
+		Schema.annotate({ description: "New incoming channel post of any kind - text, photo, sticker, etc." }),
+	),
+	/**
+	 * New version of a channel post that is known to the bot and was edited. This
+	 * update may at times be triggered by changes to message fields that are
+	 * either unavailable or not actively used by your bot.
+	 */
+	edited_channel_post: Schema.optional(Message).pipe(
+		Schema.annotate({
+			description:
+				"New version of a channel post that is known to the bot and was edited. This update may at times be triggered by changes to message fields that are either unavailable or not actively used by your bot.",
+		}),
+	),
+	/**
+	 * The bot was connected to or disconnected from a business account, or a user
+	 * edited an existing connection with the bot
+	 */
+	business_connection: Schema.optional(BusinessConnection).pipe(
+		Schema.annotate({
+			description:
+				"The bot was connected to or disconnected from a business account, or a user edited an existing connection with the bot",
+		}),
+	),
+	/**
+	 * New message from a connected business account
+	 */
+	business_message: Schema.optional(Message).pipe(
+		Schema.annotate({ description: "New message from a connected business account" }),
+	),
+	/**
+	 * New version of a message from a connected business account
+	 */
+	edited_business_message: Schema.optional(Message).pipe(
+		Schema.annotate({ description: "New version of a message from a connected business account" }),
+	),
+	/**
+	 * Messages were deleted from a connected business account
+	 */
+	deleted_business_messages: Schema.optional(BusinessMessagesDeleted).pipe(
+		Schema.annotate({ description: "Messages were deleted from a connected business account" }),
+	),
+	/**
+	 * New guest message. The bot can use the field Message.guest_query_id and the
+	 * method answerGuestQuery to send a message in response.
+	 */
+	guest_message: Schema.optional(Message).pipe(
+		Schema.annotate({
+			description:
+				"New guest message. The bot can use the field Message.guest_query_id and the method answerGuestQuery to send a message in response.",
+		}),
+	),
+	/**
+	 * A reaction to a message was changed by a user. The bot must be an
+	 * administrator in the chat and must explicitly specify "message_reaction" in
+	 * the list of allowed_updates to receive these updates. The update isn't
+	 * received for reactions set by bots.
+	 */
+	message_reaction: Schema.optional(MessageReactionUpdated).pipe(
+		Schema.annotate({
+			description:
+				'A reaction to a message was changed by a user. The bot must be an administrator in the chat and must explicitly specify "message_reaction" in the list of allowed_updates to receive these updates. The update isn\'t received for reactions set by bots.',
+		}),
+	),
+	/**
+	 * Reactions to a message with anonymous reactions were changed. The bot must
+	 * be an administrator in the chat and must explicitly specify
+	 * "message_reaction_count" in the list of allowed_updates to receive these
+	 * updates. The updates are grouped and can be sent with delay up to a few
+	 * minutes.
+	 */
+	message_reaction_count: Schema.optional(MessageReactionCountUpdated).pipe(
+		Schema.annotate({
+			description:
+				'Reactions to a message with anonymous reactions were changed. The bot must be an administrator in the chat and must explicitly specify "message_reaction_count" in the list of allowed_updates to receive these updates. The updates are grouped and can be sent with delay up to a few minutes.',
+		}),
+	),
+	/**
+	 * New incoming inline query
+	 */
+	inline_query: Schema.optional(InlineQuery).pipe(Schema.annotate({ description: "New incoming inline query" })),
+	/**
+	 * The result of an inline query that was chosen by a user and sent to their
+	 * chat partner. Please see our documentation on the feedback collecting for
+	 * details on how to enable these updates for your bot.
+	 */
+	chosen_inline_result: Schema.optional(ChosenInlineResult).pipe(
+		Schema.annotate({
+			description:
+				"The result of an inline query that was chosen by a user and sent to their chat partner. Please see our documentation on the feedback collecting for details on how to enable these updates for your bot.",
+		}),
+	),
+	/**
+	 * New incoming callback query
+	 */
+	callback_query: Schema.optional(CallbackQuery).pipe(Schema.annotate({ description: "New incoming callback query" })),
+	/**
+	 * New incoming shipping query. Only for invoices with flexible price.
+	 */
+	shipping_query: Schema.optional(ShippingQuery).pipe(
+		Schema.annotate({ description: "New incoming shipping query. Only for invoices with flexible price." }),
+	),
+	/**
+	 * New incoming pre-checkout query. Contains full information about checkout.
+	 */
+	pre_checkout_query: Schema.optional(PreCheckoutQuery).pipe(
+		Schema.annotate({ description: "New incoming pre-checkout query. Contains full information about checkout." }),
+	),
+	/**
+	 * A user purchased paid media with a non-empty payload sent by the bot in a
+	 * non-channel chat
+	 */
+	purchased_paid_media: Schema.optional(PaidMediaPurchased).pipe(
+		Schema.annotate({
+			description: "A user purchased paid media with a non-empty payload sent by the bot in a non-channel chat",
+		}),
+	),
+	/**
+	 * New poll state. Bots receive only updates about manually stopped polls and
+	 * polls, which are sent by the bot.
+	 */
+	poll: Schema.optional(Poll).pipe(
+		Schema.annotate({
+			description:
+				"New poll state. Bots receive only updates about manually stopped polls and polls, which are sent by the bot.",
+		}),
+	),
+	/**
+	 * A user changed their answer in a non-anonymous poll. Bots receive new votes
+	 * only in polls that were sent by the bot itself.
+	 */
+	poll_answer: Schema.optional(PollAnswer).pipe(
+		Schema.annotate({
+			description:
+				"A user changed their answer in a non-anonymous poll. Bots receive new votes only in polls that were sent by the bot itself.",
+		}),
+	),
+	/**
+	 * The bot's chat member status was updated in a chat. For private chats, this
+	 * update is received only when the bot is blocked or unblocked by the user.
+	 */
+	my_chat_member: Schema.optional(ChatMemberUpdated).pipe(
+		Schema.annotate({
+			description:
+				"The bot's chat member status was updated in a chat. For private chats, this update is received only when the bot is blocked or unblocked by the user.",
+		}),
+	),
+	/**
+	 * A chat member's status was updated in a chat. The bot must be an
+	 * administrator in the chat and must explicitly specify "chat_member" in the
+	 * list of allowed_updates to receive these updates.
+	 */
+	chat_member: Schema.optional(ChatMemberUpdated).pipe(
+		Schema.annotate({
+			description:
+				'A chat member\'s status was updated in a chat. The bot must be an administrator in the chat and must explicitly specify "chat_member" in the list of allowed_updates to receive these updates.',
+		}),
+	),
+	/**
+	 * A request to join the chat has been sent. The bot must have the
+	 * can_invite_users administrator right in the chat to receive these updates.
+	 */
+	chat_join_request: Schema.optional(ChatJoinRequest).pipe(
+		Schema.annotate({
+			description:
+				"A request to join the chat has been sent. The bot must have the can_invite_users administrator right in the chat to receive these updates.",
+		}),
+	),
+	/**
+	 * A chat boost was added or changed. The bot must be an administrator in the
+	 * chat to receive these updates.
+	 */
+	chat_boost: Schema.optional(ChatBoostUpdated).pipe(
+		Schema.annotate({
+			description:
+				"A chat boost was added or changed. The bot must be an administrator in the chat to receive these updates.",
+		}),
+	),
+	/**
+	 * A boost was removed from a chat. The bot must be an administrator in the
+	 * chat to receive these updates.
+	 */
+	removed_chat_boost: Schema.optional(ChatBoostRemoved).pipe(
+		Schema.annotate({
+			description:
+				"A boost was removed from a chat. The bot must be an administrator in the chat to receive these updates.",
+		}),
+	),
+	/**
+	 * A new bot was created to be managed by the bot, or token or owner of a
+	 * managed bot was changed
+	 */
+	managed_bot: Schema.optional(ManagedBotUpdated).pipe(
+		Schema.annotate({
+			description: "A new bot was created to be managed by the bot, or token or owner of a managed bot was changed",
+		}),
+	),
+}).pipe(
+	Schema.annotate({
+		description:
+			"This object represents an incoming update.\nAt most one of the optional fields can be present in any given update.",
+	}),
+);
+export type Update = typeof Update.Type;
+
+/**
  * This object represents a list of boosts added to a chat by a user.
  */
 export const UserChatBoosts = Schema.Struct({
@@ -10340,3 +10605,78 @@ export const UserProfilePhotos = Schema.Struct({
 	),
 }).pipe(Schema.annotate({ description: "This object represent a user's profile pictures." }));
 export type UserProfilePhotos = typeof UserProfilePhotos.Type;
+
+/**
+ * Describes the current status of a webhook.
+ */
+export const WebhookInfo = Schema.Struct({
+	/**
+	 * Webhook URL, may be empty if webhook is not set up
+	 */
+	url: Schema.String.pipe(Schema.annotate({ description: "Webhook URL, may be empty if webhook is not set up" })),
+	/**
+	 * True, if a custom certificate was provided for webhook certificate checks
+	 */
+	has_custom_certificate: Schema.Boolean.pipe(
+		Schema.annotate({ description: "True, if a custom certificate was provided for webhook certificate checks" }),
+	),
+	/**
+	 * Number of updates awaiting delivery
+	 */
+	pending_update_count: Schema.Int.pipe(Schema.annotate({ description: "Number of updates awaiting delivery" })),
+	/**
+	 * Currently used webhook IP address
+	 */
+	ip_address: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Currently used webhook IP address" }),
+	),
+	/**
+	 * Unix time for the most recent error that happened when trying to deliver an
+	 * update via webhook
+	 */
+	last_error_date: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description: "Unix time for the most recent error that happened when trying to deliver an update via webhook",
+		}),
+	),
+	/**
+	 * Error message in human-readable format for the most recent error that
+	 * happened when trying to deliver an update via webhook
+	 */
+	last_error_message: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description:
+				"Error message in human-readable format for the most recent error that happened when trying to deliver an update via webhook",
+		}),
+	),
+	/**
+	 * Unix time of the most recent error that happened when trying to synchronize
+	 * available updates with Telegram datacenters
+	 */
+	last_synchronization_error_date: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"Unix time of the most recent error that happened when trying to synchronize available updates with Telegram datacenters",
+		}),
+	),
+	/**
+	 * The maximum allowed number of simultaneous HTTPS connections to the webhook
+	 * for update delivery
+	 */
+	max_connections: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description: "The maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery",
+		}),
+	),
+	/**
+	 * A list of update types the bot is subscribed to. Defaults to all update
+	 * types except chat_member, message_reaction, and message_reaction_count.
+	 */
+	allowed_updates: Schema.optional(Schema.Array(Schema.String)).pipe(
+		Schema.annotate({
+			description:
+				"A list of update types the bot is subscribed to. Defaults to all update types except chat_member, message_reaction, and message_reaction_count.",
+		}),
+	),
+}).pipe(Schema.annotate({ description: "Describes the current status of a webhook." }));
+export type WebhookInfo = typeof WebhookInfo.Type;

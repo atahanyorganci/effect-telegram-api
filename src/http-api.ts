@@ -1269,6 +1269,35 @@ export const deleteStory = HttpApiEndpoint.post("deleteStory", "/deleteStory", {
 });
 
 /**
+ * Use this method to remove webhook integration if you decide to switch back to
+ * getUpdates
+ */
+export const deleteWebhook = HttpApiEndpoint.post("deleteWebhook", "/deleteWebhook", {
+	payload: Schema.Struct({
+		/**
+		 * Pass True to drop all pending updates
+		 */
+		drop_pending_updates: Schema.optional(Schema.Boolean).pipe(
+			Schema.annotate({ description: "Pass True to drop all pending updates" }),
+		),
+	}).pipe(
+		Schema.annotate({
+			description: "Use this method to remove webhook integration if you decide to switch back to getUpdates",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Literal(true),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+	error: [
+		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
+		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+	],
+});
+
+/**
  * Use this method to edit a non-primary invite link created by the bot. The bot
  * must be an administrator in the chat for this to work and must have the
  * appropriate administrator rights
@@ -2591,6 +2620,79 @@ export const getMyShortDescription = HttpApiEndpoint.post("getMyShortDescription
 });
 
 /**
+ * Use this method to receive incoming updates using long polling (wiki)
+ */
+export const getUpdates = HttpApiEndpoint.post("getUpdates", "/getUpdates", {
+	payload: Schema.Struct({
+		/**
+		 * Identifier of the first update to be returned. Must be greater by one than
+		 * the highest among the identifiers of previously received updates. By
+		 * default, updates starting with the earliest unconfirmed update are
+		 * returned. An update is considered confirmed as soon as getUpdates is called
+		 * with an offset higher than its update_id. The negative offset can be
+		 * specified to retrieve updates starting from -offset update from the end of
+		 * the updates queue. All previous updates will be forgotten.
+		 */
+		offset: Schema.optional(Schema.Int).pipe(
+			Schema.annotate({
+				description:
+					"Identifier of the first update to be returned. Must be greater by one than the highest among the identifiers of previously received updates. By default, updates starting with the earliest unconfirmed update are returned. An update is considered confirmed as soon as getUpdates is called with an offset higher than its update_id. The negative offset can be specified to retrieve updates starting from -offset update from the end of the updates queue. All previous updates will be forgotten.",
+			}),
+		),
+		/**
+		 * Limits the number of updates to be retrieved. Values between 1-100 are
+		 * accepted. Defaults to 100.
+		 */
+		limit: Schema.optional(Schema.Int).pipe(
+			Schema.annotate({
+				description:
+					"Limits the number of updates to be retrieved. Values between 1-100 are accepted. Defaults to 100.",
+			}),
+		),
+		/**
+		 * Timeout in seconds for long polling. Defaults to 0, i.e. usual short
+		 * polling. Should be positive, short polling should be used for testing
+		 * purposes only.
+		 */
+		timeout: Schema.optional(Schema.Int).pipe(
+			Schema.annotate({
+				description:
+					"Timeout in seconds for long polling. Defaults to 0, i.e. usual short polling. Should be positive, short polling should be used for testing purposes only.",
+			}),
+		),
+		/**
+		 * A JSON-serialized list of the update types you want your bot to receive.
+		 * For example, specify ["message", "edited_channel_post", "callback_query"]
+		 * to only receive updates of these types. See Update for a complete list of
+		 * available update types. Specify an empty list to receive all update types
+		 * except chat_member, message_reaction, and message_reaction_count (default).
+		 * If not specified, the previous setting will be used.
+		 * Please note that this parameter doesn't affect updates created before the
+		 * call to getUpdates, so unwanted updates may be received for a short period
+		 * of time.
+		 */
+		allowed_updates: Schema.optional(Schema.Array(Schema.String)).pipe(
+			Schema.annotate({
+				description:
+					'A JSON-serialized list of the update types you want your bot to receive. For example, specify ["message", "edited_channel_post", "callback_query"] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member, message_reaction, and message_reaction_count (default). If not specified, the previous setting will be used.\n\nPlease note that this parameter doesn\'t affect updates created before the call to getUpdates, so unwanted updates may be received for a short period of time.',
+			}),
+		),
+	}).pipe(
+		Schema.annotate({ description: "Use this method to receive incoming updates using long polling (wiki)" }),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Array(Objects.Update),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+	error: [
+		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
+		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+	],
+});
+
+/**
  * Use this method to get the list of boosts added to a chat by a user. Requires
  * administrator rights in the chat
  */
@@ -2843,6 +2945,24 @@ export const getUserProfilePhotos = HttpApiEndpoint.post("getUserProfilePhotos",
 		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
 		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
 		Errors.UserNotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(400)),
+	],
+});
+
+/**
+ * Use this method to get current webhook status
+ */
+export const getWebhookInfo = HttpApiEndpoint.post("getWebhookInfo", "/getWebhookInfo", {
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Objects.WebhookInfo,
+	}).pipe(
+		Schema.annotate({ description: "Use this method to get current webhook status" }),
+		Schema.toCodecJson,
+		HttpApiSchema.asJson(),
+	),
+	error: [
+		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
+		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
 	],
 });
 
@@ -8536,6 +8656,110 @@ export const setUserEmojiStatus = HttpApiEndpoint.post("setUserEmojiStatus", "/s
 });
 
 /**
+ * Use this method to specify a URL and receive incoming updates via an outgoing
+ * webhook. Whenever there is an update for the bot, we will send an HTTPS POST
+ * request to the specified URL, containing a JSON-serialized Update. In case of
+ * an unsuccessful request (a request with response HTTP status code different
+ * from 2XY), we will repeat the request and give up after a reasonable amount
+ * of attempts
+ */
+export const setWebhook = HttpApiEndpoint.post("setWebhook", "/setWebhook", {
+	payload: Schema.Struct({
+		/**
+		 * HTTPS URL to send updates to. Use an empty string to remove webhook
+		 * integration.
+		 */
+		url: Schema.String.pipe(
+			Schema.annotate({
+				description: "HTTPS URL to send updates to. Use an empty string to remove webhook integration.",
+			}),
+		),
+		/**
+		 * Upload your public key certificate so that the root certificate in use can
+		 * be checked. See our self-signed guide for details.
+		 */
+		certificate: Schema.optional(Objects.InputFile).pipe(
+			Schema.annotate({
+				description:
+					"Upload your public key certificate so that the root certificate in use can be checked. See our self-signed guide for details.",
+			}),
+		),
+		/**
+		 * The fixed IP address which will be used to send webhook requests instead of
+		 * the IP address resolved through DNS
+		 */
+		ip_address: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description:
+					"The fixed IP address which will be used to send webhook requests instead of the IP address resolved through DNS",
+			}),
+		),
+		/**
+		 * The maximum allowed number of simultaneous HTTPS connections to the webhook
+		 * for update delivery, 1-100. Defaults to 40. Use lower values to limit the
+		 * load on your bot's server, and higher values to increase your bot's
+		 * throughput.
+		 */
+		max_connections: Schema.optional(Schema.Int).pipe(
+			Schema.annotate({
+				description:
+					"The maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery, 1-100. Defaults to 40. Use lower values to limit the load on your bot's server, and higher values to increase your bot's throughput.",
+			}),
+		),
+		/**
+		 * A JSON-serialized list of the update types you want your bot to receive.
+		 * For example, specify ["message", "edited_channel_post", "callback_query"]
+		 * to only receive updates of these types. See Update for a complete list of
+		 * available update types. Specify an empty list to receive all update types
+		 * except chat_member, message_reaction, and message_reaction_count (default).
+		 * If not specified, the previous setting will be used.
+		 * Please note that this parameter doesn't affect updates created before the
+		 * call to the setWebhook, so unwanted updates may be received for a short
+		 * period of time.
+		 */
+		allowed_updates: Schema.optional(Schema.Array(Schema.String)).pipe(
+			Schema.annotate({
+				description:
+					'A JSON-serialized list of the update types you want your bot to receive. For example, specify ["message", "edited_channel_post", "callback_query"] to only receive updates of these types. See Update for a complete list of available update types. Specify an empty list to receive all update types except chat_member, message_reaction, and message_reaction_count (default). If not specified, the previous setting will be used.\nPlease note that this parameter doesn\'t affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time.',
+			}),
+		),
+		/**
+		 * Pass True to drop all pending updates
+		 */
+		drop_pending_updates: Schema.optional(Schema.Boolean).pipe(
+			Schema.annotate({ description: "Pass True to drop all pending updates" }),
+		),
+		/**
+		 * A secret token to be sent in a header “X-Telegram-Bot-Api-Secret-Token” in
+		 * every webhook request, 1-256 characters. Only characters A-Z, a-z, 0-9, _
+		 * and - are allowed. The header is useful to ensure that the request comes
+		 * from a webhook set by you.
+		 */
+		secret_token: Schema.optional(Schema.String).pipe(
+			Schema.annotate({
+				description:
+					"A secret token to be sent in a header “X-Telegram-Bot-Api-Secret-Token” in every webhook request, 1-256 characters. Only characters A-Z, a-z, 0-9, _ and - are allowed. The header is useful to ensure that the request comes from a webhook set by you.",
+			}),
+		),
+	}).pipe(
+		Schema.annotate({
+			description:
+				"Use this method to specify a URL and receive incoming updates via an outgoing webhook. Whenever there is an update for the bot, we will send an HTTPS POST request to the specified URL, containing a JSON-serialized Update. In case of an unsuccessful request (a request with response HTTP status code different from 2XY), we will repeat the request and give up after a reasonable amount of attempts",
+		}),
+		Schema.toCodecJson,
+		HttpApiSchema.asMultipart(),
+	),
+	success: Schema.Struct({
+		ok: Schema.Literal(true),
+		result: Schema.Literal(true),
+	}).pipe(Schema.toCodecJson, HttpApiSchema.asJson()),
+	error: [
+		Errors.NotFoundError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(404)),
+		Errors.UnauthorizedError.pipe(Schema.toCodecJson, HttpApiSchema.asJson(), HttpApiSchema.status(401)),
+	],
+});
+
+/**
  * Transfers Telegram Stars from the business account balance to the bot's
  * balance. Requires the can_transfer_stars business bot right
  */
@@ -9115,6 +9339,7 @@ export const TelegramBotApi = HttpApi.make("TelegramBotApi").add(
 		deleteForumTopic,
 		deleteMyCommands,
 		deleteStory,
+		deleteWebhook,
 		editChatInviteLink,
 		editChatSubscriptionInviteLink,
 		editForumTopic,
@@ -9143,11 +9368,13 @@ export const TelegramBotApi = HttpApi.make("TelegramBotApi").add(
 		getMyDescription,
 		getMyName,
 		getMyShortDescription,
+		getUpdates,
 		getUserChatBoosts,
 		getUserGifts,
 		getUserPersonalChatMessages,
 		getUserProfileAudios,
 		getUserProfilePhotos,
+		getWebhookInfo,
 		giftPremiumSubscription,
 		hideGeneralForumTopic,
 		leaveChat,
@@ -9210,6 +9437,7 @@ export const TelegramBotApi = HttpApi.make("TelegramBotApi").add(
 		setMyProfilePhoto,
 		setMyShortDescription,
 		setUserEmojiStatus,
+		setWebhook,
 		transferBusinessAccountStars,
 		transferGift,
 		unbanChatMember,
