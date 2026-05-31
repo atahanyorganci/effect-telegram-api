@@ -129,8 +129,6 @@ export const callLimitedClient = <M extends keyof TelegramClientService>(
 		return yield* callClient(method, limitedBotToken, ...args);
 	}) as Effect.Effect<any, any, TestServices>;
 
-export const callGetMe = (token: string) => callClient("getMe", token);
-
 const appendFormData = (form: FormData, key: string, value: unknown): void => {
 	if (value === undefined) {
 		return;
@@ -204,14 +202,6 @@ export const resetCreatedForumTopicsRegistry = () => {
 		unlinkSync(createdForumTopicsRegistryPath);
 	}
 };
-
-export const clearMessageReaction = (token: string, chatId: number, messageId: number, messageThreadId?: number) =>
-	callClient("setMessageReaction", token, {
-		chat_id: chatId,
-		message_id: messageId,
-		...(messageThreadId === undefined ? {} : { message_thread_id: messageThreadId }),
-		reaction: [],
-	}).pipe(Effect.ignore);
 
 export const restoreGroupDescription = (token: string, groupId: number, description: string) =>
 	callClient("setChatDescription", token, { chat_id: groupId, description }).pipe(Effect.ignore);

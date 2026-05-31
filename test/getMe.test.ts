@@ -1,21 +1,22 @@
-import { assert } from "@effect/vitest";
+import { assert, describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import { TelegramClient } from "../src/client/service.ts";
-import { authErrorTests, callGetMe, liveTests, withConfiguredBot } from "./helpers.ts";
+import { authErrorTests, callClient, liveTests, telegramConfig } from "./helpers.ts";
 
-liveTests("telegram", test => {
-	test.effect("getMe returns the authenticated bot user when the token is valid", () =>
-		withConfiguredBot(
+const callGetMe = (token: string) => callClient("getMe", token);
+
+liveTests("getMe", test => {
+	describe("success", () => {
+		test.effect("returns the authenticated bot user when the token is valid", () =>
 			Effect.gen(function* () {
-				const client = yield* TelegramClient;
-				const me = yield* client.getMe();
+				const { botToken } = yield* telegramConfig;
+				const me = yield* callGetMe(botToken);
 
 				assert.strictEqual(me.is_bot, true);
 				assert.strictEqual(typeof me.id, "number");
 				assert.strictEqual(typeof me.first_name, "string");
 			}),
-		),
-	);
+		);
+	});
 
 	authErrorTests(test, token => callGetMe(token));
 });
