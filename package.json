@@ -29,6 +29,7 @@
 		"./Methods": "./src/Methods.ts"
 	},
 	"scripts": {
+		"build": "tsgo -p tsconfig.lib.json --noEmit false --outDir dist",
 		"format": "oxfmt --check .",
 		"format:fix": "oxfmt --write .",
 		"lint": "oxlint scripts src test",
