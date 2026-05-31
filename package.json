@@ -31,6 +31,7 @@
 	},
 	"scripts": {
 		"build": "tsgo -p tsconfig.lib.json --noEmit false --outDir dist",
+		"check": "tsgo -b",
 		"format": "oxfmt --check .",
 		"format:fix": "oxfmt --write .",
 		"lint": "oxlint scripts src test",
