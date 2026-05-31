@@ -142,10 +142,7 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
 
-# Rust
-/target/
 # Generated API artifacts
-data/
-
-# Live-test cross-worker artifact registry
-test/.artifacts/
+spec/*.html
+spec/schema/**
+spec/endpoints/**

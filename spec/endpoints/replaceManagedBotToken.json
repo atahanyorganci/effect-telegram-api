@@ -1,0 +1,19 @@
+{
+	"kind": "method",
+	"name": "replaceManagedBotToken",
+	"slug": "replacemanagedbottoken",
+	"description": "Use this method to revoke the current token of a managed bot and generate a new one",
+	"parameters": [
+		{
+			"name": "user_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "User identifier of the managed bot whose token will be replaced"
+		}
+	],
+	"returns": {
+		"kind": "string"
+	}
+}

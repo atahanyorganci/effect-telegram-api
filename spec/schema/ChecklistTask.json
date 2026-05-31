@@ -1,0 +1,62 @@
+{
+	"kind": "object",
+	"name": "ChecklistTask",
+	"slug": "checklisttask",
+	"description": "Describes a task in a checklist.",
+	"fields": [
+		{
+			"name": "id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Unique identifier of the task"
+		},
+		{
+			"name": "text",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Text of the task"
+		},
+		{
+			"name": "text_entities",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "MessageEntity"
+				}
+			},
+			"required": false,
+			"description": "Special entities that appear in the task text"
+		},
+		{
+			"name": "completed_by_user",
+			"type": {
+				"kind": "ref",
+				"name": "User"
+			},
+			"required": false,
+			"description": "User that completed the task; omitted if the task wasn't completed by a user"
+		},
+		{
+			"name": "completed_by_chat",
+			"type": {
+				"kind": "ref",
+				"name": "Chat"
+			},
+			"required": false,
+			"description": "Chat that completed the task; omitted if the task wasn't completed by a chat"
+		},
+		{
+			"name": "completion_date",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "Point in time (Unix timestamp) when the task was completed; 0 if the task wasn't completed"
+		}
+	]
+}

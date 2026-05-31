@@ -1,0 +1,20 @@
+{
+	"kind": "method",
+	"name": "getChatMenuButton",
+	"slug": "getchatmenubutton",
+	"description": "Use this method to get the current value of the bot's menu button in a private chat, or the default menu button",
+	"parameters": [
+		{
+			"name": "chat_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "Unique identifier for the target private chat. If not specified, the bot's default menu button will be returned."
+		}
+	],
+	"returns": {
+		"kind": "ref",
+		"name": "MenuButton"
+	}
+}

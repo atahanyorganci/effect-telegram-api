@@ -1,0 +1,92 @@
+{
+	"kind": "object",
+	"name": "PollMedia",
+	"slug": "pollmedia",
+	"description": "At most one of the optional fields can be present in any given object.",
+	"fields": [
+		{
+			"name": "animation",
+			"type": {
+				"kind": "ref",
+				"name": "Animation"
+			},
+			"required": false,
+			"description": "Media is an animation, information about the animation"
+		},
+		{
+			"name": "audio",
+			"type": {
+				"kind": "ref",
+				"name": "Audio"
+			},
+			"required": false,
+			"description": "Media is an audio file, information about the file; currently, can't be received in a poll option"
+		},
+		{
+			"name": "document",
+			"type": {
+				"kind": "ref",
+				"name": "Document"
+			},
+			"required": false,
+			"description": "Media is a general file, information about the file; currently, can't be received in a poll option"
+		},
+		{
+			"name": "live_photo",
+			"type": {
+				"kind": "ref",
+				"name": "LivePhoto"
+			},
+			"required": false,
+			"description": "Media is a live photo, information about the live photo"
+		},
+		{
+			"name": "location",
+			"type": {
+				"kind": "ref",
+				"name": "Location"
+			},
+			"required": false,
+			"description": "Media is a shared location, information about the location"
+		},
+		{
+			"name": "photo",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "PhotoSize"
+				}
+			},
+			"required": false,
+			"description": "Media is a photo, available sizes of the photo"
+		},
+		{
+			"name": "sticker",
+			"type": {
+				"kind": "ref",
+				"name": "Sticker"
+			},
+			"required": false,
+			"description": "Media is a sticker, information about the sticker; currently, for poll options only"
+		},
+		{
+			"name": "venue",
+			"type": {
+				"kind": "ref",
+				"name": "Venue"
+			},
+			"required": false,
+			"description": "Media is a venue, information about the venue"
+		},
+		{
+			"name": "video",
+			"type": {
+				"kind": "ref",
+				"name": "Video"
+			},
+			"required": false,
+			"description": "Media is a video, information about the video"
+		}
+	]
+}

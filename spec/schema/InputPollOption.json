@@ -1,0 +1,45 @@
+{
+	"kind": "object",
+	"name": "InputPollOption",
+	"slug": "inputpolloption",
+	"description": "This object contains information about one answer option in a poll to be sent.",
+	"fields": [
+		{
+			"name": "text",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Option text, 1-100 characters"
+		},
+		{
+			"name": "text_parse_mode",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Mode for parsing entities in the text. See formatting options for more details. Currently, only custom emoji entities are allowed."
+		},
+		{
+			"name": "text_entities",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "MessageEntity"
+				}
+			},
+			"required": false,
+			"description": "A JSON-serialized list of special entities that appear in the poll option text. It can be specified instead of text_parse_mode."
+		},
+		{
+			"name": "media",
+			"type": {
+				"kind": "ref",
+				"name": "InputPollOptionMedia"
+			},
+			"required": false,
+			"description": "Media added to the poll option"
+		}
+	]
+}

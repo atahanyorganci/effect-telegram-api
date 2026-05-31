@@ -1,0 +1,64 @@
+{
+	"kind": "method",
+	"name": "giftPremiumSubscription",
+	"slug": "giftpremiumsubscription",
+	"description": "Gifts a Telegram Premium subscription to the given user",
+	"parameters": [
+		{
+			"name": "user_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Unique identifier of the target user who will receive a Telegram Premium subscription"
+		},
+		{
+			"name": "month_count",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Number of months the Telegram Premium subscription will be active for the user; must be one of 3, 6, or 12"
+		},
+		{
+			"name": "star_count",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Number of Telegram Stars to pay for the Telegram Premium subscription; must be 1000 for 3 months, 1500 for 6 months, and 2500 for 12 months"
+		},
+		{
+			"name": "text",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Text that will be shown along with the service message about the subscription; 0-128 characters"
+		},
+		{
+			"name": "text_parse_mode",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Mode for parsing entities in the text. See formatting options for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, “custom_emoji”, and “date_time” are ignored."
+		},
+		{
+			"name": "text_entities",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "MessageEntity"
+				}
+			},
+			"required": false,
+			"description": "A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of text_parse_mode. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, “custom_emoji”, and “date_time” are ignored."
+		}
+	],
+	"returns": {
+		"kind": "literal",
+		"value": true
+	}
+}

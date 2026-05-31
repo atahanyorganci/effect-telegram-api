@@ -1,0 +1,16 @@
+{
+	"kind": "object",
+	"name": "MenuButtonDefault",
+	"slug": "menubuttondefault",
+	"description": "Describes that no specific value for the menu button was set.",
+	"fields": [
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Type of the button, must be default"
+		}
+	]
+}

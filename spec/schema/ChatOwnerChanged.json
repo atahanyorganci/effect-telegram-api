@@ -1,0 +1,17 @@
+{
+	"kind": "object",
+	"name": "ChatOwnerChanged",
+	"slug": "chatownerchanged",
+	"description": "Describes a service message about an ownership change in the chat.",
+	"fields": [
+		{
+			"name": "new_owner",
+			"type": {
+				"kind": "ref",
+				"name": "User"
+			},
+			"required": true,
+			"description": "The new owner of the chat"
+		}
+	]
+}

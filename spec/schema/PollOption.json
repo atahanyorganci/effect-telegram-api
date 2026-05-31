@@ -1,0 +1,79 @@
+{
+	"kind": "object",
+	"name": "PollOption",
+	"slug": "polloption",
+	"description": "This object contains information about one answer option in a poll.",
+	"fields": [
+		{
+			"name": "persistent_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Unique identifier of the option, persistent on option addition and deletion"
+		},
+		{
+			"name": "text",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Option text, 1-100 characters"
+		},
+		{
+			"name": "text_entities",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "MessageEntity"
+				}
+			},
+			"required": false,
+			"description": "Special entities that appear in the option text. Currently, only custom emoji entities are allowed in poll option texts"
+		},
+		{
+			"name": "media",
+			"type": {
+				"kind": "ref",
+				"name": "PollMedia"
+			},
+			"required": false,
+			"description": "Media added to the poll option"
+		},
+		{
+			"name": "voter_count",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Number of users who voted for this option; may be 0 if unknown"
+		},
+		{
+			"name": "added_by_user",
+			"type": {
+				"kind": "ref",
+				"name": "User"
+			},
+			"required": false,
+			"description": "User who added the option; omitted if the option wasn't added by a user after poll creation"
+		},
+		{
+			"name": "added_by_chat",
+			"type": {
+				"kind": "ref",
+				"name": "Chat"
+			},
+			"required": false,
+			"description": "Chat that added the option; omitted if the option wasn't added by a chat after poll creation"
+		},
+		{
+			"name": "addition_date",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "Point in time (Unix timestamp) when the option was added; omitted if the option existed in the original poll"
+		}
+	]
+}

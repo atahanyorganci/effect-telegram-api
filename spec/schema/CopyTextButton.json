@@ -1,0 +1,16 @@
+{
+	"kind": "object",
+	"name": "CopyTextButton",
+	"slug": "copytextbutton",
+	"description": "This object represents an inline keyboard button that copies specified text to the clipboard.",
+	"fields": [
+		{
+			"name": "text",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "The text to be copied to the clipboard; 1-256 characters"
+		}
+	]
+}

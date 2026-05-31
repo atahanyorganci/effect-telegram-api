@@ -1,0 +1,16 @@
+{
+	"kind": "object",
+	"name": "ReactionTypePaid",
+	"slug": "reactiontypepaid",
+	"description": "The reaction is paid.",
+	"fields": [
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Type of the reaction, always “paid”"
+		}
+	]
+}

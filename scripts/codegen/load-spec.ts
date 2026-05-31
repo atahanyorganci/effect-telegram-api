@@ -9,7 +9,7 @@ const decodeMethod = Schema.decodeUnknownSync(Method);
 
 export const loadObjects = Effect.fn("loadObjects")(function* (specDir: string) {
 	const fs = yield* FileSystem.FileSystem;
-	const dir = `${specDir}/objects`;
+	const dir = `${specDir}/schema`;
 	const files = (yield* fs.readDirectory(dir)).filter(entry => entry.endsWith(".json")).sort();
 
 	const objects: ObjectType[] = [];
@@ -27,7 +27,7 @@ export const loadObjects = Effect.fn("loadObjects")(function* (specDir: string) 
 
 export const loadMethods = Effect.fn("loadMethods")(function* (specDir: string) {
 	const fs = yield* FileSystem.FileSystem;
-	const dir = `${specDir}/methods`;
+	const dir = `${specDir}/endpoints`;
 	const files = (yield* fs.readDirectory(dir)).filter(entry => entry.endsWith(".json")).sort();
 
 	const methods: Method[] = [];

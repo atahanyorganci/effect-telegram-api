@@ -1,0 +1,44 @@
+{
+	"kind": "method",
+	"name": "setChatAdministratorCustomTitle",
+	"slug": "setchatadministratorcustomtitle",
+	"description": "Use this method to set a custom title for an administrator in a supergroup promoted by the bot",
+	"parameters": [
+		{
+			"name": "chat_id",
+			"type": {
+				"kind": "oneOf",
+				"types": [
+					{
+						"kind": "integer"
+					},
+					{
+						"kind": "string"
+					}
+				]
+			},
+			"required": true,
+			"description": "Unique identifier for the target chat or username of the target supergroup in the format @username"
+		},
+		{
+			"name": "user_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Unique identifier of the target user"
+		},
+		{
+			"name": "custom_title",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "New custom title for the administrator; 0-16 characters, emoji are not allowed"
+		}
+	],
+	"returns": {
+		"kind": "literal",
+		"value": true
+	}
+}

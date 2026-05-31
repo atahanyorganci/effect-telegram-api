@@ -1,0 +1,36 @@
+{
+	"kind": "object",
+	"name": "BusinessMessagesDeleted",
+	"slug": "businessmessagesdeleted",
+	"description": "This object is received when messages are deleted from a connected business account.",
+	"fields": [
+		{
+			"name": "business_connection_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Unique identifier of the business connection"
+		},
+		{
+			"name": "chat",
+			"type": {
+				"kind": "ref",
+				"name": "Chat"
+			},
+			"required": true,
+			"description": "Information about a chat in the business account. The bot may not have access to the chat or the corresponding user."
+		},
+		{
+			"name": "message_ids",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "integer"
+				}
+			},
+			"required": true,
+			"description": "The list of identifiers of deleted messages in the chat of the business account"
+		}
+	]
+}

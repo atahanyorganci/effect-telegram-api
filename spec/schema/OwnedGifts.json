@@ -1,0 +1,36 @@
+{
+	"kind": "object",
+	"name": "OwnedGifts",
+	"slug": "ownedgifts",
+	"description": "Contains the list of gifts received and owned by a user or a chat.",
+	"fields": [
+		{
+			"name": "total_count",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "The total number of gifts owned by the user or the chat"
+		},
+		{
+			"name": "gifts",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "OwnedGift"
+				}
+			},
+			"required": true,
+			"description": "The list of gifts"
+		},
+		{
+			"name": "next_offset",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Offset for the next request. If empty, then there are no more results."
+		}
+	]
+}

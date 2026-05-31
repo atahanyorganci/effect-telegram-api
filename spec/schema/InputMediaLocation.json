@@ -1,0 +1,40 @@
+{
+	"kind": "object",
+	"name": "InputMediaLocation",
+	"slug": "inputmedialocation",
+	"description": "Represents a location to be sent.",
+	"fields": [
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Type of the result, must be location"
+		},
+		{
+			"name": "latitude",
+			"type": {
+				"kind": "float"
+			},
+			"required": true,
+			"description": "Latitude of the location"
+		},
+		{
+			"name": "longitude",
+			"type": {
+				"kind": "float"
+			},
+			"required": true,
+			"description": "Longitude of the location"
+		},
+		{
+			"name": "horizontal_accuracy",
+			"type": {
+				"kind": "float"
+			},
+			"required": false,
+			"description": "The radius of uncertainty for the location, measured in meters; 0-1500"
+		}
+	]
+}

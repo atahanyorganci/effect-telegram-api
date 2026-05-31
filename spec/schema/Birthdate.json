@@ -1,0 +1,32 @@
+{
+	"kind": "object",
+	"name": "Birthdate",
+	"slug": "birthdate",
+	"description": "Describes the birthdate of a user.",
+	"fields": [
+		{
+			"name": "day",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Day of the user's birth; 1-31"
+		},
+		{
+			"name": "month",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Month of the user's birth; 1-12"
+		},
+		{
+			"name": "year",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "Year of the user's birth"
+		}
+	]
+}

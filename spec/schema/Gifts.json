@@ -1,0 +1,20 @@
+{
+	"kind": "object",
+	"name": "Gifts",
+	"slug": "gifts",
+	"description": "This object represent a list of gifts.",
+	"fields": [
+		{
+			"name": "gifts",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "Gift"
+				}
+			},
+			"required": true,
+			"description": "The list of gifts"
+		}
+	]
+}

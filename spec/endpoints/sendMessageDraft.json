@@ -1,0 +1,64 @@
+{
+	"kind": "method",
+	"name": "sendMessageDraft",
+	"slug": "sendmessagedraft",
+	"description": "Use this method to stream a partial message to a user while the message is being generated. Note that the streamed draft is ephemeral and acts as a temporary 30-second preview - once the output is finalized, you must call sendMessage with the complete message to persist it in the user's chat",
+	"parameters": [
+		{
+			"name": "chat_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Unique identifier for the target private chat"
+		},
+		{
+			"name": "message_thread_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "Unique identifier for the target message thread"
+		},
+		{
+			"name": "draft_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Unique identifier of the message draft; must be non-zero. Changes of drafts with the same identifier are animated."
+		},
+		{
+			"name": "text",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Text of the message to be sent, 0-4096 characters after entities parsing. Pass an empty text to show a “Thinking…” placeholder."
+		},
+		{
+			"name": "parse_mode",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Mode for parsing entities in the message text. See formatting options for more details."
+		},
+		{
+			"name": "entities",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "MessageEntity"
+				}
+			},
+			"required": false,
+			"description": "A JSON-serialized list of special entities that appear in message text, which can be specified instead of parse_mode"
+		}
+	],
+	"returns": {
+		"kind": "literal",
+		"value": true
+	}
+}

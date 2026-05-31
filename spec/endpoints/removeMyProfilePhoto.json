@@ -1,0 +1,11 @@
+{
+	"kind": "method",
+	"name": "removeMyProfilePhoto",
+	"slug": "removemyprofilephoto",
+	"description": "Removes the profile photo of the bot",
+	"parameters": [],
+	"returns": {
+		"kind": "literal",
+		"value": true
+	}
+}

@@ -1,0 +1,16 @@
+{
+	"kind": "object",
+	"name": "WebAppInfo",
+	"slug": "webappinfo",
+	"description": "Describes a Web App.",
+	"fields": [
+		{
+			"name": "url",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "An HTTPS URL of a Web App to be opened with additional data as specified in Initializing Web Apps"
+		}
+	]
+}

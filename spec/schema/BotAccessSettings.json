@@ -1,0 +1,28 @@
+{
+	"kind": "object",
+	"name": "BotAccessSettings",
+	"slug": "botaccesssettings",
+	"description": "This object describes the access settings of a bot.",
+	"fields": [
+		{
+			"name": "is_access_restricted",
+			"type": {
+				"kind": "boolean"
+			},
+			"required": true,
+			"description": "True, if only selected users can access the bot. The bot's owner can always access it."
+		},
+		{
+			"name": "added_users",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "User"
+				}
+			},
+			"required": false,
+			"description": "The list of other users who have access to the bot if the access is restricted"
+		}
+	]
+}

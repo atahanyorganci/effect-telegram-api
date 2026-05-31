@@ -1,0 +1,42 @@
+{
+	"kind": "object",
+	"name": "SuggestedPostPaid",
+	"slug": "suggestedpostpaid",
+	"description": "Describes a service message about a successful payment for a suggested post.",
+	"fields": [
+		{
+			"name": "suggested_post_message",
+			"type": {
+				"kind": "ref",
+				"name": "Message"
+			},
+			"required": false,
+			"description": "Message containing the suggested post. Note that the Message object in this field will not contain the reply_to_message field even if it itself is a reply."
+		},
+		{
+			"name": "currency",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Currency in which the payment was made. Currently, one of “XTR” for Telegram Stars or “TON” for toncoins."
+		},
+		{
+			"name": "amount",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "The amount of the currency that was received by the channel in nanotoncoins; for payments in toncoins only"
+		},
+		{
+			"name": "star_amount",
+			"type": {
+				"kind": "ref",
+				"name": "StarAmount"
+			},
+			"required": false,
+			"description": "The amount of Telegram Stars that was received by the channel; for payments in Telegram Stars only"
+		}
+	]
+}

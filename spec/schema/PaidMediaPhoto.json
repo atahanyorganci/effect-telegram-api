@@ -1,0 +1,28 @@
+{
+	"kind": "object",
+	"name": "PaidMediaPhoto",
+	"slug": "paidmediaphoto",
+	"description": "The paid media is a photo.",
+	"fields": [
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Type of the paid media, always “photo”"
+		},
+		{
+			"name": "photo",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "PhotoSize"
+				}
+			},
+			"required": true,
+			"description": "The photo"
+		}
+	]
+}

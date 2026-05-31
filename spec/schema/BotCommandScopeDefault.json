@@ -1,0 +1,16 @@
+{
+	"kind": "object",
+	"name": "BotCommandScopeDefault",
+	"slug": "botcommandscopedefault",
+	"description": "Represents the default scope of bot commands. Default commands are used if no commands with a narrower scope are specified for the user.",
+	"fields": [
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Scope type, must be default"
+		}
+	]
+}

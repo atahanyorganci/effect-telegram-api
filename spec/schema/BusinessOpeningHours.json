@@ -1,0 +1,28 @@
+{
+	"kind": "object",
+	"name": "BusinessOpeningHours",
+	"slug": "businessopeninghours",
+	"description": "Describes the opening hours of a business.",
+	"fields": [
+		{
+			"name": "time_zone_name",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Unique name of the time zone for which the opening hours are defined"
+		},
+		{
+			"name": "opening_hours",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "BusinessOpeningHoursInterval"
+				}
+			},
+			"required": true,
+			"description": "List of time intervals describing business opening hours"
+		}
+	]
+}

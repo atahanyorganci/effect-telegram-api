@@ -1,0 +1,11 @@
+{
+	"kind": "method",
+	"name": "getMe",
+	"slug": "getme",
+	"description": "A simple method for testing your bot's authentication token",
+	"parameters": [],
+	"returns": {
+		"kind": "ref",
+		"name": "User"
+	}
+}

@@ -1,0 +1,58 @@
+{
+	"kind": "object",
+	"name": "BusinessConnection",
+	"slug": "businessconnection",
+	"description": "Describes the connection of the bot with a business account.",
+	"fields": [
+		{
+			"name": "id",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Unique identifier of the business connection"
+		},
+		{
+			"name": "user",
+			"type": {
+				"kind": "ref",
+				"name": "User"
+			},
+			"required": true,
+			"description": "Business account user that created the business connection"
+		},
+		{
+			"name": "user_chat_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Identifier of a private chat with the user who created the business connection. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier."
+		},
+		{
+			"name": "date",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Date the connection was established in Unix time"
+		},
+		{
+			"name": "rights",
+			"type": {
+				"kind": "ref",
+				"name": "BusinessBotRights"
+			},
+			"required": false,
+			"description": "Rights of the business bot"
+		},
+		{
+			"name": "is_enabled",
+			"type": {
+				"kind": "boolean"
+			},
+			"required": true,
+			"description": "True, if the connection is active"
+		}
+	]
+}

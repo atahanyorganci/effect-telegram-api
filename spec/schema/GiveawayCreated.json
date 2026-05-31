@@ -1,0 +1,16 @@
+{
+	"kind": "object",
+	"name": "GiveawayCreated",
+	"slug": "giveawaycreated",
+	"description": "This object represents a service message about the creation of a scheduled giveaway.",
+	"fields": [
+		{
+			"name": "prize_star_count",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "The number of Telegram Stars to be split between giveaway winners; for Telegram Star giveaways only"
+		}
+	]
+}

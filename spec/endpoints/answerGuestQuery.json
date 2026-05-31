@@ -1,0 +1,29 @@
+{
+	"kind": "method",
+	"name": "answerGuestQuery",
+	"slug": "answerguestquery",
+	"description": "Use this method to reply to a received guest message. On success, a SentGuestMessage object",
+	"parameters": [
+		{
+			"name": "guest_query_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Unique identifier for the query to be answered"
+		},
+		{
+			"name": "result",
+			"type": {
+				"kind": "ref",
+				"name": "InlineQueryResult"
+			},
+			"required": true,
+			"description": "A JSON-serialized object describing the message to be sent"
+		}
+	],
+	"returns": {
+		"kind": "ref",
+		"name": "SentGuestMessage"
+	}
+}

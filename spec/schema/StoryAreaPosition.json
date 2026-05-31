@@ -1,0 +1,56 @@
+{
+	"kind": "object",
+	"name": "StoryAreaPosition",
+	"slug": "storyareaposition",
+	"description": "Describes the position of a clickable area within a story.",
+	"fields": [
+		{
+			"name": "x_percentage",
+			"type": {
+				"kind": "float"
+			},
+			"required": true,
+			"description": "The abscissa of the area's center, as a percentage of the media width"
+		},
+		{
+			"name": "y_percentage",
+			"type": {
+				"kind": "float"
+			},
+			"required": true,
+			"description": "The ordinate of the area's center, as a percentage of the media height"
+		},
+		{
+			"name": "width_percentage",
+			"type": {
+				"kind": "float"
+			},
+			"required": true,
+			"description": "The width of the area's rectangle, as a percentage of the media width"
+		},
+		{
+			"name": "height_percentage",
+			"type": {
+				"kind": "float"
+			},
+			"required": true,
+			"description": "The height of the area's rectangle, as a percentage of the media height"
+		},
+		{
+			"name": "rotation_angle",
+			"type": {
+				"kind": "float"
+			},
+			"required": true,
+			"description": "The clockwise rotation angle of the rectangle, in degrees; 0-360"
+		},
+		{
+			"name": "corner_radius_percentage",
+			"type": {
+				"kind": "float"
+			},
+			"required": true,
+			"description": "The radius of the rectangle corner rounding, as a percentage of the media width"
+		}
+	]
+}

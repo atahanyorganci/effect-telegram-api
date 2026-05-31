@@ -1,0 +1,16 @@
+{
+	"kind": "object",
+	"name": "BotCommandScopeAllPrivateChats",
+	"slug": "botcommandscopeallprivatechats",
+	"description": "Represents the scope of bot commands, covering all private chats.",
+	"fields": [
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Scope type, must be all_private_chats"
+		}
+	]
+}

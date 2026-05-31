@@ -1,0 +1,25 @@
+{
+	"kind": "object",
+	"name": "PaidMediaLivePhoto",
+	"slug": "paidmedialivephoto",
+	"description": "The paid media is a live photo.",
+	"fields": [
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Type of the paid media, always “live_photo”"
+		},
+		{
+			"name": "live_photo",
+			"type": {
+				"kind": "ref",
+				"name": "LivePhoto"
+			},
+			"required": true,
+			"description": "The photo"
+		}
+	]
+}

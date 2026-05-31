@@ -1,0 +1,36 @@
+{
+	"kind": "method",
+	"name": "setChatPhoto",
+	"slug": "setchatphoto",
+	"description": "Use this method to set a new profile photo for the chat. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights",
+	"parameters": [
+		{
+			"name": "chat_id",
+			"type": {
+				"kind": "oneOf",
+				"types": [
+					{
+						"kind": "integer"
+					},
+					{
+						"kind": "string"
+					}
+				]
+			},
+			"required": true,
+			"description": "Unique identifier for the target chat or username of the target channel in the format @username"
+		},
+		{
+			"name": "photo",
+			"type": {
+				"kind": "file"
+			},
+			"required": true,
+			"description": "New chat photo, uploaded using multipart/form-data"
+		}
+	],
+	"returns": {
+		"kind": "literal",
+		"value": true
+	}
+}

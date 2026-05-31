@@ -1,0 +1,117 @@
+{
+	"kind": "object",
+	"name": "Gift",
+	"slug": "gift",
+	"description": "This object represents a gift that can be sent by the bot.",
+	"fields": [
+		{
+			"name": "id",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Unique identifier of the gift"
+		},
+		{
+			"name": "sticker",
+			"type": {
+				"kind": "ref",
+				"name": "Sticker"
+			},
+			"required": true,
+			"description": "The sticker that represents the gift"
+		},
+		{
+			"name": "star_count",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "The number of Telegram Stars that must be paid to send the sticker"
+		},
+		{
+			"name": "upgrade_star_count",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "The number of Telegram Stars that must be paid to upgrade the gift to a unique one"
+		},
+		{
+			"name": "is_premium",
+			"type": {
+				"kind": "literal",
+				"value": true
+			},
+			"required": false,
+			"description": "True, if the gift can only be purchased by Telegram Premium subscribers"
+		},
+		{
+			"name": "has_colors",
+			"type": {
+				"kind": "literal",
+				"value": true
+			},
+			"required": false,
+			"description": "True, if the gift can be used (after being upgraded) to customize a user's appearance"
+		},
+		{
+			"name": "total_count",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "The total number of gifts of this type that can be sent by all users; for limited gifts only"
+		},
+		{
+			"name": "remaining_count",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "The number of remaining gifts of this type that can be sent by all users; for limited gifts only"
+		},
+		{
+			"name": "personal_total_count",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "The total number of gifts of this type that can be sent by the bot; for limited gifts only"
+		},
+		{
+			"name": "personal_remaining_count",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "The number of remaining gifts of this type that can be sent by the bot; for limited gifts only"
+		},
+		{
+			"name": "background",
+			"type": {
+				"kind": "ref",
+				"name": "GiftBackground"
+			},
+			"required": false,
+			"description": "Background of the gift"
+		},
+		{
+			"name": "unique_gift_variant_count",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "The total number of different unique gifts that can be obtained by upgrading the gift"
+		},
+		{
+			"name": "publisher_chat",
+			"type": {
+				"kind": "ref",
+				"name": "Chat"
+			},
+			"required": false,
+			"description": "Information about the chat that published the gift"
+		}
+	]
+}

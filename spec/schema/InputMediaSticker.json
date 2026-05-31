@@ -1,0 +1,32 @@
+{
+	"kind": "object",
+	"name": "InputMediaSticker",
+	"slug": "inputmediasticker",
+	"description": "Represents a sticker file to be sent.",
+	"fields": [
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Type of the result, must be sticker"
+		},
+		{
+			"name": "media",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a .WEBP sticker from the Internet, or pass “attach://<file_attach_name>” to upload a new .WEBP, .TGS, or .WEBM sticker using multipart/form-data under <file_attach_name> name. More information on Sending Files »"
+		},
+		{
+			"name": "emoji",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Emoji associated with the sticker; only for just uploaded stickers"
+		}
+	]
+}

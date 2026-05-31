@@ -1,0 +1,45 @@
+{
+	"kind": "object",
+	"name": "PollOptionDeleted",
+	"slug": "polloptiondeleted",
+	"description": "Describes a service message about an option deleted from a poll.",
+	"fields": [
+		{
+			"name": "poll_message",
+			"type": {
+				"kind": "ref",
+				"name": "MaybeInaccessibleMessage"
+			},
+			"required": false,
+			"description": "Message containing the poll from which the option was deleted, if known. Note that the Message object in this field will not contain the reply_to_message field even if it itself is a reply."
+		},
+		{
+			"name": "option_persistent_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Unique identifier of the deleted option"
+		},
+		{
+			"name": "option_text",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Option text"
+		},
+		{
+			"name": "option_text_entities",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "MessageEntity"
+				}
+			},
+			"required": false,
+			"description": "Special entities that appear in the option_text"
+		}
+	]
+}

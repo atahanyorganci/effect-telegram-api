@@ -1,0 +1,25 @@
+{
+	"kind": "object",
+	"name": "PaidMediaVideo",
+	"slug": "paidmediavideo",
+	"description": "The paid media is a video.",
+	"fields": [
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Type of the paid media, always “video”"
+		},
+		{
+			"name": "video",
+			"type": {
+				"kind": "ref",
+				"name": "Video"
+			},
+			"required": true,
+			"description": "The video"
+		}
+	]
+}

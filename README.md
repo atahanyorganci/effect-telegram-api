@@ -37,8 +37,8 @@ This package targets Effect v4 and uses `effect/unstable/httpapi` (`HttpApi`, `H
 This repo parses a pinned snapshot of Telegram's HTML docs into a JSON spec, then codegen's TypeScript modules under `src/`.
 
 ```sh
-pnpm scripts:fetch   # fetch and sanitize docs → data/api.html
-pnpm scripts:parse   # parse HTML → data/spec/
+pnpm scripts:fetch   # fetch and sanitize docs → spec/api.html
+pnpm scripts:parse   # parse HTML → spec/
 pnpm scripts:codegen
 pnpm test
 ```

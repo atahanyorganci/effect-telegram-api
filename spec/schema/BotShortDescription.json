@@ -1,0 +1,16 @@
+{
+	"kind": "object",
+	"name": "BotShortDescription",
+	"slug": "botshortdescription",
+	"description": "This object represents the bot's short description.",
+	"fields": [
+		{
+			"name": "short_description",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "The bot's short description"
+		}
+	]
+}

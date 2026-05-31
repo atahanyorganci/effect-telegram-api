@@ -1,0 +1,28 @@
+{
+	"kind": "method",
+	"name": "removeChatVerification",
+	"slug": "removechatverification",
+	"description": "Removes verification from a chat that is currently verified on behalf of the organization represented by the bot",
+	"parameters": [
+		{
+			"name": "chat_id",
+			"type": {
+				"kind": "oneOf",
+				"types": [
+					{
+						"kind": "integer"
+					},
+					{
+						"kind": "string"
+					}
+				]
+			},
+			"required": true,
+			"description": "Unique identifier for the target chat or username of the target bot or channel in the format @username"
+		}
+	],
+	"returns": {
+		"kind": "literal",
+		"value": true
+	}
+}

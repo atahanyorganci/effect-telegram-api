@@ -1,0 +1,25 @@
+{
+	"kind": "object",
+	"name": "ChatBoostSourcePremium",
+	"slug": "chatboostsourcepremium",
+	"description": "The boost was obtained by subscribing to Telegram Premium or by gifting a Telegram Premium subscription to another user.",
+	"fields": [
+		{
+			"name": "source",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Source of the boost, always “premium”"
+		},
+		{
+			"name": "user",
+			"type": {
+				"kind": "ref",
+				"name": "User"
+			},
+			"required": true,
+			"description": "User that boosted the chat"
+		}
+	]
+}

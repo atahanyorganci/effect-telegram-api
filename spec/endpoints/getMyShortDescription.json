@@ -1,0 +1,20 @@
+{
+	"kind": "method",
+	"name": "getMyShortDescription",
+	"slug": "getmyshortdescription",
+	"description": "Use this method to get the current bot short description for the given user language",
+	"parameters": [
+		{
+			"name": "language_code",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "A two-letter ISO 639-1 language code or an empty string"
+		}
+	],
+	"returns": {
+		"kind": "ref",
+		"name": "BotShortDescription"
+	}
+}

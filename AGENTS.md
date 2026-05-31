@@ -14,7 +14,7 @@ HTML parsing uses `node-html-parser`.
 
 ## Pipeline
 
-Parse the **sanitized local snapshot** (`data/api.html`), not the live URL.
+Parse the **sanitized local snapshot** (`spec/api.html`), not the live URL.
 
 ```sh
 pnpm ingest:fetch   # fetch → normalize → verify hash → write HTML
@@ -27,16 +27,17 @@ pnpm ingest:parse   # parse HTML → write JSON spec
 2. Strip the dynamic generation comment (`normalize-document.ts`)
 3. Sanitize to semantic HTML (`sanitize-document.ts`): extract `#dev_page_content`, normalize headings (`h4 id="slug"`), strip non-semantic attrs, deterministic output
 4. Verify SHA-256 hash pinned in `scripts/document.ts`
-5. Write `data/api.raw.html` and `data/api.html`
+5. Write `spec/api.raw.html` and `spec/api.html`
 
 ### Parse (`scripts/parse/`)
 
 Section-scoped discovery via hardcoded `h3` ids:
 
-| Section | `h3` id             | Output                          |
-| ------- | ------------------- | ------------------------------- |
-| Objects | `available-types`   | `data/spec/objects/{Name}.json` |
-| Methods | `available-methods` | `data/spec/methods/{name}.json` |
+| Section | `h3` id             | Output                       |
+| ------- | ------------------- | ---------------------------- |
+| Objects | `available-types`   | `spec/schema/{Name}.json`    |
+| Methods | `available-methods` | `spec/endpoints/{name}.json` |
+| Errors  | (integration tests) | `spec/errors/{name}.json`    |
 
 Each `h4[id]` under a section is a block. Classification is by shape, not naming:
 
@@ -58,15 +59,15 @@ Method return types are inferred from prose (`parse-return-type.ts`): ref links,
 
 ## Layout
 
-`data/` is gitignored.
+Parsed `spec/schema/`, `spec/endpoints/`, and `spec/*.html` are gitignored; `spec/errors/` is tracked (integration test catalog).
 
 ```text
-data/
+spec/
   api.raw.html
   api.html
-  spec/
-    objects/   # ~201 JSON files
-    methods/   # ~129 JSON files
+  schema/    # ~201 JSON files (generated)
+  endpoints/ # ~129 JSON files (generated)
+  errors/    # error catalog + per-method tags (tracked)
 ```
 
 Config and paths: `scripts/document.ts`.

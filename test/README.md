@@ -9,18 +9,18 @@ Expand live integration coverage for Telegram Bot API RPC methods. Each method g
 ## Definition of done (per method)
 
 - `test/{methodName}.test.ts` exists and follows existing patterns
-- `errors/{methodName}.json` lists error tags for every error the tests assert (plus any new ones discovered)
-- `errors/errors.json` holds the canonical definitions for all error tags
+- `spec/errors/{methodName}.json` lists error tags for every error the tests assert (plus any new ones discovered)
+- `spec/errors/errors.json` holds the canonical definitions for all error tags
 - `pnpm scripts:codegen` has been run so `src/Errors.ts` and `src/Methods.ts` are regenerated
 - `pnpm test` passes locally with valid `.env` credentials
 
 ## Workflow
 
-1. **Pick an untested method** — Compare `data/spec/methods/` against `test/*.test.ts`. Prefer read-only or low-risk methods first.
+1. **Pick an untested method** — Compare `spec/endpoints/` against `test/*.test.ts`. Prefer read-only or low-risk methods first.
 
 2. **Probe the live API before writing tests** — Use curl or a small script with `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID`. Capture exact `error_code` + `description` strings. Telegram is literal; tests must match verbatim.
 
-3. **Add error tags** — Append new tags to `errors/{method}.json` and add the full definition to `errors/errors.json`. Use `variants` on a catalog entry when the same tag maps to multiple Telegram `description` strings. Do not edit or reorder existing error entries. Reuse tags like `ChatIdEmpty` only when `errorCode` and `description` match exactly.
+3. **Add error tags** — Append new tags to `spec/errors/{method}.json` and add the full definition to `spec/errors/errors.json`. Use `variants` on a catalog entry when the same tag maps to multiple Telegram `description` strings. Do not edit or reorder existing error entries. Reuse tags like `ChatIdEmpty` only when `errorCode` and `description` match exactly.
 
 4. **Write `test/{method}.test.ts`** — Mirror nearby tests (`getChat.test.ts`, `sendMessage.test.ts`). Standard structure:
    - `success` (when feasible)
@@ -55,15 +55,15 @@ Expand live integration coverage for Telegram Bot API RPC methods. Each method g
 
 ## Rules of the road
 
-| Do                                                                               | Don't                                                              |
-| -------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| Modify `errors/` and `scripts/`                                                  | Hand-edit `src/`                                                   |
-| Append new error tags to a method's JSON and definitions to `errors/errors.json` | Change existing error entries in `errors/errors.json`              |
-| Name test file exactly after the RPC method                                      | Invent one-off naming                                              |
-| Run codegen after error JSON changes                                             | Commit tests that expect tags codegen doesn't know about           |
-| Use `expectErrorTag` for documented errors                                       | Assert on raw `TelegramApiError` unless intentionally testing gaps |
+| Do                                                                                    | Don't                                                              |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| Modify `spec/errors/` and `scripts/`                                                  | Hand-edit `src/`                                                   |
+| Append new error tags to a method's JSON and definitions to `spec/errors/errors.json` | Change existing error entries in `spec/errors/errors.json`         |
+| Name test file exactly after the RPC method                                           | Invent one-off naming                                              |
+| Run codegen after error JSON changes                                                  | Commit tests that expect tags codegen doesn't know about           |
+| Use `expectErrorTag` for documented errors                                            | Assert on raw `TelegramApiError` unless intentionally testing gaps |
 
-`errors/errors.json` defines shared errors (`Unauthorized`, `NotFound`) in `common`; those tags are merged into every method doc at codegen time. Do not duplicate them in a method's JSON unless testing method-specific behavior.
+`spec/errors/errors.json` defines shared errors (`Unauthorized`, `NotFound`) in `common`; those tags are merged into every method doc at codegen time. Do not duplicate them in a method's JSON unless testing method-specific behavior.
 
 ## Test design guidance
 

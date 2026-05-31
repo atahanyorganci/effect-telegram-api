@@ -1,0 +1,41 @@
+{
+	"kind": "object",
+	"name": "ChatMemberMember",
+	"slug": "chatmembermember",
+	"description": "Represents a chat member that has no additional privileges or restrictions.",
+	"fields": [
+		{
+			"name": "status",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "The member's status in the chat, always “member”"
+		},
+		{
+			"name": "tag",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Tag of the member"
+		},
+		{
+			"name": "user",
+			"type": {
+				"kind": "ref",
+				"name": "User"
+			},
+			"required": true,
+			"description": "Information about the user"
+		},
+		{
+			"name": "until_date",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "Date when the user's subscription will expire; Unix time"
+		}
+	]
+}

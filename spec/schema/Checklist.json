@@ -1,0 +1,58 @@
+{
+	"kind": "object",
+	"name": "Checklist",
+	"slug": "checklist",
+	"description": "Describes a checklist.",
+	"fields": [
+		{
+			"name": "title",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Title of the checklist"
+		},
+		{
+			"name": "title_entities",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "MessageEntity"
+				}
+			},
+			"required": false,
+			"description": "Special entities that appear in the checklist title"
+		},
+		{
+			"name": "tasks",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "ChecklistTask"
+				}
+			},
+			"required": true,
+			"description": "List of tasks in the checklist"
+		},
+		{
+			"name": "others_can_add_tasks",
+			"type": {
+				"kind": "literal",
+				"value": true
+			},
+			"required": false,
+			"description": "True, if users other than the creator of the list can add tasks to the list"
+		},
+		{
+			"name": "others_can_mark_tasks_as_done",
+			"type": {
+				"kind": "literal",
+				"value": true
+			},
+			"required": false,
+			"description": "True, if users other than the creator of the list can mark tasks as done or not done"
+		}
+	]
+}

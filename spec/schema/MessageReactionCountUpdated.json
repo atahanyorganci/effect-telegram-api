@@ -1,0 +1,45 @@
+{
+	"kind": "object",
+	"name": "MessageReactionCountUpdated",
+	"slug": "messagereactioncountupdated",
+	"description": "This object represents reaction changes on a message with anonymous reactions.",
+	"fields": [
+		{
+			"name": "chat",
+			"type": {
+				"kind": "ref",
+				"name": "Chat"
+			},
+			"required": true,
+			"description": "The chat containing the message"
+		},
+		{
+			"name": "message_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Unique message identifier inside the chat"
+		},
+		{
+			"name": "date",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Date of the change in Unix time"
+		},
+		{
+			"name": "reactions",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "ReactionCount"
+				}
+			},
+			"required": true,
+			"description": "List of reactions that are present on the message"
+		}
+	]
+}

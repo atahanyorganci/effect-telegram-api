@@ -1,0 +1,59 @@
+{
+	"kind": "object",
+	"name": "ChatJoinRequest",
+	"slug": "chatjoinrequest",
+	"description": "Represents a join request sent to a chat.",
+	"fields": [
+		{
+			"name": "chat",
+			"type": {
+				"kind": "ref",
+				"name": "Chat"
+			},
+			"required": true,
+			"description": "Chat to which the request was sent"
+		},
+		{
+			"name": "from",
+			"type": {
+				"kind": "ref",
+				"name": "User"
+			},
+			"required": true,
+			"description": "User that sent the join request"
+		},
+		{
+			"name": "user_chat_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Identifier of a private chat with the user who sent the join request. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier. The bot can use this identifier for 5 minutes to send messages until the join request is processed, assuming no other administrator contacted the user."
+		},
+		{
+			"name": "date",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Date the request was sent in Unix time"
+		},
+		{
+			"name": "bio",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Bio of the user"
+		},
+		{
+			"name": "invite_link",
+			"type": {
+				"kind": "ref",
+				"name": "ChatInviteLink"
+			},
+			"required": false,
+			"description": "Chat invite link that was used by the user to send the join request"
+		}
+	]
+}

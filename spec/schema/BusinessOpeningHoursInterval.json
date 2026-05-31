@@ -1,0 +1,24 @@
+{
+	"kind": "object",
+	"name": "BusinessOpeningHoursInterval",
+	"slug": "businessopeninghoursinterval",
+	"description": "Describes an interval of time during which a business is open.",
+	"fields": [
+		{
+			"name": "opening_minute",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "The minute's sequence number in a week, starting on Monday, marking the start of the time interval during which the business is open; 0 - 7 * 24 * 60"
+		},
+		{
+			"name": "closing_minute",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "The minute's sequence number in a week, starting on Monday, marking the end of the time interval during which the business is open; 0 - 8 * 24 * 60"
+		}
+	]
+}

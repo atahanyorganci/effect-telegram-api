@@ -1,0 +1,17 @@
+{
+	"kind": "object",
+	"name": "ChatBackground",
+	"slug": "chatbackground",
+	"description": "This object represents a chat background.",
+	"fields": [
+		{
+			"name": "type",
+			"type": {
+				"kind": "ref",
+				"name": "BackgroundType"
+			},
+			"required": true,
+			"description": "Type of the background"
+		}
+	]
+}

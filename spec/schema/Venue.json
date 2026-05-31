@@ -1,0 +1,65 @@
+{
+	"kind": "object",
+	"name": "Venue",
+	"slug": "venue",
+	"description": "This object represents a venue.",
+	"fields": [
+		{
+			"name": "location",
+			"type": {
+				"kind": "ref",
+				"name": "Location"
+			},
+			"required": true,
+			"description": "Venue location. Can't be a live location."
+		},
+		{
+			"name": "title",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Name of the venue"
+		},
+		{
+			"name": "address",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Address of the venue"
+		},
+		{
+			"name": "foursquare_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Foursquare identifier of the venue"
+		},
+		{
+			"name": "foursquare_type",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Foursquare type of the venue. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)"
+		},
+		{
+			"name": "google_place_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Google Places identifier of the venue"
+		},
+		{
+			"name": "google_place_type",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Google Places type of the venue. (See supported types.)"
+		}
+	]
+}

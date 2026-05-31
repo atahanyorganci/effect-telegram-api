@@ -1,0 +1,33 @@
+{
+	"kind": "object",
+	"name": "UniqueGiftBackdrop",
+	"slug": "uniquegiftbackdrop",
+	"description": "This object describes the backdrop of a unique gift.",
+	"fields": [
+		{
+			"name": "name",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Name of the backdrop"
+		},
+		{
+			"name": "colors",
+			"type": {
+				"kind": "ref",
+				"name": "UniqueGiftBackdropColors"
+			},
+			"required": true,
+			"description": "Colors of the backdrop"
+		},
+		{
+			"name": "rarity_per_mille",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "The number of unique gifts that receive this backdrop for every 1000 gifts upgraded"
+		}
+	]
+}

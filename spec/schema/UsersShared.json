@@ -1,0 +1,28 @@
+{
+	"kind": "object",
+	"name": "UsersShared",
+	"slug": "usersshared",
+	"description": "This object contains information about the users whose identifiers were shared with the bot using a KeyboardButtonRequestUsers button.",
+	"fields": [
+		{
+			"name": "request_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Identifier of the request"
+		},
+		{
+			"name": "users",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "SharedUser"
+				}
+			},
+			"required": true,
+			"description": "Information about users shared with the bot"
+		}
+	]
+}

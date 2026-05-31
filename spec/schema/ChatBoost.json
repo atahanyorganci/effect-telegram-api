@@ -1,0 +1,41 @@
+{
+	"kind": "object",
+	"name": "ChatBoost",
+	"slug": "chatboost",
+	"description": "This object contains information about a chat boost.",
+	"fields": [
+		{
+			"name": "boost_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Unique identifier of the boost"
+		},
+		{
+			"name": "add_date",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Point in time (Unix timestamp) when the chat was boosted"
+		},
+		{
+			"name": "expiration_date",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Point in time (Unix timestamp) when the boost will automatically expire, unless the booster's Telegram Premium subscription is prolonged"
+		},
+		{
+			"name": "source",
+			"type": {
+				"kind": "ref",
+				"name": "ChatBoostSource"
+			},
+			"required": true,
+			"description": "Source of the added boost"
+		}
+	]
+}

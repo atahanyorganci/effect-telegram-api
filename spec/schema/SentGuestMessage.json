@@ -1,0 +1,16 @@
+{
+	"kind": "object",
+	"name": "SentGuestMessage",
+	"slug": "sentguestmessage",
+	"description": "Describes an inline message sent by a guest bot.",
+	"fields": [
+		{
+			"name": "inline_message_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Identifier of the sent inline message"
+		}
+	]
+}

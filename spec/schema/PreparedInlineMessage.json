@@ -1,0 +1,24 @@
+{
+	"kind": "object",
+	"name": "PreparedInlineMessage",
+	"slug": "preparedinlinemessage",
+	"description": "Describes an inline message to be sent by a user of a Mini App.",
+	"fields": [
+		{
+			"name": "id",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Unique identifier of the prepared message"
+		},
+		{
+			"name": "expiration_date",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Expiration date of the prepared message, in Unix time. Expired prepared messages can no longer be used."
+		}
+	]
+}

@@ -1,0 +1,66 @@
+{
+	"kind": "object",
+	"name": "CallbackQuery",
+	"slug": "callbackquery",
+	"description": "This object represents an incoming callback query from a callback button in an inline keyboard. If the button that originated the query was attached to a message sent by the bot, the field message will be present. If the button was attached to a message sent via the bot (in inline mode), the field inline_message_id will be present. Exactly one of the fields data or game_short_name will be present.",
+	"fields": [
+		{
+			"name": "id",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Unique identifier for this query"
+		},
+		{
+			"name": "from",
+			"type": {
+				"kind": "ref",
+				"name": "User"
+			},
+			"required": true,
+			"description": "Sender"
+		},
+		{
+			"name": "message",
+			"type": {
+				"kind": "ref",
+				"name": "MaybeInaccessibleMessage"
+			},
+			"required": false,
+			"description": "Message sent by the bot with the callback button that originated the query"
+		},
+		{
+			"name": "inline_message_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Identifier of the message sent via the bot in inline mode, that originated the query"
+		},
+		{
+			"name": "chat_instance",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Global identifier, uniquely corresponding to the chat to which the message with the callback button was sent. Useful for high scores in games."
+		},
+		{
+			"name": "data",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Data associated with the callback button. Be aware that the message originated the query can contain no callback buttons with this data."
+		},
+		{
+			"name": "game_short_name",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Short name of a Game to be returned, serves as the unique identifier for the game"
+		}
+	]
+}

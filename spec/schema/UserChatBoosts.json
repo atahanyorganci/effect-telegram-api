@@ -1,0 +1,20 @@
+{
+	"kind": "object",
+	"name": "UserChatBoosts",
+	"slug": "userchatboosts",
+	"description": "This object represents a list of boosts added to a chat by a user.",
+	"fields": [
+		{
+			"name": "boosts",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "ChatBoost"
+				}
+			},
+			"required": true,
+			"description": "The list of boosts added to the chat by the user"
+		}
+	]
+}

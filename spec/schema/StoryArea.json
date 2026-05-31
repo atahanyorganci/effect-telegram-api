@@ -1,0 +1,26 @@
+{
+	"kind": "object",
+	"name": "StoryArea",
+	"slug": "storyarea",
+	"description": "Describes a clickable area on a story media.",
+	"fields": [
+		{
+			"name": "position",
+			"type": {
+				"kind": "ref",
+				"name": "StoryAreaPosition"
+			},
+			"required": true,
+			"description": "Position of the area"
+		},
+		{
+			"name": "type",
+			"type": {
+				"kind": "ref",
+				"name": "StoryAreaType"
+			},
+			"required": true,
+			"description": "Type of the area"
+		}
+	]
+}

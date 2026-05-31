@@ -1,0 +1,20 @@
+{
+	"kind": "object",
+	"name": "VideoChatParticipantsInvited",
+	"slug": "videochatparticipantsinvited",
+	"description": "This object represents a service message about new members invited to a video chat.",
+	"fields": [
+		{
+			"name": "users",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "User"
+				}
+			},
+			"required": true,
+			"description": "New members that were invited to the video chat"
+		}
+	]
+}

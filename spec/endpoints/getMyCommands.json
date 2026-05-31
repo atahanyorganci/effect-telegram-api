@@ -1,0 +1,32 @@
+{
+	"kind": "method",
+	"name": "getMyCommands",
+	"slug": "getmycommands",
+	"description": "Use this method to get the current list of the bot's commands for the given scope and user language",
+	"parameters": [
+		{
+			"name": "scope",
+			"type": {
+				"kind": "ref",
+				"name": "BotCommandScope"
+			},
+			"required": false,
+			"description": "A JSON-serialized object, describing scope of users. Defaults to BotCommandScopeDefault."
+		},
+		{
+			"name": "language_code",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "A two-letter ISO 639-1 language code or an empty string"
+		}
+	],
+	"returns": {
+		"kind": "array",
+		"element": {
+			"kind": "ref",
+			"name": "BotCommand"
+		}
+	}
+}

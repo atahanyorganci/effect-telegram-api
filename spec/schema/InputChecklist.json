@@ -1,0 +1,64 @@
+{
+	"kind": "object",
+	"name": "InputChecklist",
+	"slug": "inputchecklist",
+	"description": "Describes a checklist to create.",
+	"fields": [
+		{
+			"name": "title",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Title of the checklist; 1-255 characters after entities parsing"
+		},
+		{
+			"name": "parse_mode",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Mode for parsing entities in the title. See formatting options for more details."
+		},
+		{
+			"name": "title_entities",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "MessageEntity"
+				}
+			},
+			"required": false,
+			"description": "List of special entities that appear in the title, which can be specified instead of parse_mode. Currently, only bold, italic, underline, strikethrough, spoiler, custom_emoji, and date_time entities are allowed."
+		},
+		{
+			"name": "tasks",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "InputChecklistTask"
+				}
+			},
+			"required": true,
+			"description": "List of 1-30 tasks in the checklist"
+		},
+		{
+			"name": "others_can_add_tasks",
+			"type": {
+				"kind": "boolean"
+			},
+			"required": false,
+			"description": "Pass True if other users can add tasks to the checklist"
+		},
+		{
+			"name": "others_can_mark_tasks_as_done",
+			"type": {
+				"kind": "boolean"
+			},
+			"required": false,
+			"description": "Pass True if other users can mark tasks as done or not done in the checklist"
+		}
+	]
+}

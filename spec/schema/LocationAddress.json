@@ -1,0 +1,40 @@
+{
+	"kind": "object",
+	"name": "LocationAddress",
+	"slug": "locationaddress",
+	"description": "Describes the physical address of a location.",
+	"fields": [
+		{
+			"name": "country_code",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "The two-letter ISO 3166-1 alpha-2 country code of the country where the location is located"
+		},
+		{
+			"name": "state",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "State of the location"
+		},
+		{
+			"name": "city",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "City of the location"
+		},
+		{
+			"name": "street",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Street address of the location"
+		}
+	]
+}

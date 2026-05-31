@@ -1,0 +1,56 @@
+{
+	"kind": "object",
+	"name": "Location",
+	"slug": "location",
+	"description": "This object represents a point on the map.",
+	"fields": [
+		{
+			"name": "latitude",
+			"type": {
+				"kind": "float"
+			},
+			"required": true,
+			"description": "Latitude as defined by the sender"
+		},
+		{
+			"name": "longitude",
+			"type": {
+				"kind": "float"
+			},
+			"required": true,
+			"description": "Longitude as defined by the sender"
+		},
+		{
+			"name": "horizontal_accuracy",
+			"type": {
+				"kind": "float"
+			},
+			"required": false,
+			"description": "The radius of uncertainty for the location, measured in meters; 0-1500"
+		},
+		{
+			"name": "live_period",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "Time relative to the message sending date, during which the location can be updated; in seconds. For active live locations only."
+		},
+		{
+			"name": "heading",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "The direction in which user is moving, in degrees; 1-360. For active live locations only."
+		},
+		{
+			"name": "proximity_alert_radius",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "The maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only."
+		}
+	]
+}

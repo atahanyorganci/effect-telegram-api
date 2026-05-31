@@ -1,0 +1,34 @@
+{
+	"kind": "object",
+	"name": "SuggestedPostApproved",
+	"slug": "suggestedpostapproved",
+	"description": "Describes a service message about the approval of a suggested post.",
+	"fields": [
+		{
+			"name": "suggested_post_message",
+			"type": {
+				"kind": "ref",
+				"name": "Message"
+			},
+			"required": false,
+			"description": "Message containing the suggested post. Note that the Message object in this field will not contain the reply_to_message field even if it itself is a reply."
+		},
+		{
+			"name": "price",
+			"type": {
+				"kind": "ref",
+				"name": "SuggestedPostPrice"
+			},
+			"required": false,
+			"description": "Amount paid for the post"
+		},
+		{
+			"name": "send_date",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Date when the post will be published"
+		}
+	]
+}

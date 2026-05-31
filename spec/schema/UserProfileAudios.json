@@ -1,0 +1,28 @@
+{
+	"kind": "object",
+	"name": "UserProfileAudios",
+	"slug": "userprofileaudios",
+	"description": "This object represents the audios displayed on a user's profile.",
+	"fields": [
+		{
+			"name": "total_count",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Total number of profile audios for the target user"
+		},
+		{
+			"name": "audios",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "Audio"
+				}
+			},
+			"required": true,
+			"description": "Requested profile audios"
+		}
+	]
+}

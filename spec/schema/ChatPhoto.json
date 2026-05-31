@@ -1,0 +1,40 @@
+{
+	"kind": "object",
+	"name": "ChatPhoto",
+	"slug": "chatphoto",
+	"description": "This object represents a chat photo.",
+	"fields": [
+		{
+			"name": "small_file_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "File identifier of small (160x160) chat photo. This file_id can be used only for photo download and only for as long as the photo is not changed."
+		},
+		{
+			"name": "small_file_unique_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Unique file identifier of small (160x160) chat photo, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file."
+		},
+		{
+			"name": "big_file_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "File identifier of big (640x640) chat photo. This file_id can be used only for photo download and only for as long as the photo is not changed."
+		},
+		{
+			"name": "big_file_unique_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Unique file identifier of big (640x640) chat photo, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file."
+		}
+	]
+}

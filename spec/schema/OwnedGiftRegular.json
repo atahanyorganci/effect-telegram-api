@@ -1,0 +1,139 @@
+{
+	"kind": "object",
+	"name": "OwnedGiftRegular",
+	"slug": "ownedgiftregular",
+	"description": "Describes a regular gift owned by a user or a chat.",
+	"fields": [
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Type of the gift, always “regular”"
+		},
+		{
+			"name": "gift",
+			"type": {
+				"kind": "ref",
+				"name": "Gift"
+			},
+			"required": true,
+			"description": "Information about the regular gift"
+		},
+		{
+			"name": "owned_gift_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Unique identifier of the gift for the bot; for gifts received on behalf of business accounts only"
+		},
+		{
+			"name": "sender_user",
+			"type": {
+				"kind": "ref",
+				"name": "User"
+			},
+			"required": false,
+			"description": "Sender of the gift if it is a known user"
+		},
+		{
+			"name": "send_date",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Date the gift was sent in Unix time"
+		},
+		{
+			"name": "text",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Text of the message that was added to the gift"
+		},
+		{
+			"name": "entities",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "MessageEntity"
+				}
+			},
+			"required": false,
+			"description": "Special entities that appear in the text"
+		},
+		{
+			"name": "is_private",
+			"type": {
+				"kind": "literal",
+				"value": true
+			},
+			"required": false,
+			"description": "True, if the sender and gift text are shown only to the gift receiver; otherwise, everyone will be able to see them"
+		},
+		{
+			"name": "is_saved",
+			"type": {
+				"kind": "literal",
+				"value": true
+			},
+			"required": false,
+			"description": "True, if the gift is displayed on the account's profile page; for gifts received on behalf of business accounts only"
+		},
+		{
+			"name": "can_be_upgraded",
+			"type": {
+				"kind": "literal",
+				"value": true
+			},
+			"required": false,
+			"description": "True, if the gift can be upgraded to a unique gift; for gifts received on behalf of business accounts only"
+		},
+		{
+			"name": "was_refunded",
+			"type": {
+				"kind": "literal",
+				"value": true
+			},
+			"required": false,
+			"description": "True, if the gift was refunded and isn't available anymore"
+		},
+		{
+			"name": "convert_star_count",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "Number of Telegram Stars that can be claimed by the receiver instead of the gift; omitted if the gift cannot be converted to Telegram Stars; for gifts received on behalf of business accounts only"
+		},
+		{
+			"name": "prepaid_upgrade_star_count",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "Number of Telegram Stars that were paid for the ability to upgrade the gift"
+		},
+		{
+			"name": "is_upgrade_separate",
+			"type": {
+				"kind": "literal",
+				"value": true
+			},
+			"required": false,
+			"description": "True, if the gift's upgrade was purchased after the gift was sent; for gifts received on behalf of business accounts only"
+		},
+		{
+			"name": "unique_gift_number",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "Unique number reserved for this gift when upgraded. See the number field in UniqueGift."
+		}
+	]
+}

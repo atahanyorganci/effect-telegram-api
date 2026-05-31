@@ -1,0 +1,24 @@
+{
+	"kind": "object",
+	"name": "BackgroundTypeChatTheme",
+	"slug": "backgroundtypechattheme",
+	"description": "The background is taken directly from a built-in chat theme.",
+	"fields": [
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Type of the background, always “chat_theme”"
+		},
+		{
+			"name": "theme_name",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Name of the chat theme, which is usually an emoji"
+		}
+	]
+}

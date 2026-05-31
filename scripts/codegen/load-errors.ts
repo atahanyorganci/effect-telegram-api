@@ -1,15 +1,13 @@
 import * as Effect from "effect/Effect";
 import * as FileSystem from "effect/FileSystem";
 import * as Schema from "effect/Schema";
+import { errorsCatalogPath, errorsSpecDir } from "../document.ts";
 import { parseError } from "../parse/errors.ts";
 import { ErrorsDoc, expandError, MethodErrorsRefDoc } from "./model-errors.ts";
 import type { MethodError, MethodErrorsDoc } from "./model-errors.ts";
 
 const decodeErrorsDoc = Schema.decodeUnknownSync(ErrorsDoc);
 const decodeMethodErrorsRef = Schema.decodeUnknownSync(MethodErrorsRefDoc);
-
-const ERRORS_DIR = "errors";
-const ERRORS_CATALOG = `${ERRORS_DIR}/errors.json`;
 
 const resolveTags = (
 	method: string,
@@ -43,22 +41,25 @@ const mergeCommon = (
 	return merged.sort((a, b) => a.tag.localeCompare(b.tag) || a.description.localeCompare(b.description));
 };
 
-export const loadMethodErrors = Effect.fn("loadMethodErrors")(function* () {
+export const loadMethodErrors = Effect.fn("loadMethodErrors")(function* (specDir: string) {
 	const fs = yield* FileSystem.FileSystem;
+	const errorsDir = errorsSpecDir(specDir);
+	const catalogPath = errorsCatalogPath(specDir);
 
-	const catalogContents = yield* fs.readFileString(ERRORS_CATALOG);
+	const catalogContents = yield* fs.readFileString(catalogPath);
 	const catalog = decodeErrorsDoc(JSON.parse(catalogContents));
 	const byTag = new Map(catalog.errors.map(error => [error.tag, error] as const));
 
-	const entries = yield* fs.readDirectory(ERRORS_DIR);
+	const entries = yield* fs.readDirectory(errorsDir);
 	const files = entries.filter(entry => entry.endsWith(".json") && entry !== "errors.json").sort();
 
 	const byMethod = new Map<string, MethodErrorsDoc>();
 	for (const file of files) {
-		const contents = yield* fs.readFileString(`${ERRORS_DIR}/${file}`);
+		const path = `${errorsDir}/${file}`;
+		const contents = yield* fs.readFileString(path);
 		const doc = yield* Effect.try({
 			try: () => decodeMethodErrorsRef(JSON.parse(contents)),
-			catch: cause => parseError(`Failed to decode ${ERRORS_DIR}/${file}: ${String(cause)}`),
+			catch: cause => parseError(`Failed to decode ${path}: ${String(cause)}`),
 		});
 
 		if (byMethod.has(doc.method)) {

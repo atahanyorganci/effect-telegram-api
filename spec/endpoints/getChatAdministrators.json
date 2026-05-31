@@ -1,0 +1,39 @@
+{
+	"kind": "method",
+	"name": "getChatAdministrators",
+	"slug": "getchatadministrators",
+	"description": "Use this method to get a list of administrators in a chat",
+	"parameters": [
+		{
+			"name": "chat_id",
+			"type": {
+				"kind": "oneOf",
+				"types": [
+					{
+						"kind": "integer"
+					},
+					{
+						"kind": "string"
+					}
+				]
+			},
+			"required": true,
+			"description": "Unique identifier for the target chat or username of the target supergroup or channel in the format @username"
+		},
+		{
+			"name": "return_bots",
+			"type": {
+				"kind": "boolean"
+			},
+			"required": false,
+			"description": "Pass True to additionally receive all bots that are administrators of the chat. By default, bots other than the current bot are omitted."
+		}
+	],
+	"returns": {
+		"kind": "array",
+		"element": {
+			"kind": "ref",
+			"name": "ChatMember"
+		}
+	}
+}

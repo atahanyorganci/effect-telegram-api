@@ -1,0 +1,24 @@
+{
+	"kind": "object",
+	"name": "Dice",
+	"slug": "dice",
+	"description": "This object represents an animated emoji that displays a random value.",
+	"fields": [
+		{
+			"name": "emoji",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Emoji on which the dice throw animation is based"
+		},
+		{
+			"name": "value",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Value of the dice, 1-6 for “🎲”, “🎯” and “🎳” base emoji, 1-5 for “🏀” and “⚽” base emoji, 1-64 for “🎰” base emoji"
+		}
+	]
+}

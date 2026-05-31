@@ -1,0 +1,48 @@
+{
+	"kind": "object",
+	"name": "PhotoSize",
+	"slug": "photosize",
+	"description": "This object represents one size of a photo or a file / sticker thumbnail.",
+	"fields": [
+		{
+			"name": "file_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Identifier for this file, which can be used to download or reuse the file"
+		},
+		{
+			"name": "file_unique_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file."
+		},
+		{
+			"name": "width",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Photo width"
+		},
+		{
+			"name": "height",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Photo height"
+		},
+		{
+			"name": "file_size",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "File size in bytes"
+		}
+	]
+}

@@ -1,0 +1,17 @@
+{
+	"kind": "object",
+	"name": "ManagedBotCreated",
+	"slug": "managedbotcreated",
+	"description": "This object contains information about the bot that was created to be managed by the current bot.",
+	"fields": [
+		{
+			"name": "bot",
+			"type": {
+				"kind": "ref",
+				"name": "User"
+			},
+			"required": true,
+			"description": "Information about the bot. The bot's token can be fetched using the method getManagedBotToken."
+		}
+	]
+}

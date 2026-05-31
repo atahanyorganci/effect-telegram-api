@@ -1,0 +1,28 @@
+{
+	"kind": "method",
+	"name": "transferBusinessAccountStars",
+	"slug": "transferbusinessaccountstars",
+	"description": "Transfers Telegram Stars from the business account balance to the bot's balance. Requires the can_transfer_stars business bot right",
+	"parameters": [
+		{
+			"name": "business_connection_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Unique identifier of the business connection"
+		},
+		{
+			"name": "star_count",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Number of Telegram Stars to transfer; 1-10000"
+		}
+	],
+	"returns": {
+		"kind": "literal",
+		"value": true
+	}
+}

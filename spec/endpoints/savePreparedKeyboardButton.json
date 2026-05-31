@@ -1,0 +1,29 @@
+{
+	"kind": "method",
+	"name": "savePreparedKeyboardButton",
+	"slug": "savepreparedkeyboardbutton",
+	"description": "Stores a keyboard button that can be used by a user within a Mini App",
+	"parameters": [
+		{
+			"name": "user_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Unique identifier of the target user that can use the button"
+		},
+		{
+			"name": "button",
+			"type": {
+				"kind": "ref",
+				"name": "KeyboardButton"
+			},
+			"required": true,
+			"description": "A JSON-serialized object describing the button to be saved. The button must be of the type request_users, request_chat, or request_managed_bot."
+		}
+	],
+	"returns": {
+		"kind": "ref",
+		"name": "PreparedKeyboardButton"
+	}
+}

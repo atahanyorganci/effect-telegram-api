@@ -1,0 +1,33 @@
+{
+	"kind": "object",
+	"name": "UniqueGiftSymbol",
+	"slug": "uniquegiftsymbol",
+	"description": "This object describes the symbol shown on the pattern of a unique gift.",
+	"fields": [
+		{
+			"name": "name",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Name of the symbol"
+		},
+		{
+			"name": "sticker",
+			"type": {
+				"kind": "ref",
+				"name": "Sticker"
+			},
+			"required": true,
+			"description": "The sticker that represents the unique gift"
+		},
+		{
+			"name": "rarity_per_mille",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "The number of unique gifts that receive this model for every 1000 gifts upgraded"
+		}
+	]
+}

@@ -1,0 +1,24 @@
+{
+	"kind": "object",
+	"name": "ReactionTypeCustomEmoji",
+	"slug": "reactiontypecustomemoji",
+	"description": "The reaction is based on a custom emoji.",
+	"fields": [
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Type of the reaction, always “custom_emoji”"
+		},
+		{
+			"name": "custom_emoji_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Custom emoji identifier"
+		}
+	]
+}

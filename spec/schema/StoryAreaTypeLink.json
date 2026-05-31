@@ -1,0 +1,24 @@
+{
+	"kind": "object",
+	"name": "StoryAreaTypeLink",
+	"slug": "storyareatypelink",
+	"description": "Describes a story area pointing to an HTTP or tg:// link. Currently, a story can have up to 3 link areas.",
+	"fields": [
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Type of the area, always “link”"
+		},
+		{
+			"name": "url",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "HTTP or tg:// URL to be opened when the area is clicked"
+		}
+	]
+}

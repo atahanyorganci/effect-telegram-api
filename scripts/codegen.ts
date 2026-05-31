@@ -25,7 +25,7 @@ const program = Effect.gen(function* () {
 
 	const objects = yield* loadObjects(BOTS_API_DOCUMENT.specDir);
 	const methods = yield* loadMethods(BOTS_API_DOCUMENT.specDir);
-	const methodErrors = yield* loadMethodErrors();
+	const methodErrors = yield* loadMethodErrors(BOTS_API_DOCUMENT.specDir);
 
 	const methodRefs = new Set<string>();
 	for (const method of methods) {

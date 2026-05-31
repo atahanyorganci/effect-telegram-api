@@ -1,0 +1,19 @@
+{
+	"kind": "method",
+	"name": "getManagedBotToken",
+	"slug": "getmanagedbottoken",
+	"description": "Use this method to get the token of a managed bot",
+	"parameters": [
+		{
+			"name": "user_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "User identifier of the managed bot whose token will be returned"
+		}
+	],
+	"returns": {
+		"kind": "string"
+	}
+}

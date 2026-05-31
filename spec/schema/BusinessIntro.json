@@ -1,0 +1,33 @@
+{
+	"kind": "object",
+	"name": "BusinessIntro",
+	"slug": "businessintro",
+	"description": "Contains information about the start page settings of a Telegram Business account.",
+	"fields": [
+		{
+			"name": "title",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Title text of the business intro"
+		},
+		{
+			"name": "message",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Message text of the business intro"
+		},
+		{
+			"name": "sticker",
+			"type": {
+				"kind": "ref",
+				"name": "Sticker"
+			},
+			"required": false,
+			"description": "Sticker of the business intro"
+		}
+	]
+}

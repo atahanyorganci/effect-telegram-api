@@ -1,0 +1,56 @@
+{
+	"kind": "object",
+	"name": "PollAnswer",
+	"slug": "pollanswer",
+	"description": "This object represents an answer of a user in a non-anonymous poll.",
+	"fields": [
+		{
+			"name": "poll_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Unique poll identifier"
+		},
+		{
+			"name": "voter_chat",
+			"type": {
+				"kind": "ref",
+				"name": "Chat"
+			},
+			"required": false,
+			"description": "The chat that changed the answer to the poll, if the voter is anonymous"
+		},
+		{
+			"name": "user",
+			"type": {
+				"kind": "ref",
+				"name": "User"
+			},
+			"required": false,
+			"description": "The user that changed the answer to the poll, if the voter isn't anonymous"
+		},
+		{
+			"name": "option_ids",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "integer"
+				}
+			},
+			"required": true,
+			"description": "0-based identifiers of chosen answer options. May be empty if the vote was retracted."
+		},
+		{
+			"name": "option_persistent_ids",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "string"
+				}
+			},
+			"required": true,
+			"description": "Persistent identifiers of the chosen answer options. May be empty if the vote was retracted."
+		}
+	]
+}

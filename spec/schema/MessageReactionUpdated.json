@@ -1,0 +1,75 @@
+{
+	"kind": "object",
+	"name": "MessageReactionUpdated",
+	"slug": "messagereactionupdated",
+	"description": "This object represents a change of a reaction on a message performed by a user.",
+	"fields": [
+		{
+			"name": "chat",
+			"type": {
+				"kind": "ref",
+				"name": "Chat"
+			},
+			"required": true,
+			"description": "The chat containing the message the user reacted to"
+		},
+		{
+			"name": "message_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Unique identifier of the message inside the chat"
+		},
+		{
+			"name": "user",
+			"type": {
+				"kind": "ref",
+				"name": "User"
+			},
+			"required": false,
+			"description": "The user that changed the reaction, if the user isn't anonymous"
+		},
+		{
+			"name": "actor_chat",
+			"type": {
+				"kind": "ref",
+				"name": "Chat"
+			},
+			"required": false,
+			"description": "The chat on behalf of which the reaction was changed, if the user is anonymous"
+		},
+		{
+			"name": "date",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Date of the change in Unix time"
+		},
+		{
+			"name": "old_reaction",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "ReactionType"
+				}
+			},
+			"required": true,
+			"description": "Previous list of reaction types that were set by the user"
+		},
+		{
+			"name": "new_reaction",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "ReactionType"
+				}
+			},
+			"required": true,
+			"description": "New list of reaction types that have been set by the user"
+		}
+	]
+}

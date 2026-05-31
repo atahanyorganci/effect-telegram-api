@@ -1,0 +1,25 @@
+{
+	"kind": "object",
+	"name": "ChatBoostSourceGiftCode",
+	"slug": "chatboostsourcegiftcode",
+	"description": "The boost was obtained by the creation of Telegram Premium gift codes to boost a chat. Each such code boosts the chat 4 times for the duration of the corresponding Telegram Premium subscription.",
+	"fields": [
+		{
+			"name": "source",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Source of the boost, always “gift_code”"
+		},
+		{
+			"name": "user",
+			"type": {
+				"kind": "ref",
+				"name": "User"
+			},
+			"required": true,
+			"description": "User for which the gift code was created"
+		}
+	]
+}

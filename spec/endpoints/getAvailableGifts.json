@@ -1,0 +1,11 @@
+{
+	"kind": "method",
+	"name": "getAvailableGifts",
+	"slug": "getavailablegifts",
+	"description": "",
+	"parameters": [],
+	"returns": {
+		"kind": "ref",
+		"name": "Gifts"
+	}
+}

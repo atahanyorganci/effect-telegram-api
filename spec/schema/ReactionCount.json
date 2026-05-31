@@ -1,0 +1,25 @@
+{
+	"kind": "object",
+	"name": "ReactionCount",
+	"slug": "reactioncount",
+	"description": "Represents a reaction added to a message along with the number of times it was added.",
+	"fields": [
+		{
+			"name": "type",
+			"type": {
+				"kind": "ref",
+				"name": "ReactionType"
+			},
+			"required": true,
+			"description": "Type of the reaction"
+		},
+		{
+			"name": "total_count",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Number of times the reaction was added"
+		}
+	]
+}

@@ -1,0 +1,44 @@
+{
+	"kind": "object",
+	"name": "InputChecklistTask",
+	"slug": "inputchecklisttask",
+	"description": "Describes a task to add to a checklist.",
+	"fields": [
+		{
+			"name": "id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Unique identifier of the task; must be positive and unique among all task identifiers currently present in the checklist"
+		},
+		{
+			"name": "text",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Text of the task; 1-100 characters after entities parsing"
+		},
+		{
+			"name": "parse_mode",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Mode for parsing entities in the text. See formatting options for more details."
+		},
+		{
+			"name": "text_entities",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "MessageEntity"
+				}
+			},
+			"required": false,
+			"description": "List of special entities that appear in the text, which can be specified instead of parse_mode. Currently, only bold, italic, underline, strikethrough, spoiler, custom_emoji, and date_time entities are allowed."
+		}
+	]
+}

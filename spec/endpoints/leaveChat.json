@@ -1,0 +1,28 @@
+{
+	"kind": "method",
+	"name": "leaveChat",
+	"slug": "leavechat",
+	"description": "Use this method for your bot to leave a group, supergroup or channel",
+	"parameters": [
+		{
+			"name": "chat_id",
+			"type": {
+				"kind": "oneOf",
+				"types": [
+					{
+						"kind": "integer"
+					},
+					{
+						"kind": "string"
+					}
+				]
+			},
+			"required": true,
+			"description": "Unique identifier for the target chat or username of the target supergroup or channel in the format @username. Channel direct messages chats aren't supported; leave the corresponding channel instead."
+		}
+	],
+	"returns": {
+		"kind": "literal",
+		"value": true
+	}
+}

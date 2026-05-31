@@ -10,12 +10,16 @@ export interface DocumentConfig {
 
 export const BOTS_API_DOCUMENT = {
 	url: "https://core.telegram.org/bots/api",
-	path: "data/api.html",
-	rawPath: "data/api.raw.html",
-	specDir: "data/spec",
+	path: "spec/api.html",
+	rawPath: "spec/api.raw.html",
+	specDir: "spec",
 	hash: "sha256-c26e4bca67c640bd544caa3be126c2c9f10cd304cc0eac6c29a6bfe9de4ed6ac",
 } as const satisfies DocumentConfig;
 
-export const objectSpecPath = (specDir: string, name: string): string => `${specDir}/objects/${name}.json`;
+export const schemaSpecPath = (specDir: string, name: string): string => `${specDir}/schema/${name}.json`;
 
-export const methodSpecPath = (specDir: string, name: string): string => `${specDir}/methods/${name}.json`;
+export const endpointSpecPath = (specDir: string, name: string): string => `${specDir}/endpoints/${name}.json`;
+
+export const errorsSpecDir = (specDir: string): string => `${specDir}/errors`;
+
+export const errorsCatalogPath = (specDir: string): string => `${errorsSpecDir(specDir)}/errors.json`;

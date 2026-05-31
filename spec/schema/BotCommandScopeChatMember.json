@@ -1,0 +1,40 @@
+{
+	"kind": "object",
+	"name": "BotCommandScopeChatMember",
+	"slug": "botcommandscopechatmember",
+	"description": "Represents the scope of bot commands, covering a specific member of a group or supergroup chat.",
+	"fields": [
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Scope type, must be chat_member"
+		},
+		{
+			"name": "chat_id",
+			"type": {
+				"kind": "oneOf",
+				"types": [
+					{
+						"kind": "integer"
+					},
+					{
+						"kind": "string"
+					}
+				]
+			},
+			"required": true,
+			"description": "Unique identifier for the target chat or username of the target supergroup in the format @username. Channel direct messages chats and channel chats aren't supported."
+		},
+		{
+			"name": "user_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Unique identifier of the target user"
+		}
+	]
+}

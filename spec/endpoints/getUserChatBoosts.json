@@ -1,0 +1,36 @@
+{
+	"kind": "method",
+	"name": "getUserChatBoosts",
+	"slug": "getuserchatboosts",
+	"description": "Use this method to get the list of boosts added to a chat by a user. Requires administrator rights in the chat",
+	"parameters": [
+		{
+			"name": "chat_id",
+			"type": {
+				"kind": "oneOf",
+				"types": [
+					{
+						"kind": "integer"
+					},
+					{
+						"kind": "string"
+					}
+				]
+			},
+			"required": true,
+			"description": "Unique identifier for the chat or username of the channel in the format @username"
+		},
+		{
+			"name": "user_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Unique identifier of the target user"
+		}
+	],
+	"returns": {
+		"kind": "ref",
+		"name": "UserChatBoosts"
+	}
+}

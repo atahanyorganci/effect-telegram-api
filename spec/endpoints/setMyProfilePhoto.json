@@ -1,0 +1,21 @@
+{
+	"kind": "method",
+	"name": "setMyProfilePhoto",
+	"slug": "setmyprofilephoto",
+	"description": "Changes the profile photo of the bot",
+	"parameters": [
+		{
+			"name": "photo",
+			"type": {
+				"kind": "ref",
+				"name": "InputProfilePhoto"
+			},
+			"required": true,
+			"description": "The new profile photo to set"
+		}
+	],
+	"returns": {
+		"kind": "literal",
+		"value": true
+	}
+}

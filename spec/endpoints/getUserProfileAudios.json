@@ -1,0 +1,36 @@
+{
+	"kind": "method",
+	"name": "getUserProfileAudios",
+	"slug": "getuserprofileaudios",
+	"description": "Use this method to get a list of profile audios for a user",
+	"parameters": [
+		{
+			"name": "user_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Unique identifier of the target user"
+		},
+		{
+			"name": "offset",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "Sequential number of the first audio to be returned. By default, all audios are returned."
+		},
+		{
+			"name": "limit",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "Limits the number of audios to be retrieved. Values between 1-100 are accepted. Defaults to 100."
+		}
+	],
+	"returns": {
+		"kind": "ref",
+		"name": "UserProfileAudios"
+	}
+}

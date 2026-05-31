@@ -1,0 +1,26 @@
+{
+	"kind": "object",
+	"name": "ManagedBotUpdated",
+	"slug": "managedbotupdated",
+	"description": "This object contains information about the creation, token update, or owner update of a bot that is managed by the current bot.",
+	"fields": [
+		{
+			"name": "user",
+			"type": {
+				"kind": "ref",
+				"name": "User"
+			},
+			"required": true,
+			"description": "User that created the bot"
+		},
+		{
+			"name": "bot",
+			"type": {
+				"kind": "ref",
+				"name": "User"
+			},
+			"required": true,
+			"description": "Information about the bot. Token of the bot can be fetched using the method getManagedBotToken."
+		}
+	]
+}

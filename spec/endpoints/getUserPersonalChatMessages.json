@@ -1,0 +1,31 @@
+{
+	"kind": "method",
+	"name": "getUserPersonalChatMessages",
+	"slug": "getuserpersonalchatmessages",
+	"description": "Use this method to get the last messages from the personal chat (i.e., the chat currently added to their profile) of a given user. On success, an array of Message objects",
+	"parameters": [
+		{
+			"name": "user_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Unique identifier for the target user"
+		},
+		{
+			"name": "limit",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "The maximum number of messages to return; 1-20"
+		}
+	],
+	"returns": {
+		"kind": "array",
+		"element": {
+			"kind": "ref",
+			"name": "Message"
+		}
+	}
+}

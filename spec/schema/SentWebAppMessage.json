@@ -1,0 +1,16 @@
+{
+	"kind": "object",
+	"name": "SentWebAppMessage",
+	"slug": "sentwebappmessage",
+	"description": "Describes an inline message sent by a Web App on behalf of a user.",
+	"fields": [
+		{
+			"name": "inline_message_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Identifier of the sent inline message. Available only if there is an inline keyboard attached to the message."
+		}
+	]
+}

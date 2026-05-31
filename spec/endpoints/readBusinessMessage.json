@@ -1,0 +1,36 @@
+{
+	"kind": "method",
+	"name": "readBusinessMessage",
+	"slug": "readbusinessmessage",
+	"description": "Marks incoming message as read on behalf of a business account. Requires the can_read_messages business bot right",
+	"parameters": [
+		{
+			"name": "business_connection_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Unique identifier of the business connection on behalf of which to read the message"
+		},
+		{
+			"name": "chat_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Unique identifier of the chat in which the message was received. The chat must have been active in the last 24 hours."
+		},
+		{
+			"name": "message_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Unique identifier of the message to mark as read"
+		}
+	],
+	"returns": {
+		"kind": "literal",
+		"value": true
+	}
+}

@@ -1,0 +1,31 @@
+{
+	"kind": "object",
+	"name": "UserProfilePhotos",
+	"slug": "userprofilephotos",
+	"description": "This object represent a user's profile pictures.",
+	"fields": [
+		{
+			"name": "total_count",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Total number of profile pictures the target user has"
+		},
+		{
+			"name": "photos",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "array",
+					"element": {
+						"kind": "ref",
+						"name": "PhotoSize"
+					}
+				}
+			},
+			"required": true,
+			"description": "Requested profile pictures (in up to 4 sizes each)"
+		}
+	]
+}

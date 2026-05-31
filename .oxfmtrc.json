@@ -18,5 +18,5 @@
 			"unknown"
 		]
 	},
-	"ignorePatterns": [".vendor/**", "data/**"]
+	"ignorePatterns": [".vendor/**", "spec/*.html"]
 }

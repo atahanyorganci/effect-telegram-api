@@ -1,0 +1,25 @@
+{
+	"kind": "object",
+	"name": "BusinessLocation",
+	"slug": "businesslocation",
+	"description": "Contains information about the location of a Telegram Business account.",
+	"fields": [
+		{
+			"name": "address",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Address of the business"
+		},
+		{
+			"name": "location",
+			"type": {
+				"kind": "ref",
+				"name": "Location"
+			},
+			"required": false,
+			"description": "Location of the business"
+		}
+	]
+}

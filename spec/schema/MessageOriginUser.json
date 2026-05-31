@@ -1,0 +1,33 @@
+{
+	"kind": "object",
+	"name": "MessageOriginUser",
+	"slug": "messageoriginuser",
+	"description": "The message was originally sent by a known user.",
+	"fields": [
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Type of the message origin, always “user”"
+		},
+		{
+			"name": "date",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Date the message was sent originally in Unix time"
+		},
+		{
+			"name": "sender_user",
+			"type": {
+				"kind": "ref",
+				"name": "User"
+			},
+			"required": true,
+			"description": "User that sent the message originally"
+		}
+	]
+}

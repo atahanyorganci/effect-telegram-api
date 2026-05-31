@@ -1,0 +1,29 @@
+{
+	"kind": "method",
+	"name": "setChatMenuButton",
+	"slug": "setchatmenubutton",
+	"description": "Use this method to change the bot's menu button in a private chat, or the default menu button",
+	"parameters": [
+		{
+			"name": "chat_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "Unique identifier for the target private chat. If not specified, the bot's default menu button will be changed."
+		},
+		{
+			"name": "menu_button",
+			"type": {
+				"kind": "ref",
+				"name": "MenuButton"
+			},
+			"required": false,
+			"description": "A JSON-serialized object for the bot's new menu button. Defaults to MenuButtonDefault."
+		}
+	],
+	"returns": {
+		"kind": "literal",
+		"value": true
+	}
+}

@@ -1,0 +1,244 @@
+{
+	"kind": "object",
+	"name": "ExternalReplyInfo",
+	"slug": "externalreplyinfo",
+	"description": "This object contains information about a message that is being replied to, which may come from another chat or forum topic.",
+	"fields": [
+		{
+			"name": "origin",
+			"type": {
+				"kind": "ref",
+				"name": "MessageOrigin"
+			},
+			"required": true,
+			"description": "Origin of the message replied to by the given message"
+		},
+		{
+			"name": "chat",
+			"type": {
+				"kind": "ref",
+				"name": "Chat"
+			},
+			"required": false,
+			"description": "Chat the original message belongs to. Available only if the chat is a supergroup or a channel."
+		},
+		{
+			"name": "message_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "Unique message identifier inside the original chat. Available only if the original chat is a supergroup or a channel."
+		},
+		{
+			"name": "link_preview_options",
+			"type": {
+				"kind": "ref",
+				"name": "LinkPreviewOptions"
+			},
+			"required": false,
+			"description": "Options used for link preview generation for the original message, if it is a text message"
+		},
+		{
+			"name": "animation",
+			"type": {
+				"kind": "ref",
+				"name": "Animation"
+			},
+			"required": false,
+			"description": "Message is an animation, information about the animation"
+		},
+		{
+			"name": "audio",
+			"type": {
+				"kind": "ref",
+				"name": "Audio"
+			},
+			"required": false,
+			"description": "Message is an audio file, information about the file"
+		},
+		{
+			"name": "document",
+			"type": {
+				"kind": "ref",
+				"name": "Document"
+			},
+			"required": false,
+			"description": "Message is a general file, information about the file"
+		},
+		{
+			"name": "live_photo",
+			"type": {
+				"kind": "ref",
+				"name": "LivePhoto"
+			},
+			"required": false,
+			"description": "Message is a live photo, information about the live photo"
+		},
+		{
+			"name": "paid_media",
+			"type": {
+				"kind": "ref",
+				"name": "PaidMediaInfo"
+			},
+			"required": false,
+			"description": "Message contains paid media; information about the paid media"
+		},
+		{
+			"name": "photo",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "PhotoSize"
+				}
+			},
+			"required": false,
+			"description": "Message is a photo, available sizes of the photo"
+		},
+		{
+			"name": "sticker",
+			"type": {
+				"kind": "ref",
+				"name": "Sticker"
+			},
+			"required": false,
+			"description": "Message is a sticker, information about the sticker"
+		},
+		{
+			"name": "story",
+			"type": {
+				"kind": "ref",
+				"name": "Story"
+			},
+			"required": false,
+			"description": "Message is a forwarded story"
+		},
+		{
+			"name": "video",
+			"type": {
+				"kind": "ref",
+				"name": "Video"
+			},
+			"required": false,
+			"description": "Message is a video, information about the video"
+		},
+		{
+			"name": "video_note",
+			"type": {
+				"kind": "ref",
+				"name": "VideoNote"
+			},
+			"required": false,
+			"description": "Message is a video note, information about the video message"
+		},
+		{
+			"name": "voice",
+			"type": {
+				"kind": "ref",
+				"name": "Voice"
+			},
+			"required": false,
+			"description": "Message is a voice message, information about the file"
+		},
+		{
+			"name": "has_media_spoiler",
+			"type": {
+				"kind": "literal",
+				"value": true
+			},
+			"required": false,
+			"description": "True, if the message media is covered by a spoiler animation"
+		},
+		{
+			"name": "checklist",
+			"type": {
+				"kind": "ref",
+				"name": "Checklist"
+			},
+			"required": false,
+			"description": "Message is a checklist"
+		},
+		{
+			"name": "contact",
+			"type": {
+				"kind": "ref",
+				"name": "Contact"
+			},
+			"required": false,
+			"description": "Message is a shared contact, information about the contact"
+		},
+		{
+			"name": "dice",
+			"type": {
+				"kind": "ref",
+				"name": "Dice"
+			},
+			"required": false,
+			"description": "Message is a dice with random value"
+		},
+		{
+			"name": "game",
+			"type": {
+				"kind": "ref",
+				"name": "Game"
+			},
+			"required": false,
+			"description": "Message is a game, information about the game. More about games »"
+		},
+		{
+			"name": "giveaway",
+			"type": {
+				"kind": "ref",
+				"name": "Giveaway"
+			},
+			"required": false,
+			"description": "Message is a scheduled giveaway, information about the giveaway"
+		},
+		{
+			"name": "giveaway_winners",
+			"type": {
+				"kind": "ref",
+				"name": "GiveawayWinners"
+			},
+			"required": false,
+			"description": "A giveaway with public winners was completed"
+		},
+		{
+			"name": "invoice",
+			"type": {
+				"kind": "ref",
+				"name": "Invoice"
+			},
+			"required": false,
+			"description": "Message is an invoice for a payment, information about the invoice. More about payments »"
+		},
+		{
+			"name": "location",
+			"type": {
+				"kind": "ref",
+				"name": "Location"
+			},
+			"required": false,
+			"description": "Message is a shared location, information about the location"
+		},
+		{
+			"name": "poll",
+			"type": {
+				"kind": "ref",
+				"name": "Poll"
+			},
+			"required": false,
+			"description": "Message is a native poll, information about the poll"
+		},
+		{
+			"name": "venue",
+			"type": {
+				"kind": "ref",
+				"name": "Venue"
+			},
+			"required": false,
+			"description": "Message is a venue, information about the venue"
+		}
+	]
+}

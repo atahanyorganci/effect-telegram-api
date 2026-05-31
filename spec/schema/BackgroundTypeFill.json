@@ -1,0 +1,33 @@
+{
+	"kind": "object",
+	"name": "BackgroundTypeFill",
+	"slug": "backgroundtypefill",
+	"description": "The background is automatically filled based on the selected colors.",
+	"fields": [
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Type of the background, always “fill”"
+		},
+		{
+			"name": "fill",
+			"type": {
+				"kind": "ref",
+				"name": "BackgroundFill"
+			},
+			"required": true,
+			"description": "The background fill"
+		},
+		{
+			"name": "dark_theme_dimming",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Dimming of the background in dark themes, as a percentage; 0-100"
+		}
+	]
+}

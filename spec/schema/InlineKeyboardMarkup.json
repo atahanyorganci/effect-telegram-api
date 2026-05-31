@@ -1,0 +1,23 @@
+{
+	"kind": "object",
+	"name": "InlineKeyboardMarkup",
+	"slug": "inlinekeyboardmarkup",
+	"description": "This object represents an inline keyboard that appears right next to the message it belongs to.",
+	"fields": [
+		{
+			"name": "inline_keyboard",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "array",
+					"element": {
+						"kind": "ref",
+						"name": "InlineKeyboardButton"
+					}
+				}
+			},
+			"required": true,
+			"description": "Array of button rows, each represented by an Array of InlineKeyboardButton objects"
+		}
+	]
+}

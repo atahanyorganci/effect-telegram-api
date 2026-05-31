@@ -1,0 +1,48 @@
+{
+	"kind": "object",
+	"name": "Voice",
+	"slug": "voice",
+	"description": "This object represents a voice note.",
+	"fields": [
+		{
+			"name": "file_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Identifier for this file, which can be used to download or reuse the file"
+		},
+		{
+			"name": "file_unique_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file."
+		},
+		{
+			"name": "duration",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Duration of the audio in seconds as defined by the sender"
+		},
+		{
+			"name": "mime_type",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "MIME type of the file as defined by the sender"
+		},
+		{
+			"name": "file_size",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value."
+		}
+	]
+}

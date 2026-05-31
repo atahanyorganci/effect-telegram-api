@@ -1,0 +1,112 @@
+{
+	"kind": "object",
+	"name": "UniqueGift",
+	"slug": "uniquegift",
+	"description": "This object describes a unique gift that was upgraded from a regular gift.",
+	"fields": [
+		{
+			"name": "gift_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Identifier of the regular gift from which the gift was upgraded"
+		},
+		{
+			"name": "base_name",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Human-readable name of the regular gift from which this unique gift was upgraded"
+		},
+		{
+			"name": "name",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Unique name of the gift. This name can be used in https://t.me/nft/... links and story areas."
+		},
+		{
+			"name": "number",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Unique number of the upgraded gift among gifts upgraded from the same regular gift"
+		},
+		{
+			"name": "model",
+			"type": {
+				"kind": "ref",
+				"name": "UniqueGiftModel"
+			},
+			"required": true,
+			"description": "Model of the gift"
+		},
+		{
+			"name": "symbol",
+			"type": {
+				"kind": "ref",
+				"name": "UniqueGiftSymbol"
+			},
+			"required": true,
+			"description": "Symbol of the gift"
+		},
+		{
+			"name": "backdrop",
+			"type": {
+				"kind": "ref",
+				"name": "UniqueGiftBackdrop"
+			},
+			"required": true,
+			"description": "Backdrop of the gift"
+		},
+		{
+			"name": "is_premium",
+			"type": {
+				"kind": "literal",
+				"value": true
+			},
+			"required": false,
+			"description": "True, if the original regular gift was exclusively purchaseable by Telegram Premium subscribers"
+		},
+		{
+			"name": "is_burned",
+			"type": {
+				"kind": "literal",
+				"value": true
+			},
+			"required": false,
+			"description": "True, if the gift was used to craft another gift and isn't available anymore"
+		},
+		{
+			"name": "is_from_blockchain",
+			"type": {
+				"kind": "literal",
+				"value": true
+			},
+			"required": false,
+			"description": "True, if the gift is assigned from the TON blockchain and can't be resold or transferred in Telegram"
+		},
+		{
+			"name": "colors",
+			"type": {
+				"kind": "ref",
+				"name": "UniqueGiftColors"
+			},
+			"required": false,
+			"description": "The color scheme that can be used by the gift's owner for the chat's name, replies to messages and link previews; for business account gifts and gifts that are currently on sale only"
+		},
+		{
+			"name": "publisher_chat",
+			"type": {
+				"kind": "ref",
+				"name": "Chat"
+			},
+			"required": false,
+			"description": "Information about the chat that published the gift"
+		}
+	]
+}

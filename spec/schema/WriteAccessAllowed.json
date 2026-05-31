@@ -1,0 +1,32 @@
+{
+	"kind": "object",
+	"name": "WriteAccessAllowed",
+	"slug": "writeaccessallowed",
+	"description": "This object represents a service message about a user allowing a bot to write messages after adding it to the attachment menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess.",
+	"fields": [
+		{
+			"name": "from_request",
+			"type": {
+				"kind": "boolean"
+			},
+			"required": false,
+			"description": "True, if the access was granted after the user accepted an explicit request from a Web App sent by the method requestWriteAccess"
+		},
+		{
+			"name": "web_app_name",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Name of the Web App, if the access was granted when the Web App was launched from a link"
+		},
+		{
+			"name": "from_attachment_menu",
+			"type": {
+				"kind": "boolean"
+			},
+			"required": false,
+			"description": "True, if the access was granted when the bot was added to the attachment or side menu"
+		}
+	]
+}

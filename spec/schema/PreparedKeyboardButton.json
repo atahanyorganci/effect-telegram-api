@@ -1,0 +1,16 @@
+{
+	"kind": "object",
+	"name": "PreparedKeyboardButton",
+	"slug": "preparedkeyboardbutton",
+	"description": "Describes a keyboard button to be used by a user of a Mini App.",
+	"fields": [
+		{
+			"name": "id",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Unique identifier of the keyboard button"
+		}
+	]
+}

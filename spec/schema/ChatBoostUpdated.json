@@ -1,0 +1,26 @@
+{
+	"kind": "object",
+	"name": "ChatBoostUpdated",
+	"slug": "chatboostupdated",
+	"description": "This object represents a boost added to a chat or changed.",
+	"fields": [
+		{
+			"name": "chat",
+			"type": {
+				"kind": "ref",
+				"name": "Chat"
+			},
+			"required": true,
+			"description": "Chat which was boosted"
+		},
+		{
+			"name": "boost",
+			"type": {
+				"kind": "ref",
+				"name": "ChatBoost"
+			},
+			"required": true,
+			"description": "Information about the chat boost"
+		}
+	]
+}

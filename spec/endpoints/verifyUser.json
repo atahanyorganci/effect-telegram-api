@@ -1,0 +1,28 @@
+{
+	"kind": "method",
+	"name": "verifyUser",
+	"slug": "verifyuser",
+	"description": "Verifies a user on behalf of the organization which is represented by the bot",
+	"parameters": [
+		{
+			"name": "user_id",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Unique identifier of the target user"
+		},
+		{
+			"name": "custom_description",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description."
+		}
+	],
+	"returns": {
+		"kind": "literal",
+		"value": true
+	}
+}

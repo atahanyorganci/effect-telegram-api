@@ -1,0 +1,32 @@
+{
+	"kind": "object",
+	"name": "MessageOriginHiddenUser",
+	"slug": "messageoriginhiddenuser",
+	"description": "The message was originally sent by an unknown user.",
+	"fields": [
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Type of the message origin, always “hidden_user”"
+		},
+		{
+			"name": "date",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "Date the message was sent originally in Unix time"
+		},
+		{
+			"name": "sender_user_name",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Name of the user that sent the message originally"
+		}
+	]
+}
