@@ -3,5 +3,22 @@
 	"name": "BackgroundType",
 	"slug": "backgroundtype",
 	"description": "This object describes the type of a background. Currently, it can be one of",
-	"members": ["BackgroundTypeFill", "BackgroundTypeWallpaper", "BackgroundTypePattern", "BackgroundTypeChatTheme"]
+	"variants": [
+		{
+			"name": "BackgroundTypeFill",
+			"slug": "backgroundtypefill"
+		},
+		{
+			"name": "BackgroundTypeWallpaper",
+			"slug": "backgroundtypewallpaper"
+		},
+		{
+			"name": "BackgroundTypePattern",
+			"slug": "backgroundtypepattern"
+		},
+		{
+			"name": "BackgroundTypeChatTheme",
+			"slug": "backgroundtypechattheme"
+		}
+	]
 }

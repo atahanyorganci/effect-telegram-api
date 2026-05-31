@@ -15,7 +15,5 @@ liveTests("setMyProfilePhoto", test => {
 		);
 	});
 
-	authErrorTests(test, token =>
-		callSetMyProfilePhoto(token, { photo: { type: "static", photo: "invalid" } }),
-	);
+	authErrorTests(test, token => callSetMyProfilePhoto(token, { photo: { type: "static", photo: "invalid" } }));
 });

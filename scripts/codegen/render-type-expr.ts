@@ -63,21 +63,21 @@ const wrapParagraph = (paragraph: string, maxContentWidth: number): ReadonlyArra
 // Renders a multi-line JSDoc block when description is non-empty:
 // newline after opening, max 80 columns per line without breaking words,
 // newline before closing.
-export const renderJsDoc = (description: string, indent = ""): string => {
+export const renderJsDoc = (description: string, indent = "", see?: string | readonly string[]): string => {
 	const text = escapeJsDoc(description);
-	if (text.length === 0) {
-		return "";
-	}
-
 	const linePrefix = `${indent} * `;
 	const maxContentWidth = Math.max(1, JSDOC_MAX_LINE_LENGTH - linePrefix.length);
-	const lines = text.split(/\n/).flatMap(paragraph => wrapParagraph(paragraph, maxContentWidth));
+	const descriptionLines =
+		text.length === 0 ? [] : text.split(/\n/).flatMap(paragraph => wrapParagraph(paragraph, maxContentWidth));
+	const seeUrls = see === undefined ? [] : typeof see === "string" ? [see] : [...see];
+	const seeLines = seeUrls.filter(url => url.length > 0).map(url => `${linePrefix}@see ${url}`);
+	const lines = [...descriptionLines, ...seeLines];
 
 	if (lines.length === 0) {
 		return "";
 	}
 
-	const body = lines.map(line => `${linePrefix}${line}`).join("\n");
+	const body = lines.map(line => (line.startsWith(linePrefix) ? line : `${linePrefix}${line}`)).join("\n");
 	return `${indent}/**\n${body}\n${indent} */\n`;
 };
 

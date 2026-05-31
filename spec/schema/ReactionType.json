@@ -3,5 +3,18 @@
 	"name": "ReactionType",
 	"slug": "reactiontype",
 	"description": "This object describes the type of a reaction. Currently, it can be one of",
-	"members": ["ReactionTypeEmoji", "ReactionTypeCustomEmoji", "ReactionTypePaid"]
+	"variants": [
+		{
+			"name": "ReactionTypeEmoji",
+			"slug": "reactiontypeemoji"
+		},
+		{
+			"name": "ReactionTypeCustomEmoji",
+			"slug": "reactiontypecustomemoji"
+		},
+		{
+			"name": "ReactionTypePaid",
+			"slug": "reactiontypepaid"
+		}
+	]
 }

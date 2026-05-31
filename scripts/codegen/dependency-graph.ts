@@ -36,7 +36,13 @@ export const analyzeDependencies = (
 	}
 
 	for (const union of unions) {
-		edges.set(union.name, union.members.filter(member => names.has(member)).sort());
+		edges.set(
+			union.name,
+			union.variants
+				.map(variant => variant.name)
+				.filter(member => names.has(member))
+				.sort(),
+		);
 	}
 
 	let counter = 0;

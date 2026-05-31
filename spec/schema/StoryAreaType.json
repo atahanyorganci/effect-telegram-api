@@ -3,11 +3,26 @@
 	"name": "StoryAreaType",
 	"slug": "storyareatype",
 	"description": "Describes the type of a clickable area on a story. Currently, it can be one of",
-	"members": [
-		"StoryAreaTypeLocation",
-		"StoryAreaTypeSuggestedReaction",
-		"StoryAreaTypeLink",
-		"StoryAreaTypeWeather",
-		"StoryAreaTypeUniqueGift"
+	"variants": [
+		{
+			"name": "StoryAreaTypeLocation",
+			"slug": "storyareatypelocation"
+		},
+		{
+			"name": "StoryAreaTypeSuggestedReaction",
+			"slug": "storyareatypesuggestedreaction"
+		},
+		{
+			"name": "StoryAreaTypeLink",
+			"slug": "storyareatypelink"
+		},
+		{
+			"name": "StoryAreaTypeWeather",
+			"slug": "storyareatypeweather"
+		},
+		{
+			"name": "StoryAreaTypeUniqueGift",
+			"slug": "storyareatypeuniquegift"
+		}
 	]
 }

@@ -3,5 +3,14 @@
 	"name": "OwnedGift",
 	"slug": "ownedgift",
 	"description": "This object describes a gift received and owned by a user or a chat. Currently, it can be one of",
-	"members": ["OwnedGiftRegular", "OwnedGiftUnique"]
+	"variants": [
+		{
+			"name": "OwnedGiftRegular",
+			"slug": "ownedgiftregular"
+		},
+		{
+			"name": "OwnedGiftUnique",
+			"slug": "ownedgiftunique"
+		}
+	]
 }

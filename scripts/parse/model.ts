@@ -43,12 +43,18 @@ export const ObjectType = Schema.Struct({
 });
 export type ObjectType = Schema.Schema.Type<typeof ObjectType>;
 
+export const UnionVariant = Schema.Struct({
+	name: Schema.String,
+	slug: Schema.String,
+});
+export type UnionVariant = Schema.Schema.Type<typeof UnionVariant>;
+
 export const UnionType = Schema.Struct({
 	kind: Schema.Literal("union"),
 	name: Schema.String,
 	slug: Schema.String,
 	description: Schema.String,
-	members: Schema.Array(Schema.String),
+	variants: Schema.Array(UnionVariant),
 });
 export type UnionType = Schema.Schema.Type<typeof UnionType>;
 

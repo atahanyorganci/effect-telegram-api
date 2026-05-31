@@ -3,13 +3,34 @@
 	"name": "BotCommandScope",
 	"slug": "botcommandscope",
 	"description": "This object represents the scope to which bot commands are applied. Currently, the following 7 scopes are supported:",
-	"members": [
-		"BotCommandScopeDefault",
-		"BotCommandScopeAllPrivateChats",
-		"BotCommandScopeAllGroupChats",
-		"BotCommandScopeAllChatAdministrators",
-		"BotCommandScopeChat",
-		"BotCommandScopeChatAdministrators",
-		"BotCommandScopeChatMember"
+	"variants": [
+		{
+			"name": "BotCommandScopeDefault",
+			"slug": "botcommandscopedefault"
+		},
+		{
+			"name": "BotCommandScopeAllPrivateChats",
+			"slug": "botcommandscopeallprivatechats"
+		},
+		{
+			"name": "BotCommandScopeAllGroupChats",
+			"slug": "botcommandscopeallgroupchats"
+		},
+		{
+			"name": "BotCommandScopeAllChatAdministrators",
+			"slug": "botcommandscopeallchatadministrators"
+		},
+		{
+			"name": "BotCommandScopeChat",
+			"slug": "botcommandscopechat"
+		},
+		{
+			"name": "BotCommandScopeChatAdministrators",
+			"slug": "botcommandscopechatadministrators"
+		},
+		{
+			"name": "BotCommandScopeChatMember",
+			"slug": "botcommandscopechatmember"
+		}
 	]
 }

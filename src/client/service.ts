@@ -71,6 +71,7 @@ export class TelegramClient extends Context.Service<
 		 * Use this method to send answers to callback queries sent from inline
 		 * keyboards. The answer will be displayed to the user as a notification at the
 		 * top of the chat screen or as an alert. On success, True
+		 * @see https://core.telegram.org/bots/api#answercallbackquery
 		 */
 		readonly answerCallbackQuery: (payload: {
 			/**
@@ -113,6 +114,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Use this method to reply to a received guest message. On success, a
 		 * SentGuestMessage object
+		 * @see https://core.telegram.org/bots/api#answerguestquery
 		 */
 		readonly answerGuestQuery: (payload: {
 			/**
@@ -135,6 +137,7 @@ export class TelegramClient extends Context.Service<
 		 * Use this method to set the result of an interaction with a Web App and send
 		 * a corresponding message on behalf of the user to the chat from which the
 		 * query originated. On success, a SentWebAppMessage object
+		 * @see https://core.telegram.org/bots/api#answerwebappquery
 		 */
 		readonly answerWebAppQuery: (payload: {
 			/**
@@ -158,6 +161,7 @@ export class TelegramClient extends Context.Service<
 		 * Use this method to approve a chat join request. The bot must be an
 		 * administrator in the chat for this to work and must have the
 		 * can_invite_users administrator right
+		 * @see https://core.telegram.org/bots/api#approvechatjoinrequest
 		 */
 		readonly approveChatJoinRequest: (payload: {
 			/**
@@ -182,6 +186,7 @@ export class TelegramClient extends Context.Service<
 		 * Use this method to approve a suggested post in a direct messages chat. The
 		 * bot must have the 'can_post_messages' administrator right in the
 		 * corresponding channel chat
+		 * @see https://core.telegram.org/bots/api#approvesuggestedpost
 		 */
 		readonly approveSuggestedPost: (payload: {
 			/**
@@ -213,6 +218,7 @@ export class TelegramClient extends Context.Service<
 		 * chat on their own using invite links, etc., unless unbanned first. The bot
 		 * must be an administrator in the chat for this to work and must have the
 		 * appropriate administrator rights
+		 * @see https://core.telegram.org/bots/api#banchatmember
 		 */
 		readonly banChatMember: (payload: {
 			/**
@@ -252,6 +258,7 @@ export class TelegramClient extends Context.Service<
 		 * messages on behalf of any of their channels. The bot must be an
 		 * administrator in the supergroup or channel for this to work and must have
 		 * the appropriate administrator rights
+		 * @see https://core.telegram.org/bots/api#banchatsenderchat
 		 */
 		readonly banChatSenderChat: (payload: {
 			/**
@@ -277,6 +284,7 @@ export class TelegramClient extends Context.Service<
 		 * server to another. You need to delete the webhook before calling this method
 		 * to ensure that the bot isn't launched again after server restart. The method
 		 * will return error 429 in the first 10 minutes after the bot is launched
+		 * @see https://core.telegram.org/bots/api#close
 		 */
 		readonly close: () => Effect.Effect<
 			true,
@@ -287,6 +295,7 @@ export class TelegramClient extends Context.Service<
 		 * must be an administrator in the chat for this to work and must have the
 		 * can_manage_topics administrator rights, unless it is the creator of the
 		 * topic
+		 * @see https://core.telegram.org/bots/api#closeforumtopic
 		 */
 		readonly closeForumTopic: (payload: {
 			/**
@@ -312,6 +321,7 @@ export class TelegramClient extends Context.Service<
 		 * Use this method to close an open 'General' topic in a forum supergroup chat.
 		 * The bot must be an administrator in the chat for this to work and must have
 		 * the can_manage_topics administrator rights
+		 * @see https://core.telegram.org/bots/api#closegeneralforumtopic
 		 */
 		readonly closeGeneralForumTopic: (payload: {
 			/**
@@ -331,6 +341,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Converts a given regular gift to Telegram Stars. Requires the
 		 * can_convert_gifts_to_stars business bot right
+		 * @see https://core.telegram.org/bots/api#convertgifttostars
 		 */
 		readonly convertGiftToStars: (payload: {
 			/**
@@ -357,6 +368,7 @@ export class TelegramClient extends Context.Service<
 		 * correct_option_id is known to the bot. The method is analogous to the method
 		 * forwardMessage, but the copied message doesn't have a link to the original
 		 * message
+		 * @see https://core.telegram.org/bots/api#copymessage
 		 */
 		readonly copyMessage: (payload: {
 			/**
@@ -464,6 +476,7 @@ export class TelegramClient extends Context.Service<
 		 * method forwardMessages, but the copied messages don't have a link to the
 		 * original message. Album grouping is kept for copied messages. On success, an
 		 * array of MessageId of the sent messages
+		 * @see https://core.telegram.org/bots/api#copymessages
 		 */
 		readonly copyMessages: (payload: {
 			/**
@@ -520,6 +533,7 @@ export class TelegramClient extends Context.Service<
 		 * be an administrator in the chat for this to work and must have the
 		 * appropriate administrator rights. The link can be revoked using the method
 		 * revokeChatInviteLink
+		 * @see https://core.telegram.org/bots/api#createchatinvitelink
 		 */
 		readonly createChatInviteLink: (payload: {
 			/**
@@ -560,6 +574,7 @@ export class TelegramClient extends Context.Service<
 		 * bot must have the can_invite_users administrator rights. The link can be
 		 * edited using the method editChatSubscriptionInviteLink or revoked using the
 		 * method revokeChatInviteLink
+		 * @see https://core.telegram.org/bots/api#createchatsubscriptioninvitelink
 		 */
 		readonly createChatSubscriptionInviteLink: (payload: {
 			/**
@@ -596,6 +611,7 @@ export class TelegramClient extends Context.Service<
 		 * chat with a user. In the case of a supergroup chat the bot must be an
 		 * administrator in the chat for this to work and must have the
 		 * can_manage_topics administrator right
+		 * @see https://core.telegram.org/bots/api#createforumtopic
 		 */
 		readonly createForumTopic: (payload: {
 			/**
@@ -631,6 +647,7 @@ export class TelegramClient extends Context.Service<
 		 * Use this method to decline a chat join request. The bot must be an
 		 * administrator in the chat for this to work and must have the
 		 * can_invite_users administrator right
+		 * @see https://core.telegram.org/bots/api#declinechatjoinrequest
 		 */
 		readonly declineChatJoinRequest: (payload: {
 			/**
@@ -655,6 +672,7 @@ export class TelegramClient extends Context.Service<
 		 * Use this method to decline a suggested post in a direct messages chat. The
 		 * bot must have the 'can_manage_direct_messages' administrator right in the
 		 * corresponding channel chat
+		 * @see https://core.telegram.org/bots/api#declinesuggestedpost
 		 */
 		readonly declineSuggestedPost: (payload: {
 			/**
@@ -681,6 +699,7 @@ export class TelegramClient extends Context.Service<
 		 * Use this method to remove up to 10000 recent reactions in a group or a
 		 * supergroup chat added by a given user or chat. The bot must have the
 		 * 'can_delete_messages' administrator right in the chat
+		 * @see https://core.telegram.org/bots/api#deleteallmessagereactions
 		 */
 		readonly deleteAllMessageReactions: (payload: {
 			/**
@@ -711,6 +730,7 @@ export class TelegramClient extends Context.Service<
 		 * can_delete_sent_messages business bot right to delete messages sent by the
 		 * bot itself, or the can_delete_all_messages business bot right to delete any
 		 * message
+		 * @see https://core.telegram.org/bots/api#deletebusinessmessages
 		 */
 		readonly deleteBusinessMessages: (payload: {
 			/**
@@ -736,6 +756,7 @@ export class TelegramClient extends Context.Service<
 		 * Use this method to delete a chat photo. Photos can't be changed for private
 		 * chats. The bot must be an administrator in the chat for this to work and
 		 * must have the appropriate administrator rights
+		 * @see https://core.telegram.org/bots/api#deletechatphoto
 		 */
 		readonly deleteChatPhoto: (payload: {
 			/**
@@ -758,6 +779,7 @@ export class TelegramClient extends Context.Service<
 		 * appropriate administrator rights. Use the field can_set_sticker_set
 		 * optionally returned in getChat requests to check if the bot can use this
 		 * method
+		 * @see https://core.telegram.org/bots/api#deletechatstickerset
 		 */
 		readonly deleteChatStickerSet: (payload: {
 			/**
@@ -779,6 +801,7 @@ export class TelegramClient extends Context.Service<
 		 * forum supergroup chat or a private chat with a user. In the case of a
 		 * supergroup chat the bot must be an administrator in the chat for this to
 		 * work and must have the can_delete_messages administrator rights
+		 * @see https://core.telegram.org/bots/api#deleteforumtopic
 		 */
 		readonly deleteForumTopic: (payload: {
 			/**
@@ -818,6 +841,7 @@ export class TelegramClient extends Context.Service<
 		 * a channel, it can delete any message there.
 		 * - If the bot has can_manage_direct_messages administrator right in a
 		 * channel, it can delete any message in the corresponding direct messages chat
+		 * @see https://core.telegram.org/bots/api#deletemessage
 		 */
 		readonly deleteMessage: (payload: {
 			/**
@@ -842,6 +866,7 @@ export class TelegramClient extends Context.Service<
 		 * Use this method to remove a reaction from a message in a group or a
 		 * supergroup chat. The bot must have the 'can_delete_messages' administrator
 		 * right in the chat
+		 * @see https://core.telegram.org/bots/api#deletemessagereaction
 		 */
 		readonly deleteMessageReaction: (payload: {
 			/**
@@ -874,6 +899,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Use this method to delete multiple messages simultaneously. If some of the
 		 * specified messages can't be found, they are skipped
+		 * @see https://core.telegram.org/bots/api#deletemessages
 		 */
 		readonly deleteMessages: (payload: {
 			/**
@@ -894,6 +920,7 @@ export class TelegramClient extends Context.Service<
 		 * Use this method to delete the list of the bot's commands for the given scope
 		 * and user language. After deletion, higher level commands will be shown to
 		 * affected users
+		 * @see https://core.telegram.org/bots/api#deletemycommands
 		 */
 		readonly deleteMyCommands: (payload: {
 			/**
@@ -920,6 +947,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Deletes a story previously posted by the bot on behalf of a managed business
 		 * account. Requires the can_manage_stories business bot right
+		 * @see https://core.telegram.org/bots/api#deletestory
 		 */
 		readonly deleteStory: (payload: {
 			/**
@@ -941,6 +969,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Use this method to remove webhook integration if you decide to switch back
 		 * to getUpdates
+		 * @see https://core.telegram.org/bots/api#deletewebhook
 		 */
 		readonly deleteWebhook: (payload: {
 			/**
@@ -955,6 +984,7 @@ export class TelegramClient extends Context.Service<
 		 * Use this method to edit a non-primary invite link created by the bot. The
 		 * bot must be an administrator in the chat for this to work and must have the
 		 * appropriate administrator rights
+		 * @see https://core.telegram.org/bots/api#editchatinvitelink
 		 */
 		readonly editChatInviteLink: (payload: {
 			/**
@@ -996,6 +1026,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Use this method to edit a subscription invite link created by the bot. The
 		 * bot must have the can_invite_users administrator rights
+		 * @see https://core.telegram.org/bots/api#editchatsubscriptioninvitelink
 		 */
 		readonly editChatSubscriptionInviteLink: (payload: {
 			/**
@@ -1026,6 +1057,7 @@ export class TelegramClient extends Context.Service<
 		 * be an administrator in the chat for this to work and must have the
 		 * can_manage_topics administrator rights, unless it is the creator of the
 		 * topic
+		 * @see https://core.telegram.org/bots/api#editforumtopic
 		 */
 		readonly editForumTopic: (payload: {
 			/**
@@ -1063,6 +1095,7 @@ export class TelegramClient extends Context.Service<
 		 * Use this method to edit the name of the 'General' topic in a forum
 		 * supergroup chat. The bot must be an administrator in the chat for this to
 		 * work and must have the can_manage_topics administrator rights
+		 * @see https://core.telegram.org/bots/api#editgeneralforumtopic
 		 */
 		readonly editGeneralForumTopic: (payload: {
 			/**
@@ -1086,6 +1119,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Use this method to edit captions of messages. On success, if the edited
 		 * message is not an inline message, the edited Message
+		 * @see https://core.telegram.org/bots/api#editmessagecaption
 		 */
 		readonly editMessageCaption: (payload: {
 			/**
@@ -1143,6 +1177,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Use this method to edit a checklist on behalf of a connected business
 		 * account. On success, the edited Message
+		 * @see https://core.telegram.org/bots/api#editmessagechecklist
 		 */
 		readonly editMessageChecklist: (payload: {
 			/**
@@ -1176,6 +1211,7 @@ export class TelegramClient extends Context.Service<
 		 * until its live_period expires or editing is explicitly disabled by a call to
 		 * stopMessageLiveLocation. On success, if the edited message is not an inline
 		 * message, the edited Message
+		 * @see https://core.telegram.org/bots/api#editmessagelivelocation
 		 */
 		readonly editMessageLiveLocation: (payload: {
 			/**
@@ -1250,6 +1286,7 @@ export class TelegramClient extends Context.Service<
 		 * otherwise. When an inline message is edited, a new file can't be uploaded;
 		 * use a previously uploaded file via its file_id or specify a URL. On success,
 		 * if the edited message is not an inline message, the edited Message
+		 * @see https://core.telegram.org/bots/api#editmessagemedia
 		 */
 		readonly editMessageMedia: (payload: {
 			/**
@@ -1292,6 +1329,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Use this method to edit only the reply markup of messages. On success, if
 		 * the edited message is not an inline message, the edited Message
+		 * @see https://core.telegram.org/bots/api#editmessagereplymarkup
 		 */
 		readonly editMessageReplyMarkup: (payload: {
 			/**
@@ -1330,6 +1368,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Use this method to edit text and game messages. On success, if the edited
 		 * message is not an inline message, the edited Message
+		 * @see https://core.telegram.org/bots/api#editmessagetext
 		 */
 		readonly editMessageText: (payload: {
 			/**
@@ -1387,6 +1426,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Edits a story previously posted by the bot on behalf of a managed business
 		 * account. Requires the can_manage_stories business bot right
+		 * @see https://core.telegram.org/bots/api#editstory
 		 */
 		readonly editStory: (payload: {
 			/**
@@ -1432,6 +1472,7 @@ export class TelegramClient extends Context.Service<
 		 * previously generated primary link is revoked. The bot must be an
 		 * administrator in the chat for this to work and must have the appropriate
 		 * administrator rights
+		 * @see https://core.telegram.org/bots/api#exportchatinvitelink
 		 */
 		readonly exportChatInviteLink: (payload: {
 			/**
@@ -1453,6 +1494,7 @@ export class TelegramClient extends Context.Service<
 		 * Use this method to forward messages of any kind. Service messages and
 		 * messages with protected content can't be forwarded. On success, the sent
 		 * Message
+		 * @see https://core.telegram.org/bots/api#forwardmessage
 		 */
 		readonly forwardMessage: (payload: {
 			/**
@@ -1521,6 +1563,7 @@ export class TelegramClient extends Context.Service<
 		 * messages and messages with protected content can't be forwarded. Album
 		 * grouping is kept for forwarded messages. On success, an array of MessageId
 		 * of the sent messages
+		 * @see https://core.telegram.org/bots/api#forwardmessages
 		 */
 		readonly forwardMessages: (payload: {
 			/**
@@ -1568,10 +1611,16 @@ export class TelegramClient extends Context.Service<
 			| Errors.TelegramApiError
 			| HttpClientError.HttpClientError
 		>;
+		/**
+		 * @see https://core.telegram.org/bots/api#getavailablegifts
+		 */
 		readonly getAvailableGifts: () => Effect.Effect<
 			Gifts,
 			Errors.NotFound | Errors.Unauthorized | Errors.TelegramApiError | HttpClientError.HttpClientError
 		>;
+		/**
+		 * @see https://core.telegram.org/bots/api#getbusinessaccountgifts
+		 */
 		readonly getBusinessAccountGifts: (payload: {
 			/**
 			 * Unique identifier of the business connection
@@ -1631,6 +1680,9 @@ export class TelegramClient extends Context.Service<
 			| Errors.TelegramApiError
 			| HttpClientError.HttpClientError
 		>;
+		/**
+		 * @see https://core.telegram.org/bots/api#getbusinessaccountstarbalance
+		 */
 		readonly getBusinessAccountStarBalance: (payload: {
 			/**
 			 * Unique identifier of the business connection
@@ -1647,6 +1699,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Use this method to get information about the connection of the bot with a
 		 * business account
+		 * @see https://core.telegram.org/bots/api#getbusinessconnection
 		 */
 		readonly getBusinessConnection: (payload: {
 			/**
@@ -1663,6 +1716,7 @@ export class TelegramClient extends Context.Service<
 		>;
 		/**
 		 * Use this method to get up-to-date information about the chat
+		 * @see https://core.telegram.org/bots/api#getchat
 		 */
 		readonly getChat: (payload: {
 			/**
@@ -1681,6 +1735,7 @@ export class TelegramClient extends Context.Service<
 		>;
 		/**
 		 * Use this method to get a list of administrators in a chat
+		 * @see https://core.telegram.org/bots/api#getchatadministrators
 		 */
 		readonly getChatAdministrators: (payload: {
 			/**
@@ -1702,6 +1757,9 @@ export class TelegramClient extends Context.Service<
 			| Errors.TelegramApiError
 			| HttpClientError.HttpClientError
 		>;
+		/**
+		 * @see https://core.telegram.org/bots/api#getchatgifts
+		 */
 		readonly getChatGifts: (payload: {
 			/**
 			 * Unique identifier for the target chat or username of the target channel in
@@ -1771,6 +1829,7 @@ export class TelegramClient extends Context.Service<
 		 * Use this method to get information about a member of a chat. The method is
 		 * only guaranteed to work for other users if the bot is an administrator in
 		 * the chat
+		 * @see https://core.telegram.org/bots/api#getchatmember
 		 */
 		readonly getChatMember: (payload: {
 			/**
@@ -1796,6 +1855,7 @@ export class TelegramClient extends Context.Service<
 		>;
 		/**
 		 * Use this method to get the number of members in a chat
+		 * @see https://core.telegram.org/bots/api#getchatmembercount
 		 */
 		readonly getChatMemberCount: (payload: {
 			/**
@@ -1815,6 +1875,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Use this method to get the current value of the bot's menu button in a
 		 * private chat, or the default menu button
+		 * @see https://core.telegram.org/bots/api#getchatmenubutton
 		 */
 		readonly getChatMenuButton: (payload: {
 			/**
@@ -1834,6 +1895,7 @@ export class TelegramClient extends Context.Service<
 		 * Use this method to get basic information about a file and prepare it for
 		 * downloading. For the moment, bots can download files of up to 20MB in size.
 		 * On success, a File object
+		 * @see https://core.telegram.org/bots/api#getfile
 		 */
 		readonly getFile: (payload: {
 			/**
@@ -1852,6 +1914,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Use this method to get custom emoji stickers, which can be used as a forum
 		 * topic icon by any user
+		 * @see https://core.telegram.org/bots/api#getforumtopiciconstickers
 		 */
 		readonly getForumTopicIconStickers: () => Effect.Effect<
 			ReadonlyArray<Sticker>,
@@ -1859,6 +1922,7 @@ export class TelegramClient extends Context.Service<
 		>;
 		/**
 		 * Use this method to get the access settings of a managed bot
+		 * @see https://core.telegram.org/bots/api#getmanagedbotaccesssettings
 		 */
 		readonly getManagedBotAccessSettings: (payload: {
 			/**
@@ -1875,6 +1939,7 @@ export class TelegramClient extends Context.Service<
 		>;
 		/**
 		 * Use this method to get the token of a managed bot
+		 * @see https://core.telegram.org/bots/api#getmanagedbottoken
 		 */
 		readonly getManagedBotToken: (payload: {
 			/**
@@ -1891,6 +1956,7 @@ export class TelegramClient extends Context.Service<
 		>;
 		/**
 		 * A simple method for testing your bot's authentication token
+		 * @see https://core.telegram.org/bots/api#getme
 		 */
 		readonly getMe: () => Effect.Effect<
 			User,
@@ -1899,6 +1965,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Use this method to get the current list of the bot's commands for the given
 		 * scope and user language
+		 * @see https://core.telegram.org/bots/api#getmycommands
 		 */
 		readonly getMyCommands: (payload: {
 			/**
@@ -1922,6 +1989,7 @@ export class TelegramClient extends Context.Service<
 		>;
 		/**
 		 * Use this method to get the current default administrator rights of the bot
+		 * @see https://core.telegram.org/bots/api#getmydefaultadministratorrights
 		 */
 		readonly getMyDefaultAdministratorRights: (payload: {
 			/**
@@ -1937,6 +2005,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Use this method to get the current bot description for the given user
 		 * language
+		 * @see https://core.telegram.org/bots/api#getmydescription
 		 */
 		readonly getMyDescription: (payload: {
 			/**
@@ -1949,6 +2018,7 @@ export class TelegramClient extends Context.Service<
 		>;
 		/**
 		 * Use this method to get the current bot name for the given user language
+		 * @see https://core.telegram.org/bots/api#getmyname
 		 */
 		readonly getMyName: (payload: {
 			/**
@@ -1962,6 +2032,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Use this method to get the current bot short description for the given user
 		 * language
+		 * @see https://core.telegram.org/bots/api#getmyshortdescription
 		 */
 		readonly getMyShortDescription: (payload: {
 			/**
@@ -1974,6 +2045,7 @@ export class TelegramClient extends Context.Service<
 		>;
 		/**
 		 * Use this method to receive incoming updates using long polling (wiki)
+		 * @see https://core.telegram.org/bots/api#getupdates
 		 */
 		readonly getUpdates: (payload: {
 			/**
@@ -2016,6 +2088,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Use this method to get the list of boosts added to a chat by a user.
 		 * Requires administrator rights in the chat
+		 * @see https://core.telegram.org/bots/api#getuserchatboosts
 		 */
 		readonly getUserChatBoosts: (payload: {
 			/**
@@ -2038,6 +2111,9 @@ export class TelegramClient extends Context.Service<
 			| Errors.TelegramApiError
 			| HttpClientError.HttpClientError
 		>;
+		/**
+		 * @see https://core.telegram.org/bots/api#getusergifts
+		 */
 		readonly getUserGifts: (payload: {
 			/**
 			 * Unique identifier of the user
@@ -2094,6 +2170,7 @@ export class TelegramClient extends Context.Service<
 		 * Use this method to get the last messages from the personal chat (i.e., the
 		 * chat currently added to their profile) of a given user. On success, an array
 		 * of Message objects
+		 * @see https://core.telegram.org/bots/api#getuserpersonalchatmessages
 		 */
 		readonly getUserPersonalChatMessages: (payload: {
 			/**
@@ -2115,6 +2192,7 @@ export class TelegramClient extends Context.Service<
 		>;
 		/**
 		 * Use this method to get a list of profile audios for a user
+		 * @see https://core.telegram.org/bots/api#getuserprofileaudios
 		 */
 		readonly getUserProfileAudios: (payload: {
 			/**
@@ -2142,6 +2220,7 @@ export class TelegramClient extends Context.Service<
 		>;
 		/**
 		 * Use this method to get a list of profile pictures for a user
+		 * @see https://core.telegram.org/bots/api#getuserprofilephotos
 		 */
 		readonly getUserProfilePhotos: (payload: {
 			/**
@@ -2169,6 +2248,7 @@ export class TelegramClient extends Context.Service<
 		>;
 		/**
 		 * Use this method to get current webhook status
+		 * @see https://core.telegram.org/bots/api#getwebhookinfo
 		 */
 		readonly getWebhookInfo: () => Effect.Effect<
 			WebhookInfo,
@@ -2176,6 +2256,7 @@ export class TelegramClient extends Context.Service<
 		>;
 		/**
 		 * Gifts a Telegram Premium subscription to the given user
+		 * @see https://core.telegram.org/bots/api#giftpremiumsubscription
 		 */
 		readonly giftPremiumSubscription: (payload: {
 			/**
@@ -2225,6 +2306,7 @@ export class TelegramClient extends Context.Service<
 		 * bot must be an administrator in the chat for this to work and must have the
 		 * can_manage_topics administrator rights. The topic will be automatically
 		 * closed if it was open
+		 * @see https://core.telegram.org/bots/api#hidegeneralforumtopic
 		 */
 		readonly hideGeneralForumTopic: (payload: {
 			/**
@@ -2243,6 +2325,7 @@ export class TelegramClient extends Context.Service<
 		>;
 		/**
 		 * Use this method for your bot to leave a group, supergroup or channel
+		 * @see https://core.telegram.org/bots/api#leavechat
 		 */
 		readonly leaveChat: (payload: {
 			/**
@@ -2266,6 +2349,7 @@ export class TelegramClient extends Context.Service<
 		 * otherwise there is no guarantee that the bot will receive updates. After a
 		 * successful call, you can immediately log in on a local server, but will not
 		 * be able to log in back to the cloud Bot API server for 10 minutes
+		 * @see https://core.telegram.org/bots/api#logout
 		 */
 		readonly logOut: () => Effect.Effect<
 			true,
@@ -2277,6 +2361,7 @@ export class TelegramClient extends Context.Service<
 		 * can be pinned. Conversely, the bot must be an administrator with the
 		 * 'can_pin_messages' right or the 'can_edit_messages' right to pin messages in
 		 * groups and channels respectively
+		 * @see https://core.telegram.org/bots/api#pinchatmessage
 		 */
 		readonly pinChatMessage: (payload: {
 			/**
@@ -2311,6 +2396,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Posts a story on behalf of a managed business account. Requires the
 		 * can_manage_stories business bot right
+		 * @see https://core.telegram.org/bots/api#poststory
 		 */
 		readonly postStory: (payload: {
 			/**
@@ -2366,6 +2452,7 @@ export class TelegramClient extends Context.Service<
 		 * The bot must be an administrator in the chat for this to work and must have
 		 * the appropriate administrator rights. Pass False for all boolean parameters
 		 * to demote a user
+		 * @see https://core.telegram.org/bots/api#promotechatmember
 		 */
 		readonly promoteChatMember: (payload: {
 			/**
@@ -2473,6 +2560,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Marks incoming message as read on behalf of a business account. Requires the
 		 * can_read_messages business bot right
+		 * @see https://core.telegram.org/bots/api#readbusinessmessage
 		 */
 		readonly readBusinessMessage: (payload: {
 			/**
@@ -2500,6 +2588,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Removes the current profile photo of a managed business account. Requires
 		 * the can_edit_profile_photo business bot right
+		 * @see https://core.telegram.org/bots/api#removebusinessaccountprofilephoto
 		 */
 		readonly removeBusinessAccountProfilePhoto: (payload: {
 			/**
@@ -2524,6 +2613,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Removes verification from a chat that is currently verified on behalf of the
 		 * organization represented by the bot
+		 * @see https://core.telegram.org/bots/api#removechatverification
 		 */
 		readonly removeChatVerification: (payload: {
 			/**
@@ -2542,6 +2632,7 @@ export class TelegramClient extends Context.Service<
 		>;
 		/**
 		 * Removes the profile photo of the bot
+		 * @see https://core.telegram.org/bots/api#removemyprofilephoto
 		 */
 		readonly removeMyProfilePhoto: () => Effect.Effect<
 			true,
@@ -2550,6 +2641,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Removes verification from a user who is currently verified on behalf of the
 		 * organization represented by the bot
+		 * @see https://core.telegram.org/bots/api#removeuserverification
 		 */
 		readonly removeUserVerification: (payload: {
 			/**
@@ -2570,6 +2662,7 @@ export class TelegramClient extends Context.Service<
 		 * must be an administrator in the chat for this to work and must have the
 		 * can_manage_topics administrator rights, unless it is the creator of the
 		 * topic
+		 * @see https://core.telegram.org/bots/api#reopenforumtopic
 		 */
 		readonly reopenForumTopic: (payload: {
 			/**
@@ -2596,6 +2689,7 @@ export class TelegramClient extends Context.Service<
 		 * chat. The bot must be an administrator in the chat for this to work and must
 		 * have the can_manage_topics administrator rights. The topic will be
 		 * automatically unhidden if it was hidden
+		 * @see https://core.telegram.org/bots/api#reopengeneralforumtopic
 		 */
 		readonly reopenGeneralForumTopic: (payload: {
 			/**
@@ -2615,6 +2709,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Use this method to revoke the current token of a managed bot and generate a
 		 * new one
+		 * @see https://core.telegram.org/bots/api#replacemanagedbottoken
 		 */
 		readonly replaceManagedBotToken: (payload: {
 			/**
@@ -2635,6 +2730,7 @@ export class TelegramClient extends Context.Service<
 		 * story on the source account must have been posted (or reposted) by the bot.
 		 * Requires the can_manage_stories business bot right for both business
 		 * accounts
+		 * @see https://core.telegram.org/bots/api#repoststory
 		 */
 		readonly repostStory: (payload: {
 			/**
@@ -2678,6 +2774,7 @@ export class TelegramClient extends Context.Service<
 		 * administrator in the supergroup for this to work and must have the
 		 * appropriate administrator rights. Pass True for all permissions to lift
 		 * restrictions from a user
+		 * @see https://core.telegram.org/bots/api#restrictchatmember
 		 */
 		readonly restrictChatMember: (payload: {
 			/**
@@ -2722,6 +2819,7 @@ export class TelegramClient extends Context.Service<
 		 * link is revoked, a new link is automatically generated. The bot must be an
 		 * administrator in the chat for this to work and must have the appropriate
 		 * administrator rights
+		 * @see https://core.telegram.org/bots/api#revokechatinvitelink
 		 */
 		readonly revokeChatInviteLink: (payload: {
 			/**
@@ -2744,6 +2842,7 @@ export class TelegramClient extends Context.Service<
 		>;
 		/**
 		 * Stores a message that can be sent by a user of a Mini App
+		 * @see https://core.telegram.org/bots/api#savepreparedinlinemessage
 		 */
 		readonly savePreparedInlineMessage: (payload: {
 			/**
@@ -2781,6 +2880,7 @@ export class TelegramClient extends Context.Service<
 		>;
 		/**
 		 * Stores a keyboard button that can be used by a user within a Mini App
+		 * @see https://core.telegram.org/bots/api#savepreparedkeyboardbutton
 		 */
 		readonly savePreparedKeyboardButton: (payload: {
 			/**
@@ -2803,6 +2903,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Use this method to send animation files (GIF or H.264/MPEG-4 AVC video
 		 * without sound). On success, the sent Message
+		 * @see https://core.telegram.org/bots/api#sendanimation
 		 */
 		readonly sendAnimation: (payload: {
 			/**
@@ -2929,6 +3030,7 @@ export class TelegramClient extends Context.Service<
 		 * Use this method to send audio files, if you want Telegram clients to display
 		 * them in the music player. Your audio must be in the .MP3 or .M4A format. On
 		 * success, the sent Message
+		 * @see https://core.telegram.org/bots/api#sendaudio
 		 */
 		readonly sendAudio: (payload: {
 			/**
@@ -3046,6 +3148,7 @@ export class TelegramClient extends Context.Service<
 		 * Use this method when you need to tell the user that something is happening
 		 * on the bot's side. The status is set for 5 seconds or less (when a message
 		 * arrives from your bot, Telegram clients clear its typing status)
+		 * @see https://core.telegram.org/bots/api#sendchataction
 		 */
 		readonly sendChatAction: (payload: {
 			/**
@@ -3086,6 +3189,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Use this method to send a checklist on behalf of a connected business
 		 * account. On success, the sent Message
+		 * @see https://core.telegram.org/bots/api#sendchecklist
 		 */
 		readonly sendChecklist: (payload: {
 			/**
@@ -3133,6 +3237,7 @@ export class TelegramClient extends Context.Service<
 		>;
 		/**
 		 * Use this method to send phone contacts. On success, the sent Message
+		 * @see https://core.telegram.org/bots/api#sendcontact
 		 */
 		readonly sendContact: (payload: {
 			/**
@@ -3222,6 +3327,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Use this method to send an animated emoji that will display a random value.
 		 * On success, the sent Message
+		 * @see https://core.telegram.org/bots/api#senddice
 		 */
 		readonly sendDice: (payload: {
 			/**
@@ -3301,6 +3407,7 @@ export class TelegramClient extends Context.Service<
 		>;
 		/**
 		 * Use this method to send general files. On success, the sent Message
+		 * @see https://core.telegram.org/bots/api#senddocument
 		 */
 		readonly sendDocument: (payload: {
 			/**
@@ -3411,6 +3518,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Sends a gift to the given user or channel chat. The gift can't be converted
 		 * to Telegram Stars by the receiver
+		 * @see https://core.telegram.org/bots/api#sendgift
 		 */
 		readonly sendGift: (payload: {
 			/**
@@ -3461,6 +3569,7 @@ export class TelegramClient extends Context.Service<
 		>;
 		/**
 		 * Use this method to send live photos. On success, the sent Message
+		 * @see https://core.telegram.org/bots/api#sendlivephoto
 		 */
 		readonly sendLivePhoto: (payload: {
 			/**
@@ -3570,6 +3679,7 @@ export class TelegramClient extends Context.Service<
 		>;
 		/**
 		 * Use this method to send point on the map. On success, the sent Message
+		 * @see https://core.telegram.org/bots/api#sendlocation
 		 */
 		readonly sendLocation: (payload: {
 			/**
@@ -3674,6 +3784,7 @@ export class TelegramClient extends Context.Service<
 		 * audios as an album. Documents and audio files can be only grouped in an
 		 * album with messages of the same type. On success, an array of Message
 		 * objects that were sent
+		 * @see https://core.telegram.org/bots/api#sendmediagroup
 		 */
 		readonly sendMediaGroup: (payload: {
 			/**
@@ -3737,6 +3848,7 @@ export class TelegramClient extends Context.Service<
 		>;
 		/**
 		 * Use this method to send text messages. On success, the sent Message
+		 * @see https://core.telegram.org/bots/api#sendmessage
 		 */
 		readonly sendMessage: (payload: {
 			/**
@@ -3900,6 +4012,7 @@ export class TelegramClient extends Context.Service<
 		 * being generated. Note that the streamed draft is ephemeral and acts as a
 		 * temporary 30-second preview - once the output is finalized, you must call
 		 * sendMessage with the complete message to persist it in the user's chat
+		 * @see https://core.telegram.org/bots/api#sendmessagedraft
 		 */
 		readonly sendMessageDraft: (payload: {
 			/**
@@ -3941,6 +4054,7 @@ export class TelegramClient extends Context.Service<
 		>;
 		/**
 		 * Use this method to send paid media. On success, the sent Message
+		 * @see https://core.telegram.org/bots/api#sendpaidmedia
 		 */
 		readonly sendPaidMedia: (payload: {
 			/**
@@ -4041,6 +4155,7 @@ export class TelegramClient extends Context.Service<
 		>;
 		/**
 		 * Use this method to send photos. On success, the sent Message
+		 * @see https://core.telegram.org/bots/api#sendphoto
 		 */
 		readonly sendPhoto: (payload: {
 			/**
@@ -4144,6 +4259,7 @@ export class TelegramClient extends Context.Service<
 		>;
 		/**
 		 * Use this method to send a native poll. On success, the sent Message
+		 * @see https://core.telegram.org/bots/api#sendpoll
 		 */
 		readonly sendPoll: (payload: {
 			/**
@@ -4331,6 +4447,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Use this method to send information about a venue. On success, the sent
 		 * Message
+		 * @see https://core.telegram.org/bots/api#sendvenue
 		 */
 		readonly sendVenue: (payload: {
 			/**
@@ -4440,6 +4557,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Use this method to send video files, Telegram clients support MPEG4 videos
 		 * (other formats may be sent as Document). On success, the sent Message
+		 * @see https://core.telegram.org/bots/api#sendvideo
 		 */
 		readonly sendVideo: (payload: {
 			/**
@@ -4590,6 +4708,7 @@ export class TelegramClient extends Context.Service<
 		 * As of v.4.0, Telegram clients support rounded square MPEG4 videos of up to 1
 		 * minute long. Use this method to send video messages. On success, the sent
 		 * Message
+		 * @see https://core.telegram.org/bots/api#sendvideonote
 		 */
 		readonly sendVideoNote: (payload: {
 			/**
@@ -4691,6 +4810,7 @@ export class TelegramClient extends Context.Service<
 		 * in an .OGG file encoded with OPUS, or in .MP3 format, or in .M4A format
 		 * (other formats may be sent as Audio or Document). On success, the sent
 		 * Message
+		 * @see https://core.telegram.org/bots/api#sendvoice
 		 */
 		readonly sendVoice: (payload: {
 			/**
@@ -4788,6 +4908,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Changes the bio of a managed business account. Requires the can_change_bio
 		 * business bot right
+		 * @see https://core.telegram.org/bots/api#setbusinessaccountbio
 		 */
 		readonly setBusinessAccountBio: (payload: {
 			/**
@@ -4809,6 +4930,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Changes the privacy settings pertaining to incoming gifts in a managed
 		 * business account. Requires the can_change_gift_settings business bot right
+		 * @see https://core.telegram.org/bots/api#setbusinessaccountgiftsettings
 		 */
 		readonly setBusinessAccountGiftSettings: (payload: {
 			/**
@@ -4835,6 +4957,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Changes the first and last name of a managed business account. Requires the
 		 * can_change_name business bot right
+		 * @see https://core.telegram.org/bots/api#setbusinessaccountname
 		 */
 		readonly setBusinessAccountName: (payload: {
 			/**
@@ -4860,6 +4983,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Changes the profile photo of a managed business account. Requires the
 		 * can_edit_profile_photo business bot right
+		 * @see https://core.telegram.org/bots/api#setbusinessaccountprofilephoto
 		 */
 		readonly setBusinessAccountProfilePhoto: (payload: {
 			/**
@@ -4887,6 +5011,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Changes the username of a managed business account. Requires the
 		 * can_change_username business bot right
+		 * @see https://core.telegram.org/bots/api#setbusinessaccountusername
 		 */
 		readonly setBusinessAccountUsername: (payload: {
 			/**
@@ -4908,6 +5033,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Use this method to set a custom title for an administrator in a supergroup
 		 * promoted by the bot
+		 * @see https://core.telegram.org/bots/api#setchatadministratorcustomtitle
 		 */
 		readonly setChatAdministratorCustomTitle: (payload: {
 			/**
@@ -4937,6 +5063,7 @@ export class TelegramClient extends Context.Service<
 		 * Use this method to change the description of a group, a supergroup or a
 		 * channel. The bot must be an administrator in the chat for this to work and
 		 * must have the appropriate administrator rights
+		 * @see https://core.telegram.org/bots/api#setchatdescription
 		 */
 		readonly setChatDescription: (payload: {
 			/**
@@ -4961,6 +5088,7 @@ export class TelegramClient extends Context.Service<
 		 * Use this method to set a tag for a regular member in a group or a
 		 * supergroup. The bot must be an administrator in the chat for this to work
 		 * and must have the can_manage_tags administrator right
+		 * @see https://core.telegram.org/bots/api#setchatmembertag
 		 */
 		readonly setChatMemberTag: (payload: {
 			/**
@@ -4989,6 +5117,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Use this method to change the bot's menu button in a private chat, or the
 		 * default menu button
+		 * @see https://core.telegram.org/bots/api#setchatmenubutton
 		 */
 		readonly setChatMenuButton: (payload: {
 			/**
@@ -5013,6 +5142,7 @@ export class TelegramClient extends Context.Service<
 		 * Use this method to set default chat permissions for all members. The bot
 		 * must be an administrator in the group or a supergroup for this to work and
 		 * must have the can_restrict_members administrator rights
+		 * @see https://core.telegram.org/bots/api#setchatpermissions
 		 */
 		readonly setChatPermissions: (payload: {
 			/**
@@ -5046,6 +5176,7 @@ export class TelegramClient extends Context.Service<
 		 * Use this method to set a new profile photo for the chat. Photos can't be
 		 * changed for private chats. The bot must be an administrator in the chat for
 		 * this to work and must have the appropriate administrator rights
+		 * @see https://core.telegram.org/bots/api#setchatphoto
 		 */
 		readonly setChatPhoto: (payload: {
 			/**
@@ -5071,6 +5202,7 @@ export class TelegramClient extends Context.Service<
 		 * appropriate administrator rights. Use the field can_set_sticker_set
 		 * optionally returned in getChat requests to check if the bot can use this
 		 * method
+		 * @see https://core.telegram.org/bots/api#setchatstickerset
 		 */
 		readonly setChatStickerSet: (payload: {
 			/**
@@ -5096,6 +5228,7 @@ export class TelegramClient extends Context.Service<
 		 * Use this method to change the title of a chat. Titles can't be changed for
 		 * private chats. The bot must be an administrator in the chat for this to work
 		 * and must have the appropriate administrator rights
+		 * @see https://core.telegram.org/bots/api#setchattitle
 		 */
 		readonly setChatTitle: (payload: {
 			/**
@@ -5118,6 +5251,7 @@ export class TelegramClient extends Context.Service<
 		>;
 		/**
 		 * Use this method to change the access settings of a managed bot
+		 * @see https://core.telegram.org/bots/api#setmanagedbotaccesssettings
 		 */
 		readonly setManagedBotAccessSettings: (payload: {
 			/**
@@ -5148,6 +5282,7 @@ export class TelegramClient extends Context.Service<
 		 * messages of some types can't be reacted to. Automatically forwarded messages
 		 * from a channel to its discussion group have the same available reactions as
 		 * messages in the channel. Bots can't use paid reactions
+		 * @see https://core.telegram.org/bots/api#setmessagereaction
 		 */
 		readonly setMessageReaction: (payload: {
 			/**
@@ -5183,6 +5318,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Use this method to change the list of the bot's commands. See this manual
 		 * for more details about bot commands
+		 * @see https://core.telegram.org/bots/api#setmycommands
 		 */
 		readonly setMyCommands: (payload: {
 			/**
@@ -5219,6 +5355,7 @@ export class TelegramClient extends Context.Service<
 		 * bot when it's added as an administrator to groups or channels. These rights
 		 * will be suggested to users, but they are free to modify the list before
 		 * adding the bot
+		 * @see https://core.telegram.org/bots/api#setmydefaultadministratorrights
 		 */
 		readonly setMyDefaultAdministratorRights: (payload: {
 			/**
@@ -5243,6 +5380,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Use this method to change the bot's description, which is shown in the chat
 		 * with the bot if the chat is empty
+		 * @see https://core.telegram.org/bots/api#setmydescription
 		 */
 		readonly setMyDescription: (payload: {
 			/**
@@ -5265,6 +5403,7 @@ export class TelegramClient extends Context.Service<
 		>;
 		/**
 		 * Use this method to change the bot's name
+		 * @see https://core.telegram.org/bots/api#setmyname
 		 */
 		readonly setMyName: (payload: {
 			/**
@@ -5287,6 +5426,7 @@ export class TelegramClient extends Context.Service<
 		>;
 		/**
 		 * Changes the profile photo of the bot
+		 * @see https://core.telegram.org/bots/api#setmyprofilephoto
 		 */
 		readonly setMyProfilePhoto: (payload: {
 			/**
@@ -5305,6 +5445,7 @@ export class TelegramClient extends Context.Service<
 		 * Use this method to change the bot's short description, which is shown on the
 		 * bot's profile page and is sent together with the link when users share the
 		 * bot
+		 * @see https://core.telegram.org/bots/api#setmyshortdescription
 		 */
 		readonly setMyShortDescription: (payload: {
 			/**
@@ -5329,6 +5470,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Changes the emoji status for a given user that previously allowed the bot to
 		 * manage their emoji status via the Mini App method requestEmojiStatusAccess
+		 * @see https://core.telegram.org/bots/api#setuseremojistatus
 		 */
 		readonly setUserEmojiStatus: (payload: {
 			/**
@@ -5360,6 +5502,7 @@ export class TelegramClient extends Context.Service<
 		 * Update. In case of an unsuccessful request (a request with response HTTP
 		 * status code different from 2XY), we will repeat the request and give up
 		 * after a reasonable amount of attempts
+		 * @see https://core.telegram.org/bots/api#setwebhook
 		 */
 		readonly setWebhook: (payload: {
 			/**
@@ -5415,6 +5558,7 @@ export class TelegramClient extends Context.Service<
 		 * Use this method to stop updating a live location message before live_period
 		 * expires. On success, if the message is not an inline message, the edited
 		 * Message
+		 * @see https://core.telegram.org/bots/api#stopmessagelivelocation
 		 */
 		readonly stopMessageLiveLocation: (payload: {
 			/**
@@ -5453,6 +5597,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Use this method to stop a poll which was sent by the bot. On success, the
 		 * stopped Poll
+		 * @see https://core.telegram.org/bots/api#stoppoll
 		 */
 		readonly stopPoll: (payload: {
 			/**
@@ -5484,6 +5629,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Transfers Telegram Stars from the business account balance to the bot's
 		 * balance. Requires the can_transfer_stars business bot right
+		 * @see https://core.telegram.org/bots/api#transferbusinessaccountstars
 		 */
 		readonly transferBusinessAccountStars: (payload: {
 			/**
@@ -5506,6 +5652,7 @@ export class TelegramClient extends Context.Service<
 		 * Transfers an owned unique gift to another user. Requires the
 		 * can_transfer_and_upgrade_gifts business bot right. Requires
 		 * can_transfer_stars business bot right if the transfer is paid
+		 * @see https://core.telegram.org/bots/api#transfergift
 		 */
 		readonly transferGift: (payload: {
 			/**
@@ -5543,6 +5690,7 @@ export class TelegramClient extends Context.Service<
 		 * user is not a member of the chat, but will be able to join it. So if the
 		 * user is a member of the chat they will also be removed from the chat. If you
 		 * don't want this, use the parameter only_if_banned
+		 * @see https://core.telegram.org/bots/api#unbanchatmember
 		 */
 		readonly unbanChatMember: (payload: {
 			/**
@@ -5571,6 +5719,7 @@ export class TelegramClient extends Context.Service<
 		 * Use this method to unban a previously banned channel chat in a supergroup or
 		 * channel. The bot must be an administrator for this to work and must have the
 		 * appropriate administrator rights
+		 * @see https://core.telegram.org/bots/api#unbanchatsenderchat
 		 */
 		readonly unbanChatSenderChat: (payload: {
 			/**
@@ -5595,6 +5744,7 @@ export class TelegramClient extends Context.Service<
 		 * Use this method to unhide the 'General' topic in a forum supergroup chat.
 		 * The bot must be an administrator in the chat for this to work and must have
 		 * the can_manage_topics administrator rights
+		 * @see https://core.telegram.org/bots/api#unhidegeneralforumtopic
 		 */
 		readonly unhideGeneralForumTopic: (payload: {
 			/**
@@ -5617,6 +5767,7 @@ export class TelegramClient extends Context.Service<
 		 * to unpin all pinned messages. Conversely, the bot must be an administrator
 		 * with the 'can_pin_messages' right or the 'can_edit_messages' right to unpin
 		 * all pinned messages in groups and channels respectively
+		 * @see https://core.telegram.org/bots/api#unpinallchatmessages
 		 */
 		readonly unpinAllChatMessages: (payload: {
 			/**
@@ -5638,6 +5789,7 @@ export class TelegramClient extends Context.Service<
 		 * supergroup chat the bot must be an administrator in the chat for this to
 		 * work and must have the can_pin_messages administrator right in the
 		 * supergroup
+		 * @see https://core.telegram.org/bots/api#unpinallforumtopicmessages
 		 */
 		readonly unpinAllForumTopicMessages: (payload: {
 			/**
@@ -5661,6 +5813,7 @@ export class TelegramClient extends Context.Service<
 		 * Use this method to clear the list of pinned messages in a General forum
 		 * topic. The bot must be an administrator in the chat for this to work and
 		 * must have the can_pin_messages administrator right in the supergroup
+		 * @see https://core.telegram.org/bots/api#unpinallgeneralforumtopicmessages
 		 */
 		readonly unpinAllGeneralForumTopicMessages: (payload: {
 			/**
@@ -5682,6 +5835,7 @@ export class TelegramClient extends Context.Service<
 		 * be unpinned. Conversely, the bot must be an administrator with the
 		 * 'can_pin_messages' right or the 'can_edit_messages' right to unpin messages
 		 * in groups and channels respectively
+		 * @see https://core.telegram.org/bots/api#unpinchatmessage
 		 */
 		readonly unpinChatMessage: (payload: {
 			/**
@@ -5712,6 +5866,7 @@ export class TelegramClient extends Context.Service<
 		 * Upgrades a given regular gift to a unique gift. Requires the
 		 * can_transfer_and_upgrade_gifts business bot right. Additionally requires the
 		 * can_transfer_stars business bot right if the upgrade is paid
+		 * @see https://core.telegram.org/bots/api#upgradegift
 		 */
 		readonly upgradeGift: (payload: {
 			/**
@@ -5746,6 +5901,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Verifies a chat on behalf of the organization which is represented by the
 		 * bot
+		 * @see https://core.telegram.org/bots/api#verifychat
 		 */
 		readonly verifyChat: (payload: {
 			/**
@@ -5772,6 +5928,7 @@ export class TelegramClient extends Context.Service<
 		/**
 		 * Verifies a user on behalf of the organization which is represented by the
 		 * bot
+		 * @see https://core.telegram.org/bots/api#verifyuser
 		 */
 		readonly verifyUser: (payload: {
 			/**

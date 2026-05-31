@@ -3,13 +3,34 @@
 	"name": "InputPollOptionMedia",
 	"slug": "inputpolloptionmedia",
 	"description": "This object represents the content of a poll option to be sent. It should be one of",
-	"members": [
-		"InputMediaAnimation",
-		"InputMediaLivePhoto",
-		"InputMediaLocation",
-		"InputMediaPhoto",
-		"InputMediaSticker",
-		"InputMediaVenue",
-		"InputMediaVideo"
+	"variants": [
+		{
+			"name": "InputMediaAnimation",
+			"slug": "inputmediaanimation"
+		},
+		{
+			"name": "InputMediaLivePhoto",
+			"slug": "inputmedialivephoto"
+		},
+		{
+			"name": "InputMediaLocation",
+			"slug": "inputmedialocation"
+		},
+		{
+			"name": "InputMediaPhoto",
+			"slug": "inputmediaphoto"
+		},
+		{
+			"name": "InputMediaSticker",
+			"slug": "inputmediasticker"
+		},
+		{
+			"name": "InputMediaVenue",
+			"slug": "inputmediavenue"
+		},
+		{
+			"name": "InputMediaVideo",
+			"slug": "inputmediavideo"
+		}
 	]
 }

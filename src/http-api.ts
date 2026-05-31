@@ -9,6 +9,7 @@ import * as Objects from "./schema.ts";
  * Use this method to send answers to callback queries sent from inline
  * keyboards. The answer will be displayed to the user as a notification at the
  * top of the chat screen or as an alert. On success, True
+ * @see https://core.telegram.org/bots/api#answercallbackquery
  */
 export const answerCallbackQuery = HttpApiEndpoint.post("answerCallbackQuery", "/answerCallbackQuery", {
 	payload: Schema.Struct({
@@ -84,6 +85,7 @@ export const answerCallbackQuery = HttpApiEndpoint.post("answerCallbackQuery", "
 /**
  * Use this method to reply to a received guest message. On success, a
  * SentGuestMessage object
+ * @see https://core.telegram.org/bots/api#answerguestquery
  */
 export const answerGuestQuery = HttpApiEndpoint.post("answerGuestQuery", "/answerGuestQuery", {
 	payload: Schema.Struct({
@@ -121,6 +123,7 @@ export const answerGuestQuery = HttpApiEndpoint.post("answerGuestQuery", "/answe
  * Use this method to set the result of an interaction with a Web App and send a
  * corresponding message on behalf of the user to the chat from which the query
  * originated. On success, a SentWebAppMessage object
+ * @see https://core.telegram.org/bots/api#answerwebappquery
  */
 export const answerWebAppQuery = HttpApiEndpoint.post("answerWebAppQuery", "/answerWebAppQuery", {
 	payload: Schema.Struct({
@@ -160,6 +163,7 @@ export const answerWebAppQuery = HttpApiEndpoint.post("answerWebAppQuery", "/ans
  * Use this method to approve a chat join request. The bot must be an
  * administrator in the chat for this to work and must have the can_invite_users
  * administrator right
+ * @see https://core.telegram.org/bots/api#approvechatjoinrequest
  */
 export const approveChatJoinRequest = HttpApiEndpoint.post("approveChatJoinRequest", "/approveChatJoinRequest", {
 	payload: Schema.Struct({
@@ -200,6 +204,7 @@ export const approveChatJoinRequest = HttpApiEndpoint.post("approveChatJoinReque
  * Use this method to approve a suggested post in a direct messages chat. The
  * bot must have the 'can_post_messages' administrator right in the
  * corresponding channel chat
+ * @see https://core.telegram.org/bots/api#approvesuggestedpost
  */
 export const approveSuggestedPost = HttpApiEndpoint.post("approveSuggestedPost", "/approveSuggestedPost", {
 	payload: Schema.Struct({
@@ -248,6 +253,7 @@ export const approveSuggestedPost = HttpApiEndpoint.post("approveSuggestedPost",
  * chat on their own using invite links, etc., unless unbanned first. The bot
  * must be an administrator in the chat for this to work and must have the
  * appropriate administrator rights
+ * @see https://core.telegram.org/bots/api#banchatmember
  */
 export const banChatMember = HttpApiEndpoint.post("banChatMember", "/banChatMember", {
 	payload: Schema.Struct({
@@ -314,6 +320,7 @@ export const banChatMember = HttpApiEndpoint.post("banChatMember", "/banChatMemb
  * on behalf of any of their channels. The bot must be an administrator in the
  * supergroup or channel for this to work and must have the appropriate
  * administrator rights
+ * @see https://core.telegram.org/bots/api#banchatsenderchat
  */
 export const banChatSenderChat = HttpApiEndpoint.post("banChatSenderChat", "/banChatSenderChat", {
 	payload: Schema.Struct({
@@ -355,6 +362,7 @@ export const banChatSenderChat = HttpApiEndpoint.post("banChatSenderChat", "/ban
  * server to another. You need to delete the webhook before calling this method
  * to ensure that the bot isn't launched again after server restart. The method
  * will return error 429 in the first 10 minutes after the bot is launched
+ * @see https://core.telegram.org/bots/api#close
  */
 export const close = HttpApiEndpoint.post("close", "/close", {
 	success: Schema.Struct({
@@ -378,6 +386,7 @@ export const close = HttpApiEndpoint.post("close", "/close", {
  * Use this method to close an open topic in a forum supergroup chat. The bot
  * must be an administrator in the chat for this to work and must have the
  * can_manage_topics administrator rights, unless it is the creator of the topic
+ * @see https://core.telegram.org/bots/api#closeforumtopic
  */
 export const closeForumTopic = HttpApiEndpoint.post("closeForumTopic", "/closeForumTopic", {
 	payload: Schema.Struct({
@@ -426,6 +435,7 @@ export const closeForumTopic = HttpApiEndpoint.post("closeForumTopic", "/closeFo
  * Use this method to close an open 'General' topic in a forum supergroup chat.
  * The bot must be an administrator in the chat for this to work and must have
  * the can_manage_topics administrator rights
+ * @see https://core.telegram.org/bots/api#closegeneralforumtopic
  */
 export const closeGeneralForumTopic = HttpApiEndpoint.post("closeGeneralForumTopic", "/closeGeneralForumTopic", {
 	payload: Schema.Struct({
@@ -462,6 +472,7 @@ export const closeGeneralForumTopic = HttpApiEndpoint.post("closeGeneralForumTop
 /**
  * Converts a given regular gift to Telegram Stars. Requires the
  * can_convert_gifts_to_stars business bot right
+ * @see https://core.telegram.org/bots/api#convertgifttostars
  */
 export const convertGiftToStars = HttpApiEndpoint.post("convertGiftToStars", "/convertGiftToStars", {
 	payload: Schema.Struct({
@@ -506,6 +517,7 @@ export const convertGiftToStars = HttpApiEndpoint.post("convertGiftToStars", "/c
  * correct_option_id is known to the bot. The method is analogous to the method
  * forwardMessage, but the copied message doesn't have a link to the original
  * message
+ * @see https://core.telegram.org/bots/api#copymessage
  */
 export const copyMessage = HttpApiEndpoint.post("copyMessage", "/copyMessage", {
 	payload: Schema.Struct({
@@ -699,6 +711,7 @@ export const copyMessage = HttpApiEndpoint.post("copyMessage", "/copyMessage", {
  * method forwardMessages, but the copied messages don't have a link to the
  * original message. Album grouping is kept for copied messages. On success, an
  * array of MessageId of the sent messages
+ * @see https://core.telegram.org/bots/api#copymessages
  */
 export const copyMessages = HttpApiEndpoint.post("copyMessages", "/copyMessages", {
 	payload: Schema.Struct({
@@ -798,6 +811,7 @@ export const copyMessages = HttpApiEndpoint.post("copyMessages", "/copyMessages"
  * be an administrator in the chat for this to work and must have the
  * appropriate administrator rights. The link can be revoked using the method
  * revokeChatInviteLink
+ * @see https://core.telegram.org/bots/api#createchatinvitelink
  */
 export const createChatInviteLink = HttpApiEndpoint.post("createChatInviteLink", "/createChatInviteLink", {
 	payload: Schema.Struct({
@@ -870,6 +884,7 @@ export const createChatInviteLink = HttpApiEndpoint.post("createChatInviteLink",
  * bot must have the can_invite_users administrator rights. The link can be
  * edited using the method editChatSubscriptionInviteLink or revoked using the
  * method revokeChatInviteLink
+ * @see https://core.telegram.org/bots/api#createchatsubscriptioninvitelink
  */
 export const createChatSubscriptionInviteLink = HttpApiEndpoint.post(
 	"createChatSubscriptionInviteLink",
@@ -941,6 +956,7 @@ export const createChatSubscriptionInviteLink = HttpApiEndpoint.post(
  * chat with a user. In the case of a supergroup chat the bot must be an
  * administrator in the chat for this to work and must have the
  * can_manage_topics administrator right
+ * @see https://core.telegram.org/bots/api#createforumtopic
  */
 export const createForumTopic = HttpApiEndpoint.post("createForumTopic", "/createForumTopic", {
 	payload: Schema.Struct({
@@ -1007,6 +1023,7 @@ export const createForumTopic = HttpApiEndpoint.post("createForumTopic", "/creat
  * Use this method to decline a chat join request. The bot must be an
  * administrator in the chat for this to work and must have the can_invite_users
  * administrator right
+ * @see https://core.telegram.org/bots/api#declinechatjoinrequest
  */
 export const declineChatJoinRequest = HttpApiEndpoint.post("declineChatJoinRequest", "/declineChatJoinRequest", {
 	payload: Schema.Struct({
@@ -1047,6 +1064,7 @@ export const declineChatJoinRequest = HttpApiEndpoint.post("declineChatJoinReque
  * Use this method to decline a suggested post in a direct messages chat. The
  * bot must have the 'can_manage_direct_messages' administrator right in the
  * corresponding channel chat
+ * @see https://core.telegram.org/bots/api#declinesuggestedpost
  */
 export const declineSuggestedPost = HttpApiEndpoint.post("declineSuggestedPost", "/declineSuggestedPost", {
 	payload: Schema.Struct({
@@ -1087,6 +1105,7 @@ export const declineSuggestedPost = HttpApiEndpoint.post("declineSuggestedPost",
  * Use this method to remove up to 10000 recent reactions in a group or a
  * supergroup chat added by a given user or chat. The bot must have the
  * 'can_delete_messages' administrator right in the chat
+ * @see https://core.telegram.org/bots/api#deleteallmessagereactions
  */
 export const deleteAllMessageReactions = HttpApiEndpoint.post(
 	"deleteAllMessageReactions",
@@ -1146,6 +1165,7 @@ export const deleteAllMessageReactions = HttpApiEndpoint.post(
  * can_delete_sent_messages business bot right to delete messages sent by the
  * bot itself, or the can_delete_all_messages business bot right to delete any
  * message
+ * @see https://core.telegram.org/bots/api#deletebusinessmessages
  */
 export const deleteBusinessMessages = HttpApiEndpoint.post("deleteBusinessMessages", "/deleteBusinessMessages", {
 	payload: Schema.Struct({
@@ -1196,6 +1216,7 @@ export const deleteBusinessMessages = HttpApiEndpoint.post("deleteBusinessMessag
  * Use this method to delete a chat photo. Photos can't be changed for private
  * chats. The bot must be an administrator in the chat for this to work and must
  * have the appropriate administrator rights
+ * @see https://core.telegram.org/bots/api#deletechatphoto
  */
 export const deleteChatPhoto = HttpApiEndpoint.post("deleteChatPhoto", "/deleteChatPhoto", {
 	payload: Schema.Struct({
@@ -1234,6 +1255,7 @@ export const deleteChatPhoto = HttpApiEndpoint.post("deleteChatPhoto", "/deleteC
  * appropriate administrator rights. Use the field can_set_sticker_set
  * optionally returned in getChat requests to check if the bot can use this
  * method
+ * @see https://core.telegram.org/bots/api#deletechatstickerset
  */
 export const deleteChatStickerSet = HttpApiEndpoint.post("deleteChatStickerSet", "/deleteChatStickerSet", {
 	payload: Schema.Struct({
@@ -1277,6 +1299,7 @@ export const deleteChatStickerSet = HttpApiEndpoint.post("deleteChatStickerSet",
  * forum supergroup chat or a private chat with a user. In the case of a
  * supergroup chat the bot must be an administrator in the chat for this to work
  * and must have the can_delete_messages administrator rights
+ * @see https://core.telegram.org/bots/api#deleteforumtopic
  */
 export const deleteForumTopic = HttpApiEndpoint.post("deleteForumTopic", "/deleteForumTopic", {
 	payload: Schema.Struct({
@@ -1334,6 +1357,7 @@ export const deleteForumTopic = HttpApiEndpoint.post("deleteForumTopic", "/delet
  * channel, it can delete any message there.
  * - If the bot has can_manage_direct_messages administrator right in a channel,
  * it can delete any message in the corresponding direct messages chat
+ * @see https://core.telegram.org/bots/api#deletemessage
  */
 export const deleteMessage = HttpApiEndpoint.post("deleteMessage", "/deleteMessage", {
 	payload: Schema.Struct({
@@ -1375,6 +1399,7 @@ export const deleteMessage = HttpApiEndpoint.post("deleteMessage", "/deleteMessa
  * Use this method to remove a reaction from a message in a group or a
  * supergroup chat. The bot must have the 'can_delete_messages' administrator
  * right in the chat
+ * @see https://core.telegram.org/bots/api#deletemessagereaction
  */
 export const deleteMessageReaction = HttpApiEndpoint.post("deleteMessageReaction", "/deleteMessageReaction", {
 	payload: Schema.Struct({
@@ -1436,6 +1461,7 @@ export const deleteMessageReaction = HttpApiEndpoint.post("deleteMessageReaction
 /**
  * Use this method to delete multiple messages simultaneously. If some of the
  * specified messages can't be found, they are skipped
+ * @see https://core.telegram.org/bots/api#deletemessages
  */
 export const deleteMessages = HttpApiEndpoint.post("deleteMessages", "/deleteMessages", {
 	payload: Schema.Struct({
@@ -1481,6 +1507,7 @@ export const deleteMessages = HttpApiEndpoint.post("deleteMessages", "/deleteMes
  * Use this method to delete the list of the bot's commands for the given scope
  * and user language. After deletion, higher level commands will be shown to
  * affected users
+ * @see https://core.telegram.org/bots/api#deletemycommands
  */
 export const deleteMyCommands = HttpApiEndpoint.post("deleteMyCommands", "/deleteMyCommands", {
 	payload: Schema.Struct({
@@ -1541,6 +1568,7 @@ export const deleteMyCommands = HttpApiEndpoint.post("deleteMyCommands", "/delet
 /**
  * Deletes a story previously posted by the bot on behalf of a managed business
  * account. Requires the can_manage_stories business bot right
+ * @see https://core.telegram.org/bots/api#deletestory
  */
 export const deleteStory = HttpApiEndpoint.post("deleteStory", "/deleteStory", {
 	payload: Schema.Struct({
@@ -1576,6 +1604,7 @@ export const deleteStory = HttpApiEndpoint.post("deleteStory", "/deleteStory", {
 /**
  * Use this method to remove webhook integration if you decide to switch back to
  * getUpdates
+ * @see https://core.telegram.org/bots/api#deletewebhook
  */
 export const deleteWebhook = HttpApiEndpoint.post("deleteWebhook", "/deleteWebhook", {
 	payload: Schema.Struct({
@@ -1606,6 +1635,7 @@ export const deleteWebhook = HttpApiEndpoint.post("deleteWebhook", "/deleteWebho
  * Use this method to edit a non-primary invite link created by the bot. The bot
  * must be an administrator in the chat for this to work and must have the
  * appropriate administrator rights
+ * @see https://core.telegram.org/bots/api#editchatinvitelink
  */
 export const editChatInviteLink = HttpApiEndpoint.post("editChatInviteLink", "/editChatInviteLink", {
 	payload: Schema.Struct({
@@ -1675,6 +1705,7 @@ export const editChatInviteLink = HttpApiEndpoint.post("editChatInviteLink", "/e
 /**
  * Use this method to edit a subscription invite link created by the bot. The
  * bot must have the can_invite_users administrator rights
+ * @see https://core.telegram.org/bots/api#editchatsubscriptioninvitelink
  */
 export const editChatSubscriptionInviteLink = HttpApiEndpoint.post(
 	"editChatSubscriptionInviteLink",
@@ -1725,6 +1756,7 @@ export const editChatSubscriptionInviteLink = HttpApiEndpoint.post(
  * or a private chat with a user. In the case of a supergroup chat the bot must
  * be an administrator in the chat for this to work and must have the
  * can_manage_topics administrator rights, unless it is the creator of the topic
+ * @see https://core.telegram.org/bots/api#editforumtopic
  */
 export const editForumTopic = HttpApiEndpoint.post("editForumTopic", "/editForumTopic", {
 	payload: Schema.Struct({
@@ -1791,6 +1823,7 @@ export const editForumTopic = HttpApiEndpoint.post("editForumTopic", "/editForum
  * Use this method to edit the name of the 'General' topic in a forum supergroup
  * chat. The bot must be an administrator in the chat for this to work and must
  * have the can_manage_topics administrator rights
+ * @see https://core.telegram.org/bots/api#editgeneralforumtopic
  */
 export const editGeneralForumTopic = HttpApiEndpoint.post("editGeneralForumTopic", "/editGeneralForumTopic", {
 	payload: Schema.Struct({
@@ -1831,6 +1864,7 @@ export const editGeneralForumTopic = HttpApiEndpoint.post("editGeneralForumTopic
 /**
  * Use this method to edit captions of messages. On success, if the edited
  * message is not an inline message, the edited Message
+ * @see https://core.telegram.org/bots/api#editmessagecaption
  */
 export const editMessageCaption = HttpApiEndpoint.post("editMessageCaption", "/editMessageCaption", {
 	payload: Schema.Struct({
@@ -1936,6 +1970,7 @@ export const editMessageCaption = HttpApiEndpoint.post("editMessageCaption", "/e
 /**
  * Use this method to edit a checklist on behalf of a connected business
  * account. On success, the edited Message
+ * @see https://core.telegram.org/bots/api#editmessagechecklist
  */
 export const editMessageChecklist = HttpApiEndpoint.post("editMessageChecklist", "/editMessageChecklist", {
 	payload: Schema.Struct({
@@ -1996,6 +2031,7 @@ export const editMessageChecklist = HttpApiEndpoint.post("editMessageChecklist",
  * until its live_period expires or editing is explicitly disabled by a call to
  * stopMessageLiveLocation. On success, if the edited message is not an inline
  * message, the edited Message
+ * @see https://core.telegram.org/bots/api#editmessagelivelocation
  */
 export const editMessageLiveLocation = HttpApiEndpoint.post("editMessageLiveLocation", "/editMessageLiveLocation", {
 	payload: Schema.Struct({
@@ -2118,6 +2154,7 @@ export const editMessageLiveLocation = HttpApiEndpoint.post("editMessageLiveLoca
  * otherwise. When an inline message is edited, a new file can't be uploaded;
  * use a previously uploaded file via its file_id or specify a URL. On success,
  * if the edited message is not an inline message, the edited Message
+ * @see https://core.telegram.org/bots/api#editmessagemedia
  */
 export const editMessageMedia = HttpApiEndpoint.post("editMessageMedia", "/editMessageMedia", {
 	payload: Schema.Struct({
@@ -2194,6 +2231,7 @@ export const editMessageMedia = HttpApiEndpoint.post("editMessageMedia", "/editM
 /**
  * Use this method to edit only the reply markup of messages. On success, if the
  * edited message is not an inline message, the edited Message
+ * @see https://core.telegram.org/bots/api#editmessagereplymarkup
  */
 export const editMessageReplyMarkup = HttpApiEndpoint.post("editMessageReplyMarkup", "/editMessageReplyMarkup", {
 	payload: Schema.Struct({
@@ -2264,6 +2302,7 @@ export const editMessageReplyMarkup = HttpApiEndpoint.post("editMessageReplyMark
 /**
  * Use this method to edit text and game messages. On success, if the edited
  * message is not an inline message, the edited Message
+ * @see https://core.telegram.org/bots/api#editmessagetext
  */
 export const editMessageText = HttpApiEndpoint.post("editMessageText", "/editMessageText", {
 	payload: Schema.Struct({
@@ -2366,6 +2405,7 @@ export const editMessageText = HttpApiEndpoint.post("editMessageText", "/editMes
 /**
  * Edits a story previously posted by the bot on behalf of a managed business
  * account. Requires the can_manage_stories business bot right
+ * @see https://core.telegram.org/bots/api#editstory
  */
 export const editStory = HttpApiEndpoint.post("editStory", "/editStory", {
 	payload: Schema.Struct({
@@ -2438,6 +2478,7 @@ export const editStory = HttpApiEndpoint.post("editStory", "/editStory", {
  * previously generated primary link is revoked. The bot must be an
  * administrator in the chat for this to work and must have the appropriate
  * administrator rights
+ * @see https://core.telegram.org/bots/api#exportchatinvitelink
  */
 export const exportChatInviteLink = HttpApiEndpoint.post("exportChatInviteLink", "/exportChatInviteLink", {
 	payload: Schema.Struct({
@@ -2479,6 +2520,7 @@ export const exportChatInviteLink = HttpApiEndpoint.post("exportChatInviteLink",
  * Use this method to forward messages of any kind. Service messages and
  * messages with protected content can't be forwarded. On success, the sent
  * Message
+ * @see https://core.telegram.org/bots/api#forwardmessage
  */
 export const forwardMessage = HttpApiEndpoint.post("forwardMessage", "/forwardMessage", {
 	payload: Schema.Struct({
@@ -2597,6 +2639,7 @@ export const forwardMessage = HttpApiEndpoint.post("forwardMessage", "/forwardMe
  * messages and messages with protected content can't be forwarded. Album
  * grouping is kept for forwarded messages. On success, an array of MessageId of
  * the sent messages
+ * @see https://core.telegram.org/bots/api#forwardmessages
  */
 export const forwardMessages = HttpApiEndpoint.post("forwardMessages", "/forwardMessages", {
 	payload: Schema.Struct({
@@ -2685,6 +2728,9 @@ export const forwardMessages = HttpApiEndpoint.post("forwardMessages", "/forward
 	],
 });
 
+/**
+ * @see https://core.telegram.org/bots/api#getavailablegifts
+ */
 export const getAvailableGifts = HttpApiEndpoint.post("getAvailableGifts", "/getAvailableGifts", {
 	success: Schema.Struct({
 		ok: Schema.Literal(true),
@@ -2696,6 +2742,9 @@ export const getAvailableGifts = HttpApiEndpoint.post("getAvailableGifts", "/get
 	],
 });
 
+/**
+ * @see https://core.telegram.org/bots/api#getbusinessaccountgifts
+ */
 export const getBusinessAccountGifts = HttpApiEndpoint.post("getBusinessAccountGifts", "/getBusinessAccountGifts", {
 	payload: Schema.Struct({
 		/**
@@ -2797,6 +2846,9 @@ export const getBusinessAccountGifts = HttpApiEndpoint.post("getBusinessAccountG
 	],
 });
 
+/**
+ * @see https://core.telegram.org/bots/api#getbusinessaccountstarbalance
+ */
 export const getBusinessAccountStarBalance = HttpApiEndpoint.post(
 	"getBusinessAccountStarBalance",
 	"/getBusinessAccountStarBalance",
@@ -2828,6 +2880,7 @@ export const getBusinessAccountStarBalance = HttpApiEndpoint.post(
 /**
  * Use this method to get information about the connection of the bot with a
  * business account
+ * @see https://core.telegram.org/bots/api#getbusinessconnection
  */
 export const getBusinessConnection = HttpApiEndpoint.post("getBusinessConnection", "/getBusinessConnection", {
 	payload: Schema.Struct({
@@ -2857,6 +2910,7 @@ export const getBusinessConnection = HttpApiEndpoint.post("getBusinessConnection
 
 /**
  * Use this method to get up-to-date information about the chat
+ * @see https://core.telegram.org/bots/api#getchat
  */
 export const getChat = HttpApiEndpoint.post("getChat", "/getChat", {
 	payload: Schema.Struct({
@@ -2889,6 +2943,7 @@ export const getChat = HttpApiEndpoint.post("getChat", "/getChat", {
 
 /**
  * Use this method to get a list of administrators in a chat
+ * @see https://core.telegram.org/bots/api#getchatadministrators
  */
 export const getChatAdministrators = HttpApiEndpoint.post("getChatAdministrators", "/getChatAdministrators", {
 	payload: Schema.Struct({
@@ -2929,6 +2984,9 @@ export const getChatAdministrators = HttpApiEndpoint.post("getChatAdministrators
 	],
 });
 
+/**
+ * @see https://core.telegram.org/bots/api#getchatgifts
+ */
 export const getChatGifts = HttpApiEndpoint.post("getChatGifts", "/getChatGifts", {
 	payload: Schema.Struct({
 		/**
@@ -3048,6 +3106,7 @@ export const getChatGifts = HttpApiEndpoint.post("getChatGifts", "/getChatGifts"
  * Use this method to get information about a member of a chat. The method is
  * only guaranteed to work for other users if the bot is an administrator in the
  * chat
+ * @see https://core.telegram.org/bots/api#getchatmember
  */
 export const getChatMember = HttpApiEndpoint.post("getChatMember", "/getChatMember", {
 	payload: Schema.Struct({
@@ -3090,6 +3149,7 @@ export const getChatMember = HttpApiEndpoint.post("getChatMember", "/getChatMemb
 
 /**
  * Use this method to get the number of members in a chat
+ * @see https://core.telegram.org/bots/api#getchatmembercount
  */
 export const getChatMemberCount = HttpApiEndpoint.post("getChatMemberCount", "/getChatMemberCount", {
 	payload: Schema.Struct({
@@ -3123,6 +3183,7 @@ export const getChatMemberCount = HttpApiEndpoint.post("getChatMemberCount", "/g
 /**
  * Use this method to get the current value of the bot's menu button in a
  * private chat, or the default menu button
+ * @see https://core.telegram.org/bots/api#getchatmenubutton
  */
 export const getChatMenuButton = HttpApiEndpoint.post("getChatMenuButton", "/getChatMenuButton", {
 	payload: Schema.Struct({
@@ -3159,6 +3220,7 @@ export const getChatMenuButton = HttpApiEndpoint.post("getChatMenuButton", "/get
  * Use this method to get basic information about a file and prepare it for
  * downloading. For the moment, bots can download files of up to 20MB in size.
  * On success, a File object
+ * @see https://core.telegram.org/bots/api#getfile
  */
 export const getFile = HttpApiEndpoint.post("getFile", "/getFile", {
 	payload: Schema.Struct({
@@ -3189,6 +3251,7 @@ export const getFile = HttpApiEndpoint.post("getFile", "/getFile", {
 /**
  * Use this method to get custom emoji stickers, which can be used as a forum
  * topic icon by any user
+ * @see https://core.telegram.org/bots/api#getforumtopiciconstickers
  */
 export const getForumTopicIconStickers = HttpApiEndpoint.post(
 	"getForumTopicIconStickers",
@@ -3214,6 +3277,7 @@ export const getForumTopicIconStickers = HttpApiEndpoint.post(
 
 /**
  * Use this method to get the access settings of a managed bot
+ * @see https://core.telegram.org/bots/api#getmanagedbotaccesssettings
  */
 export const getManagedBotAccessSettings = HttpApiEndpoint.post(
 	"getManagedBotAccessSettings",
@@ -3245,6 +3309,7 @@ export const getManagedBotAccessSettings = HttpApiEndpoint.post(
 
 /**
  * Use this method to get the token of a managed bot
+ * @see https://core.telegram.org/bots/api#getmanagedbottoken
  */
 export const getManagedBotToken = HttpApiEndpoint.post("getManagedBotToken", "/getManagedBotToken", {
 	payload: Schema.Struct({
@@ -3272,6 +3337,7 @@ export const getManagedBotToken = HttpApiEndpoint.post("getManagedBotToken", "/g
 
 /**
  * A simple method for testing your bot's authentication token
+ * @see https://core.telegram.org/bots/api#getme
  */
 export const getMe = HttpApiEndpoint.post("getMe", "/getMe", {
 	success: Schema.Struct({
@@ -3291,6 +3357,7 @@ export const getMe = HttpApiEndpoint.post("getMe", "/getMe", {
 /**
  * Use this method to get the current list of the bot's commands for the given
  * scope and user language
+ * @see https://core.telegram.org/bots/api#getmycommands
  */
 export const getMyCommands = HttpApiEndpoint.post("getMyCommands", "/getMyCommands", {
 	payload: Schema.Struct({
@@ -3344,6 +3411,7 @@ export const getMyCommands = HttpApiEndpoint.post("getMyCommands", "/getMyComman
 
 /**
  * Use this method to get the current default administrator rights of the bot
+ * @see https://core.telegram.org/bots/api#getmydefaultadministratorrights
  */
 export const getMyDefaultAdministratorRights = HttpApiEndpoint.post(
 	"getMyDefaultAdministratorRights",
@@ -3380,6 +3448,7 @@ export const getMyDefaultAdministratorRights = HttpApiEndpoint.post(
 /**
  * Use this method to get the current bot description for the given user
  * language
+ * @see https://core.telegram.org/bots/api#getmydescription
  */
 export const getMyDescription = HttpApiEndpoint.post("getMyDescription", "/getMyDescription", {
 	payload: Schema.Struct({
@@ -3406,6 +3475,7 @@ export const getMyDescription = HttpApiEndpoint.post("getMyDescription", "/getMy
 
 /**
  * Use this method to get the current bot name for the given user language
+ * @see https://core.telegram.org/bots/api#getmyname
  */
 export const getMyName = HttpApiEndpoint.post("getMyName", "/getMyName", {
 	payload: Schema.Struct({
@@ -3433,6 +3503,7 @@ export const getMyName = HttpApiEndpoint.post("getMyName", "/getMyName", {
 /**
  * Use this method to get the current bot short description for the given user
  * language
+ * @see https://core.telegram.org/bots/api#getmyshortdescription
  */
 export const getMyShortDescription = HttpApiEndpoint.post("getMyShortDescription", "/getMyShortDescription", {
 	payload: Schema.Struct({
@@ -3461,6 +3532,7 @@ export const getMyShortDescription = HttpApiEndpoint.post("getMyShortDescription
 
 /**
  * Use this method to receive incoming updates using long polling (wiki)
+ * @see https://core.telegram.org/bots/api#getupdates
  */
 export const getUpdates = HttpApiEndpoint.post("getUpdates", "/getUpdates", {
 	payload: Schema.Struct({
@@ -3535,6 +3607,7 @@ export const getUpdates = HttpApiEndpoint.post("getUpdates", "/getUpdates", {
 /**
  * Use this method to get the list of boosts added to a chat by a user. Requires
  * administrator rights in the chat
+ * @see https://core.telegram.org/bots/api#getuserchatboosts
  */
 export const getUserChatBoosts = HttpApiEndpoint.post("getUserChatBoosts", "/getUserChatBoosts", {
 	payload: Schema.Struct({
@@ -3573,6 +3646,9 @@ export const getUserChatBoosts = HttpApiEndpoint.post("getUserChatBoosts", "/get
 	],
 });
 
+/**
+ * @see https://core.telegram.org/bots/api#getusergifts
+ */
 export const getUserGifts = HttpApiEndpoint.post("getUserGifts", "/getUserGifts", {
 	payload: Schema.Struct({
 		/**
@@ -3665,6 +3741,7 @@ export const getUserGifts = HttpApiEndpoint.post("getUserGifts", "/getUserGifts"
  * Use this method to get the last messages from the personal chat (i.e., the
  * chat currently added to their profile) of a given user. On success, an array
  * of Message objects
+ * @see https://core.telegram.org/bots/api#getuserpersonalchatmessages
  */
 export const getUserPersonalChatMessages = HttpApiEndpoint.post(
 	"getUserPersonalChatMessages",
@@ -3702,6 +3779,7 @@ export const getUserPersonalChatMessages = HttpApiEndpoint.post(
 
 /**
  * Use this method to get a list of profile audios for a user
+ * @see https://core.telegram.org/bots/api#getuserprofileaudios
  */
 export const getUserProfileAudios = HttpApiEndpoint.post("getUserProfileAudios", "/getUserProfileAudios", {
 	payload: Schema.Struct({
@@ -3746,6 +3824,7 @@ export const getUserProfileAudios = HttpApiEndpoint.post("getUserProfileAudios",
 
 /**
  * Use this method to get a list of profile pictures for a user
+ * @see https://core.telegram.org/bots/api#getuserprofilephotos
  */
 export const getUserProfilePhotos = HttpApiEndpoint.post("getUserProfilePhotos", "/getUserProfilePhotos", {
 	payload: Schema.Struct({
@@ -3790,6 +3869,7 @@ export const getUserProfilePhotos = HttpApiEndpoint.post("getUserProfilePhotos",
 
 /**
  * Use this method to get current webhook status
+ * @see https://core.telegram.org/bots/api#getwebhookinfo
  */
 export const getWebhookInfo = HttpApiEndpoint.post("getWebhookInfo", "/getWebhookInfo", {
 	success: Schema.Struct({
@@ -3808,6 +3888,7 @@ export const getWebhookInfo = HttpApiEndpoint.post("getWebhookInfo", "/getWebhoo
 
 /**
  * Gifts a Telegram Premium subscription to the given user
+ * @see https://core.telegram.org/bots/api#giftpremiumsubscription
  */
 export const giftPremiumSubscription = HttpApiEndpoint.post("giftPremiumSubscription", "/giftPremiumSubscription", {
 	payload: Schema.Struct({
@@ -3894,6 +3975,7 @@ export const giftPremiumSubscription = HttpApiEndpoint.post("giftPremiumSubscrip
  * bot must be an administrator in the chat for this to work and must have the
  * can_manage_topics administrator rights. The topic will be automatically
  * closed if it was open
+ * @see https://core.telegram.org/bots/api#hidegeneralforumtopic
  */
 export const hideGeneralForumTopic = HttpApiEndpoint.post("hideGeneralForumTopic", "/hideGeneralForumTopic", {
 	payload: Schema.Struct({
@@ -3933,6 +4015,7 @@ export const hideGeneralForumTopic = HttpApiEndpoint.post("hideGeneralForumTopic
 
 /**
  * Use this method for your bot to leave a group, supergroup or channel
+ * @see https://core.telegram.org/bots/api#leavechat
  */
 export const leaveChat = HttpApiEndpoint.post("leaveChat", "/leaveChat", {
 	payload: Schema.Struct({
@@ -3974,6 +4057,7 @@ export const leaveChat = HttpApiEndpoint.post("leaveChat", "/leaveChat", {
  * there is no guarantee that the bot will receive updates. After a successful
  * call, you can immediately log in on a local server, but will not be able to
  * log in back to the cloud Bot API server for 10 minutes
+ * @see https://core.telegram.org/bots/api#logout
  */
 export const logOut = HttpApiEndpoint.post("logOut", "/logOut", {
 	success: Schema.Struct({
@@ -3999,6 +4083,7 @@ export const logOut = HttpApiEndpoint.post("logOut", "/logOut", {
  * be pinned. Conversely, the bot must be an administrator with the
  * 'can_pin_messages' right or the 'can_edit_messages' right to pin messages in
  * groups and channels respectively
+ * @see https://core.telegram.org/bots/api#pinchatmessage
  */
 export const pinChatMessage = HttpApiEndpoint.post("pinChatMessage", "/pinChatMessage", {
 	payload: Schema.Struct({
@@ -4058,6 +4143,7 @@ export const pinChatMessage = HttpApiEndpoint.post("pinChatMessage", "/pinChatMe
 /**
  * Posts a story on behalf of a managed business account. Requires the
  * can_manage_stories business bot right
+ * @see https://core.telegram.org/bots/api#poststory
  */
 export const postStory = HttpApiEndpoint.post("postStory", "/postStory", {
 	payload: Schema.Struct({
@@ -4151,6 +4237,7 @@ export const postStory = HttpApiEndpoint.post("postStory", "/postStory", {
  * bot must be an administrator in the chat for this to work and must have the
  * appropriate administrator rights. Pass False for all boolean parameters to
  * demote a user
+ * @see https://core.telegram.org/bots/api#promotechatmember
  */
 export const promoteChatMember = HttpApiEndpoint.post("promoteChatMember", "/promoteChatMember", {
 	payload: Schema.Struct({
@@ -4337,6 +4424,7 @@ export const promoteChatMember = HttpApiEndpoint.post("promoteChatMember", "/pro
 /**
  * Marks incoming message as read on behalf of a business account. Requires the
  * can_read_messages business bot right
+ * @see https://core.telegram.org/bots/api#readbusinessmessage
  */
 export const readBusinessMessage = HttpApiEndpoint.post("readBusinessMessage", "/readBusinessMessage", {
 	payload: Schema.Struct({
@@ -4385,6 +4473,7 @@ export const readBusinessMessage = HttpApiEndpoint.post("readBusinessMessage", "
 /**
  * Removes the current profile photo of a managed business account. Requires the
  * can_edit_profile_photo business bot right
+ * @see https://core.telegram.org/bots/api#removebusinessaccountprofilephoto
  */
 export const removeBusinessAccountProfilePhoto = HttpApiEndpoint.post(
 	"removeBusinessAccountProfilePhoto",
@@ -4436,6 +4525,7 @@ export const removeBusinessAccountProfilePhoto = HttpApiEndpoint.post(
 /**
  * Removes verification from a chat that is currently verified on behalf of the
  * organization represented by the bot
+ * @see https://core.telegram.org/bots/api#removechatverification
  */
 export const removeChatVerification = HttpApiEndpoint.post("removeChatVerification", "/removeChatVerification", {
 	payload: Schema.Struct({
@@ -4471,6 +4561,7 @@ export const removeChatVerification = HttpApiEndpoint.post("removeChatVerificati
 
 /**
  * Removes the profile photo of the bot
+ * @see https://core.telegram.org/bots/api#removemyprofilephoto
  */
 export const removeMyProfilePhoto = HttpApiEndpoint.post("removeMyProfilePhoto", "/removeMyProfilePhoto", {
 	success: Schema.Struct({
@@ -4490,6 +4581,7 @@ export const removeMyProfilePhoto = HttpApiEndpoint.post("removeMyProfilePhoto",
 /**
  * Removes verification from a user who is currently verified on behalf of the
  * organization represented by the bot
+ * @see https://core.telegram.org/bots/api#removeuserverification
  */
 export const removeUserVerification = HttpApiEndpoint.post("removeUserVerification", "/removeUserVerification", {
 	payload: Schema.Struct({
@@ -4521,6 +4613,7 @@ export const removeUserVerification = HttpApiEndpoint.post("removeUserVerificati
  * Use this method to reopen a closed topic in a forum supergroup chat. The bot
  * must be an administrator in the chat for this to work and must have the
  * can_manage_topics administrator rights, unless it is the creator of the topic
+ * @see https://core.telegram.org/bots/api#reopenforumtopic
  */
 export const reopenForumTopic = HttpApiEndpoint.post("reopenForumTopic", "/reopenForumTopic", {
 	payload: Schema.Struct({
@@ -4570,6 +4663,7 @@ export const reopenForumTopic = HttpApiEndpoint.post("reopenForumTopic", "/reope
  * chat. The bot must be an administrator in the chat for this to work and must
  * have the can_manage_topics administrator rights. The topic will be
  * automatically unhidden if it was hidden
+ * @see https://core.telegram.org/bots/api#reopengeneralforumtopic
  */
 export const reopenGeneralForumTopic = HttpApiEndpoint.post("reopenGeneralForumTopic", "/reopenGeneralForumTopic", {
 	payload: Schema.Struct({
@@ -4606,6 +4700,7 @@ export const reopenGeneralForumTopic = HttpApiEndpoint.post("reopenGeneralForumT
 /**
  * Use this method to revoke the current token of a managed bot and generate a
  * new one
+ * @see https://core.telegram.org/bots/api#replacemanagedbottoken
  */
 export const replaceManagedBotToken = HttpApiEndpoint.post("replaceManagedBotToken", "/replaceManagedBotToken", {
 	payload: Schema.Struct({
@@ -4638,6 +4733,7 @@ export const replaceManagedBotToken = HttpApiEndpoint.post("replaceManagedBotTok
  * account. Both business accounts must be managed by the same bot, and the
  * story on the source account must have been posted (or reposted) by the bot.
  * Requires the can_manage_stories business bot right for both business accounts
+ * @see https://core.telegram.org/bots/api#repoststory
  */
 export const repostStory = HttpApiEndpoint.post("repostStory", "/repostStory", {
 	payload: Schema.Struct({
@@ -4710,6 +4806,7 @@ export const repostStory = HttpApiEndpoint.post("repostStory", "/repostStory", {
  * administrator in the supergroup for this to work and must have the
  * appropriate administrator rights. Pass True for all permissions to lift
  * restrictions from a user
+ * @see https://core.telegram.org/bots/api#restrictchatmember
  */
 export const restrictChatMember = HttpApiEndpoint.post("restrictChatMember", "/restrictChatMember", {
 	payload: Schema.Struct({
@@ -4783,6 +4880,7 @@ export const restrictChatMember = HttpApiEndpoint.post("restrictChatMember", "/r
  * link is revoked, a new link is automatically generated. The bot must be an
  * administrator in the chat for this to work and must have the appropriate
  * administrator rights
+ * @see https://core.telegram.org/bots/api#revokechatinvitelink
  */
 export const revokeChatInviteLink = HttpApiEndpoint.post("revokeChatInviteLink", "/revokeChatInviteLink", {
 	payload: Schema.Struct({
@@ -4821,6 +4919,7 @@ export const revokeChatInviteLink = HttpApiEndpoint.post("revokeChatInviteLink",
 
 /**
  * Stores a message that can be sent by a user of a Mini App
+ * @see https://core.telegram.org/bots/api#savepreparedinlinemessage
  */
 export const savePreparedInlineMessage = HttpApiEndpoint.post(
 	"savePreparedInlineMessage",
@@ -4883,6 +4982,7 @@ export const savePreparedInlineMessage = HttpApiEndpoint.post(
 
 /**
  * Stores a keyboard button that can be used by a user within a Mini App
+ * @see https://core.telegram.org/bots/api#savepreparedkeyboardbutton
  */
 export const savePreparedKeyboardButton = HttpApiEndpoint.post(
 	"savePreparedKeyboardButton",
@@ -4925,6 +5025,7 @@ export const savePreparedKeyboardButton = HttpApiEndpoint.post(
 /**
  * Use this method to send animation files (GIF or H.264/MPEG-4 AVC video
  * without sound). On success, the sent Message
+ * @see https://core.telegram.org/bots/api#sendanimation
  */
 export const sendAnimation = HttpApiEndpoint.post("sendAnimation", "/sendAnimation", {
 	payload: Schema.Struct({
@@ -5142,6 +5243,7 @@ export const sendAnimation = HttpApiEndpoint.post("sendAnimation", "/sendAnimati
  * Use this method to send audio files, if you want Telegram clients to display
  * them in the music player. Your audio must be in the .MP3 or .M4A format. On
  * success, the sent Message
+ * @see https://core.telegram.org/bots/api#sendaudio
  */
 export const sendAudio = HttpApiEndpoint.post("sendAudio", "/sendAudio", {
 	payload: Schema.Struct({
@@ -5341,6 +5443,7 @@ export const sendAudio = HttpApiEndpoint.post("sendAudio", "/sendAudio", {
  * Use this method when you need to tell the user that something is happening on
  * the bot's side. The status is set for 5 seconds or less (when a message
  * arrives from your bot, Telegram clients clear its typing status)
+ * @see https://core.telegram.org/bots/api#sendchataction
  */
 export const sendChatAction = HttpApiEndpoint.post("sendChatAction", "/sendChatAction", {
 	payload: Schema.Struct({
@@ -5412,6 +5515,7 @@ export const sendChatAction = HttpApiEndpoint.post("sendChatAction", "/sendChatA
 /**
  * Use this method to send a checklist on behalf of a connected business
  * account. On success, the sent Message
+ * @see https://core.telegram.org/bots/api#sendchecklist
  */
 export const sendChecklist = HttpApiEndpoint.post("sendChecklist", "/sendChecklist", {
 	payload: Schema.Struct({
@@ -5491,6 +5595,7 @@ export const sendChecklist = HttpApiEndpoint.post("sendChecklist", "/sendCheckli
 
 /**
  * Use this method to send phone contacts. On success, the sent Message
+ * @see https://core.telegram.org/bots/api#sendcontact
  */
 export const sendContact = HttpApiEndpoint.post("sendContact", "/sendContact", {
 	payload: Schema.Struct({
@@ -5640,6 +5745,7 @@ export const sendContact = HttpApiEndpoint.post("sendContact", "/sendContact", {
 /**
  * Use this method to send an animated emoji that will display a random value.
  * On success, the sent Message
+ * @see https://core.telegram.org/bots/api#senddice
  */
 export const sendDice = HttpApiEndpoint.post("sendDice", "/sendDice", {
 	payload: Schema.Struct({
@@ -5785,6 +5891,7 @@ export const sendDice = HttpApiEndpoint.post("sendDice", "/sendDice", {
 
 /**
  * Use this method to send general files. On success, the sent Message
+ * @see https://core.telegram.org/bots/api#senddocument
  */
 export const sendDocument = HttpApiEndpoint.post("sendDocument", "/sendDocument", {
 	payload: Schema.Struct({
@@ -5982,6 +6089,7 @@ export const sendDocument = HttpApiEndpoint.post("sendDocument", "/sendDocument"
 /**
  * Sends a gift to the given user or channel chat. The gift can't be converted
  * to Telegram Stars by the receiver
+ * @see https://core.telegram.org/bots/api#sendgift
  */
 export const sendGift = HttpApiEndpoint.post("sendGift", "/sendGift", {
 	payload: Schema.Struct({
@@ -6073,6 +6181,7 @@ export const sendGift = HttpApiEndpoint.post("sendGift", "/sendGift", {
 
 /**
  * Use this method to send live photos. On success, the sent Message
+ * @see https://core.telegram.org/bots/api#sendlivephoto
  */
 export const sendLivePhoto = HttpApiEndpoint.post("sendLivePhoto", "/sendLivePhoto", {
 	payload: Schema.Struct({
@@ -6268,6 +6377,7 @@ export const sendLivePhoto = HttpApiEndpoint.post("sendLivePhoto", "/sendLivePho
 
 /**
  * Use this method to send point on the map. On success, the sent Message
+ * @see https://core.telegram.org/bots/api#sendlocation
  */
 export const sendLocation = HttpApiEndpoint.post("sendLocation", "/sendLocation", {
 	payload: Schema.Struct({
@@ -6447,6 +6557,7 @@ export const sendLocation = HttpApiEndpoint.post("sendLocation", "/sendLocation"
  * audios as an album. Documents and audio files can be only grouped in an album
  * with messages of the same type. On success, an array of Message objects that
  * were sent
+ * @see https://core.telegram.org/bots/api#sendmediagroup
  */
 export const sendMediaGroup = HttpApiEndpoint.post("sendMediaGroup", "/sendMediaGroup", {
 	payload: Schema.Struct({
@@ -6566,6 +6677,7 @@ export const sendMediaGroup = HttpApiEndpoint.post("sendMediaGroup", "/sendMedia
 
 /**
  * Use this method to send text messages. On success, the sent Message
+ * @see https://core.telegram.org/bots/api#sendmessage
  */
 export const sendMessage = HttpApiEndpoint.post("sendMessage", "/sendMessage", {
 	payload: Schema.Struct({
@@ -6894,6 +7006,7 @@ export const sendMessage = HttpApiEndpoint.post("sendMessage", "/sendMessage", {
  * being generated. Note that the streamed draft is ephemeral and acts as a
  * temporary 30-second preview - once the output is finalized, you must call
  * sendMessage with the complete message to persist it in the user's chat
+ * @see https://core.telegram.org/bots/api#sendmessagedraft
  */
 export const sendMessageDraft = HttpApiEndpoint.post("sendMessageDraft", "/sendMessageDraft", {
 	payload: Schema.Struct({
@@ -6968,6 +7081,7 @@ export const sendMessageDraft = HttpApiEndpoint.post("sendMessageDraft", "/sendM
 
 /**
  * Use this method to send paid media. On success, the sent Message
+ * @see https://core.telegram.org/bots/api#sendpaidmedia
  */
 export const sendPaidMedia = HttpApiEndpoint.post("sendPaidMedia", "/sendPaidMedia", {
 	payload: Schema.Struct({
@@ -7146,6 +7260,7 @@ export const sendPaidMedia = HttpApiEndpoint.post("sendPaidMedia", "/sendPaidMed
 
 /**
  * Use this method to send photos. On success, the sent Message
+ * @see https://core.telegram.org/bots/api#sendphoto
  */
 export const sendPhoto = HttpApiEndpoint.post("sendPhoto", "/sendPhoto", {
 	payload: Schema.Struct({
@@ -7330,6 +7445,7 @@ export const sendPhoto = HttpApiEndpoint.post("sendPhoto", "/sendPhoto", {
 
 /**
  * Use this method to send a native poll. On success, the sent Message
+ * @see https://core.telegram.org/bots/api#sendpoll
  */
 export const sendPoll = HttpApiEndpoint.post("sendPoll", "/sendPoll", {
 	payload: Schema.Struct({
@@ -7659,6 +7775,7 @@ export const sendPoll = HttpApiEndpoint.post("sendPoll", "/sendPoll", {
 /**
  * Use this method to send information about a venue. On success, the sent
  * Message
+ * @see https://core.telegram.org/bots/api#sendvenue
  */
 export const sendVenue = HttpApiEndpoint.post("sendVenue", "/sendVenue", {
 	payload: Schema.Struct({
@@ -7837,6 +7954,7 @@ export const sendVenue = HttpApiEndpoint.post("sendVenue", "/sendVenue", {
 /**
  * Use this method to send video files, Telegram clients support MPEG4 videos
  * (other formats may be sent as Document). On success, the sent Message
+ * @see https://core.telegram.org/bots/api#sendvideo
  */
 export const sendVideo = HttpApiEndpoint.post("sendVideo", "/sendVideo", {
 	payload: Schema.Struct({
@@ -8090,6 +8208,7 @@ export const sendVideo = HttpApiEndpoint.post("sendVideo", "/sendVideo", {
  * As of v.4.0, Telegram clients support rounded square MPEG4 videos of up to 1
  * minute long. Use this method to send video messages. On success, the sent
  * Message
+ * @see https://core.telegram.org/bots/api#sendvideonote
  */
 export const sendVideoNote = HttpApiEndpoint.post("sendVideoNote", "/sendVideoNote", {
 	payload: Schema.Struct({
@@ -8263,6 +8382,7 @@ export const sendVideoNote = HttpApiEndpoint.post("sendVideoNote", "/sendVideoNo
  * the file as a playable voice message. For this to work, your audio must be in
  * an .OGG file encoded with OPUS, or in .MP3 format, or in .M4A format (other
  * formats may be sent as Audio or Document). On success, the sent Message
+ * @see https://core.telegram.org/bots/api#sendvoice
  */
 export const sendVoice = HttpApiEndpoint.post("sendVoice", "/sendVoice", {
 	payload: Schema.Struct({
@@ -8439,6 +8559,7 @@ export const sendVoice = HttpApiEndpoint.post("sendVoice", "/sendVoice", {
 /**
  * Changes the bio of a managed business account. Requires the can_change_bio
  * business bot right
+ * @see https://core.telegram.org/bots/api#setbusinessaccountbio
  */
 export const setBusinessAccountBio = HttpApiEndpoint.post("setBusinessAccountBio", "/setBusinessAccountBio", {
 	payload: Schema.Struct({
@@ -8475,6 +8596,7 @@ export const setBusinessAccountBio = HttpApiEndpoint.post("setBusinessAccountBio
 /**
  * Changes the privacy settings pertaining to incoming gifts in a managed
  * business account. Requires the can_change_gift_settings business bot right
+ * @see https://core.telegram.org/bots/api#setbusinessaccountgiftsettings
  */
 export const setBusinessAccountGiftSettings = HttpApiEndpoint.post(
 	"setBusinessAccountGiftSettings",
@@ -8530,6 +8652,7 @@ export const setBusinessAccountGiftSettings = HttpApiEndpoint.post(
 /**
  * Changes the first and last name of a managed business account. Requires the
  * can_change_name business bot right
+ * @see https://core.telegram.org/bots/api#setbusinessaccountname
  */
 export const setBusinessAccountName = HttpApiEndpoint.post("setBusinessAccountName", "/setBusinessAccountName", {
 	payload: Schema.Struct({
@@ -8573,6 +8696,7 @@ export const setBusinessAccountName = HttpApiEndpoint.post("setBusinessAccountNa
 /**
  * Changes the profile photo of a managed business account. Requires the
  * can_edit_profile_photo business bot right
+ * @see https://core.telegram.org/bots/api#setbusinessaccountprofilephoto
  */
 export const setBusinessAccountProfilePhoto = HttpApiEndpoint.post(
 	"setBusinessAccountProfilePhoto",
@@ -8623,6 +8747,7 @@ export const setBusinessAccountProfilePhoto = HttpApiEndpoint.post(
 /**
  * Changes the username of a managed business account. Requires the
  * can_change_username business bot right
+ * @see https://core.telegram.org/bots/api#setbusinessaccountusername
  */
 export const setBusinessAccountUsername = HttpApiEndpoint.post(
 	"setBusinessAccountUsername",
@@ -8668,6 +8793,7 @@ export const setBusinessAccountUsername = HttpApiEndpoint.post(
 /**
  * Use this method to set a custom title for an administrator in a supergroup
  * promoted by the bot
+ * @see https://core.telegram.org/bots/api#setchatadministratorcustomtitle
  */
 export const setChatAdministratorCustomTitle = HttpApiEndpoint.post(
 	"setChatAdministratorCustomTitle",
@@ -8721,6 +8847,7 @@ export const setChatAdministratorCustomTitle = HttpApiEndpoint.post(
  * Use this method to change the description of a group, a supergroup or a
  * channel. The bot must be an administrator in the chat for this to work and
  * must have the appropriate administrator rights
+ * @see https://core.telegram.org/bots/api#setchatdescription
  */
 export const setChatDescription = HttpApiEndpoint.post("setChatDescription", "/setChatDescription", {
 	payload: Schema.Struct({
@@ -8767,6 +8894,7 @@ export const setChatDescription = HttpApiEndpoint.post("setChatDescription", "/s
  * Use this method to set a tag for a regular member in a group or a supergroup.
  * The bot must be an administrator in the chat for this to work and must have
  * the can_manage_tags administrator right
+ * @see https://core.telegram.org/bots/api#setchatmembertag
  */
 export const setChatMemberTag = HttpApiEndpoint.post("setChatMemberTag", "/setChatMemberTag", {
 	payload: Schema.Struct({
@@ -8814,6 +8942,7 @@ export const setChatMemberTag = HttpApiEndpoint.post("setChatMemberTag", "/setCh
 /**
  * Use this method to change the bot's menu button in a private chat, or the
  * default menu button
+ * @see https://core.telegram.org/bots/api#setchatmenubutton
  */
 export const setChatMenuButton = HttpApiEndpoint.post("setChatMenuButton", "/setChatMenuButton", {
 	payload: Schema.Struct({
@@ -8858,6 +8987,7 @@ export const setChatMenuButton = HttpApiEndpoint.post("setChatMenuButton", "/set
  * Use this method to set default chat permissions for all members. The bot must
  * be an administrator in the group or a supergroup for this to work and must
  * have the can_restrict_members administrator rights
+ * @see https://core.telegram.org/bots/api#setchatpermissions
  */
 export const setChatPermissions = HttpApiEndpoint.post("setChatPermissions", "/setChatPermissions", {
 	payload: Schema.Struct({
@@ -8919,6 +9049,7 @@ export const setChatPermissions = HttpApiEndpoint.post("setChatPermissions", "/s
  * Use this method to set a new profile photo for the chat. Photos can't be
  * changed for private chats. The bot must be an administrator in the chat for
  * this to work and must have the appropriate administrator rights
+ * @see https://core.telegram.org/bots/api#setchatphoto
  */
 export const setChatPhoto = HttpApiEndpoint.post("setChatPhoto", "/setChatPhoto", {
 	payload: Schema.Struct({
@@ -8962,6 +9093,7 @@ export const setChatPhoto = HttpApiEndpoint.post("setChatPhoto", "/setChatPhoto"
  * appropriate administrator rights. Use the field can_set_sticker_set
  * optionally returned in getChat requests to check if the bot can use this
  * method
+ * @see https://core.telegram.org/bots/api#setchatstickerset
  */
 export const setChatStickerSet = HttpApiEndpoint.post("setChatStickerSet", "/setChatStickerSet", {
 	payload: Schema.Struct({
@@ -9006,6 +9138,7 @@ export const setChatStickerSet = HttpApiEndpoint.post("setChatStickerSet", "/set
  * Use this method to change the title of a chat. Titles can't be changed for
  * private chats. The bot must be an administrator in the chat for this to work
  * and must have the appropriate administrator rights
+ * @see https://core.telegram.org/bots/api#setchattitle
  */
 export const setChatTitle = HttpApiEndpoint.post("setChatTitle", "/setChatTitle", {
 	payload: Schema.Struct({
@@ -9044,6 +9177,7 @@ export const setChatTitle = HttpApiEndpoint.post("setChatTitle", "/setChatTitle"
 
 /**
  * Use this method to change the access settings of a managed bot
+ * @see https://core.telegram.org/bots/api#setmanagedbotaccesssettings
  */
 export const setManagedBotAccessSettings = HttpApiEndpoint.post(
 	"setManagedBotAccessSettings",
@@ -9098,6 +9232,7 @@ export const setManagedBotAccessSettings = HttpApiEndpoint.post(
  * of some types can't be reacted to. Automatically forwarded messages from a
  * channel to its discussion group have the same available reactions as messages
  * in the channel. Bots can't use paid reactions
+ * @see https://core.telegram.org/bots/api#setmessagereaction
  */
 export const setMessageReaction = HttpApiEndpoint.post("setMessageReaction", "/setMessageReaction", {
 	payload: Schema.Struct({
@@ -9162,6 +9297,7 @@ export const setMessageReaction = HttpApiEndpoint.post("setMessageReaction", "/s
 /**
  * Use this method to change the list of the bot's commands. See this manual for
  * more details about bot commands
+ * @see https://core.telegram.org/bots/api#setmycommands
  */
 export const setMyCommands = HttpApiEndpoint.post("setMyCommands", "/setMyCommands", {
 	payload: Schema.Struct({
@@ -9241,6 +9377,7 @@ export const setMyCommands = HttpApiEndpoint.post("setMyCommands", "/setMyComman
  * bot when it's added as an administrator to groups or channels. These rights
  * will be suggested to users, but they are free to modify the list before
  * adding the bot
+ * @see https://core.telegram.org/bots/api#setmydefaultadministratorrights
  */
 export const setMyDefaultAdministratorRights = HttpApiEndpoint.post(
 	"setMyDefaultAdministratorRights",
@@ -9295,6 +9432,7 @@ export const setMyDefaultAdministratorRights = HttpApiEndpoint.post(
 /**
  * Use this method to change the bot's description, which is shown in the chat
  * with the bot if the chat is empty
+ * @see https://core.telegram.org/bots/api#setmydescription
  */
 export const setMyDescription = HttpApiEndpoint.post("setMyDescription", "/setMyDescription", {
 	payload: Schema.Struct({
@@ -9339,6 +9477,7 @@ export const setMyDescription = HttpApiEndpoint.post("setMyDescription", "/setMy
 
 /**
  * Use this method to change the bot's name
+ * @see https://core.telegram.org/bots/api#setmyname
  */
 export const setMyName = HttpApiEndpoint.post("setMyName", "/setMyName", {
 	payload: Schema.Struct({
@@ -9380,6 +9519,7 @@ export const setMyName = HttpApiEndpoint.post("setMyName", "/setMyName", {
 
 /**
  * Changes the profile photo of the bot
+ * @see https://core.telegram.org/bots/api#setmyprofilephoto
  */
 export const setMyProfilePhoto = HttpApiEndpoint.post("setMyProfilePhoto", "/setMyProfilePhoto", {
 	payload: Schema.Struct({
@@ -9407,6 +9547,7 @@ export const setMyProfilePhoto = HttpApiEndpoint.post("setMyProfilePhoto", "/set
  * Use this method to change the bot's short description, which is shown on the
  * bot's profile page and is sent together with the link when users share the
  * bot
+ * @see https://core.telegram.org/bots/api#setmyshortdescription
  */
 export const setMyShortDescription = HttpApiEndpoint.post("setMyShortDescription", "/setMyShortDescription", {
 	payload: Schema.Struct({
@@ -9453,6 +9594,7 @@ export const setMyShortDescription = HttpApiEndpoint.post("setMyShortDescription
 /**
  * Changes the emoji status for a given user that previously allowed the bot to
  * manage their emoji status via the Mini App method requestEmojiStatusAccess
+ * @see https://core.telegram.org/bots/api#setuseremojistatus
  */
 export const setUserEmojiStatus = HttpApiEndpoint.post("setUserEmojiStatus", "/setUserEmojiStatus", {
 	payload: Schema.Struct({
@@ -9502,6 +9644,7 @@ export const setUserEmojiStatus = HttpApiEndpoint.post("setUserEmojiStatus", "/s
  * an unsuccessful request (a request with response HTTP status code different
  * from 2XY), we will repeat the request and give up after a reasonable amount
  * of attempts
+ * @see https://core.telegram.org/bots/api#setwebhook
  */
 export const setWebhook = HttpApiEndpoint.post("setWebhook", "/setWebhook", {
 	payload: Schema.Struct({
@@ -9603,6 +9746,7 @@ export const setWebhook = HttpApiEndpoint.post("setWebhook", "/setWebhook", {
  * Use this method to stop updating a live location message before live_period
  * expires. On success, if the message is not an inline message, the edited
  * Message
+ * @see https://core.telegram.org/bots/api#stopmessagelivelocation
  */
 export const stopMessageLiveLocation = HttpApiEndpoint.post("stopMessageLiveLocation", "/stopMessageLiveLocation", {
 	payload: Schema.Struct({
@@ -9674,6 +9818,7 @@ export const stopMessageLiveLocation = HttpApiEndpoint.post("stopMessageLiveLoca
 /**
  * Use this method to stop a poll which was sent by the bot. On success, the
  * stopped Poll
+ * @see https://core.telegram.org/bots/api#stoppoll
  */
 export const stopPoll = HttpApiEndpoint.post("stopPoll", "/stopPoll", {
 	payload: Schema.Struct({
@@ -9732,6 +9877,7 @@ export const stopPoll = HttpApiEndpoint.post("stopPoll", "/stopPoll", {
 /**
  * Transfers Telegram Stars from the business account balance to the bot's
  * balance. Requires the can_transfer_stars business bot right
+ * @see https://core.telegram.org/bots/api#transferbusinessaccountstars
  */
 export const transferBusinessAccountStars = HttpApiEndpoint.post(
 	"transferBusinessAccountStars",
@@ -9776,6 +9922,7 @@ export const transferBusinessAccountStars = HttpApiEndpoint.post(
  * Transfers an owned unique gift to another user. Requires the
  * can_transfer_and_upgrade_gifts business bot right. Requires
  * can_transfer_stars business bot right if the transfer is paid
+ * @see https://core.telegram.org/bots/api#transfergift
  */
 export const transferGift = HttpApiEndpoint.post("transferGift", "/transferGift", {
 	payload: Schema.Struct({
@@ -9839,6 +9986,7 @@ export const transferGift = HttpApiEndpoint.post("transferGift", "/transferGift"
  * a member of the chat, but will be able to join it. So if the user is a member
  * of the chat they will also be removed from the chat. If you don't want this,
  * use the parameter only_if_banned
+ * @see https://core.telegram.org/bots/api#unbanchatmember
  */
 export const unbanChatMember = HttpApiEndpoint.post("unbanChatMember", "/unbanChatMember", {
 	payload: Schema.Struct({
@@ -9886,6 +10034,7 @@ export const unbanChatMember = HttpApiEndpoint.post("unbanChatMember", "/unbanCh
  * Use this method to unban a previously banned channel chat in a supergroup or
  * channel. The bot must be an administrator for this to work and must have the
  * appropriate administrator rights
+ * @see https://core.telegram.org/bots/api#unbanchatsenderchat
  */
 export const unbanChatSenderChat = HttpApiEndpoint.post("unbanChatSenderChat", "/unbanChatSenderChat", {
 	payload: Schema.Struct({
@@ -9926,6 +10075,7 @@ export const unbanChatSenderChat = HttpApiEndpoint.post("unbanChatSenderChat", "
  * Use this method to unhide the 'General' topic in a forum supergroup chat. The
  * bot must be an administrator in the chat for this to work and must have the
  * can_manage_topics administrator rights
+ * @see https://core.telegram.org/bots/api#unhidegeneralforumtopic
  */
 export const unhideGeneralForumTopic = HttpApiEndpoint.post("unhideGeneralForumTopic", "/unhideGeneralForumTopic", {
 	payload: Schema.Struct({
@@ -9969,6 +10119,7 @@ export const unhideGeneralForumTopic = HttpApiEndpoint.post("unhideGeneralForumT
  * unpin all pinned messages. Conversely, the bot must be an administrator with
  * the 'can_pin_messages' right or the 'can_edit_messages' right to unpin all
  * pinned messages in groups and channels respectively
+ * @see https://core.telegram.org/bots/api#unpinallchatmessages
  */
 export const unpinAllChatMessages = HttpApiEndpoint.post("unpinAllChatMessages", "/unpinAllChatMessages", {
 	payload: Schema.Struct({
@@ -10005,6 +10156,7 @@ export const unpinAllChatMessages = HttpApiEndpoint.post("unpinAllChatMessages",
  * forum supergroup chat or a private chat with a user. In the case of a
  * supergroup chat the bot must be an administrator in the chat for this to work
  * and must have the can_pin_messages administrator right in the supergroup
+ * @see https://core.telegram.org/bots/api#unpinallforumtopicmessages
  */
 export const unpinAllForumTopicMessages = HttpApiEndpoint.post(
 	"unpinAllForumTopicMessages",
@@ -10051,6 +10203,7 @@ export const unpinAllForumTopicMessages = HttpApiEndpoint.post(
  * Use this method to clear the list of pinned messages in a General forum
  * topic. The bot must be an administrator in the chat for this to work and must
  * have the can_pin_messages administrator right in the supergroup
+ * @see https://core.telegram.org/bots/api#unpinallgeneralforumtopicmessages
  */
 export const unpinAllGeneralForumTopicMessages = HttpApiEndpoint.post(
 	"unpinAllGeneralForumTopicMessages",
@@ -10093,6 +10246,7 @@ export const unpinAllGeneralForumTopicMessages = HttpApiEndpoint.post(
  * unpinned. Conversely, the bot must be an administrator with the
  * 'can_pin_messages' right or the 'can_edit_messages' right to unpin messages
  * in groups and channels respectively
+ * @see https://core.telegram.org/bots/api#unpinchatmessage
  */
 export const unpinChatMessage = HttpApiEndpoint.post("unpinChatMessage", "/unpinChatMessage", {
 	payload: Schema.Struct({
@@ -10148,6 +10302,7 @@ export const unpinChatMessage = HttpApiEndpoint.post("unpinChatMessage", "/unpin
  * Upgrades a given regular gift to a unique gift. Requires the
  * can_transfer_and_upgrade_gifts business bot right. Additionally requires the
  * can_transfer_stars business bot right if the upgrade is paid
+ * @see https://core.telegram.org/bots/api#upgradegift
  */
 export const upgradeGift = HttpApiEndpoint.post("upgradeGift", "/upgradeGift", {
 	payload: Schema.Struct({
@@ -10206,6 +10361,7 @@ export const upgradeGift = HttpApiEndpoint.post("upgradeGift", "/upgradeGift", {
 
 /**
  * Verifies a chat on behalf of the organization which is represented by the bot
+ * @see https://core.telegram.org/bots/api#verifychat
  */
 export const verifyChat = HttpApiEndpoint.post("verifyChat", "/verifyChat", {
 	payload: Schema.Struct({
@@ -10250,6 +10406,7 @@ export const verifyChat = HttpApiEndpoint.post("verifyChat", "/verifyChat", {
 
 /**
  * Verifies a user on behalf of the organization which is represented by the bot
+ * @see https://core.telegram.org/bots/api#verifyuser
  */
 export const verifyUser = HttpApiEndpoint.post("verifyUser", "/verifyUser", {
 	payload: Schema.Struct({

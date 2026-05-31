@@ -3,5 +3,22 @@
 	"name": "MessageOrigin",
 	"slug": "messageorigin",
 	"description": "This object describes the origin of a message. It can be one of",
-	"members": ["MessageOriginUser", "MessageOriginHiddenUser", "MessageOriginChat", "MessageOriginChannel"]
+	"variants": [
+		{
+			"name": "MessageOriginUser",
+			"slug": "messageoriginuser"
+		},
+		{
+			"name": "MessageOriginHiddenUser",
+			"slug": "messageoriginhiddenuser"
+		},
+		{
+			"name": "MessageOriginChat",
+			"slug": "messageoriginchat"
+		},
+		{
+			"name": "MessageOriginChannel",
+			"slug": "messageoriginchannel"
+		}
+	]
 }

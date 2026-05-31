@@ -3,5 +3,14 @@
 	"name": "InputProfilePhoto",
 	"slug": "inputprofilephoto",
 	"description": "This object describes a profile photo to set. Currently, it can be one of",
-	"members": ["InputProfilePhotoStatic", "InputProfilePhotoAnimated"]
+	"variants": [
+		{
+			"name": "InputProfilePhotoStatic",
+			"slug": "inputprofilephotostatic"
+		},
+		{
+			"name": "InputProfilePhotoAnimated",
+			"slug": "inputprofilephotoanimated"
+		}
+	]
 }

@@ -13,6 +13,7 @@ export type InputFile = typeof InputFile.Type;
 /**
  * This object describes the types of gifts that can be gifted to a user or a
  * chat.
+ * @see https://core.telegram.org/bots/api#acceptedgifttypes
  */
 export const AcceptedGiftTypes = Schema.Struct({
 	/**
@@ -53,6 +54,7 @@ export type AcceptedGiftTypes = typeof AcceptedGiftTypes.Type;
 
 /**
  * This object represents a chat.
+ * @see https://core.telegram.org/bots/api#chat
  */
 export const Chat = Schema.Struct({
 	/**
@@ -116,6 +118,7 @@ export type Chat = typeof Chat.Type;
 
 /**
  * This object represents a Telegram user or bot.
+ * @see https://core.telegram.org/bots/api#user
  */
 export const User = Schema.Struct({
 	/**
@@ -225,6 +228,7 @@ export type User = typeof User.Type;
 /**
  * Contains information about the affiliate that received a commission via this
  * transaction.
+ * @see https://core.telegram.org/bots/api#affiliateinfo
  */
 export const AffiliateInfo = Schema.Struct({
 	/**
@@ -281,6 +285,7 @@ export type AffiliateInfo = typeof AffiliateInfo.Type;
 
 /**
  * This object represents one size of a photo or a file / sticker thumbnail.
+ * @see https://core.telegram.org/bots/api#photosize
  */
 export const PhotoSize = Schema.Struct({
 	/**
@@ -317,6 +322,7 @@ export type PhotoSize = typeof PhotoSize.Type;
 /**
  * This object represents an animation file (GIF or H.264/MPEG-4 AVC video
  * without sound).
+ * @see https://core.telegram.org/bots/api#animation
  */
 export const Animation = Schema.Struct({
 	/**
@@ -389,6 +395,7 @@ export type Animation = typeof Animation.Type;
 /**
  * This object represents an audio file to be treated as music by the Telegram
  * clients.
+ * @see https://core.telegram.org/bots/api#audio
  */
 export const Audio = Schema.Struct({
 	/**
@@ -465,6 +472,7 @@ export type Audio = typeof Audio.Type;
 /**
  * The background is a freeform gradient that rotates after every message in the
  * chat.
+ * @see https://core.telegram.org/bots/api#backgroundfillfreeformgradient
  */
 export const BackgroundFillFreeformGradient = Schema.Struct({
 	/**
@@ -490,6 +498,7 @@ export type BackgroundFillFreeformGradient = typeof BackgroundFillFreeformGradie
 
 /**
  * The background is a gradient fill.
+ * @see https://core.telegram.org/bots/api#backgroundfillgradient
  */
 export const BackgroundFillGradient = Schema.Struct({
 	/**
@@ -515,6 +524,7 @@ export type BackgroundFillGradient = typeof BackgroundFillGradient.Type;
 
 /**
  * The background is filled using the selected color.
+ * @see https://core.telegram.org/bots/api#backgroundfillsolid
  */
 export const BackgroundFillSolid = Schema.Struct({
 	/**
@@ -531,6 +541,10 @@ export type BackgroundFillSolid = typeof BackgroundFillSolid.Type;
 /**
  * This object describes the way a background is filled based on the selected
  * colors. Currently, it can be one of
+ * @see https://core.telegram.org/bots/api#backgroundfill
+ * @see https://core.telegram.org/bots/api#backgroundfillsolid
+ * @see https://core.telegram.org/bots/api#backgroundfillgradient
+ * @see https://core.telegram.org/bots/api#backgroundfillfreeformgradient
  */
 export const BackgroundFill = Schema.Union([
 	BackgroundFillSolid,
@@ -546,6 +560,7 @@ export type BackgroundFill = typeof BackgroundFill.Type;
 
 /**
  * The background is taken directly from a built-in chat theme.
+ * @see https://core.telegram.org/bots/api#backgroundtypechattheme
  */
 export const BackgroundTypeChatTheme = Schema.Struct({
 	/**
@@ -561,6 +576,7 @@ export type BackgroundTypeChatTheme = typeof BackgroundTypeChatTheme.Type;
 
 /**
  * The background is automatically filled based on the selected colors.
+ * @see https://core.telegram.org/bots/api#backgroundtypefill
  */
 export const BackgroundTypeFill = Schema.Struct({
 	/**
@@ -583,6 +599,7 @@ export type BackgroundTypeFill = typeof BackgroundTypeFill.Type;
 /**
  * This object represents a general file (as opposed to photos, voice messages
  * and audio files).
+ * @see https://core.telegram.org/bots/api#document
  */
 export const Document = Schema.Struct({
 	/**
@@ -642,6 +659,7 @@ export type Document = typeof Document.Type;
  * The background is a .PNG or .TGV (gzipped subset of SVG with MIME type
  * “application/x-tgwallpattern”) pattern to be combined with the background
  * fill chosen by the user.
+ * @see https://core.telegram.org/bots/api#backgroundtypepattern
  */
 export const BackgroundTypePattern = Schema.Struct({
 	/**
@@ -688,6 +706,7 @@ export type BackgroundTypePattern = typeof BackgroundTypePattern.Type;
 
 /**
  * The background is a wallpaper in the JPEG format.
+ * @see https://core.telegram.org/bots/api#backgroundtypewallpaper
  */
 export const BackgroundTypeWallpaper = Schema.Struct({
 	/**
@@ -725,6 +744,11 @@ export type BackgroundTypeWallpaper = typeof BackgroundTypeWallpaper.Type;
 
 /**
  * This object describes the type of a background. Currently, it can be one of
+ * @see https://core.telegram.org/bots/api#backgroundtype
+ * @see https://core.telegram.org/bots/api#backgroundtypefill
+ * @see https://core.telegram.org/bots/api#backgroundtypewallpaper
+ * @see https://core.telegram.org/bots/api#backgroundtypepattern
+ * @see https://core.telegram.org/bots/api#backgroundtypechattheme
  */
 export const BackgroundType = Schema.Union([
 	BackgroundTypeFill,
@@ -738,6 +762,7 @@ export type BackgroundType = typeof BackgroundType.Type;
 
 /**
  * Describes the birthdate of a user.
+ * @see https://core.telegram.org/bots/api#birthdate
  */
 export const Birthdate = Schema.Struct({
 	/**
@@ -757,6 +782,7 @@ export type Birthdate = typeof Birthdate.Type;
 
 /**
  * This object describes the access settings of a bot.
+ * @see https://core.telegram.org/bots/api#botaccesssettings
  */
 export const BotAccessSettings = Schema.Struct({
 	/**
@@ -780,6 +806,7 @@ export type BotAccessSettings = typeof BotAccessSettings.Type;
 
 /**
  * This object represents a bot command.
+ * @see https://core.telegram.org/bots/api#botcommand
  */
 export const BotCommand = Schema.Struct({
 	/**
@@ -802,6 +829,7 @@ export type BotCommand = typeof BotCommand.Type;
 /**
  * Represents the scope of bot commands, covering all group and supergroup chat
  * administrators.
+ * @see https://core.telegram.org/bots/api#botcommandscopeallchatadministrators
  */
 export const BotCommandScopeAllChatAdministrators = Schema.Struct({
 	/**
@@ -818,6 +846,7 @@ export type BotCommandScopeAllChatAdministrators = typeof BotCommandScopeAllChat
 /**
  * Represents the scope of bot commands, covering all group and supergroup
  * chats.
+ * @see https://core.telegram.org/bots/api#botcommandscopeallgroupchats
  */
 export const BotCommandScopeAllGroupChats = Schema.Struct({
 	/**
@@ -831,6 +860,7 @@ export type BotCommandScopeAllGroupChats = typeof BotCommandScopeAllGroupChats.T
 
 /**
  * Represents the scope of bot commands, covering all private chats.
+ * @see https://core.telegram.org/bots/api#botcommandscopeallprivatechats
  */
 export const BotCommandScopeAllPrivateChats = Schema.Struct({
 	/**
@@ -842,6 +872,7 @@ export type BotCommandScopeAllPrivateChats = typeof BotCommandScopeAllPrivateCha
 
 /**
  * Represents the scope of bot commands, covering a specific chat.
+ * @see https://core.telegram.org/bots/api#botcommandscopechat
  */
 export const BotCommandScopeChat = Schema.Struct({
 	/**
@@ -865,6 +896,7 @@ export type BotCommandScopeChat = typeof BotCommandScopeChat.Type;
 /**
  * Represents the scope of bot commands, covering all administrators of a
  * specific group or supergroup chat.
+ * @see https://core.telegram.org/bots/api#botcommandscopechatadministrators
  */
 export const BotCommandScopeChatAdministrators = Schema.Struct({
 	/**
@@ -893,6 +925,7 @@ export type BotCommandScopeChatAdministrators = typeof BotCommandScopeChatAdmini
 /**
  * Represents the scope of bot commands, covering a specific member of a group
  * or supergroup chat.
+ * @see https://core.telegram.org/bots/api#botcommandscopechatmember
  */
 export const BotCommandScopeChatMember = Schema.Struct({
 	/**
@@ -924,6 +957,7 @@ export type BotCommandScopeChatMember = typeof BotCommandScopeChatMember.Type;
 /**
  * Represents the default scope of bot commands. Default commands are used if no
  * commands with a narrower scope are specified for the user.
+ * @see https://core.telegram.org/bots/api#botcommandscopedefault
  */
 export const BotCommandScopeDefault = Schema.Struct({
 	/**
@@ -941,6 +975,14 @@ export type BotCommandScopeDefault = typeof BotCommandScopeDefault.Type;
 /**
  * This object represents the scope to which bot commands are applied.
  * Currently, the following 7 scopes are supported:
+ * @see https://core.telegram.org/bots/api#botcommandscope
+ * @see https://core.telegram.org/bots/api#botcommandscopedefault
+ * @see https://core.telegram.org/bots/api#botcommandscopeallprivatechats
+ * @see https://core.telegram.org/bots/api#botcommandscopeallgroupchats
+ * @see https://core.telegram.org/bots/api#botcommandscopeallchatadministrators
+ * @see https://core.telegram.org/bots/api#botcommandscopechat
+ * @see https://core.telegram.org/bots/api#botcommandscopechatadministrators
+ * @see https://core.telegram.org/bots/api#botcommandscopechatmember
  */
 export const BotCommandScope = Schema.Union([
 	BotCommandScopeDefault,
@@ -960,6 +1002,7 @@ export type BotCommandScope = typeof BotCommandScope.Type;
 
 /**
  * This object represents the bot's description.
+ * @see https://core.telegram.org/bots/api#botdescription
  */
 export const BotDescription = Schema.Struct({
 	/**
@@ -971,6 +1014,7 @@ export type BotDescription = typeof BotDescription.Type;
 
 /**
  * This object represents the bot's name.
+ * @see https://core.telegram.org/bots/api#botname
  */
 export const BotName = Schema.Struct({
 	/**
@@ -982,6 +1026,7 @@ export type BotName = typeof BotName.Type;
 
 /**
  * This object represents the bot's short description.
+ * @see https://core.telegram.org/bots/api#botshortdescription
  */
 export const BotShortDescription = Schema.Struct({
 	/**
@@ -993,6 +1038,7 @@ export type BotShortDescription = typeof BotShortDescription.Type;
 
 /**
  * Represents the rights of a business bot.
+ * @see https://core.telegram.org/bots/api#businessbotrights
  */
 export const BusinessBotRights = Schema.Struct({
 	/**
@@ -1105,6 +1151,7 @@ export type BusinessBotRights = typeof BusinessBotRights.Type;
 
 /**
  * Describes the connection of the bot with a business account.
+ * @see https://core.telegram.org/bots/api#businessconnection
  */
 export const BusinessConnection = Schema.Struct({
 	/**
@@ -1148,6 +1195,7 @@ export type BusinessConnection = typeof BusinessConnection.Type;
  * downloaded via the link https://api.telegram.org/file/bot<token>/<file_path>.
  * It is guaranteed that the link will be valid for at least 1 hour. When the
  * link expires, a new one can be requested by calling getFile.
+ * @see https://core.telegram.org/bots/api#file
  */
 export const File = Schema.Struct({
 	/**
@@ -1198,6 +1246,7 @@ export type File = typeof File.Type;
 /**
  * This object describes the position on faces where a mask should be placed by
  * default.
+ * @see https://core.telegram.org/bots/api#maskposition
  */
 export const MaskPosition = Schema.Struct({
 	/**
@@ -1247,6 +1296,7 @@ export type MaskPosition = typeof MaskPosition.Type;
 
 /**
  * This object represents a sticker.
+ * @see https://core.telegram.org/bots/api#sticker
  */
 export const Sticker = Schema.Struct({
 	/**
@@ -1347,6 +1397,7 @@ export type Sticker = typeof Sticker.Type;
 /**
  * Contains information about the start page settings of a Telegram Business
  * account.
+ * @see https://core.telegram.org/bots/api#businessintro
  */
 export const BusinessIntro = Schema.Struct({
 	/**
@@ -1370,6 +1421,7 @@ export type BusinessIntro = typeof BusinessIntro.Type;
 
 /**
  * This object represents a point on the map.
+ * @see https://core.telegram.org/bots/api#location
  */
 export const Location = Schema.Struct({
 	/**
@@ -1420,6 +1472,7 @@ export type Location = typeof Location.Type;
 
 /**
  * Contains information about the location of a Telegram Business account.
+ * @see https://core.telegram.org/bots/api#businesslocation
  */
 export const BusinessLocation = Schema.Struct({
 	/**
@@ -1436,6 +1489,7 @@ export type BusinessLocation = typeof BusinessLocation.Type;
 /**
  * This object is received when messages are deleted from a connected business
  * account.
+ * @see https://core.telegram.org/bots/api#businessmessagesdeleted
  */
 export const BusinessMessagesDeleted = Schema.Struct({
 	/**
@@ -1470,6 +1524,7 @@ export type BusinessMessagesDeleted = typeof BusinessMessagesDeleted.Type;
 
 /**
  * Describes an interval of time during which a business is open.
+ * @see https://core.telegram.org/bots/api#businessopeninghoursinterval
  */
 export const BusinessOpeningHoursInterval = Schema.Struct({
 	/**
@@ -1498,6 +1553,7 @@ export type BusinessOpeningHoursInterval = typeof BusinessOpeningHoursInterval.T
 
 /**
  * Describes the opening hours of a business.
+ * @see https://core.telegram.org/bots/api#businessopeninghours
  */
 export const BusinessOpeningHours = Schema.Struct({
 	/**
@@ -1518,6 +1574,7 @@ export type BusinessOpeningHours = typeof BusinessOpeningHours.Type;
 /**
  * A placeholder, currently holds no information. Use BotFather to set up your
  * game.
+ * @see https://core.telegram.org/bots/api#callbackgame
  */
 export const CallbackGame = Schema.Struct({}).pipe(
 	Schema.annotate({ description: "A placeholder, currently holds no information. Use BotFather to set up your game." }),
@@ -1527,6 +1584,7 @@ export type CallbackGame = typeof CallbackGame.Type;
 /**
  * This object describes a message that was deleted or is otherwise inaccessible
  * to the bot.
+ * @see https://core.telegram.org/bots/api#inaccessiblemessage
  */
 export const InaccessibleMessage = Schema.Struct({
 	/**
@@ -1555,6 +1613,7 @@ export type InaccessibleMessage = typeof InaccessibleMessage.Type;
 
 /**
  * This object represents a chat background.
+ * @see https://core.telegram.org/bots/api#chatbackground
  */
 export const ChatBackground = Schema.Struct({
 	/**
@@ -1566,6 +1625,7 @@ export type ChatBackground = typeof ChatBackground.Type;
 
 /**
  * This object represents a service message about a user boosting a chat.
+ * @see https://core.telegram.org/bots/api#chatboostadded
  */
 export const ChatBoostAdded = Schema.Struct({
 	/**
@@ -1577,6 +1637,7 @@ export type ChatBoostAdded = typeof ChatBoostAdded.Type;
 
 /**
  * Describes a service message about an ownership change in the chat.
+ * @see https://core.telegram.org/bots/api#chatownerchanged
  */
 export const ChatOwnerChanged = Schema.Struct({
 	/**
@@ -1588,6 +1649,7 @@ export type ChatOwnerChanged = typeof ChatOwnerChanged.Type;
 
 /**
  * Describes a service message about the chat owner leaving the chat.
+ * @see https://core.telegram.org/bots/api#chatownerleft
  */
 export const ChatOwnerLeft = Schema.Struct({
 	/**
@@ -1606,6 +1668,7 @@ export type ChatOwnerLeft = typeof ChatOwnerLeft.Type;
 /**
  * This object contains information about a chat that was shared with the bot
  * using a KeyboardButtonRequestChat button.
+ * @see https://core.telegram.org/bots/api#chatshared
  */
 export const ChatShared = Schema.Struct({
 	/**
@@ -1655,6 +1718,7 @@ export type ChatShared = typeof ChatShared.Type;
 /**
  * This object represents one special entity in a text message. For example,
  * hashtags, usernames, URLs, etc.
+ * @see https://core.telegram.org/bots/api#messageentity
  */
 export const MessageEntity = Schema.Struct({
 	/**
@@ -1736,6 +1800,7 @@ export type MessageEntity = typeof MessageEntity.Type;
 
 /**
  * Describes a task in a checklist.
+ * @see https://core.telegram.org/bots/api#checklisttask
  */
 export const ChecklistTask = Schema.Struct({
 	/**
@@ -1778,6 +1843,7 @@ export type ChecklistTask = typeof ChecklistTask.Type;
 
 /**
  * Describes a checklist.
+ * @see https://core.telegram.org/bots/api#checklist
  */
 export const Checklist = Schema.Struct({
 	/**
@@ -1814,6 +1880,7 @@ export type Checklist = typeof Checklist.Type;
 
 /**
  * This object represents a phone contact.
+ * @see https://core.telegram.org/bots/api#contact
  */
 export const Contact = Schema.Struct({
 	/**
@@ -1852,6 +1919,7 @@ export type Contact = typeof Contact.Type;
 
 /**
  * This object represents an animated emoji that displays a random value.
+ * @see https://core.telegram.org/bots/api#dice
  */
 export const Dice = Schema.Struct({
 	/**
@@ -1874,6 +1942,7 @@ export type Dice = typeof Dice.Type;
 /**
  * Describes a service message about a change in the price of direct messages
  * sent to a channel chat.
+ * @see https://core.telegram.org/bots/api#directmessagepricechanged
  */
 export const DirectMessagePriceChanged = Schema.Struct({
 	/**
@@ -1902,6 +1971,7 @@ export type DirectMessagePriceChanged = typeof DirectMessagePriceChanged.Type;
 
 /**
  * Describes a topic of a direct messages chat.
+ * @see https://core.telegram.org/bots/api#directmessagestopic
  */
 export const DirectMessagesTopic = Schema.Struct({
 	/**
@@ -1932,6 +2002,7 @@ export type DirectMessagesTopic = typeof DirectMessagesTopic.Type;
 /**
  * This object represents a game. Use BotFather to create and edit games, their
  * short names will act as unique identifiers.
+ * @see https://core.telegram.org/bots/api#game
  */
 export const Game = Schema.Struct({
 	/**
@@ -1988,6 +2059,7 @@ export type Game = typeof Game.Type;
 
 /**
  * This object represents a message about a scheduled giveaway.
+ * @see https://core.telegram.org/bots/api#giveaway
  */
 export const Giveaway = Schema.Struct({
 	/**
@@ -2070,6 +2142,7 @@ export type Giveaway = typeof Giveaway.Type;
 /**
  * This object represents a message about the completion of a giveaway with
  * public winners.
+ * @see https://core.telegram.org/bots/api#giveawaywinners
  */
 export const GiveawayWinners = Schema.Struct({
 	/**
@@ -2161,6 +2234,7 @@ export type GiveawayWinners = typeof GiveawayWinners.Type;
 
 /**
  * This object contains basic information about an invoice.
+ * @see https://core.telegram.org/bots/api#invoice
  */
 export const Invoice = Schema.Struct({
 	/**
@@ -2200,6 +2274,7 @@ export type Invoice = typeof Invoice.Type;
 
 /**
  * Describes the options used for link preview generation.
+ * @see https://core.telegram.org/bots/api#linkpreviewoptions
  */
 export const LinkPreviewOptions = Schema.Struct({
 	/**
@@ -2255,6 +2330,7 @@ export type LinkPreviewOptions = typeof LinkPreviewOptions.Type;
 
 /**
  * This object represents a live photo.
+ * @see https://core.telegram.org/bots/api#livephoto
  */
 export const LivePhoto = Schema.Struct({
 	/**
@@ -2317,6 +2393,7 @@ export type LivePhoto = typeof LivePhoto.Type;
 
 /**
  * The message was originally sent to a channel chat.
+ * @see https://core.telegram.org/bots/api#messageoriginchannel
  */
 export const MessageOriginChannel = Schema.Struct({
 	/**
@@ -2346,6 +2423,7 @@ export type MessageOriginChannel = typeof MessageOriginChannel.Type;
 
 /**
  * The message was originally sent on behalf of a chat to a group chat.
+ * @see https://core.telegram.org/bots/api#messageoriginchat
  */
 export const MessageOriginChat = Schema.Struct({
 	/**
@@ -2374,6 +2452,7 @@ export type MessageOriginChat = typeof MessageOriginChat.Type;
 
 /**
  * The message was originally sent by an unknown user.
+ * @see https://core.telegram.org/bots/api#messageoriginhiddenuser
  */
 export const MessageOriginHiddenUser = Schema.Struct({
 	/**
@@ -2395,6 +2474,7 @@ export type MessageOriginHiddenUser = typeof MessageOriginHiddenUser.Type;
 
 /**
  * The message was originally sent by a known user.
+ * @see https://core.telegram.org/bots/api#messageoriginuser
  */
 export const MessageOriginUser = Schema.Struct({
 	/**
@@ -2414,6 +2494,11 @@ export type MessageOriginUser = typeof MessageOriginUser.Type;
 
 /**
  * This object describes the origin of a message. It can be one of
+ * @see https://core.telegram.org/bots/api#messageorigin
+ * @see https://core.telegram.org/bots/api#messageoriginuser
+ * @see https://core.telegram.org/bots/api#messageoriginhiddenuser
+ * @see https://core.telegram.org/bots/api#messageoriginchat
+ * @see https://core.telegram.org/bots/api#messageoriginchannel
  */
 export const MessageOrigin = Schema.Union([
 	MessageOriginUser,
@@ -2425,6 +2510,7 @@ export type MessageOrigin = typeof MessageOrigin.Type;
 
 /**
  * The paid media is a live photo.
+ * @see https://core.telegram.org/bots/api#paidmedialivephoto
  */
 export const PaidMediaLivePhoto = Schema.Struct({
 	/**
@@ -2440,6 +2526,7 @@ export type PaidMediaLivePhoto = typeof PaidMediaLivePhoto.Type;
 
 /**
  * The paid media is a photo.
+ * @see https://core.telegram.org/bots/api#paidmediaphoto
  */
 export const PaidMediaPhoto = Schema.Struct({
 	/**
@@ -2455,6 +2542,7 @@ export type PaidMediaPhoto = typeof PaidMediaPhoto.Type;
 
 /**
  * The paid media isn't available before the payment.
+ * @see https://core.telegram.org/bots/api#paidmediapreview
  */
 export const PaidMediaPreview = Schema.Struct({
 	/**
@@ -2480,6 +2568,7 @@ export type PaidMediaPreview = typeof PaidMediaPreview.Type;
 
 /**
  * This object represents a video file of a specific quality.
+ * @see https://core.telegram.org/bots/api#videoquality
  */
 export const VideoQuality = Schema.Struct({
 	/**
@@ -2530,6 +2619,7 @@ export type VideoQuality = typeof VideoQuality.Type;
 
 /**
  * This object represents a video file.
+ * @see https://core.telegram.org/bots/api#video
  */
 export const Video = Schema.Struct({
 	/**
@@ -2613,6 +2703,7 @@ export type Video = typeof Video.Type;
 
 /**
  * The paid media is a video.
+ * @see https://core.telegram.org/bots/api#paidmediavideo
  */
 export const PaidMediaVideo = Schema.Struct({
 	/**
@@ -2628,6 +2719,11 @@ export type PaidMediaVideo = typeof PaidMediaVideo.Type;
 
 /**
  * This object describes paid media. Currently, it can be one of
+ * @see https://core.telegram.org/bots/api#paidmedia
+ * @see https://core.telegram.org/bots/api#paidmedialivephoto
+ * @see https://core.telegram.org/bots/api#paidmediaphoto
+ * @see https://core.telegram.org/bots/api#paidmediapreview
+ * @see https://core.telegram.org/bots/api#paidmediavideo
  */
 export const PaidMedia = Schema.Union([PaidMediaLivePhoto, PaidMediaPhoto, PaidMediaPreview, PaidMediaVideo]).pipe(
 	Schema.annotate({ description: "This object describes paid media. Currently, it can be one of" }),
@@ -2636,6 +2732,7 @@ export type PaidMedia = typeof PaidMedia.Type;
 
 /**
  * Describes the paid media added to a message.
+ * @see https://core.telegram.org/bots/api#paidmediainfo
  */
 export const PaidMediaInfo = Schema.Struct({
 	/**
@@ -2653,6 +2750,7 @@ export type PaidMediaInfo = typeof PaidMediaInfo.Type;
 
 /**
  * This object represents a venue.
+ * @see https://core.telegram.org/bots/api#venue
  */
 export const Venue = Schema.Struct({
 	/**
@@ -2700,6 +2798,7 @@ export type Venue = typeof Venue.Type;
 
 /**
  * At most one of the optional fields can be present in any given object.
+ * @see https://core.telegram.org/bots/api#pollmedia
  */
 export const PollMedia = Schema.Struct({
 	/**
@@ -2766,6 +2865,7 @@ export type PollMedia = typeof PollMedia.Type;
 
 /**
  * This object contains information about one answer option in a poll.
+ * @see https://core.telegram.org/bots/api#polloption
  */
 export const PollOption = Schema.Struct({
 	/**
@@ -2831,6 +2931,7 @@ export type PollOption = typeof PollOption.Type;
 
 /**
  * This object contains information about a poll.
+ * @see https://core.telegram.org/bots/api#poll
  */
 export const Poll = Schema.Struct({
 	/**
@@ -2980,6 +3081,7 @@ export type Poll = typeof Poll.Type;
 
 /**
  * This object represents a story.
+ * @see https://core.telegram.org/bots/api#story
  */
 export const Story = Schema.Struct({
 	/**
@@ -2996,6 +3098,7 @@ export type Story = typeof Story.Type;
 /**
  * This object represents a video message (available in Telegram apps as of
  * v.4.0).
+ * @see https://core.telegram.org/bots/api#videonote
  */
 export const VideoNote = Schema.Struct({
 	/**
@@ -3042,6 +3145,7 @@ export type VideoNote = typeof VideoNote.Type;
 
 /**
  * This object represents a voice note.
+ * @see https://core.telegram.org/bots/api#voice
  */
 export const Voice = Schema.Struct({
 	/**
@@ -3090,6 +3194,7 @@ export type Voice = typeof Voice.Type;
 /**
  * This object contains information about a message that is being replied to,
  * which may come from another chat or forum topic.
+ * @see https://core.telegram.org/bots/api#externalreplyinfo
  */
 export const ExternalReplyInfo = Schema.Struct({
 	/**
@@ -3264,6 +3369,7 @@ export type ExternalReplyInfo = typeof ExternalReplyInfo.Type;
 /**
  * This object represents a service message about a forum topic closed in the
  * chat. Currently holds no information.
+ * @see https://core.telegram.org/bots/api#forumtopicclosed
  */
 export const ForumTopicClosed = Schema.Struct({}).pipe(
 	Schema.annotate({
@@ -3276,6 +3382,7 @@ export type ForumTopicClosed = typeof ForumTopicClosed.Type;
 /**
  * This object represents a service message about a new forum topic created in
  * the chat.
+ * @see https://core.telegram.org/bots/api#forumtopiccreated
  */
 export const ForumTopicCreated = Schema.Struct({
 	/**
@@ -3311,6 +3418,7 @@ export type ForumTopicCreated = typeof ForumTopicCreated.Type;
 
 /**
  * This object represents a service message about an edited forum topic.
+ * @see https://core.telegram.org/bots/api#forumtopicedited
  */
 export const ForumTopicEdited = Schema.Struct({
 	/**
@@ -3335,6 +3443,7 @@ export type ForumTopicEdited = typeof ForumTopicEdited.Type;
 /**
  * This object represents a service message about a forum topic reopened in the
  * chat. Currently holds no information.
+ * @see https://core.telegram.org/bots/api#forumtopicreopened
  */
 export const ForumTopicReopened = Schema.Struct({}).pipe(
 	Schema.annotate({
@@ -3347,6 +3456,7 @@ export type ForumTopicReopened = typeof ForumTopicReopened.Type;
 /**
  * This object represents a service message about General forum topic hidden in
  * the chat. Currently holds no information.
+ * @see https://core.telegram.org/bots/api#generalforumtopichidden
  */
 export const GeneralForumTopicHidden = Schema.Struct({}).pipe(
 	Schema.annotate({
@@ -3359,6 +3469,7 @@ export type GeneralForumTopicHidden = typeof GeneralForumTopicHidden.Type;
 /**
  * This object represents a service message about General forum topic unhidden
  * in the chat. Currently holds no information.
+ * @see https://core.telegram.org/bots/api#generalforumtopicunhidden
  */
 export const GeneralForumTopicUnhidden = Schema.Struct({}).pipe(
 	Schema.annotate({
@@ -3370,6 +3481,7 @@ export type GeneralForumTopicUnhidden = typeof GeneralForumTopicUnhidden.Type;
 
 /**
  * This object describes the background of a gift.
+ * @see https://core.telegram.org/bots/api#giftbackground
  */
 export const GiftBackground = Schema.Struct({
 	/**
@@ -3389,6 +3501,7 @@ export type GiftBackground = typeof GiftBackground.Type;
 
 /**
  * This object represents a gift that can be sent by the bot.
+ * @see https://core.telegram.org/bots/api#gift
  */
 export const Gift = Schema.Struct({
 	/**
@@ -3489,6 +3602,7 @@ export type Gift = typeof Gift.Type;
 
 /**
  * Describes a service message about a regular gift that was sent or received.
+ * @see https://core.telegram.org/bots/api#giftinfo
  */
 export const GiftInfo = Schema.Struct({
 	/**
@@ -3573,6 +3687,7 @@ export type GiftInfo = typeof GiftInfo.Type;
 /**
  * This object represents a service message about the creation of a scheduled
  * giveaway.
+ * @see https://core.telegram.org/bots/api#giveawaycreated
  */
 export const GiveawayCreated = Schema.Struct({
 	/**
@@ -3595,6 +3710,7 @@ export type GiveawayCreated = typeof GiveawayCreated.Type;
 /**
  * This object represents an inline keyboard button that copies specified text
  * to the clipboard.
+ * @see https://core.telegram.org/bots/api#copytextbutton
  */
 export const CopyTextButton = Schema.Struct({
 	/**
@@ -3615,6 +3731,7 @@ export type CopyTextButton = typeof CopyTextButton.Type;
  * automatically authorize a user. Serves as a great replacement for the
  * Telegram Login Widget when the user is coming from Telegram. All the user
  * needs to do is tap/click a button and confirm that they want to log in:
+ * @see https://core.telegram.org/bots/api#loginurl
  */
 export const LoginUrl = Schema.Struct({
 	/**
@@ -3669,6 +3786,7 @@ export type LoginUrl = typeof LoginUrl.Type;
 /**
  * This object represents an inline button that switches the current user to
  * inline mode in a chosen chat, with an optional default inline query.
+ * @see https://core.telegram.org/bots/api#switchinlinequerychosenchat
  */
 export const SwitchInlineQueryChosenChat = Schema.Struct({
 	/**
@@ -3715,6 +3833,7 @@ export type SwitchInlineQueryChosenChat = typeof SwitchInlineQueryChosenChat.Typ
 
 /**
  * Describes a Web App.
+ * @see https://core.telegram.org/bots/api#webappinfo
  */
 export const WebAppInfo = Schema.Struct({
 	/**
@@ -3733,6 +3852,7 @@ export type WebAppInfo = typeof WebAppInfo.Type;
  * This object represents one button of an inline keyboard. Exactly one of the
  * fields other than text, icon_custom_emoji_id, and style must be used to
  * specify the type of the button.
+ * @see https://core.telegram.org/bots/api#inlinekeyboardbutton
  */
 export const InlineKeyboardButton = Schema.Struct({
 	/**
@@ -3885,6 +4005,7 @@ export type InlineKeyboardButton = typeof InlineKeyboardButton.Type;
 /**
  * This object represents an inline keyboard that appears right next to the
  * message it belongs to.
+ * @see https://core.telegram.org/bots/api#inlinekeyboardmarkup
  */
 export const InlineKeyboardMarkup = Schema.Struct({
 	/**
@@ -3906,6 +4027,7 @@ export type InlineKeyboardMarkup = typeof InlineKeyboardMarkup.Type;
 /**
  * This object contains information about the bot that was created to be managed
  * by the current bot.
+ * @see https://core.telegram.org/bots/api#managedbotcreated
  */
 export const ManagedBotCreated = Schema.Struct({
 	/**
@@ -3927,6 +4049,7 @@ export type ManagedBotCreated = typeof ManagedBotCreated.Type;
 /**
  * This object represents a service message about a change in auto-delete timer
  * settings.
+ * @see https://core.telegram.org/bots/api#messageautodeletetimerchanged
  */
 export const MessageAutoDeleteTimerChanged = Schema.Struct({
 	/**
@@ -3945,6 +4068,7 @@ export type MessageAutoDeleteTimerChanged = typeof MessageAutoDeleteTimerChanged
 /**
  * Describes a service message about a change in the price of paid messages
  * within a chat.
+ * @see https://core.telegram.org/bots/api#paidmessagepricechanged
  */
 export const PaidMessagePriceChanged = Schema.Struct({
 	/**
@@ -3968,6 +4092,7 @@ export type PaidMessagePriceChanged = typeof PaidMessagePriceChanged.Type;
  * Describes data required for decrypting and authenticating
  * EncryptedPassportElement. See the Telegram Passport Documentation for a
  * complete description of the data decryption and authentication processes.
+ * @see https://core.telegram.org/bots/api#encryptedcredentials
  */
 export const EncryptedCredentials = Schema.Struct({
 	/**
@@ -4006,6 +4131,7 @@ export type EncryptedCredentials = typeof EncryptedCredentials.Type;
  * This object represents a file uploaded to Telegram Passport. Currently all
  * Telegram Passport files are in JPEG format when decrypted and don't exceed
  * 10MB.
+ * @see https://core.telegram.org/bots/api#passportfile
  */
 export const PassportFile = Schema.Struct({
 	/**
@@ -4043,6 +4169,7 @@ export type PassportFile = typeof PassportFile.Type;
 /**
  * Describes documents or other Telegram Passport elements shared with the bot
  * by the user.
+ * @see https://core.telegram.org/bots/api#encryptedpassportelement
  */
 export const EncryptedPassportElement = Schema.Struct({
 	/**
@@ -4157,6 +4284,7 @@ export type EncryptedPassportElement = typeof EncryptedPassportElement.Type;
 
 /**
  * Describes Telegram Passport data shared with the bot by the user.
+ * @see https://core.telegram.org/bots/api#passportdata
  */
 export const PassportData = Schema.Struct({
 	/**
@@ -4181,6 +4309,7 @@ export type PassportData = typeof PassportData.Type;
 /**
  * This object represents the content of a service message, sent whenever a user
  * in the chat triggers a proximity alert set by another user.
+ * @see https://core.telegram.org/bots/api#proximityalerttriggered
  */
 export const ProximityAlertTriggered = Schema.Struct({
 	/**
@@ -4205,6 +4334,7 @@ export type ProximityAlertTriggered = typeof ProximityAlertTriggered.Type;
 
 /**
  * This object contains basic information about a refunded payment.
+ * @see https://core.telegram.org/bots/api#refundedpayment
  */
 export const RefundedPayment = Schema.Struct({
 	/**
@@ -4248,6 +4378,7 @@ export type RefundedPayment = typeof RefundedPayment.Type;
 
 /**
  * This object represents a shipping address.
+ * @see https://core.telegram.org/bots/api#shippingaddress
  */
 export const ShippingAddress = Schema.Struct({
 	/**
@@ -4279,6 +4410,7 @@ export type ShippingAddress = typeof ShippingAddress.Type;
 
 /**
  * This object represents information about an order.
+ * @see https://core.telegram.org/bots/api#orderinfo
  */
 export const OrderInfo = Schema.Struct({
 	/**
@@ -4305,6 +4437,7 @@ export type OrderInfo = typeof OrderInfo.Type;
  * if the buyer initiates a chargeback with the relevant payment provider
  * following this transaction, the funds may be debited from your balance. This
  * is outside of Telegram's control.
+ * @see https://core.telegram.org/bots/api#successfulpayment
  */
 export const SuccessfulPayment = Schema.Struct({
 	/**
@@ -4378,6 +4511,7 @@ export type SuccessfulPayment = typeof SuccessfulPayment.Type;
 
 /**
  * Describes the price of a suggested post.
+ * @see https://core.telegram.org/bots/api#suggestedpostprice
  */
 export const SuggestedPostPrice = Schema.Struct({
 	/**
@@ -4407,6 +4541,7 @@ export type SuggestedPostPrice = typeof SuggestedPostPrice.Type;
 
 /**
  * Contains information about a suggested post.
+ * @see https://core.telegram.org/bots/api#suggestedpostinfo
  */
 export const SuggestedPostInfo = Schema.Struct({
 	/**
@@ -4441,6 +4576,7 @@ export type SuggestedPostInfo = typeof SuggestedPostInfo.Type;
 
 /**
  * Describes an amount of Telegram Stars.
+ * @see https://core.telegram.org/bots/api#staramount
  */
 export const StarAmount = Schema.Struct({
 	/**
@@ -4465,6 +4601,7 @@ export type StarAmount = typeof StarAmount.Type;
 /**
  * This object contains information about the quoted part of a message that is
  * replied to by the given message.
+ * @see https://core.telegram.org/bots/api#textquote
  */
 export const TextQuote = Schema.Struct({
 	/**
@@ -4513,6 +4650,7 @@ export type TextQuote = typeof TextQuote.Type;
 
 /**
  * This object describes the colors of the backdrop of a unique gift.
+ * @see https://core.telegram.org/bots/api#uniquegiftbackdropcolors
  */
 export const UniqueGiftBackdropColors = Schema.Struct({
 	/**
@@ -4540,6 +4678,7 @@ export type UniqueGiftBackdropColors = typeof UniqueGiftBackdropColors.Type;
 
 /**
  * This object describes the backdrop of a unique gift.
+ * @see https://core.telegram.org/bots/api#uniquegiftbackdrop
  */
 export const UniqueGiftBackdrop = Schema.Struct({
 	/**
@@ -4565,6 +4704,7 @@ export type UniqueGiftBackdrop = typeof UniqueGiftBackdrop.Type;
 /**
  * This object contains information about the color scheme for a user's name,
  * message replies and link previews based on a unique gift.
+ * @see https://core.telegram.org/bots/api#uniquegiftcolors
  */
 export const UniqueGiftColors = Schema.Struct({
 	/**
@@ -4613,6 +4753,7 @@ export type UniqueGiftColors = typeof UniqueGiftColors.Type;
 
 /**
  * This object describes the model of a unique gift.
+ * @see https://core.telegram.org/bots/api#uniquegiftmodel
  */
 export const UniqueGiftModel = Schema.Struct({
 	/**
@@ -4648,6 +4789,7 @@ export type UniqueGiftModel = typeof UniqueGiftModel.Type;
 
 /**
  * This object describes the symbol shown on the pattern of a unique gift.
+ * @see https://core.telegram.org/bots/api#uniquegiftsymbol
  */
 export const UniqueGiftSymbol = Schema.Struct({
 	/**
@@ -4672,6 +4814,7 @@ export type UniqueGiftSymbol = typeof UniqueGiftSymbol.Type;
 
 /**
  * This object describes a unique gift that was upgraded from a regular gift.
+ * @see https://core.telegram.org/bots/api#uniquegift
  */
 export const UniqueGift = Schema.Struct({
 	/**
@@ -4766,6 +4909,7 @@ export type UniqueGift = typeof UniqueGift.Type;
 
 /**
  * Describes a service message about a unique gift that was sent or received.
+ * @see https://core.telegram.org/bots/api#uniquegiftinfo
  */
 export const UniqueGiftInfo = Schema.Struct({
 	/**
@@ -4842,6 +4986,7 @@ export type UniqueGiftInfo = typeof UniqueGiftInfo.Type;
 /**
  * This object contains information about a user that was shared with the bot
  * using a KeyboardButtonRequestUsers button.
+ * @see https://core.telegram.org/bots/api#shareduser
  */
 export const SharedUser = Schema.Struct({
 	/**
@@ -4893,6 +5038,7 @@ export type SharedUser = typeof SharedUser.Type;
 /**
  * This object contains information about the users whose identifiers were
  * shared with the bot using a KeyboardButtonRequestUsers button.
+ * @see https://core.telegram.org/bots/api#usersshared
  */
 export const UsersShared = Schema.Struct({
 	/**
@@ -4914,6 +5060,7 @@ export type UsersShared = typeof UsersShared.Type;
 /**
  * This object represents a service message about a video chat ended in the
  * chat.
+ * @see https://core.telegram.org/bots/api#videochatended
  */
 export const VideoChatEnded = Schema.Struct({
 	/**
@@ -4928,6 +5075,7 @@ export type VideoChatEnded = typeof VideoChatEnded.Type;
 /**
  * This object represents a service message about new members invited to a video
  * chat.
+ * @see https://core.telegram.org/bots/api#videochatparticipantsinvited
  */
 export const VideoChatParticipantsInvited = Schema.Struct({
 	/**
@@ -4944,6 +5092,7 @@ export type VideoChatParticipantsInvited = typeof VideoChatParticipantsInvited.T
 /**
  * This object represents a service message about a video chat scheduled in the
  * chat.
+ * @see https://core.telegram.org/bots/api#videochatscheduled
  */
 export const VideoChatScheduled = Schema.Struct({
 	/**
@@ -4966,6 +5115,7 @@ export type VideoChatScheduled = typeof VideoChatScheduled.Type;
 /**
  * This object represents a service message about a video chat started in the
  * chat. Currently holds no information.
+ * @see https://core.telegram.org/bots/api#videochatstarted
  */
 export const VideoChatStarted = Schema.Struct({}).pipe(
 	Schema.annotate({
@@ -4977,6 +5127,7 @@ export type VideoChatStarted = typeof VideoChatStarted.Type;
 
 /**
  * Describes data sent from a Web App to the bot.
+ * @see https://core.telegram.org/bots/api#webappdata
  */
 export const WebAppData = Schema.Struct({
 	/**
@@ -5003,6 +5154,7 @@ export type WebAppData = typeof WebAppData.Type;
  * messages after adding it to the attachment menu, launching a Web App from a
  * link, or accepting an explicit request from a Web App sent by the method
  * requestWriteAccess.
+ * @see https://core.telegram.org/bots/api#writeaccessallowed
  */
 export const WriteAccessAllowed = Schema.Struct({
 	/**
@@ -5043,6 +5195,7 @@ export type WriteAccessAllowed = typeof WriteAccessAllowed.Type;
 
 /**
  * Describes a service message about tasks added to a checklist.
+ * @see https://core.telegram.org/bots/api#checklisttasksadded
  */
 export type ChecklistTasksAdded = {
 	/**
@@ -5076,6 +5229,7 @@ export const ChecklistTasksAdded = Schema.Struct({
 
 /**
  * Describes a service message about checklist tasks marked as done or not done.
+ * @see https://core.telegram.org/bots/api#checklisttasksdone
  */
 export type ChecklistTasksDone = {
 	/**
@@ -5124,6 +5278,7 @@ export const ChecklistTasksDone = Schema.Struct({
 /**
  * This object represents a service message about the completion of a giveaway
  * without public winners.
+ * @see https://core.telegram.org/bots/api#giveawaycompleted
  */
 export type GiveawayCompleted = {
 	/**
@@ -5180,6 +5335,9 @@ export const GiveawayCompleted = Schema.Struct({
 /**
  * This object describes a message that can be inaccessible to the bot. It can
  * be one of
+ * @see https://core.telegram.org/bots/api#maybeinaccessiblemessage
+ * @see https://core.telegram.org/bots/api#message
+ * @see https://core.telegram.org/bots/api#inaccessiblemessage
  */
 export const MaybeInaccessibleMessage = Schema.Union([
 	Schema.suspend((): Schema.Codec<Message> => Message),
@@ -5193,6 +5351,7 @@ export type MaybeInaccessibleMessage = typeof MaybeInaccessibleMessage.Type;
 
 /**
  * This object represents a message.
+ * @see https://core.telegram.org/bots/api#message
  */
 export type Message = {
 	/**
@@ -6597,6 +6756,7 @@ export const Message = Schema.Struct({
 
 /**
  * Describes a service message about an option added to a poll.
+ * @see https://core.telegram.org/bots/api#polloptionadded
  */
 export type PollOptionAdded = {
 	/**
@@ -6650,6 +6810,7 @@ export const PollOptionAdded = Schema.Struct({
 
 /**
  * Describes a service message about an option deleted from a poll.
+ * @see https://core.telegram.org/bots/api#polloptiondeleted
  */
 export type PollOptionDeleted = {
 	/**
@@ -6704,6 +6865,7 @@ export const PollOptionDeleted = Schema.Struct({
 /**
  * Describes a service message about the failed approval of a suggested post.
  * Currently, only caused by insufficient user funds at the time of approval.
+ * @see https://core.telegram.org/bots/api#suggestedpostapprovalfailed
  */
 export type SuggestedPostApprovalFailed = {
 	/**
@@ -6742,6 +6904,7 @@ export const SuggestedPostApprovalFailed = Schema.Struct({
 
 /**
  * Describes a service message about the approval of a suggested post.
+ * @see https://core.telegram.org/bots/api#suggestedpostapproved
  */
 export type SuggestedPostApproved = {
 	/**
@@ -6783,6 +6946,7 @@ export const SuggestedPostApproved = Schema.Struct({
 
 /**
  * Describes a service message about the rejection of a suggested post.
+ * @see https://core.telegram.org/bots/api#suggestedpostdeclined
  */
 export type SuggestedPostDeclined = {
 	/**
@@ -6818,6 +6982,7 @@ export const SuggestedPostDeclined = Schema.Struct({
 
 /**
  * Describes a service message about a successful payment for a suggested post.
+ * @see https://core.telegram.org/bots/api#suggestedpostpaid
  */
 export type SuggestedPostPaid = {
 	/**
@@ -6889,6 +7054,7 @@ export const SuggestedPostPaid = Schema.Struct({
 
 /**
  * Describes a service message about a payment refund for a suggested post.
+ * @see https://core.telegram.org/bots/api#suggestedpostrefunded
  */
 export type SuggestedPostRefunded = {
 	/**
@@ -6938,6 +7104,7 @@ export const SuggestedPostRefunded = Schema.Struct({
  * attached to a message sent via the bot (in inline mode), the field
  * inline_message_id will be present. Exactly one of the fields data or
  * game_short_name will be present.
+ * @see https://core.telegram.org/bots/api#callbackquery
  */
 export const CallbackQuery = Schema.Struct({
 	/**
@@ -7002,6 +7169,7 @@ export type CallbackQuery = typeof CallbackQuery.Type;
 
 /**
  * Represents the rights of an administrator in a chat.
+ * @see https://core.telegram.org/bots/api#chatadministratorrights
  */
 export const ChatAdministratorRights = Schema.Struct({
 	/**
@@ -7155,6 +7323,7 @@ export type ChatAdministratorRights = typeof ChatAdministratorRights.Type;
  * The boost was obtained by the creation of Telegram Premium gift codes to
  * boost a chat. Each such code boosts the chat 4 times for the duration of the
  * corresponding Telegram Premium subscription.
+ * @see https://core.telegram.org/bots/api#chatboostsourcegiftcode
  */
 export const ChatBoostSourceGiftCode = Schema.Struct({
 	/**
@@ -7178,6 +7347,7 @@ export type ChatBoostSourceGiftCode = typeof ChatBoostSourceGiftCode.Type;
  * Star giveaway. This boosts the chat 4 times for the duration of the
  * corresponding Telegram Premium subscription for Telegram Premium giveaways
  * and prize_star_count / 500 times for one year for Telegram Star giveaways.
+ * @see https://core.telegram.org/bots/api#chatboostsourcegiveaway
  */
 export const ChatBoostSourceGiveaway = Schema.Struct({
 	/**
@@ -7230,6 +7400,7 @@ export type ChatBoostSourceGiveaway = typeof ChatBoostSourceGiveaway.Type;
 /**
  * The boost was obtained by subscribing to Telegram Premium or by gifting a
  * Telegram Premium subscription to another user.
+ * @see https://core.telegram.org/bots/api#chatboostsourcepremium
  */
 export const ChatBoostSourcePremium = Schema.Struct({
 	/**
@@ -7250,6 +7421,10 @@ export type ChatBoostSourcePremium = typeof ChatBoostSourcePremium.Type;
 
 /**
  * This object describes the source of a chat boost. It can be one of
+ * @see https://core.telegram.org/bots/api#chatboostsource
+ * @see https://core.telegram.org/bots/api#chatboostsourcepremium
+ * @see https://core.telegram.org/bots/api#chatboostsourcegiftcode
+ * @see https://core.telegram.org/bots/api#chatboostsourcegiveaway
  */
 export const ChatBoostSource = Schema.Union([
 	ChatBoostSourcePremium,
@@ -7260,6 +7435,7 @@ export type ChatBoostSource = typeof ChatBoostSource.Type;
 
 /**
  * This object contains information about a chat boost.
+ * @see https://core.telegram.org/bots/api#chatboost
  */
 export const ChatBoost = Schema.Struct({
 	/**
@@ -7291,6 +7467,7 @@ export type ChatBoost = typeof ChatBoost.Type;
 
 /**
  * This object represents a boost removed from a chat.
+ * @see https://core.telegram.org/bots/api#chatboostremoved
  */
 export const ChatBoostRemoved = Schema.Struct({
 	/**
@@ -7316,6 +7493,7 @@ export type ChatBoostRemoved = typeof ChatBoostRemoved.Type;
 
 /**
  * This object represents a boost added to a chat or changed.
+ * @see https://core.telegram.org/bots/api#chatboostupdated
  */
 export const ChatBoostUpdated = Schema.Struct({
 	/**
@@ -7331,6 +7509,7 @@ export type ChatBoostUpdated = typeof ChatBoostUpdated.Type;
 
 /**
  * Represents a location to which a chat is connected.
+ * @see https://core.telegram.org/bots/api#chatlocation
  */
 export const ChatLocation = Schema.Struct({
 	/**
@@ -7350,6 +7529,7 @@ export type ChatLocation = typeof ChatLocation.Type;
 
 /**
  * Describes actions that a non-administrator user is allowed to take in a chat.
+ * @see https://core.telegram.org/bots/api#chatpermissions
  */
 export const ChatPermissions = Schema.Struct({
 	/**
@@ -7478,6 +7658,7 @@ export type ChatPermissions = typeof ChatPermissions.Type;
 
 /**
  * This object represents a chat photo.
+ * @see https://core.telegram.org/bots/api#chatphoto
  */
 export const ChatPhoto = Schema.Struct({
 	/**
@@ -7527,6 +7708,7 @@ export type ChatPhoto = typeof ChatPhoto.Type;
 
 /**
  * The reaction is based on a custom emoji.
+ * @see https://core.telegram.org/bots/api#reactiontypecustomemoji
  */
 export const ReactionTypeCustomEmoji = Schema.Struct({
 	/**
@@ -7542,6 +7724,7 @@ export type ReactionTypeCustomEmoji = typeof ReactionTypeCustomEmoji.Type;
 
 /**
  * The reaction is based on an emoji.
+ * @see https://core.telegram.org/bots/api#reactiontypeemoji
  */
 export const ReactionTypeEmoji = Schema.Struct({
 	/**
@@ -7568,6 +7751,7 @@ export type ReactionTypeEmoji = typeof ReactionTypeEmoji.Type;
 
 /**
  * The reaction is paid.
+ * @see https://core.telegram.org/bots/api#reactiontypepaid
  */
 export const ReactionTypePaid = Schema.Struct({
 	/**
@@ -7579,6 +7763,10 @@ export type ReactionTypePaid = typeof ReactionTypePaid.Type;
 
 /**
  * This object describes the type of a reaction. Currently, it can be one of
+ * @see https://core.telegram.org/bots/api#reactiontype
+ * @see https://core.telegram.org/bots/api#reactiontypeemoji
+ * @see https://core.telegram.org/bots/api#reactiontypecustomemoji
+ * @see https://core.telegram.org/bots/api#reactiontypepaid
  */
 export const ReactionType = Schema.Union([ReactionTypeEmoji, ReactionTypeCustomEmoji, ReactionTypePaid]).pipe(
 	Schema.annotate({ description: "This object describes the type of a reaction. Currently, it can be one of" }),
@@ -7588,6 +7776,7 @@ export type ReactionType = typeof ReactionType.Type;
 /**
  * This object describes the rating of a user based on their Telegram Star
  * spendings.
+ * @see https://core.telegram.org/bots/api#userrating
  */
 export const UserRating = Schema.Struct({
 	/**
@@ -7631,6 +7820,7 @@ export type UserRating = typeof UserRating.Type;
 
 /**
  * This object contains full information about a chat.
+ * @see https://core.telegram.org/bots/api#chatfullinfo
  */
 export const ChatFullInfo = Schema.Struct({
 	/**
@@ -8041,6 +8231,7 @@ export type ChatFullInfo = typeof ChatFullInfo.Type;
 
 /**
  * Represents an invite link for a chat.
+ * @see https://core.telegram.org/bots/api#chatinvitelink
  */
 export const ChatInviteLink = Schema.Struct({
 	/**
@@ -8124,6 +8315,7 @@ export type ChatInviteLink = typeof ChatInviteLink.Type;
 
 /**
  * Represents a join request sent to a chat.
+ * @see https://core.telegram.org/bots/api#chatjoinrequest
  */
 export const ChatJoinRequest = Schema.Struct({
 	/**
@@ -8168,6 +8360,7 @@ export type ChatJoinRequest = typeof ChatJoinRequest.Type;
 
 /**
  * Represents a chat member that has some additional privileges.
+ * @see https://core.telegram.org/bots/api#chatmemberadministrator
  */
 export const ChatMemberAdministrator = Schema.Struct({
 	/**
@@ -8340,6 +8533,7 @@ export type ChatMemberAdministrator = typeof ChatMemberAdministrator.Type;
 /**
  * Represents a chat member that was banned in the chat and can't return to the
  * chat or view chat messages.
+ * @see https://core.telegram.org/bots/api#chatmemberbanned
  */
 export const ChatMemberBanned = Schema.Struct({
 	/**
@@ -8371,6 +8565,7 @@ export type ChatMemberBanned = typeof ChatMemberBanned.Type;
 /**
  * Represents a chat member that isn't currently a member of the chat, but may
  * join it themselves.
+ * @see https://core.telegram.org/bots/api#chatmemberleft
  */
 export const ChatMemberLeft = Schema.Struct({
 	/**
@@ -8390,6 +8585,7 @@ export type ChatMemberLeft = typeof ChatMemberLeft.Type;
 
 /**
  * Represents a chat member that has no additional privileges or restrictions.
+ * @see https://core.telegram.org/bots/api#chatmembermember
  */
 export const ChatMemberMember = Schema.Struct({
 	/**
@@ -8418,6 +8614,7 @@ export type ChatMemberMember = typeof ChatMemberMember.Type;
 /**
  * Represents a chat member that owns the chat and has all administrator
  * privileges.
+ * @see https://core.telegram.org/bots/api#chatmemberowner
  */
 export const ChatMemberOwner = Schema.Struct({
 	/**
@@ -8446,6 +8643,7 @@ export type ChatMemberOwner = typeof ChatMemberOwner.Type;
 /**
  * Represents a chat member that is under certain restrictions in the chat.
  * Supergroups only.
+ * @see https://core.telegram.org/bots/api#chatmemberrestricted
  */
 export const ChatMemberRestricted = Schema.Struct({
 	/**
@@ -8584,6 +8782,13 @@ export type ChatMemberRestricted = typeof ChatMemberRestricted.Type;
 /**
  * This object contains information about one member of a chat. Currently, the
  * following 6 types of chat members are supported:
+ * @see https://core.telegram.org/bots/api#chatmember
+ * @see https://core.telegram.org/bots/api#chatmemberowner
+ * @see https://core.telegram.org/bots/api#chatmemberadministrator
+ * @see https://core.telegram.org/bots/api#chatmembermember
+ * @see https://core.telegram.org/bots/api#chatmemberrestricted
+ * @see https://core.telegram.org/bots/api#chatmemberleft
+ * @see https://core.telegram.org/bots/api#chatmemberbanned
  */
 export const ChatMember = Schema.Union([
 	ChatMemberOwner,
@@ -8602,6 +8807,7 @@ export type ChatMember = typeof ChatMember.Type;
 
 /**
  * This object represents changes in the status of a chat member.
+ * @see https://core.telegram.org/bots/api#chatmemberupdated
  */
 export const ChatMemberUpdated = Schema.Struct({
 	/**
@@ -8656,6 +8862,7 @@ export type ChatMemberUpdated = typeof ChatMemberUpdated.Type;
 /**
  * Represents a result of an inline query that was chosen by the user and sent
  * to their chat partner.
+ * @see https://core.telegram.org/bots/api#choseninlineresult
  */
 export const ChosenInlineResult = Schema.Struct({
 	/**
@@ -8703,6 +8910,7 @@ export type ChosenInlineResult = typeof ChosenInlineResult.Type;
  * create user-friendly step-by-step interfaces without having to sacrifice
  * privacy mode. Not supported in channels and for messages sent on behalf of a
  * user account.
+ * @see https://core.telegram.org/bots/api#forcereply
  */
 export const ForceReply = Schema.Struct({
 	/**
@@ -8746,6 +8954,7 @@ export type ForceReply = typeof ForceReply.Type;
 
 /**
  * This object represents a forum topic.
+ * @see https://core.telegram.org/bots/api#forumtopic
  */
 export const ForumTopic = Schema.Struct({
 	/**
@@ -8781,6 +8990,7 @@ export type ForumTopic = typeof ForumTopic.Type;
 
 /**
  * This object represents one row of the high scores table for a game.
+ * @see https://core.telegram.org/bots/api#gamehighscore
  */
 export const GameHighScore = Schema.Struct({
 	/**
@@ -8800,6 +9010,7 @@ export type GameHighScore = typeof GameHighScore.Type;
 
 /**
  * This object represent a list of gifts.
+ * @see https://core.telegram.org/bots/api#gifts
  */
 export const Gifts = Schema.Struct({
 	/**
@@ -8812,6 +9023,7 @@ export type Gifts = typeof Gifts.Type;
 /**
  * This object represents an incoming inline query. When the user sends an empty
  * query, your bot could return some default or trending results.
+ * @see https://core.telegram.org/bots/api#inlinequery
  */
 export const InlineQuery = Schema.Struct({
 	/**
@@ -8862,6 +9074,7 @@ export type InlineQuery = typeof InlineQuery.Type;
 /**
  * Represents the content of a contact message to be sent as the result of an
  * inline query.
+ * @see https://core.telegram.org/bots/api#inputcontactmessagecontent
  */
 export const InputContactMessageContent = Schema.Struct({
 	/**
@@ -8891,6 +9104,7 @@ export type InputContactMessageContent = typeof InputContactMessageContent.Type;
 
 /**
  * This object represents a portion of the price for goods or services.
+ * @see https://core.telegram.org/bots/api#labeledprice
  */
 export const LabeledPrice = Schema.Struct({
 	/**
@@ -8915,6 +9129,7 @@ export type LabeledPrice = typeof LabeledPrice.Type;
 /**
  * Represents the content of an invoice message to be sent as the result of an
  * inline query.
+ * @see https://core.telegram.org/bots/api#inputinvoicemessagecontent
  */
 export const InputInvoiceMessageContent = Schema.Struct({
 	/**
@@ -9105,6 +9320,7 @@ export type InputInvoiceMessageContent = typeof InputInvoiceMessageContent.Type;
 /**
  * Represents the content of a location message to be sent as the result of an
  * inline query.
+ * @see https://core.telegram.org/bots/api#inputlocationmessagecontent
  */
 export const InputLocationMessageContent = Schema.Struct({
 	/**
@@ -9163,6 +9379,7 @@ export type InputLocationMessageContent = typeof InputLocationMessageContent.Typ
 /**
  * Represents the content of a text message to be sent as the result of an
  * inline query.
+ * @see https://core.telegram.org/bots/api#inputtextmessagecontent
  */
 export const InputTextMessageContent = Schema.Struct({
 	/**
@@ -9205,6 +9422,7 @@ export type InputTextMessageContent = typeof InputTextMessageContent.Type;
 /**
  * Represents the content of a venue message to be sent as the result of an
  * inline query.
+ * @see https://core.telegram.org/bots/api#inputvenuemessagecontent
  */
 export const InputVenueMessageContent = Schema.Struct({
 	/**
@@ -9262,6 +9480,12 @@ export type InputVenueMessageContent = typeof InputVenueMessageContent.Type;
 /**
  * This object represents the content of a message to be sent as a result of an
  * inline query. Telegram clients currently support the following 5 types:
+ * @see https://core.telegram.org/bots/api#inputmessagecontent
+ * @see https://core.telegram.org/bots/api#inputtextmessagecontent
+ * @see https://core.telegram.org/bots/api#inputlocationmessagecontent
+ * @see https://core.telegram.org/bots/api#inputvenuemessagecontent
+ * @see https://core.telegram.org/bots/api#inputcontactmessagecontent
+ * @see https://core.telegram.org/bots/api#inputinvoicemessagecontent
  */
 export const InputMessageContent = Schema.Union([
 	InputTextMessageContent,
@@ -9279,6 +9503,7 @@ export type InputMessageContent = typeof InputMessageContent.Type;
 
 /**
  * Represents a link to an article or web page.
+ * @see https://core.telegram.org/bots/api#inlinequeryresultarticle
  */
 export const InlineQueryResultArticle = Schema.Struct({
 	/**
@@ -9334,6 +9559,7 @@ export type InlineQueryResultArticle = typeof InlineQueryResultArticle.Type;
  * Represents a link to an MP3 audio file. By default, this audio file will be
  * sent by the user. Alternatively, you can use input_message_content to send a
  * message with the specified content instead of the audio.
+ * @see https://core.telegram.org/bots/api#inlinequeryresultaudio
  */
 export const InlineQueryResultAudio = Schema.Struct({
 	/**
@@ -9409,6 +9635,7 @@ export type InlineQueryResultAudio = typeof InlineQueryResultAudio.Type;
  * default, this audio file will be sent by the user. Alternatively, you can use
  * input_message_content to send a message with the specified content instead of
  * the audio.
+ * @see https://core.telegram.org/bots/api#inlinequeryresultcachedaudio
  */
 export const InlineQueryResultCachedAudio = Schema.Struct({
 	/**
@@ -9472,6 +9699,7 @@ export type InlineQueryResultCachedAudio = typeof InlineQueryResultCachedAudio.T
  * file will be sent by the user with an optional caption. Alternatively, you
  * can use input_message_content to send a message with the specified content
  * instead of the file.
+ * @see https://core.telegram.org/bots/api#inlinequeryresultcacheddocument
  */
 export const InlineQueryResultCachedDocument = Schema.Struct({
 	/**
@@ -9543,6 +9771,7 @@ export type InlineQueryResultCachedDocument = typeof InlineQueryResultCachedDocu
  * default, this animated GIF file will be sent by the user with an optional
  * caption. Alternatively, you can use input_message_content to send a message
  * with specified content instead of the animation.
+ * @see https://core.telegram.org/bots/api#inlinequeryresultcachedgif
  */
 export const InlineQueryResultCachedGif = Schema.Struct({
 	/**
@@ -9617,6 +9846,7 @@ export type InlineQueryResultCachedGif = typeof InlineQueryResultCachedGif.Type;
  * sent by the user with an optional caption. Alternatively, you can use
  * input_message_content to send a message with the specified content instead of
  * the animation.
+ * @see https://core.telegram.org/bots/api#inlinequeryresultcachedmpeg4gif
  */
 export const InlineQueryResultCachedMpeg4Gif = Schema.Struct({
 	/**
@@ -9691,6 +9921,7 @@ export type InlineQueryResultCachedMpeg4Gif = typeof InlineQueryResultCachedMpeg
  * photo will be sent by the user with an optional caption. Alternatively, you
  * can use input_message_content to send a message with the specified content
  * instead of the photo.
+ * @see https://core.telegram.org/bots/api#inlinequeryresultcachedphoto
  */
 export const InlineQueryResultCachedPhoto = Schema.Struct({
 	/**
@@ -9768,6 +9999,7 @@ export type InlineQueryResultCachedPhoto = typeof InlineQueryResultCachedPhoto.T
  * this sticker will be sent by the user. Alternatively, you can use
  * input_message_content to send a message with the specified content instead of
  * the sticker.
+ * @see https://core.telegram.org/bots/api#inlinequeryresultcachedsticker
  */
 export const InlineQueryResultCachedSticker = Schema.Struct({
 	/**
@@ -9807,6 +10039,7 @@ export type InlineQueryResultCachedSticker = typeof InlineQueryResultCachedStick
  * this video file will be sent by the user with an optional caption.
  * Alternatively, you can use input_message_content to send a message with the
  * specified content instead of the video.
+ * @see https://core.telegram.org/bots/api#inlinequeryresultcachedvideo
  */
 export const InlineQueryResultCachedVideo = Schema.Struct({
 	/**
@@ -9884,6 +10117,7 @@ export type InlineQueryResultCachedVideo = typeof InlineQueryResultCachedVideo.T
  * default, this voice message will be sent by the user. Alternatively, you can
  * use input_message_content to send a message with the specified content
  * instead of the voice message.
+ * @see https://core.telegram.org/bots/api#inlinequeryresultcachedvoice
  */
 export const InlineQueryResultCachedVoice = Schema.Struct({
 	/**
@@ -9950,6 +10184,7 @@ export type InlineQueryResultCachedVoice = typeof InlineQueryResultCachedVoice.T
  * Represents a contact with a phone number. By default, this contact will be
  * sent by the user. Alternatively, you can use input_message_content to send a
  * message with the specified content instead of the contact.
+ * @see https://core.telegram.org/bots/api#inlinequeryresultcontact
  */
 export const InlineQueryResultContact = Schema.Struct({
 	/**
@@ -10017,6 +10252,7 @@ export type InlineQueryResultContact = typeof InlineQueryResultContact.Type;
  * with an optional caption. Alternatively, you can use input_message_content to
  * send a message with the specified content instead of the file. Currently,
  * only .PDF and .ZIP files can be sent using this method.
+ * @see https://core.telegram.org/bots/api#inlinequeryresultdocument
  */
 export const InlineQueryResultDocument = Schema.Struct({
 	/**
@@ -10108,6 +10344,7 @@ export type InlineQueryResultDocument = typeof InlineQueryResultDocument.Type;
 
 /**
  * Represents a Game.
+ * @see https://core.telegram.org/bots/api#inlinequeryresultgame
  */
 export const InlineQueryResultGame = Schema.Struct({
 	/**
@@ -10136,6 +10373,7 @@ export type InlineQueryResultGame = typeof InlineQueryResultGame.Type;
  * will be sent by the user with optional caption. Alternatively, you can use
  * input_message_content to send a message with the specified content instead of
  * the animation.
+ * @see https://core.telegram.org/bots/api#inlinequeryresultgif
  */
 export const InlineQueryResultGif = Schema.Struct({
 	/**
@@ -10236,6 +10474,7 @@ export type InlineQueryResultGif = typeof InlineQueryResultGif.Type;
  * Represents a location on a map. By default, the location will be sent by the
  * user. Alternatively, you can use input_message_content to send a message with
  * the specified content instead of the location.
+ * @see https://core.telegram.org/bots/api#inlinequeryresultlocation
  */
 export const InlineQueryResultLocation = Schema.Struct({
 	/**
@@ -10335,6 +10574,7 @@ export type InlineQueryResultLocation = typeof InlineQueryResultLocation.Type;
  * sound). By default, this animated MPEG-4 file will be sent by the user with
  * optional caption. Alternatively, you can use input_message_content to send a
  * message with the specified content instead of the animation.
+ * @see https://core.telegram.org/bots/api#inlinequeryresultmpeg4gif
  */
 export const InlineQueryResultMpeg4Gif = Schema.Struct({
 	/**
@@ -10436,6 +10676,7 @@ export type InlineQueryResultMpeg4Gif = typeof InlineQueryResultMpeg4Gif.Type;
  * Represents a link to a photo. By default, this photo will be sent by the user
  * with optional caption. Alternatively, you can use input_message_content to
  * send a message with the specified content instead of the photo.
+ * @see https://core.telegram.org/bots/api#inlinequeryresultphoto
  */
 export const InlineQueryResultPhoto = Schema.Struct({
 	/**
@@ -10529,6 +10770,7 @@ export type InlineQueryResultPhoto = typeof InlineQueryResultPhoto.Type;
  * Represents a venue. By default, the venue will be sent by the user.
  * Alternatively, you can use input_message_content to send a message with the
  * specified content instead of the venue.
+ * @see https://core.telegram.org/bots/api#inlinequeryresultvenue
  */
 export const InlineQueryResultVenue = Schema.Struct({
 	/**
@@ -10623,6 +10865,7 @@ export type InlineQueryResultVenue = typeof InlineQueryResultVenue.Type;
  * file. By default, this video file will be sent by the user with an optional
  * caption. Alternatively, you can use input_message_content to send a message
  * with the specified content instead of the video.
+ * @see https://core.telegram.org/bots/api#inlinequeryresultvideo
  */
 export const InlineQueryResultVideo = Schema.Struct({
 	/**
@@ -10729,6 +10972,7 @@ export type InlineQueryResultVideo = typeof InlineQueryResultVideo.Type;
  * OPUS. By default, this voice recording will be sent by the user.
  * Alternatively, you can use input_message_content to send a message with the
  * specified content instead of the the voice message.
+ * @see https://core.telegram.org/bots/api#inlinequeryresultvoice
  */
 export const InlineQueryResultVoice = Schema.Struct({
 	/**
@@ -10798,6 +11042,27 @@ export type InlineQueryResultVoice = typeof InlineQueryResultVoice.Type;
 /**
  * This object represents one result of an inline query. Telegram clients
  * currently support results of the following 20 types:
+ * @see https://core.telegram.org/bots/api#inlinequeryresult
+ * @see https://core.telegram.org/bots/api#inlinequeryresultcachedaudio
+ * @see https://core.telegram.org/bots/api#inlinequeryresultcacheddocument
+ * @see https://core.telegram.org/bots/api#inlinequeryresultcachedgif
+ * @see https://core.telegram.org/bots/api#inlinequeryresultcachedmpeg4gif
+ * @see https://core.telegram.org/bots/api#inlinequeryresultcachedphoto
+ * @see https://core.telegram.org/bots/api#inlinequeryresultcachedsticker
+ * @see https://core.telegram.org/bots/api#inlinequeryresultcachedvideo
+ * @see https://core.telegram.org/bots/api#inlinequeryresultcachedvoice
+ * @see https://core.telegram.org/bots/api#inlinequeryresultarticle
+ * @see https://core.telegram.org/bots/api#inlinequeryresultaudio
+ * @see https://core.telegram.org/bots/api#inlinequeryresultcontact
+ * @see https://core.telegram.org/bots/api#inlinequeryresultgame
+ * @see https://core.telegram.org/bots/api#inlinequeryresultdocument
+ * @see https://core.telegram.org/bots/api#inlinequeryresultgif
+ * @see https://core.telegram.org/bots/api#inlinequeryresultlocation
+ * @see https://core.telegram.org/bots/api#inlinequeryresultmpeg4gif
+ * @see https://core.telegram.org/bots/api#inlinequeryresultphoto
+ * @see https://core.telegram.org/bots/api#inlinequeryresultvenue
+ * @see https://core.telegram.org/bots/api#inlinequeryresultvideo
+ * @see https://core.telegram.org/bots/api#inlinequeryresultvoice
  */
 export const InlineQueryResult = Schema.Union([
 	InlineQueryResultCachedAudio,
@@ -10831,6 +11096,7 @@ export type InlineQueryResult = typeof InlineQueryResult.Type;
 /**
  * This object represents a button to be shown above inline query results. You
  * must use exactly one of the optional fields.
+ * @see https://core.telegram.org/bots/api#inlinequeryresultsbutton
  */
 export const InlineQueryResultsButton = Schema.Struct({
 	/**
@@ -10877,6 +11143,7 @@ export type InlineQueryResultsButton = typeof InlineQueryResultsButton.Type;
 
 /**
  * Describes a task to add to a checklist.
+ * @see https://core.telegram.org/bots/api#inputchecklisttask
  */
 export const InputChecklistTask = Schema.Struct({
 	/**
@@ -10918,6 +11185,7 @@ export type InputChecklistTask = typeof InputChecklistTask.Type;
 
 /**
  * Describes a checklist to create.
+ * @see https://core.telegram.org/bots/api#inputchecklist
  */
 export const InputChecklist = Schema.Struct({
 	/**
@@ -10968,6 +11236,7 @@ export type InputChecklist = typeof InputChecklist.Type;
 /**
  * Represents an animation file (GIF or H.264/MPEG-4 AVC video without sound) to
  * be sent.
+ * @see https://core.telegram.org/bots/api#inputmediaanimation
  */
 export const InputMediaAnimation = Schema.Struct({
 	/**
@@ -11061,6 +11330,7 @@ export type InputMediaAnimation = typeof InputMediaAnimation.Type;
 
 /**
  * Represents an audio file to be treated as music to be sent.
+ * @see https://core.telegram.org/bots/api#inputmediaaudio
  */
 export const InputMediaAudio = Schema.Struct({
 	/**
@@ -11137,6 +11407,7 @@ export type InputMediaAudio = typeof InputMediaAudio.Type;
 
 /**
  * Represents a general file to be sent.
+ * @see https://core.telegram.org/bots/api#inputmediadocument
  */
 export const InputMediaDocument = Schema.Struct({
 	/**
@@ -11212,6 +11483,7 @@ export type InputMediaDocument = typeof InputMediaDocument.Type;
 
 /**
  * Represents a live photo to be sent.
+ * @see https://core.telegram.org/bots/api#inputmedialivephoto
  */
 export const InputMediaLivePhoto = Schema.Struct({
 	/**
@@ -11286,6 +11558,7 @@ export type InputMediaLivePhoto = typeof InputMediaLivePhoto.Type;
 
 /**
  * Represents a photo to be sent.
+ * @see https://core.telegram.org/bots/api#inputmediaphoto
  */
 export const InputMediaPhoto = Schema.Struct({
 	/**
@@ -11346,6 +11619,7 @@ export type InputMediaPhoto = typeof InputMediaPhoto.Type;
 
 /**
  * Represents a video to be sent.
+ * @see https://core.telegram.org/bots/api#inputmediavideo
  */
 export const InputMediaVideo = Schema.Struct({
 	/**
@@ -11460,6 +11734,13 @@ export type InputMediaVideo = typeof InputMediaVideo.Type;
 /**
  * This object represents the content of a media message to be sent. It should
  * be one of
+ * @see https://core.telegram.org/bots/api#inputmedia
+ * @see https://core.telegram.org/bots/api#inputmediaanimation
+ * @see https://core.telegram.org/bots/api#inputmediaaudio
+ * @see https://core.telegram.org/bots/api#inputmediadocument
+ * @see https://core.telegram.org/bots/api#inputmedialivephoto
+ * @see https://core.telegram.org/bots/api#inputmediaphoto
+ * @see https://core.telegram.org/bots/api#inputmediavideo
  */
 export const InputMedia = Schema.Union([
 	InputMediaAnimation,
@@ -11477,6 +11758,7 @@ export type InputMedia = typeof InputMedia.Type;
 
 /**
  * Represents a location to be sent.
+ * @see https://core.telegram.org/bots/api#inputmedialocation
  */
 export const InputMediaLocation = Schema.Struct({
 	/**
@@ -11502,6 +11784,7 @@ export type InputMediaLocation = typeof InputMediaLocation.Type;
 
 /**
  * Represents a sticker file to be sent.
+ * @see https://core.telegram.org/bots/api#inputmediasticker
  */
 export const InputMediaSticker = Schema.Struct({
 	/**
@@ -11532,6 +11815,7 @@ export type InputMediaSticker = typeof InputMediaSticker.Type;
 
 /**
  * Represents a venue to be sent.
+ * @see https://core.telegram.org/bots/api#inputmediavenue
  */
 export const InputMediaVenue = Schema.Struct({
 	/**
@@ -11588,6 +11872,7 @@ export type InputMediaVenue = typeof InputMediaVenue.Type;
 
 /**
  * The paid media to send is a live photo.
+ * @see https://core.telegram.org/bots/api#inputpaidmedialivephoto
  */
 export const InputPaidMediaLivePhoto = Schema.Struct({
 	/**
@@ -11625,6 +11910,7 @@ export type InputPaidMediaLivePhoto = typeof InputPaidMediaLivePhoto.Type;
 
 /**
  * The paid media to send is a photo.
+ * @see https://core.telegram.org/bots/api#inputpaidmediaphoto
  */
 export const InputPaidMediaPhoto = Schema.Struct({
 	/**
@@ -11649,6 +11935,7 @@ export type InputPaidMediaPhoto = typeof InputPaidMediaPhoto.Type;
 
 /**
  * The paid media to send is a video.
+ * @see https://core.telegram.org/bots/api#inputpaidmediavideo
  */
 export const InputPaidMediaVideo = Schema.Struct({
 	/**
@@ -11726,6 +12013,10 @@ export type InputPaidMediaVideo = typeof InputPaidMediaVideo.Type;
 
 /**
  * This object describes the paid media to be sent. Currently, it can be one of
+ * @see https://core.telegram.org/bots/api#inputpaidmedia
+ * @see https://core.telegram.org/bots/api#inputpaidmedialivephoto
+ * @see https://core.telegram.org/bots/api#inputpaidmediaphoto
+ * @see https://core.telegram.org/bots/api#inputpaidmediavideo
  */
 export const InputPaidMedia = Schema.Union([InputPaidMediaLivePhoto, InputPaidMediaPhoto, InputPaidMediaVideo]).pipe(
 	Schema.annotate({ description: "This object describes the paid media to be sent. Currently, it can be one of" }),
@@ -11735,6 +12026,15 @@ export type InputPaidMedia = typeof InputPaidMedia.Type;
 /**
  * This object represents the content of a poll description or a quiz
  * explanation to be sent. It should be one of
+ * @see https://core.telegram.org/bots/api#inputpollmedia
+ * @see https://core.telegram.org/bots/api#inputmediaanimation
+ * @see https://core.telegram.org/bots/api#inputmediaaudio
+ * @see https://core.telegram.org/bots/api#inputmediadocument
+ * @see https://core.telegram.org/bots/api#inputmedialivephoto
+ * @see https://core.telegram.org/bots/api#inputmedialocation
+ * @see https://core.telegram.org/bots/api#inputmediaphoto
+ * @see https://core.telegram.org/bots/api#inputmediavenue
+ * @see https://core.telegram.org/bots/api#inputmediavideo
  */
 export const InputPollMedia = Schema.Union([
 	InputMediaAnimation,
@@ -11756,6 +12056,14 @@ export type InputPollMedia = typeof InputPollMedia.Type;
 /**
  * This object represents the content of a poll option to be sent. It should be
  * one of
+ * @see https://core.telegram.org/bots/api#inputpolloptionmedia
+ * @see https://core.telegram.org/bots/api#inputmediaanimation
+ * @see https://core.telegram.org/bots/api#inputmedialivephoto
+ * @see https://core.telegram.org/bots/api#inputmedialocation
+ * @see https://core.telegram.org/bots/api#inputmediaphoto
+ * @see https://core.telegram.org/bots/api#inputmediasticker
+ * @see https://core.telegram.org/bots/api#inputmediavenue
+ * @see https://core.telegram.org/bots/api#inputmediavideo
  */
 export const InputPollOptionMedia = Schema.Union([
 	InputMediaAnimation,
@@ -11775,6 +12083,7 @@ export type InputPollOptionMedia = typeof InputPollOptionMedia.Type;
 /**
  * This object contains information about one answer option in a poll to be
  * sent.
+ * @see https://core.telegram.org/bots/api#inputpolloption
  */
 export const InputPollOption = Schema.Struct({
 	/**
@@ -11812,6 +12121,7 @@ export type InputPollOption = typeof InputPollOption.Type;
 
 /**
  * An animated profile photo in the MPEG4 format.
+ * @see https://core.telegram.org/bots/api#inputprofilephotoanimated
  */
 export const InputProfilePhotoAnimated = Schema.Struct({
 	/**
@@ -11844,6 +12154,7 @@ export type InputProfilePhotoAnimated = typeof InputProfilePhotoAnimated.Type;
 
 /**
  * A static profile photo in the .JPG format.
+ * @see https://core.telegram.org/bots/api#inputprofilephotostatic
  */
 export const InputProfilePhotoStatic = Schema.Struct({
 	/**
@@ -11867,6 +12178,9 @@ export type InputProfilePhotoStatic = typeof InputProfilePhotoStatic.Type;
 
 /**
  * This object describes a profile photo to set. Currently, it can be one of
+ * @see https://core.telegram.org/bots/api#inputprofilephoto
+ * @see https://core.telegram.org/bots/api#inputprofilephotostatic
+ * @see https://core.telegram.org/bots/api#inputprofilephotoanimated
  */
 export const InputProfilePhoto = Schema.Union([InputProfilePhotoStatic, InputProfilePhotoAnimated]).pipe(
 	Schema.annotate({ description: "This object describes a profile photo to set. Currently, it can be one of" }),
@@ -11875,6 +12189,7 @@ export type InputProfilePhoto = typeof InputProfilePhoto.Type;
 
 /**
  * This object describes a sticker to be added to a sticker set.
+ * @see https://core.telegram.org/bots/api#inputsticker
  */
 export const InputSticker = Schema.Struct({
 	/**
@@ -11928,6 +12243,7 @@ export type InputSticker = typeof InputSticker.Type;
 
 /**
  * Describes a photo to post as a story.
+ * @see https://core.telegram.org/bots/api#inputstorycontentphoto
  */
 export const InputStoryContentPhoto = Schema.Struct({
 	/**
@@ -11952,6 +12268,7 @@ export type InputStoryContentPhoto = typeof InputStoryContentPhoto.Type;
 
 /**
  * Describes a video to post as a story.
+ * @see https://core.telegram.org/bots/api#inputstorycontentvideo
  */
 export const InputStoryContentVideo = Schema.Struct({
 	/**
@@ -12001,6 +12318,9 @@ export type InputStoryContentVideo = typeof InputStoryContentVideo.Type;
 /**
  * This object describes the content of a story to post. Currently, it can be
  * one of
+ * @see https://core.telegram.org/bots/api#inputstorycontent
+ * @see https://core.telegram.org/bots/api#inputstorycontentphoto
+ * @see https://core.telegram.org/bots/api#inputstorycontentvideo
  */
 export const InputStoryContent = Schema.Union([InputStoryContentPhoto, InputStoryContentVideo]).pipe(
 	Schema.annotate({ description: "This object describes the content of a story to post. Currently, it can be one of" }),
@@ -12010,6 +12330,7 @@ export type InputStoryContent = typeof InputStoryContent.Type;
 /**
  * This object represents type of a poll, which is allowed to be created and
  * sent when the corresponding button is pressed.
+ * @see https://core.telegram.org/bots/api#keyboardbuttonpolltype
  */
 export const KeyboardButtonPollType = Schema.Struct({
 	/**
@@ -12036,6 +12357,7 @@ export type KeyboardButtonPollType = typeof KeyboardButtonPollType.Type;
  * about the selected chat will be shared with the bot when the corresponding
  * button is pressed. The bot will be granted requested rights in the chat if
  * appropriate. More about requesting chats ».
+ * @see https://core.telegram.org/bots/api#keyboardbuttonrequestchat
  */
 export const KeyboardButtonRequestChat = Schema.Struct({
 	/**
@@ -12149,6 +12471,7 @@ export type KeyboardButtonRequestChat = typeof KeyboardButtonRequestChat.Type;
  * This object defines the parameters for the creation of a managed bot.
  * Information about the created bot will be shared with the bot using the
  * update managed_bot and a Message with the field managed_bot_created.
+ * @see https://core.telegram.org/bots/api#keyboardbuttonrequestmanagedbot
  */
 export const KeyboardButtonRequestManagedBot = Schema.Struct({
 	/**
@@ -12179,6 +12502,7 @@ export type KeyboardButtonRequestManagedBot = typeof KeyboardButtonRequestManage
  * This object defines the criteria used to request suitable users. Information
  * about the selected users will be shared with the bot when the corresponding
  * button is pressed. More about requesting users »
+ * @see https://core.telegram.org/bots/api#keyboardbuttonrequestusers
  */
 export const KeyboardButtonRequestUsers = Schema.Struct({
 	/**
@@ -12248,6 +12572,7 @@ export type KeyboardButtonRequestUsers = typeof KeyboardButtonRequestUsers.Type;
  * fields other than text, icon_custom_emoji_id, and style must be used to
  * specify the type of the button. For simple text buttons, String can be used
  * instead of this object to specify the button text.
+ * @see https://core.telegram.org/bots/api#keyboardbutton
  */
 export const KeyboardButton = Schema.Struct({
 	/**
@@ -12368,6 +12693,7 @@ export type KeyboardButton = typeof KeyboardButton.Type;
 
 /**
  * Describes the physical address of a location.
+ * @see https://core.telegram.org/bots/api#locationaddress
  */
 export const LocationAddress = Schema.Struct({
 	/**
@@ -12397,6 +12723,7 @@ export type LocationAddress = typeof LocationAddress.Type;
 /**
  * This object contains information about the creation, token update, or owner
  * update of a bot that is managed by the current bot.
+ * @see https://core.telegram.org/bots/api#managedbotupdated
  */
 export const ManagedBotUpdated = Schema.Struct({
 	/**
@@ -12422,6 +12749,7 @@ export type ManagedBotUpdated = typeof ManagedBotUpdated.Type;
 
 /**
  * Represents a menu button, which opens the bot's list of commands.
+ * @see https://core.telegram.org/bots/api#menubuttoncommands
  */
 export const MenuButtonCommands = Schema.Struct({
 	/**
@@ -12433,6 +12761,7 @@ export type MenuButtonCommands = typeof MenuButtonCommands.Type;
 
 /**
  * Describes that no specific value for the menu button was set.
+ * @see https://core.telegram.org/bots/api#menubuttondefault
  */
 export const MenuButtonDefault = Schema.Struct({
 	/**
@@ -12444,6 +12773,7 @@ export type MenuButtonDefault = typeof MenuButtonDefault.Type;
 
 /**
  * Represents a menu button, which launches a Web App.
+ * @see https://core.telegram.org/bots/api#menubuttonwebapp
  */
 export const MenuButtonWebApp = Schema.Struct({
 	/**
@@ -12474,6 +12804,10 @@ export type MenuButtonWebApp = typeof MenuButtonWebApp.Type;
 /**
  * This object describes the bot's menu button in a private chat. It should be
  * one of
+ * @see https://core.telegram.org/bots/api#menubutton
+ * @see https://core.telegram.org/bots/api#menubuttoncommands
+ * @see https://core.telegram.org/bots/api#menubuttonwebapp
+ * @see https://core.telegram.org/bots/api#menubuttondefault
  */
 export const MenuButton = Schema.Union([MenuButtonCommands, MenuButtonWebApp, MenuButtonDefault]).pipe(
 	Schema.annotate({
@@ -12484,6 +12818,7 @@ export type MenuButton = typeof MenuButton.Type;
 
 /**
  * This object represents a unique message identifier.
+ * @see https://core.telegram.org/bots/api#messageid
  */
 export const MessageId = Schema.Struct({
 	/**
@@ -12504,6 +12839,7 @@ export type MessageId = typeof MessageId.Type;
 /**
  * Represents a reaction added to a message along with the number of times it
  * was added.
+ * @see https://core.telegram.org/bots/api#reactioncount
  */
 export const ReactionCount = Schema.Struct({
 	/**
@@ -12524,6 +12860,7 @@ export type ReactionCount = typeof ReactionCount.Type;
 /**
  * This object represents reaction changes on a message with anonymous
  * reactions.
+ * @see https://core.telegram.org/bots/api#messagereactioncountupdated
  */
 export const MessageReactionCountUpdated = Schema.Struct({
 	/**
@@ -12552,6 +12889,7 @@ export type MessageReactionCountUpdated = typeof MessageReactionCountUpdated.Typ
 /**
  * This object represents a change of a reaction on a message performed by a
  * user.
+ * @see https://core.telegram.org/bots/api#messagereactionupdated
  */
 export const MessageReactionUpdated = Schema.Struct({
 	/**
@@ -12598,6 +12936,7 @@ export type MessageReactionUpdated = typeof MessageReactionUpdated.Type;
 
 /**
  * Describes a regular gift owned by a user or a chat.
+ * @see https://core.telegram.org/bots/api#ownedgiftregular
  */
 export const OwnedGiftRegular = Schema.Struct({
 	/**
@@ -12714,6 +13053,7 @@ export type OwnedGiftRegular = typeof OwnedGiftRegular.Type;
 
 /**
  * Describes a unique gift received and owned by a user or a chat.
+ * @see https://core.telegram.org/bots/api#ownedgiftunique
  */
 export const OwnedGiftUnique = Schema.Struct({
 	/**
@@ -12788,6 +13128,9 @@ export type OwnedGiftUnique = typeof OwnedGiftUnique.Type;
 /**
  * This object describes a gift received and owned by a user or a chat.
  * Currently, it can be one of
+ * @see https://core.telegram.org/bots/api#ownedgift
+ * @see https://core.telegram.org/bots/api#ownedgiftregular
+ * @see https://core.telegram.org/bots/api#ownedgiftunique
  */
 export const OwnedGift = Schema.Union([OwnedGiftRegular, OwnedGiftUnique]).pipe(
 	Schema.annotate({
@@ -12798,6 +13141,7 @@ export type OwnedGift = typeof OwnedGift.Type;
 
 /**
  * Contains the list of gifts received and owned by a user or a chat.
+ * @see https://core.telegram.org/bots/api#ownedgifts
  */
 export const OwnedGifts = Schema.Struct({
 	/**
@@ -12821,6 +13165,7 @@ export type OwnedGifts = typeof OwnedGifts.Type;
 
 /**
  * This object contains information about a paid media purchase.
+ * @see https://core.telegram.org/bots/api#paidmediapurchased
  */
 export const PaidMediaPurchased = Schema.Struct({
 	/**
@@ -12837,6 +13182,7 @@ export type PaidMediaPurchased = typeof PaidMediaPurchased.Type;
 /**
  * Represents an issue in one of the data fields that was provided by the user.
  * The error is considered resolved when the field's value changes.
+ * @see https://core.telegram.org/bots/api#passportelementerrordatafield
  */
 export const PassportElementErrorDataField = Schema.Struct({
 	/**
@@ -12877,6 +13223,7 @@ export type PassportElementErrorDataField = typeof PassportElementErrorDataField
 /**
  * Represents an issue with a document scan. The error is considered resolved
  * when the file with the document scan changes.
+ * @see https://core.telegram.org/bots/api#passportelementerrorfile
  */
 export const PassportElementErrorFile = Schema.Struct({
 	/**
@@ -12913,6 +13260,7 @@ export type PassportElementErrorFile = typeof PassportElementErrorFile.Type;
 /**
  * Represents an issue with a list of scans. The error is considered resolved
  * when the list of files containing the scans changes.
+ * @see https://core.telegram.org/bots/api#passportelementerrorfiles
  */
 export const PassportElementErrorFiles = Schema.Struct({
 	/**
@@ -12950,6 +13298,7 @@ export type PassportElementErrorFiles = typeof PassportElementErrorFiles.Type;
  * Represents an issue with the front side of a document. The error is
  * considered resolved when the file with the front side of the document
  * changes.
+ * @see https://core.telegram.org/bots/api#passportelementerrorfrontside
  */
 export const PassportElementErrorFrontSide = Schema.Struct({
 	/**
@@ -12987,6 +13336,7 @@ export type PassportElementErrorFrontSide = typeof PassportElementErrorFrontSide
 /**
  * Represents an issue with the reverse side of a document. The error is
  * considered resolved when the file with reverse side of the document changes.
+ * @see https://core.telegram.org/bots/api#passportelementerrorreverseside
  */
 export const PassportElementErrorReverseSide = Schema.Struct({
 	/**
@@ -13024,6 +13374,7 @@ export type PassportElementErrorReverseSide = typeof PassportElementErrorReverse
 /**
  * Represents an issue with the selfie with a document. The error is considered
  * resolved when the file with the selfie changes.
+ * @see https://core.telegram.org/bots/api#passportelementerrorselfie
  */
 export const PassportElementErrorSelfie = Schema.Struct({
 	/**
@@ -13059,6 +13410,7 @@ export type PassportElementErrorSelfie = typeof PassportElementErrorSelfie.Type;
 /**
  * Represents an issue with one of the files that constitute the translation of
  * a document. The error is considered resolved when the file changes.
+ * @see https://core.telegram.org/bots/api#passportelementerrortranslationfile
  */
 export const PassportElementErrorTranslationFile = Schema.Struct({
 	/**
@@ -13096,6 +13448,7 @@ export type PassportElementErrorTranslationFile = typeof PassportElementErrorTra
 /**
  * Represents an issue with the translated version of a document. The error is
  * considered resolved when a file with the document translation change.
+ * @see https://core.telegram.org/bots/api#passportelementerrortranslationfiles
  */
 export const PassportElementErrorTranslationFiles = Schema.Struct({
 	/**
@@ -13133,6 +13486,7 @@ export type PassportElementErrorTranslationFiles = typeof PassportElementErrorTr
 /**
  * Represents an issue in an unspecified place. The error is considered resolved
  * when new data is added.
+ * @see https://core.telegram.org/bots/api#passportelementerrorunspecified
  */
 export const PassportElementErrorUnspecified = Schema.Struct({
 	/**
@@ -13164,6 +13518,16 @@ export type PassportElementErrorUnspecified = typeof PassportElementErrorUnspeci
 /**
  * This object represents an error in the Telegram Passport element which was
  * submitted that should be resolved by the user. It should be one of:
+ * @see https://core.telegram.org/bots/api#passportelementerror
+ * @see https://core.telegram.org/bots/api#passportelementerrordatafield
+ * @see https://core.telegram.org/bots/api#passportelementerrorfrontside
+ * @see https://core.telegram.org/bots/api#passportelementerrorreverseside
+ * @see https://core.telegram.org/bots/api#passportelementerrorselfie
+ * @see https://core.telegram.org/bots/api#passportelementerrorfile
+ * @see https://core.telegram.org/bots/api#passportelementerrorfiles
+ * @see https://core.telegram.org/bots/api#passportelementerrortranslationfile
+ * @see https://core.telegram.org/bots/api#passportelementerrortranslationfiles
+ * @see https://core.telegram.org/bots/api#passportelementerrorunspecified
  */
 export const PassportElementError = Schema.Union([
 	PassportElementErrorDataField,
@@ -13185,6 +13549,7 @@ export type PassportElementError = typeof PassportElementError.Type;
 
 /**
  * This object represents an answer of a user in a non-anonymous poll.
+ * @see https://core.telegram.org/bots/api#pollanswer
  */
 export const PollAnswer = Schema.Struct({
 	/**
@@ -13226,6 +13591,7 @@ export type PollAnswer = typeof PollAnswer.Type;
 
 /**
  * This object contains information about an incoming pre-checkout query.
+ * @see https://core.telegram.org/bots/api#precheckoutquery
  */
 export const PreCheckoutQuery = Schema.Struct({
 	/**
@@ -13275,6 +13641,7 @@ export type PreCheckoutQuery = typeof PreCheckoutQuery.Type;
 
 /**
  * Describes an inline message to be sent by a user of a Mini App.
+ * @see https://core.telegram.org/bots/api#preparedinlinemessage
  */
 export const PreparedInlineMessage = Schema.Struct({
 	/**
@@ -13296,6 +13663,7 @@ export type PreparedInlineMessage = typeof PreparedInlineMessage.Type;
 
 /**
  * Describes a keyboard button to be used by a user of a Mini App.
+ * @see https://core.telegram.org/bots/api#preparedkeyboardbutton
  */
 export const PreparedKeyboardButton = Schema.Struct({
 	/**
@@ -13309,6 +13677,7 @@ export type PreparedKeyboardButton = typeof PreparedKeyboardButton.Type;
  * This object represents a custom keyboard with reply options (see Introduction
  * to bots for details and examples). Not supported in channels and for messages
  * sent on behalf of a business account.
+ * @see https://core.telegram.org/bots/api#replykeyboardmarkup
  */
 export const ReplyKeyboardMarkup = Schema.Struct({
 	/**
@@ -13391,6 +13760,7 @@ export type ReplyKeyboardMarkup = typeof ReplyKeyboardMarkup.Type;
  * exception is made for one-time keyboards that are hidden immediately after
  * the user presses a button (see ReplyKeyboardMarkup). Not supported in
  * channels and for messages sent on behalf of a business account.
+ * @see https://core.telegram.org/bots/api#replykeyboardremove
  */
 export const ReplyKeyboardRemove = Schema.Struct({
 	/**
@@ -13429,6 +13799,7 @@ export type ReplyKeyboardRemove = typeof ReplyKeyboardRemove.Type;
 
 /**
  * Describes reply parameters for the message that is being sent.
+ * @see https://core.telegram.org/bots/api#replyparameters
  */
 export const ReplyParameters = Schema.Struct({
 	/**
@@ -13519,6 +13890,7 @@ export type ReplyParameters = typeof ReplyParameters.Type;
 
 /**
  * Describes why a request was unsuccessful.
+ * @see https://core.telegram.org/bots/api#responseparameters
  */
 export const ResponseParameters = Schema.Struct({
 	/**
@@ -13549,6 +13921,7 @@ export type ResponseParameters = typeof ResponseParameters.Type;
 
 /**
  * The withdrawal failed and the transaction was refunded.
+ * @see https://core.telegram.org/bots/api#revenuewithdrawalstatefailed
  */
 export const RevenueWithdrawalStateFailed = Schema.Struct({
 	/**
@@ -13560,6 +13933,7 @@ export type RevenueWithdrawalStateFailed = typeof RevenueWithdrawalStateFailed.T
 
 /**
  * The withdrawal is in progress.
+ * @see https://core.telegram.org/bots/api#revenuewithdrawalstatepending
  */
 export const RevenueWithdrawalStatePending = Schema.Struct({
 	/**
@@ -13571,6 +13945,7 @@ export type RevenueWithdrawalStatePending = typeof RevenueWithdrawalStatePending
 
 /**
  * The withdrawal succeeded.
+ * @see https://core.telegram.org/bots/api#revenuewithdrawalstatesucceeded
  */
 export const RevenueWithdrawalStateSucceeded = Schema.Struct({
 	/**
@@ -13591,6 +13966,10 @@ export type RevenueWithdrawalStateSucceeded = typeof RevenueWithdrawalStateSucce
 /**
  * This object describes the state of a revenue withdrawal operation. Currently,
  * it can be one of
+ * @see https://core.telegram.org/bots/api#revenuewithdrawalstate
+ * @see https://core.telegram.org/bots/api#revenuewithdrawalstatepending
+ * @see https://core.telegram.org/bots/api#revenuewithdrawalstatesucceeded
+ * @see https://core.telegram.org/bots/api#revenuewithdrawalstatefailed
  */
 export const RevenueWithdrawalState = Schema.Union([
 	RevenueWithdrawalStatePending,
@@ -13605,6 +13984,7 @@ export type RevenueWithdrawalState = typeof RevenueWithdrawalState.Type;
 
 /**
  * Describes an inline message sent by a guest bot.
+ * @see https://core.telegram.org/bots/api#sentguestmessage
  */
 export const SentGuestMessage = Schema.Struct({
 	/**
@@ -13616,6 +13996,7 @@ export type SentGuestMessage = typeof SentGuestMessage.Type;
 
 /**
  * Describes an inline message sent by a Web App on behalf of a user.
+ * @see https://core.telegram.org/bots/api#sentwebappmessage
  */
 export const SentWebAppMessage = Schema.Struct({
 	/**
@@ -13633,6 +14014,7 @@ export type SentWebAppMessage = typeof SentWebAppMessage.Type;
 
 /**
  * This object represents one shipping option.
+ * @see https://core.telegram.org/bots/api#shippingoption
  */
 export const ShippingOption = Schema.Struct({
 	/**
@@ -13652,6 +14034,7 @@ export type ShippingOption = typeof ShippingOption.Type;
 
 /**
  * This object contains information about an incoming shipping query.
+ * @see https://core.telegram.org/bots/api#shippingquery
  */
 export const ShippingQuery = Schema.Struct({
 	/**
@@ -13676,6 +14059,7 @@ export type ShippingQuery = typeof ShippingQuery.Type;
 /**
  * Describes the affiliate program that issued the affiliate commission received
  * via this transaction.
+ * @see https://core.telegram.org/bots/api#transactionpartneraffiliateprogram
  */
 export const TransactionPartnerAffiliateProgram = Schema.Struct({
 	/**
@@ -13709,6 +14093,7 @@ export type TransactionPartnerAffiliateProgram = typeof TransactionPartnerAffili
 
 /**
  * Describes a transaction with a chat.
+ * @see https://core.telegram.org/bots/api#transactionpartnerchat
  */
 export const TransactionPartnerChat = Schema.Struct({
 	/**
@@ -13728,6 +14113,7 @@ export type TransactionPartnerChat = typeof TransactionPartnerChat.Type;
 
 /**
  * Describes a withdrawal transaction with Fragment.
+ * @see https://core.telegram.org/bots/api#transactionpartnerfragment
  */
 export const TransactionPartnerFragment = Schema.Struct({
 	/**
@@ -13745,6 +14131,7 @@ export type TransactionPartnerFragment = typeof TransactionPartnerFragment.Type;
 
 /**
  * Describes a transaction with an unknown source or recipient.
+ * @see https://core.telegram.org/bots/api#transactionpartnerother
  */
 export const TransactionPartnerOther = Schema.Struct({
 	/**
@@ -13756,6 +14143,7 @@ export type TransactionPartnerOther = typeof TransactionPartnerOther.Type;
 
 /**
  * Describes a withdrawal transaction to the Telegram Ads platform.
+ * @see https://core.telegram.org/bots/api#transactionpartnertelegramads
  */
 export const TransactionPartnerTelegramAds = Schema.Struct({
 	/**
@@ -13767,6 +14155,7 @@ export type TransactionPartnerTelegramAds = typeof TransactionPartnerTelegramAds
 
 /**
  * Describes a transaction with payment for paid broadcasting.
+ * @see https://core.telegram.org/bots/api#transactionpartnertelegramapi
  */
 export const TransactionPartnerTelegramApi = Schema.Struct({
 	/**
@@ -13787,6 +14176,7 @@ export type TransactionPartnerTelegramApi = typeof TransactionPartnerTelegramApi
 
 /**
  * Describes a transaction with a user.
+ * @see https://core.telegram.org/bots/api#transactionpartneruser
  */
 export const TransactionPartnerUser = Schema.Struct({
 	/**
@@ -13879,6 +14269,14 @@ export type TransactionPartnerUser = typeof TransactionPartnerUser.Type;
 /**
  * This object describes the source of a transaction, or its recipient for
  * outgoing transactions. Currently, it can be one of
+ * @see https://core.telegram.org/bots/api#transactionpartner
+ * @see https://core.telegram.org/bots/api#transactionpartneruser
+ * @see https://core.telegram.org/bots/api#transactionpartnerchat
+ * @see https://core.telegram.org/bots/api#transactionpartneraffiliateprogram
+ * @see https://core.telegram.org/bots/api#transactionpartnerfragment
+ * @see https://core.telegram.org/bots/api#transactionpartnertelegramads
+ * @see https://core.telegram.org/bots/api#transactionpartnertelegramapi
+ * @see https://core.telegram.org/bots/api#transactionpartnerother
  */
 export const TransactionPartner = Schema.Union([
 	TransactionPartnerUser,
@@ -13901,6 +14299,7 @@ export type TransactionPartner = typeof TransactionPartner.Type;
  * chargeback with the payment provider from whom they acquired Stars (e.g.,
  * Apple, Google) following this transaction, the refunded Stars will be
  * deducted from the bot's balance. This is outside of Telegram's control.
+ * @see https://core.telegram.org/bots/api#startransaction
  */
 export const StarTransaction = Schema.Struct({
 	/**
@@ -13966,6 +14365,7 @@ export type StarTransaction = typeof StarTransaction.Type;
 
 /**
  * Contains a list of Telegram Star transactions.
+ * @see https://core.telegram.org/bots/api#startransactions
  */
 export const StarTransactions = Schema.Struct({
 	/**
@@ -13977,6 +14377,7 @@ export type StarTransactions = typeof StarTransactions.Type;
 
 /**
  * This object represents a sticker set.
+ * @see https://core.telegram.org/bots/api#stickerset
  */
 export const StickerSet = Schema.Struct({
 	/**
@@ -14009,6 +14410,7 @@ export type StickerSet = typeof StickerSet.Type;
 
 /**
  * Describes the position of a clickable area within a story.
+ * @see https://core.telegram.org/bots/api#storyareaposition
  */
 export const StoryAreaPosition = Schema.Struct({
 	/**
@@ -14054,6 +14456,7 @@ export type StoryAreaPosition = typeof StoryAreaPosition.Type;
 /**
  * Describes a story area pointing to an HTTP or tg:// link. Currently, a story
  * can have up to 3 link areas.
+ * @see https://core.telegram.org/bots/api#storyareatypelink
  */
 export const StoryAreaTypeLink = Schema.Struct({
 	/**
@@ -14075,6 +14478,7 @@ export type StoryAreaTypeLink = typeof StoryAreaTypeLink.Type;
 /**
  * Describes a story area pointing to a location. Currently, a story can have up
  * to 10 location areas.
+ * @see https://core.telegram.org/bots/api#storyareatypelocation
  */
 export const StoryAreaTypeLocation = Schema.Struct({
 	/**
@@ -14103,6 +14507,7 @@ export type StoryAreaTypeLocation = typeof StoryAreaTypeLocation.Type;
 /**
  * Describes a story area pointing to a suggested reaction. Currently, a story
  * can have up to 5 suggested reaction areas.
+ * @see https://core.telegram.org/bots/api#storyareatypesuggestedreaction
  */
 export const StoryAreaTypeSuggestedReaction = Schema.Struct({
 	/**
@@ -14136,6 +14541,7 @@ export type StoryAreaTypeSuggestedReaction = typeof StoryAreaTypeSuggestedReacti
 /**
  * Describes a story area pointing to a unique gift. Currently, a story can have
  * at most 1 unique gift area.
+ * @see https://core.telegram.org/bots/api#storyareatypeuniquegift
  */
 export const StoryAreaTypeUniqueGift = Schema.Struct({
 	/**
@@ -14157,6 +14563,7 @@ export type StoryAreaTypeUniqueGift = typeof StoryAreaTypeUniqueGift.Type;
 /**
  * Describes a story area containing weather information. Currently, a story can
  * have up to 3 weather areas.
+ * @see https://core.telegram.org/bots/api#storyareatypeweather
  */
 export const StoryAreaTypeWeather = Schema.Struct({
 	/**
@@ -14188,6 +14595,12 @@ export type StoryAreaTypeWeather = typeof StoryAreaTypeWeather.Type;
 /**
  * Describes the type of a clickable area on a story. Currently, it can be one
  * of
+ * @see https://core.telegram.org/bots/api#storyareatype
+ * @see https://core.telegram.org/bots/api#storyareatypelocation
+ * @see https://core.telegram.org/bots/api#storyareatypesuggestedreaction
+ * @see https://core.telegram.org/bots/api#storyareatypelink
+ * @see https://core.telegram.org/bots/api#storyareatypeweather
+ * @see https://core.telegram.org/bots/api#storyareatypeuniquegift
  */
 export const StoryAreaType = Schema.Union([
 	StoryAreaTypeLocation,
@@ -14202,6 +14615,7 @@ export type StoryAreaType = typeof StoryAreaType.Type;
 
 /**
  * Describes a clickable area on a story media.
+ * @see https://core.telegram.org/bots/api#storyarea
  */
 export const StoryArea = Schema.Struct({
 	/**
@@ -14217,6 +14631,7 @@ export type StoryArea = typeof StoryArea.Type;
 
 /**
  * Contains parameters of a post that is being suggested by the bot.
+ * @see https://core.telegram.org/bots/api#suggestedpostparameters
  */
 export const SuggestedPostParameters = Schema.Struct({
 	/**
@@ -14244,6 +14659,7 @@ export type SuggestedPostParameters = typeof SuggestedPostParameters.Type;
 /**
  * This object represents an incoming update.
  * At most one of the optional fields can be present in any given update.
+ * @see https://core.telegram.org/bots/api#update
  */
 export const Update = Schema.Struct({
 	/**
@@ -14488,6 +14904,7 @@ export type Update = typeof Update.Type;
 
 /**
  * This object represents a list of boosts added to a chat by a user.
+ * @see https://core.telegram.org/bots/api#userchatboosts
  */
 export const UserChatBoosts = Schema.Struct({
 	/**
@@ -14501,6 +14918,7 @@ export type UserChatBoosts = typeof UserChatBoosts.Type;
 
 /**
  * This object represents the audios displayed on a user's profile.
+ * @see https://core.telegram.org/bots/api#userprofileaudios
  */
 export const UserProfileAudios = Schema.Struct({
 	/**
@@ -14516,6 +14934,7 @@ export type UserProfileAudios = typeof UserProfileAudios.Type;
 
 /**
  * This object represent a user's profile pictures.
+ * @see https://core.telegram.org/bots/api#userprofilephotos
  */
 export const UserProfilePhotos = Schema.Struct({
 	/**
@@ -14535,6 +14954,7 @@ export type UserProfilePhotos = typeof UserProfilePhotos.Type;
 
 /**
  * Describes the current status of a webhook.
+ * @see https://core.telegram.org/bots/api#webhookinfo
  */
 export const WebhookInfo = Schema.Struct({
 	/**

@@ -3,12 +3,30 @@
 	"name": "InputMedia",
 	"slug": "inputmedia",
 	"description": "This object represents the content of a media message to be sent. It should be one of",
-	"members": [
-		"InputMediaAnimation",
-		"InputMediaAudio",
-		"InputMediaDocument",
-		"InputMediaLivePhoto",
-		"InputMediaPhoto",
-		"InputMediaVideo"
+	"variants": [
+		{
+			"name": "InputMediaAnimation",
+			"slug": "inputmediaanimation"
+		},
+		{
+			"name": "InputMediaAudio",
+			"slug": "inputmediaaudio"
+		},
+		{
+			"name": "InputMediaDocument",
+			"slug": "inputmediadocument"
+		},
+		{
+			"name": "InputMediaLivePhoto",
+			"slug": "inputmedialivephoto"
+		},
+		{
+			"name": "InputMediaPhoto",
+			"slug": "inputmediaphoto"
+		},
+		{
+			"name": "InputMediaVideo",
+			"slug": "inputmediavideo"
+		}
 	]
 }

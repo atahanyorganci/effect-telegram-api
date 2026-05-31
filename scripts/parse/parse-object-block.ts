@@ -14,7 +14,7 @@ export const parseObjectBlock = Effect.fn("parseObjectBlock")(function* (heading
 	const slug = heading.getAttribute("id");
 
 	if (slug === undefined || slug.length === 0) {
-		return yield* Effect.fail(parseError(`Object heading "${name}" is missing an id slug`));
+		return yield* Effect.fail(parseError(`Object heading "${name}" is missing a slug id`));
 	}
 
 	const paragraphs = sectionElements(block, "p");

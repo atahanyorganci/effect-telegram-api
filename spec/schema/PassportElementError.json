@@ -3,15 +3,42 @@
 	"name": "PassportElementError",
 	"slug": "passportelementerror",
 	"description": "This object represents an error in the Telegram Passport element which was submitted that should be resolved by the user. It should be one of:",
-	"members": [
-		"PassportElementErrorDataField",
-		"PassportElementErrorFrontSide",
-		"PassportElementErrorReverseSide",
-		"PassportElementErrorSelfie",
-		"PassportElementErrorFile",
-		"PassportElementErrorFiles",
-		"PassportElementErrorTranslationFile",
-		"PassportElementErrorTranslationFiles",
-		"PassportElementErrorUnspecified"
+	"variants": [
+		{
+			"name": "PassportElementErrorDataField",
+			"slug": "passportelementerrordatafield"
+		},
+		{
+			"name": "PassportElementErrorFrontSide",
+			"slug": "passportelementerrorfrontside"
+		},
+		{
+			"name": "PassportElementErrorReverseSide",
+			"slug": "passportelementerrorreverseside"
+		},
+		{
+			"name": "PassportElementErrorSelfie",
+			"slug": "passportelementerrorselfie"
+		},
+		{
+			"name": "PassportElementErrorFile",
+			"slug": "passportelementerrorfile"
+		},
+		{
+			"name": "PassportElementErrorFiles",
+			"slug": "passportelementerrorfiles"
+		},
+		{
+			"name": "PassportElementErrorTranslationFile",
+			"slug": "passportelementerrortranslationfile"
+		},
+		{
+			"name": "PassportElementErrorTranslationFiles",
+			"slug": "passportelementerrortranslationfiles"
+		},
+		{
+			"name": "PassportElementErrorUnspecified",
+			"slug": "passportelementerrorunspecified"
+		}
 	]
 }

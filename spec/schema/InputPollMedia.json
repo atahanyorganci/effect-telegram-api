@@ -3,14 +3,38 @@
 	"name": "InputPollMedia",
 	"slug": "inputpollmedia",
 	"description": "This object represents the content of a poll description or a quiz explanation to be sent. It should be one of",
-	"members": [
-		"InputMediaAnimation",
-		"InputMediaAudio",
-		"InputMediaDocument",
-		"InputMediaLivePhoto",
-		"InputMediaLocation",
-		"InputMediaPhoto",
-		"InputMediaVenue",
-		"InputMediaVideo"
+	"variants": [
+		{
+			"name": "InputMediaAnimation",
+			"slug": "inputmediaanimation"
+		},
+		{
+			"name": "InputMediaAudio",
+			"slug": "inputmediaaudio"
+		},
+		{
+			"name": "InputMediaDocument",
+			"slug": "inputmediadocument"
+		},
+		{
+			"name": "InputMediaLivePhoto",
+			"slug": "inputmedialivephoto"
+		},
+		{
+			"name": "InputMediaLocation",
+			"slug": "inputmedialocation"
+		},
+		{
+			"name": "InputMediaPhoto",
+			"slug": "inputmediaphoto"
+		},
+		{
+			"name": "InputMediaVenue",
+			"slug": "inputmediavenue"
+		},
+		{
+			"name": "InputMediaVideo",
+			"slug": "inputmediavideo"
+		}
 	]
 }

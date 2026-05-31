@@ -3,5 +3,18 @@
 	"name": "InputPaidMedia",
 	"slug": "inputpaidmedia",
 	"description": "This object describes the paid media to be sent. Currently, it can be one of",
-	"members": ["InputPaidMediaLivePhoto", "InputPaidMediaPhoto", "InputPaidMediaVideo"]
+	"variants": [
+		{
+			"name": "InputPaidMediaLivePhoto",
+			"slug": "inputpaidmedialivephoto"
+		},
+		{
+			"name": "InputPaidMediaPhoto",
+			"slug": "inputpaidmediaphoto"
+		},
+		{
+			"name": "InputPaidMediaVideo",
+			"slug": "inputpaidmediavideo"
+		}
+	]
 }

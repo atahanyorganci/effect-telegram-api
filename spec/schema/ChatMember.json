@@ -3,12 +3,30 @@
 	"name": "ChatMember",
 	"slug": "chatmember",
 	"description": "This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported:",
-	"members": [
-		"ChatMemberOwner",
-		"ChatMemberAdministrator",
-		"ChatMemberMember",
-		"ChatMemberRestricted",
-		"ChatMemberLeft",
-		"ChatMemberBanned"
+	"variants": [
+		{
+			"name": "ChatMemberOwner",
+			"slug": "chatmemberowner"
+		},
+		{
+			"name": "ChatMemberAdministrator",
+			"slug": "chatmemberadministrator"
+		},
+		{
+			"name": "ChatMemberMember",
+			"slug": "chatmembermember"
+		},
+		{
+			"name": "ChatMemberRestricted",
+			"slug": "chatmemberrestricted"
+		},
+		{
+			"name": "ChatMemberLeft",
+			"slug": "chatmemberleft"
+		},
+		{
+			"name": "ChatMemberBanned",
+			"slug": "chatmemberbanned"
+		}
 	]
 }

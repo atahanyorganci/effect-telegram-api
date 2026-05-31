@@ -3,11 +3,26 @@
 	"name": "InputMessageContent",
 	"slug": "inputmessagecontent",
 	"description": "This object represents the content of a message to be sent as a result of an inline query. Telegram clients currently support the following 5 types:",
-	"members": [
-		"InputTextMessageContent",
-		"InputLocationMessageContent",
-		"InputVenueMessageContent",
-		"InputContactMessageContent",
-		"InputInvoiceMessageContent"
+	"variants": [
+		{
+			"name": "InputTextMessageContent",
+			"slug": "inputtextmessagecontent"
+		},
+		{
+			"name": "InputLocationMessageContent",
+			"slug": "inputlocationmessagecontent"
+		},
+		{
+			"name": "InputVenueMessageContent",
+			"slug": "inputvenuemessagecontent"
+		},
+		{
+			"name": "InputContactMessageContent",
+			"slug": "inputcontactmessagecontent"
+		},
+		{
+			"name": "InputInvoiceMessageContent",
+			"slug": "inputinvoicemessagecontent"
+		}
 	]
 }

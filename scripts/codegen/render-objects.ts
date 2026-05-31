@@ -1,3 +1,4 @@
+import { docUrlFromSlug } from "../document.ts";
 import { analyzeDependencies } from "./dependency-graph.ts";
 import {
 	collectRefs,
@@ -52,7 +53,7 @@ const renderObject = (
 	recursive: boolean,
 	knownNames: ReadonlySet<string>,
 ): string => {
-	const doc = renderJsDoc(object.description);
+	const doc = renderJsDoc(object.description, "", docUrlFromSlug(object.slug));
 	const schema = renderSchema(object, strategyFor(scc));
 
 	// Recursive schemas cannot have their type inferred (`typeof` would reference
@@ -65,9 +66,10 @@ const renderObject = (
 
 const renderUnion = (union: UnionType, scc: ReadonlySet<string>): string => {
 	const strategy = strategyFor(scc);
-	const members = union.members.map(member => strategy.schemaRef(member)).join(", ");
+	const members = union.variants.map(variant => strategy.schemaRef(variant.name)).join(", ");
 	const expr = `Schema.Union([${members}])`;
-	const doc = renderJsDoc(union.description);
+	const see = [docUrlFromSlug(union.slug), ...union.variants.map(variant => docUrlFromSlug(variant.slug))];
+	const doc = renderJsDoc(union.description, "", see);
 	return `${doc}export const ${union.name} = ${renderAnnotatedSchemaExpr(expr, union.description)};\nexport type ${union.name} = typeof ${union.name}.Type;`;
 };
 

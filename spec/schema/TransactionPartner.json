@@ -3,13 +3,34 @@
 	"name": "TransactionPartner",
 	"slug": "transactionpartner",
 	"description": "This object describes the source of a transaction, or its recipient for outgoing transactions. Currently, it can be one of",
-	"members": [
-		"TransactionPartnerUser",
-		"TransactionPartnerChat",
-		"TransactionPartnerAffiliateProgram",
-		"TransactionPartnerFragment",
-		"TransactionPartnerTelegramAds",
-		"TransactionPartnerTelegramApi",
-		"TransactionPartnerOther"
+	"variants": [
+		{
+			"name": "TransactionPartnerUser",
+			"slug": "transactionpartneruser"
+		},
+		{
+			"name": "TransactionPartnerChat",
+			"slug": "transactionpartnerchat"
+		},
+		{
+			"name": "TransactionPartnerAffiliateProgram",
+			"slug": "transactionpartneraffiliateprogram"
+		},
+		{
+			"name": "TransactionPartnerFragment",
+			"slug": "transactionpartnerfragment"
+		},
+		{
+			"name": "TransactionPartnerTelegramAds",
+			"slug": "transactionpartnertelegramads"
+		},
+		{
+			"name": "TransactionPartnerTelegramApi",
+			"slug": "transactionpartnertelegramapi"
+		},
+		{
+			"name": "TransactionPartnerOther",
+			"slug": "transactionpartnerother"
+		}
 	]
 }

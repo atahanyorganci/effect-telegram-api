@@ -16,6 +16,8 @@ export const BOTS_API_DOCUMENT = {
 	hash: "sha256-c26e4bca67c640bd544caa3be126c2c9f10cd304cc0eac6c29a6bfe9de4ed6ac",
 } as const satisfies DocumentConfig;
 
+export const docUrlFromSlug = (slug: string): string => `${BOTS_API_DOCUMENT.url}#${slug}`;
+
 export const schemaSpecPath = (specDir: string, name: string): string => `${specDir}/schema/${name}.json`;
 
 export const endpointSpecPath = (specDir: string, name: string): string => `${specDir}/endpoints/${name}.json`;

@@ -16,7 +16,7 @@ export const parseMethodBlock = Effect.fn("parseMethodBlock")(function* (heading
 	const slug = heading.getAttribute("id");
 
 	if (slug === undefined || slug.length === 0) {
-		return yield* Effect.fail(parseError(`Method heading "${name}" is missing an id slug`));
+		return yield* Effect.fail(parseError(`Method heading "${name}" is missing a slug id`));
 	}
 
 	const paragraphs = sectionElements(block, "p");

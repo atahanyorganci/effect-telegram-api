@@ -1,12 +1,6 @@
 import { describe } from "@effect/vitest";
 import * as Effect from "effect/Effect";
-import {
-	authErrorTests,
-	callClient,
-	expectClientSchemaError,
-	liveTests,
-	telegramConfig,
-} from "./helpers.ts";
+import { authErrorTests, callClient, expectClientSchemaError, liveTests, telegramConfig } from "./helpers.ts";
 
 const callSavePreparedInlineMessage = (token: string, payload: unknown) =>
 	callClient("savePreparedInlineMessage", token, payload as never);
@@ -40,7 +34,5 @@ liveTests("savePreparedInlineMessage", test => {
 		);
 	});
 
-	authErrorTests(test, token =>
-		callSavePreparedInlineMessage(token, { user_id: 0, result: minimalInlineQueryResult }),
-	);
+	authErrorTests(test, token => callSavePreparedInlineMessage(token, { user_id: 0, result: minimalInlineQueryResult }));
 });

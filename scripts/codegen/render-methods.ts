@@ -1,3 +1,4 @@
+import { docUrlFromSlug } from "../document.ts";
 import { buildErrorExportNames, errorKey, expandMethodErrors } from "./render-errors.ts";
 import {
 	renderAnnotatedSchemaExpr,
@@ -68,7 +69,7 @@ const renderMethod = (
 	methodErrors: ReadonlyMap<string, MethodErrorsDoc>,
 	exportNames: ReadonlyMap<string, string>,
 ): string => {
-	const doc = renderJsDoc(method.description);
+	const doc = renderJsDoc(method.description, "", docUrlFromSlug(method.slug));
 	const path = methodPath(method.name);
 	const success = renderSuccessSchema(method);
 	const errors = renderErrorField(method, methodErrors, exportNames);

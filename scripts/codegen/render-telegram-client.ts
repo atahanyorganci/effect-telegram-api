@@ -1,3 +1,4 @@
+import { docUrlFromSlug } from "../document.ts";
 import { methodErrorTags } from "./render-errors.ts";
 import { collectRefs, renderJsDoc, renderTsType } from "./render-type-expr.ts";
 import type { Method, Parameter } from "../parse/model.ts";
@@ -37,7 +38,7 @@ const renderMethod = (
 	methodErrors: ReadonlyMap<string, MethodErrorsDoc>,
 	knownNames: ReadonlySet<string>,
 ): string => {
-	const doc = renderJsDoc(method.description, "\t");
+	const doc = renderJsDoc(method.description, "\t", docUrlFromSlug(method.slug));
 	const success = renderTsType(method.returns, knownNames);
 	const errors = renderErrorUnion(method.name, methodErrors);
 	const effect = renderEffectType(success, errors);

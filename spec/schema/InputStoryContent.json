@@ -3,5 +3,14 @@
 	"name": "InputStoryContent",
 	"slug": "inputstorycontent",
 	"description": "This object describes the content of a story to post. Currently, it can be one of",
-	"members": ["InputStoryContentPhoto", "InputStoryContentVideo"]
+	"variants": [
+		{
+			"name": "InputStoryContentPhoto",
+			"slug": "inputstorycontentphoto"
+		},
+		{
+			"name": "InputStoryContentVideo",
+			"slug": "inputstorycontentvideo"
+		}
+	]
 }

@@ -1,3 +1,4 @@
+import type { UnionVariant } from "./model.ts";
 import type { HTMLElement } from "node-html-parser";
 
 const TYPE_NAME = /^[A-Z][A-Za-z0-9_]*$/;
@@ -28,5 +29,9 @@ export const isMemberListUl = (ul: HTMLElement): boolean => {
 	return true;
 };
 
-export const parseMemberListUl = (ul: HTMLElement): readonly string[] =>
-	ul.querySelectorAll("li").map(li => li.querySelector('a[href^="#"]')!.text.trim());
+export const parseMemberListUl = (ul: HTMLElement): readonly UnionVariant[] =>
+	ul.querySelectorAll("li").map(li => {
+		const anchor = li.querySelector('a[href^="#"]')!;
+		const href = anchor.getAttribute("href")?.replace(/^#/, "") ?? "";
+		return { name: anchor.text.trim(), slug: href };
+	});

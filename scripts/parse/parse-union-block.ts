@@ -12,7 +12,7 @@ export const parseUnionBlock = Effect.fn("parseUnionBlock")(function* (heading: 
 	const slug = heading.getAttribute("id");
 
 	if (slug === undefined || slug.length === 0) {
-		return yield* Effect.fail(parseError(`Union heading "${name}" is missing an id slug`));
+		return yield* Effect.fail(parseError(`Union heading "${name}" is missing a slug id`));
 	}
 
 	const paragraphs = sectionElements(block, "p");
@@ -28,13 +28,13 @@ export const parseUnionBlock = Effect.fn("parseUnionBlock")(function* (heading: 
 		return yield* Effect.fail(parseError(`Union "${name}" is missing a member list`));
 	}
 
-	const members = parseMemberListUl(memberList);
+	const variants = parseMemberListUl(memberList);
 
 	return yield* Schema.decodeEffect(UnionType)({
 		kind: "union",
 		name,
 		slug,
 		description,
-		members,
+		variants,
 	}).pipe(Effect.mapError(cause => parseError(`Invalid union "${name}": ${String(cause)}`)));
 });
