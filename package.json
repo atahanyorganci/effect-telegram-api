@@ -1,6 +1,6 @@
 {
 	"name": "@yorganci/effect-telegram-api",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"description": "Telegram API spec and wrapper built with Effect",
 	"keywords": [
 		"API",
