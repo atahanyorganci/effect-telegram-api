@@ -5,6 +5,7 @@ import type {
 	AcceptedGiftTypes,
 	BotAccessSettings,
 	BotCommand,
+	BotCommandScope,
 	BotDescription,
 	BotName,
 	BotShortDescription,
@@ -12,22 +13,30 @@ import type {
 	ChatAdministratorRights,
 	ChatFullInfo,
 	ChatInviteLink,
+	ChatMember,
 	ChatPermissions,
 	File,
 	ForceReply,
 	ForumTopic,
 	Gifts,
 	InlineKeyboardMarkup,
+	InlineQueryResult,
 	InputChecklist,
 	InputFile,
+	InputMedia,
 	InputMediaAudio,
 	InputMediaDocument,
 	InputMediaLivePhoto,
 	InputMediaPhoto,
 	InputMediaVideo,
+	InputPaidMedia,
+	InputPollMedia,
 	InputPollOption,
+	InputProfilePhoto,
+	InputStoryContent,
 	KeyboardButton,
 	LinkPreviewOptions,
+	MenuButton,
 	Message,
 	MessageEntity,
 	MessageId,
@@ -35,12 +44,14 @@ import type {
 	Poll,
 	PreparedInlineMessage,
 	PreparedKeyboardButton,
+	ReactionType,
 	ReplyKeyboardMarkup,
 	ReplyKeyboardRemove,
 	ReplyParameters,
 	SentGuestMessage,
 	SentWebAppMessage,
 	StarAmount,
+	Sticker,
 	Story,
 	StoryArea,
 	SuggestedPostParameters,
@@ -111,7 +122,7 @@ export class TelegramClient extends Context.Service<
 			/**
 			 * A JSON-serialized object describing the message to be sent
 			 */
-			readonly result: unknown;
+			readonly result: InlineQueryResult;
 		}) => Effect.Effect<
 			SentGuestMessage,
 			| Errors.NotFound
@@ -133,7 +144,7 @@ export class TelegramClient extends Context.Service<
 			/**
 			 * A JSON-serialized object describing the message to be sent
 			 */
-			readonly result: unknown;
+			readonly result: InlineQueryResult;
 		}) => Effect.Effect<
 			SentWebAppMessage,
 			| Errors.CallbackQueryIdInvalid
@@ -889,7 +900,7 @@ export class TelegramClient extends Context.Service<
 			 * A JSON-serialized object, describing scope of users for which the commands
 			 * are relevant. Defaults to BotCommandScopeDefault.
 			 */
-			readonly scope?: unknown;
+			readonly scope?: BotCommandScope | undefined;
 			/**
 			 * A two-letter ISO 639-1 language code. If empty, commands will be applied to
 			 * all users from the given scope, for whose language there are no dedicated
@@ -1265,7 +1276,7 @@ export class TelegramClient extends Context.Service<
 			/**
 			 * A JSON-serialized object for a new media content of the message
 			 */
-			readonly media: unknown;
+			readonly media: InputMedia;
 			/**
 			 * A JSON-serialized object for a new inline keyboard
 			 */
@@ -1389,7 +1400,7 @@ export class TelegramClient extends Context.Service<
 			/**
 			 * Content of the story
 			 */
-			readonly content: unknown;
+			readonly content: InputStoryContent;
 			/**
 			 * Caption of the story, 0-2048 characters after entities parsing
 			 */
@@ -1683,7 +1694,7 @@ export class TelegramClient extends Context.Service<
 			 */
 			readonly return_bots?: boolean | undefined;
 		}) => Effect.Effect<
-			ReadonlyArray<unknown>,
+			ReadonlyArray<ChatMember>,
 			| Errors.ChatIdEmpty
 			| Errors.ChatNotFound
 			| Errors.NotFound
@@ -1772,7 +1783,7 @@ export class TelegramClient extends Context.Service<
 			 */
 			readonly user_id: number;
 		}) => Effect.Effect<
-			unknown,
+			ChatMember,
 			| Errors.ChatIdEmpty
 			| Errors.ChatNotFound
 			| Errors.InvalidUserId
@@ -1812,7 +1823,7 @@ export class TelegramClient extends Context.Service<
 			 */
 			readonly chat_id?: number | undefined;
 		}) => Effect.Effect<
-			unknown,
+			MenuButton,
 			| Errors.InvalidChatId
 			| Errors.NotFound
 			| Errors.Unauthorized
@@ -1843,7 +1854,7 @@ export class TelegramClient extends Context.Service<
 		 * topic icon by any user
 		 */
 		readonly getForumTopicIconStickers: () => Effect.Effect<
-			ReadonlyArray<unknown>,
+			ReadonlyArray<Sticker>,
 			Errors.NotFound | Errors.Unauthorized | Errors.TelegramApiError | HttpClientError.HttpClientError
 		>;
 		/**
@@ -1894,7 +1905,7 @@ export class TelegramClient extends Context.Service<
 			 * A JSON-serialized object, describing scope of users. Defaults to
 			 * BotCommandScopeDefault.
 			 */
-			readonly scope?: unknown;
+			readonly scope?: BotCommandScope | undefined;
 			/**
 			 * A two-letter ISO 639-1 language code or an empty string
 			 */
@@ -2309,7 +2320,7 @@ export class TelegramClient extends Context.Service<
 			/**
 			 * Content of the story
 			 */
-			readonly content: unknown;
+			readonly content: InputStoryContent;
 			/**
 			 * Period after which the story is moved to the archive, in seconds; must be
 			 * one of 6 * 3600, 12 * 3600, 86400, or 2 * 86400
@@ -2742,7 +2753,7 @@ export class TelegramClient extends Context.Service<
 			/**
 			 * A JSON-serialized object describing the message to be sent
 			 */
-			readonly result: unknown;
+			readonly result: InlineQueryResult;
 			/**
 			 * Pass True if the message can be sent to private chats with users
 			 */
@@ -3963,7 +3974,7 @@ export class TelegramClient extends Context.Service<
 			/**
 			 * A JSON-serialized array describing the media to be sent; up to 10 items
 			 */
-			readonly media: ReadonlyArray<unknown>;
+			readonly media: ReadonlyArray<InputPaidMedia>;
 			/**
 			 * Bot-defined paid media payload, 0-128 bytes. This will not be displayed to
 			 * the user, use it for your internal processes.
@@ -4237,7 +4248,7 @@ export class TelegramClient extends Context.Service<
 			/**
 			 * Media added to the quiz explanation
 			 */
-			readonly explanation_media?: unknown;
+			readonly explanation_media?: InputPollMedia | undefined;
 			/**
 			 * Amount of time in seconds the poll will be active after creation,
 			 * 5-2628000. Can't be used together with close_date.
@@ -4272,7 +4283,7 @@ export class TelegramClient extends Context.Service<
 			/**
 			 * Media added to the poll description
 			 */
-			readonly media?: unknown;
+			readonly media?: InputPollMedia | undefined;
 			/**
 			 * Sends the message silently. Users will receive a notification with no
 			 * sound.
@@ -4858,7 +4869,7 @@ export class TelegramClient extends Context.Service<
 			/**
 			 * The new profile photo to set
 			 */
-			readonly photo: unknown;
+			readonly photo: InputProfilePhoto;
 			/**
 			 * Pass True to set the public photo, which will be visible even if the main
 			 * photo is hidden by the business account's privacy settings. An account can
@@ -4989,7 +5000,7 @@ export class TelegramClient extends Context.Service<
 			 * A JSON-serialized object for the bot's new menu button. Defaults to
 			 * MenuButtonDefault.
 			 */
-			readonly menu_button?: unknown;
+			readonly menu_button?: MenuButton | undefined;
 		}) => Effect.Effect<
 			true,
 			| Errors.MenuButtonUnsupportedType
@@ -5156,7 +5167,7 @@ export class TelegramClient extends Context.Service<
 			 * or explicitly allowed by chat administrators. Paid reactions can't be used
 			 * by bots.
 			 */
-			readonly reaction?: ReadonlyArray<unknown> | undefined;
+			readonly reaction?: ReadonlyArray<ReactionType> | undefined;
 			/**
 			 * Pass True to set the reaction with a big animation
 			 */
@@ -5183,7 +5194,7 @@ export class TelegramClient extends Context.Service<
 			 * A JSON-serialized object, describing scope of users for which the commands
 			 * are relevant. Defaults to BotCommandScopeDefault.
 			 */
-			readonly scope?: unknown;
+			readonly scope?: BotCommandScope | undefined;
 			/**
 			 * A two-letter ISO 639-1 language code. If empty, commands will be applied to
 			 * all users from the given scope, for whose language there are no dedicated
@@ -5281,7 +5292,7 @@ export class TelegramClient extends Context.Service<
 			/**
 			 * The new profile photo to set
 			 */
-			readonly photo: unknown;
+			readonly photo: InputProfilePhoto;
 		}) => Effect.Effect<
 			true,
 			| Errors.NotFound

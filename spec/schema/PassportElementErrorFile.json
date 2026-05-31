@@ -1,0 +1,40 @@
+{
+	"kind": "object",
+	"name": "PassportElementErrorFile",
+	"slug": "passportelementerrorfile",
+	"description": "Represents an issue with a document scan. The error is considered resolved when the file with the document scan changes.",
+	"fields": [
+		{
+			"name": "source",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Error source, must be file"
+		},
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "The section of the user's Telegram Passport which has the issue, one of “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”"
+		},
+		{
+			"name": "file_hash",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Base64-encoded file hash"
+		},
+		{
+			"name": "message",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Error message"
+		}
+	]
+}

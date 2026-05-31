@@ -1,0 +1,126 @@
+{
+	"kind": "object",
+	"name": "InlineQueryResultPhoto",
+	"slug": "inlinequeryresultphoto",
+	"description": "Represents a link to a photo. By default, this photo will be sent by the user with optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the photo.",
+	"fields": [
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Type of the result, must be photo"
+		},
+		{
+			"name": "id",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Unique identifier for this result, 1-64 bytes"
+		},
+		{
+			"name": "photo_url",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "A valid URL of the photo. Photo must be in JPEG format. Photo size must not exceed 5MB."
+		},
+		{
+			"name": "thumbnail_url",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "URL of the thumbnail for the photo"
+		},
+		{
+			"name": "photo_width",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "Width of the photo"
+		},
+		{
+			"name": "photo_height",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "Height of the photo"
+		},
+		{
+			"name": "title",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Title for the result"
+		},
+		{
+			"name": "description",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Short description of the result"
+		},
+		{
+			"name": "caption",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Caption of the photo to be sent, 0-1024 characters after entities parsing"
+		},
+		{
+			"name": "parse_mode",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Mode for parsing entities in the photo caption. See formatting options for more details."
+		},
+		{
+			"name": "caption_entities",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "MessageEntity"
+				}
+			},
+			"required": false,
+			"description": "List of special entities that appear in the caption, which can be specified instead of parse_mode"
+		},
+		{
+			"name": "show_caption_above_media",
+			"type": {
+				"kind": "boolean"
+			},
+			"required": false,
+			"description": "Pass True, if the caption must be shown above the message media"
+		},
+		{
+			"name": "reply_markup",
+			"type": {
+				"kind": "ref",
+				"name": "InlineKeyboardMarkup"
+			},
+			"required": false,
+			"description": "Inline keyboard attached to the message"
+		},
+		{
+			"name": "input_message_content",
+			"type": {
+				"kind": "ref",
+				"name": "InputMessageContent"
+			},
+			"required": false,
+			"description": "Content of the message to be sent instead of the photo"
+		}
+	]
+}

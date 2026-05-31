@@ -1,0 +1,41 @@
+{
+	"kind": "object",
+	"name": "InlineQueryResultGame",
+	"slug": "inlinequeryresultgame",
+	"description": "Represents a Game.",
+	"fields": [
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Type of the result, must be game"
+		},
+		{
+			"name": "id",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Unique identifier for this result, 1-64 bytes"
+		},
+		{
+			"name": "game_short_name",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Short name of the game"
+		},
+		{
+			"name": "reply_markup",
+			"type": {
+				"kind": "ref",
+				"name": "InlineKeyboardMarkup"
+			},
+			"required": false,
+			"description": "Inline keyboard attached to the message"
+		}
+	]
+}

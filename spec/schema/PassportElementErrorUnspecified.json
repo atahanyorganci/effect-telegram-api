@@ -1,0 +1,40 @@
+{
+	"kind": "object",
+	"name": "PassportElementErrorUnspecified",
+	"slug": "passportelementerrorunspecified",
+	"description": "Represents an issue in an unspecified place. The error is considered resolved when new data is added.",
+	"fields": [
+		{
+			"name": "source",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Error source, must be unspecified"
+		},
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Type of element of the user's Telegram Passport which has the issue"
+		},
+		{
+			"name": "element_hash",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Base64-encoded element hash"
+		},
+		{
+			"name": "message",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Error message"
+		}
+	]
+}

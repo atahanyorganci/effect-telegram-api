@@ -8,9 +8,11 @@ import { parseAvailableObjects } from "./parse/parse-objects.ts";
 
 const program = Effect.gen(function* () {
 	const html = yield* loadDocument(BOTS_API_DOCUMENT.path);
-	const { objects } = yield* parseAvailableObjects(html, BOTS_API_DOCUMENT.specDir);
+	const { objects, unions } = yield* parseAvailableObjects(html, BOTS_API_DOCUMENT.specDir);
 	const { methods } = yield* parseAvailableMethods(html, BOTS_API_DOCUMENT.specDir);
-	yield* Console.log(`Wrote ${objects.length} objects to ${BOTS_API_DOCUMENT.specDir}/schema/`);
+	yield* Console.log(
+		`Wrote ${objects.length} objects and ${unions.length} unions to ${BOTS_API_DOCUMENT.specDir}/schema/`,
+	);
 	yield* Console.log(`Wrote ${methods.length} methods to ${BOTS_API_DOCUMENT.specDir}/endpoints/`);
 });
 

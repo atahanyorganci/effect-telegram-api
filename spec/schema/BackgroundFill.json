@@ -1,0 +1,7 @@
+{
+	"kind": "union",
+	"name": "BackgroundFill",
+	"slug": "backgroundfill",
+	"description": "This object describes the way a background is filled based on the selected colors. Currently, it can be one of",
+	"members": ["BackgroundFillSolid", "BackgroundFillGradient", "BackgroundFillFreeformGradient"]
+}

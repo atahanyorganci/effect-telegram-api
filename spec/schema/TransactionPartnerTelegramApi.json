@@ -1,0 +1,24 @@
+{
+	"kind": "object",
+	"name": "TransactionPartnerTelegramApi",
+	"slug": "transactionpartnertelegramapi",
+	"description": "Describes a transaction with payment for paid broadcasting.",
+	"fields": [
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Type of the transaction partner, always “telegram_api”"
+		},
+		{
+			"name": "request_count",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "The number of successful requests that exceeded regular limits and were therefore billed"
+		}
+	]
+}

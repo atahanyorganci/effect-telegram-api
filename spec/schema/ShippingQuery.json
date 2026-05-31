@@ -1,0 +1,42 @@
+{
+	"kind": "object",
+	"name": "ShippingQuery",
+	"slug": "shippingquery",
+	"description": "This object contains information about an incoming shipping query.",
+	"fields": [
+		{
+			"name": "id",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Unique query identifier"
+		},
+		{
+			"name": "from",
+			"type": {
+				"kind": "ref",
+				"name": "User"
+			},
+			"required": true,
+			"description": "User who sent the query"
+		},
+		{
+			"name": "invoice_payload",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Bot-specified invoice payload"
+		},
+		{
+			"name": "shipping_address",
+			"type": {
+				"kind": "ref",
+				"name": "ShippingAddress"
+			},
+			"required": true,
+			"description": "User specified shipping address"
+		}
+	]
+}

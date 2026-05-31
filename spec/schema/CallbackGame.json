@@ -1,0 +1,7 @@
+{
+	"kind": "object",
+	"name": "CallbackGame",
+	"slug": "callbackgame",
+	"description": "A placeholder, currently holds no information. Use BotFather to set up your game.",
+	"fields": []
+}

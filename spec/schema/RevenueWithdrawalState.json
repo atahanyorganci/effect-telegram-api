@@ -1,0 +1,7 @@
+{
+	"kind": "union",
+	"name": "RevenueWithdrawalState",
+	"slug": "revenuewithdrawalstate",
+	"description": "This object describes the state of a revenue withdrawal operation. Currently, it can be one of",
+	"members": ["RevenueWithdrawalStatePending", "RevenueWithdrawalStateSucceeded", "RevenueWithdrawalStateFailed"]
+}

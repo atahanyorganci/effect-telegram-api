@@ -1,0 +1,15 @@
+{
+	"kind": "union",
+	"name": "TransactionPartner",
+	"slug": "transactionpartner",
+	"description": "This object describes the source of a transaction, or its recipient for outgoing transactions. Currently, it can be one of",
+	"members": [
+		"TransactionPartnerUser",
+		"TransactionPartnerChat",
+		"TransactionPartnerAffiliateProgram",
+		"TransactionPartnerFragment",
+		"TransactionPartnerTelegramAds",
+		"TransactionPartnerTelegramApi",
+		"TransactionPartnerOther"
+	]
+}

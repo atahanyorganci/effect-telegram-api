@@ -1,0 +1,16 @@
+{
+	"kind": "object",
+	"name": "RevenueWithdrawalStateFailed",
+	"slug": "revenuewithdrawalstatefailed",
+	"description": "The withdrawal failed and the transaction was refunded.",
+	"fields": [
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Type of the state, always “failed”"
+		}
+	]
+}

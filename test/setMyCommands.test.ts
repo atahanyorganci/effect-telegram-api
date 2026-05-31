@@ -74,13 +74,15 @@ liveTests("setMyCommands", test => {
 				const { botToken } = yield* telegramConfig;
 				const error = yield* callSetMyCommands(botToken, {
 					commands: [{ command: "start", description: "Start" }],
-					scope: { type: "chat_member", chat_id: 0 },
+					scope: { type: "chat_member", chat_id: 1 },
 				}).pipe(Effect.flip);
 
+				// Union members without chat_id/user_id fields can match first; Telegram
+				// then parses type "chat_member" and reports the first missing field.
 				expectErrorTag(
 					error,
-					"BotCommandScopeUserIdMissing",
-					"Bad Request: can't parse BotCommandScope: Can't find field \"user_id\"",
+					"BotCommandScopeChatIdMissing",
+					"Bad Request: can't parse BotCommandScope: Can't find field \"chat_id\"",
 				);
 			}),
 		);

@@ -1,0 +1,13 @@
+{
+	"kind": "union",
+	"name": "StoryAreaType",
+	"slug": "storyareatype",
+	"description": "Describes the type of a clickable area on a story. Currently, it can be one of",
+	"members": [
+		"StoryAreaTypeLocation",
+		"StoryAreaTypeSuggestedReaction",
+		"StoryAreaTypeLink",
+		"StoryAreaTypeWeather",
+		"StoryAreaTypeUniqueGift"
+	]
+}

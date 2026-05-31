@@ -1,0 +1,40 @@
+{
+	"kind": "object",
+	"name": "PassportElementErrorFrontSide",
+	"slug": "passportelementerrorfrontside",
+	"description": "Represents an issue with the front side of a document. The error is considered resolved when the file with the front side of the document changes.",
+	"fields": [
+		{
+			"name": "source",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Error source, must be front_side"
+		},
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "The section of the user's Telegram Passport which has the issue, one of “passport”, “driver_license”, “identity_card”, “internal_passport”"
+		},
+		{
+			"name": "file_hash",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Base64-encoded hash of the file with the front side of the document"
+		},
+		{
+			"name": "message",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Error message"
+		}
+	]
+}

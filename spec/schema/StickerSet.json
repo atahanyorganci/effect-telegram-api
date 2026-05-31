@@ -1,0 +1,53 @@
+{
+	"kind": "object",
+	"name": "StickerSet",
+	"slug": "stickerset",
+	"description": "This object represents a sticker set.",
+	"fields": [
+		{
+			"name": "name",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Sticker set name"
+		},
+		{
+			"name": "title",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Sticker set title"
+		},
+		{
+			"name": "sticker_type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Type of stickers in the set, currently one of “regular”, “mask”, “custom_emoji”"
+		},
+		{
+			"name": "stickers",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "Sticker"
+				}
+			},
+			"required": true,
+			"description": "List of all set stickers"
+		},
+		{
+			"name": "thumbnail",
+			"type": {
+				"kind": "ref",
+				"name": "PhotoSize"
+			},
+			"required": false,
+			"description": "Sticker set thumbnail in the .WEBP, .TGS, or .WEBM format"
+		}
+	]
+}

@@ -1,0 +1,45 @@
+{
+	"kind": "object",
+	"name": "InputTextMessageContent",
+	"slug": "inputtextmessagecontent",
+	"description": "Represents the content of a text message to be sent as the result of an inline query.",
+	"fields": [
+		{
+			"name": "message_text",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Text of the message to be sent, 1-4096 characters"
+		},
+		{
+			"name": "parse_mode",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Mode for parsing entities in the message text. See formatting options for more details."
+		},
+		{
+			"name": "entities",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "MessageEntity"
+				}
+			},
+			"required": false,
+			"description": "List of special entities that appear in message text, which can be specified instead of parse_mode"
+		},
+		{
+			"name": "link_preview_options",
+			"type": {
+				"kind": "ref",
+				"name": "LinkPreviewOptions"
+			},
+			"required": false,
+			"description": "Link preview generation options for the message"
+		}
+	]
+}

@@ -1,0 +1,20 @@
+{
+	"kind": "object",
+	"name": "StarTransactions",
+	"slug": "startransactions",
+	"description": "Contains a list of Telegram Star transactions.",
+	"fields": [
+		{
+			"name": "transactions",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "StarTransaction"
+				}
+			},
+			"required": true,
+			"description": "The list of transactions"
+		}
+	]
+}

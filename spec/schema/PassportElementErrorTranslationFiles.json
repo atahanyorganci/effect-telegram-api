@@ -1,0 +1,43 @@
+{
+	"kind": "object",
+	"name": "PassportElementErrorTranslationFiles",
+	"slug": "passportelementerrortranslationfiles",
+	"description": "Represents an issue with the translated version of a document. The error is considered resolved when a file with the document translation change.",
+	"fields": [
+		{
+			"name": "source",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Error source, must be translation_files"
+		},
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Type of element of the user's Telegram Passport which has the issue, one of “passport”, “driver_license”, “identity_card”, “internal_passport”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”"
+		},
+		{
+			"name": "file_hashes",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "string"
+				}
+			},
+			"required": true,
+			"description": "List of base64-encoded file hashes"
+		},
+		{
+			"name": "message",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Error message"
+		}
+	]
+}

@@ -1,0 +1,56 @@
+{
+	"kind": "object",
+	"name": "ShippingAddress",
+	"slug": "shippingaddress",
+	"description": "This object represents a shipping address.",
+	"fields": [
+		{
+			"name": "country_code",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Two-letter ISO 3166-1 alpha-2 country code"
+		},
+		{
+			"name": "state",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "State, if applicable"
+		},
+		{
+			"name": "city",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "City"
+		},
+		{
+			"name": "street_line1",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "First line for the address"
+		},
+		{
+			"name": "street_line2",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Second line for the address"
+		},
+		{
+			"name": "post_code",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Address post code"
+		}
+	]
+}

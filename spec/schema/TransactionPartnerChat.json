@@ -1,0 +1,34 @@
+{
+	"kind": "object",
+	"name": "TransactionPartnerChat",
+	"slug": "transactionpartnerchat",
+	"description": "Describes a transaction with a chat.",
+	"fields": [
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Type of the transaction partner, always “chat”"
+		},
+		{
+			"name": "chat",
+			"type": {
+				"kind": "ref",
+				"name": "Chat"
+			},
+			"required": true,
+			"description": "Information about the chat"
+		},
+		{
+			"name": "gift",
+			"type": {
+				"kind": "ref",
+				"name": "Gift"
+			},
+			"required": false,
+			"description": "The gift sent to the chat by the bot"
+		}
+	]
+}

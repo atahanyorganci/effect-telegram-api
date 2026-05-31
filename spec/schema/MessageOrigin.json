@@ -1,0 +1,7 @@
+{
+	"kind": "union",
+	"name": "MessageOrigin",
+	"slug": "messageorigin",
+	"description": "This object describes the origin of a message. It can be one of",
+	"members": ["MessageOriginUser", "MessageOriginHiddenUser", "MessageOriginChat", "MessageOriginChannel"]
+}

@@ -1,0 +1,25 @@
+{
+	"kind": "object",
+	"name": "TransactionPartnerFragment",
+	"slug": "transactionpartnerfragment",
+	"description": "Describes a withdrawal transaction with Fragment.",
+	"fields": [
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Type of the transaction partner, always “fragment”"
+		},
+		{
+			"name": "withdrawal_state",
+			"type": {
+				"kind": "ref",
+				"name": "RevenueWithdrawalState"
+			},
+			"required": false,
+			"description": "State of the transaction if the transaction is outgoing"
+		}
+	]
+}

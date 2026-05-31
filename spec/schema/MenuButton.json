@@ -1,0 +1,7 @@
+{
+	"kind": "union",
+	"name": "MenuButton",
+	"slug": "menubutton",
+	"description": "This object describes the bot's menu button in a private chat. It should be one of",
+	"members": ["MenuButtonCommands", "MenuButtonWebApp", "MenuButtonDefault"]
+}

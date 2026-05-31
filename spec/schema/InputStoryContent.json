@@ -1,0 +1,7 @@
+{
+	"kind": "union",
+	"name": "InputStoryContent",
+	"slug": "inputstorycontent",
+	"description": "This object describes the content of a story to post. Currently, it can be one of",
+	"members": ["InputStoryContentPhoto", "InputStoryContentVideo"]
+}

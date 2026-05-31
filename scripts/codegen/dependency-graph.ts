@@ -1,23 +1,26 @@
 import { collectRefs } from "./render-type-expr.ts";
-import type { ObjectType } from "../parse/model.ts";
+import type { ObjectType, UnionType } from "../parse/model.ts";
 
 export interface DependencyAnalysis {
-	/** Object names in dependency-first order (a schema appears after every acyclic dependency). */
+	/** Schema names in dependency-first order (a schema appears after every acyclic dependency). */
 	readonly order: readonly string[];
-	/** Maps each object name to the set of names in its strongly connected component. */
+	/** Maps each schema name to the set of names in its strongly connected component. */
 	readonly sccOf: ReadonlyMap<string, ReadonlySet<string>>;
 	/** Names whose type must be declared explicitly because they take part in a reference cycle. */
 	readonly recursive: ReadonlySet<string>;
 }
 
 /**
- * Analyzes references between object schemas using Tarjan's algorithm. The
+ * Analyzes references between object and union schemas using Tarjan's algorithm. The
  * returned order lists strongly connected components sinks-first (every acyclic
  * dependency precedes its dependents), so generated schemas can reference each
  * other directly unless they share a cycle.
  */
-export const analyzeDependencies = (objects: readonly ObjectType[]): DependencyAnalysis => {
-	const names = new Set(objects.map(object => object.name));
+export const analyzeDependencies = (
+	objects: readonly ObjectType[],
+	unions: readonly UnionType[] = [],
+): DependencyAnalysis => {
+	const names = new Set([...objects.map(object => object.name), ...unions.map(union => union.name)]);
 	const edges = new Map<string, readonly string[]>();
 	const selfLoops = new Set<string>();
 
@@ -30,6 +33,10 @@ export const analyzeDependencies = (objects: readonly ObjectType[]): DependencyA
 		if (refs.has(object.name)) {
 			selfLoops.add(object.name);
 		}
+	}
+
+	for (const union of unions) {
+		edges.set(union.name, union.members.filter(member => names.has(member)).sort());
 	}
 
 	let counter = 0;

@@ -1,0 +1,7 @@
+{
+	"kind": "union",
+	"name": "InputPaidMedia",
+	"slug": "inputpaidmedia",
+	"description": "This object describes the paid media to be sent. Currently, it can be one of",
+	"members": ["InputPaidMediaLivePhoto", "InputPaidMediaPhoto", "InputPaidMediaVideo"]
+}

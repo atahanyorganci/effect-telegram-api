@@ -1,0 +1,25 @@
+{
+	"kind": "object",
+	"name": "PaidMediaPurchased",
+	"slug": "paidmediapurchased",
+	"description": "This object contains information about a paid media purchase.",
+	"fields": [
+		{
+			"name": "from",
+			"type": {
+				"kind": "ref",
+				"name": "User"
+			},
+			"required": true,
+			"description": "User who purchased the media"
+		},
+		{
+			"name": "paid_media_payload",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Bot-specified paid media payload"
+		}
+	]
+}

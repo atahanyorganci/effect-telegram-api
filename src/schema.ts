@@ -10,150 +10,6 @@ export const InputFile = Schema.Uint8Array.pipe(
 );
 export type InputFile = typeof InputFile.Type;
 
-// TODO: union/polymorphic type not yet generated from the spec.
-export const BackgroundFill = Schema.Unknown;
-export type BackgroundFill = typeof BackgroundFill.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const BackgroundType = Schema.Unknown;
-export type BackgroundType = typeof BackgroundType.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const BotCommandScope = Schema.Unknown;
-export type BotCommandScope = typeof BotCommandScope.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const CallbackGame = Schema.Unknown;
-export type CallbackGame = typeof CallbackGame.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const ChatBoostSource = Schema.Unknown;
-export type ChatBoostSource = typeof ChatBoostSource.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const ChatMember = Schema.Unknown;
-export type ChatMember = typeof ChatMember.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const ChosenInlineResult = Schema.Unknown;
-export type ChosenInlineResult = typeof ChosenInlineResult.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const ForumTopicClosed = Schema.Unknown;
-export type ForumTopicClosed = typeof ForumTopicClosed.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const ForumTopicReopened = Schema.Unknown;
-export type ForumTopicReopened = typeof ForumTopicReopened.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const Game = Schema.Unknown;
-export type Game = typeof Game.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const GeneralForumTopicHidden = Schema.Unknown;
-export type GeneralForumTopicHidden = typeof GeneralForumTopicHidden.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const GeneralForumTopicUnhidden = Schema.Unknown;
-export type GeneralForumTopicUnhidden = typeof GeneralForumTopicUnhidden.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const InlineQuery = Schema.Unknown;
-export type InlineQuery = typeof InlineQuery.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const InlineQueryResult = Schema.Unknown;
-export type InlineQueryResult = typeof InlineQueryResult.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const InputMedia = Schema.Unknown;
-export type InputMedia = typeof InputMedia.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const InputPaidMedia = Schema.Unknown;
-export type InputPaidMedia = typeof InputPaidMedia.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const InputPollMedia = Schema.Unknown;
-export type InputPollMedia = typeof InputPollMedia.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const InputPollOptionMedia = Schema.Unknown;
-export type InputPollOptionMedia = typeof InputPollOptionMedia.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const InputProfilePhoto = Schema.Unknown;
-export type InputProfilePhoto = typeof InputProfilePhoto.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const InputStoryContent = Schema.Unknown;
-export type InputStoryContent = typeof InputStoryContent.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const Invoice = Schema.Unknown;
-export type Invoice = typeof Invoice.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const MaybeInaccessibleMessage = Schema.Unknown;
-export type MaybeInaccessibleMessage = typeof MaybeInaccessibleMessage.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const MenuButton = Schema.Unknown;
-export type MenuButton = typeof MenuButton.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const MessageOrigin = Schema.Unknown;
-export type MessageOrigin = typeof MessageOrigin.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const OwnedGift = Schema.Unknown;
-export type OwnedGift = typeof OwnedGift.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const PaidMedia = Schema.Unknown;
-export type PaidMedia = typeof PaidMedia.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const PaidMediaPurchased = Schema.Unknown;
-export type PaidMediaPurchased = typeof PaidMediaPurchased.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const PassportData = Schema.Unknown;
-export type PassportData = typeof PassportData.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const PreCheckoutQuery = Schema.Unknown;
-export type PreCheckoutQuery = typeof PreCheckoutQuery.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const ReactionType = Schema.Unknown;
-export type ReactionType = typeof ReactionType.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const RefundedPayment = Schema.Unknown;
-export type RefundedPayment = typeof RefundedPayment.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const ShippingQuery = Schema.Unknown;
-export type ShippingQuery = typeof ShippingQuery.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const Sticker = Schema.Unknown;
-export type Sticker = typeof Sticker.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const StoryAreaType = Schema.Unknown;
-export type StoryAreaType = typeof StoryAreaType.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const SuccessfulPayment = Schema.Unknown;
-export type SuccessfulPayment = typeof SuccessfulPayment.Type;
-
-// TODO: union/polymorphic type not yet generated from the spec.
-export const VideoChatStarted = Schema.Unknown;
-export type VideoChatStarted = typeof VideoChatStarted.Type;
-
 /**
  * This object describes the types of gifts that can be gifted to a user or a
  * chat.
@@ -194,6 +50,234 @@ export const AcceptedGiftTypes = Schema.Struct({
 	Schema.annotate({ description: "This object describes the types of gifts that can be gifted to a user or a chat." }),
 );
 export type AcceptedGiftTypes = typeof AcceptedGiftTypes.Type;
+
+/**
+ * This object represents a chat.
+ */
+export const Chat = Schema.Struct({
+	/**
+	 * Unique identifier for this chat. This number may have more than 32
+	 * significant bits and some programming languages may have difficulty/silent
+	 * defects in interpreting it. But it has at most 52 significant bits, so a
+	 * signed 64-bit integer or double-precision float type are safe for storing
+	 * this identifier.
+	 */
+	id: Schema.Int.pipe(
+		Schema.annotate({
+			description:
+				"Unique identifier for this chat. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.",
+		}),
+	),
+	/**
+	 * Type of the chat, can be either “private”, “group”, “supergroup” or
+	 * “channel”
+	 */
+	type: Schema.String.pipe(
+		Schema.annotate({ description: "Type of the chat, can be either “private”, “group”, “supergroup” or “channel”" }),
+	),
+	/**
+	 * Title, for supergroups, channels and group chats
+	 */
+	title: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Title, for supergroups, channels and group chats" }),
+	),
+	/**
+	 * Username, for private chats, supergroups and channels if available
+	 */
+	username: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Username, for private chats, supergroups and channels if available" }),
+	),
+	/**
+	 * First name of the other party in a private chat
+	 */
+	first_name: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "First name of the other party in a private chat" }),
+	),
+	/**
+	 * Last name of the other party in a private chat
+	 */
+	last_name: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Last name of the other party in a private chat" }),
+	),
+	/**
+	 * True, if the supergroup chat is a forum (has topics enabled)
+	 */
+	is_forum: Schema.optional(Schema.Literal(true)).pipe(
+		Schema.annotate({ description: "True, if the supergroup chat is a forum (has topics enabled)" }),
+	),
+	/**
+	 * True, if the chat is the direct messages chat of a channel
+	 */
+	is_direct_messages: Schema.optional(Schema.Literal(true)).pipe(
+		Schema.annotate({ description: "True, if the chat is the direct messages chat of a channel" }),
+	),
+}).pipe(Schema.annotate({ description: "This object represents a chat." }));
+export type Chat = typeof Chat.Type;
+
+/**
+ * This object represents a Telegram user or bot.
+ */
+export const User = Schema.Struct({
+	/**
+	 * Unique identifier for this user or bot. This number may have more than 32
+	 * significant bits and some programming languages may have difficulty/silent
+	 * defects in interpreting it. But it has at most 52 significant bits, so a
+	 * 64-bit integer or double-precision float type are safe for storing this
+	 * identifier.
+	 */
+	id: Schema.Int.pipe(
+		Schema.annotate({
+			description:
+				"Unique identifier for this user or bot. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier.",
+		}),
+	),
+	/**
+	 * True, if this user is a bot
+	 */
+	is_bot: Schema.Boolean.pipe(Schema.annotate({ description: "True, if this user is a bot" })),
+	/**
+	 * User's or bot's first name
+	 */
+	first_name: Schema.String.pipe(Schema.annotate({ description: "User's or bot's first name" })),
+	/**
+	 * User's or bot's last name
+	 */
+	last_name: Schema.optional(Schema.String).pipe(Schema.annotate({ description: "User's or bot's last name" })),
+	/**
+	 * User's or bot's username
+	 */
+	username: Schema.optional(Schema.String).pipe(Schema.annotate({ description: "User's or bot's username" })),
+	/**
+	 * IETF language tag of the user's language
+	 */
+	language_code: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "IETF language tag of the user's language" }),
+	),
+	/**
+	 * True, if this user is a Telegram Premium user
+	 */
+	is_premium: Schema.optional(Schema.Literal(true)).pipe(
+		Schema.annotate({ description: "True, if this user is a Telegram Premium user" }),
+	),
+	/**
+	 * True, if this user added the bot to the attachment menu
+	 */
+	added_to_attachment_menu: Schema.optional(Schema.Literal(true)).pipe(
+		Schema.annotate({ description: "True, if this user added the bot to the attachment menu" }),
+	),
+	/**
+	 * True, if the bot can be invited to groups.
+	 */
+	can_join_groups: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "True, if the bot can be invited to groups." }),
+	),
+	/**
+	 * True, if privacy mode is disabled for the bot.
+	 */
+	can_read_all_group_messages: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "True, if privacy mode is disabled for the bot." }),
+	),
+	/**
+	 * True, if the bot supports guest queries from chats it is not a member of.
+	 */
+	supports_guest_queries: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "True, if the bot supports guest queries from chats it is not a member of." }),
+	),
+	/**
+	 * True, if the bot supports inline queries.
+	 */
+	supports_inline_queries: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "True, if the bot supports inline queries." }),
+	),
+	/**
+	 * True, if the bot can be connected to a user account to manage it.
+	 */
+	can_connect_to_business: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "True, if the bot can be connected to a user account to manage it." }),
+	),
+	/**
+	 * True, if the bot has a main Web App.
+	 */
+	has_main_web_app: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "True, if the bot has a main Web App." }),
+	),
+	/**
+	 * True, if the bot has forum topic mode enabled in private chats.
+	 */
+	has_topics_enabled: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "True, if the bot has forum topic mode enabled in private chats." }),
+	),
+	/**
+	 * True, if the bot allows users to create and delete topics in private chats.
+	 */
+	allows_users_to_create_topics: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "True, if the bot allows users to create and delete topics in private chats." }),
+	),
+	/**
+	 * True, if other bots can be created to be controlled by the bot.
+	 */
+	can_manage_bots: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "True, if other bots can be created to be controlled by the bot." }),
+	),
+}).pipe(Schema.annotate({ description: "This object represents a Telegram user or bot." }));
+export type User = typeof User.Type;
+
+/**
+ * Contains information about the affiliate that received a commission via this
+ * transaction.
+ */
+export const AffiliateInfo = Schema.Struct({
+	/**
+	 * The bot or the user that received an affiliate commission if it was received
+	 * by a bot or a user
+	 */
+	affiliate_user: Schema.optional(User).pipe(
+		Schema.annotate({
+			description: "The bot or the user that received an affiliate commission if it was received by a bot or a user",
+		}),
+	),
+	/**
+	 * The chat that received an affiliate commission if it was received by a chat
+	 */
+	affiliate_chat: Schema.optional(Chat).pipe(
+		Schema.annotate({ description: "The chat that received an affiliate commission if it was received by a chat" }),
+	),
+	/**
+	 * The number of Telegram Stars received by the affiliate for each 1000
+	 * Telegram Stars received by the bot from referred users
+	 */
+	commission_per_mille: Schema.Int.pipe(
+		Schema.annotate({
+			description:
+				"The number of Telegram Stars received by the affiliate for each 1000 Telegram Stars received by the bot from referred users",
+		}),
+	),
+	/**
+	 * Integer amount of Telegram Stars received by the affiliate from the
+	 * transaction, rounded to 0; can be negative for refunds
+	 */
+	amount: Schema.Int.pipe(
+		Schema.annotate({
+			description:
+				"Integer amount of Telegram Stars received by the affiliate from the transaction, rounded to 0; can be negative for refunds",
+		}),
+	),
+	/**
+	 * The number of 1/1000000000 shares of Telegram Stars received by the
+	 * affiliate; from -999999999 to 999999999; can be negative for refunds
+	 */
+	nanostar_amount: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"The number of 1/1000000000 shares of Telegram Stars received by the affiliate; from -999999999 to 999999999; can be negative for refunds",
+		}),
+	),
+}).pipe(
+	Schema.annotate({
+		description: "Contains information about the affiliate that received a commission via this transaction.",
+	}),
+);
+export type AffiliateInfo = typeof AffiliateInfo.Type;
 
 /**
  * This object represents one size of a photo or a file / sticker thumbnail.
@@ -445,6 +529,22 @@ export const BackgroundFillSolid = Schema.Struct({
 export type BackgroundFillSolid = typeof BackgroundFillSolid.Type;
 
 /**
+ * This object describes the way a background is filled based on the selected
+ * colors. Currently, it can be one of
+ */
+export const BackgroundFill = Schema.Union([
+	BackgroundFillSolid,
+	BackgroundFillGradient,
+	BackgroundFillFreeformGradient,
+]).pipe(
+	Schema.annotate({
+		description:
+			"This object describes the way a background is filled based on the selected colors. Currently, it can be one of",
+	}),
+);
+export type BackgroundFill = typeof BackgroundFill.Type;
+
+/**
  * The background is taken directly from a built-in chat theme.
  */
 export const BackgroundTypeChatTheme = Schema.Struct({
@@ -624,6 +724,19 @@ export const BackgroundTypeWallpaper = Schema.Struct({
 export type BackgroundTypeWallpaper = typeof BackgroundTypeWallpaper.Type;
 
 /**
+ * This object describes the type of a background. Currently, it can be one of
+ */
+export const BackgroundType = Schema.Union([
+	BackgroundTypeFill,
+	BackgroundTypeWallpaper,
+	BackgroundTypePattern,
+	BackgroundTypeChatTheme,
+]).pipe(
+	Schema.annotate({ description: "This object describes the type of a background. Currently, it can be one of" }),
+);
+export type BackgroundType = typeof BackgroundType.Type;
+
+/**
  * Describes the birthdate of a user.
  */
 export const Birthdate = Schema.Struct({
@@ -641,114 +754,6 @@ export const Birthdate = Schema.Struct({
 	year: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Year of the user's birth" })),
 }).pipe(Schema.annotate({ description: "Describes the birthdate of a user." }));
 export type Birthdate = typeof Birthdate.Type;
-
-/**
- * This object represents a Telegram user or bot.
- */
-export const User = Schema.Struct({
-	/**
-	 * Unique identifier for this user or bot. This number may have more than 32
-	 * significant bits and some programming languages may have difficulty/silent
-	 * defects in interpreting it. But it has at most 52 significant bits, so a
-	 * 64-bit integer or double-precision float type are safe for storing this
-	 * identifier.
-	 */
-	id: Schema.Int.pipe(
-		Schema.annotate({
-			description:
-				"Unique identifier for this user or bot. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier.",
-		}),
-	),
-	/**
-	 * True, if this user is a bot
-	 */
-	is_bot: Schema.Boolean.pipe(Schema.annotate({ description: "True, if this user is a bot" })),
-	/**
-	 * User's or bot's first name
-	 */
-	first_name: Schema.String.pipe(Schema.annotate({ description: "User's or bot's first name" })),
-	/**
-	 * User's or bot's last name
-	 */
-	last_name: Schema.optional(Schema.String).pipe(Schema.annotate({ description: "User's or bot's last name" })),
-	/**
-	 * User's or bot's username
-	 */
-	username: Schema.optional(Schema.String).pipe(Schema.annotate({ description: "User's or bot's username" })),
-	/**
-	 * IETF language tag of the user's language
-	 */
-	language_code: Schema.optional(Schema.String).pipe(
-		Schema.annotate({ description: "IETF language tag of the user's language" }),
-	),
-	/**
-	 * True, if this user is a Telegram Premium user
-	 */
-	is_premium: Schema.optional(Schema.Literal(true)).pipe(
-		Schema.annotate({ description: "True, if this user is a Telegram Premium user" }),
-	),
-	/**
-	 * True, if this user added the bot to the attachment menu
-	 */
-	added_to_attachment_menu: Schema.optional(Schema.Literal(true)).pipe(
-		Schema.annotate({ description: "True, if this user added the bot to the attachment menu" }),
-	),
-	/**
-	 * True, if the bot can be invited to groups.
-	 */
-	can_join_groups: Schema.optional(Schema.Boolean).pipe(
-		Schema.annotate({ description: "True, if the bot can be invited to groups." }),
-	),
-	/**
-	 * True, if privacy mode is disabled for the bot.
-	 */
-	can_read_all_group_messages: Schema.optional(Schema.Boolean).pipe(
-		Schema.annotate({ description: "True, if privacy mode is disabled for the bot." }),
-	),
-	/**
-	 * True, if the bot supports guest queries from chats it is not a member of.
-	 */
-	supports_guest_queries: Schema.optional(Schema.Boolean).pipe(
-		Schema.annotate({ description: "True, if the bot supports guest queries from chats it is not a member of." }),
-	),
-	/**
-	 * True, if the bot supports inline queries.
-	 */
-	supports_inline_queries: Schema.optional(Schema.Boolean).pipe(
-		Schema.annotate({ description: "True, if the bot supports inline queries." }),
-	),
-	/**
-	 * True, if the bot can be connected to a user account to manage it.
-	 */
-	can_connect_to_business: Schema.optional(Schema.Boolean).pipe(
-		Schema.annotate({ description: "True, if the bot can be connected to a user account to manage it." }),
-	),
-	/**
-	 * True, if the bot has a main Web App.
-	 */
-	has_main_web_app: Schema.optional(Schema.Boolean).pipe(
-		Schema.annotate({ description: "True, if the bot has a main Web App." }),
-	),
-	/**
-	 * True, if the bot has forum topic mode enabled in private chats.
-	 */
-	has_topics_enabled: Schema.optional(Schema.Boolean).pipe(
-		Schema.annotate({ description: "True, if the bot has forum topic mode enabled in private chats." }),
-	),
-	/**
-	 * True, if the bot allows users to create and delete topics in private chats.
-	 */
-	allows_users_to_create_topics: Schema.optional(Schema.Boolean).pipe(
-		Schema.annotate({ description: "True, if the bot allows users to create and delete topics in private chats." }),
-	),
-	/**
-	 * True, if other bots can be created to be controlled by the bot.
-	 */
-	can_manage_bots: Schema.optional(Schema.Boolean).pipe(
-		Schema.annotate({ description: "True, if other bots can be created to be controlled by the bot." }),
-	),
-}).pipe(Schema.annotate({ description: "This object represents a Telegram user or bot." }));
-export type User = typeof User.Type;
 
 /**
  * This object describes the access settings of a bot.
@@ -932,6 +937,26 @@ export const BotCommandScopeDefault = Schema.Struct({
 	}),
 );
 export type BotCommandScopeDefault = typeof BotCommandScopeDefault.Type;
+
+/**
+ * This object represents the scope to which bot commands are applied.
+ * Currently, the following 7 scopes are supported:
+ */
+export const BotCommandScope = Schema.Union([
+	BotCommandScopeDefault,
+	BotCommandScopeAllPrivateChats,
+	BotCommandScopeAllGroupChats,
+	BotCommandScopeAllChatAdministrators,
+	BotCommandScopeChat,
+	BotCommandScopeChatAdministrators,
+	BotCommandScopeChatMember,
+]).pipe(
+	Schema.annotate({
+		description:
+			"This object represents the scope to which bot commands are applied. Currently, the following 7 scopes are supported:",
+	}),
+);
+export type BotCommandScope = typeof BotCommandScope.Type;
 
 /**
  * This object represents the bot's description.
@@ -1119,6 +1144,207 @@ export const BusinessConnection = Schema.Struct({
 export type BusinessConnection = typeof BusinessConnection.Type;
 
 /**
+ * This object represents a file ready to be downloaded. The file can be
+ * downloaded via the link https://api.telegram.org/file/bot<token>/<file_path>.
+ * It is guaranteed that the link will be valid for at least 1 hour. When the
+ * link expires, a new one can be requested by calling getFile.
+ */
+export const File = Schema.Struct({
+	/**
+	 * Identifier for this file, which can be used to download or reuse the file
+	 */
+	file_id: Schema.String.pipe(
+		Schema.annotate({ description: "Identifier for this file, which can be used to download or reuse the file" }),
+	),
+	/**
+	 * Unique identifier for this file, which is supposed to be the same over time
+	 * and for different bots. Can't be used to download or reuse the file.
+	 */
+	file_unique_id: Schema.String.pipe(
+		Schema.annotate({
+			description:
+				"Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.",
+		}),
+	),
+	/**
+	 * File size in bytes. It can be bigger than 2^31 and some programming
+	 * languages may have difficulty/silent defects in interpreting it. But it has
+	 * at most 52 significant bits, so a signed 64-bit integer or double-precision
+	 * float type are safe for storing this value.
+	 */
+	file_size: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.",
+		}),
+	),
+	/**
+	 * File path. Use https://api.telegram.org/file/bot<token>/<file_path> to get
+	 * the file.
+	 */
+	file_path: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "File path. Use https://api.telegram.org/file/bot<token>/<file_path> to get the file.",
+		}),
+	),
+}).pipe(
+	Schema.annotate({
+		description:
+			"This object represents a file ready to be downloaded. The file can be downloaded via the link https://api.telegram.org/file/bot<token>/<file_path>. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new one can be requested by calling getFile.",
+	}),
+);
+export type File = typeof File.Type;
+
+/**
+ * This object describes the position on faces where a mask should be placed by
+ * default.
+ */
+export const MaskPosition = Schema.Struct({
+	/**
+	 * The part of the face relative to which the mask should be placed. One of
+	 * “forehead”, “eyes”, “mouth”, or “chin”.
+	 */
+	point: Schema.String.pipe(
+		Schema.annotate({
+			description:
+				"The part of the face relative to which the mask should be placed. One of “forehead”, “eyes”, “mouth”, or “chin”.",
+		}),
+	),
+	/**
+	 * Shift by X-axis measured in widths of the mask scaled to the face size, from
+	 * left to right. For example, choosing -1.0 will place mask just to the left
+	 * of the default mask position.
+	 */
+	x_shift: Schema.Number.pipe(
+		Schema.annotate({
+			description:
+				"Shift by X-axis measured in widths of the mask scaled to the face size, from left to right. For example, choosing -1.0 will place mask just to the left of the default mask position.",
+		}),
+	),
+	/**
+	 * Shift by Y-axis measured in heights of the mask scaled to the face size,
+	 * from top to bottom. For example, 1.0 will place the mask just below the
+	 * default mask position.
+	 */
+	y_shift: Schema.Number.pipe(
+		Schema.annotate({
+			description:
+				"Shift by Y-axis measured in heights of the mask scaled to the face size, from top to bottom. For example, 1.0 will place the mask just below the default mask position.",
+		}),
+	),
+	/**
+	 * Mask scaling coefficient. For example, 2.0 means double size.
+	 */
+	scale: Schema.Number.pipe(
+		Schema.annotate({ description: "Mask scaling coefficient. For example, 2.0 means double size." }),
+	),
+}).pipe(
+	Schema.annotate({
+		description: "This object describes the position on faces where a mask should be placed by default.",
+	}),
+);
+export type MaskPosition = typeof MaskPosition.Type;
+
+/**
+ * This object represents a sticker.
+ */
+export const Sticker = Schema.Struct({
+	/**
+	 * Identifier for this file, which can be used to download or reuse the file
+	 */
+	file_id: Schema.String.pipe(
+		Schema.annotate({ description: "Identifier for this file, which can be used to download or reuse the file" }),
+	),
+	/**
+	 * Unique identifier for this file, which is supposed to be the same over time
+	 * and for different bots. Can't be used to download or reuse the file.
+	 */
+	file_unique_id: Schema.String.pipe(
+		Schema.annotate({
+			description:
+				"Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.",
+		}),
+	),
+	/**
+	 * Type of the sticker, currently one of “regular”, “mask”, “custom_emoji”. The
+	 * type of the sticker is independent from its format, which is determined by
+	 * the fields is_animated and is_video.
+	 */
+	type: Schema.String.pipe(
+		Schema.annotate({
+			description:
+				"Type of the sticker, currently one of “regular”, “mask”, “custom_emoji”. The type of the sticker is independent from its format, which is determined by the fields is_animated and is_video.",
+		}),
+	),
+	/**
+	 * Sticker width
+	 */
+	width: Schema.Int.pipe(Schema.annotate({ description: "Sticker width" })),
+	/**
+	 * Sticker height
+	 */
+	height: Schema.Int.pipe(Schema.annotate({ description: "Sticker height" })),
+	/**
+	 * True, if the sticker is animated
+	 */
+	is_animated: Schema.Boolean.pipe(Schema.annotate({ description: "True, if the sticker is animated" })),
+	/**
+	 * True, if the sticker is a video sticker
+	 */
+	is_video: Schema.Boolean.pipe(Schema.annotate({ description: "True, if the sticker is a video sticker" })),
+	/**
+	 * Sticker thumbnail in the .WEBP or .JPG format
+	 */
+	thumbnail: Schema.optional(PhotoSize).pipe(
+		Schema.annotate({ description: "Sticker thumbnail in the .WEBP or .JPG format" }),
+	),
+	/**
+	 * Emoji associated with the sticker
+	 */
+	emoji: Schema.optional(Schema.String).pipe(Schema.annotate({ description: "Emoji associated with the sticker" })),
+	/**
+	 * Name of the sticker set to which the sticker belongs
+	 */
+	set_name: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Name of the sticker set to which the sticker belongs" }),
+	),
+	/**
+	 * For premium regular stickers, premium animation for the sticker
+	 */
+	premium_animation: Schema.optional(File).pipe(
+		Schema.annotate({ description: "For premium regular stickers, premium animation for the sticker" }),
+	),
+	/**
+	 * For mask stickers, the position where the mask should be placed
+	 */
+	mask_position: Schema.optional(MaskPosition).pipe(
+		Schema.annotate({ description: "For mask stickers, the position where the mask should be placed" }),
+	),
+	/**
+	 * For custom emoji stickers, unique identifier of the custom emoji
+	 */
+	custom_emoji_id: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "For custom emoji stickers, unique identifier of the custom emoji" }),
+	),
+	/**
+	 * True, if the sticker must be repainted to a text color in messages, the
+	 * color of the Telegram Premium badge in emoji status, white color on chat
+	 * photos, or another appropriate color in other places
+	 */
+	needs_repainting: Schema.optional(Schema.Literal(true)).pipe(
+		Schema.annotate({
+			description:
+				"True, if the sticker must be repainted to a text color in messages, the color of the Telegram Premium badge in emoji status, white color on chat photos, or another appropriate color in other places",
+		}),
+	),
+	/**
+	 * File size in bytes
+	 */
+	file_size: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "File size in bytes" })),
+}).pipe(Schema.annotate({ description: "This object represents a sticker." }));
+export type Sticker = typeof Sticker.Type;
+
+/**
  * Contains information about the start page settings of a Telegram Business
  * account.
  */
@@ -1208,69 +1434,6 @@ export const BusinessLocation = Schema.Struct({
 export type BusinessLocation = typeof BusinessLocation.Type;
 
 /**
- * This object represents a chat.
- */
-export const Chat = Schema.Struct({
-	/**
-	 * Unique identifier for this chat. This number may have more than 32
-	 * significant bits and some programming languages may have difficulty/silent
-	 * defects in interpreting it. But it has at most 52 significant bits, so a
-	 * signed 64-bit integer or double-precision float type are safe for storing
-	 * this identifier.
-	 */
-	id: Schema.Int.pipe(
-		Schema.annotate({
-			description:
-				"Unique identifier for this chat. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.",
-		}),
-	),
-	/**
-	 * Type of the chat, can be either “private”, “group”, “supergroup” or
-	 * “channel”
-	 */
-	type: Schema.String.pipe(
-		Schema.annotate({ description: "Type of the chat, can be either “private”, “group”, “supergroup” or “channel”" }),
-	),
-	/**
-	 * Title, for supergroups, channels and group chats
-	 */
-	title: Schema.optional(Schema.String).pipe(
-		Schema.annotate({ description: "Title, for supergroups, channels and group chats" }),
-	),
-	/**
-	 * Username, for private chats, supergroups and channels if available
-	 */
-	username: Schema.optional(Schema.String).pipe(
-		Schema.annotate({ description: "Username, for private chats, supergroups and channels if available" }),
-	),
-	/**
-	 * First name of the other party in a private chat
-	 */
-	first_name: Schema.optional(Schema.String).pipe(
-		Schema.annotate({ description: "First name of the other party in a private chat" }),
-	),
-	/**
-	 * Last name of the other party in a private chat
-	 */
-	last_name: Schema.optional(Schema.String).pipe(
-		Schema.annotate({ description: "Last name of the other party in a private chat" }),
-	),
-	/**
-	 * True, if the supergroup chat is a forum (has topics enabled)
-	 */
-	is_forum: Schema.optional(Schema.Literal(true)).pipe(
-		Schema.annotate({ description: "True, if the supergroup chat is a forum (has topics enabled)" }),
-	),
-	/**
-	 * True, if the chat is the direct messages chat of a channel
-	 */
-	is_direct_messages: Schema.optional(Schema.Literal(true)).pipe(
-		Schema.annotate({ description: "True, if the chat is the direct messages chat of a channel" }),
-	),
-}).pipe(Schema.annotate({ description: "This object represents a chat." }));
-export type Chat = typeof Chat.Type;
-
-/**
  * This object is received when messages are deleted from a connected business
  * account.
  */
@@ -1353,224 +1516,42 @@ export const BusinessOpeningHours = Schema.Struct({
 export type BusinessOpeningHours = typeof BusinessOpeningHours.Type;
 
 /**
- * This object represents an incoming callback query from a callback button in
- * an inline keyboard. If the button that originated the query was attached to a
- * message sent by the bot, the field message will be present. If the button was
- * attached to a message sent via the bot (in inline mode), the field
- * inline_message_id will be present. Exactly one of the fields data or
- * game_short_name will be present.
+ * A placeholder, currently holds no information. Use BotFather to set up your
+ * game.
  */
-export const CallbackQuery = Schema.Struct({
+export const CallbackGame = Schema.Struct({}).pipe(
+	Schema.annotate({ description: "A placeholder, currently holds no information. Use BotFather to set up your game." }),
+);
+export type CallbackGame = typeof CallbackGame.Type;
+
+/**
+ * This object describes a message that was deleted or is otherwise inaccessible
+ * to the bot.
+ */
+export const InaccessibleMessage = Schema.Struct({
 	/**
-	 * Unique identifier for this query
+	 * Chat the message belonged to
 	 */
-	id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier for this query" })),
+	chat: Chat.pipe(Schema.annotate({ description: "Chat the message belonged to" })),
 	/**
-	 * Sender
+	 * Unique message identifier inside the chat
 	 */
-	from: User.pipe(Schema.annotate({ description: "Sender" })),
+	message_id: Schema.Int.pipe(Schema.annotate({ description: "Unique message identifier inside the chat" })),
 	/**
-	 * Message sent by the bot with the callback button that originated the query
+	 * Always 0. The field can be used to differentiate regular and inaccessible
+	 * messages.
 	 */
-	message: Schema.optional(MaybeInaccessibleMessage).pipe(
-		Schema.annotate({ description: "Message sent by the bot with the callback button that originated the query" }),
-	),
-	/**
-	 * Identifier of the message sent via the bot in inline mode, that originated
-	 * the query
-	 */
-	inline_message_id: Schema.optional(Schema.String).pipe(
+	date: Schema.Int.pipe(
 		Schema.annotate({
-			description: "Identifier of the message sent via the bot in inline mode, that originated the query",
-		}),
-	),
-	/**
-	 * Global identifier, uniquely corresponding to the chat to which the message
-	 * with the callback button was sent. Useful for high scores in games.
-	 */
-	chat_instance: Schema.String.pipe(
-		Schema.annotate({
-			description:
-				"Global identifier, uniquely corresponding to the chat to which the message with the callback button was sent. Useful for high scores in games.",
-		}),
-	),
-	/**
-	 * Data associated with the callback button. Be aware that the message
-	 * originated the query can contain no callback buttons with this data.
-	 */
-	data: Schema.optional(Schema.String).pipe(
-		Schema.annotate({
-			description:
-				"Data associated with the callback button. Be aware that the message originated the query can contain no callback buttons with this data.",
-		}),
-	),
-	/**
-	 * Short name of a Game to be returned, serves as the unique identifier for the
-	 * game
-	 */
-	game_short_name: Schema.optional(Schema.String).pipe(
-		Schema.annotate({
-			description: "Short name of a Game to be returned, serves as the unique identifier for the game",
+			description: "Always 0. The field can be used to differentiate regular and inaccessible messages.",
 		}),
 	),
 }).pipe(
 	Schema.annotate({
-		description:
-			"This object represents an incoming callback query from a callback button in an inline keyboard. If the button that originated the query was attached to a message sent by the bot, the field message will be present. If the button was attached to a message sent via the bot (in inline mode), the field inline_message_id will be present. Exactly one of the fields data or game_short_name will be present.",
+		description: "This object describes a message that was deleted or is otherwise inaccessible to the bot.",
 	}),
 );
-export type CallbackQuery = typeof CallbackQuery.Type;
-
-/**
- * Represents the rights of an administrator in a chat.
- */
-export const ChatAdministratorRights = Schema.Struct({
-	/**
-	 * True, if the user's presence in the chat is hidden
-	 */
-	is_anonymous: Schema.Boolean.pipe(
-		Schema.annotate({ description: "True, if the user's presence in the chat is hidden" }),
-	),
-	/**
-	 * True, if the administrator can access the chat event log, get boost list,
-	 * see hidden supergroup and channel members, report spam messages, ignore slow
-	 * mode, and send messages to the chat without paying Telegram Stars. Implied
-	 * by any other administrator privilege.
-	 */
-	can_manage_chat: Schema.Boolean.pipe(
-		Schema.annotate({
-			description:
-				"True, if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report spam messages, ignore slow mode, and send messages to the chat without paying Telegram Stars. Implied by any other administrator privilege.",
-		}),
-	),
-	/**
-	 * True, if the administrator can delete messages of other users
-	 */
-	can_delete_messages: Schema.Boolean.pipe(
-		Schema.annotate({ description: "True, if the administrator can delete messages of other users" }),
-	),
-	/**
-	 * True, if the administrator can manage video chats
-	 */
-	can_manage_video_chats: Schema.Boolean.pipe(
-		Schema.annotate({ description: "True, if the administrator can manage video chats" }),
-	),
-	/**
-	 * True, if the administrator can restrict, ban or unban chat members, or
-	 * access supergroup statistics
-	 */
-	can_restrict_members: Schema.Boolean.pipe(
-		Schema.annotate({
-			description:
-				"True, if the administrator can restrict, ban or unban chat members, or access supergroup statistics",
-		}),
-	),
-	/**
-	 * True, if the administrator can add new administrators with a subset of their
-	 * own privileges or demote administrators that they have promoted, directly or
-	 * indirectly (promoted by administrators that were appointed by the user)
-	 */
-	can_promote_members: Schema.Boolean.pipe(
-		Schema.annotate({
-			description:
-				"True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that they have promoted, directly or indirectly (promoted by administrators that were appointed by the user)",
-		}),
-	),
-	/**
-	 * True, if the user is allowed to change the chat title, photo and other
-	 * settings
-	 */
-	can_change_info: Schema.Boolean.pipe(
-		Schema.annotate({ description: "True, if the user is allowed to change the chat title, photo and other settings" }),
-	),
-	/**
-	 * True, if the user is allowed to invite new users to the chat
-	 */
-	can_invite_users: Schema.Boolean.pipe(
-		Schema.annotate({ description: "True, if the user is allowed to invite new users to the chat" }),
-	),
-	/**
-	 * True, if the administrator can post stories to the chat
-	 */
-	can_post_stories: Schema.Boolean.pipe(
-		Schema.annotate({ description: "True, if the administrator can post stories to the chat" }),
-	),
-	/**
-	 * True, if the administrator can edit stories posted by other users, post
-	 * stories to the chat page, pin chat stories, and access the chat's story
-	 * archive
-	 */
-	can_edit_stories: Schema.Boolean.pipe(
-		Schema.annotate({
-			description:
-				"True, if the administrator can edit stories posted by other users, post stories to the chat page, pin chat stories, and access the chat's story archive",
-		}),
-	),
-	/**
-	 * True, if the administrator can delete stories posted by other users
-	 */
-	can_delete_stories: Schema.Boolean.pipe(
-		Schema.annotate({ description: "True, if the administrator can delete stories posted by other users" }),
-	),
-	/**
-	 * True, if the administrator can post messages in the channel, approve
-	 * suggested posts, or access channel statistics; for channels only
-	 */
-	can_post_messages: Schema.optional(Schema.Boolean).pipe(
-		Schema.annotate({
-			description:
-				"True, if the administrator can post messages in the channel, approve suggested posts, or access channel statistics; for channels only",
-		}),
-	),
-	/**
-	 * True, if the administrator can edit messages of other users and can pin
-	 * messages; for channels only
-	 */
-	can_edit_messages: Schema.optional(Schema.Boolean).pipe(
-		Schema.annotate({
-			description:
-				"True, if the administrator can edit messages of other users and can pin messages; for channels only",
-		}),
-	),
-	/**
-	 * True, if the user is allowed to pin messages; for groups and supergroups
-	 * only
-	 */
-	can_pin_messages: Schema.optional(Schema.Boolean).pipe(
-		Schema.annotate({ description: "True, if the user is allowed to pin messages; for groups and supergroups only" }),
-	),
-	/**
-	 * True, if the user is allowed to create, rename, close, and reopen forum
-	 * topics; for supergroups only
-	 */
-	can_manage_topics: Schema.optional(Schema.Boolean).pipe(
-		Schema.annotate({
-			description:
-				"True, if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only",
-		}),
-	),
-	/**
-	 * True, if the administrator can manage direct messages of the channel and
-	 * decline suggested posts; for channels only
-	 */
-	can_manage_direct_messages: Schema.optional(Schema.Boolean).pipe(
-		Schema.annotate({
-			description:
-				"True, if the administrator can manage direct messages of the channel and decline suggested posts; for channels only",
-		}),
-	),
-	/**
-	 * True, if the administrator can edit the tags of regular members; for groups
-	 * and supergroups only. If omitted defaults to the value of can_pin_messages.
-	 */
-	can_manage_tags: Schema.optional(Schema.Boolean).pipe(
-		Schema.annotate({
-			description:
-				"True, if the administrator can edit the tags of regular members; for groups and supergroups only. If omitted defaults to the value of can_pin_messages.",
-		}),
-	),
-}).pipe(Schema.annotate({ description: "Represents the rights of an administrator in a chat." }));
-export type ChatAdministratorRights = typeof ChatAdministratorRights.Type;
+export type InaccessibleMessage = typeof InaccessibleMessage.Type;
 
 /**
  * This object represents a chat background.
@@ -1584,37 +1565,6 @@ export const ChatBackground = Schema.Struct({
 export type ChatBackground = typeof ChatBackground.Type;
 
 /**
- * This object contains information about a chat boost.
- */
-export const ChatBoost = Schema.Struct({
-	/**
-	 * Unique identifier of the boost
-	 */
-	boost_id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier of the boost" })),
-	/**
-	 * Point in time (Unix timestamp) when the chat was boosted
-	 */
-	add_date: Schema.Int.pipe(
-		Schema.annotate({ description: "Point in time (Unix timestamp) when the chat was boosted" }),
-	),
-	/**
-	 * Point in time (Unix timestamp) when the boost will automatically expire,
-	 * unless the booster's Telegram Premium subscription is prolonged
-	 */
-	expiration_date: Schema.Int.pipe(
-		Schema.annotate({
-			description:
-				"Point in time (Unix timestamp) when the boost will automatically expire, unless the booster's Telegram Premium subscription is prolonged",
-		}),
-	),
-	/**
-	 * Source of the added boost
-	 */
-	source: ChatBoostSource.pipe(Schema.annotate({ description: "Source of the added boost" })),
-}).pipe(Schema.annotate({ description: "This object contains information about a chat boost." }));
-export type ChatBoost = typeof ChatBoost.Type;
-
-/**
  * This object represents a service message about a user boosting a chat.
  */
 export const ChatBoostAdded = Schema.Struct({
@@ -1624,339 +1574,6 @@ export const ChatBoostAdded = Schema.Struct({
 	boost_count: Schema.Int.pipe(Schema.annotate({ description: "Number of boosts added by the user" })),
 }).pipe(Schema.annotate({ description: "This object represents a service message about a user boosting a chat." }));
 export type ChatBoostAdded = typeof ChatBoostAdded.Type;
-
-/**
- * This object represents a boost removed from a chat.
- */
-export const ChatBoostRemoved = Schema.Struct({
-	/**
-	 * Chat which was boosted
-	 */
-	chat: Chat.pipe(Schema.annotate({ description: "Chat which was boosted" })),
-	/**
-	 * Unique identifier of the boost
-	 */
-	boost_id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier of the boost" })),
-	/**
-	 * Point in time (Unix timestamp) when the boost was removed
-	 */
-	remove_date: Schema.Int.pipe(
-		Schema.annotate({ description: "Point in time (Unix timestamp) when the boost was removed" }),
-	),
-	/**
-	 * Source of the removed boost
-	 */
-	source: ChatBoostSource.pipe(Schema.annotate({ description: "Source of the removed boost" })),
-}).pipe(Schema.annotate({ description: "This object represents a boost removed from a chat." }));
-export type ChatBoostRemoved = typeof ChatBoostRemoved.Type;
-
-/**
- * The boost was obtained by the creation of Telegram Premium gift codes to
- * boost a chat. Each such code boosts the chat 4 times for the duration of the
- * corresponding Telegram Premium subscription.
- */
-export const ChatBoostSourceGiftCode = Schema.Struct({
-	/**
-	 * Source of the boost, always “gift_code”
-	 */
-	source: Schema.String.pipe(Schema.annotate({ description: "Source of the boost, always “gift_code”" })),
-	/**
-	 * User for which the gift code was created
-	 */
-	user: User.pipe(Schema.annotate({ description: "User for which the gift code was created" })),
-}).pipe(
-	Schema.annotate({
-		description:
-			"The boost was obtained by the creation of Telegram Premium gift codes to boost a chat. Each such code boosts the chat 4 times for the duration of the corresponding Telegram Premium subscription.",
-	}),
-);
-export type ChatBoostSourceGiftCode = typeof ChatBoostSourceGiftCode.Type;
-
-/**
- * The boost was obtained by the creation of a Telegram Premium or a Telegram
- * Star giveaway. This boosts the chat 4 times for the duration of the
- * corresponding Telegram Premium subscription for Telegram Premium giveaways
- * and prize_star_count / 500 times for one year for Telegram Star giveaways.
- */
-export const ChatBoostSourceGiveaway = Schema.Struct({
-	/**
-	 * Source of the boost, always “giveaway”
-	 */
-	source: Schema.String.pipe(Schema.annotate({ description: "Source of the boost, always “giveaway”" })),
-	/**
-	 * Identifier of a message in the chat with the giveaway; the message could
-	 * have been deleted already. May be 0 if the message isn't sent yet.
-	 */
-	giveaway_message_id: Schema.Int.pipe(
-		Schema.annotate({
-			description:
-				"Identifier of a message in the chat with the giveaway; the message could have been deleted already. May be 0 if the message isn't sent yet.",
-		}),
-	),
-	/**
-	 * User that won the prize in the giveaway if any; for Telegram Premium
-	 * giveaways only
-	 */
-	user: Schema.optional(User).pipe(
-		Schema.annotate({
-			description: "User that won the prize in the giveaway if any; for Telegram Premium giveaways only",
-		}),
-	),
-	/**
-	 * The number of Telegram Stars to be split between giveaway winners; for
-	 * Telegram Star giveaways only
-	 */
-	prize_star_count: Schema.optional(Schema.Int).pipe(
-		Schema.annotate({
-			description:
-				"The number of Telegram Stars to be split between giveaway winners; for Telegram Star giveaways only",
-		}),
-	),
-	/**
-	 * True, if the giveaway was completed, but there was no user to win the prize
-	 */
-	is_unclaimed: Schema.optional(Schema.Literal(true)).pipe(
-		Schema.annotate({ description: "True, if the giveaway was completed, but there was no user to win the prize" }),
-	),
-}).pipe(
-	Schema.annotate({
-		description:
-			"The boost was obtained by the creation of a Telegram Premium or a Telegram Star giveaway. This boosts the chat 4 times for the duration of the corresponding Telegram Premium subscription for Telegram Premium giveaways and prize_star_count / 500 times for one year for Telegram Star giveaways.",
-	}),
-);
-export type ChatBoostSourceGiveaway = typeof ChatBoostSourceGiveaway.Type;
-
-/**
- * The boost was obtained by subscribing to Telegram Premium or by gifting a
- * Telegram Premium subscription to another user.
- */
-export const ChatBoostSourcePremium = Schema.Struct({
-	/**
-	 * Source of the boost, always “premium”
-	 */
-	source: Schema.String.pipe(Schema.annotate({ description: "Source of the boost, always “premium”" })),
-	/**
-	 * User that boosted the chat
-	 */
-	user: User.pipe(Schema.annotate({ description: "User that boosted the chat" })),
-}).pipe(
-	Schema.annotate({
-		description:
-			"The boost was obtained by subscribing to Telegram Premium or by gifting a Telegram Premium subscription to another user.",
-	}),
-);
-export type ChatBoostSourcePremium = typeof ChatBoostSourcePremium.Type;
-
-/**
- * This object represents a boost added to a chat or changed.
- */
-export const ChatBoostUpdated = Schema.Struct({
-	/**
-	 * Chat which was boosted
-	 */
-	chat: Chat.pipe(Schema.annotate({ description: "Chat which was boosted" })),
-	/**
-	 * Information about the chat boost
-	 */
-	boost: ChatBoost.pipe(Schema.annotate({ description: "Information about the chat boost" })),
-}).pipe(Schema.annotate({ description: "This object represents a boost added to a chat or changed." }));
-export type ChatBoostUpdated = typeof ChatBoostUpdated.Type;
-
-/**
- * Represents a location to which a chat is connected.
- */
-export const ChatLocation = Schema.Struct({
-	/**
-	 * The location to which the supergroup is connected. Can't be a live location.
-	 */
-	location: Location.pipe(
-		Schema.annotate({ description: "The location to which the supergroup is connected. Can't be a live location." }),
-	),
-	/**
-	 * Location address; 1-64 characters, as defined by the chat owner
-	 */
-	address: Schema.String.pipe(
-		Schema.annotate({ description: "Location address; 1-64 characters, as defined by the chat owner" }),
-	),
-}).pipe(Schema.annotate({ description: "Represents a location to which a chat is connected." }));
-export type ChatLocation = typeof ChatLocation.Type;
-
-/**
- * Describes actions that a non-administrator user is allowed to take in a chat.
- */
-export const ChatPermissions = Schema.Struct({
-	/**
-	 * True, if the user is allowed to send text messages, contacts, giveaways,
-	 * giveaway winners, invoices, locations and venues
-	 */
-	can_send_messages: Schema.optional(Schema.Boolean).pipe(
-		Schema.annotate({
-			description:
-				"True, if the user is allowed to send text messages, contacts, giveaways, giveaway winners, invoices, locations and venues",
-		}),
-	),
-	/**
-	 * True, if the user is allowed to send audios
-	 */
-	can_send_audios: Schema.optional(Schema.Boolean).pipe(
-		Schema.annotate({ description: "True, if the user is allowed to send audios" }),
-	),
-	/**
-	 * True, if the user is allowed to send documents
-	 */
-	can_send_documents: Schema.optional(Schema.Boolean).pipe(
-		Schema.annotate({ description: "True, if the user is allowed to send documents" }),
-	),
-	/**
-	 * True, if the user is allowed to send photos
-	 */
-	can_send_photos: Schema.optional(Schema.Boolean).pipe(
-		Schema.annotate({ description: "True, if the user is allowed to send photos" }),
-	),
-	/**
-	 * True, if the user is allowed to send videos
-	 */
-	can_send_videos: Schema.optional(Schema.Boolean).pipe(
-		Schema.annotate({ description: "True, if the user is allowed to send videos" }),
-	),
-	/**
-	 * True, if the user is allowed to send video notes
-	 */
-	can_send_video_notes: Schema.optional(Schema.Boolean).pipe(
-		Schema.annotate({ description: "True, if the user is allowed to send video notes" }),
-	),
-	/**
-	 * True, if the user is allowed to send voice notes
-	 */
-	can_send_voice_notes: Schema.optional(Schema.Boolean).pipe(
-		Schema.annotate({ description: "True, if the user is allowed to send voice notes" }),
-	),
-	/**
-	 * True, if the user is allowed to send polls and checklists
-	 */
-	can_send_polls: Schema.optional(Schema.Boolean).pipe(
-		Schema.annotate({ description: "True, if the user is allowed to send polls and checklists" }),
-	),
-	/**
-	 * True, if the user is allowed to send animations, games, stickers and use
-	 * inline bots
-	 */
-	can_send_other_messages: Schema.optional(Schema.Boolean).pipe(
-		Schema.annotate({
-			description: "True, if the user is allowed to send animations, games, stickers and use inline bots",
-		}),
-	),
-	/**
-	 * True, if the user is allowed to add web page previews to their messages
-	 */
-	can_add_web_page_previews: Schema.optional(Schema.Boolean).pipe(
-		Schema.annotate({ description: "True, if the user is allowed to add web page previews to their messages" }),
-	),
-	/**
-	 * True, if the user is allowed to react to messages. If omitted, defaults to
-	 * the value of can_send_messages.
-	 */
-	can_react_to_messages: Schema.optional(Schema.Boolean).pipe(
-		Schema.annotate({
-			description:
-				"True, if the user is allowed to react to messages. If omitted, defaults to the value of can_send_messages.",
-		}),
-	),
-	/**
-	 * True, if the user is allowed to edit their own tag. If omitted, defaults to
-	 * the value of can_pin_messages.
-	 */
-	can_edit_tag: Schema.optional(Schema.Boolean).pipe(
-		Schema.annotate({
-			description:
-				"True, if the user is allowed to edit their own tag. If omitted, defaults to the value of can_pin_messages.",
-		}),
-	),
-	/**
-	 * True, if the user is allowed to change the chat title, photo and other
-	 * settings. Ignored in public supergroups.
-	 */
-	can_change_info: Schema.optional(Schema.Boolean).pipe(
-		Schema.annotate({
-			description:
-				"True, if the user is allowed to change the chat title, photo and other settings. Ignored in public supergroups.",
-		}),
-	),
-	/**
-	 * True, if the user is allowed to invite new users to the chat
-	 */
-	can_invite_users: Schema.optional(Schema.Boolean).pipe(
-		Schema.annotate({ description: "True, if the user is allowed to invite new users to the chat" }),
-	),
-	/**
-	 * True, if the user is allowed to pin messages. Ignored in public supergroups.
-	 */
-	can_pin_messages: Schema.optional(Schema.Boolean).pipe(
-		Schema.annotate({ description: "True, if the user is allowed to pin messages. Ignored in public supergroups." }),
-	),
-	/**
-	 * True, if the user is allowed to create forum topics. If omitted defaults to
-	 * the value of can_pin_messages.
-	 */
-	can_manage_topics: Schema.optional(Schema.Boolean).pipe(
-		Schema.annotate({
-			description:
-				"True, if the user is allowed to create forum topics. If omitted defaults to the value of can_pin_messages.",
-		}),
-	),
-}).pipe(
-	Schema.annotate({ description: "Describes actions that a non-administrator user is allowed to take in a chat." }),
-);
-export type ChatPermissions = typeof ChatPermissions.Type;
-
-/**
- * This object represents a chat photo.
- */
-export const ChatPhoto = Schema.Struct({
-	/**
-	 * File identifier of small (160x160) chat photo. This file_id can be used only
-	 * for photo download and only for as long as the photo is not changed.
-	 */
-	small_file_id: Schema.String.pipe(
-		Schema.annotate({
-			description:
-				"File identifier of small (160x160) chat photo. This file_id can be used only for photo download and only for as long as the photo is not changed.",
-		}),
-	),
-	/**
-	 * Unique file identifier of small (160x160) chat photo, which is supposed to
-	 * be the same over time and for different bots. Can't be used to download or
-	 * reuse the file.
-	 */
-	small_file_unique_id: Schema.String.pipe(
-		Schema.annotate({
-			description:
-				"Unique file identifier of small (160x160) chat photo, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.",
-		}),
-	),
-	/**
-	 * File identifier of big (640x640) chat photo. This file_id can be used only
-	 * for photo download and only for as long as the photo is not changed.
-	 */
-	big_file_id: Schema.String.pipe(
-		Schema.annotate({
-			description:
-				"File identifier of big (640x640) chat photo. This file_id can be used only for photo download and only for as long as the photo is not changed.",
-		}),
-	),
-	/**
-	 * Unique file identifier of big (640x640) chat photo, which is supposed to be
-	 * the same over time and for different bots. Can't be used to download or
-	 * reuse the file.
-	 */
-	big_file_unique_id: Schema.String.pipe(
-		Schema.annotate({
-			description:
-				"Unique file identifier of big (640x640) chat photo, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.",
-		}),
-	),
-}).pipe(Schema.annotate({ description: "This object represents a chat photo." }));
-export type ChatPhoto = typeof ChatPhoto.Type;
 
 /**
  * Describes a service message about an ownership change in the chat.
@@ -2313,6 +1930,63 @@ export const DirectMessagesTopic = Schema.Struct({
 export type DirectMessagesTopic = typeof DirectMessagesTopic.Type;
 
 /**
+ * This object represents a game. Use BotFather to create and edit games, their
+ * short names will act as unique identifiers.
+ */
+export const Game = Schema.Struct({
+	/**
+	 * Title of the game
+	 */
+	title: Schema.String.pipe(Schema.annotate({ description: "Title of the game" })),
+	/**
+	 * Description of the game
+	 */
+	description: Schema.String.pipe(Schema.annotate({ description: "Description of the game" })),
+	/**
+	 * Photo that will be displayed in the game message in chats
+	 */
+	photo: Schema.Array(PhotoSize).pipe(
+		Schema.annotate({ description: "Photo that will be displayed in the game message in chats" }),
+	),
+	/**
+	 * Brief description of the game or high scores included in the game message.
+	 * Can be automatically edited to include current high scores for the game when
+	 * the bot calls setGameScore, or manually edited using editMessageText. 0-4096
+	 * characters.
+	 */
+	text: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description:
+				"Brief description of the game or high scores included in the game message. Can be automatically edited to include current high scores for the game when the bot calls setGameScore, or manually edited using editMessageText. 0-4096 characters.",
+		}),
+	),
+	/**
+	 * Special entities that appear in text, such as usernames, URLs, bot commands,
+	 * etc.
+	 */
+	text_entities: Schema.optional(Schema.Array(MessageEntity)).pipe(
+		Schema.annotate({
+			description: "Special entities that appear in text, such as usernames, URLs, bot commands, etc.",
+		}),
+	),
+	/**
+	 * Animation that will be displayed in the game message in chats. Upload via
+	 * BotFather.
+	 */
+	animation: Schema.optional(Animation).pipe(
+		Schema.annotate({
+			description: "Animation that will be displayed in the game message in chats. Upload via BotFather.",
+		}),
+	),
+}).pipe(
+	Schema.annotate({
+		description:
+			"This object represents a game. Use BotFather to create and edit games, their short names will act as unique identifiers.",
+	}),
+);
+export type Game = typeof Game.Type;
+
+/**
  * This object represents a message about a scheduled giveaway.
  */
 export const Giveaway = Schema.Struct({
@@ -2486,6 +2160,45 @@ export const GiveawayWinners = Schema.Struct({
 export type GiveawayWinners = typeof GiveawayWinners.Type;
 
 /**
+ * This object contains basic information about an invoice.
+ */
+export const Invoice = Schema.Struct({
+	/**
+	 * Product name
+	 */
+	title: Schema.String.pipe(Schema.annotate({ description: "Product name" })),
+	/**
+	 * Product description
+	 */
+	description: Schema.String.pipe(Schema.annotate({ description: "Product description" })),
+	/**
+	 * Unique bot deep-linking parameter that can be used to generate this invoice
+	 */
+	start_parameter: Schema.String.pipe(
+		Schema.annotate({ description: "Unique bot deep-linking parameter that can be used to generate this invoice" }),
+	),
+	/**
+	 * Three-letter ISO 4217 currency code, or “XTR” for payments in Telegram Stars
+	 */
+	currency: Schema.String.pipe(
+		Schema.annotate({ description: "Three-letter ISO 4217 currency code, or “XTR” for payments in Telegram Stars" }),
+	),
+	/**
+	 * Total price in the smallest units of the currency (integer, not
+	 * float/double). For example, for a price of US$ 1.45 pass amount = 145. See
+	 * the exp parameter in currencies.json, it shows the number of digits past the
+	 * decimal point for each currency (2 for the majority of currencies).
+	 */
+	total_amount: Schema.Int.pipe(
+		Schema.annotate({
+			description:
+				"Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).",
+		}),
+	),
+}).pipe(Schema.annotate({ description: "This object contains basic information about an invoice." }));
+export type Invoice = typeof Invoice.Type;
+
+/**
  * Describes the options used for link preview generation.
  */
 export const LinkPreviewOptions = Schema.Struct({
@@ -2603,68 +2316,167 @@ export const LivePhoto = Schema.Struct({
 export type LivePhoto = typeof LivePhoto.Type;
 
 /**
- * Describes the paid media added to a message.
+ * The message was originally sent to a channel chat.
  */
-export const PaidMediaInfo = Schema.Struct({
+export const MessageOriginChannel = Schema.Struct({
 	/**
-	 * The number of Telegram Stars that must be paid to buy access to the media
+	 * Type of the message origin, always “channel”
 	 */
-	star_count: Schema.Int.pipe(
-		Schema.annotate({ description: "The number of Telegram Stars that must be paid to buy access to the media" }),
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the message origin, always “channel”" })),
+	/**
+	 * Date the message was sent originally in Unix time
+	 */
+	date: Schema.Int.pipe(Schema.annotate({ description: "Date the message was sent originally in Unix time" })),
+	/**
+	 * Channel chat to which the message was originally sent
+	 */
+	chat: Chat.pipe(Schema.annotate({ description: "Channel chat to which the message was originally sent" })),
+	/**
+	 * Unique message identifier inside the chat
+	 */
+	message_id: Schema.Int.pipe(Schema.annotate({ description: "Unique message identifier inside the chat" })),
+	/**
+	 * Signature of the original post author
+	 */
+	author_signature: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Signature of the original post author" }),
 	),
-	/**
-	 * Information about the paid media
-	 */
-	paid_media: Schema.Array(PaidMedia).pipe(Schema.annotate({ description: "Information about the paid media" })),
-}).pipe(Schema.annotate({ description: "Describes the paid media added to a message." }));
-export type PaidMediaInfo = typeof PaidMediaInfo.Type;
+}).pipe(Schema.annotate({ description: "The message was originally sent to a channel chat." }));
+export type MessageOriginChannel = typeof MessageOriginChannel.Type;
 
 /**
- * This object represents a venue.
+ * The message was originally sent on behalf of a chat to a group chat.
  */
-export const Venue = Schema.Struct({
+export const MessageOriginChat = Schema.Struct({
 	/**
-	 * Venue location. Can't be a live location.
+	 * Type of the message origin, always “chat”
 	 */
-	location: Location.pipe(Schema.annotate({ description: "Venue location. Can't be a live location." })),
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the message origin, always “chat”" })),
 	/**
-	 * Name of the venue
+	 * Date the message was sent originally in Unix time
 	 */
-	title: Schema.String.pipe(Schema.annotate({ description: "Name of the venue" })),
+	date: Schema.Int.pipe(Schema.annotate({ description: "Date the message was sent originally in Unix time" })),
 	/**
-	 * Address of the venue
+	 * Chat that sent the message originally
 	 */
-	address: Schema.String.pipe(Schema.annotate({ description: "Address of the venue" })),
+	sender_chat: Chat.pipe(Schema.annotate({ description: "Chat that sent the message originally" })),
 	/**
-	 * Foursquare identifier of the venue
+	 * For messages originally sent by an anonymous chat administrator, original
+	 * message author signature
 	 */
-	foursquare_id: Schema.optional(Schema.String).pipe(
-		Schema.annotate({ description: "Foursquare identifier of the venue" }),
-	),
-	/**
-	 * Foursquare type of the venue. (For example, “arts_entertainment/default”,
-	 * “arts_entertainment/aquarium” or “food/icecream”.)
-	 */
-	foursquare_type: Schema.optional(Schema.String).pipe(
+	author_signature: Schema.optional(Schema.String).pipe(
 		Schema.annotate({
-			description:
-				"Foursquare type of the venue. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)",
+			description: "For messages originally sent by an anonymous chat administrator, original message author signature",
 		}),
 	),
+}).pipe(Schema.annotate({ description: "The message was originally sent on behalf of a chat to a group chat." }));
+export type MessageOriginChat = typeof MessageOriginChat.Type;
+
+/**
+ * The message was originally sent by an unknown user.
+ */
+export const MessageOriginHiddenUser = Schema.Struct({
 	/**
-	 * Google Places identifier of the venue
+	 * Type of the message origin, always “hidden_user”
 	 */
-	google_place_id: Schema.optional(Schema.String).pipe(
-		Schema.annotate({ description: "Google Places identifier of the venue" }),
-	),
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the message origin, always “hidden_user”" })),
 	/**
-	 * Google Places type of the venue. (See supported types.)
+	 * Date the message was sent originally in Unix time
 	 */
-	google_place_type: Schema.optional(Schema.String).pipe(
-		Schema.annotate({ description: "Google Places type of the venue. (See supported types.)" }),
+	date: Schema.Int.pipe(Schema.annotate({ description: "Date the message was sent originally in Unix time" })),
+	/**
+	 * Name of the user that sent the message originally
+	 */
+	sender_user_name: Schema.String.pipe(
+		Schema.annotate({ description: "Name of the user that sent the message originally" }),
 	),
-}).pipe(Schema.annotate({ description: "This object represents a venue." }));
-export type Venue = typeof Venue.Type;
+}).pipe(Schema.annotate({ description: "The message was originally sent by an unknown user." }));
+export type MessageOriginHiddenUser = typeof MessageOriginHiddenUser.Type;
+
+/**
+ * The message was originally sent by a known user.
+ */
+export const MessageOriginUser = Schema.Struct({
+	/**
+	 * Type of the message origin, always “user”
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the message origin, always “user”" })),
+	/**
+	 * Date the message was sent originally in Unix time
+	 */
+	date: Schema.Int.pipe(Schema.annotate({ description: "Date the message was sent originally in Unix time" })),
+	/**
+	 * User that sent the message originally
+	 */
+	sender_user: User.pipe(Schema.annotate({ description: "User that sent the message originally" })),
+}).pipe(Schema.annotate({ description: "The message was originally sent by a known user." }));
+export type MessageOriginUser = typeof MessageOriginUser.Type;
+
+/**
+ * This object describes the origin of a message. It can be one of
+ */
+export const MessageOrigin = Schema.Union([
+	MessageOriginUser,
+	MessageOriginHiddenUser,
+	MessageOriginChat,
+	MessageOriginChannel,
+]).pipe(Schema.annotate({ description: "This object describes the origin of a message. It can be one of" }));
+export type MessageOrigin = typeof MessageOrigin.Type;
+
+/**
+ * The paid media is a live photo.
+ */
+export const PaidMediaLivePhoto = Schema.Struct({
+	/**
+	 * Type of the paid media, always “live_photo”
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the paid media, always “live_photo”" })),
+	/**
+	 * The photo
+	 */
+	live_photo: LivePhoto.pipe(Schema.annotate({ description: "The photo" })),
+}).pipe(Schema.annotate({ description: "The paid media is a live photo." }));
+export type PaidMediaLivePhoto = typeof PaidMediaLivePhoto.Type;
+
+/**
+ * The paid media is a photo.
+ */
+export const PaidMediaPhoto = Schema.Struct({
+	/**
+	 * Type of the paid media, always “photo”
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the paid media, always “photo”" })),
+	/**
+	 * The photo
+	 */
+	photo: Schema.Array(PhotoSize).pipe(Schema.annotate({ description: "The photo" })),
+}).pipe(Schema.annotate({ description: "The paid media is a photo." }));
+export type PaidMediaPhoto = typeof PaidMediaPhoto.Type;
+
+/**
+ * The paid media isn't available before the payment.
+ */
+export const PaidMediaPreview = Schema.Struct({
+	/**
+	 * Type of the paid media, always “preview”
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the paid media, always “preview”" })),
+	/**
+	 * Media width as defined by the sender
+	 */
+	width: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Media width as defined by the sender" })),
+	/**
+	 * Media height as defined by the sender
+	 */
+	height: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Media height as defined by the sender" })),
+	/**
+	 * Duration of the media in seconds as defined by the sender
+	 */
+	duration: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({ description: "Duration of the media in seconds as defined by the sender" }),
+	),
+}).pipe(Schema.annotate({ description: "The paid media isn't available before the payment." }));
+export type PaidMediaPreview = typeof PaidMediaPreview.Type;
 
 /**
  * This object represents a video file of a specific quality.
@@ -2798,6 +2610,93 @@ export const Video = Schema.Struct({
 	),
 }).pipe(Schema.annotate({ description: "This object represents a video file." }));
 export type Video = typeof Video.Type;
+
+/**
+ * The paid media is a video.
+ */
+export const PaidMediaVideo = Schema.Struct({
+	/**
+	 * Type of the paid media, always “video”
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the paid media, always “video”" })),
+	/**
+	 * The video
+	 */
+	video: Video.pipe(Schema.annotate({ description: "The video" })),
+}).pipe(Schema.annotate({ description: "The paid media is a video." }));
+export type PaidMediaVideo = typeof PaidMediaVideo.Type;
+
+/**
+ * This object describes paid media. Currently, it can be one of
+ */
+export const PaidMedia = Schema.Union([PaidMediaLivePhoto, PaidMediaPhoto, PaidMediaPreview, PaidMediaVideo]).pipe(
+	Schema.annotate({ description: "This object describes paid media. Currently, it can be one of" }),
+);
+export type PaidMedia = typeof PaidMedia.Type;
+
+/**
+ * Describes the paid media added to a message.
+ */
+export const PaidMediaInfo = Schema.Struct({
+	/**
+	 * The number of Telegram Stars that must be paid to buy access to the media
+	 */
+	star_count: Schema.Int.pipe(
+		Schema.annotate({ description: "The number of Telegram Stars that must be paid to buy access to the media" }),
+	),
+	/**
+	 * Information about the paid media
+	 */
+	paid_media: Schema.Array(PaidMedia).pipe(Schema.annotate({ description: "Information about the paid media" })),
+}).pipe(Schema.annotate({ description: "Describes the paid media added to a message." }));
+export type PaidMediaInfo = typeof PaidMediaInfo.Type;
+
+/**
+ * This object represents a venue.
+ */
+export const Venue = Schema.Struct({
+	/**
+	 * Venue location. Can't be a live location.
+	 */
+	location: Location.pipe(Schema.annotate({ description: "Venue location. Can't be a live location." })),
+	/**
+	 * Name of the venue
+	 */
+	title: Schema.String.pipe(Schema.annotate({ description: "Name of the venue" })),
+	/**
+	 * Address of the venue
+	 */
+	address: Schema.String.pipe(Schema.annotate({ description: "Address of the venue" })),
+	/**
+	 * Foursquare identifier of the venue
+	 */
+	foursquare_id: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Foursquare identifier of the venue" }),
+	),
+	/**
+	 * Foursquare type of the venue. (For example, “arts_entertainment/default”,
+	 * “arts_entertainment/aquarium” or “food/icecream”.)
+	 */
+	foursquare_type: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description:
+				"Foursquare type of the venue. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)",
+		}),
+	),
+	/**
+	 * Google Places identifier of the venue
+	 */
+	google_place_id: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Google Places identifier of the venue" }),
+	),
+	/**
+	 * Google Places type of the venue. (See supported types.)
+	 */
+	google_place_type: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Google Places type of the venue. (See supported types.)" }),
+	),
+}).pipe(Schema.annotate({ description: "This object represents a venue." }));
+export type Venue = typeof Venue.Type;
 
 /**
  * At most one of the optional fields can be present in any given object.
@@ -3363,6 +3262,18 @@ export const ExternalReplyInfo = Schema.Struct({
 export type ExternalReplyInfo = typeof ExternalReplyInfo.Type;
 
 /**
+ * This object represents a service message about a forum topic closed in the
+ * chat. Currently holds no information.
+ */
+export const ForumTopicClosed = Schema.Struct({}).pipe(
+	Schema.annotate({
+		description:
+			"This object represents a service message about a forum topic closed in the chat. Currently holds no information.",
+	}),
+);
+export type ForumTopicClosed = typeof ForumTopicClosed.Type;
+
+/**
  * This object represents a service message about a new forum topic created in
  * the chat.
  */
@@ -3420,6 +3331,42 @@ export const ForumTopicEdited = Schema.Struct({
 	),
 }).pipe(Schema.annotate({ description: "This object represents a service message about an edited forum topic." }));
 export type ForumTopicEdited = typeof ForumTopicEdited.Type;
+
+/**
+ * This object represents a service message about a forum topic reopened in the
+ * chat. Currently holds no information.
+ */
+export const ForumTopicReopened = Schema.Struct({}).pipe(
+	Schema.annotate({
+		description:
+			"This object represents a service message about a forum topic reopened in the chat. Currently holds no information.",
+	}),
+);
+export type ForumTopicReopened = typeof ForumTopicReopened.Type;
+
+/**
+ * This object represents a service message about General forum topic hidden in
+ * the chat. Currently holds no information.
+ */
+export const GeneralForumTopicHidden = Schema.Struct({}).pipe(
+	Schema.annotate({
+		description:
+			"This object represents a service message about General forum topic hidden in the chat. Currently holds no information.",
+	}),
+);
+export type GeneralForumTopicHidden = typeof GeneralForumTopicHidden.Type;
+
+/**
+ * This object represents a service message about General forum topic unhidden
+ * in the chat. Currently holds no information.
+ */
+export const GeneralForumTopicUnhidden = Schema.Struct({}).pipe(
+	Schema.annotate({
+		description:
+			"This object represents a service message about General forum topic unhidden in the chat. Currently holds no information.",
+	}),
+);
+export type GeneralForumTopicUnhidden = typeof GeneralForumTopicUnhidden.Type;
 
 /**
  * This object describes the background of a gift.
@@ -4018,68 +3965,218 @@ export const PaidMessagePriceChanged = Schema.Struct({
 export type PaidMessagePriceChanged = typeof PaidMessagePriceChanged.Type;
 
 /**
- * Describes a service message about an option added to a poll.
+ * Describes data required for decrypting and authenticating
+ * EncryptedPassportElement. See the Telegram Passport Documentation for a
+ * complete description of the data decryption and authentication processes.
  */
-export const PollOptionAdded = Schema.Struct({
+export const EncryptedCredentials = Schema.Struct({
 	/**
-	 * Message containing the poll to which the option was added, if known. Note
-	 * that the Message object in this field will not contain the reply_to_message
-	 * field even if it itself is a reply.
+	 * Base64-encoded encrypted JSON-serialized data with unique user's payload,
+	 * data hashes and secrets required for EncryptedPassportElement decryption and
+	 * authentication
 	 */
-	poll_message: Schema.optional(MaybeInaccessibleMessage).pipe(
+	data: Schema.String.pipe(
 		Schema.annotate({
 			description:
-				"Message containing the poll to which the option was added, if known. Note that the Message object in this field will not contain the reply_to_message field even if it itself is a reply.",
+				"Base64-encoded encrypted JSON-serialized data with unique user's payload, data hashes and secrets required for EncryptedPassportElement decryption and authentication",
 		}),
 	),
 	/**
-	 * Unique identifier of the added option
+	 * Base64-encoded data hash for data authentication
 	 */
-	option_persistent_id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier of the added option" })),
+	hash: Schema.String.pipe(Schema.annotate({ description: "Base64-encoded data hash for data authentication" })),
 	/**
-	 * Option text
+	 * Base64-encoded secret, encrypted with the bot's public RSA key, required for
+	 * data decryption
 	 */
-	option_text: Schema.String.pipe(Schema.annotate({ description: "Option text" })),
-	/**
-	 * Special entities that appear in the option_text
-	 */
-	option_text_entities: Schema.optional(Schema.Array(MessageEntity)).pipe(
-		Schema.annotate({ description: "Special entities that appear in the option_text" }),
+	secret: Schema.String.pipe(
+		Schema.annotate({
+			description: "Base64-encoded secret, encrypted with the bot's public RSA key, required for data decryption",
+		}),
 	),
-}).pipe(Schema.annotate({ description: "Describes a service message about an option added to a poll." }));
-export type PollOptionAdded = typeof PollOptionAdded.Type;
+}).pipe(
+	Schema.annotate({
+		description:
+			"Describes data required for decrypting and authenticating EncryptedPassportElement. See the Telegram Passport Documentation for a complete description of the data decryption and authentication processes.",
+	}),
+);
+export type EncryptedCredentials = typeof EncryptedCredentials.Type;
 
 /**
- * Describes a service message about an option deleted from a poll.
+ * This object represents a file uploaded to Telegram Passport. Currently all
+ * Telegram Passport files are in JPEG format when decrypted and don't exceed
+ * 10MB.
  */
-export const PollOptionDeleted = Schema.Struct({
+export const PassportFile = Schema.Struct({
 	/**
-	 * Message containing the poll from which the option was deleted, if known.
-	 * Note that the Message object in this field will not contain the
-	 * reply_to_message field even if it itself is a reply.
+	 * Identifier for this file, which can be used to download or reuse the file
 	 */
-	poll_message: Schema.optional(MaybeInaccessibleMessage).pipe(
+	file_id: Schema.String.pipe(
+		Schema.annotate({ description: "Identifier for this file, which can be used to download or reuse the file" }),
+	),
+	/**
+	 * Unique identifier for this file, which is supposed to be the same over time
+	 * and for different bots. Can't be used to download or reuse the file.
+	 */
+	file_unique_id: Schema.String.pipe(
 		Schema.annotate({
 			description:
-				"Message containing the poll from which the option was deleted, if known. Note that the Message object in this field will not contain the reply_to_message field even if it itself is a reply.",
+				"Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.",
 		}),
 	),
 	/**
-	 * Unique identifier of the deleted option
+	 * File size in bytes
 	 */
-	option_persistent_id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier of the deleted option" })),
+	file_size: Schema.Int.pipe(Schema.annotate({ description: "File size in bytes" })),
 	/**
-	 * Option text
+	 * Unix time when the file was uploaded
 	 */
-	option_text: Schema.String.pipe(Schema.annotate({ description: "Option text" })),
+	file_date: Schema.Int.pipe(Schema.annotate({ description: "Unix time when the file was uploaded" })),
+}).pipe(
+	Schema.annotate({
+		description:
+			"This object represents a file uploaded to Telegram Passport. Currently all Telegram Passport files are in JPEG format when decrypted and don't exceed 10MB.",
+	}),
+);
+export type PassportFile = typeof PassportFile.Type;
+
+/**
+ * Describes documents or other Telegram Passport elements shared with the bot
+ * by the user.
+ */
+export const EncryptedPassportElement = Schema.Struct({
 	/**
-	 * Special entities that appear in the option_text
+	 * Element type. One of “personal_details”, “passport”, “driver_license”,
+	 * “identity_card”, “internal_passport”, “address”, “utility_bill”,
+	 * “bank_statement”, “rental_agreement”, “passport_registration”,
+	 * “temporary_registration”, “phone_number”, “email”.
 	 */
-	option_text_entities: Schema.optional(Schema.Array(MessageEntity)).pipe(
-		Schema.annotate({ description: "Special entities that appear in the option_text" }),
+	type: Schema.String.pipe(
+		Schema.annotate({
+			description:
+				"Element type. One of “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport”, “address”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”, “phone_number”, “email”.",
+		}),
 	),
-}).pipe(Schema.annotate({ description: "Describes a service message about an option deleted from a poll." }));
-export type PollOptionDeleted = typeof PollOptionDeleted.Type;
+	/**
+	 * Base64-encoded encrypted Telegram Passport element data provided by the
+	 * user; available only for “personal_details”, “passport”, “driver_license”,
+	 * “identity_card”, “internal_passport” and “address” types. Can be decrypted
+	 * and verified using the accompanying EncryptedCredentials.
+	 */
+	data: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description:
+				"Base64-encoded encrypted Telegram Passport element data provided by the user; available only for “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport” and “address” types. Can be decrypted and verified using the accompanying EncryptedCredentials.",
+		}),
+	),
+	/**
+	 * User's verified phone number; available only for “phone_number” type
+	 */
+	phone_number: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "User's verified phone number; available only for “phone_number” type" }),
+	),
+	/**
+	 * User's verified email address; available only for “email” type
+	 */
+	email: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "User's verified email address; available only for “email” type" }),
+	),
+	/**
+	 * Array of encrypted files with documents provided by the user; available only
+	 * for “utility_bill”, “bank_statement”, “rental_agreement”,
+	 * “passport_registration” and “temporary_registration” types. Files can be
+	 * decrypted and verified using the accompanying EncryptedCredentials.
+	 */
+	files: Schema.optional(Schema.Array(PassportFile)).pipe(
+		Schema.annotate({
+			description:
+				"Array of encrypted files with documents provided by the user; available only for “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration” and “temporary_registration” types. Files can be decrypted and verified using the accompanying EncryptedCredentials.",
+		}),
+	),
+	/**
+	 * Encrypted file with the front side of the document, provided by the user;
+	 * available only for “passport”, “driver_license”, “identity_card” and
+	 * “internal_passport”. The file can be decrypted and verified using the
+	 * accompanying EncryptedCredentials.
+	 */
+	front_side: Schema.optional(PassportFile).pipe(
+		Schema.annotate({
+			description:
+				"Encrypted file with the front side of the document, provided by the user; available only for “passport”, “driver_license”, “identity_card” and “internal_passport”. The file can be decrypted and verified using the accompanying EncryptedCredentials.",
+		}),
+	),
+	/**
+	 * Encrypted file with the reverse side of the document, provided by the user;
+	 * available only for “driver_license” and “identity_card”. The file can be
+	 * decrypted and verified using the accompanying EncryptedCredentials.
+	 */
+	reverse_side: Schema.optional(PassportFile).pipe(
+		Schema.annotate({
+			description:
+				"Encrypted file with the reverse side of the document, provided by the user; available only for “driver_license” and “identity_card”. The file can be decrypted and verified using the accompanying EncryptedCredentials.",
+		}),
+	),
+	/**
+	 * Encrypted file with the selfie of the user holding a document, provided by
+	 * the user; available if requested for “passport”, “driver_license”,
+	 * “identity_card” and “internal_passport”. The file can be decrypted and
+	 * verified using the accompanying EncryptedCredentials.
+	 */
+	selfie: Schema.optional(PassportFile).pipe(
+		Schema.annotate({
+			description:
+				"Encrypted file with the selfie of the user holding a document, provided by the user; available if requested for “passport”, “driver_license”, “identity_card” and “internal_passport”. The file can be decrypted and verified using the accompanying EncryptedCredentials.",
+		}),
+	),
+	/**
+	 * Array of encrypted files with translated versions of documents provided by
+	 * the user; available if requested for “passport”, “driver_license”,
+	 * “identity_card”, “internal_passport”, “utility_bill”, “bank_statement”,
+	 * “rental_agreement”, “passport_registration” and “temporary_registration”
+	 * types. Files can be decrypted and verified using the accompanying
+	 * EncryptedCredentials.
+	 */
+	translation: Schema.optional(Schema.Array(PassportFile)).pipe(
+		Schema.annotate({
+			description:
+				"Array of encrypted files with translated versions of documents provided by the user; available if requested for “passport”, “driver_license”, “identity_card”, “internal_passport”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration” and “temporary_registration” types. Files can be decrypted and verified using the accompanying EncryptedCredentials.",
+		}),
+	),
+	/**
+	 * Base64-encoded element hash for using in PassportElementErrorUnspecified
+	 */
+	hash: Schema.String.pipe(
+		Schema.annotate({ description: "Base64-encoded element hash for using in PassportElementErrorUnspecified" }),
+	),
+}).pipe(
+	Schema.annotate({
+		description: "Describes documents or other Telegram Passport elements shared with the bot by the user.",
+	}),
+);
+export type EncryptedPassportElement = typeof EncryptedPassportElement.Type;
+
+/**
+ * Describes Telegram Passport data shared with the bot by the user.
+ */
+export const PassportData = Schema.Struct({
+	/**
+	 * Array with information about documents and other Telegram Passport elements
+	 * that was shared with the bot
+	 */
+	data: Schema.Array(EncryptedPassportElement).pipe(
+		Schema.annotate({
+			description:
+				"Array with information about documents and other Telegram Passport elements that was shared with the bot",
+		}),
+	),
+	/**
+	 * Encrypted credentials required to decrypt the data
+	 */
+	credentials: EncryptedCredentials.pipe(
+		Schema.annotate({ description: "Encrypted credentials required to decrypt the data" }),
+	),
+}).pipe(Schema.annotate({ description: "Describes Telegram Passport data shared with the bot by the user." }));
+export type PassportData = typeof PassportData.Type;
 
 /**
  * This object represents the content of a service message, sent whenever a user
@@ -4105,6 +4202,179 @@ export const ProximityAlertTriggered = Schema.Struct({
 	}),
 );
 export type ProximityAlertTriggered = typeof ProximityAlertTriggered.Type;
+
+/**
+ * This object contains basic information about a refunded payment.
+ */
+export const RefundedPayment = Schema.Struct({
+	/**
+	 * Three-letter ISO 4217 currency code, or “XTR” for payments in Telegram
+	 * Stars. Currently, always “XTR”.
+	 */
+	currency: Schema.String.pipe(
+		Schema.annotate({
+			description:
+				"Three-letter ISO 4217 currency code, or “XTR” for payments in Telegram Stars. Currently, always “XTR”.",
+		}),
+	),
+	/**
+	 * Total refunded price in the smallest units of the currency (integer, not
+	 * float/double). For example, for a price of US$ 1.45, total_amount = 145. See
+	 * the exp parameter in currencies.json, it shows the number of digits past the
+	 * decimal point for each currency (2 for the majority of currencies).
+	 */
+	total_amount: Schema.Int.pipe(
+		Schema.annotate({
+			description:
+				"Total refunded price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45, total_amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).",
+		}),
+	),
+	/**
+	 * Bot-specified invoice payload
+	 */
+	invoice_payload: Schema.String.pipe(Schema.annotate({ description: "Bot-specified invoice payload" })),
+	/**
+	 * Telegram payment identifier
+	 */
+	telegram_payment_charge_id: Schema.String.pipe(Schema.annotate({ description: "Telegram payment identifier" })),
+	/**
+	 * Provider payment identifier
+	 */
+	provider_payment_charge_id: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Provider payment identifier" }),
+	),
+}).pipe(Schema.annotate({ description: "This object contains basic information about a refunded payment." }));
+export type RefundedPayment = typeof RefundedPayment.Type;
+
+/**
+ * This object represents a shipping address.
+ */
+export const ShippingAddress = Schema.Struct({
+	/**
+	 * Two-letter ISO 3166-1 alpha-2 country code
+	 */
+	country_code: Schema.String.pipe(Schema.annotate({ description: "Two-letter ISO 3166-1 alpha-2 country code" })),
+	/**
+	 * State, if applicable
+	 */
+	state: Schema.String.pipe(Schema.annotate({ description: "State, if applicable" })),
+	/**
+	 * City
+	 */
+	city: Schema.String.pipe(Schema.annotate({ description: "City" })),
+	/**
+	 * First line for the address
+	 */
+	street_line1: Schema.String.pipe(Schema.annotate({ description: "First line for the address" })),
+	/**
+	 * Second line for the address
+	 */
+	street_line2: Schema.String.pipe(Schema.annotate({ description: "Second line for the address" })),
+	/**
+	 * Address post code
+	 */
+	post_code: Schema.String.pipe(Schema.annotate({ description: "Address post code" })),
+}).pipe(Schema.annotate({ description: "This object represents a shipping address." }));
+export type ShippingAddress = typeof ShippingAddress.Type;
+
+/**
+ * This object represents information about an order.
+ */
+export const OrderInfo = Schema.Struct({
+	/**
+	 * User name
+	 */
+	name: Schema.optional(Schema.String).pipe(Schema.annotate({ description: "User name" })),
+	/**
+	 * User's phone number
+	 */
+	phone_number: Schema.optional(Schema.String).pipe(Schema.annotate({ description: "User's phone number" })),
+	/**
+	 * User email
+	 */
+	email: Schema.optional(Schema.String).pipe(Schema.annotate({ description: "User email" })),
+	/**
+	 * User shipping address
+	 */
+	shipping_address: Schema.optional(ShippingAddress).pipe(Schema.annotate({ description: "User shipping address" })),
+}).pipe(Schema.annotate({ description: "This object represents information about an order." }));
+export type OrderInfo = typeof OrderInfo.Type;
+
+/**
+ * This object contains basic information about a successful payment. Note that
+ * if the buyer initiates a chargeback with the relevant payment provider
+ * following this transaction, the funds may be debited from your balance. This
+ * is outside of Telegram's control.
+ */
+export const SuccessfulPayment = Schema.Struct({
+	/**
+	 * Three-letter ISO 4217 currency code, or “XTR” for payments in Telegram Stars
+	 */
+	currency: Schema.String.pipe(
+		Schema.annotate({ description: "Three-letter ISO 4217 currency code, or “XTR” for payments in Telegram Stars" }),
+	),
+	/**
+	 * Total price in the smallest units of the currency (integer, not
+	 * float/double). For example, for a price of US$ 1.45 pass amount = 145. See
+	 * the exp parameter in currencies.json, it shows the number of digits past the
+	 * decimal point for each currency (2 for the majority of currencies).
+	 */
+	total_amount: Schema.Int.pipe(
+		Schema.annotate({
+			description:
+				"Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).",
+		}),
+	),
+	/**
+	 * Bot-specified invoice payload
+	 */
+	invoice_payload: Schema.String.pipe(Schema.annotate({ description: "Bot-specified invoice payload" })),
+	/**
+	 * Expiration date of the subscription, in Unix time; for recurring payments
+	 * only
+	 */
+	subscription_expiration_date: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({ description: "Expiration date of the subscription, in Unix time; for recurring payments only" }),
+	),
+	/**
+	 * True, if the payment is a recurring payment for a subscription
+	 */
+	is_recurring: Schema.optional(Schema.Literal(true)).pipe(
+		Schema.annotate({ description: "True, if the payment is a recurring payment for a subscription" }),
+	),
+	/**
+	 * True, if the payment is the first payment for a subscription
+	 */
+	is_first_recurring: Schema.optional(Schema.Literal(true)).pipe(
+		Schema.annotate({ description: "True, if the payment is the first payment for a subscription" }),
+	),
+	/**
+	 * Identifier of the shipping option chosen by the user
+	 */
+	shipping_option_id: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Identifier of the shipping option chosen by the user" }),
+	),
+	/**
+	 * Order information provided by the user
+	 */
+	order_info: Schema.optional(OrderInfo).pipe(
+		Schema.annotate({ description: "Order information provided by the user" }),
+	),
+	/**
+	 * Telegram payment identifier
+	 */
+	telegram_payment_charge_id: Schema.String.pipe(Schema.annotate({ description: "Telegram payment identifier" })),
+	/**
+	 * Provider payment identifier
+	 */
+	provider_payment_charge_id: Schema.String.pipe(Schema.annotate({ description: "Provider payment identifier" })),
+}).pipe(
+	Schema.annotate({
+		description:
+			"This object contains basic information about a successful payment. Note that if the buyer initiates a chargeback with the relevant payment provider following this transaction, the funds may be debited from your balance. This is outside of Telegram's control.",
+	}),
+);
+export type SuccessfulPayment = typeof SuccessfulPayment.Type;
 
 /**
  * Describes the price of a suggested post.
@@ -4694,6 +4964,18 @@ export const VideoChatScheduled = Schema.Struct({
 export type VideoChatScheduled = typeof VideoChatScheduled.Type;
 
 /**
+ * This object represents a service message about a video chat started in the
+ * chat. Currently holds no information.
+ */
+export const VideoChatStarted = Schema.Struct({}).pipe(
+	Schema.annotate({
+		description:
+			"This object represents a service message about a video chat started in the chat. Currently holds no information.",
+	}),
+);
+export type VideoChatStarted = typeof VideoChatStarted.Type;
+
+/**
  * Describes data sent from a Web App to the bot.
  */
 export const WebAppData = Schema.Struct({
@@ -4896,6 +5178,20 @@ export const GiveawayCompleted = Schema.Struct({
 );
 
 /**
+ * This object describes a message that can be inaccessible to the bot. It can
+ * be one of
+ */
+export const MaybeInaccessibleMessage = Schema.Union([
+	Schema.suspend((): Schema.Codec<Message> => Message),
+	InaccessibleMessage,
+]).pipe(
+	Schema.annotate({
+		description: "This object describes a message that can be inaccessible to the bot. It can be one of",
+	}),
+);
+export type MaybeInaccessibleMessage = typeof MaybeInaccessibleMessage.Type;
+
+/**
  * This object represents a message.
  */
 export type Message = {
@@ -4972,7 +5268,7 @@ export type Message = {
 	/**
 	 * Information about the original message for forwarded messages
 	 */
-	readonly forward_origin?: unknown;
+	readonly forward_origin?: MessageOrigin | undefined;
 	/**
 	 * True, if the message is sent to a topic in a forum supergroup or a private
 	 * chat with the bot
@@ -5111,7 +5407,7 @@ export type Message = {
 	/**
 	 * Message is a sticker, information about the sticker
 	 */
-	readonly sticker?: unknown;
+	readonly sticker?: Sticker | undefined;
 	/**
 	 * Message is a forwarded story
 	 */
@@ -5161,7 +5457,7 @@ export type Message = {
 	/**
 	 * Message is a game, information about the game. More about games »
 	 */
-	readonly game?: unknown;
+	readonly game?: Game | undefined;
 	/**
 	 * Message is a native poll, information about the poll
 	 */
@@ -5248,22 +5544,22 @@ export type Message = {
 	 * will not contain further reply_to_message fields even if it itself is a
 	 * reply.
 	 */
-	readonly pinned_message?: unknown;
+	readonly pinned_message?: MaybeInaccessibleMessage | undefined;
 	/**
 	 * Message is an invoice for a payment, information about the invoice. More
 	 * about payments »
 	 */
-	readonly invoice?: unknown;
+	readonly invoice?: Invoice | undefined;
 	/**
 	 * Message is a service message about a successful payment, information about
 	 * the payment. More about payments »
 	 */
-	readonly successful_payment?: unknown;
+	readonly successful_payment?: SuccessfulPayment | undefined;
 	/**
 	 * Message is a service message about a refunded payment, information about the
 	 * payment. More about payments »
 	 */
-	readonly refunded_payment?: unknown;
+	readonly refunded_payment?: RefundedPayment | undefined;
 	/**
 	 * Service message: users were shared with the bot
 	 */
@@ -5299,7 +5595,7 @@ export type Message = {
 	/**
 	 * Telegram Passport data
 	 */
-	readonly passport_data?: unknown;
+	readonly passport_data?: PassportData | undefined;
 	/**
 	 * Service message. A user in the chat triggered another user's proximity alert
 	 * while sharing Live Location.
@@ -5337,19 +5633,19 @@ export type Message = {
 	/**
 	 * Service message: forum topic closed
 	 */
-	readonly forum_topic_closed?: unknown;
+	readonly forum_topic_closed?: ForumTopicClosed | undefined;
 	/**
 	 * Service message: forum topic reopened
 	 */
-	readonly forum_topic_reopened?: unknown;
+	readonly forum_topic_reopened?: ForumTopicReopened | undefined;
 	/**
 	 * Service message: the 'General' forum topic hidden
 	 */
-	readonly general_forum_topic_hidden?: unknown;
+	readonly general_forum_topic_hidden?: GeneralForumTopicHidden | undefined;
 	/**
 	 * Service message: the 'General' forum topic unhidden
 	 */
-	readonly general_forum_topic_unhidden?: unknown;
+	readonly general_forum_topic_unhidden?: GeneralForumTopicUnhidden | undefined;
 	/**
 	 * Service message: a scheduled giveaway was created
 	 */
@@ -5409,7 +5705,7 @@ export type Message = {
 	/**
 	 * Service message: video chat started
 	 */
-	readonly video_chat_started?: unknown;
+	readonly video_chat_started?: VideoChatStarted | undefined;
 	/**
 	 * Service message: video chat ended
 	 */
@@ -6005,7 +6301,9 @@ export const Message = Schema.Struct({
 	 * will not contain further reply_to_message fields even if it itself is a
 	 * reply.
 	 */
-	pinned_message: Schema.optional(MaybeInaccessibleMessage).pipe(
+	pinned_message: Schema.optional(
+		Schema.suspend((): Schema.Codec<MaybeInaccessibleMessage> => MaybeInaccessibleMessage),
+	).pipe(
 		Schema.annotate({
 			description:
 				"Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.",
@@ -6216,13 +6514,13 @@ export const Message = Schema.Struct({
 	/**
 	 * Service message: answer option was added to a poll
 	 */
-	poll_option_added: Schema.optional(PollOptionAdded).pipe(
+	poll_option_added: Schema.optional(Schema.suspend((): Schema.Codec<PollOptionAdded> => PollOptionAdded)).pipe(
 		Schema.annotate({ description: "Service message: answer option was added to a poll" }),
 	),
 	/**
 	 * Service message: answer option was deleted from a poll
 	 */
-	poll_option_deleted: Schema.optional(PollOptionDeleted).pipe(
+	poll_option_deleted: Schema.optional(Schema.suspend((): Schema.Codec<PollOptionDeleted> => PollOptionDeleted)).pipe(
 		Schema.annotate({ description: "Service message: answer option was deleted from a poll" }),
 	),
 	/**
@@ -6296,6 +6594,112 @@ export const Message = Schema.Struct({
 		}),
 	),
 }).pipe(Schema.annotate({ description: "This object represents a message." }));
+
+/**
+ * Describes a service message about an option added to a poll.
+ */
+export type PollOptionAdded = {
+	/**
+	 * Message containing the poll to which the option was added, if known. Note
+	 * that the Message object in this field will not contain the reply_to_message
+	 * field even if it itself is a reply.
+	 */
+	readonly poll_message?: MaybeInaccessibleMessage | undefined;
+	/**
+	 * Unique identifier of the added option
+	 */
+	readonly option_persistent_id: string;
+	/**
+	 * Option text
+	 */
+	readonly option_text: string;
+	/**
+	 * Special entities that appear in the option_text
+	 */
+	readonly option_text_entities?: ReadonlyArray<MessageEntity> | undefined;
+};
+export const PollOptionAdded = Schema.Struct({
+	/**
+	 * Message containing the poll to which the option was added, if known. Note
+	 * that the Message object in this field will not contain the reply_to_message
+	 * field even if it itself is a reply.
+	 */
+	poll_message: Schema.optional(
+		Schema.suspend((): Schema.Codec<MaybeInaccessibleMessage> => MaybeInaccessibleMessage),
+	).pipe(
+		Schema.annotate({
+			description:
+				"Message containing the poll to which the option was added, if known. Note that the Message object in this field will not contain the reply_to_message field even if it itself is a reply.",
+		}),
+	),
+	/**
+	 * Unique identifier of the added option
+	 */
+	option_persistent_id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier of the added option" })),
+	/**
+	 * Option text
+	 */
+	option_text: Schema.String.pipe(Schema.annotate({ description: "Option text" })),
+	/**
+	 * Special entities that appear in the option_text
+	 */
+	option_text_entities: Schema.optional(Schema.Array(MessageEntity)).pipe(
+		Schema.annotate({ description: "Special entities that appear in the option_text" }),
+	),
+}).pipe(Schema.annotate({ description: "Describes a service message about an option added to a poll." }));
+
+/**
+ * Describes a service message about an option deleted from a poll.
+ */
+export type PollOptionDeleted = {
+	/**
+	 * Message containing the poll from which the option was deleted, if known.
+	 * Note that the Message object in this field will not contain the
+	 * reply_to_message field even if it itself is a reply.
+	 */
+	readonly poll_message?: MaybeInaccessibleMessage | undefined;
+	/**
+	 * Unique identifier of the deleted option
+	 */
+	readonly option_persistent_id: string;
+	/**
+	 * Option text
+	 */
+	readonly option_text: string;
+	/**
+	 * Special entities that appear in the option_text
+	 */
+	readonly option_text_entities?: ReadonlyArray<MessageEntity> | undefined;
+};
+export const PollOptionDeleted = Schema.Struct({
+	/**
+	 * Message containing the poll from which the option was deleted, if known.
+	 * Note that the Message object in this field will not contain the
+	 * reply_to_message field even if it itself is a reply.
+	 */
+	poll_message: Schema.optional(
+		Schema.suspend((): Schema.Codec<MaybeInaccessibleMessage> => MaybeInaccessibleMessage),
+	).pipe(
+		Schema.annotate({
+			description:
+				"Message containing the poll from which the option was deleted, if known. Note that the Message object in this field will not contain the reply_to_message field even if it itself is a reply.",
+		}),
+	),
+	/**
+	 * Unique identifier of the deleted option
+	 */
+	option_persistent_id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier of the deleted option" })),
+	/**
+	 * Option text
+	 */
+	option_text: Schema.String.pipe(Schema.annotate({ description: "Option text" })),
+	/**
+	 * Special entities that appear in the option_text
+	 */
+	option_text_entities: Schema.optional(Schema.Array(MessageEntity)).pipe(
+		Schema.annotate({ description: "Special entities that appear in the option_text" }),
+	),
+}).pipe(Schema.annotate({ description: "Describes a service message about an option deleted from a poll." }));
 
 /**
  * Describes a service message about the failed approval of a suggested post.
@@ -6526,6 +6930,660 @@ export const SuggestedPostRefunded = Schema.Struct({
 		}),
 	),
 }).pipe(Schema.annotate({ description: "Describes a service message about a payment refund for a suggested post." }));
+
+/**
+ * This object represents an incoming callback query from a callback button in
+ * an inline keyboard. If the button that originated the query was attached to a
+ * message sent by the bot, the field message will be present. If the button was
+ * attached to a message sent via the bot (in inline mode), the field
+ * inline_message_id will be present. Exactly one of the fields data or
+ * game_short_name will be present.
+ */
+export const CallbackQuery = Schema.Struct({
+	/**
+	 * Unique identifier for this query
+	 */
+	id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier for this query" })),
+	/**
+	 * Sender
+	 */
+	from: User.pipe(Schema.annotate({ description: "Sender" })),
+	/**
+	 * Message sent by the bot with the callback button that originated the query
+	 */
+	message: Schema.optional(MaybeInaccessibleMessage).pipe(
+		Schema.annotate({ description: "Message sent by the bot with the callback button that originated the query" }),
+	),
+	/**
+	 * Identifier of the message sent via the bot in inline mode, that originated
+	 * the query
+	 */
+	inline_message_id: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Identifier of the message sent via the bot in inline mode, that originated the query",
+		}),
+	),
+	/**
+	 * Global identifier, uniquely corresponding to the chat to which the message
+	 * with the callback button was sent. Useful for high scores in games.
+	 */
+	chat_instance: Schema.String.pipe(
+		Schema.annotate({
+			description:
+				"Global identifier, uniquely corresponding to the chat to which the message with the callback button was sent. Useful for high scores in games.",
+		}),
+	),
+	/**
+	 * Data associated with the callback button. Be aware that the message
+	 * originated the query can contain no callback buttons with this data.
+	 */
+	data: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description:
+				"Data associated with the callback button. Be aware that the message originated the query can contain no callback buttons with this data.",
+		}),
+	),
+	/**
+	 * Short name of a Game to be returned, serves as the unique identifier for the
+	 * game
+	 */
+	game_short_name: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Short name of a Game to be returned, serves as the unique identifier for the game",
+		}),
+	),
+}).pipe(
+	Schema.annotate({
+		description:
+			"This object represents an incoming callback query from a callback button in an inline keyboard. If the button that originated the query was attached to a message sent by the bot, the field message will be present. If the button was attached to a message sent via the bot (in inline mode), the field inline_message_id will be present. Exactly one of the fields data or game_short_name will be present.",
+	}),
+);
+export type CallbackQuery = typeof CallbackQuery.Type;
+
+/**
+ * Represents the rights of an administrator in a chat.
+ */
+export const ChatAdministratorRights = Schema.Struct({
+	/**
+	 * True, if the user's presence in the chat is hidden
+	 */
+	is_anonymous: Schema.Boolean.pipe(
+		Schema.annotate({ description: "True, if the user's presence in the chat is hidden" }),
+	),
+	/**
+	 * True, if the administrator can access the chat event log, get boost list,
+	 * see hidden supergroup and channel members, report spam messages, ignore slow
+	 * mode, and send messages to the chat without paying Telegram Stars. Implied
+	 * by any other administrator privilege.
+	 */
+	can_manage_chat: Schema.Boolean.pipe(
+		Schema.annotate({
+			description:
+				"True, if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report spam messages, ignore slow mode, and send messages to the chat without paying Telegram Stars. Implied by any other administrator privilege.",
+		}),
+	),
+	/**
+	 * True, if the administrator can delete messages of other users
+	 */
+	can_delete_messages: Schema.Boolean.pipe(
+		Schema.annotate({ description: "True, if the administrator can delete messages of other users" }),
+	),
+	/**
+	 * True, if the administrator can manage video chats
+	 */
+	can_manage_video_chats: Schema.Boolean.pipe(
+		Schema.annotate({ description: "True, if the administrator can manage video chats" }),
+	),
+	/**
+	 * True, if the administrator can restrict, ban or unban chat members, or
+	 * access supergroup statistics
+	 */
+	can_restrict_members: Schema.Boolean.pipe(
+		Schema.annotate({
+			description:
+				"True, if the administrator can restrict, ban or unban chat members, or access supergroup statistics",
+		}),
+	),
+	/**
+	 * True, if the administrator can add new administrators with a subset of their
+	 * own privileges or demote administrators that they have promoted, directly or
+	 * indirectly (promoted by administrators that were appointed by the user)
+	 */
+	can_promote_members: Schema.Boolean.pipe(
+		Schema.annotate({
+			description:
+				"True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that they have promoted, directly or indirectly (promoted by administrators that were appointed by the user)",
+		}),
+	),
+	/**
+	 * True, if the user is allowed to change the chat title, photo and other
+	 * settings
+	 */
+	can_change_info: Schema.Boolean.pipe(
+		Schema.annotate({ description: "True, if the user is allowed to change the chat title, photo and other settings" }),
+	),
+	/**
+	 * True, if the user is allowed to invite new users to the chat
+	 */
+	can_invite_users: Schema.Boolean.pipe(
+		Schema.annotate({ description: "True, if the user is allowed to invite new users to the chat" }),
+	),
+	/**
+	 * True, if the administrator can post stories to the chat
+	 */
+	can_post_stories: Schema.Boolean.pipe(
+		Schema.annotate({ description: "True, if the administrator can post stories to the chat" }),
+	),
+	/**
+	 * True, if the administrator can edit stories posted by other users, post
+	 * stories to the chat page, pin chat stories, and access the chat's story
+	 * archive
+	 */
+	can_edit_stories: Schema.Boolean.pipe(
+		Schema.annotate({
+			description:
+				"True, if the administrator can edit stories posted by other users, post stories to the chat page, pin chat stories, and access the chat's story archive",
+		}),
+	),
+	/**
+	 * True, if the administrator can delete stories posted by other users
+	 */
+	can_delete_stories: Schema.Boolean.pipe(
+		Schema.annotate({ description: "True, if the administrator can delete stories posted by other users" }),
+	),
+	/**
+	 * True, if the administrator can post messages in the channel, approve
+	 * suggested posts, or access channel statistics; for channels only
+	 */
+	can_post_messages: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({
+			description:
+				"True, if the administrator can post messages in the channel, approve suggested posts, or access channel statistics; for channels only",
+		}),
+	),
+	/**
+	 * True, if the administrator can edit messages of other users and can pin
+	 * messages; for channels only
+	 */
+	can_edit_messages: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({
+			description:
+				"True, if the administrator can edit messages of other users and can pin messages; for channels only",
+		}),
+	),
+	/**
+	 * True, if the user is allowed to pin messages; for groups and supergroups
+	 * only
+	 */
+	can_pin_messages: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "True, if the user is allowed to pin messages; for groups and supergroups only" }),
+	),
+	/**
+	 * True, if the user is allowed to create, rename, close, and reopen forum
+	 * topics; for supergroups only
+	 */
+	can_manage_topics: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({
+			description:
+				"True, if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only",
+		}),
+	),
+	/**
+	 * True, if the administrator can manage direct messages of the channel and
+	 * decline suggested posts; for channels only
+	 */
+	can_manage_direct_messages: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({
+			description:
+				"True, if the administrator can manage direct messages of the channel and decline suggested posts; for channels only",
+		}),
+	),
+	/**
+	 * True, if the administrator can edit the tags of regular members; for groups
+	 * and supergroups only. If omitted defaults to the value of can_pin_messages.
+	 */
+	can_manage_tags: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({
+			description:
+				"True, if the administrator can edit the tags of regular members; for groups and supergroups only. If omitted defaults to the value of can_pin_messages.",
+		}),
+	),
+}).pipe(Schema.annotate({ description: "Represents the rights of an administrator in a chat." }));
+export type ChatAdministratorRights = typeof ChatAdministratorRights.Type;
+
+/**
+ * The boost was obtained by the creation of Telegram Premium gift codes to
+ * boost a chat. Each such code boosts the chat 4 times for the duration of the
+ * corresponding Telegram Premium subscription.
+ */
+export const ChatBoostSourceGiftCode = Schema.Struct({
+	/**
+	 * Source of the boost, always “gift_code”
+	 */
+	source: Schema.String.pipe(Schema.annotate({ description: "Source of the boost, always “gift_code”" })),
+	/**
+	 * User for which the gift code was created
+	 */
+	user: User.pipe(Schema.annotate({ description: "User for which the gift code was created" })),
+}).pipe(
+	Schema.annotate({
+		description:
+			"The boost was obtained by the creation of Telegram Premium gift codes to boost a chat. Each such code boosts the chat 4 times for the duration of the corresponding Telegram Premium subscription.",
+	}),
+);
+export type ChatBoostSourceGiftCode = typeof ChatBoostSourceGiftCode.Type;
+
+/**
+ * The boost was obtained by the creation of a Telegram Premium or a Telegram
+ * Star giveaway. This boosts the chat 4 times for the duration of the
+ * corresponding Telegram Premium subscription for Telegram Premium giveaways
+ * and prize_star_count / 500 times for one year for Telegram Star giveaways.
+ */
+export const ChatBoostSourceGiveaway = Schema.Struct({
+	/**
+	 * Source of the boost, always “giveaway”
+	 */
+	source: Schema.String.pipe(Schema.annotate({ description: "Source of the boost, always “giveaway”" })),
+	/**
+	 * Identifier of a message in the chat with the giveaway; the message could
+	 * have been deleted already. May be 0 if the message isn't sent yet.
+	 */
+	giveaway_message_id: Schema.Int.pipe(
+		Schema.annotate({
+			description:
+				"Identifier of a message in the chat with the giveaway; the message could have been deleted already. May be 0 if the message isn't sent yet.",
+		}),
+	),
+	/**
+	 * User that won the prize in the giveaway if any; for Telegram Premium
+	 * giveaways only
+	 */
+	user: Schema.optional(User).pipe(
+		Schema.annotate({
+			description: "User that won the prize in the giveaway if any; for Telegram Premium giveaways only",
+		}),
+	),
+	/**
+	 * The number of Telegram Stars to be split between giveaway winners; for
+	 * Telegram Star giveaways only
+	 */
+	prize_star_count: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"The number of Telegram Stars to be split between giveaway winners; for Telegram Star giveaways only",
+		}),
+	),
+	/**
+	 * True, if the giveaway was completed, but there was no user to win the prize
+	 */
+	is_unclaimed: Schema.optional(Schema.Literal(true)).pipe(
+		Schema.annotate({ description: "True, if the giveaway was completed, but there was no user to win the prize" }),
+	),
+}).pipe(
+	Schema.annotate({
+		description:
+			"The boost was obtained by the creation of a Telegram Premium or a Telegram Star giveaway. This boosts the chat 4 times for the duration of the corresponding Telegram Premium subscription for Telegram Premium giveaways and prize_star_count / 500 times for one year for Telegram Star giveaways.",
+	}),
+);
+export type ChatBoostSourceGiveaway = typeof ChatBoostSourceGiveaway.Type;
+
+/**
+ * The boost was obtained by subscribing to Telegram Premium or by gifting a
+ * Telegram Premium subscription to another user.
+ */
+export const ChatBoostSourcePremium = Schema.Struct({
+	/**
+	 * Source of the boost, always “premium”
+	 */
+	source: Schema.String.pipe(Schema.annotate({ description: "Source of the boost, always “premium”" })),
+	/**
+	 * User that boosted the chat
+	 */
+	user: User.pipe(Schema.annotate({ description: "User that boosted the chat" })),
+}).pipe(
+	Schema.annotate({
+		description:
+			"The boost was obtained by subscribing to Telegram Premium or by gifting a Telegram Premium subscription to another user.",
+	}),
+);
+export type ChatBoostSourcePremium = typeof ChatBoostSourcePremium.Type;
+
+/**
+ * This object describes the source of a chat boost. It can be one of
+ */
+export const ChatBoostSource = Schema.Union([
+	ChatBoostSourcePremium,
+	ChatBoostSourceGiftCode,
+	ChatBoostSourceGiveaway,
+]).pipe(Schema.annotate({ description: "This object describes the source of a chat boost. It can be one of" }));
+export type ChatBoostSource = typeof ChatBoostSource.Type;
+
+/**
+ * This object contains information about a chat boost.
+ */
+export const ChatBoost = Schema.Struct({
+	/**
+	 * Unique identifier of the boost
+	 */
+	boost_id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier of the boost" })),
+	/**
+	 * Point in time (Unix timestamp) when the chat was boosted
+	 */
+	add_date: Schema.Int.pipe(
+		Schema.annotate({ description: "Point in time (Unix timestamp) when the chat was boosted" }),
+	),
+	/**
+	 * Point in time (Unix timestamp) when the boost will automatically expire,
+	 * unless the booster's Telegram Premium subscription is prolonged
+	 */
+	expiration_date: Schema.Int.pipe(
+		Schema.annotate({
+			description:
+				"Point in time (Unix timestamp) when the boost will automatically expire, unless the booster's Telegram Premium subscription is prolonged",
+		}),
+	),
+	/**
+	 * Source of the added boost
+	 */
+	source: ChatBoostSource.pipe(Schema.annotate({ description: "Source of the added boost" })),
+}).pipe(Schema.annotate({ description: "This object contains information about a chat boost." }));
+export type ChatBoost = typeof ChatBoost.Type;
+
+/**
+ * This object represents a boost removed from a chat.
+ */
+export const ChatBoostRemoved = Schema.Struct({
+	/**
+	 * Chat which was boosted
+	 */
+	chat: Chat.pipe(Schema.annotate({ description: "Chat which was boosted" })),
+	/**
+	 * Unique identifier of the boost
+	 */
+	boost_id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier of the boost" })),
+	/**
+	 * Point in time (Unix timestamp) when the boost was removed
+	 */
+	remove_date: Schema.Int.pipe(
+		Schema.annotate({ description: "Point in time (Unix timestamp) when the boost was removed" }),
+	),
+	/**
+	 * Source of the removed boost
+	 */
+	source: ChatBoostSource.pipe(Schema.annotate({ description: "Source of the removed boost" })),
+}).pipe(Schema.annotate({ description: "This object represents a boost removed from a chat." }));
+export type ChatBoostRemoved = typeof ChatBoostRemoved.Type;
+
+/**
+ * This object represents a boost added to a chat or changed.
+ */
+export const ChatBoostUpdated = Schema.Struct({
+	/**
+	 * Chat which was boosted
+	 */
+	chat: Chat.pipe(Schema.annotate({ description: "Chat which was boosted" })),
+	/**
+	 * Information about the chat boost
+	 */
+	boost: ChatBoost.pipe(Schema.annotate({ description: "Information about the chat boost" })),
+}).pipe(Schema.annotate({ description: "This object represents a boost added to a chat or changed." }));
+export type ChatBoostUpdated = typeof ChatBoostUpdated.Type;
+
+/**
+ * Represents a location to which a chat is connected.
+ */
+export const ChatLocation = Schema.Struct({
+	/**
+	 * The location to which the supergroup is connected. Can't be a live location.
+	 */
+	location: Location.pipe(
+		Schema.annotate({ description: "The location to which the supergroup is connected. Can't be a live location." }),
+	),
+	/**
+	 * Location address; 1-64 characters, as defined by the chat owner
+	 */
+	address: Schema.String.pipe(
+		Schema.annotate({ description: "Location address; 1-64 characters, as defined by the chat owner" }),
+	),
+}).pipe(Schema.annotate({ description: "Represents a location to which a chat is connected." }));
+export type ChatLocation = typeof ChatLocation.Type;
+
+/**
+ * Describes actions that a non-administrator user is allowed to take in a chat.
+ */
+export const ChatPermissions = Schema.Struct({
+	/**
+	 * True, if the user is allowed to send text messages, contacts, giveaways,
+	 * giveaway winners, invoices, locations and venues
+	 */
+	can_send_messages: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({
+			description:
+				"True, if the user is allowed to send text messages, contacts, giveaways, giveaway winners, invoices, locations and venues",
+		}),
+	),
+	/**
+	 * True, if the user is allowed to send audios
+	 */
+	can_send_audios: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "True, if the user is allowed to send audios" }),
+	),
+	/**
+	 * True, if the user is allowed to send documents
+	 */
+	can_send_documents: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "True, if the user is allowed to send documents" }),
+	),
+	/**
+	 * True, if the user is allowed to send photos
+	 */
+	can_send_photos: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "True, if the user is allowed to send photos" }),
+	),
+	/**
+	 * True, if the user is allowed to send videos
+	 */
+	can_send_videos: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "True, if the user is allowed to send videos" }),
+	),
+	/**
+	 * True, if the user is allowed to send video notes
+	 */
+	can_send_video_notes: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "True, if the user is allowed to send video notes" }),
+	),
+	/**
+	 * True, if the user is allowed to send voice notes
+	 */
+	can_send_voice_notes: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "True, if the user is allowed to send voice notes" }),
+	),
+	/**
+	 * True, if the user is allowed to send polls and checklists
+	 */
+	can_send_polls: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "True, if the user is allowed to send polls and checklists" }),
+	),
+	/**
+	 * True, if the user is allowed to send animations, games, stickers and use
+	 * inline bots
+	 */
+	can_send_other_messages: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({
+			description: "True, if the user is allowed to send animations, games, stickers and use inline bots",
+		}),
+	),
+	/**
+	 * True, if the user is allowed to add web page previews to their messages
+	 */
+	can_add_web_page_previews: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "True, if the user is allowed to add web page previews to their messages" }),
+	),
+	/**
+	 * True, if the user is allowed to react to messages. If omitted, defaults to
+	 * the value of can_send_messages.
+	 */
+	can_react_to_messages: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({
+			description:
+				"True, if the user is allowed to react to messages. If omitted, defaults to the value of can_send_messages.",
+		}),
+	),
+	/**
+	 * True, if the user is allowed to edit their own tag. If omitted, defaults to
+	 * the value of can_pin_messages.
+	 */
+	can_edit_tag: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({
+			description:
+				"True, if the user is allowed to edit their own tag. If omitted, defaults to the value of can_pin_messages.",
+		}),
+	),
+	/**
+	 * True, if the user is allowed to change the chat title, photo and other
+	 * settings. Ignored in public supergroups.
+	 */
+	can_change_info: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({
+			description:
+				"True, if the user is allowed to change the chat title, photo and other settings. Ignored in public supergroups.",
+		}),
+	),
+	/**
+	 * True, if the user is allowed to invite new users to the chat
+	 */
+	can_invite_users: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "True, if the user is allowed to invite new users to the chat" }),
+	),
+	/**
+	 * True, if the user is allowed to pin messages. Ignored in public supergroups.
+	 */
+	can_pin_messages: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "True, if the user is allowed to pin messages. Ignored in public supergroups." }),
+	),
+	/**
+	 * True, if the user is allowed to create forum topics. If omitted defaults to
+	 * the value of can_pin_messages.
+	 */
+	can_manage_topics: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({
+			description:
+				"True, if the user is allowed to create forum topics. If omitted defaults to the value of can_pin_messages.",
+		}),
+	),
+}).pipe(
+	Schema.annotate({ description: "Describes actions that a non-administrator user is allowed to take in a chat." }),
+);
+export type ChatPermissions = typeof ChatPermissions.Type;
+
+/**
+ * This object represents a chat photo.
+ */
+export const ChatPhoto = Schema.Struct({
+	/**
+	 * File identifier of small (160x160) chat photo. This file_id can be used only
+	 * for photo download and only for as long as the photo is not changed.
+	 */
+	small_file_id: Schema.String.pipe(
+		Schema.annotate({
+			description:
+				"File identifier of small (160x160) chat photo. This file_id can be used only for photo download and only for as long as the photo is not changed.",
+		}),
+	),
+	/**
+	 * Unique file identifier of small (160x160) chat photo, which is supposed to
+	 * be the same over time and for different bots. Can't be used to download or
+	 * reuse the file.
+	 */
+	small_file_unique_id: Schema.String.pipe(
+		Schema.annotate({
+			description:
+				"Unique file identifier of small (160x160) chat photo, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.",
+		}),
+	),
+	/**
+	 * File identifier of big (640x640) chat photo. This file_id can be used only
+	 * for photo download and only for as long as the photo is not changed.
+	 */
+	big_file_id: Schema.String.pipe(
+		Schema.annotate({
+			description:
+				"File identifier of big (640x640) chat photo. This file_id can be used only for photo download and only for as long as the photo is not changed.",
+		}),
+	),
+	/**
+	 * Unique file identifier of big (640x640) chat photo, which is supposed to be
+	 * the same over time and for different bots. Can't be used to download or
+	 * reuse the file.
+	 */
+	big_file_unique_id: Schema.String.pipe(
+		Schema.annotate({
+			description:
+				"Unique file identifier of big (640x640) chat photo, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.",
+		}),
+	),
+}).pipe(Schema.annotate({ description: "This object represents a chat photo." }));
+export type ChatPhoto = typeof ChatPhoto.Type;
+
+/**
+ * The reaction is based on a custom emoji.
+ */
+export const ReactionTypeCustomEmoji = Schema.Struct({
+	/**
+	 * Type of the reaction, always “custom_emoji”
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the reaction, always “custom_emoji”" })),
+	/**
+	 * Custom emoji identifier
+	 */
+	custom_emoji_id: Schema.String.pipe(Schema.annotate({ description: "Custom emoji identifier" })),
+}).pipe(Schema.annotate({ description: "The reaction is based on a custom emoji." }));
+export type ReactionTypeCustomEmoji = typeof ReactionTypeCustomEmoji.Type;
+
+/**
+ * The reaction is based on an emoji.
+ */
+export const ReactionTypeEmoji = Schema.Struct({
+	/**
+	 * Type of the reaction, always “emoji”
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the reaction, always “emoji”" })),
+	/**
+	 * Reaction emoji. Currently, it can be one of "❤", "👍", "👎", "🔥", "🥰",
+	 * "👏", "😁", "🤔", "🤯", "😱", "🤬", "😢", "🎉", "🤩", "🤮", "💩", "🙏",
+	 * "👌", "🕊", "🤡", "🥱", "🥴", "😍", "🐳", "❤‍🔥", "🌚", "🌭", "💯", "🤣",
+	 * "⚡", "🍌", "🏆", "💔", "🤨", "😐", "🍓", "🍾", "💋", "🖕", "😈", "😴", "😭",
+	 * "🤓", "👻", "👨‍💻", "👀", "🎃", "🙈", "😇", "😨", "🤝", "✍", "🤗", "🫡",
+	 * "🎅", "🎄", "☃", "💅", "🤪", "🗿", "🆒", "💘", "🙉", "🦄", "😘", "💊", "🙊",
+	 * "😎", "👾", "🤷‍♂", "🤷", "🤷‍♀", "😡".
+	 */
+	emoji: Schema.String.pipe(
+		Schema.annotate({
+			description:
+				'Reaction emoji. Currently, it can be one of "❤", "👍", "👎", "🔥", "🥰", "👏", "😁", "🤔", "🤯", "😱", "🤬", "😢", "🎉", "🤩", "🤮", "💩", "🙏", "👌", "🕊", "🤡", "🥱", "🥴", "😍", "🐳", "❤‍🔥", "🌚", "🌭", "💯", "🤣", "⚡", "🍌", "🏆", "💔", "🤨", "😐", "🍓", "🍾", "💋", "🖕", "😈", "😴", "😭", "🤓", "👻", "👨‍💻", "👀", "🎃", "🙈", "😇", "😨", "🤝", "✍", "🤗", "🫡", "🎅", "🎄", "☃", "💅", "🤪", "🗿", "🆒", "💘", "🙉", "🦄", "😘", "💊", "🙊", "😎", "👾", "🤷‍♂", "🤷", "🤷‍♀", "😡".',
+		}),
+	),
+}).pipe(Schema.annotate({ description: "The reaction is based on an emoji." }));
+export type ReactionTypeEmoji = typeof ReactionTypeEmoji.Type;
+
+/**
+ * The reaction is paid.
+ */
+export const ReactionTypePaid = Schema.Struct({
+	/**
+	 * Type of the reaction, always “paid”
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the reaction, always “paid”" })),
+}).pipe(Schema.annotate({ description: "The reaction is paid." }));
+export type ReactionTypePaid = typeof ReactionTypePaid.Type;
+
+/**
+ * This object describes the type of a reaction. Currently, it can be one of
+ */
+export const ReactionType = Schema.Union([ReactionTypeEmoji, ReactionTypeCustomEmoji, ReactionTypePaid]).pipe(
+	Schema.annotate({ description: "This object describes the type of a reaction. Currently, it can be one of" }),
+);
+export type ReactionType = typeof ReactionType.Type;
 
 /**
  * This object describes the rating of a user based on their Telegram Star
@@ -7524,6 +8582,25 @@ export const ChatMemberRestricted = Schema.Struct({
 export type ChatMemberRestricted = typeof ChatMemberRestricted.Type;
 
 /**
+ * This object contains information about one member of a chat. Currently, the
+ * following 6 types of chat members are supported:
+ */
+export const ChatMember = Schema.Union([
+	ChatMemberOwner,
+	ChatMemberAdministrator,
+	ChatMemberMember,
+	ChatMemberRestricted,
+	ChatMemberLeft,
+	ChatMemberBanned,
+]).pipe(
+	Schema.annotate({
+		description:
+			"This object contains information about one member of a chat. Currently, the following 6 types of chat members are supported:",
+	}),
+);
+export type ChatMember = typeof ChatMember.Type;
+
+/**
  * This object represents changes in the status of a chat member.
  */
 export const ChatMemberUpdated = Schema.Struct({
@@ -7577,56 +8654,47 @@ export const ChatMemberUpdated = Schema.Struct({
 export type ChatMemberUpdated = typeof ChatMemberUpdated.Type;
 
 /**
- * This object represents a file ready to be downloaded. The file can be
- * downloaded via the link https://api.telegram.org/file/bot<token>/<file_path>.
- * It is guaranteed that the link will be valid for at least 1 hour. When the
- * link expires, a new one can be requested by calling getFile.
+ * Represents a result of an inline query that was chosen by the user and sent
+ * to their chat partner.
  */
-export const File = Schema.Struct({
+export const ChosenInlineResult = Schema.Struct({
 	/**
-	 * Identifier for this file, which can be used to download or reuse the file
+	 * The unique identifier for the result that was chosen
 	 */
-	file_id: Schema.String.pipe(
-		Schema.annotate({ description: "Identifier for this file, which can be used to download or reuse the file" }),
+	result_id: Schema.String.pipe(
+		Schema.annotate({ description: "The unique identifier for the result that was chosen" }),
 	),
 	/**
-	 * Unique identifier for this file, which is supposed to be the same over time
-	 * and for different bots. Can't be used to download or reuse the file.
+	 * The user that chose the result
 	 */
-	file_unique_id: Schema.String.pipe(
+	from: User.pipe(Schema.annotate({ description: "The user that chose the result" })),
+	/**
+	 * Sender location, only for bots that require user location
+	 */
+	location: Schema.optional(Location).pipe(
+		Schema.annotate({ description: "Sender location, only for bots that require user location" }),
+	),
+	/**
+	 * Identifier of the sent inline message. Available only if there is an inline
+	 * keyboard attached to the message. Will be also received in callback queries
+	 * and can be used to edit the message.
+	 */
+	inline_message_id: Schema.optional(Schema.String).pipe(
 		Schema.annotate({
 			description:
-				"Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.",
+				"Identifier of the sent inline message. Available only if there is an inline keyboard attached to the message. Will be also received in callback queries and can be used to edit the message.",
 		}),
 	),
 	/**
-	 * File size in bytes. It can be bigger than 2^31 and some programming
-	 * languages may have difficulty/silent defects in interpreting it. But it has
-	 * at most 52 significant bits, so a signed 64-bit integer or double-precision
-	 * float type are safe for storing this value.
+	 * The query that was used to obtain the result
 	 */
-	file_size: Schema.optional(Schema.Int).pipe(
-		Schema.annotate({
-			description:
-				"File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.",
-		}),
-	),
-	/**
-	 * File path. Use https://api.telegram.org/file/bot<token>/<file_path> to get
-	 * the file.
-	 */
-	file_path: Schema.optional(Schema.String).pipe(
-		Schema.annotate({
-			description: "File path. Use https://api.telegram.org/file/bot<token>/<file_path> to get the file.",
-		}),
-	),
+	query: Schema.String.pipe(Schema.annotate({ description: "The query that was used to obtain the result" })),
 }).pipe(
 	Schema.annotate({
-		description:
-			"This object represents a file ready to be downloaded. The file can be downloaded via the link https://api.telegram.org/file/bot<token>/<file_path>. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new one can be requested by calling getFile.",
+		description: "Represents a result of an inline query that was chosen by the user and sent to their chat partner.",
 	}),
 );
-export type File = typeof File.Type;
+export type ChosenInlineResult = typeof ChosenInlineResult.Type;
 
 /**
  * Upon receiving a message with this object, Telegram clients will display a
@@ -7712,6 +8780,25 @@ export const ForumTopic = Schema.Struct({
 export type ForumTopic = typeof ForumTopic.Type;
 
 /**
+ * This object represents one row of the high scores table for a game.
+ */
+export const GameHighScore = Schema.Struct({
+	/**
+	 * Position in high score table for the game
+	 */
+	position: Schema.Int.pipe(Schema.annotate({ description: "Position in high score table for the game" })),
+	/**
+	 * User
+	 */
+	user: User.pipe(Schema.annotate({ description: "User" })),
+	/**
+	 * Score
+	 */
+	score: Schema.Int.pipe(Schema.annotate({ description: "Score" })),
+}).pipe(Schema.annotate({ description: "This object represents one row of the high scores table for a game." }));
+export type GameHighScore = typeof GameHighScore.Type;
+
+/**
  * This object represent a list of gifts.
  */
 export const Gifts = Schema.Struct({
@@ -7723,33 +8810,2070 @@ export const Gifts = Schema.Struct({
 export type Gifts = typeof Gifts.Type;
 
 /**
- * This object describes a message that was deleted or is otherwise inaccessible
- * to the bot.
+ * This object represents an incoming inline query. When the user sends an empty
+ * query, your bot could return some default or trending results.
  */
-export const InaccessibleMessage = Schema.Struct({
+export const InlineQuery = Schema.Struct({
 	/**
-	 * Chat the message belonged to
+	 * Unique identifier for this query
 	 */
-	chat: Chat.pipe(Schema.annotate({ description: "Chat the message belonged to" })),
+	id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier for this query" })),
 	/**
-	 * Unique message identifier inside the chat
+	 * Sender
 	 */
-	message_id: Schema.Int.pipe(Schema.annotate({ description: "Unique message identifier inside the chat" })),
+	from: User.pipe(Schema.annotate({ description: "Sender" })),
 	/**
-	 * Always 0. The field can be used to differentiate regular and inaccessible
-	 * messages.
+	 * Text of the query (up to 256 characters)
 	 */
-	date: Schema.Int.pipe(
+	query: Schema.String.pipe(Schema.annotate({ description: "Text of the query (up to 256 characters)" })),
+	/**
+	 * Offset of the results to be returned, can be controlled by the bot
+	 */
+	offset: Schema.String.pipe(
+		Schema.annotate({ description: "Offset of the results to be returned, can be controlled by the bot" }),
+	),
+	/**
+	 * Type of the chat from which the inline query was sent. Can be either
+	 * “sender” for a private chat with the inline query sender, “private”,
+	 * “group”, “supergroup”, or “channel”. The chat type should be always known
+	 * for requests sent from official clients and most third-party clients, unless
+	 * the request was sent from a secret chat.
+	 */
+	chat_type: Schema.optional(Schema.String).pipe(
 		Schema.annotate({
-			description: "Always 0. The field can be used to differentiate regular and inaccessible messages.",
+			description:
+				"Type of the chat from which the inline query was sent. Can be either “sender” for a private chat with the inline query sender, “private”, “group”, “supergroup”, or “channel”. The chat type should be always known for requests sent from official clients and most third-party clients, unless the request was sent from a secret chat.",
+		}),
+	),
+	/**
+	 * Sender location, only for bots that request user location
+	 */
+	location: Schema.optional(Location).pipe(
+		Schema.annotate({ description: "Sender location, only for bots that request user location" }),
+	),
+}).pipe(
+	Schema.annotate({
+		description:
+			"This object represents an incoming inline query. When the user sends an empty query, your bot could return some default or trending results.",
+	}),
+);
+export type InlineQuery = typeof InlineQuery.Type;
+
+/**
+ * Represents the content of a contact message to be sent as the result of an
+ * inline query.
+ */
+export const InputContactMessageContent = Schema.Struct({
+	/**
+	 * Contact's phone number
+	 */
+	phone_number: Schema.String.pipe(Schema.annotate({ description: "Contact's phone number" })),
+	/**
+	 * Contact's first name
+	 */
+	first_name: Schema.String.pipe(Schema.annotate({ description: "Contact's first name" })),
+	/**
+	 * Contact's last name
+	 */
+	last_name: Schema.optional(Schema.String).pipe(Schema.annotate({ description: "Contact's last name" })),
+	/**
+	 * Additional data about the contact in the form of a vCard, 0-2048 bytes
+	 */
+	vcard: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Additional data about the contact in the form of a vCard, 0-2048 bytes" }),
+	),
+}).pipe(
+	Schema.annotate({
+		description: "Represents the content of a contact message to be sent as the result of an inline query.",
+	}),
+);
+export type InputContactMessageContent = typeof InputContactMessageContent.Type;
+
+/**
+ * This object represents a portion of the price for goods or services.
+ */
+export const LabeledPrice = Schema.Struct({
+	/**
+	 * Portion label
+	 */
+	label: Schema.String.pipe(Schema.annotate({ description: "Portion label" })),
+	/**
+	 * Price of the product in the smallest units of the currency (integer, not
+	 * float/double). For example, for a price of US$ 1.45 pass amount = 145. See
+	 * the exp parameter in currencies.json, it shows the number of digits past the
+	 * decimal point for each currency (2 for the majority of currencies).
+	 */
+	amount: Schema.Int.pipe(
+		Schema.annotate({
+			description:
+				"Price of the product in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).",
+		}),
+	),
+}).pipe(Schema.annotate({ description: "This object represents a portion of the price for goods or services." }));
+export type LabeledPrice = typeof LabeledPrice.Type;
+
+/**
+ * Represents the content of an invoice message to be sent as the result of an
+ * inline query.
+ */
+export const InputInvoiceMessageContent = Schema.Struct({
+	/**
+	 * Product name, 1-32 characters
+	 */
+	title: Schema.String.pipe(Schema.annotate({ description: "Product name, 1-32 characters" })),
+	/**
+	 * Product description, 1-255 characters
+	 */
+	description: Schema.String.pipe(Schema.annotate({ description: "Product description, 1-255 characters" })),
+	/**
+	 * Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the
+	 * user, use it for your internal processes.
+	 */
+	payload: Schema.String.pipe(
+		Schema.annotate({
+			description:
+				"Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use it for your internal processes.",
+		}),
+	),
+	/**
+	 * Payment provider token, obtained via @BotFather. Pass an empty string for
+	 * payments in Telegram Stars.
+	 */
+	provider_token: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description:
+				"Payment provider token, obtained via @BotFather. Pass an empty string for payments in Telegram Stars.",
+		}),
+	),
+	/**
+	 * Three-letter ISO 4217 currency code, see more on currencies. Pass “XTR” for
+	 * payments in Telegram Stars.
+	 */
+	currency: Schema.String.pipe(
+		Schema.annotate({
+			description:
+				"Three-letter ISO 4217 currency code, see more on currencies. Pass “XTR” for payments in Telegram Stars.",
+		}),
+	),
+	/**
+	 * Price breakdown, a JSON-serialized list of components (e.g. product price,
+	 * tax, discount, delivery cost, delivery tax, bonus, etc.). Must contain
+	 * exactly one item for payments in Telegram Stars.
+	 */
+	prices: Schema.Array(LabeledPrice).pipe(
+		Schema.annotate({
+			description:
+				"Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.). Must contain exactly one item for payments in Telegram Stars.",
+		}),
+	),
+	/**
+	 * The maximum accepted amount for tips in the smallest units of the currency
+	 * (integer, not float/double). For example, for a maximum tip of US$ 1.45 pass
+	 * max_tip_amount = 145. See the exp parameter in currencies.json, it shows the
+	 * number of digits past the decimal point for each currency (2 for the
+	 * majority of currencies). Defaults to 0. Not supported for payments in
+	 * Telegram Stars.
+	 */
+	max_tip_amount: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0. Not supported for payments in Telegram Stars.",
+		}),
+	),
+	/**
+	 * A JSON-serialized array of suggested amounts of tip in the smallest units of
+	 * the currency (integer, not float/double). At most 4 suggested tip amounts
+	 * can be specified. The suggested tip amounts must be positive, passed in a
+	 * strictly increased order and must not exceed max_tip_amount.
+	 */
+	suggested_tip_amounts: Schema.optional(Schema.Array(Schema.Int)).pipe(
+		Schema.annotate({
+			description:
+				"A JSON-serialized array of suggested amounts of tip in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount.",
+		}),
+	),
+	/**
+	 * A JSON-serialized object for data about the invoice, which will be shared
+	 * with the payment provider. A detailed description of the required fields
+	 * should be provided by the payment provider.
+	 */
+	provider_data: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description:
+				"A JSON-serialized object for data about the invoice, which will be shared with the payment provider. A detailed description of the required fields should be provided by the payment provider.",
+		}),
+	),
+	/**
+	 * URL of the product photo for the invoice. Can be a photo of the goods or a
+	 * marketing image for a service.
+	 */
+	photo_url: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description:
+				"URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service.",
+		}),
+	),
+	/**
+	 * Photo size in bytes
+	 */
+	photo_size: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Photo size in bytes" })),
+	/**
+	 * Photo width
+	 */
+	photo_width: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Photo width" })),
+	/**
+	 * Photo height
+	 */
+	photo_height: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Photo height" })),
+	/**
+	 * Pass True if you require the user's full name to complete the order. Ignored
+	 * for payments in Telegram Stars.
+	 */
+	need_name: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({
+			description:
+				"Pass True if you require the user's full name to complete the order. Ignored for payments in Telegram Stars.",
+		}),
+	),
+	/**
+	 * Pass True if you require the user's phone number to complete the order.
+	 * Ignored for payments in Telegram Stars.
+	 */
+	need_phone_number: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({
+			description:
+				"Pass True if you require the user's phone number to complete the order. Ignored for payments in Telegram Stars.",
+		}),
+	),
+	/**
+	 * Pass True if you require the user's email address to complete the order.
+	 * Ignored for payments in Telegram Stars.
+	 */
+	need_email: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({
+			description:
+				"Pass True if you require the user's email address to complete the order. Ignored for payments in Telegram Stars.",
+		}),
+	),
+	/**
+	 * Pass True if you require the user's shipping address to complete the order.
+	 * Ignored for payments in Telegram Stars.
+	 */
+	need_shipping_address: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({
+			description:
+				"Pass True if you require the user's shipping address to complete the order. Ignored for payments in Telegram Stars.",
+		}),
+	),
+	/**
+	 * Pass True if the user's phone number should be sent to the provider. Ignored
+	 * for payments in Telegram Stars.
+	 */
+	send_phone_number_to_provider: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({
+			description:
+				"Pass True if the user's phone number should be sent to the provider. Ignored for payments in Telegram Stars.",
+		}),
+	),
+	/**
+	 * Pass True if the user's email address should be sent to the provider.
+	 * Ignored for payments in Telegram Stars.
+	 */
+	send_email_to_provider: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({
+			description:
+				"Pass True if the user's email address should be sent to the provider. Ignored for payments in Telegram Stars.",
+		}),
+	),
+	/**
+	 * Pass True if the final price depends on the shipping method. Ignored for
+	 * payments in Telegram Stars.
+	 */
+	is_flexible: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({
+			description:
+				"Pass True if the final price depends on the shipping method. Ignored for payments in Telegram Stars.",
 		}),
 	),
 }).pipe(
 	Schema.annotate({
-		description: "This object describes a message that was deleted or is otherwise inaccessible to the bot.",
+		description: "Represents the content of an invoice message to be sent as the result of an inline query.",
 	}),
 );
-export type InaccessibleMessage = typeof InaccessibleMessage.Type;
+export type InputInvoiceMessageContent = typeof InputInvoiceMessageContent.Type;
+
+/**
+ * Represents the content of a location message to be sent as the result of an
+ * inline query.
+ */
+export const InputLocationMessageContent = Schema.Struct({
+	/**
+	 * Latitude of the location in degrees
+	 */
+	latitude: Schema.Number.pipe(Schema.annotate({ description: "Latitude of the location in degrees" })),
+	/**
+	 * Longitude of the location in degrees
+	 */
+	longitude: Schema.Number.pipe(Schema.annotate({ description: "Longitude of the location in degrees" })),
+	/**
+	 * The radius of uncertainty for the location, measured in meters; 0-1500
+	 */
+	horizontal_accuracy: Schema.optional(Schema.Number).pipe(
+		Schema.annotate({ description: "The radius of uncertainty for the location, measured in meters; 0-1500" }),
+	),
+	/**
+	 * Period in seconds during which the location can be updated, must be between
+	 * 60 and 86400, or 0x7FFFFFFF for live locations that can be edited
+	 * indefinitely
+	 */
+	live_period: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"Period in seconds during which the location can be updated, must be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely",
+		}),
+	),
+	/**
+	 * For live locations, a direction in which the user is moving, in degrees.
+	 * Must be between 1 and 360 if specified.
+	 */
+	heading: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.",
+		}),
+	),
+	/**
+	 * For live locations, a maximum distance for proximity alerts about
+	 * approaching another chat member, in meters. Must be between 1 and 100000 if
+	 * specified.
+	 */
+	proximity_alert_radius: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.",
+		}),
+	),
+}).pipe(
+	Schema.annotate({
+		description: "Represents the content of a location message to be sent as the result of an inline query.",
+	}),
+);
+export type InputLocationMessageContent = typeof InputLocationMessageContent.Type;
+
+/**
+ * Represents the content of a text message to be sent as the result of an
+ * inline query.
+ */
+export const InputTextMessageContent = Schema.Struct({
+	/**
+	 * Text of the message to be sent, 1-4096 characters
+	 */
+	message_text: Schema.String.pipe(
+		Schema.annotate({ description: "Text of the message to be sent, 1-4096 characters" }),
+	),
+	/**
+	 * Mode for parsing entities in the message text. See formatting options for
+	 * more details.
+	 */
+	parse_mode: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Mode for parsing entities in the message text. See formatting options for more details.",
+		}),
+	),
+	/**
+	 * List of special entities that appear in message text, which can be specified
+	 * instead of parse_mode
+	 */
+	entities: Schema.optional(Schema.Array(MessageEntity)).pipe(
+		Schema.annotate({
+			description: "List of special entities that appear in message text, which can be specified instead of parse_mode",
+		}),
+	),
+	/**
+	 * Link preview generation options for the message
+	 */
+	link_preview_options: Schema.optional(LinkPreviewOptions).pipe(
+		Schema.annotate({ description: "Link preview generation options for the message" }),
+	),
+}).pipe(
+	Schema.annotate({
+		description: "Represents the content of a text message to be sent as the result of an inline query.",
+	}),
+);
+export type InputTextMessageContent = typeof InputTextMessageContent.Type;
+
+/**
+ * Represents the content of a venue message to be sent as the result of an
+ * inline query.
+ */
+export const InputVenueMessageContent = Schema.Struct({
+	/**
+	 * Latitude of the venue in degrees
+	 */
+	latitude: Schema.Number.pipe(Schema.annotate({ description: "Latitude of the venue in degrees" })),
+	/**
+	 * Longitude of the venue in degrees
+	 */
+	longitude: Schema.Number.pipe(Schema.annotate({ description: "Longitude of the venue in degrees" })),
+	/**
+	 * Name of the venue
+	 */
+	title: Schema.String.pipe(Schema.annotate({ description: "Name of the venue" })),
+	/**
+	 * Address of the venue
+	 */
+	address: Schema.String.pipe(Schema.annotate({ description: "Address of the venue" })),
+	/**
+	 * Foursquare identifier of the venue, if known
+	 */
+	foursquare_id: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Foursquare identifier of the venue, if known" }),
+	),
+	/**
+	 * Foursquare type of the venue, if known. (For example,
+	 * “arts_entertainment/default”, “arts_entertainment/aquarium” or
+	 * “food/icecream”.)
+	 */
+	foursquare_type: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description:
+				"Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)",
+		}),
+	),
+	/**
+	 * Google Places identifier of the venue
+	 */
+	google_place_id: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Google Places identifier of the venue" }),
+	),
+	/**
+	 * Google Places type of the venue. (See supported types.)
+	 */
+	google_place_type: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Google Places type of the venue. (See supported types.)" }),
+	),
+}).pipe(
+	Schema.annotate({
+		description: "Represents the content of a venue message to be sent as the result of an inline query.",
+	}),
+);
+export type InputVenueMessageContent = typeof InputVenueMessageContent.Type;
+
+/**
+ * This object represents the content of a message to be sent as a result of an
+ * inline query. Telegram clients currently support the following 5 types:
+ */
+export const InputMessageContent = Schema.Union([
+	InputTextMessageContent,
+	InputLocationMessageContent,
+	InputVenueMessageContent,
+	InputContactMessageContent,
+	InputInvoiceMessageContent,
+]).pipe(
+	Schema.annotate({
+		description:
+			"This object represents the content of a message to be sent as a result of an inline query. Telegram clients currently support the following 5 types:",
+	}),
+);
+export type InputMessageContent = typeof InputMessageContent.Type;
+
+/**
+ * Represents a link to an article or web page.
+ */
+export const InlineQueryResultArticle = Schema.Struct({
+	/**
+	 * Type of the result, must be article
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the result, must be article" })),
+	/**
+	 * Unique identifier for this result, 1-64 Bytes
+	 */
+	id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier for this result, 1-64 Bytes" })),
+	/**
+	 * Title of the result
+	 */
+	title: Schema.String.pipe(Schema.annotate({ description: "Title of the result" })),
+	/**
+	 * Content of the message to be sent
+	 */
+	input_message_content: InputMessageContent.pipe(
+		Schema.annotate({ description: "Content of the message to be sent" }),
+	),
+	/**
+	 * Inline keyboard attached to the message
+	 */
+	reply_markup: Schema.optional(InlineKeyboardMarkup).pipe(
+		Schema.annotate({ description: "Inline keyboard attached to the message" }),
+	),
+	/**
+	 * URL of the result
+	 */
+	url: Schema.optional(Schema.String).pipe(Schema.annotate({ description: "URL of the result" })),
+	/**
+	 * Short description of the result
+	 */
+	description: Schema.optional(Schema.String).pipe(Schema.annotate({ description: "Short description of the result" })),
+	/**
+	 * Url of the thumbnail for the result
+	 */
+	thumbnail_url: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Url of the thumbnail for the result" }),
+	),
+	/**
+	 * Thumbnail width
+	 */
+	thumbnail_width: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Thumbnail width" })),
+	/**
+	 * Thumbnail height
+	 */
+	thumbnail_height: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Thumbnail height" })),
+}).pipe(Schema.annotate({ description: "Represents a link to an article or web page." }));
+export type InlineQueryResultArticle = typeof InlineQueryResultArticle.Type;
+
+/**
+ * Represents a link to an MP3 audio file. By default, this audio file will be
+ * sent by the user. Alternatively, you can use input_message_content to send a
+ * message with the specified content instead of the audio.
+ */
+export const InlineQueryResultAudio = Schema.Struct({
+	/**
+	 * Type of the result, must be audio
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the result, must be audio" })),
+	/**
+	 * Unique identifier for this result, 1-64 bytes
+	 */
+	id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier for this result, 1-64 bytes" })),
+	/**
+	 * A valid URL for the audio file
+	 */
+	audio_url: Schema.String.pipe(Schema.annotate({ description: "A valid URL for the audio file" })),
+	/**
+	 * Title
+	 */
+	title: Schema.String.pipe(Schema.annotate({ description: "Title" })),
+	/**
+	 * Caption, 0-1024 characters after entities parsing
+	 */
+	caption: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Caption, 0-1024 characters after entities parsing" }),
+	),
+	/**
+	 * Mode for parsing entities in the audio caption. See formatting options for
+	 * more details.
+	 */
+	parse_mode: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Mode for parsing entities in the audio caption. See formatting options for more details.",
+		}),
+	),
+	/**
+	 * List of special entities that appear in the caption, which can be specified
+	 * instead of parse_mode
+	 */
+	caption_entities: Schema.optional(Schema.Array(MessageEntity)).pipe(
+		Schema.annotate({
+			description: "List of special entities that appear in the caption, which can be specified instead of parse_mode",
+		}),
+	),
+	/**
+	 * Performer
+	 */
+	performer: Schema.optional(Schema.String).pipe(Schema.annotate({ description: "Performer" })),
+	/**
+	 * Audio duration in seconds
+	 */
+	audio_duration: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Audio duration in seconds" })),
+	/**
+	 * Inline keyboard attached to the message
+	 */
+	reply_markup: Schema.optional(InlineKeyboardMarkup).pipe(
+		Schema.annotate({ description: "Inline keyboard attached to the message" }),
+	),
+	/**
+	 * Content of the message to be sent instead of the audio
+	 */
+	input_message_content: Schema.optional(InputMessageContent).pipe(
+		Schema.annotate({ description: "Content of the message to be sent instead of the audio" }),
+	),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Represents a link to an MP3 audio file. By default, this audio file will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the audio.",
+	}),
+);
+export type InlineQueryResultAudio = typeof InlineQueryResultAudio.Type;
+
+/**
+ * Represents a link to an MP3 audio file stored on the Telegram servers. By
+ * default, this audio file will be sent by the user. Alternatively, you can use
+ * input_message_content to send a message with the specified content instead of
+ * the audio.
+ */
+export const InlineQueryResultCachedAudio = Schema.Struct({
+	/**
+	 * Type of the result, must be audio
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the result, must be audio" })),
+	/**
+	 * Unique identifier for this result, 1-64 bytes
+	 */
+	id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier for this result, 1-64 bytes" })),
+	/**
+	 * A valid file identifier for the audio file
+	 */
+	audio_file_id: Schema.String.pipe(Schema.annotate({ description: "A valid file identifier for the audio file" })),
+	/**
+	 * Caption, 0-1024 characters after entities parsing
+	 */
+	caption: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Caption, 0-1024 characters after entities parsing" }),
+	),
+	/**
+	 * Mode for parsing entities in the audio caption. See formatting options for
+	 * more details.
+	 */
+	parse_mode: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Mode for parsing entities in the audio caption. See formatting options for more details.",
+		}),
+	),
+	/**
+	 * List of special entities that appear in the caption, which can be specified
+	 * instead of parse_mode
+	 */
+	caption_entities: Schema.optional(Schema.Array(MessageEntity)).pipe(
+		Schema.annotate({
+			description: "List of special entities that appear in the caption, which can be specified instead of parse_mode",
+		}),
+	),
+	/**
+	 * Inline keyboard attached to the message
+	 */
+	reply_markup: Schema.optional(InlineKeyboardMarkup).pipe(
+		Schema.annotate({ description: "Inline keyboard attached to the message" }),
+	),
+	/**
+	 * Content of the message to be sent instead of the audio
+	 */
+	input_message_content: Schema.optional(InputMessageContent).pipe(
+		Schema.annotate({ description: "Content of the message to be sent instead of the audio" }),
+	),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Represents a link to an MP3 audio file stored on the Telegram servers. By default, this audio file will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the audio.",
+	}),
+);
+export type InlineQueryResultCachedAudio = typeof InlineQueryResultCachedAudio.Type;
+
+/**
+ * Represents a link to a file stored on the Telegram servers. By default, this
+ * file will be sent by the user with an optional caption. Alternatively, you
+ * can use input_message_content to send a message with the specified content
+ * instead of the file.
+ */
+export const InlineQueryResultCachedDocument = Schema.Struct({
+	/**
+	 * Type of the result, must be document
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the result, must be document" })),
+	/**
+	 * Unique identifier for this result, 1-64 bytes
+	 */
+	id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier for this result, 1-64 bytes" })),
+	/**
+	 * Title for the result
+	 */
+	title: Schema.String.pipe(Schema.annotate({ description: "Title for the result" })),
+	/**
+	 * A valid file identifier for the file
+	 */
+	document_file_id: Schema.String.pipe(Schema.annotate({ description: "A valid file identifier for the file" })),
+	/**
+	 * Short description of the result
+	 */
+	description: Schema.optional(Schema.String).pipe(Schema.annotate({ description: "Short description of the result" })),
+	/**
+	 * Caption of the document to be sent, 0-1024 characters after entities parsing
+	 */
+	caption: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Caption of the document to be sent, 0-1024 characters after entities parsing" }),
+	),
+	/**
+	 * Mode for parsing entities in the document caption. See formatting options
+	 * for more details.
+	 */
+	parse_mode: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Mode for parsing entities in the document caption. See formatting options for more details.",
+		}),
+	),
+	/**
+	 * List of special entities that appear in the caption, which can be specified
+	 * instead of parse_mode
+	 */
+	caption_entities: Schema.optional(Schema.Array(MessageEntity)).pipe(
+		Schema.annotate({
+			description: "List of special entities that appear in the caption, which can be specified instead of parse_mode",
+		}),
+	),
+	/**
+	 * Inline keyboard attached to the message
+	 */
+	reply_markup: Schema.optional(InlineKeyboardMarkup).pipe(
+		Schema.annotate({ description: "Inline keyboard attached to the message" }),
+	),
+	/**
+	 * Content of the message to be sent instead of the file
+	 */
+	input_message_content: Schema.optional(InputMessageContent).pipe(
+		Schema.annotate({ description: "Content of the message to be sent instead of the file" }),
+	),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Represents a link to a file stored on the Telegram servers. By default, this file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the file.",
+	}),
+);
+export type InlineQueryResultCachedDocument = typeof InlineQueryResultCachedDocument.Type;
+
+/**
+ * Represents a link to an animated GIF file stored on the Telegram servers. By
+ * default, this animated GIF file will be sent by the user with an optional
+ * caption. Alternatively, you can use input_message_content to send a message
+ * with specified content instead of the animation.
+ */
+export const InlineQueryResultCachedGif = Schema.Struct({
+	/**
+	 * Type of the result, must be gif
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the result, must be gif" })),
+	/**
+	 * Unique identifier for this result, 1-64 bytes
+	 */
+	id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier for this result, 1-64 bytes" })),
+	/**
+	 * A valid file identifier for the GIF file
+	 */
+	gif_file_id: Schema.String.pipe(Schema.annotate({ description: "A valid file identifier for the GIF file" })),
+	/**
+	 * Title for the result
+	 */
+	title: Schema.optional(Schema.String).pipe(Schema.annotate({ description: "Title for the result" })),
+	/**
+	 * Caption of the GIF file to be sent, 0-1024 characters after entities parsing
+	 */
+	caption: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Caption of the GIF file to be sent, 0-1024 characters after entities parsing" }),
+	),
+	/**
+	 * Mode for parsing entities in the caption. See formatting options for more
+	 * details.
+	 */
+	parse_mode: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Mode for parsing entities in the caption. See formatting options for more details.",
+		}),
+	),
+	/**
+	 * List of special entities that appear in the caption, which can be specified
+	 * instead of parse_mode
+	 */
+	caption_entities: Schema.optional(Schema.Array(MessageEntity)).pipe(
+		Schema.annotate({
+			description: "List of special entities that appear in the caption, which can be specified instead of parse_mode",
+		}),
+	),
+	/**
+	 * Pass True, if the caption must be shown above the message media
+	 */
+	show_caption_above_media: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Pass True, if the caption must be shown above the message media" }),
+	),
+	/**
+	 * Inline keyboard attached to the message
+	 */
+	reply_markup: Schema.optional(InlineKeyboardMarkup).pipe(
+		Schema.annotate({ description: "Inline keyboard attached to the message" }),
+	),
+	/**
+	 * Content of the message to be sent instead of the GIF animation
+	 */
+	input_message_content: Schema.optional(InputMessageContent).pipe(
+		Schema.annotate({ description: "Content of the message to be sent instead of the GIF animation" }),
+	),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Represents a link to an animated GIF file stored on the Telegram servers. By default, this animated GIF file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with specified content instead of the animation.",
+	}),
+);
+export type InlineQueryResultCachedGif = typeof InlineQueryResultCachedGif.Type;
+
+/**
+ * Represents a link to a video animation (H.264/MPEG-4 AVC video without sound)
+ * stored on the Telegram servers. By default, this animated MPEG-4 file will be
+ * sent by the user with an optional caption. Alternatively, you can use
+ * input_message_content to send a message with the specified content instead of
+ * the animation.
+ */
+export const InlineQueryResultCachedMpeg4Gif = Schema.Struct({
+	/**
+	 * Type of the result, must be mpeg4_gif
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the result, must be mpeg4_gif" })),
+	/**
+	 * Unique identifier for this result, 1-64 bytes
+	 */
+	id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier for this result, 1-64 bytes" })),
+	/**
+	 * A valid file identifier for the MPEG4 file
+	 */
+	mpeg4_file_id: Schema.String.pipe(Schema.annotate({ description: "A valid file identifier for the MPEG4 file" })),
+	/**
+	 * Title for the result
+	 */
+	title: Schema.optional(Schema.String).pipe(Schema.annotate({ description: "Title for the result" })),
+	/**
+	 * Caption of the MPEG-4 file to be sent, 0-1024 characters after entities
+	 * parsing
+	 */
+	caption: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Caption of the MPEG-4 file to be sent, 0-1024 characters after entities parsing" }),
+	),
+	/**
+	 * Mode for parsing entities in the caption. See formatting options for more
+	 * details.
+	 */
+	parse_mode: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Mode for parsing entities in the caption. See formatting options for more details.",
+		}),
+	),
+	/**
+	 * List of special entities that appear in the caption, which can be specified
+	 * instead of parse_mode
+	 */
+	caption_entities: Schema.optional(Schema.Array(MessageEntity)).pipe(
+		Schema.annotate({
+			description: "List of special entities that appear in the caption, which can be specified instead of parse_mode",
+		}),
+	),
+	/**
+	 * Pass True, if the caption must be shown above the message media
+	 */
+	show_caption_above_media: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Pass True, if the caption must be shown above the message media" }),
+	),
+	/**
+	 * Inline keyboard attached to the message
+	 */
+	reply_markup: Schema.optional(InlineKeyboardMarkup).pipe(
+		Schema.annotate({ description: "Inline keyboard attached to the message" }),
+	),
+	/**
+	 * Content of the message to be sent instead of the video animation
+	 */
+	input_message_content: Schema.optional(InputMessageContent).pipe(
+		Schema.annotate({ description: "Content of the message to be sent instead of the video animation" }),
+	),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Represents a link to a video animation (H.264/MPEG-4 AVC video without sound) stored on the Telegram servers. By default, this animated MPEG-4 file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the animation.",
+	}),
+);
+export type InlineQueryResultCachedMpeg4Gif = typeof InlineQueryResultCachedMpeg4Gif.Type;
+
+/**
+ * Represents a link to a photo stored on the Telegram servers. By default, this
+ * photo will be sent by the user with an optional caption. Alternatively, you
+ * can use input_message_content to send a message with the specified content
+ * instead of the photo.
+ */
+export const InlineQueryResultCachedPhoto = Schema.Struct({
+	/**
+	 * Type of the result, must be photo
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the result, must be photo" })),
+	/**
+	 * Unique identifier for this result, 1-64 bytes
+	 */
+	id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier for this result, 1-64 bytes" })),
+	/**
+	 * A valid file identifier of the photo
+	 */
+	photo_file_id: Schema.String.pipe(Schema.annotate({ description: "A valid file identifier of the photo" })),
+	/**
+	 * Title for the result
+	 */
+	title: Schema.optional(Schema.String).pipe(Schema.annotate({ description: "Title for the result" })),
+	/**
+	 * Short description of the result
+	 */
+	description: Schema.optional(Schema.String).pipe(Schema.annotate({ description: "Short description of the result" })),
+	/**
+	 * Caption of the photo to be sent, 0-1024 characters after entities parsing
+	 */
+	caption: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Caption of the photo to be sent, 0-1024 characters after entities parsing" }),
+	),
+	/**
+	 * Mode for parsing entities in the photo caption. See formatting options for
+	 * more details.
+	 */
+	parse_mode: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Mode for parsing entities in the photo caption. See formatting options for more details.",
+		}),
+	),
+	/**
+	 * List of special entities that appear in the caption, which can be specified
+	 * instead of parse_mode
+	 */
+	caption_entities: Schema.optional(Schema.Array(MessageEntity)).pipe(
+		Schema.annotate({
+			description: "List of special entities that appear in the caption, which can be specified instead of parse_mode",
+		}),
+	),
+	/**
+	 * Pass True, if the caption must be shown above the message media
+	 */
+	show_caption_above_media: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Pass True, if the caption must be shown above the message media" }),
+	),
+	/**
+	 * Inline keyboard attached to the message
+	 */
+	reply_markup: Schema.optional(InlineKeyboardMarkup).pipe(
+		Schema.annotate({ description: "Inline keyboard attached to the message" }),
+	),
+	/**
+	 * Content of the message to be sent instead of the photo
+	 */
+	input_message_content: Schema.optional(InputMessageContent).pipe(
+		Schema.annotate({ description: "Content of the message to be sent instead of the photo" }),
+	),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Represents a link to a photo stored on the Telegram servers. By default, this photo will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the photo.",
+	}),
+);
+export type InlineQueryResultCachedPhoto = typeof InlineQueryResultCachedPhoto.Type;
+
+/**
+ * Represents a link to a sticker stored on the Telegram servers. By default,
+ * this sticker will be sent by the user. Alternatively, you can use
+ * input_message_content to send a message with the specified content instead of
+ * the sticker.
+ */
+export const InlineQueryResultCachedSticker = Schema.Struct({
+	/**
+	 * Type of the result, must be sticker
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the result, must be sticker" })),
+	/**
+	 * Unique identifier for this result, 1-64 bytes
+	 */
+	id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier for this result, 1-64 bytes" })),
+	/**
+	 * A valid file identifier of the sticker
+	 */
+	sticker_file_id: Schema.String.pipe(Schema.annotate({ description: "A valid file identifier of the sticker" })),
+	/**
+	 * Inline keyboard attached to the message
+	 */
+	reply_markup: Schema.optional(InlineKeyboardMarkup).pipe(
+		Schema.annotate({ description: "Inline keyboard attached to the message" }),
+	),
+	/**
+	 * Content of the message to be sent instead of the sticker
+	 */
+	input_message_content: Schema.optional(InputMessageContent).pipe(
+		Schema.annotate({ description: "Content of the message to be sent instead of the sticker" }),
+	),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Represents a link to a sticker stored on the Telegram servers. By default, this sticker will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the sticker.",
+	}),
+);
+export type InlineQueryResultCachedSticker = typeof InlineQueryResultCachedSticker.Type;
+
+/**
+ * Represents a link to a video file stored on the Telegram servers. By default,
+ * this video file will be sent by the user with an optional caption.
+ * Alternatively, you can use input_message_content to send a message with the
+ * specified content instead of the video.
+ */
+export const InlineQueryResultCachedVideo = Schema.Struct({
+	/**
+	 * Type of the result, must be video
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the result, must be video" })),
+	/**
+	 * Unique identifier for this result, 1-64 bytes
+	 */
+	id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier for this result, 1-64 bytes" })),
+	/**
+	 * A valid file identifier for the video file
+	 */
+	video_file_id: Schema.String.pipe(Schema.annotate({ description: "A valid file identifier for the video file" })),
+	/**
+	 * Title for the result
+	 */
+	title: Schema.String.pipe(Schema.annotate({ description: "Title for the result" })),
+	/**
+	 * Short description of the result
+	 */
+	description: Schema.optional(Schema.String).pipe(Schema.annotate({ description: "Short description of the result" })),
+	/**
+	 * Caption of the video to be sent, 0-1024 characters after entities parsing
+	 */
+	caption: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Caption of the video to be sent, 0-1024 characters after entities parsing" }),
+	),
+	/**
+	 * Mode for parsing entities in the video caption. See formatting options for
+	 * more details.
+	 */
+	parse_mode: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Mode for parsing entities in the video caption. See formatting options for more details.",
+		}),
+	),
+	/**
+	 * List of special entities that appear in the caption, which can be specified
+	 * instead of parse_mode
+	 */
+	caption_entities: Schema.optional(Schema.Array(MessageEntity)).pipe(
+		Schema.annotate({
+			description: "List of special entities that appear in the caption, which can be specified instead of parse_mode",
+		}),
+	),
+	/**
+	 * Pass True, if the caption must be shown above the message media
+	 */
+	show_caption_above_media: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Pass True, if the caption must be shown above the message media" }),
+	),
+	/**
+	 * Inline keyboard attached to the message
+	 */
+	reply_markup: Schema.optional(InlineKeyboardMarkup).pipe(
+		Schema.annotate({ description: "Inline keyboard attached to the message" }),
+	),
+	/**
+	 * Content of the message to be sent instead of the video
+	 */
+	input_message_content: Schema.optional(InputMessageContent).pipe(
+		Schema.annotate({ description: "Content of the message to be sent instead of the video" }),
+	),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Represents a link to a video file stored on the Telegram servers. By default, this video file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the video.",
+	}),
+);
+export type InlineQueryResultCachedVideo = typeof InlineQueryResultCachedVideo.Type;
+
+/**
+ * Represents a link to a voice message stored on the Telegram servers. By
+ * default, this voice message will be sent by the user. Alternatively, you can
+ * use input_message_content to send a message with the specified content
+ * instead of the voice message.
+ */
+export const InlineQueryResultCachedVoice = Schema.Struct({
+	/**
+	 * Type of the result, must be voice
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the result, must be voice" })),
+	/**
+	 * Unique identifier for this result, 1-64 bytes
+	 */
+	id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier for this result, 1-64 bytes" })),
+	/**
+	 * A valid file identifier for the voice message
+	 */
+	voice_file_id: Schema.String.pipe(Schema.annotate({ description: "A valid file identifier for the voice message" })),
+	/**
+	 * Voice message title
+	 */
+	title: Schema.String.pipe(Schema.annotate({ description: "Voice message title" })),
+	/**
+	 * Caption, 0-1024 characters after entities parsing
+	 */
+	caption: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Caption, 0-1024 characters after entities parsing" }),
+	),
+	/**
+	 * Mode for parsing entities in the voice message caption. See formatting
+	 * options for more details.
+	 */
+	parse_mode: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Mode for parsing entities in the voice message caption. See formatting options for more details.",
+		}),
+	),
+	/**
+	 * List of special entities that appear in the caption, which can be specified
+	 * instead of parse_mode
+	 */
+	caption_entities: Schema.optional(Schema.Array(MessageEntity)).pipe(
+		Schema.annotate({
+			description: "List of special entities that appear in the caption, which can be specified instead of parse_mode",
+		}),
+	),
+	/**
+	 * Inline keyboard attached to the message
+	 */
+	reply_markup: Schema.optional(InlineKeyboardMarkup).pipe(
+		Schema.annotate({ description: "Inline keyboard attached to the message" }),
+	),
+	/**
+	 * Content of the message to be sent instead of the voice message
+	 */
+	input_message_content: Schema.optional(InputMessageContent).pipe(
+		Schema.annotate({ description: "Content of the message to be sent instead of the voice message" }),
+	),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Represents a link to a voice message stored on the Telegram servers. By default, this voice message will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the voice message.",
+	}),
+);
+export type InlineQueryResultCachedVoice = typeof InlineQueryResultCachedVoice.Type;
+
+/**
+ * Represents a contact with a phone number. By default, this contact will be
+ * sent by the user. Alternatively, you can use input_message_content to send a
+ * message with the specified content instead of the contact.
+ */
+export const InlineQueryResultContact = Schema.Struct({
+	/**
+	 * Type of the result, must be contact
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the result, must be contact" })),
+	/**
+	 * Unique identifier for this result, 1-64 Bytes
+	 */
+	id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier for this result, 1-64 Bytes" })),
+	/**
+	 * Contact's phone number
+	 */
+	phone_number: Schema.String.pipe(Schema.annotate({ description: "Contact's phone number" })),
+	/**
+	 * Contact's first name
+	 */
+	first_name: Schema.String.pipe(Schema.annotate({ description: "Contact's first name" })),
+	/**
+	 * Contact's last name
+	 */
+	last_name: Schema.optional(Schema.String).pipe(Schema.annotate({ description: "Contact's last name" })),
+	/**
+	 * Additional data about the contact in the form of a vCard, 0-2048 bytes
+	 */
+	vcard: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Additional data about the contact in the form of a vCard, 0-2048 bytes" }),
+	),
+	/**
+	 * Inline keyboard attached to the message
+	 */
+	reply_markup: Schema.optional(InlineKeyboardMarkup).pipe(
+		Schema.annotate({ description: "Inline keyboard attached to the message" }),
+	),
+	/**
+	 * Content of the message to be sent instead of the contact
+	 */
+	input_message_content: Schema.optional(InputMessageContent).pipe(
+		Schema.annotate({ description: "Content of the message to be sent instead of the contact" }),
+	),
+	/**
+	 * Url of the thumbnail for the result
+	 */
+	thumbnail_url: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Url of the thumbnail for the result" }),
+	),
+	/**
+	 * Thumbnail width
+	 */
+	thumbnail_width: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Thumbnail width" })),
+	/**
+	 * Thumbnail height
+	 */
+	thumbnail_height: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Thumbnail height" })),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Represents a contact with a phone number. By default, this contact will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the contact.",
+	}),
+);
+export type InlineQueryResultContact = typeof InlineQueryResultContact.Type;
+
+/**
+ * Represents a link to a file. By default, this file will be sent by the user
+ * with an optional caption. Alternatively, you can use input_message_content to
+ * send a message with the specified content instead of the file. Currently,
+ * only .PDF and .ZIP files can be sent using this method.
+ */
+export const InlineQueryResultDocument = Schema.Struct({
+	/**
+	 * Type of the result, must be document
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the result, must be document" })),
+	/**
+	 * Unique identifier for this result, 1-64 bytes
+	 */
+	id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier for this result, 1-64 bytes" })),
+	/**
+	 * Title for the result
+	 */
+	title: Schema.String.pipe(Schema.annotate({ description: "Title for the result" })),
+	/**
+	 * Caption of the document to be sent, 0-1024 characters after entities parsing
+	 */
+	caption: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Caption of the document to be sent, 0-1024 characters after entities parsing" }),
+	),
+	/**
+	 * Mode for parsing entities in the document caption. See formatting options
+	 * for more details.
+	 */
+	parse_mode: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Mode for parsing entities in the document caption. See formatting options for more details.",
+		}),
+	),
+	/**
+	 * List of special entities that appear in the caption, which can be specified
+	 * instead of parse_mode
+	 */
+	caption_entities: Schema.optional(Schema.Array(MessageEntity)).pipe(
+		Schema.annotate({
+			description: "List of special entities that appear in the caption, which can be specified instead of parse_mode",
+		}),
+	),
+	/**
+	 * A valid URL for the file
+	 */
+	document_url: Schema.String.pipe(Schema.annotate({ description: "A valid URL for the file" })),
+	/**
+	 * MIME type of the content of the file, either “application/pdf” or
+	 * “application/zip”
+	 */
+	mime_type: Schema.String.pipe(
+		Schema.annotate({
+			description: "MIME type of the content of the file, either “application/pdf” or “application/zip”",
+		}),
+	),
+	/**
+	 * Short description of the result
+	 */
+	description: Schema.optional(Schema.String).pipe(Schema.annotate({ description: "Short description of the result" })),
+	/**
+	 * Inline keyboard attached to the message
+	 */
+	reply_markup: Schema.optional(InlineKeyboardMarkup).pipe(
+		Schema.annotate({ description: "Inline keyboard attached to the message" }),
+	),
+	/**
+	 * Content of the message to be sent instead of the file
+	 */
+	input_message_content: Schema.optional(InputMessageContent).pipe(
+		Schema.annotate({ description: "Content of the message to be sent instead of the file" }),
+	),
+	/**
+	 * URL of the thumbnail (JPEG only) for the file
+	 */
+	thumbnail_url: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "URL of the thumbnail (JPEG only) for the file" }),
+	),
+	/**
+	 * Thumbnail width
+	 */
+	thumbnail_width: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Thumbnail width" })),
+	/**
+	 * Thumbnail height
+	 */
+	thumbnail_height: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Thumbnail height" })),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Represents a link to a file. By default, this file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the file. Currently, only .PDF and .ZIP files can be sent using this method.",
+	}),
+);
+export type InlineQueryResultDocument = typeof InlineQueryResultDocument.Type;
+
+/**
+ * Represents a Game.
+ */
+export const InlineQueryResultGame = Schema.Struct({
+	/**
+	 * Type of the result, must be game
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the result, must be game" })),
+	/**
+	 * Unique identifier for this result, 1-64 bytes
+	 */
+	id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier for this result, 1-64 bytes" })),
+	/**
+	 * Short name of the game
+	 */
+	game_short_name: Schema.String.pipe(Schema.annotate({ description: "Short name of the game" })),
+	/**
+	 * Inline keyboard attached to the message
+	 */
+	reply_markup: Schema.optional(InlineKeyboardMarkup).pipe(
+		Schema.annotate({ description: "Inline keyboard attached to the message" }),
+	),
+}).pipe(Schema.annotate({ description: "Represents a Game." }));
+export type InlineQueryResultGame = typeof InlineQueryResultGame.Type;
+
+/**
+ * Represents a link to an animated GIF file. By default, this animated GIF file
+ * will be sent by the user with optional caption. Alternatively, you can use
+ * input_message_content to send a message with the specified content instead of
+ * the animation.
+ */
+export const InlineQueryResultGif = Schema.Struct({
+	/**
+	 * Type of the result, must be gif
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the result, must be gif" })),
+	/**
+	 * Unique identifier for this result, 1-64 bytes
+	 */
+	id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier for this result, 1-64 bytes" })),
+	/**
+	 * A valid URL for the GIF file
+	 */
+	gif_url: Schema.String.pipe(Schema.annotate({ description: "A valid URL for the GIF file" })),
+	/**
+	 * Width of the GIF
+	 */
+	gif_width: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Width of the GIF" })),
+	/**
+	 * Height of the GIF
+	 */
+	gif_height: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Height of the GIF" })),
+	/**
+	 * Duration of the GIF in seconds
+	 */
+	gif_duration: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Duration of the GIF in seconds" })),
+	/**
+	 * URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result
+	 */
+	thumbnail_url: Schema.String.pipe(
+		Schema.annotate({ description: "URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result" }),
+	),
+	/**
+	 * MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or
+	 * “video/mp4”. Defaults to “image/jpeg”.
+	 */
+	thumbnail_mime_type: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description:
+				"MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”.",
+		}),
+	),
+	/**
+	 * Title for the result
+	 */
+	title: Schema.optional(Schema.String).pipe(Schema.annotate({ description: "Title for the result" })),
+	/**
+	 * Caption of the GIF file to be sent, 0-1024 characters after entities parsing
+	 */
+	caption: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Caption of the GIF file to be sent, 0-1024 characters after entities parsing" }),
+	),
+	/**
+	 * Mode for parsing entities in the caption. See formatting options for more
+	 * details.
+	 */
+	parse_mode: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Mode for parsing entities in the caption. See formatting options for more details.",
+		}),
+	),
+	/**
+	 * List of special entities that appear in the caption, which can be specified
+	 * instead of parse_mode
+	 */
+	caption_entities: Schema.optional(Schema.Array(MessageEntity)).pipe(
+		Schema.annotate({
+			description: "List of special entities that appear in the caption, which can be specified instead of parse_mode",
+		}),
+	),
+	/**
+	 * Pass True, if the caption must be shown above the message media
+	 */
+	show_caption_above_media: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Pass True, if the caption must be shown above the message media" }),
+	),
+	/**
+	 * Inline keyboard attached to the message
+	 */
+	reply_markup: Schema.optional(InlineKeyboardMarkup).pipe(
+		Schema.annotate({ description: "Inline keyboard attached to the message" }),
+	),
+	/**
+	 * Content of the message to be sent instead of the GIF animation
+	 */
+	input_message_content: Schema.optional(InputMessageContent).pipe(
+		Schema.annotate({ description: "Content of the message to be sent instead of the GIF animation" }),
+	),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Represents a link to an animated GIF file. By default, this animated GIF file will be sent by the user with optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the animation.",
+	}),
+);
+export type InlineQueryResultGif = typeof InlineQueryResultGif.Type;
+
+/**
+ * Represents a location on a map. By default, the location will be sent by the
+ * user. Alternatively, you can use input_message_content to send a message with
+ * the specified content instead of the location.
+ */
+export const InlineQueryResultLocation = Schema.Struct({
+	/**
+	 * Type of the result, must be location
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the result, must be location" })),
+	/**
+	 * Unique identifier for this result, 1-64 Bytes
+	 */
+	id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier for this result, 1-64 Bytes" })),
+	/**
+	 * Location latitude in degrees
+	 */
+	latitude: Schema.Number.pipe(Schema.annotate({ description: "Location latitude in degrees" })),
+	/**
+	 * Location longitude in degrees
+	 */
+	longitude: Schema.Number.pipe(Schema.annotate({ description: "Location longitude in degrees" })),
+	/**
+	 * Location title
+	 */
+	title: Schema.String.pipe(Schema.annotate({ description: "Location title" })),
+	/**
+	 * The radius of uncertainty for the location, measured in meters; 0-1500
+	 */
+	horizontal_accuracy: Schema.optional(Schema.Number).pipe(
+		Schema.annotate({ description: "The radius of uncertainty for the location, measured in meters; 0-1500" }),
+	),
+	/**
+	 * Period in seconds during which the location can be updated, must be between
+	 * 60 and 86400, or 0x7FFFFFFF for live locations that can be edited
+	 * indefinitely
+	 */
+	live_period: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"Period in seconds during which the location can be updated, must be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely",
+		}),
+	),
+	/**
+	 * For live locations, a direction in which the user is moving, in degrees.
+	 * Must be between 1 and 360 if specified.
+	 */
+	heading: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.",
+		}),
+	),
+	/**
+	 * For live locations, a maximum distance for proximity alerts about
+	 * approaching another chat member, in meters. Must be between 1 and 100000 if
+	 * specified.
+	 */
+	proximity_alert_radius: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.",
+		}),
+	),
+	/**
+	 * Inline keyboard attached to the message
+	 */
+	reply_markup: Schema.optional(InlineKeyboardMarkup).pipe(
+		Schema.annotate({ description: "Inline keyboard attached to the message" }),
+	),
+	/**
+	 * Content of the message to be sent instead of the location
+	 */
+	input_message_content: Schema.optional(InputMessageContent).pipe(
+		Schema.annotate({ description: "Content of the message to be sent instead of the location" }),
+	),
+	/**
+	 * Url of the thumbnail for the result
+	 */
+	thumbnail_url: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Url of the thumbnail for the result" }),
+	),
+	/**
+	 * Thumbnail width
+	 */
+	thumbnail_width: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Thumbnail width" })),
+	/**
+	 * Thumbnail height
+	 */
+	thumbnail_height: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Thumbnail height" })),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Represents a location on a map. By default, the location will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the location.",
+	}),
+);
+export type InlineQueryResultLocation = typeof InlineQueryResultLocation.Type;
+
+/**
+ * Represents a link to a video animation (H.264/MPEG-4 AVC video without
+ * sound). By default, this animated MPEG-4 file will be sent by the user with
+ * optional caption. Alternatively, you can use input_message_content to send a
+ * message with the specified content instead of the animation.
+ */
+export const InlineQueryResultMpeg4Gif = Schema.Struct({
+	/**
+	 * Type of the result, must be mpeg4_gif
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the result, must be mpeg4_gif" })),
+	/**
+	 * Unique identifier for this result, 1-64 bytes
+	 */
+	id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier for this result, 1-64 bytes" })),
+	/**
+	 * A valid URL for the MPEG4 file
+	 */
+	mpeg4_url: Schema.String.pipe(Schema.annotate({ description: "A valid URL for the MPEG4 file" })),
+	/**
+	 * Video width
+	 */
+	mpeg4_width: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Video width" })),
+	/**
+	 * Video height
+	 */
+	mpeg4_height: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Video height" })),
+	/**
+	 * Video duration in seconds
+	 */
+	mpeg4_duration: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Video duration in seconds" })),
+	/**
+	 * URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result
+	 */
+	thumbnail_url: Schema.String.pipe(
+		Schema.annotate({ description: "URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result" }),
+	),
+	/**
+	 * MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or
+	 * “video/mp4”. Defaults to “image/jpeg”.
+	 */
+	thumbnail_mime_type: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description:
+				"MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”.",
+		}),
+	),
+	/**
+	 * Title for the result
+	 */
+	title: Schema.optional(Schema.String).pipe(Schema.annotate({ description: "Title for the result" })),
+	/**
+	 * Caption of the MPEG-4 file to be sent, 0-1024 characters after entities
+	 * parsing
+	 */
+	caption: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Caption of the MPEG-4 file to be sent, 0-1024 characters after entities parsing" }),
+	),
+	/**
+	 * Mode for parsing entities in the caption. See formatting options for more
+	 * details.
+	 */
+	parse_mode: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Mode for parsing entities in the caption. See formatting options for more details.",
+		}),
+	),
+	/**
+	 * List of special entities that appear in the caption, which can be specified
+	 * instead of parse_mode
+	 */
+	caption_entities: Schema.optional(Schema.Array(MessageEntity)).pipe(
+		Schema.annotate({
+			description: "List of special entities that appear in the caption, which can be specified instead of parse_mode",
+		}),
+	),
+	/**
+	 * Pass True, if the caption must be shown above the message media
+	 */
+	show_caption_above_media: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Pass True, if the caption must be shown above the message media" }),
+	),
+	/**
+	 * Inline keyboard attached to the message
+	 */
+	reply_markup: Schema.optional(InlineKeyboardMarkup).pipe(
+		Schema.annotate({ description: "Inline keyboard attached to the message" }),
+	),
+	/**
+	 * Content of the message to be sent instead of the video animation
+	 */
+	input_message_content: Schema.optional(InputMessageContent).pipe(
+		Schema.annotate({ description: "Content of the message to be sent instead of the video animation" }),
+	),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Represents a link to a video animation (H.264/MPEG-4 AVC video without sound). By default, this animated MPEG-4 file will be sent by the user with optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the animation.",
+	}),
+);
+export type InlineQueryResultMpeg4Gif = typeof InlineQueryResultMpeg4Gif.Type;
+
+/**
+ * Represents a link to a photo. By default, this photo will be sent by the user
+ * with optional caption. Alternatively, you can use input_message_content to
+ * send a message with the specified content instead of the photo.
+ */
+export const InlineQueryResultPhoto = Schema.Struct({
+	/**
+	 * Type of the result, must be photo
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the result, must be photo" })),
+	/**
+	 * Unique identifier for this result, 1-64 bytes
+	 */
+	id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier for this result, 1-64 bytes" })),
+	/**
+	 * A valid URL of the photo. Photo must be in JPEG format. Photo size must not
+	 * exceed 5MB.
+	 */
+	photo_url: Schema.String.pipe(
+		Schema.annotate({
+			description: "A valid URL of the photo. Photo must be in JPEG format. Photo size must not exceed 5MB.",
+		}),
+	),
+	/**
+	 * URL of the thumbnail for the photo
+	 */
+	thumbnail_url: Schema.String.pipe(Schema.annotate({ description: "URL of the thumbnail for the photo" })),
+	/**
+	 * Width of the photo
+	 */
+	photo_width: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Width of the photo" })),
+	/**
+	 * Height of the photo
+	 */
+	photo_height: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Height of the photo" })),
+	/**
+	 * Title for the result
+	 */
+	title: Schema.optional(Schema.String).pipe(Schema.annotate({ description: "Title for the result" })),
+	/**
+	 * Short description of the result
+	 */
+	description: Schema.optional(Schema.String).pipe(Schema.annotate({ description: "Short description of the result" })),
+	/**
+	 * Caption of the photo to be sent, 0-1024 characters after entities parsing
+	 */
+	caption: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Caption of the photo to be sent, 0-1024 characters after entities parsing" }),
+	),
+	/**
+	 * Mode for parsing entities in the photo caption. See formatting options for
+	 * more details.
+	 */
+	parse_mode: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Mode for parsing entities in the photo caption. See formatting options for more details.",
+		}),
+	),
+	/**
+	 * List of special entities that appear in the caption, which can be specified
+	 * instead of parse_mode
+	 */
+	caption_entities: Schema.optional(Schema.Array(MessageEntity)).pipe(
+		Schema.annotate({
+			description: "List of special entities that appear in the caption, which can be specified instead of parse_mode",
+		}),
+	),
+	/**
+	 * Pass True, if the caption must be shown above the message media
+	 */
+	show_caption_above_media: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Pass True, if the caption must be shown above the message media" }),
+	),
+	/**
+	 * Inline keyboard attached to the message
+	 */
+	reply_markup: Schema.optional(InlineKeyboardMarkup).pipe(
+		Schema.annotate({ description: "Inline keyboard attached to the message" }),
+	),
+	/**
+	 * Content of the message to be sent instead of the photo
+	 */
+	input_message_content: Schema.optional(InputMessageContent).pipe(
+		Schema.annotate({ description: "Content of the message to be sent instead of the photo" }),
+	),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Represents a link to a photo. By default, this photo will be sent by the user with optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the photo.",
+	}),
+);
+export type InlineQueryResultPhoto = typeof InlineQueryResultPhoto.Type;
+
+/**
+ * Represents a venue. By default, the venue will be sent by the user.
+ * Alternatively, you can use input_message_content to send a message with the
+ * specified content instead of the venue.
+ */
+export const InlineQueryResultVenue = Schema.Struct({
+	/**
+	 * Type of the result, must be venue
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the result, must be venue" })),
+	/**
+	 * Unique identifier for this result, 1-64 Bytes
+	 */
+	id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier for this result, 1-64 Bytes" })),
+	/**
+	 * Latitude of the venue location in degrees
+	 */
+	latitude: Schema.Number.pipe(Schema.annotate({ description: "Latitude of the venue location in degrees" })),
+	/**
+	 * Longitude of the venue location in degrees
+	 */
+	longitude: Schema.Number.pipe(Schema.annotate({ description: "Longitude of the venue location in degrees" })),
+	/**
+	 * Title of the venue
+	 */
+	title: Schema.String.pipe(Schema.annotate({ description: "Title of the venue" })),
+	/**
+	 * Address of the venue
+	 */
+	address: Schema.String.pipe(Schema.annotate({ description: "Address of the venue" })),
+	/**
+	 * Foursquare identifier of the venue if known
+	 */
+	foursquare_id: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Foursquare identifier of the venue if known" }),
+	),
+	/**
+	 * Foursquare type of the venue, if known. (For example,
+	 * “arts_entertainment/default”, “arts_entertainment/aquarium” or
+	 * “food/icecream”.)
+	 */
+	foursquare_type: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description:
+				"Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)",
+		}),
+	),
+	/**
+	 * Google Places identifier of the venue
+	 */
+	google_place_id: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Google Places identifier of the venue" }),
+	),
+	/**
+	 * Google Places type of the venue. (See supported types.)
+	 */
+	google_place_type: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Google Places type of the venue. (See supported types.)" }),
+	),
+	/**
+	 * Inline keyboard attached to the message
+	 */
+	reply_markup: Schema.optional(InlineKeyboardMarkup).pipe(
+		Schema.annotate({ description: "Inline keyboard attached to the message" }),
+	),
+	/**
+	 * Content of the message to be sent instead of the venue
+	 */
+	input_message_content: Schema.optional(InputMessageContent).pipe(
+		Schema.annotate({ description: "Content of the message to be sent instead of the venue" }),
+	),
+	/**
+	 * Url of the thumbnail for the result
+	 */
+	thumbnail_url: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Url of the thumbnail for the result" }),
+	),
+	/**
+	 * Thumbnail width
+	 */
+	thumbnail_width: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Thumbnail width" })),
+	/**
+	 * Thumbnail height
+	 */
+	thumbnail_height: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Thumbnail height" })),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Represents a venue. By default, the venue will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the venue.",
+	}),
+);
+export type InlineQueryResultVenue = typeof InlineQueryResultVenue.Type;
+
+/**
+ * Represents a link to a page containing an embedded video player or a video
+ * file. By default, this video file will be sent by the user with an optional
+ * caption. Alternatively, you can use input_message_content to send a message
+ * with the specified content instead of the video.
+ */
+export const InlineQueryResultVideo = Schema.Struct({
+	/**
+	 * Type of the result, must be video
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the result, must be video" })),
+	/**
+	 * Unique identifier for this result, 1-64 bytes
+	 */
+	id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier for this result, 1-64 bytes" })),
+	/**
+	 * A valid URL for the embedded video player or video file
+	 */
+	video_url: Schema.String.pipe(
+		Schema.annotate({ description: "A valid URL for the embedded video player or video file" }),
+	),
+	/**
+	 * MIME type of the content of the video URL, “text/html” or “video/mp4”
+	 */
+	mime_type: Schema.String.pipe(
+		Schema.annotate({ description: "MIME type of the content of the video URL, “text/html” or “video/mp4”" }),
+	),
+	/**
+	 * URL of the thumbnail (JPEG only) for the video
+	 */
+	thumbnail_url: Schema.String.pipe(Schema.annotate({ description: "URL of the thumbnail (JPEG only) for the video" })),
+	/**
+	 * Title for the result
+	 */
+	title: Schema.String.pipe(Schema.annotate({ description: "Title for the result" })),
+	/**
+	 * Caption of the video to be sent, 0-1024 characters after entities parsing
+	 */
+	caption: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Caption of the video to be sent, 0-1024 characters after entities parsing" }),
+	),
+	/**
+	 * Mode for parsing entities in the video caption. See formatting options for
+	 * more details.
+	 */
+	parse_mode: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Mode for parsing entities in the video caption. See formatting options for more details.",
+		}),
+	),
+	/**
+	 * List of special entities that appear in the caption, which can be specified
+	 * instead of parse_mode
+	 */
+	caption_entities: Schema.optional(Schema.Array(MessageEntity)).pipe(
+		Schema.annotate({
+			description: "List of special entities that appear in the caption, which can be specified instead of parse_mode",
+		}),
+	),
+	/**
+	 * Pass True, if the caption must be shown above the message media
+	 */
+	show_caption_above_media: Schema.optional(Schema.Boolean).pipe(
+		Schema.annotate({ description: "Pass True, if the caption must be shown above the message media" }),
+	),
+	/**
+	 * Video width
+	 */
+	video_width: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Video width" })),
+	/**
+	 * Video height
+	 */
+	video_height: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Video height" })),
+	/**
+	 * Video duration in seconds
+	 */
+	video_duration: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Video duration in seconds" })),
+	/**
+	 * Short description of the result
+	 */
+	description: Schema.optional(Schema.String).pipe(Schema.annotate({ description: "Short description of the result" })),
+	/**
+	 * Inline keyboard attached to the message
+	 */
+	reply_markup: Schema.optional(InlineKeyboardMarkup).pipe(
+		Schema.annotate({ description: "Inline keyboard attached to the message" }),
+	),
+	/**
+	 * Content of the message to be sent instead of the video. This field is
+	 * required if InlineQueryResultVideo is used to send an HTML-page as a result
+	 * (e.g., a YouTube video).
+	 */
+	input_message_content: Schema.optional(InputMessageContent).pipe(
+		Schema.annotate({
+			description:
+				"Content of the message to be sent instead of the video. This field is required if InlineQueryResultVideo is used to send an HTML-page as a result (e.g., a YouTube video).",
+		}),
+	),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Represents a link to a page containing an embedded video player or a video file. By default, this video file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the video.",
+	}),
+);
+export type InlineQueryResultVideo = typeof InlineQueryResultVideo.Type;
+
+/**
+ * Represents a link to a voice recording in an .OGG container encoded with
+ * OPUS. By default, this voice recording will be sent by the user.
+ * Alternatively, you can use input_message_content to send a message with the
+ * specified content instead of the the voice message.
+ */
+export const InlineQueryResultVoice = Schema.Struct({
+	/**
+	 * Type of the result, must be voice
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the result, must be voice" })),
+	/**
+	 * Unique identifier for this result, 1-64 bytes
+	 */
+	id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier for this result, 1-64 bytes" })),
+	/**
+	 * A valid URL for the voice recording
+	 */
+	voice_url: Schema.String.pipe(Schema.annotate({ description: "A valid URL for the voice recording" })),
+	/**
+	 * Recording title
+	 */
+	title: Schema.String.pipe(Schema.annotate({ description: "Recording title" })),
+	/**
+	 * Caption, 0-1024 characters after entities parsing
+	 */
+	caption: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Caption, 0-1024 characters after entities parsing" }),
+	),
+	/**
+	 * Mode for parsing entities in the voice message caption. See formatting
+	 * options for more details.
+	 */
+	parse_mode: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Mode for parsing entities in the voice message caption. See formatting options for more details.",
+		}),
+	),
+	/**
+	 * List of special entities that appear in the caption, which can be specified
+	 * instead of parse_mode
+	 */
+	caption_entities: Schema.optional(Schema.Array(MessageEntity)).pipe(
+		Schema.annotate({
+			description: "List of special entities that appear in the caption, which can be specified instead of parse_mode",
+		}),
+	),
+	/**
+	 * Recording duration in seconds
+	 */
+	voice_duration: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Recording duration in seconds" })),
+	/**
+	 * Inline keyboard attached to the message
+	 */
+	reply_markup: Schema.optional(InlineKeyboardMarkup).pipe(
+		Schema.annotate({ description: "Inline keyboard attached to the message" }),
+	),
+	/**
+	 * Content of the message to be sent instead of the voice recording
+	 */
+	input_message_content: Schema.optional(InputMessageContent).pipe(
+		Schema.annotate({ description: "Content of the message to be sent instead of the voice recording" }),
+	),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Represents a link to a voice recording in an .OGG container encoded with OPUS. By default, this voice recording will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the the voice message.",
+	}),
+);
+export type InlineQueryResultVoice = typeof InlineQueryResultVoice.Type;
+
+/**
+ * This object represents one result of an inline query. Telegram clients
+ * currently support results of the following 20 types:
+ */
+export const InlineQueryResult = Schema.Union([
+	InlineQueryResultCachedAudio,
+	InlineQueryResultCachedDocument,
+	InlineQueryResultCachedGif,
+	InlineQueryResultCachedMpeg4Gif,
+	InlineQueryResultCachedPhoto,
+	InlineQueryResultCachedSticker,
+	InlineQueryResultCachedVideo,
+	InlineQueryResultCachedVoice,
+	InlineQueryResultArticle,
+	InlineQueryResultAudio,
+	InlineQueryResultContact,
+	InlineQueryResultGame,
+	InlineQueryResultDocument,
+	InlineQueryResultGif,
+	InlineQueryResultLocation,
+	InlineQueryResultMpeg4Gif,
+	InlineQueryResultPhoto,
+	InlineQueryResultVenue,
+	InlineQueryResultVideo,
+	InlineQueryResultVoice,
+]).pipe(
+	Schema.annotate({
+		description:
+			"This object represents one result of an inline query. Telegram clients currently support results of the following 20 types:",
+	}),
+);
+export type InlineQueryResult = typeof InlineQueryResult.Type;
+
+/**
+ * This object represents a button to be shown above inline query results. You
+ * must use exactly one of the optional fields.
+ */
+export const InlineQueryResultsButton = Schema.Struct({
+	/**
+	 * Label text on the button
+	 */
+	text: Schema.String.pipe(Schema.annotate({ description: "Label text on the button" })),
+	/**
+	 * Description of the Web App that will be launched when the user presses the
+	 * button. The Web App will be able to switch back to the inline mode using the
+	 * method switchInlineQuery inside the Web App.
+	 */
+	web_app: Schema.optional(WebAppInfo).pipe(
+		Schema.annotate({
+			description:
+				"Description of the Web App that will be launched when the user presses the button. The Web App will be able to switch back to the inline mode using the method switchInlineQuery inside the Web App.",
+		}),
+	),
+	/**
+	 * Deep-linking parameter for the /start message sent to the bot when a user
+	 * presses the button. 1-64 characters, only A-Z, a-z, 0-9, _ and - are
+	 * allowed.
+	 * Example: An inline bot that sends YouTube videos can ask the user to connect
+	 * the bot to their YouTube account to adapt search results accordingly. To do
+	 * this, it displays a 'Connect your YouTube account' button above the results,
+	 * or even before showing any. The user presses the button, switches to a
+	 * private chat with the bot and, in doing so, passes a start parameter that
+	 * instructs the bot to return an OAuth link. Once done, the bot can offer a
+	 * switch_inline button so that the user can easily return to the chat where
+	 * they wanted to use the bot's inline capabilities.
+	 */
+	start_parameter: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description:
+				"Deep-linking parameter for the /start message sent to the bot when a user presses the button. 1-64 characters, only A-Z, a-z, 0-9, _ and - are allowed.\n\nExample: An inline bot that sends YouTube videos can ask the user to connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a 'Connect your YouTube account' button above the results, or even before showing any. The user presses the button, switches to a private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an OAuth link. Once done, the bot can offer a switch_inline button so that the user can easily return to the chat where they wanted to use the bot's inline capabilities.",
+		}),
+	),
+}).pipe(
+	Schema.annotate({
+		description:
+			"This object represents a button to be shown above inline query results. You must use exactly one of the optional fields.",
+	}),
+);
+export type InlineQueryResultsButton = typeof InlineQueryResultsButton.Type;
 
 /**
  * Describes a task to add to a checklist.
@@ -8161,31 +11285,6 @@ export const InputMediaLivePhoto = Schema.Struct({
 export type InputMediaLivePhoto = typeof InputMediaLivePhoto.Type;
 
 /**
- * Represents a location to be sent.
- */
-export const InputMediaLocation = Schema.Struct({
-	/**
-	 * Type of the result, must be location
-	 */
-	type: Schema.String.pipe(Schema.annotate({ description: "Type of the result, must be location" })),
-	/**
-	 * Latitude of the location
-	 */
-	latitude: Schema.Number.pipe(Schema.annotate({ description: "Latitude of the location" })),
-	/**
-	 * Longitude of the location
-	 */
-	longitude: Schema.Number.pipe(Schema.annotate({ description: "Longitude of the location" })),
-	/**
-	 * The radius of uncertainty for the location, measured in meters; 0-1500
-	 */
-	horizontal_accuracy: Schema.optional(Schema.Number).pipe(
-		Schema.annotate({ description: "The radius of uncertainty for the location, measured in meters; 0-1500" }),
-	),
-}).pipe(Schema.annotate({ description: "Represents a location to be sent." }));
-export type InputMediaLocation = typeof InputMediaLocation.Type;
-
-/**
  * Represents a photo to be sent.
  */
 export const InputMediaPhoto = Schema.Struct({
@@ -8244,92 +11343,6 @@ export const InputMediaPhoto = Schema.Struct({
 	),
 }).pipe(Schema.annotate({ description: "Represents a photo to be sent." }));
 export type InputMediaPhoto = typeof InputMediaPhoto.Type;
-
-/**
- * Represents a sticker file to be sent.
- */
-export const InputMediaSticker = Schema.Struct({
-	/**
-	 * Type of the result, must be sticker
-	 */
-	type: Schema.String.pipe(Schema.annotate({ description: "Type of the result, must be sticker" })),
-	/**
-	 * File to send. Pass a file_id to send a file that exists on the Telegram
-	 * servers (recommended), pass an HTTP URL for Telegram to get a .WEBP sticker
-	 * from the Internet, or pass “attach://<file_attach_name>” to upload a new
-	 * .WEBP, .TGS, or .WEBM sticker using multipart/form-data under
-	 * <file_attach_name> name. More information on Sending Files »
-	 */
-	media: Schema.String.pipe(
-		Schema.annotate({
-			description:
-				"File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a .WEBP sticker from the Internet, or pass “attach://<file_attach_name>” to upload a new .WEBP, .TGS, or .WEBM sticker using multipart/form-data under <file_attach_name> name. More information on Sending Files »",
-		}),
-	),
-	/**
-	 * Emoji associated with the sticker; only for just uploaded stickers
-	 */
-	emoji: Schema.optional(Schema.String).pipe(
-		Schema.annotate({ description: "Emoji associated with the sticker; only for just uploaded stickers" }),
-	),
-}).pipe(Schema.annotate({ description: "Represents a sticker file to be sent." }));
-export type InputMediaSticker = typeof InputMediaSticker.Type;
-
-/**
- * Represents a venue to be sent.
- */
-export const InputMediaVenue = Schema.Struct({
-	/**
-	 * Type of the result, must be venue
-	 */
-	type: Schema.String.pipe(Schema.annotate({ description: "Type of the result, must be venue" })),
-	/**
-	 * Latitude of the location
-	 */
-	latitude: Schema.Number.pipe(Schema.annotate({ description: "Latitude of the location" })),
-	/**
-	 * Longitude of the location
-	 */
-	longitude: Schema.Number.pipe(Schema.annotate({ description: "Longitude of the location" })),
-	/**
-	 * Name of the venue
-	 */
-	title: Schema.String.pipe(Schema.annotate({ description: "Name of the venue" })),
-	/**
-	 * Address of the venue
-	 */
-	address: Schema.String.pipe(Schema.annotate({ description: "Address of the venue" })),
-	/**
-	 * Foursquare identifier of the venue
-	 */
-	foursquare_id: Schema.optional(Schema.String).pipe(
-		Schema.annotate({ description: "Foursquare identifier of the venue" }),
-	),
-	/**
-	 * Foursquare type of the venue, if known. (For example,
-	 * “arts_entertainment/default”, “arts_entertainment/aquarium” or
-	 * “food/icecream”.)
-	 */
-	foursquare_type: Schema.optional(Schema.String).pipe(
-		Schema.annotate({
-			description:
-				"Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)",
-		}),
-	),
-	/**
-	 * Google Places identifier of the venue
-	 */
-	google_place_id: Schema.optional(Schema.String).pipe(
-		Schema.annotate({ description: "Google Places identifier of the venue" }),
-	),
-	/**
-	 * Google Places type of the venue. (See supported types.)
-	 */
-	google_place_type: Schema.optional(Schema.String).pipe(
-		Schema.annotate({ description: "Google Places type of the venue. (See supported types.)" }),
-	),
-}).pipe(Schema.annotate({ description: "Represents a venue to be sent." }));
-export type InputMediaVenue = typeof InputMediaVenue.Type;
 
 /**
  * Represents a video to be sent.
@@ -8443,6 +11456,135 @@ export const InputMediaVideo = Schema.Struct({
 	),
 }).pipe(Schema.annotate({ description: "Represents a video to be sent." }));
 export type InputMediaVideo = typeof InputMediaVideo.Type;
+
+/**
+ * This object represents the content of a media message to be sent. It should
+ * be one of
+ */
+export const InputMedia = Schema.Union([
+	InputMediaAnimation,
+	InputMediaAudio,
+	InputMediaDocument,
+	InputMediaLivePhoto,
+	InputMediaPhoto,
+	InputMediaVideo,
+]).pipe(
+	Schema.annotate({
+		description: "This object represents the content of a media message to be sent. It should be one of",
+	}),
+);
+export type InputMedia = typeof InputMedia.Type;
+
+/**
+ * Represents a location to be sent.
+ */
+export const InputMediaLocation = Schema.Struct({
+	/**
+	 * Type of the result, must be location
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the result, must be location" })),
+	/**
+	 * Latitude of the location
+	 */
+	latitude: Schema.Number.pipe(Schema.annotate({ description: "Latitude of the location" })),
+	/**
+	 * Longitude of the location
+	 */
+	longitude: Schema.Number.pipe(Schema.annotate({ description: "Longitude of the location" })),
+	/**
+	 * The radius of uncertainty for the location, measured in meters; 0-1500
+	 */
+	horizontal_accuracy: Schema.optional(Schema.Number).pipe(
+		Schema.annotate({ description: "The radius of uncertainty for the location, measured in meters; 0-1500" }),
+	),
+}).pipe(Schema.annotate({ description: "Represents a location to be sent." }));
+export type InputMediaLocation = typeof InputMediaLocation.Type;
+
+/**
+ * Represents a sticker file to be sent.
+ */
+export const InputMediaSticker = Schema.Struct({
+	/**
+	 * Type of the result, must be sticker
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the result, must be sticker" })),
+	/**
+	 * File to send. Pass a file_id to send a file that exists on the Telegram
+	 * servers (recommended), pass an HTTP URL for Telegram to get a .WEBP sticker
+	 * from the Internet, or pass “attach://<file_attach_name>” to upload a new
+	 * .WEBP, .TGS, or .WEBM sticker using multipart/form-data under
+	 * <file_attach_name> name. More information on Sending Files »
+	 */
+	media: Schema.String.pipe(
+		Schema.annotate({
+			description:
+				"File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a .WEBP sticker from the Internet, or pass “attach://<file_attach_name>” to upload a new .WEBP, .TGS, or .WEBM sticker using multipart/form-data under <file_attach_name> name. More information on Sending Files »",
+		}),
+	),
+	/**
+	 * Emoji associated with the sticker; only for just uploaded stickers
+	 */
+	emoji: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Emoji associated with the sticker; only for just uploaded stickers" }),
+	),
+}).pipe(Schema.annotate({ description: "Represents a sticker file to be sent." }));
+export type InputMediaSticker = typeof InputMediaSticker.Type;
+
+/**
+ * Represents a venue to be sent.
+ */
+export const InputMediaVenue = Schema.Struct({
+	/**
+	 * Type of the result, must be venue
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the result, must be venue" })),
+	/**
+	 * Latitude of the location
+	 */
+	latitude: Schema.Number.pipe(Schema.annotate({ description: "Latitude of the location" })),
+	/**
+	 * Longitude of the location
+	 */
+	longitude: Schema.Number.pipe(Schema.annotate({ description: "Longitude of the location" })),
+	/**
+	 * Name of the venue
+	 */
+	title: Schema.String.pipe(Schema.annotate({ description: "Name of the venue" })),
+	/**
+	 * Address of the venue
+	 */
+	address: Schema.String.pipe(Schema.annotate({ description: "Address of the venue" })),
+	/**
+	 * Foursquare identifier of the venue
+	 */
+	foursquare_id: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Foursquare identifier of the venue" }),
+	),
+	/**
+	 * Foursquare type of the venue, if known. (For example,
+	 * “arts_entertainment/default”, “arts_entertainment/aquarium” or
+	 * “food/icecream”.)
+	 */
+	foursquare_type: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description:
+				"Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)",
+		}),
+	),
+	/**
+	 * Google Places identifier of the venue
+	 */
+	google_place_id: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Google Places identifier of the venue" }),
+	),
+	/**
+	 * Google Places type of the venue. (See supported types.)
+	 */
+	google_place_type: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Google Places type of the venue. (See supported types.)" }),
+	),
+}).pipe(Schema.annotate({ description: "Represents a venue to be sent." }));
+export type InputMediaVenue = typeof InputMediaVenue.Type;
 
 /**
  * The paid media to send is a live photo.
@@ -8583,6 +11725,54 @@ export const InputPaidMediaVideo = Schema.Struct({
 export type InputPaidMediaVideo = typeof InputPaidMediaVideo.Type;
 
 /**
+ * This object describes the paid media to be sent. Currently, it can be one of
+ */
+export const InputPaidMedia = Schema.Union([InputPaidMediaLivePhoto, InputPaidMediaPhoto, InputPaidMediaVideo]).pipe(
+	Schema.annotate({ description: "This object describes the paid media to be sent. Currently, it can be one of" }),
+);
+export type InputPaidMedia = typeof InputPaidMedia.Type;
+
+/**
+ * This object represents the content of a poll description or a quiz
+ * explanation to be sent. It should be one of
+ */
+export const InputPollMedia = Schema.Union([
+	InputMediaAnimation,
+	InputMediaAudio,
+	InputMediaDocument,
+	InputMediaLivePhoto,
+	InputMediaLocation,
+	InputMediaPhoto,
+	InputMediaVenue,
+	InputMediaVideo,
+]).pipe(
+	Schema.annotate({
+		description:
+			"This object represents the content of a poll description or a quiz explanation to be sent. It should be one of",
+	}),
+);
+export type InputPollMedia = typeof InputPollMedia.Type;
+
+/**
+ * This object represents the content of a poll option to be sent. It should be
+ * one of
+ */
+export const InputPollOptionMedia = Schema.Union([
+	InputMediaAnimation,
+	InputMediaLivePhoto,
+	InputMediaLocation,
+	InputMediaPhoto,
+	InputMediaSticker,
+	InputMediaVenue,
+	InputMediaVideo,
+]).pipe(
+	Schema.annotate({
+		description: "This object represents the content of a poll option to be sent. It should be one of",
+	}),
+);
+export type InputPollOptionMedia = typeof InputPollOptionMedia.Type;
+
+/**
  * This object contains information about one answer option in a poll to be
  * sent.
  */
@@ -8676,6 +11866,67 @@ export const InputProfilePhotoStatic = Schema.Struct({
 export type InputProfilePhotoStatic = typeof InputProfilePhotoStatic.Type;
 
 /**
+ * This object describes a profile photo to set. Currently, it can be one of
+ */
+export const InputProfilePhoto = Schema.Union([InputProfilePhotoStatic, InputProfilePhotoAnimated]).pipe(
+	Schema.annotate({ description: "This object describes a profile photo to set. Currently, it can be one of" }),
+);
+export type InputProfilePhoto = typeof InputProfilePhoto.Type;
+
+/**
+ * This object describes a sticker to be added to a sticker set.
+ */
+export const InputSticker = Schema.Struct({
+	/**
+	 * The added sticker. Pass a file_id as a String to send a file that already
+	 * exists on the Telegram servers, pass an HTTP URL as a String for Telegram to
+	 * get a file from the Internet, or pass “attach://<file_attach_name>” to
+	 * upload a new file using multipart/form-data under <file_attach_name> name.
+	 * Animated and video stickers can't be uploaded via HTTP URL. More information
+	 * on Sending Files »
+	 */
+	sticker: Schema.String.pipe(
+		Schema.annotate({
+			description:
+				"The added sticker. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new file using multipart/form-data under <file_attach_name> name. Animated and video stickers can't be uploaded via HTTP URL. More information on Sending Files »",
+		}),
+	),
+	/**
+	 * Format of the added sticker, must be one of “static” for a .WEBP or .PNG
+	 * image, “animated” for a .TGS animation, “video” for a .WEBM video
+	 */
+	format: Schema.String.pipe(
+		Schema.annotate({
+			description:
+				"Format of the added sticker, must be one of “static” for a .WEBP or .PNG image, “animated” for a .TGS animation, “video” for a .WEBM video",
+		}),
+	),
+	/**
+	 * List of 1-20 emoji associated with the sticker
+	 */
+	emoji_list: Schema.Array(Schema.String).pipe(
+		Schema.annotate({ description: "List of 1-20 emoji associated with the sticker" }),
+	),
+	/**
+	 * Position where the mask should be placed on faces. For “mask” stickers only.
+	 */
+	mask_position: Schema.optional(MaskPosition).pipe(
+		Schema.annotate({ description: "Position where the mask should be placed on faces. For “mask” stickers only." }),
+	),
+	/**
+	 * List of 0-20 search keywords for the sticker with total length of up to 64
+	 * characters. For “regular” and “custom_emoji” stickers only.
+	 */
+	keywords: Schema.optional(Schema.Array(Schema.String)).pipe(
+		Schema.annotate({
+			description:
+				"List of 0-20 search keywords for the sticker with total length of up to 64 characters. For “regular” and “custom_emoji” stickers only.",
+		}),
+	),
+}).pipe(Schema.annotate({ description: "This object describes a sticker to be added to a sticker set." }));
+export type InputSticker = typeof InputSticker.Type;
+
+/**
  * Describes a photo to post as a story.
  */
 export const InputStoryContentPhoto = Schema.Struct({
@@ -8746,6 +11997,15 @@ export const InputStoryContentVideo = Schema.Struct({
 	),
 }).pipe(Schema.annotate({ description: "Describes a video to post as a story." }));
 export type InputStoryContentVideo = typeof InputStoryContentVideo.Type;
+
+/**
+ * This object describes the content of a story to post. Currently, it can be
+ * one of
+ */
+export const InputStoryContent = Schema.Union([InputStoryContentPhoto, InputStoryContentVideo]).pipe(
+	Schema.annotate({ description: "This object describes the content of a story to post. Currently, it can be one of" }),
+);
+export type InputStoryContent = typeof InputStoryContent.Type;
 
 /**
  * This object represents type of a poll, which is allowed to be created and
@@ -9212,6 +12472,17 @@ export const MenuButtonWebApp = Schema.Struct({
 export type MenuButtonWebApp = typeof MenuButtonWebApp.Type;
 
 /**
+ * This object describes the bot's menu button in a private chat. It should be
+ * one of
+ */
+export const MenuButton = Schema.Union([MenuButtonCommands, MenuButtonWebApp, MenuButtonDefault]).pipe(
+	Schema.annotate({
+		description: "This object describes the bot's menu button in a private chat. It should be one of",
+	}),
+);
+export type MenuButton = typeof MenuButton.Type;
+
+/**
  * This object represents a unique message identifier.
  */
 export const MessageId = Schema.Struct({
@@ -9229,103 +12500,6 @@ export const MessageId = Schema.Struct({
 	),
 }).pipe(Schema.annotate({ description: "This object represents a unique message identifier." }));
 export type MessageId = typeof MessageId.Type;
-
-/**
- * The message was originally sent to a channel chat.
- */
-export const MessageOriginChannel = Schema.Struct({
-	/**
-	 * Type of the message origin, always “channel”
-	 */
-	type: Schema.String.pipe(Schema.annotate({ description: "Type of the message origin, always “channel”" })),
-	/**
-	 * Date the message was sent originally in Unix time
-	 */
-	date: Schema.Int.pipe(Schema.annotate({ description: "Date the message was sent originally in Unix time" })),
-	/**
-	 * Channel chat to which the message was originally sent
-	 */
-	chat: Chat.pipe(Schema.annotate({ description: "Channel chat to which the message was originally sent" })),
-	/**
-	 * Unique message identifier inside the chat
-	 */
-	message_id: Schema.Int.pipe(Schema.annotate({ description: "Unique message identifier inside the chat" })),
-	/**
-	 * Signature of the original post author
-	 */
-	author_signature: Schema.optional(Schema.String).pipe(
-		Schema.annotate({ description: "Signature of the original post author" }),
-	),
-}).pipe(Schema.annotate({ description: "The message was originally sent to a channel chat." }));
-export type MessageOriginChannel = typeof MessageOriginChannel.Type;
-
-/**
- * The message was originally sent on behalf of a chat to a group chat.
- */
-export const MessageOriginChat = Schema.Struct({
-	/**
-	 * Type of the message origin, always “chat”
-	 */
-	type: Schema.String.pipe(Schema.annotate({ description: "Type of the message origin, always “chat”" })),
-	/**
-	 * Date the message was sent originally in Unix time
-	 */
-	date: Schema.Int.pipe(Schema.annotate({ description: "Date the message was sent originally in Unix time" })),
-	/**
-	 * Chat that sent the message originally
-	 */
-	sender_chat: Chat.pipe(Schema.annotate({ description: "Chat that sent the message originally" })),
-	/**
-	 * For messages originally sent by an anonymous chat administrator, original
-	 * message author signature
-	 */
-	author_signature: Schema.optional(Schema.String).pipe(
-		Schema.annotate({
-			description: "For messages originally sent by an anonymous chat administrator, original message author signature",
-		}),
-	),
-}).pipe(Schema.annotate({ description: "The message was originally sent on behalf of a chat to a group chat." }));
-export type MessageOriginChat = typeof MessageOriginChat.Type;
-
-/**
- * The message was originally sent by an unknown user.
- */
-export const MessageOriginHiddenUser = Schema.Struct({
-	/**
-	 * Type of the message origin, always “hidden_user”
-	 */
-	type: Schema.String.pipe(Schema.annotate({ description: "Type of the message origin, always “hidden_user”" })),
-	/**
-	 * Date the message was sent originally in Unix time
-	 */
-	date: Schema.Int.pipe(Schema.annotate({ description: "Date the message was sent originally in Unix time" })),
-	/**
-	 * Name of the user that sent the message originally
-	 */
-	sender_user_name: Schema.String.pipe(
-		Schema.annotate({ description: "Name of the user that sent the message originally" }),
-	),
-}).pipe(Schema.annotate({ description: "The message was originally sent by an unknown user." }));
-export type MessageOriginHiddenUser = typeof MessageOriginHiddenUser.Type;
-
-/**
- * The message was originally sent by a known user.
- */
-export const MessageOriginUser = Schema.Struct({
-	/**
-	 * Type of the message origin, always “user”
-	 */
-	type: Schema.String.pipe(Schema.annotate({ description: "Type of the message origin, always “user”" })),
-	/**
-	 * Date the message was sent originally in Unix time
-	 */
-	date: Schema.Int.pipe(Schema.annotate({ description: "Date the message was sent originally in Unix time" })),
-	/**
-	 * User that sent the message originally
-	 */
-	sender_user: User.pipe(Schema.annotate({ description: "User that sent the message originally" })),
-}).pipe(Schema.annotate({ description: "The message was originally sent by a known user." }));
-export type MessageOriginUser = typeof MessageOriginUser.Type;
 
 /**
  * Represents a reaction added to a message along with the number of times it
@@ -9612,6 +12786,17 @@ export const OwnedGiftUnique = Schema.Struct({
 export type OwnedGiftUnique = typeof OwnedGiftUnique.Type;
 
 /**
+ * This object describes a gift received and owned by a user or a chat.
+ * Currently, it can be one of
+ */
+export const OwnedGift = Schema.Union([OwnedGiftRegular, OwnedGiftUnique]).pipe(
+	Schema.annotate({
+		description: "This object describes a gift received and owned by a user or a chat. Currently, it can be one of",
+	}),
+);
+export type OwnedGift = typeof OwnedGift.Type;
+
+/**
  * Contains the list of gifts received and owned by a user or a chat.
  */
 export const OwnedGifts = Schema.Struct({
@@ -9635,74 +12820,368 @@ export const OwnedGifts = Schema.Struct({
 export type OwnedGifts = typeof OwnedGifts.Type;
 
 /**
- * The paid media is a live photo.
+ * This object contains information about a paid media purchase.
  */
-export const PaidMediaLivePhoto = Schema.Struct({
+export const PaidMediaPurchased = Schema.Struct({
 	/**
-	 * Type of the paid media, always “live_photo”
+	 * User who purchased the media
 	 */
-	type: Schema.String.pipe(Schema.annotate({ description: "Type of the paid media, always “live_photo”" })),
+	from: User.pipe(Schema.annotate({ description: "User who purchased the media" })),
 	/**
-	 * The photo
+	 * Bot-specified paid media payload
 	 */
-	live_photo: LivePhoto.pipe(Schema.annotate({ description: "The photo" })),
-}).pipe(Schema.annotate({ description: "The paid media is a live photo." }));
-export type PaidMediaLivePhoto = typeof PaidMediaLivePhoto.Type;
+	paid_media_payload: Schema.String.pipe(Schema.annotate({ description: "Bot-specified paid media payload" })),
+}).pipe(Schema.annotate({ description: "This object contains information about a paid media purchase." }));
+export type PaidMediaPurchased = typeof PaidMediaPurchased.Type;
 
 /**
- * The paid media is a photo.
+ * Represents an issue in one of the data fields that was provided by the user.
+ * The error is considered resolved when the field's value changes.
  */
-export const PaidMediaPhoto = Schema.Struct({
+export const PassportElementErrorDataField = Schema.Struct({
 	/**
-	 * Type of the paid media, always “photo”
+	 * Error source, must be data
 	 */
-	type: Schema.String.pipe(Schema.annotate({ description: "Type of the paid media, always “photo”" })),
+	source: Schema.String.pipe(Schema.annotate({ description: "Error source, must be data" })),
 	/**
-	 * The photo
+	 * The section of the user's Telegram Passport which has the error, one of
+	 * “personal_details”, “passport”, “driver_license”, “identity_card”,
+	 * “internal_passport”, “address”
 	 */
-	photo: Schema.Array(PhotoSize).pipe(Schema.annotate({ description: "The photo" })),
-}).pipe(Schema.annotate({ description: "The paid media is a photo." }));
-export type PaidMediaPhoto = typeof PaidMediaPhoto.Type;
-
-/**
- * The paid media isn't available before the payment.
- */
-export const PaidMediaPreview = Schema.Struct({
-	/**
-	 * Type of the paid media, always “preview”
-	 */
-	type: Schema.String.pipe(Schema.annotate({ description: "Type of the paid media, always “preview”" })),
-	/**
-	 * Media width as defined by the sender
-	 */
-	width: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Media width as defined by the sender" })),
-	/**
-	 * Media height as defined by the sender
-	 */
-	height: Schema.optional(Schema.Int).pipe(Schema.annotate({ description: "Media height as defined by the sender" })),
-	/**
-	 * Duration of the media in seconds as defined by the sender
-	 */
-	duration: Schema.optional(Schema.Int).pipe(
-		Schema.annotate({ description: "Duration of the media in seconds as defined by the sender" }),
+	type: Schema.String.pipe(
+		Schema.annotate({
+			description:
+				"The section of the user's Telegram Passport which has the error, one of “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport”, “address”",
+		}),
 	),
-}).pipe(Schema.annotate({ description: "The paid media isn't available before the payment." }));
-export type PaidMediaPreview = typeof PaidMediaPreview.Type;
+	/**
+	 * Name of the data field which has the error
+	 */
+	field_name: Schema.String.pipe(Schema.annotate({ description: "Name of the data field which has the error" })),
+	/**
+	 * Base64-encoded data hash
+	 */
+	data_hash: Schema.String.pipe(Schema.annotate({ description: "Base64-encoded data hash" })),
+	/**
+	 * Error message
+	 */
+	message: Schema.String.pipe(Schema.annotate({ description: "Error message" })),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Represents an issue in one of the data fields that was provided by the user. The error is considered resolved when the field's value changes.",
+	}),
+);
+export type PassportElementErrorDataField = typeof PassportElementErrorDataField.Type;
 
 /**
- * The paid media is a video.
+ * Represents an issue with a document scan. The error is considered resolved
+ * when the file with the document scan changes.
  */
-export const PaidMediaVideo = Schema.Struct({
+export const PassportElementErrorFile = Schema.Struct({
 	/**
-	 * Type of the paid media, always “video”
+	 * Error source, must be file
 	 */
-	type: Schema.String.pipe(Schema.annotate({ description: "Type of the paid media, always “video”" })),
+	source: Schema.String.pipe(Schema.annotate({ description: "Error source, must be file" })),
 	/**
-	 * The video
+	 * The section of the user's Telegram Passport which has the issue, one of
+	 * “utility_bill”, “bank_statement”, “rental_agreement”,
+	 * “passport_registration”, “temporary_registration”
 	 */
-	video: Video.pipe(Schema.annotate({ description: "The video" })),
-}).pipe(Schema.annotate({ description: "The paid media is a video." }));
-export type PaidMediaVideo = typeof PaidMediaVideo.Type;
+	type: Schema.String.pipe(
+		Schema.annotate({
+			description:
+				"The section of the user's Telegram Passport which has the issue, one of “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”",
+		}),
+	),
+	/**
+	 * Base64-encoded file hash
+	 */
+	file_hash: Schema.String.pipe(Schema.annotate({ description: "Base64-encoded file hash" })),
+	/**
+	 * Error message
+	 */
+	message: Schema.String.pipe(Schema.annotate({ description: "Error message" })),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Represents an issue with a document scan. The error is considered resolved when the file with the document scan changes.",
+	}),
+);
+export type PassportElementErrorFile = typeof PassportElementErrorFile.Type;
+
+/**
+ * Represents an issue with a list of scans. The error is considered resolved
+ * when the list of files containing the scans changes.
+ */
+export const PassportElementErrorFiles = Schema.Struct({
+	/**
+	 * Error source, must be files
+	 */
+	source: Schema.String.pipe(Schema.annotate({ description: "Error source, must be files" })),
+	/**
+	 * The section of the user's Telegram Passport which has the issue, one of
+	 * “utility_bill”, “bank_statement”, “rental_agreement”,
+	 * “passport_registration”, “temporary_registration”
+	 */
+	type: Schema.String.pipe(
+		Schema.annotate({
+			description:
+				"The section of the user's Telegram Passport which has the issue, one of “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”",
+		}),
+	),
+	/**
+	 * List of base64-encoded file hashes
+	 */
+	file_hashes: Schema.Array(Schema.String).pipe(Schema.annotate({ description: "List of base64-encoded file hashes" })),
+	/**
+	 * Error message
+	 */
+	message: Schema.String.pipe(Schema.annotate({ description: "Error message" })),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Represents an issue with a list of scans. The error is considered resolved when the list of files containing the scans changes.",
+	}),
+);
+export type PassportElementErrorFiles = typeof PassportElementErrorFiles.Type;
+
+/**
+ * Represents an issue with the front side of a document. The error is
+ * considered resolved when the file with the front side of the document
+ * changes.
+ */
+export const PassportElementErrorFrontSide = Schema.Struct({
+	/**
+	 * Error source, must be front_side
+	 */
+	source: Schema.String.pipe(Schema.annotate({ description: "Error source, must be front_side" })),
+	/**
+	 * The section of the user's Telegram Passport which has the issue, one of
+	 * “passport”, “driver_license”, “identity_card”, “internal_passport”
+	 */
+	type: Schema.String.pipe(
+		Schema.annotate({
+			description:
+				"The section of the user's Telegram Passport which has the issue, one of “passport”, “driver_license”, “identity_card”, “internal_passport”",
+		}),
+	),
+	/**
+	 * Base64-encoded hash of the file with the front side of the document
+	 */
+	file_hash: Schema.String.pipe(
+		Schema.annotate({ description: "Base64-encoded hash of the file with the front side of the document" }),
+	),
+	/**
+	 * Error message
+	 */
+	message: Schema.String.pipe(Schema.annotate({ description: "Error message" })),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Represents an issue with the front side of a document. The error is considered resolved when the file with the front side of the document changes.",
+	}),
+);
+export type PassportElementErrorFrontSide = typeof PassportElementErrorFrontSide.Type;
+
+/**
+ * Represents an issue with the reverse side of a document. The error is
+ * considered resolved when the file with reverse side of the document changes.
+ */
+export const PassportElementErrorReverseSide = Schema.Struct({
+	/**
+	 * Error source, must be reverse_side
+	 */
+	source: Schema.String.pipe(Schema.annotate({ description: "Error source, must be reverse_side" })),
+	/**
+	 * The section of the user's Telegram Passport which has the issue, one of
+	 * “driver_license”, “identity_card”
+	 */
+	type: Schema.String.pipe(
+		Schema.annotate({
+			description:
+				"The section of the user's Telegram Passport which has the issue, one of “driver_license”, “identity_card”",
+		}),
+	),
+	/**
+	 * Base64-encoded hash of the file with the reverse side of the document
+	 */
+	file_hash: Schema.String.pipe(
+		Schema.annotate({ description: "Base64-encoded hash of the file with the reverse side of the document" }),
+	),
+	/**
+	 * Error message
+	 */
+	message: Schema.String.pipe(Schema.annotate({ description: "Error message" })),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Represents an issue with the reverse side of a document. The error is considered resolved when the file with reverse side of the document changes.",
+	}),
+);
+export type PassportElementErrorReverseSide = typeof PassportElementErrorReverseSide.Type;
+
+/**
+ * Represents an issue with the selfie with a document. The error is considered
+ * resolved when the file with the selfie changes.
+ */
+export const PassportElementErrorSelfie = Schema.Struct({
+	/**
+	 * Error source, must be selfie
+	 */
+	source: Schema.String.pipe(Schema.annotate({ description: "Error source, must be selfie" })),
+	/**
+	 * The section of the user's Telegram Passport which has the issue, one of
+	 * “passport”, “driver_license”, “identity_card”, “internal_passport”
+	 */
+	type: Schema.String.pipe(
+		Schema.annotate({
+			description:
+				"The section of the user's Telegram Passport which has the issue, one of “passport”, “driver_license”, “identity_card”, “internal_passport”",
+		}),
+	),
+	/**
+	 * Base64-encoded hash of the file with the selfie
+	 */
+	file_hash: Schema.String.pipe(Schema.annotate({ description: "Base64-encoded hash of the file with the selfie" })),
+	/**
+	 * Error message
+	 */
+	message: Schema.String.pipe(Schema.annotate({ description: "Error message" })),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Represents an issue with the selfie with a document. The error is considered resolved when the file with the selfie changes.",
+	}),
+);
+export type PassportElementErrorSelfie = typeof PassportElementErrorSelfie.Type;
+
+/**
+ * Represents an issue with one of the files that constitute the translation of
+ * a document. The error is considered resolved when the file changes.
+ */
+export const PassportElementErrorTranslationFile = Schema.Struct({
+	/**
+	 * Error source, must be translation_file
+	 */
+	source: Schema.String.pipe(Schema.annotate({ description: "Error source, must be translation_file" })),
+	/**
+	 * Type of element of the user's Telegram Passport which has the issue, one of
+	 * “passport”, “driver_license”, “identity_card”, “internal_passport”,
+	 * “utility_bill”, “bank_statement”, “rental_agreement”,
+	 * “passport_registration”, “temporary_registration”
+	 */
+	type: Schema.String.pipe(
+		Schema.annotate({
+			description:
+				"Type of element of the user's Telegram Passport which has the issue, one of “passport”, “driver_license”, “identity_card”, “internal_passport”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”",
+		}),
+	),
+	/**
+	 * Base64-encoded file hash
+	 */
+	file_hash: Schema.String.pipe(Schema.annotate({ description: "Base64-encoded file hash" })),
+	/**
+	 * Error message
+	 */
+	message: Schema.String.pipe(Schema.annotate({ description: "Error message" })),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Represents an issue with one of the files that constitute the translation of a document. The error is considered resolved when the file changes.",
+	}),
+);
+export type PassportElementErrorTranslationFile = typeof PassportElementErrorTranslationFile.Type;
+
+/**
+ * Represents an issue with the translated version of a document. The error is
+ * considered resolved when a file with the document translation change.
+ */
+export const PassportElementErrorTranslationFiles = Schema.Struct({
+	/**
+	 * Error source, must be translation_files
+	 */
+	source: Schema.String.pipe(Schema.annotate({ description: "Error source, must be translation_files" })),
+	/**
+	 * Type of element of the user's Telegram Passport which has the issue, one of
+	 * “passport”, “driver_license”, “identity_card”, “internal_passport”,
+	 * “utility_bill”, “bank_statement”, “rental_agreement”,
+	 * “passport_registration”, “temporary_registration”
+	 */
+	type: Schema.String.pipe(
+		Schema.annotate({
+			description:
+				"Type of element of the user's Telegram Passport which has the issue, one of “passport”, “driver_license”, “identity_card”, “internal_passport”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”",
+		}),
+	),
+	/**
+	 * List of base64-encoded file hashes
+	 */
+	file_hashes: Schema.Array(Schema.String).pipe(Schema.annotate({ description: "List of base64-encoded file hashes" })),
+	/**
+	 * Error message
+	 */
+	message: Schema.String.pipe(Schema.annotate({ description: "Error message" })),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Represents an issue with the translated version of a document. The error is considered resolved when a file with the document translation change.",
+	}),
+);
+export type PassportElementErrorTranslationFiles = typeof PassportElementErrorTranslationFiles.Type;
+
+/**
+ * Represents an issue in an unspecified place. The error is considered resolved
+ * when new data is added.
+ */
+export const PassportElementErrorUnspecified = Schema.Struct({
+	/**
+	 * Error source, must be unspecified
+	 */
+	source: Schema.String.pipe(Schema.annotate({ description: "Error source, must be unspecified" })),
+	/**
+	 * Type of element of the user's Telegram Passport which has the issue
+	 */
+	type: Schema.String.pipe(
+		Schema.annotate({ description: "Type of element of the user's Telegram Passport which has the issue" }),
+	),
+	/**
+	 * Base64-encoded element hash
+	 */
+	element_hash: Schema.String.pipe(Schema.annotate({ description: "Base64-encoded element hash" })),
+	/**
+	 * Error message
+	 */
+	message: Schema.String.pipe(Schema.annotate({ description: "Error message" })),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Represents an issue in an unspecified place. The error is considered resolved when new data is added.",
+	}),
+);
+export type PassportElementErrorUnspecified = typeof PassportElementErrorUnspecified.Type;
+
+/**
+ * This object represents an error in the Telegram Passport element which was
+ * submitted that should be resolved by the user. It should be one of:
+ */
+export const PassportElementError = Schema.Union([
+	PassportElementErrorDataField,
+	PassportElementErrorFrontSide,
+	PassportElementErrorReverseSide,
+	PassportElementErrorSelfie,
+	PassportElementErrorFile,
+	PassportElementErrorFiles,
+	PassportElementErrorTranslationFile,
+	PassportElementErrorTranslationFiles,
+	PassportElementErrorUnspecified,
+]).pipe(
+	Schema.annotate({
+		description:
+			"This object represents an error in the Telegram Passport element which was submitted that should be resolved by the user. It should be one of:",
+	}),
+);
+export type PassportElementError = typeof PassportElementError.Type;
 
 /**
  * This object represents an answer of a user in a non-anonymous poll.
@@ -9746,6 +13225,55 @@ export const PollAnswer = Schema.Struct({
 export type PollAnswer = typeof PollAnswer.Type;
 
 /**
+ * This object contains information about an incoming pre-checkout query.
+ */
+export const PreCheckoutQuery = Schema.Struct({
+	/**
+	 * Unique query identifier
+	 */
+	id: Schema.String.pipe(Schema.annotate({ description: "Unique query identifier" })),
+	/**
+	 * User who sent the query
+	 */
+	from: User.pipe(Schema.annotate({ description: "User who sent the query" })),
+	/**
+	 * Three-letter ISO 4217 currency code, or “XTR” for payments in Telegram Stars
+	 */
+	currency: Schema.String.pipe(
+		Schema.annotate({ description: "Three-letter ISO 4217 currency code, or “XTR” for payments in Telegram Stars" }),
+	),
+	/**
+	 * Total price in the smallest units of the currency (integer, not
+	 * float/double). For example, for a price of US$ 1.45 pass amount = 145. See
+	 * the exp parameter in currencies.json, it shows the number of digits past the
+	 * decimal point for each currency (2 for the majority of currencies).
+	 */
+	total_amount: Schema.Int.pipe(
+		Schema.annotate({
+			description:
+				"Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).",
+		}),
+	),
+	/**
+	 * Bot-specified invoice payload
+	 */
+	invoice_payload: Schema.String.pipe(Schema.annotate({ description: "Bot-specified invoice payload" })),
+	/**
+	 * Identifier of the shipping option chosen by the user
+	 */
+	shipping_option_id: Schema.optional(Schema.String).pipe(
+		Schema.annotate({ description: "Identifier of the shipping option chosen by the user" }),
+	),
+	/**
+	 * Order information provided by the user
+	 */
+	order_info: Schema.optional(OrderInfo).pipe(
+		Schema.annotate({ description: "Order information provided by the user" }),
+	),
+}).pipe(Schema.annotate({ description: "This object contains information about an incoming pre-checkout query." }));
+export type PreCheckoutQuery = typeof PreCheckoutQuery.Type;
+
+/**
  * Describes an inline message to be sent by a user of a Mini App.
  */
 export const PreparedInlineMessage = Schema.Struct({
@@ -9776,58 +13304,6 @@ export const PreparedKeyboardButton = Schema.Struct({
 	id: Schema.String.pipe(Schema.annotate({ description: "Unique identifier of the keyboard button" })),
 }).pipe(Schema.annotate({ description: "Describes a keyboard button to be used by a user of a Mini App." }));
 export type PreparedKeyboardButton = typeof PreparedKeyboardButton.Type;
-
-/**
- * The reaction is based on a custom emoji.
- */
-export const ReactionTypeCustomEmoji = Schema.Struct({
-	/**
-	 * Type of the reaction, always “custom_emoji”
-	 */
-	type: Schema.String.pipe(Schema.annotate({ description: "Type of the reaction, always “custom_emoji”" })),
-	/**
-	 * Custom emoji identifier
-	 */
-	custom_emoji_id: Schema.String.pipe(Schema.annotate({ description: "Custom emoji identifier" })),
-}).pipe(Schema.annotate({ description: "The reaction is based on a custom emoji." }));
-export type ReactionTypeCustomEmoji = typeof ReactionTypeCustomEmoji.Type;
-
-/**
- * The reaction is based on an emoji.
- */
-export const ReactionTypeEmoji = Schema.Struct({
-	/**
-	 * Type of the reaction, always “emoji”
-	 */
-	type: Schema.String.pipe(Schema.annotate({ description: "Type of the reaction, always “emoji”" })),
-	/**
-	 * Reaction emoji. Currently, it can be one of "❤", "👍", "👎", "🔥", "🥰",
-	 * "👏", "😁", "🤔", "🤯", "😱", "🤬", "😢", "🎉", "🤩", "🤮", "💩", "🙏",
-	 * "👌", "🕊", "🤡", "🥱", "🥴", "😍", "🐳", "❤‍🔥", "🌚", "🌭", "💯", "🤣",
-	 * "⚡", "🍌", "🏆", "💔", "🤨", "😐", "🍓", "🍾", "💋", "🖕", "😈", "😴", "😭",
-	 * "🤓", "👻", "👨‍💻", "👀", "🎃", "🙈", "😇", "😨", "🤝", "✍", "🤗", "🫡",
-	 * "🎅", "🎄", "☃", "💅", "🤪", "🗿", "🆒", "💘", "🙉", "🦄", "😘", "💊", "🙊",
-	 * "😎", "👾", "🤷‍♂", "🤷", "🤷‍♀", "😡".
-	 */
-	emoji: Schema.String.pipe(
-		Schema.annotate({
-			description:
-				'Reaction emoji. Currently, it can be one of "❤", "👍", "👎", "🔥", "🥰", "👏", "😁", "🤔", "🤯", "😱", "🤬", "😢", "🎉", "🤩", "🤮", "💩", "🙏", "👌", "🕊", "🤡", "🥱", "🥴", "😍", "🐳", "❤‍🔥", "🌚", "🌭", "💯", "🤣", "⚡", "🍌", "🏆", "💔", "🤨", "😐", "🍓", "🍾", "💋", "🖕", "😈", "😴", "😭", "🤓", "👻", "👨‍💻", "👀", "🎃", "🙈", "😇", "😨", "🤝", "✍", "🤗", "🫡", "🎅", "🎄", "☃", "💅", "🤪", "🗿", "🆒", "💘", "🙉", "🦄", "😘", "💊", "🙊", "😎", "👾", "🤷‍♂", "🤷", "🤷‍♀", "😡".',
-		}),
-	),
-}).pipe(Schema.annotate({ description: "The reaction is based on an emoji." }));
-export type ReactionTypeEmoji = typeof ReactionTypeEmoji.Type;
-
-/**
- * The reaction is paid.
- */
-export const ReactionTypePaid = Schema.Struct({
-	/**
-	 * Type of the reaction, always “paid”
-	 */
-	type: Schema.String.pipe(Schema.annotate({ description: "Type of the reaction, always “paid”" })),
-}).pipe(Schema.annotate({ description: "The reaction is paid." }));
-export type ReactionTypePaid = typeof ReactionTypePaid.Type;
 
 /**
  * This object represents a custom keyboard with reply options (see Introduction
@@ -10072,6 +13548,62 @@ export const ResponseParameters = Schema.Struct({
 export type ResponseParameters = typeof ResponseParameters.Type;
 
 /**
+ * The withdrawal failed and the transaction was refunded.
+ */
+export const RevenueWithdrawalStateFailed = Schema.Struct({
+	/**
+	 * Type of the state, always “failed”
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the state, always “failed”" })),
+}).pipe(Schema.annotate({ description: "The withdrawal failed and the transaction was refunded." }));
+export type RevenueWithdrawalStateFailed = typeof RevenueWithdrawalStateFailed.Type;
+
+/**
+ * The withdrawal is in progress.
+ */
+export const RevenueWithdrawalStatePending = Schema.Struct({
+	/**
+	 * Type of the state, always “pending”
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the state, always “pending”" })),
+}).pipe(Schema.annotate({ description: "The withdrawal is in progress." }));
+export type RevenueWithdrawalStatePending = typeof RevenueWithdrawalStatePending.Type;
+
+/**
+ * The withdrawal succeeded.
+ */
+export const RevenueWithdrawalStateSucceeded = Schema.Struct({
+	/**
+	 * Type of the state, always “succeeded”
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the state, always “succeeded”" })),
+	/**
+	 * Date the withdrawal was completed in Unix time
+	 */
+	date: Schema.Int.pipe(Schema.annotate({ description: "Date the withdrawal was completed in Unix time" })),
+	/**
+	 * An HTTPS URL that can be used to see transaction details
+	 */
+	url: Schema.String.pipe(Schema.annotate({ description: "An HTTPS URL that can be used to see transaction details" })),
+}).pipe(Schema.annotate({ description: "The withdrawal succeeded." }));
+export type RevenueWithdrawalStateSucceeded = typeof RevenueWithdrawalStateSucceeded.Type;
+
+/**
+ * This object describes the state of a revenue withdrawal operation. Currently,
+ * it can be one of
+ */
+export const RevenueWithdrawalState = Schema.Union([
+	RevenueWithdrawalStatePending,
+	RevenueWithdrawalStateSucceeded,
+	RevenueWithdrawalStateFailed,
+]).pipe(
+	Schema.annotate({
+		description: "This object describes the state of a revenue withdrawal operation. Currently, it can be one of",
+	}),
+);
+export type RevenueWithdrawalState = typeof RevenueWithdrawalState.Type;
+
+/**
  * Describes an inline message sent by a guest bot.
  */
 export const SentGuestMessage = Schema.Struct({
@@ -10098,6 +13630,382 @@ export const SentWebAppMessage = Schema.Struct({
 	),
 }).pipe(Schema.annotate({ description: "Describes an inline message sent by a Web App on behalf of a user." }));
 export type SentWebAppMessage = typeof SentWebAppMessage.Type;
+
+/**
+ * This object represents one shipping option.
+ */
+export const ShippingOption = Schema.Struct({
+	/**
+	 * Shipping option identifier
+	 */
+	id: Schema.String.pipe(Schema.annotate({ description: "Shipping option identifier" })),
+	/**
+	 * Option title
+	 */
+	title: Schema.String.pipe(Schema.annotate({ description: "Option title" })),
+	/**
+	 * List of price portions
+	 */
+	prices: Schema.Array(LabeledPrice).pipe(Schema.annotate({ description: "List of price portions" })),
+}).pipe(Schema.annotate({ description: "This object represents one shipping option." }));
+export type ShippingOption = typeof ShippingOption.Type;
+
+/**
+ * This object contains information about an incoming shipping query.
+ */
+export const ShippingQuery = Schema.Struct({
+	/**
+	 * Unique query identifier
+	 */
+	id: Schema.String.pipe(Schema.annotate({ description: "Unique query identifier" })),
+	/**
+	 * User who sent the query
+	 */
+	from: User.pipe(Schema.annotate({ description: "User who sent the query" })),
+	/**
+	 * Bot-specified invoice payload
+	 */
+	invoice_payload: Schema.String.pipe(Schema.annotate({ description: "Bot-specified invoice payload" })),
+	/**
+	 * User specified shipping address
+	 */
+	shipping_address: ShippingAddress.pipe(Schema.annotate({ description: "User specified shipping address" })),
+}).pipe(Schema.annotate({ description: "This object contains information about an incoming shipping query." }));
+export type ShippingQuery = typeof ShippingQuery.Type;
+
+/**
+ * Describes the affiliate program that issued the affiliate commission received
+ * via this transaction.
+ */
+export const TransactionPartnerAffiliateProgram = Schema.Struct({
+	/**
+	 * Type of the transaction partner, always “affiliate_program”
+	 */
+	type: Schema.String.pipe(
+		Schema.annotate({ description: "Type of the transaction partner, always “affiliate_program”" }),
+	),
+	/**
+	 * Information about the bot that sponsored the affiliate program
+	 */
+	sponsor_user: Schema.optional(User).pipe(
+		Schema.annotate({ description: "Information about the bot that sponsored the affiliate program" }),
+	),
+	/**
+	 * The number of Telegram Stars received by the bot for each 1000 Telegram
+	 * Stars received by the affiliate program sponsor from referred users
+	 */
+	commission_per_mille: Schema.Int.pipe(
+		Schema.annotate({
+			description:
+				"The number of Telegram Stars received by the bot for each 1000 Telegram Stars received by the affiliate program sponsor from referred users",
+		}),
+	),
+}).pipe(
+	Schema.annotate({
+		description: "Describes the affiliate program that issued the affiliate commission received via this transaction.",
+	}),
+);
+export type TransactionPartnerAffiliateProgram = typeof TransactionPartnerAffiliateProgram.Type;
+
+/**
+ * Describes a transaction with a chat.
+ */
+export const TransactionPartnerChat = Schema.Struct({
+	/**
+	 * Type of the transaction partner, always “chat”
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the transaction partner, always “chat”" })),
+	/**
+	 * Information about the chat
+	 */
+	chat: Chat.pipe(Schema.annotate({ description: "Information about the chat" })),
+	/**
+	 * The gift sent to the chat by the bot
+	 */
+	gift: Schema.optional(Gift).pipe(Schema.annotate({ description: "The gift sent to the chat by the bot" })),
+}).pipe(Schema.annotate({ description: "Describes a transaction with a chat." }));
+export type TransactionPartnerChat = typeof TransactionPartnerChat.Type;
+
+/**
+ * Describes a withdrawal transaction with Fragment.
+ */
+export const TransactionPartnerFragment = Schema.Struct({
+	/**
+	 * Type of the transaction partner, always “fragment”
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the transaction partner, always “fragment”" })),
+	/**
+	 * State of the transaction if the transaction is outgoing
+	 */
+	withdrawal_state: Schema.optional(RevenueWithdrawalState).pipe(
+		Schema.annotate({ description: "State of the transaction if the transaction is outgoing" }),
+	),
+}).pipe(Schema.annotate({ description: "Describes a withdrawal transaction with Fragment." }));
+export type TransactionPartnerFragment = typeof TransactionPartnerFragment.Type;
+
+/**
+ * Describes a transaction with an unknown source or recipient.
+ */
+export const TransactionPartnerOther = Schema.Struct({
+	/**
+	 * Type of the transaction partner, always “other”
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the transaction partner, always “other”" })),
+}).pipe(Schema.annotate({ description: "Describes a transaction with an unknown source or recipient." }));
+export type TransactionPartnerOther = typeof TransactionPartnerOther.Type;
+
+/**
+ * Describes a withdrawal transaction to the Telegram Ads platform.
+ */
+export const TransactionPartnerTelegramAds = Schema.Struct({
+	/**
+	 * Type of the transaction partner, always “telegram_ads”
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the transaction partner, always “telegram_ads”" })),
+}).pipe(Schema.annotate({ description: "Describes a withdrawal transaction to the Telegram Ads platform." }));
+export type TransactionPartnerTelegramAds = typeof TransactionPartnerTelegramAds.Type;
+
+/**
+ * Describes a transaction with payment for paid broadcasting.
+ */
+export const TransactionPartnerTelegramApi = Schema.Struct({
+	/**
+	 * Type of the transaction partner, always “telegram_api”
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the transaction partner, always “telegram_api”" })),
+	/**
+	 * The number of successful requests that exceeded regular limits and were
+	 * therefore billed
+	 */
+	request_count: Schema.Int.pipe(
+		Schema.annotate({
+			description: "The number of successful requests that exceeded regular limits and were therefore billed",
+		}),
+	),
+}).pipe(Schema.annotate({ description: "Describes a transaction with payment for paid broadcasting." }));
+export type TransactionPartnerTelegramApi = typeof TransactionPartnerTelegramApi.Type;
+
+/**
+ * Describes a transaction with a user.
+ */
+export const TransactionPartnerUser = Schema.Struct({
+	/**
+	 * Type of the transaction partner, always “user”
+	 */
+	type: Schema.String.pipe(Schema.annotate({ description: "Type of the transaction partner, always “user”" })),
+	/**
+	 * Type of the transaction, currently one of “invoice_payment” for payments via
+	 * invoices, “paid_media_payment” for payments for paid media, “gift_purchase”
+	 * for gifts sent by the bot, “premium_purchase” for Telegram Premium
+	 * subscriptions gifted by the bot, “business_account_transfer” for direct
+	 * transfers from managed business accounts
+	 */
+	transaction_type: Schema.String.pipe(
+		Schema.annotate({
+			description:
+				"Type of the transaction, currently one of “invoice_payment” for payments via invoices, “paid_media_payment” for payments for paid media, “gift_purchase” for gifts sent by the bot, “premium_purchase” for Telegram Premium subscriptions gifted by the bot, “business_account_transfer” for direct transfers from managed business accounts",
+		}),
+	),
+	/**
+	 * Information about the user
+	 */
+	user: User.pipe(Schema.annotate({ description: "Information about the user" })),
+	/**
+	 * Information about the affiliate that received a commission via this
+	 * transaction. Can be available only for “invoice_payment” and
+	 * “paid_media_payment” transactions.
+	 */
+	affiliate: Schema.optional(AffiliateInfo).pipe(
+		Schema.annotate({
+			description:
+				"Information about the affiliate that received a commission via this transaction. Can be available only for “invoice_payment” and “paid_media_payment” transactions.",
+		}),
+	),
+	/**
+	 * Bot-specified invoice payload. Can be available only for “invoice_payment”
+	 * transactions.
+	 */
+	invoice_payload: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Bot-specified invoice payload. Can be available only for “invoice_payment” transactions.",
+		}),
+	),
+	/**
+	 * The duration of the paid subscription. Can be available only for
+	 * “invoice_payment” transactions.
+	 */
+	subscription_period: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description: "The duration of the paid subscription. Can be available only for “invoice_payment” transactions.",
+		}),
+	),
+	/**
+	 * Information about the paid media bought by the user; for
+	 * “paid_media_payment” transactions only
+	 */
+	paid_media: Schema.optional(Schema.Array(PaidMedia)).pipe(
+		Schema.annotate({
+			description: "Information about the paid media bought by the user; for “paid_media_payment” transactions only",
+		}),
+	),
+	/**
+	 * Bot-specified paid media payload. Can be available only for
+	 * “paid_media_payment” transactions.
+	 */
+	paid_media_payload: Schema.optional(Schema.String).pipe(
+		Schema.annotate({
+			description: "Bot-specified paid media payload. Can be available only for “paid_media_payment” transactions.",
+		}),
+	),
+	/**
+	 * The gift sent to the user by the bot; for “gift_purchase” transactions only
+	 */
+	gift: Schema.optional(Gift).pipe(
+		Schema.annotate({ description: "The gift sent to the user by the bot; for “gift_purchase” transactions only" }),
+	),
+	/**
+	 * Number of months the gifted Telegram Premium subscription will be active
+	 * for; for “premium_purchase” transactions only
+	 */
+	premium_subscription_duration: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"Number of months the gifted Telegram Premium subscription will be active for; for “premium_purchase” transactions only",
+		}),
+	),
+}).pipe(Schema.annotate({ description: "Describes a transaction with a user." }));
+export type TransactionPartnerUser = typeof TransactionPartnerUser.Type;
+
+/**
+ * This object describes the source of a transaction, or its recipient for
+ * outgoing transactions. Currently, it can be one of
+ */
+export const TransactionPartner = Schema.Union([
+	TransactionPartnerUser,
+	TransactionPartnerChat,
+	TransactionPartnerAffiliateProgram,
+	TransactionPartnerFragment,
+	TransactionPartnerTelegramAds,
+	TransactionPartnerTelegramApi,
+	TransactionPartnerOther,
+]).pipe(
+	Schema.annotate({
+		description:
+			"This object describes the source of a transaction, or its recipient for outgoing transactions. Currently, it can be one of",
+	}),
+);
+export type TransactionPartner = typeof TransactionPartner.Type;
+
+/**
+ * Describes a Telegram Star transaction. Note that if the buyer initiates a
+ * chargeback with the payment provider from whom they acquired Stars (e.g.,
+ * Apple, Google) following this transaction, the refunded Stars will be
+ * deducted from the bot's balance. This is outside of Telegram's control.
+ */
+export const StarTransaction = Schema.Struct({
+	/**
+	 * Unique identifier of the transaction. Coincides with the identifier of the
+	 * original transaction for refund transactions. Coincides with
+	 * SuccessfulPayment.telegram_payment_charge_id for successful incoming
+	 * payments from users.
+	 */
+	id: Schema.String.pipe(
+		Schema.annotate({
+			description:
+				"Unique identifier of the transaction. Coincides with the identifier of the original transaction for refund transactions. Coincides with SuccessfulPayment.telegram_payment_charge_id for successful incoming payments from users.",
+		}),
+	),
+	/**
+	 * Integer amount of Telegram Stars transferred by the transaction
+	 */
+	amount: Schema.Int.pipe(
+		Schema.annotate({ description: "Integer amount of Telegram Stars transferred by the transaction" }),
+	),
+	/**
+	 * The number of 1/1000000000 shares of Telegram Stars transferred by the
+	 * transaction; from 0 to 999999999
+	 */
+	nanostar_amount: Schema.optional(Schema.Int).pipe(
+		Schema.annotate({
+			description:
+				"The number of 1/1000000000 shares of Telegram Stars transferred by the transaction; from 0 to 999999999",
+		}),
+	),
+	/**
+	 * Date the transaction was created in Unix time
+	 */
+	date: Schema.Int.pipe(Schema.annotate({ description: "Date the transaction was created in Unix time" })),
+	/**
+	 * Source of an incoming transaction (e.g., a user purchasing goods or
+	 * services, Fragment refunding a failed withdrawal). Only for incoming
+	 * transactions.
+	 */
+	source: Schema.optional(TransactionPartner).pipe(
+		Schema.annotate({
+			description:
+				"Source of an incoming transaction (e.g., a user purchasing goods or services, Fragment refunding a failed withdrawal). Only for incoming transactions.",
+		}),
+	),
+	/**
+	 * Receiver of an outgoing transaction (e.g., a user for a purchase refund,
+	 * Fragment for a withdrawal). Only for outgoing transactions.
+	 */
+	receiver: Schema.optional(TransactionPartner).pipe(
+		Schema.annotate({
+			description:
+				"Receiver of an outgoing transaction (e.g., a user for a purchase refund, Fragment for a withdrawal). Only for outgoing transactions.",
+		}),
+	),
+}).pipe(
+	Schema.annotate({
+		description:
+			"Describes a Telegram Star transaction. Note that if the buyer initiates a chargeback with the payment provider from whom they acquired Stars (e.g., Apple, Google) following this transaction, the refunded Stars will be deducted from the bot's balance. This is outside of Telegram's control.",
+	}),
+);
+export type StarTransaction = typeof StarTransaction.Type;
+
+/**
+ * Contains a list of Telegram Star transactions.
+ */
+export const StarTransactions = Schema.Struct({
+	/**
+	 * The list of transactions
+	 */
+	transactions: Schema.Array(StarTransaction).pipe(Schema.annotate({ description: "The list of transactions" })),
+}).pipe(Schema.annotate({ description: "Contains a list of Telegram Star transactions." }));
+export type StarTransactions = typeof StarTransactions.Type;
+
+/**
+ * This object represents a sticker set.
+ */
+export const StickerSet = Schema.Struct({
+	/**
+	 * Sticker set name
+	 */
+	name: Schema.String.pipe(Schema.annotate({ description: "Sticker set name" })),
+	/**
+	 * Sticker set title
+	 */
+	title: Schema.String.pipe(Schema.annotate({ description: "Sticker set title" })),
+	/**
+	 * Type of stickers in the set, currently one of “regular”, “mask”,
+	 * “custom_emoji”
+	 */
+	sticker_type: Schema.String.pipe(
+		Schema.annotate({ description: "Type of stickers in the set, currently one of “regular”, “mask”, “custom_emoji”" }),
+	),
+	/**
+	 * List of all set stickers
+	 */
+	stickers: Schema.Array(Sticker).pipe(Schema.annotate({ description: "List of all set stickers" })),
+	/**
+	 * Sticker set thumbnail in the .WEBP, .TGS, or .WEBM format
+	 */
+	thumbnail: Schema.optional(PhotoSize).pipe(
+		Schema.annotate({ description: "Sticker set thumbnail in the .WEBP, .TGS, or .WEBM format" }),
+	),
+}).pipe(Schema.annotate({ description: "This object represents a sticker set." }));
+export type StickerSet = typeof StickerSet.Type;
 
 /**
  * Describes the position of a clickable area within a story.
@@ -10142,21 +14050,6 @@ export const StoryAreaPosition = Schema.Struct({
 	),
 }).pipe(Schema.annotate({ description: "Describes the position of a clickable area within a story." }));
 export type StoryAreaPosition = typeof StoryAreaPosition.Type;
-
-/**
- * Describes a clickable area on a story media.
- */
-export const StoryArea = Schema.Struct({
-	/**
-	 * Position of the area
-	 */
-	position: StoryAreaPosition.pipe(Schema.annotate({ description: "Position of the area" })),
-	/**
-	 * Type of the area
-	 */
-	type: StoryAreaType.pipe(Schema.annotate({ description: "Type of the area" })),
-}).pipe(Schema.annotate({ description: "Describes a clickable area on a story media." }));
-export type StoryArea = typeof StoryArea.Type;
 
 /**
  * Describes a story area pointing to an HTTP or tg:// link. Currently, a story
@@ -10291,6 +14184,36 @@ export const StoryAreaTypeWeather = Schema.Struct({
 	}),
 );
 export type StoryAreaTypeWeather = typeof StoryAreaTypeWeather.Type;
+
+/**
+ * Describes the type of a clickable area on a story. Currently, it can be one
+ * of
+ */
+export const StoryAreaType = Schema.Union([
+	StoryAreaTypeLocation,
+	StoryAreaTypeSuggestedReaction,
+	StoryAreaTypeLink,
+	StoryAreaTypeWeather,
+	StoryAreaTypeUniqueGift,
+]).pipe(
+	Schema.annotate({ description: "Describes the type of a clickable area on a story. Currently, it can be one of" }),
+);
+export type StoryAreaType = typeof StoryAreaType.Type;
+
+/**
+ * Describes a clickable area on a story media.
+ */
+export const StoryArea = Schema.Struct({
+	/**
+	 * Position of the area
+	 */
+	position: StoryAreaPosition.pipe(Schema.annotate({ description: "Position of the area" })),
+	/**
+	 * Type of the area
+	 */
+	type: StoryAreaType.pipe(Schema.annotate({ description: "Type of the area" })),
+}).pipe(Schema.annotate({ description: "Describes a clickable area on a story media." }));
+export type StoryArea = typeof StoryArea.Type;
 
 /**
  * Contains parameters of a post that is being suggested by the bot.

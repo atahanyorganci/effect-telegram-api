@@ -12,6 +12,13 @@ import {
 const callAnswerWebAppQuery = (token: string, payload: unknown) =>
 	callClient("answerWebAppQuery", token, payload as never);
 
+const minimalInlineQueryResult = {
+	type: "article",
+	id: "1",
+	title: "t",
+	input_message_content: { message_text: "m" },
+} as const;
+
 liveTests("answerWebAppQuery", test => {
 	describe("Telegram API errors", () => {
 		test.effect("CallbackQueryIdInvalid when web_app_query_id is invalid", () =>
@@ -38,5 +45,7 @@ liveTests("answerWebAppQuery", test => {
 		);
 	});
 
-	authErrorTests(test, token => callAnswerWebAppQuery(token, { web_app_query_id: "invalid", result: {} }));
+	authErrorTests(test, token =>
+		callAnswerWebAppQuery(token, { web_app_query_id: "invalid", result: minimalInlineQueryResult }),
+	);
 });

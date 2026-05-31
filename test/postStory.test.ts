@@ -17,7 +17,7 @@ liveTests("postStory", test => {
 	authErrorTests(test, token =>
 		callPostStory(token, {
 			business_connection_id: "invalid",
-			content: { type: "photo", photo: { file_id: "invalid" } },
+			content: { type: "photo", photo: "invalid" },
 			active_period: 86400,
 		}),
 	);

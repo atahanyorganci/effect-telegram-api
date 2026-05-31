@@ -1,0 +1,7 @@
+{
+	"kind": "union",
+	"name": "ChatBoostSource",
+	"slug": "chatboostsource",
+	"description": "This object describes the source of a chat boost. It can be one of",
+	"members": ["ChatBoostSourcePremium", "ChatBoostSourceGiftCode", "ChatBoostSourceGiveaway"]
+}

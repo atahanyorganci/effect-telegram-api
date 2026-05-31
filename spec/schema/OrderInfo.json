@@ -1,0 +1,41 @@
+{
+	"kind": "object",
+	"name": "OrderInfo",
+	"slug": "orderinfo",
+	"description": "This object represents information about an order.",
+	"fields": [
+		{
+			"name": "name",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "User name"
+		},
+		{
+			"name": "phone_number",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "User's phone number"
+		},
+		{
+			"name": "email",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "User email"
+		},
+		{
+			"name": "shipping_address",
+			"type": {
+				"kind": "ref",
+				"name": "ShippingAddress"
+			},
+			"required": false,
+			"description": "User shipping address"
+		}
+	]
+}

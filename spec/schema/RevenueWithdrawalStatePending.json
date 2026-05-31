@@ -1,0 +1,16 @@
+{
+	"kind": "object",
+	"name": "RevenueWithdrawalStatePending",
+	"slug": "revenuewithdrawalstatepending",
+	"description": "The withdrawal is in progress.",
+	"fields": [
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Type of the state, always “pending”"
+		}
+	]
+}

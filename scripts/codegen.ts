@@ -3,7 +3,7 @@ import * as Console from "effect/Console";
 import * as Effect from "effect/Effect";
 import * as FileSystem from "effect/FileSystem";
 import { loadMethodErrors } from "./codegen/load-errors.ts";
-import { loadMethods, loadObjects } from "./codegen/load-spec.ts";
+import { loadMethods, loadSpec } from "./codegen/load-spec.ts";
 import { renderErrorsModule } from "./codegen/render-errors.ts";
 import { renderMethodsModule } from "./codegen/render-methods.ts";
 import { renderObjectsModule } from "./codegen/render-objects.ts";
@@ -23,7 +23,7 @@ const CLIENT_LIVE_PATH = `${CLIENT_DIR}/live.ts`;
 const program = Effect.gen(function* () {
 	const fs = yield* FileSystem.FileSystem;
 
-	const objects = yield* loadObjects(BOTS_API_DOCUMENT.specDir);
+	const { objects, unions } = yield* loadSpec(BOTS_API_DOCUMENT.specDir);
 	const methods = yield* loadMethods(BOTS_API_DOCUMENT.specDir);
 	const methodErrors = yield* loadMethodErrors(BOTS_API_DOCUMENT.specDir);
 
@@ -36,8 +36,12 @@ const program = Effect.gen(function* () {
 	}
 
 	const methodNames = new Set(methods.map(method => method.name));
-	const { source: objectsSource, placeholders } = renderObjectsModule(objects, methodRefs, methodNames);
-	const knownNames = new Set([...objects.map(object => object.name), INPUT_FILE_TYPE]);
+	const { source: objectsSource, placeholders } = renderObjectsModule(objects, unions, methodRefs, methodNames);
+	const knownNames = new Set([
+		...objects.map(object => object.name),
+		...unions.map(union => union.name),
+		INPUT_FILE_TYPE,
+	]);
 	const methodsSource = renderMethodsModule(methods, methodErrors);
 	const errorsSource = renderErrorsModule([...methodErrors.values()]);
 	const telegramClientSource = renderTelegramClientModule(methods, methodErrors, knownNames);
@@ -51,13 +55,13 @@ const program = Effect.gen(function* () {
 	yield* fs.writeFileString(CLIENT_SERVICE_PATH, telegramClientSource);
 	yield* fs.writeFileString(CLIENT_LIVE_PATH, telegramSource);
 
-	yield* Console.log(`Wrote ${objects.length} object schemas to ${SCHEMA_PATH}`);
+	yield* Console.log(`Wrote ${objects.length} object schemas and ${unions.length} union schemas to ${SCHEMA_PATH}`);
 	yield* Console.log(`Wrote ${methods.length} HTTP API endpoints to ${HTTP_API_PATH}`);
 	yield* Console.log(`Wrote ${methodErrors.size} method error doc(s) to ${ERRORS_PATH}`);
 	yield* Console.log(`Wrote TelegramClient service to ${CLIENT_SERVICE_PATH}`);
 	yield* Console.log(`Wrote Telegram layer to ${CLIENT_LIVE_PATH}`);
 	if (placeholders.length > 0) {
-		yield* Console.log(`Emitted ${placeholders.length} placeholder schemas (unions): ${placeholders.join(", ")}`);
+		yield* Console.log(`Emitted ${placeholders.length} placeholder schema(s): ${placeholders.join(", ")}`);
 	}
 });
 

@@ -20,7 +20,7 @@ liveTests("setBusinessAccountProfilePhoto", test => {
 	authErrorTests(test, token =>
 		callSetBusinessAccountProfilePhoto(token, {
 			business_connection_id: "invalid",
-			photo: { type: "static", photo: { file_id: "invalid" } },
+			photo: { type: "static", photo: "invalid" },
 		}),
 	);
 });

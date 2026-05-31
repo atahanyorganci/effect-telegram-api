@@ -1,0 +1,33 @@
+{
+	"kind": "object",
+	"name": "TransactionPartnerAffiliateProgram",
+	"slug": "transactionpartneraffiliateprogram",
+	"description": "Describes the affiliate program that issued the affiliate commission received via this transaction.",
+	"fields": [
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Type of the transaction partner, always “affiliate_program”"
+		},
+		{
+			"name": "sponsor_user",
+			"type": {
+				"kind": "ref",
+				"name": "User"
+			},
+			"required": false,
+			"description": "Information about the bot that sponsored the affiliate program"
+		},
+		{
+			"name": "commission_per_mille",
+			"type": {
+				"kind": "integer"
+			},
+			"required": true,
+			"description": "The number of Telegram Stars received by the bot for each 1000 Telegram Stars received by the affiliate program sponsor from referred users"
+		}
+	]
+}

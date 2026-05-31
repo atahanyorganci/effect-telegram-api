@@ -1,0 +1,40 @@
+{
+	"kind": "object",
+	"name": "PassportElementErrorReverseSide",
+	"slug": "passportelementerrorreverseside",
+	"description": "Represents an issue with the reverse side of a document. The error is considered resolved when the file with reverse side of the document changes.",
+	"fields": [
+		{
+			"name": "source",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Error source, must be reverse_side"
+		},
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "The section of the user's Telegram Passport which has the issue, one of “driver_license”, “identity_card”"
+		},
+		{
+			"name": "file_hash",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Base64-encoded hash of the file with the reverse side of the document"
+		},
+		{
+			"name": "message",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Error message"
+		}
+	]
+}

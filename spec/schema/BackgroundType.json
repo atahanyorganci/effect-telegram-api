@@ -1,0 +1,7 @@
+{
+	"kind": "union",
+	"name": "BackgroundType",
+	"slug": "backgroundtype",
+	"description": "This object describes the type of a background. Currently, it can be one of",
+	"members": ["BackgroundTypeFill", "BackgroundTypeWallpaper", "BackgroundTypePattern", "BackgroundTypeChatTheme"]
+}

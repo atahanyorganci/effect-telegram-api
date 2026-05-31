@@ -1,0 +1,78 @@
+{
+	"kind": "object",
+	"name": "InlineQueryResultCachedAudio",
+	"slug": "inlinequeryresultcachedaudio",
+	"description": "Represents a link to an MP3 audio file stored on the Telegram servers. By default, this audio file will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the audio.",
+	"fields": [
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Type of the result, must be audio"
+		},
+		{
+			"name": "id",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Unique identifier for this result, 1-64 bytes"
+		},
+		{
+			"name": "audio_file_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "A valid file identifier for the audio file"
+		},
+		{
+			"name": "caption",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Caption, 0-1024 characters after entities parsing"
+		},
+		{
+			"name": "parse_mode",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Mode for parsing entities in the audio caption. See formatting options for more details."
+		},
+		{
+			"name": "caption_entities",
+			"type": {
+				"kind": "array",
+				"element": {
+					"kind": "ref",
+					"name": "MessageEntity"
+				}
+			},
+			"required": false,
+			"description": "List of special entities that appear in the caption, which can be specified instead of parse_mode"
+		},
+		{
+			"name": "reply_markup",
+			"type": {
+				"kind": "ref",
+				"name": "InlineKeyboardMarkup"
+			},
+			"required": false,
+			"description": "Inline keyboard attached to the message"
+		},
+		{
+			"name": "input_message_content",
+			"type": {
+				"kind": "ref",
+				"name": "InputMessageContent"
+			},
+			"required": false,
+			"description": "Content of the message to be sent instead of the audio"
+		}
+	]
+}

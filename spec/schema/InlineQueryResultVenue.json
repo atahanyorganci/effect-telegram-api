@@ -1,0 +1,130 @@
+{
+	"kind": "object",
+	"name": "InlineQueryResultVenue",
+	"slug": "inlinequeryresultvenue",
+	"description": "Represents a venue. By default, the venue will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the venue.",
+	"fields": [
+		{
+			"name": "type",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Type of the result, must be venue"
+		},
+		{
+			"name": "id",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Unique identifier for this result, 1-64 Bytes"
+		},
+		{
+			"name": "latitude",
+			"type": {
+				"kind": "float"
+			},
+			"required": true,
+			"description": "Latitude of the venue location in degrees"
+		},
+		{
+			"name": "longitude",
+			"type": {
+				"kind": "float"
+			},
+			"required": true,
+			"description": "Longitude of the venue location in degrees"
+		},
+		{
+			"name": "title",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Title of the venue"
+		},
+		{
+			"name": "address",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Address of the venue"
+		},
+		{
+			"name": "foursquare_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Foursquare identifier of the venue if known"
+		},
+		{
+			"name": "foursquare_type",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)"
+		},
+		{
+			"name": "google_place_id",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Google Places identifier of the venue"
+		},
+		{
+			"name": "google_place_type",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Google Places type of the venue. (See supported types.)"
+		},
+		{
+			"name": "reply_markup",
+			"type": {
+				"kind": "ref",
+				"name": "InlineKeyboardMarkup"
+			},
+			"required": false,
+			"description": "Inline keyboard attached to the message"
+		},
+		{
+			"name": "input_message_content",
+			"type": {
+				"kind": "ref",
+				"name": "InputMessageContent"
+			},
+			"required": false,
+			"description": "Content of the message to be sent instead of the venue"
+		},
+		{
+			"name": "thumbnail_url",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Url of the thumbnail for the result"
+		},
+		{
+			"name": "thumbnail_width",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "Thumbnail width"
+		},
+		{
+			"name": "thumbnail_height",
+			"type": {
+				"kind": "integer"
+			},
+			"required": false,
+			"description": "Thumbnail height"
+		}
+	]
+}

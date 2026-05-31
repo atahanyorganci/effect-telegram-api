@@ -1,0 +1,40 @@
+{
+	"kind": "object",
+	"name": "InputContactMessageContent",
+	"slug": "inputcontactmessagecontent",
+	"description": "Represents the content of a contact message to be sent as the result of an inline query.",
+	"fields": [
+		{
+			"name": "phone_number",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Contact's phone number"
+		},
+		{
+			"name": "first_name",
+			"type": {
+				"kind": "string"
+			},
+			"required": true,
+			"description": "Contact's first name"
+		},
+		{
+			"name": "last_name",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Contact's last name"
+		},
+		{
+			"name": "vcard",
+			"type": {
+				"kind": "string"
+			},
+			"required": false,
+			"description": "Additional data about the contact in the form of a vCard, 0-2048 bytes"
+		}
+	]
+}

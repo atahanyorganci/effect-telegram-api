@@ -18,7 +18,7 @@ liveTests("editStory", test => {
 		callEditStory(token, {
 			business_connection_id: "invalid",
 			story_id: 0,
-			content: { type: "photo", photo: { file_id: "invalid" } },
+			content: { type: "photo", photo: "invalid" },
 		}),
 	);
 });

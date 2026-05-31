@@ -1,0 +1,7 @@
+{
+	"kind": "union",
+	"name": "InputProfilePhoto",
+	"slug": "inputprofilephoto",
+	"description": "This object describes a profile photo to set. Currently, it can be one of",
+	"members": ["InputProfilePhotoStatic", "InputProfilePhotoAnimated"]
+}
